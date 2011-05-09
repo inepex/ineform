@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0.3//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.0.3/distro-source/core/src/gwt-module.dtd">
+<module rename-to="ineformshowcasewithejbs">
+
+	<source path="client" />
+	<source path="dto" />
+	<source path="entity/assist" />
+	<source path="entity/kvo" />
+	<source path="enums" />
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.user.UserAgent" />
+	<inherits name="com.inepex.ineForm.ineForm" />
+	<inherits name="com.inepex.ineFrame.ineFrame" />
+	<inherits name="com.inepex.inei18n.ineI18n" />
+	<inherits name="com.inepex.ineom.ineOm" />
+	<inherits name='net.customware.gwt.dispatch.Dispatch' />	
+	<inherits name="com.google.gwt.inject.Inject"/>
+	
+
+	<stylesheet src="../IneFormShowcaseWithEjbs.css" />
+	<stylesheet src="../ineform.css" />
+	<inherits name="com.google.gwt.user.theme.standard.Standard" />
+	
+	<entry-point class="com.inepex.example.ineForm.client.Main"></entry-point>
+	 
+</module>

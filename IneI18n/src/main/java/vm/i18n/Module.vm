@@ -1,0 +1,49 @@
+package $package;
+
+import com.inepex.inei18n.shared.I18nModule;
+import com.inepex.inei18n.shared.I18nModuleProvider;
+
+public class ${className} extends I18nModule {
+
+	private static final long serialVersionUID = 1L;
+
+	public static final String MODULE_NAME = "${className}";
+	
+	static I18nModuleProvider<${className}> moduleProvider;
+	
+	public ${className}() {
+		super(MODULE_NAME);
+	}
+		
+	public ${className}(I18nModuleProvider<${className}> moduleProvider) {
+		super(MODULE_NAME);
+		${className}.moduleProvider = moduleProvider;
+	}
+
+	@Override
+	public I18nModuleProvider<?> getI18nProvider() {
+		return moduleProvider;
+	}
+	
+#foreach($loc in $localizables )
+	public String ${loc.getKey()} = "$loc.getString("en")";
+#end
+
+#foreach($loc in $localizables ) #set($key = ${loc.getKey()})
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> $loc.getString("en")
+	* <u><i>Magyarul:</i></u> $loc.getString("hu")
+	*/
+#if ($paramsbykey.get($key).size() > 0)
+	public static String $key(#foreach($param in $paramsbykey.get($key))String $param#if($velocityHasNext), #end#end) {
+		return moduleProvider.get().$key#foreach($param in $paramsbykey.get($key)).replace("{$param}", $param)#end;
+	}
+#else
+	public static String ${loc.getKey()}() {
+		return moduleProvider.get().$key;
+	}
+#end
+#end
+}

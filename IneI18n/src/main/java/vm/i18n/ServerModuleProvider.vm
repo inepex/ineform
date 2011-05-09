@@ -1,0 +1,25 @@
+package $package;
+import $modulePackage.${className};
+
+import com.inepex.inei18n.server.ServerI18nProvider;
+import com.inepex.inei18n.shared.CurrentLang;
+import com.google.inject.Provider;
+
+public class Server${className}Provider extends ServerI18nProvider<${className}> {
+
+	private static final long serialVersionUID = 1L;
+
+	public Server${className}Provider(Provider<CurrentLang> currentLangProvider) {
+		super(currentLangProvider);
+	}
+
+	@Override
+	protected Class<${className}> getModuleClass() {
+		return ${className}.class;
+	}
+
+	@Override
+	protected ${className} getVirgineI18nModule() {
+		return new ${className}(this);
+	}
+}

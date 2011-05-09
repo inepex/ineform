@@ -1,0 +1,166 @@
+<project name="Build project" default="deploy" basedir=".">
+
+	<target name="cleanCompileDirs">
+		<ant antfile="buildJar.xml" dir="../IneForm" target="clean">
+		</ant>
+		<antcall target="clean" />
+	</target>
+
+	<target name="readContext" description="">
+		<input message="Please enter requested context name (dev, production or own name):" addproperty="contextName" />
+		<property file="build.${contextName}.properties" />
+		<echo message="GF home:${GLASSFISH_HOME}" />
+		<echo message="GWT home:${GWT_HOME}" />
+	</target>
+
+	<target name="javaCompile" description="" depends="readContext">
+		<ant antfile="buildJar.xml" dir="../IneForm"></ant>
+		<ant antfile="buildJar.xml" dir="../IneI18n"></ant>
+		<ant antfile="buildJar.xml" dir="../IneOm"></ant>
+		<ant antfile="buildJar.xml" dir="../IneFrame"></ant>
+		<antcall target="build"/>
+	</target>
+
+	<target name="gwtAndJavaCompile" description="" depends="readContext">
+		<ant antfile="buildJar.xml" dir="../IneForm">
+		</ant>
+		<antcall target="gwtCompile"/>
+	</target>
+
+	<target name="deployToServer">
+		<exec executable="${GLASSFISH_HOME}/bin/${GLASSFISH_ASADMIN}">
+			<arg line="--host ${HOST} --port ${PORT} --user admin 
+				--passwordfile password.${contextName}.txt deploy
+				--upload=true --force=true ../IneFormShowCaseWithEjbs/publish/IneFormShowCaseWithEjbs.war" />
+		</exec>
+	</target>
+
+	<path id="classpath">
+		<pathelement location="war/WEB-INF/classes" />
+		<fileset dir="../IneForm/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="../IneFrame/lib_exported">
+					<include name="**/*.jar" />
+				</fileset>
+		<fileset dir="${GWT_HOME}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${GLASSFISH_HOME}/${GLASSFISH_LIB}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="../IneForm/publish/IneForm.jar" />
+		<pathelement location="../IneI18n/publish/IneI18n.jar" />
+		<pathelement location="../IneFrame/src" />
+		<pathelement location="../IneFrame/bin" />
+		<pathelement location="../IneOm/src" />
+		<pathelement location="../IneOm/bin" />
+		<pathelement location="../IneI18n/src" />
+		<pathelement location="../IneI18n/bin" />
+	</path>
+
+	<path id="gwtClasspath">
+		<pathelement location="war/WEB-INF/classes" />
+		<fileset dir="${GWT_HOME}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="../IneForm/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="../IneFrame/lib_exported">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="../IneForm/src" />
+		<pathelement location="../IneForm/bin" />
+		<pathelement location="../IneFrame/src" />
+		<pathelement location="../IneFrame/bin" />
+		<pathelement location="../IneOm/src" />
+		<pathelement location="../IneOm/bin" />
+		<pathelement location="../IneI18n/src" />
+		<pathelement location="../IneI18n/bin" />
+			
+	</path>
+
+	<target name="build">
+		<mkdir dir="war/WEB-INF/classes" />
+		<copy includeemptydirs="false" todir="war/WEB-INF/classes">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<javac debug="true" debuglevel="source,lines,vars" destdir="war/WEB-INF/classes" source="1.6" target="1.6" encoding="UTF8">
+			<src path="src" />
+			<classpath refid="classpath" />
+		</javac>
+		<antcall target="createWar">
+		</antcall>
+	</target>
+
+	<target name="gwtCompile" description="" unless="noGwt" depends="readContext">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="gwtClasspath" />
+			</classpath>
+			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<jvmarg value="-Xmx256M" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg value="com.inepex.example.ineForm.IneFormShowcaseWithEjbs" />
+			<arg line = "-war war"/>
+		</java>
+		<antcall target="build">
+		</antcall>
+	</target>
+
+	<target name="createWar">
+		<mkdir dir="publish/lib/lib" />
+		<copy includeemptydirs="false" todir="publish/lib">
+					<fileset dir="../IneForm/lib">
+						<include name="**/*.jar" />
+					</fileset>
+					<fileset dir="../IneFrame/lib_exported">
+						<include name="**/*.jar" />
+					</fileset>
+					<fileset dir="../IneFrame/lib_optional">
+						<include name="**/*.jar" />
+					</fileset>
+					<fileset dir="lib">
+						<include name="**/*.jar" />
+					</fileset>
+					<fileset file="../IneForm/publish/IneForm.jar" />
+					<fileset file="../IneFrame/publish/IneFrame.jar" />
+					<fileset file="../IneI18n/publish/IneI18n.jar" />
+					<fileset file="../IneOm/publish/IneOm.jar" />
+					<fileset dir="${GWT_HOME}">
+						<include name="gwt-servlet.jar" />
+					</fileset>
+		</copy>
+
+		<war destfile="publish/IneFormShowCaseWithEjbs.war" duplicate="preserve">
+			<fileset dir="war/">
+				<exclude name="**/gwt-servlet.jar"/>
+			</fileset>
+			<lib dir="publish/lib" />
+			</war>
+	</target>
+
+	<target name="clean">
+		<delete dir="war/WEB-INF/classes" />
+	</target>
+	
+
+	<target name="deploy" description="" depends="readContext">
+		<antcall target="javaCompile" />
+		<antcall target="deployToServer" />
+	</target>
+
+	<target name="deployWithGwtCompile" description="" depends="readContext">
+		<antcall target="gwtAndJavaCompile" />
+		<antcall target="deployToServer" />
+	</target>
+
+</project>

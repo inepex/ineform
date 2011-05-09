@@ -1,0 +1,42 @@
+<project name="Compile and build jar" default="build" basedir=".">
+
+	<property name="PROJECT_NAME" value="IneI18n" />
+	<property name="SRC_DIR" value="src" />
+
+	<path id="classpath">
+		<pathelement location="bin" />
+		<fileset dir="${GWT_HOME}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="writeContext">
+		<echo message="ContextName: ${contextName}"></echo>
+		<java classname="com.inepex.ineForm._context.ContextWriter">
+			<arg line="${contextName} ${INEFORM_SRC}" />
+			<classpath>
+				<pathelement location="ContextWriter.jar"/>
+			</classpath>
+		</java>
+	</target>
+
+	
+	<target name="build">
+		<mkdir dir="bin" />
+		<javac debug="true" debuglevel="source,lines,vars" destdir="bin" source="1.6" target="1.6" encoding="UTF8">
+			<src path="${SRC_DIR}" />
+			<classpath refid="classpath" />
+		</javac>
+
+		<mkdir dir="publish" />
+		<jar destfile="publish/${PROJECT_NAME}.jar">
+			<fileset dir="bin" />
+			<fileset dir="${SRC_DIR}" />
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+
+</project>

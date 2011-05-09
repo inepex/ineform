@@ -1,0 +1,65 @@
+<project name="Compile and build jar" default="build" basedir=".">
+
+	<property name="PROJECT_NAME" value="IneForm" />
+	<property name="SRC_DIR" value="src" />
+	<property name="GWT_HOME" value="/Develop/gwt-2.0.4" />
+
+	<path id="classpath">
+		<pathelement location="bin" />
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+			<exclude name="eclipselink-jpa-modelgen_2.1.0.v20100614-r7608.jar"/>
+		</fileset>
+		<fileset dir="${GWT_HOME}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${GLASSFISH_HOME}/${GLASSFISH_LIB}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="writeContext">
+		<echo message="ContextName: ${contextName}"></echo>
+		<java classname="com.inepex.ineForm._context.ContextWriter">
+			<arg line="${contextName} ${INEFORM_SRC}" />
+			<classpath>
+				<pathelement location="ContextWriter.jar"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="buildExcludeMeta" depends="writeContext">
+			<mkdir dir="bin" />
+			<javac debug="true" debuglevel="source,lines,vars" destdir="bin" source="1.6" target="1.6" encoding="UTF8">
+				<src path="${SRC_DIR}" />
+				<classpath refid="classpath" />
+			</javac>
+
+			<mkdir dir="publish" />
+			<jar destfile="publish/${PROJECT_NAME}.jar">
+				<fileset dir="bin" />
+				<fileset dir="${SRC_DIR}">
+					<exclude name="**/META-INF/**"/>
+				</fileset>
+			</jar>
+	</target>
+	
+	<target name="build" depends="writeContext">
+		<mkdir dir="bin" />
+		<javac debug="true" debuglevel="source,lines,vars" destdir="bin" source="1.6" target="1.6" encoding="UTF8">
+			<src path="${SRC_DIR}" />
+			<classpath refid="classpath" />
+		</javac>
+
+		<mkdir dir="publish" />
+		<jar destfile="publish/${PROJECT_NAME}.jar">
+			<fileset dir="bin" />
+			<fileset dir="${SRC_DIR}" />
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+
+</project>

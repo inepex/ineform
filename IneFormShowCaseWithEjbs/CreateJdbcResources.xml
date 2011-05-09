@@ -1,0 +1,37 @@
+<project name = "Create JDBC resource" default = "createAll">
+
+<target name="readContext" description="">
+	<input message="Please enter requested context name (dev, production or own name):" addproperty="contextName" />
+	<property file="build.${contextName}.properties" />
+	<echo message="GF home:${GLASSFISH_HOME}" />
+	<echo message="GWT home:${GWT_HOME}" />
+</target>
+
+<target name = "createConnPool" depends="readContext">
+	<exec executable="${GLASSFISH_HOME}/bin/${GLASSFISH_ASADMIN}">
+	  <arg line="create-jdbc-connection-pool
+	  --host ${HOST} --port ${PORT} --user admin
+	  --passwordfile password.${contextName}.txt
+	  --datasourceclassname org.postgresql.ds.PGSimpleDataSource
+	  --restype javax.sql.DataSource
+	  --property serverName=localhost:portNumber=5432:databaseName=test:user=test:password=test testPool" />
+	  </exec>
+</target>
+
+<target name = "createResource" depends="readContext">
+	<exec executable="${GLASSFISH_HOME}/bin/${GLASSFISH_ASADMIN}">
+	  <arg line="--host ${HOST} --port ${PORT} --user admin 
+	  --passwordfile password.${contextName}.txt 
+	  create-jdbc-resource
+	  --connectionpoolid testPool
+	  jdbc/TestDB" />
+	  </exec>
+</target>
+
+
+<target name = "createAll" depends = "createConnPool, createResource">
+</target>
+
+
+
+</project>

@@ -1,0 +1,96 @@
+package com.inepex.ineFrame.client.dialog;
+
+/**
+ *
+ */
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.inepex.inei18n.client.IneFormI18n_old;
+
+/**
+ * Base class for pretty dialogs
+ * 
+ * @author Horváth Szabolcs, Szoboszlai Istvan
+ * 
+ */
+public abstract class DialogBoxBase extends DialogBox {
+
+	protected HTML message = new HTML();
+	protected VerticalPanel panel = new VerticalPanel();
+	protected HorizontalPanel buttonBar = new HorizontalPanel();
+	protected Button okButton = new Button(IneFormI18n_old.dialogOkButton());
+
+	public DialogBoxBase() {
+		super();
+
+		addStyleName("common-BaseDialogBox");
+		setModal(true);
+		setGlassEnabled(true);
+		setAnimationEnabled(true);
+		setAutoHideEnabled(false);
+
+		panel.setSpacing(10);
+
+		HorizontalPanel messagePanel = new HorizontalPanel();
+		Image image = new Image(getImageResource());
+		messagePanel.add(image);
+		messagePanel.add(message);
+		messagePanel.setCellVerticalAlignment(image, HorizontalPanel.ALIGN_MIDDLE);
+		messagePanel.setCellVerticalAlignment(message, HorizontalPanel.ALIGN_MIDDLE);
+
+		panel.add(messagePanel);
+
+		buttonBar.setSpacing(5);
+		buttonBar.add(okButton);
+
+		panel.add(buttonBar);
+		panel.setCellHorizontalAlignment(buttonBar, VerticalPanel.ALIGN_CENTER);
+
+		okButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		});
+
+		configureButtonBar();
+
+		add(panel);
+	}
+
+	protected abstract void configureButtonBar();
+
+	protected abstract ImageResource getImageResource();
+
+	@Override
+	public void show() {
+		super.show();
+		center();
+	}
+
+	public void show(String message) {
+		setMessage(message);
+		this.show();
+	}
+
+	public void setMessage(String value) {
+		message.setHTML(value);
+	}
+
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return okButton.addClickHandler(handler);
+	}
+
+	public void show(String message, ClickHandler okHandler) {
+		show(message);
+		addClickHandler(okHandler);
+	}
+}

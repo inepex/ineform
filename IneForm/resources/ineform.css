@@ -1,0 +1,192 @@
+@CHARSET "UTF-8";
+
+/******************[ slidingObjectEditor]*******************************/
+.slidingObjectEditor_title {
+	color : blue;
+	font-size: 20px;
+	padding: 10px 10px 10px 10px;
+}
+
+/************[ view: display validation errors ]*******************/
+.errorMessageHolder_dontShowError {
+	width: 202px;
+	background-color: #ddf;
+	margin-bottom: 3px;
+	padding: 4px 4px 4px 4px;
+}
+
+.errorMessageHolder_showError {
+	width: 200px;
+	border: solid 1px red;
+	background-color: #ddf;
+	margin-bottom: 3px;
+	padding: 4px 4px 4px 4px;
+}
+
+/************[ General ]*******************/
+
+.menuButton {
+	color: #fa3a00;
+	font-weight: bold;
+	width: 250px;
+	margin: 3px;
+
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+/************[ IneForm ]*******************/
+.ineForm{}
+
+
+.ineForm .textValid {background: #A2E3A6;}
+.ineForm .textInalid {background: #E3A2A2;}
+
+
+/************[ view: IneTable ]*******************/
+
+.IneTable .gwt-ScrollTable {
+  border-color: #aaa;
+  border-style: solid;
+  border-width: 1px 0px 1px 1px;
+}
+
+.IneTable .gwt-ScrollTable .headerWrapper {
+  background: #8bd url(images/bg_header_gradient.gif) repeat-x bottom left;
+}
+
+.IneTable .gwt-ScrollTable .footerWrapper {
+  border-top: 1px solid #aaa;
+  background: #8bd url(images/bg_header_gradient.gif) repeat-x bottom left;
+}
+
+.IneTable .gwt-ScrollTable .dataTable td,
+.IneTable .gwt-ScrollTable .headerTable td,
+.IneTable .gwt-ScrollTable .footerTable td {
+  border-color: #aaa;
+  border-style: solid;
+  border-width: 0px 1px 1px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0px;
+}
+
+.IneTable .gwt-ScrollTable .headerTable td,
+.IneTable .gwt-ScrollTable .footerTable td {
+  color: #fff;
+}
+	
+.IneTable .gwt-ScrollTable .dataTable tr.highlighted {
+  background: #C3D9FF;
+}
+
+.IneTable .gwt-ScrollTable .dataTable td.highlighted {
+  background: #FFFFAA;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.IneTable .gwt-ScrollTable .dataTable tr.selected td {
+  background: #7AA5D6;
+}
+
+.IneTable .gwt-PagingOptions {
+  background: #e8eef7;
+  border: 1px solid #aaa;
+  border-top: none;
+}
+
+.IneTable .gwt-PagingOptions .errorMessage {
+	color: red;
+}
+
+.IneTable .pagingOptionsFirstPage,
+.IneTable .pagingOptionsLastPage,
+.IneTable .pagingOptionsNextPage,
+.IneTable .pagingOptionsPrevPage {
+  cursor: hand;
+  cursor: pointer;
+}
+
+.IneTable .gwt-InlineCellEditor {
+  border: 3px solid #7AA5D6;
+  padding: 4px;
+  background: white;
+  overflow: auto;
+}
+.IneTable .gwt-InlineCellEditor .accept {
+  cursor: pointer;
+  cursor: hand;
+}
+.IneTable .gwt-InlineCellEditor .cancel {
+  cursor: pointer;
+  cursor: hand;
+}
+
+
+/************[ SimpleTableForm ]*******************/
+
+
+.ineForm {
+	/*just till it's in popup*/
+	border: solid;
+	background: white;
+}
+
+.ineForm .evenRowCellTitle {
+	border-bottom:1px solid #E1E1E1; color:#000000; font-size:1em;
+}
+
+.ineForm .evenRowCellTitle .gwt-Label  {
+	padding-left:12px;
+}
+
+.ineForm .oddRowCellTitle {
+	border-bottom:1px solid #E1E1E1; color:#000000; font-size:1em;
+}
+
+.ineForm .oddRowCellTitle .gwt-Label  {
+	padding-left:12px;
+}
+
+.ineForm .evenRowCellContent {
+	width:253px; background:none repeat scroll 0 0 #F2F2F2; border-bottom:1px solid #DADADA;
+}
+
+.ineForm .evenRowCellContent .gwt-TextBox {
+	border:1px solid #7F9DB9; color:#7F9DB9; font-size:10px; padding:1px 1px 1px 4px;
+}
+
+.ineForm .oddRowCellContent {
+	width:253px; background:none repeat scroll 0 0 #F2F2F2; border-bottom:1px solid #DADADA;
+}
+
+.ineForm .oddRowCellContent .gwt-TextBox {
+	border:1px solid #7F9DB9; color:#7F9DB9; font-size:10px; padding:1px 1px 1px 4px;
+}
+
+
+.ineForm .oddRowCellMandatorySign  {
+	padding: 5px; background:none repeat scroll 0 0 #F2F2F2; border-bottom:1px solid #DADADA; color: red; font-size:12px;
+}
+
+.ineForm .evenRowCellMandatorySign  {
+	padding: 5px; background:none repeat scroll 0 0 #F2F2F2; border-bottom:1px solid #DADADA; color: red; font-size:12px;
+}
+
+/* SimpleTableForm end }}}*/
+/************[ Chooser ]*******************/
+.ChooserFw{
+	width: 100%;
+}
+.ChooserFw .gwt-Button{
+	width: 100px;
+	
+}
+/************[ Chooser end ]*******************/
+
+.richTextArea{
+	background: white;	
+}

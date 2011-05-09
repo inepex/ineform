@@ -1,0 +1,26 @@
+
+
+	public ${classname}KVO getDefault${classname}KVO() {
+		${classname}KVO kvo = new ${classname}KVO();
+#foreach( $attr in $attrs )
+#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if($attr.enum)
+		kvo.set${attr.nameU1}((long)${attr.typeU1}.XXX.ordinal());
+#elseif($attr.type == "Long")
+		kvo.set${attr.nameU1}(1L);
+#elseif( $attr.type == "Date")
+		kvo.set${attr.nameU1}(new Date().getTime());
+#elseif($attr.type == "Boolean")
+		kvo.set${attr.nameU1}(true);
+#elseif($attr.type == "Double")
+		kvo.set${attr.nameU1}(100.5);
+#elseif($attr.type == "String")
+		kvo.set${attr.nameU1}("-");
+#elseif($attr.list == true)
+		kvo.set${attr.nameU1}(null);
+#else 
+		kvo.set${attr.nameU1}(new Relation(1L, ""));
+#end
+#end
+#end		
+	}

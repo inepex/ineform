@@ -1,0 +1,37 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+<!-- Vertical centering: 
+	 http://www.jakpsatweb.cz/css/css-vertical-center-solution.html#structural-->
+	<ui:style>
+		.fullScreen {
+			height: 100%;
+			width: 100%;
+			top: 0px;
+			left: 0px;
+			position: fixed;
+			display: table;
+			background-color: #555;
+			opacity: .7;
+		}
+		.positioner {
+			display: table-cell; 
+			vertical-align: middle;
+		}
+		.centered {
+			text-align: center;
+			width: 300px;
+			position: static;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+	</ui:style>
+	<g:HTMLPanel styleName="{style.fullScreen}">
+		<div class="{style.positioner}">
+			<g:FlowPanel styleName="{style.centered}" ui:field="centerPanel">
+			</g:FlowPanel>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

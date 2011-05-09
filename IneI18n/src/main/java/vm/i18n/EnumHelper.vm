@@ -1,0 +1,36 @@
+/**** Add these to the csv file, and regnerate the Module file!
+#foreach($enum in $enums)
+#if ("$!enum.postFix" == "")
+#foreach($const in $enum.consts)
+"${enum.name}_${const}";;"${const}"
+#end
+#else
+#foreach($const in $enum.consts)
+"${enum.name}_${enum.postFix}_${const}";;"${const}_${enum.postFix}"
+#end
+#end
+#end
+
+#foreach($enum in $enums)
+#if ("$!enum.postFix" == "")
+	public static String get${enum.name}Name($enum.name $enum.nameL1) {
+		switch ($enum.nameL1) {
+#foreach($const in $enum.consts)
+		case ${const}:
+			return ${i18nName}.${enum.name}_${const}();
+#end
+		}
+		return null;
+	}
+#else
+	public static String get${enum.name}${enum.postFix}($enum.name $enum.nameL1) {
+		switch ($enum.nameL1) {
+#foreach($const in $enum.consts)
+		case ${const}:
+			return ${i18nName}.${enum.name}_${enum.postFix}_${const}();
+#end
+		}
+		return null;
+	}	
+#end
+#end

@@ -1,0 +1,24 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.buttonPanel {
+			margin: 5px;
+			width: 110px;
+		}
+		.buttonPanel button {
+			margin: 3px;
+			width: 95%;
+		}
+		.mainTable {
+			width: 100%;
+		}
+	</ui:style>
+	<g:HorizontalPanel styleName="{style.mainTable}">
+		<g:FlowPanel ui:field="centerPanel"></g:FlowPanel>
+		<g:cell width="1px">
+			<g:FlowPanel ui:field="buttonPanel" addStyleNames="{style.buttonPanel}">
+			</g:FlowPanel>
+		</g:cell>
+	</g:HorizontalPanel>
+</ui:UiBinder> 
