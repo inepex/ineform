@@ -25,12 +25,12 @@ public class EntityManagerInitializier {
 	 
 	    // Configure the internal EclipseLink connection pool
 	    properties.put(JDBC_DRIVER, "org.postgresql.Driver");
-	    properties.put(JDBC_URL, "jdbc:postgresql://localhost/IneFormTest");
-	    properties.put(JDBC_USER, "postgres");
-	    properties.put(JDBC_PASSWORD, "ine123pex");
 //	    properties.put(JDBC_URL, "jdbc:postgresql://localhost/IneFormTest");
-//	    properties.put(JDBC_USER, "IneFormTest");
-//	    properties.put(JDBC_PASSWORD, "IneFormTest");
+//	    properties.put(JDBC_USER, "postgres");
+//	    properties.put(JDBC_PASSWORD, "ine123pex");
+	    properties.put(JDBC_URL, "jdbc:postgresql://localhost/IneFormTest");
+	    properties.put(JDBC_USER, "IneFormTest");
+	    properties.put(JDBC_PASSWORD, "IneFormTest");
 
 	 
 	    // Configure logging. FINE ensures all SQL is shown

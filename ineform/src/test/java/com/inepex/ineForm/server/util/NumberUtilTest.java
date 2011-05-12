@@ -7,7 +7,7 @@ import org.junit.Test;
 public class NumberUtilTest {
 
 	
-	@Test
+	
 	public void formatNumberGroupThousandsTest(){
 		String res = new NumberUtilSrv().formatNumberGroupThousands(10000001);
 		System.out.println(res);
