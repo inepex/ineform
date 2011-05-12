@@ -56,6 +56,8 @@ public class EnumChooser implements Chooser {
 	List<Item> valueRangeOrdered = new LinkedList<Item>();
 	List<Item> selectedOrdered = new LinkedList<Item>();
 	
+	private String[] values;
+	
 	final DescriptorStore descStore;
 	
 	public EnumChooser(DescriptorStore descStore
@@ -73,9 +75,16 @@ public class EnumChooser implements Chooser {
 		
 		secondLevelJoin = fieldDescriptor.getPropValue("secondLevelJoin");
 		
+		values = widgetRDesc.getPropValue(IFConsts.enumValues).split(IFConsts.enumValueSplitChar);
+		
 		peelValueRange();
 		updateOrders();
 		sortLists();
+	}
+	
+	public void setValues(String[] values) {
+		this.values = values;
+		resetState();
 	}
 	
 	public void resetState(){
@@ -94,13 +103,13 @@ public class EnumChooser implements Chooser {
 		if (relFieldDesc.getType() == IneT.LONG){ // it is an enum
 			isEnum = true;
 			int num = 0;
-			for (String value : widgetRDesc.getPropValue(IFConsts.enumValues).split(IFConsts.enumValueSplitChar)){
+			for (String value : values){
 				Item item = new Item(num++, value);
 				valueRange.put(item.getId(), item);
 			}			 
 		} else if (relFieldDesc.getType() == IneT.STRING) {
 			isEnum = false;
-			for (String value : widgetRDesc.getPropValue(IFConsts.enumValues).split(IFConsts.enumValueSplitChar)){
+			for (String value : values){
 				Item item = new Item(value);
 				valueRange.put(item.getId(), item);
 			}	

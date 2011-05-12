@@ -45,7 +45,7 @@ public class ${classname}Query {
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif($attr.type == "Boolean")
 		Boolean ${attr.name} = action.getSearchParameters().getBoolean(${classname}SearchKVO.k_${attr.name});
-		if (${attr.name}!=false)
+		if (Boolean.TRUE.equals(${attr.name}))
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif(${attr.hasAnnotation("Kvo_OneToOne")})
 		String ${attr.name} = action.getSearchParameters().getString(${classname}SearchKVO.k_${attr.name});

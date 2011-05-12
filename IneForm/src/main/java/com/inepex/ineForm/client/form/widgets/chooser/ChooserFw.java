@@ -24,6 +24,8 @@ public class ChooserFw extends DenyingFormWidget {
 	public static final String enumChooser = "enumChooser";
 	public static final String stringChooser = "stringChooser";
 	
+	private final WidgetRDesc widgetRDesc;
+	
 	private int listSize = 10;
 	private Chooser chooser;
 	private Grid panel = new Grid(1, 3);
@@ -115,11 +117,24 @@ public class ChooserFw extends DenyingFormWidget {
 		}
 	};
 	
+
+	/**
+	 * ONLY FOR enum and string chooser
+	 * 
+	 */
+	public void setEnumOrStringValues(String values[]) {
+		if(!widgetRDesc.hasProp(enumChooser) && !widgetRDesc.hasProp(stringChooser))
+			throw new RuntimeException("this function doesn't suppor Relation chooser mode");
+		
+		((EnumChooser)chooser).setValues(values);
+	}
+	
 	public ChooserFw(FormContext formCtx
 			, FDesc fieldDescriptor
 			, WidgetRDesc widgetRDesc
 			, String relationDescriptorName) {
 		super(fieldDescriptor);
+		this.widgetRDesc=widgetRDesc;
 		if (widgetRDesc.hasProp(enumChooser) 
 				|| widgetRDesc.hasProp(stringChooser)){
 			chooser = new EnumChooser(formCtx.descStore
@@ -168,6 +183,7 @@ public class ChooserFw extends DenyingFormWidget {
 	public void setListValue(IneList value) {
 		if (value == null || value.getRelationList() == null)
 		{
+			chooser.deselectAll();
 			return;
 		}
 			

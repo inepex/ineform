@@ -101,14 +101,14 @@ public class LabelFW extends StringFormWidget {
 	@Override
 	public void setListValue(IneList value) {
 		storedObject = value;
-		if(value.getRelationList() == null || value.getRelationList().size() == 0)
+		if(value==null || value.getRelationList() == null || value.getRelationList().size() == 0)
 			return;
 		StringBuilder sb = new StringBuilder();
 		for (Relation rel : value.getRelationList()) {
 			sb.append(rel.getDisplayName());
-			sb.append(", ");
+			sb.append("<br />");
 		}
-		label.setText(sb.substring(0, sb.length()-2));
+		label.setHTML(sb.substring(0, sb.length()-6));
 	}
 	
 	@Override
