@@ -50,6 +50,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
+			<artifactId>ineframe</artifactId>
+			<version>1.0.0</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
 			<version>1.0.0</version>
 			<scope>compile</scope>
