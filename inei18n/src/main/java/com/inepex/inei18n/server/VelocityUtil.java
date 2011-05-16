@@ -17,7 +17,10 @@ public class VelocityUtil {
 	private VelocityEngine ve = null;
 	private StringResourceRepository stringTemplateRepo = null;
 		
-	public VelocityUtil() {
+	private final ClassLoader classLoader;
+	
+	public VelocityUtil(ClassLoader classLoader) {
+		this.classLoader=classLoader;
 	}
 	
 	public String getMessageFromTemplate(String templateName, VelocityContext context) {
@@ -43,10 +46,10 @@ public class VelocityUtil {
 	
 	public String readTemplateToString(String fileName) {
 		URL url = null;
-		url = Thread.currentThread().getContextClassLoader()
-				.getResource(fileName);
+		url = classLoader.getResource(fileName);
 
 		StringBuffer content = new StringBuffer();
+		
 		if (url == null) {
 			String error = "Template file could not be found: "
 				+ fileName;
@@ -79,6 +82,8 @@ public class VelocityUtil {
 		ve.addProperty("string.resource.loader.repository.class",
 				"org.apache.velocity.runtime.resource.util.StringResourceRepositoryImpl");
 		ve.addProperty("string.resource.loader.repository.name", "repo");
+
+		ve.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogChute");
 
 		ve.init();
 		stringTemplateRepo = StringResourceLoader.getRepository("repo");

@@ -54,7 +54,7 @@ public class I18nModuleConverter {
 		this.moduleCalss = moduleClass;
 		this.moduleName = moduleClass.getSimpleName();
 		this.moduleUri = moduleClass.getPackage().getName().replace(".", PER);
-		this.props = new ModuleProperties(moduleUri + PER + moduleName);
+		this.props = new ModuleProperties(getClass().getClassLoader(), moduleName);
 		this.SEP = props.csvSeparator;
 		this.sourceFolder = props.sourceFolder;
 		
@@ -65,7 +65,7 @@ public class I18nModuleConverter {
 		if (velocityUtil != null)
 			return;
 		
-		velocityUtil = new VelocityUtil();
+		velocityUtil = new VelocityUtil(getClass().getClassLoader());
 	}
 	
 	public I18nModuleConverter(Class<?> moduleClass, Map<String, LocalizedString> localizables) {
@@ -140,8 +140,7 @@ public class I18nModuleConverter {
 	public void loadDataFromDefaultCsvRuntime() {
 		try {
 			String moduleCsvResourceName = moduleUri + "/" + moduleName + ".csv";
-			InputStream stream = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(moduleCsvResourceName);
+			InputStream stream = getClass().getClassLoader().getResourceAsStream(moduleCsvResourceName);
 			if (stream == null) {
 				throw new FileNotFoundException("Template file could not be found: " + moduleCsvResourceName);
 			}		

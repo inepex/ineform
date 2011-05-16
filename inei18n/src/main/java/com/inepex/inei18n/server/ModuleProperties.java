@@ -15,9 +15,9 @@ public class ModuleProperties {
 	public String sourceFolder;
 	public String serverPackage;
 	
-	public ModuleProperties(String moduleName) {
+	public ModuleProperties(ClassLoader classLoader, String moduleName) {
 		this.moduleName = moduleName;
-		SimpleOnDemandProperties odp = new SimpleOnDemandProperties(moduleName + ".properties");
+		SimpleOnDemandProperties odp = new SimpleOnDemandProperties(classLoader, moduleName + ".properties");
 		properties = odp.getPropertiesInstance();
 		
 		loadProperties();

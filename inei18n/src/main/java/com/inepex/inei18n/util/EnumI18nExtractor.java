@@ -9,7 +9,7 @@ import com.inepex.inei18n.server.VelocityUtil;
 
 public class EnumI18nExtractor {
 	
-	public static void generateI18nAccessHelpersForEnums(String i18nName, List<EnumClassWithPostfix> enumList) {
+	public static void generateI18nAccessHelpersForEnums(ClassLoader classLoader, String i18nName, List<EnumClassWithPostfix> enumList) {
 		VelocityContext ctx = new VelocityContext();
 		List<EnumDescriptor> enums = new ArrayList<EnumDescriptor>();
 		for (EnumClassWithPostfix clazzWithPostfix : enumList) {
@@ -23,7 +23,7 @@ public class EnumI18nExtractor {
 			enums.add(ed);
 		}
 
-		VelocityUtil vu = new VelocityUtil();
+		VelocityUtil vu = new VelocityUtil(classLoader);
 		ctx.put("i18nName", i18nName);
 		ctx.put("enums", enums);
 		

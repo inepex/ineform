@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SimpleOnDemandProperties implements Serializable {
+	
+	private ClassLoader classLoader;
 
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(SimpleOnDemandProperties.class);
@@ -15,15 +17,15 @@ public class SimpleOnDemandProperties implements Serializable {
 	private final String properyFileName;
 	private Properties properties;
 
-	public SimpleOnDemandProperties(String properyFileName) {
+	public SimpleOnDemandProperties(ClassLoader classLoader, String properyFileName) {
 		super();
 		this.properyFileName = properyFileName;
+		this.classLoader=classLoader;
 	}
 	
 	private void loadProperties(){
 		try {
-			InputStream s = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(properyFileName);
+			InputStream s = classLoader.getResourceAsStream(properyFileName);
 			properties = new Properties();
 			properties.load(s);
 			s.close();
