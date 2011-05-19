@@ -7,7 +7,7 @@ import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 
 public abstract class Assist {
 
-	private DescriptorStore descStore;
+	protected DescriptorStore descStore;
 	
 	public Assist(DescriptorStore descStore) {
 		this.descStore = descStore;
@@ -18,9 +18,11 @@ public abstract class Assist {
 		ObjectDesc searchObjectDesc = getSearchObjectDesc();
 		if (searchObjectDesc != null)
 			descStore.registerDescriptors(searchObjectDesc, null, getSearchFormRDesc(), null);
+		
+		registerExtraDescriptors();
 	}
 	
-	public abstract void registerExtraDescriptors(DescriptorStore descStore);
+	protected abstract void registerExtraDescriptors();
 
 	public abstract ObjectDesc getObjectDesc();
 
