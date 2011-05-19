@@ -13,10 +13,22 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
+	<repository>
+		<id>maven.springframework.org.external</id>
+		<url>http://maven.springframework.org/external</url>
+		<name>SpringSource Maven Repository - External Releases</name>
+	</repository>
+
+	
 		<repository>
 			<id>eclipselink</id>
 			<name>eclipselink</name>
 			<url>http://eclipse.ialto.org/rt/eclipselink/maven.repo</url>
+		</repository>
+	<repository>
+			<id>inerepo</id>
+			<name>inerepo</name>
+			<url>http://sandbox.inepex.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
 
 	</repositories>
