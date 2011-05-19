@@ -13,6 +13,16 @@
 			<name>glassfish</name>
 			<url>http://download.java.net/maven/glassfish/</url>
 		</repository>
+		<repository>
+			<id>maven.springframework.org.external</id>
+ 			<url>http://maven.springframework.org/external</url> 
+ 			<name>SpringSource Maven Repository - External Releases</name>
+ 		</repository> 
+ 		<repository>
+			<id>inerepo</id>
+ 			<url>http://sandbox.inepex.com:8081/nexus/content/repositories/releases/</url> 
+ 			<name>inerepo</name>
+ 		</repository> 	
 	</repositories>
 	<dependencies>
 		<!-- General dependencies for standard applications -->
