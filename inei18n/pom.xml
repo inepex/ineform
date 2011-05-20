@@ -76,4 +76,11 @@
 			</plugin>
 		</plugins>
 	</build>
+		<distributionManagement>
+    <repository>
+      <id>inepex</id>
+      <name>Inepex Repository</name>
+      <url>http://sandbox.inepex.com:8081/nexus/content/repositories/releases</url>
+    </repository>
+  </distributionManagement>
 </project>
