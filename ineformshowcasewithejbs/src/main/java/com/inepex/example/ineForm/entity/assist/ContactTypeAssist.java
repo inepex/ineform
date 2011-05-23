@@ -31,7 +31,7 @@ public class ContactTypeAssist extends Assist {
 	}
 	
 	@Override
-	public void registerExtraDescriptors(DescriptorStore descStore) {
+	protected void registerExtraDescriptors() {
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ public class Contact_ContactStateAssist extends Assist {
 	}
 	
 	@Override
-	public void registerExtraDescriptors(DescriptorStore descStore) {
+	protected void registerExtraDescriptors() {
 	}
 	
 	@Override

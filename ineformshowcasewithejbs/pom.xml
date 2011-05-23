@@ -125,12 +125,6 @@
 					<wtpversion>2.0</wtpversion>
 					<additionalBuildcommands>
 						<buildCommand>
-							<name>org.eclipse.ajdt.core.ajbuilder</name>
-							<arguments>
-								<aspectPath>org.springframework.aspects</aspectPath>
-							</arguments>
-						</buildCommand>
-						<buildCommand>
 							<name>com.google.gwt.eclipse.core.gwtProjectValidator</name>
 						</buildCommand>
 					</additionalBuildcommands>
