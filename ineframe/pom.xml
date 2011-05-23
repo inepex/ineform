@@ -6,31 +6,28 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineframe</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>ineframe</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
-	<repository>
-		<id>maven.springframework.org.external</id>
-		<url>http://maven.springframework.org/external</url>
-		<name>SpringSource Maven Repository - External Releases</name>
-	</repository>
-
-	
+		<repository>
+			<id>maven.springframework.org.external</id>
+			<url>http://maven.springframework.org/external</url>
+			<name>SpringSource Maven Repository - External Releases</name>
+		</repository>
 		<repository>
 			<id>eclipselink</id>
 			<name>eclipselink</name>
 			<url>http://eclipse.ialto.org/rt/eclipselink/maven.repo</url>
 		</repository>
-	<repository>
+		<repository>
 			<id>inerepo</id>
 			<name>inerepo</name>
-			<url>http://sandbox.inepex.com:8081/nexus/content/repositories/releases/</url>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
-
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -42,13 +39,13 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -110,17 +107,24 @@
 				</configuration>
 			</plugin>
 			<plugin>
-			   <groupId>org.apache.maven.plugins</groupId>
-			   <artifactId>maven-jar-plugin</artifactId>
-			   <version>2.2</version>
-			   <executions>
-				 <execution>
-				   <goals>
-					 <goal>test-jar</goal>
-				   </goals>
-				 </execution>
-			   </executions>
-			 </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>inepex</id>
+			<name>Inepex Repository</name>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+		</repository>
+	</distributionManagement>
 </project>

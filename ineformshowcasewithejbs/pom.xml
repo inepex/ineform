@@ -5,7 +5,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>IneFormShowCaseWithEjbs</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>IneFormShowCaseWithEjbs</name>
 	<repositories>
 		<repository>
@@ -20,7 +20,7 @@
  		</repository> 
  		<repository>
 			<id>inerepo</id>
- 			<url>http://sandbox.inepex.com:8081/nexus/content/repositories/releases/</url> 
+ 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url> 
  			<name>inerepo</name>
  		</repository> 	
 	</repositories>
@@ -35,12 +35,12 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineform</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineform</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -54,7 +54,7 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -135,7 +135,6 @@
 						</buildCommand>
 					</additionalBuildcommands>
 					<additionalProjectnatures>
-						<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
 						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
 					</additionalProjectnatures>
 				</configuration>

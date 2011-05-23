@@ -6,12 +6,19 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineom</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>ineom</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>inerepo</id>
+			<name>inerepo</name>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -22,7 +29,7 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -53,4 +60,11 @@
 			</plugin>
 		</plugins>
 	</build>
+		<distributionManagement>
+    <repository>
+      <id>inepex</id>
+      <name>Inepex Repository</name>
+      <url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+    </repository>
+  </distributionManagement>
 </project>

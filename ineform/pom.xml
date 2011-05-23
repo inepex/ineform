@@ -6,7 +6,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineform</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>ineform</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -25,7 +25,7 @@
  		</repository> 
  		<repository>
 			<id>inerepo</id>
- 			<url>http://sandbox.inepex.com:8081/nexus/content/repositories/releases/</url> 
+ 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url> 
  			<name>inerepo</name>
  		</repository> 	
 		<repository>
@@ -50,26 +50,26 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -167,4 +167,11 @@
 			 </plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+    <repository>
+      <id>inepex</id>
+      <name>Inepex Repository</name>
+      <url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+    </repository>
+  </distributionManagement>
 </project>
