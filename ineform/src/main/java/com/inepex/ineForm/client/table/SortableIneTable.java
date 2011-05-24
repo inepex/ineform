@@ -22,6 +22,12 @@ public class SortableIneTable extends IneTable {
 		super(descStore, objectDescriptorName, tableRenderDescriptor, dataProvider);
 	}
 
+	public SortableIneTable(DescriptorStore descriptorStore,
+			String objectDescName, String tableRenderDescriptor,
+			ServerSideDataConnector connector) {
+		super(descriptorStore, objectDescName, tableRenderDescriptor, connector);
+	}
+
 	@Override
 	protected Header<String> createHeader(
 			boolean sortable

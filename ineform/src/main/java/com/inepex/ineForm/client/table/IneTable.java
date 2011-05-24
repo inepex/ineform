@@ -129,7 +129,20 @@ public class IneTable extends HandlerAwareComposite {
         CellTable.Style cellTableStyle();
 	}
 	
+	public IneTable(DescriptorStore descriptorStore, String objectDescName,
+			String tableRenderDescriptorName, ServerSideDataConnector connector) {
+		this(descriptorStore, objectDescName, getTRD(descriptorStore, objectDescName, tableRenderDescriptorName), connector);
+	}
 	
+	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
+		if(tableRenderDescriptorName==null) {
+			return descriptorStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
+		} else {
+			return descriptorStore.getNamedTypedDesc(objectDescName, tableRenderDescriptorName, TableRDesc.class);
+		}
+	
+	}
+
 	/**
 	 * Can not be injected yet. Do we need to make IneTable availale injected by a factory?
 	 * Uses the default {@link TableRDesc}
@@ -181,7 +194,7 @@ public class IneTable extends HandlerAwareComposite {
 	}
 	
 //**** Set behaviour properties ****// 
-	
+
 	protected void onRowDataChanged() {
 	}
 

@@ -109,7 +109,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		eventBus.fireEvent(pre);
 	}
 
-	private String getPlacePart() {
+	protected String getPlacePart() {
 		String[] parts = currentFullToken.split(regExp(QUESTION_MARK));
 		if (parts.length == 0)
 			return "";
