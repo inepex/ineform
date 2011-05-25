@@ -57,12 +57,6 @@ public class ShowcaseDispatchServlet extends AbstractGuiceDispatch {
 	}
 
 
-	@Override
-	public void registerAdditionalI18nModules(I18nStore_Server serverI18n) {
-		
-	}
-
-
 
 	@Override
 	public void registerAssists(DescriptorStore descStore) {
@@ -81,6 +75,10 @@ public class ShowcaseDispatchServlet extends AbstractGuiceDispatch {
 	@Override
 	public void setupDefaults() {
 		
+	}
+
+	@Override
+	public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {
 	}
 
 }

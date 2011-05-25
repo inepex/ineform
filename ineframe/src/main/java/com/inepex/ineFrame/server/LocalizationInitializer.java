@@ -21,7 +21,7 @@ public class LocalizationInitializer {
 
 	public void doInitialize() {
 		serverI18n.registerModule(new IneFormI18n_old(new ServerIneFormI18nProvider(currentLangProvider)));
-		ineFrameInitilaizer.registerAdditionalI18nModules(serverI18n);
+		ineFrameInitilaizer.registerAdditionalI18nModules(serverI18n, currentLangProvider);
 		serverI18n.loadAllModulesDataFormCsv(false);
 		serverI18n.initI18nModules();
 	}

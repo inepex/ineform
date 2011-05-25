@@ -7,7 +7,7 @@ public class IneOmI18n extends I18nModule {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String MODULE_NAME = "IneFormI18n";
+	public static final String MODULE_NAME = "IneOmI18n";
 	
 	static I18nModuleProvider<IneOmI18n> moduleProvider;
 	

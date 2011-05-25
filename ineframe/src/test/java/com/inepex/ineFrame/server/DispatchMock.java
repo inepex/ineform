@@ -123,12 +123,9 @@ public class DispatchMock {
 			return true;
 		}
 
-		
 		@Override
-		public void registerAdditionalI18nModules(I18nStore_Server serverI18n) {
-			
+		public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {
 		}
-
 		@Override
 		public void registerAssists(DescriptorStore descStore) {
 		}
