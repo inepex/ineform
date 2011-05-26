@@ -87,7 +87,7 @@ public class FileUploadFw extends DenyingFormWidget {
 			panelForm.setWidget(panelInsideForm);
 			panelInsideForm.add(fileupload);
 			panelInsideForm.add(new Hidden("name", name));
-			fileupload.setName("file");
+			fileupload.setName("inefileupload");
 			
 			panelForm
 					.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
