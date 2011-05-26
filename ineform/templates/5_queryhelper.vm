@@ -99,7 +99,7 @@ public class ${classname}Query {
 		List<String> idList = Node.idToIdList(orderKey);
 			
 #foreach( $attr in $attrs )			
-#if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic && $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean" && !$attr.enum)
+#if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic && $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean" && !$attr.enum && !$attr.hasAnnotation("Transient"))
 		if(idList.get(0).equals(${classname}KVO.k_${attr.name})){
 			if(idList.size()==1) {
 				Join<${classname}, ${attr.type}> title = from.join(${classname}_.${attr.name});

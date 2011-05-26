@@ -2,14 +2,14 @@ package com.inepex.ineForm.client.form.panelwidgets;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.inepex.ineForm.shared.types.PanelWidgetT;
+import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 
 public class FlowPanelWidget extends PanelWidget {
 
 	private final FlowPanel mainPanel=new FlowPanel();
 	
-	public FlowPanelWidget(PanelWidgetT type,PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
-		super(type, parent, handler);
+	public FlowPanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
+		super(descriptor, parent, handler);
 		initWidget(mainPanel);
 	}
 

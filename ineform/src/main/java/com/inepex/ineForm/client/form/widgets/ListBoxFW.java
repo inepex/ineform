@@ -10,6 +10,7 @@ import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifi
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.kvo.Relation;
@@ -23,8 +24,8 @@ public class ListBoxFW extends AbstractListBoxFW {
 	
 	private Relation value;
 	
-	public ListBoxFW(FormContext formCtx, FDesc fieldDescriptor) {
-		super(fieldDescriptor);
+	public ListBoxFW(FormContext formCtx, FDesc fieldDescriptor, WidgetRDesc wrDesc) {
+		super(fieldDescriptor, wrDesc);
 		this.valueRangeProvider = formCtx.valueRangeProvider;
 		relationFDesc = (RelationFDesc) fieldDescriptor;
 

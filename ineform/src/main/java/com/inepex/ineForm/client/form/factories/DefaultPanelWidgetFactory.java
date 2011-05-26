@@ -28,34 +28,51 @@ public class DefaultPanelWidgetFactory implements PanelWidgetFactory{
 		return type;
 	}
 	
+	protected PanelWidgetRDesc checkAndSetDefaultType(PanelWidgetRDesc paneldesc){
+		PanelWidgetT type;
+		
+		//DEFAULT
+		if(paneldesc==null || paneldesc.getPanelType()==null) 
+			type=IneFormProperties.defPanelWidgetType;
+		else 
+			type=paneldesc.getPanelType();
+		
+		if (paneldesc == null) {
+			paneldesc = new PanelWidgetRDesc(type);
+		} else {
+			paneldesc.setPanelType(type);
+		}
+		return paneldesc;
+	}
+	
 	@Override
 	public PanelWidget createPanel(PanelWidgetRDesc paneldesc, PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
 		
-		PanelWidgetT type = getTypeFromDescriptor(paneldesc);
+		PanelWidgetRDesc updatedDesc = checkAndSetDefaultType(paneldesc);
 		
-		if(type.equals(PanelWidgetT.FLOWPANEL))
-			return new FlowPanelWidget(type,parent, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.FLOWPANEL))
+			return new FlowPanelWidget(paneldesc,parent, handler);
 		
-		if(type.equals(PanelWidgetT.VERTICALPANEL))
-			return new VerticalPanelWidget(type,parent, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.VERTICALPANEL))
+			return new VerticalPanelWidget(paneldesc,parent, handler);
 		
-		if(type.equals(PanelWidgetT.HORIZONTALPANEL))
-			return new HorizontalPanelWidget(type,parent, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.HORIZONTALPANEL))
+			return new HorizontalPanelWidget(paneldesc,parent, handler);
 
-		if(type.equals(PanelWidgetT.PLACEHOLDERPANEL))
-			return new PlaceholderPanelWidget(type,parent, paneldesc, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.PLACEHOLDERPANEL))
+			return new PlaceholderPanelWidget(paneldesc,parent, paneldesc, handler);
 		
-		if(type.equals(PanelWidgetT.TABPANEL))
-			return new TabPanelWidget(type,parent, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.TABPANEL))
+			return new TabPanelWidget(paneldesc,parent, handler);
 		
-		if(type.equals(PanelWidgetT.TABPAGE))
-			return new TabPageWidget(type, parent, paneldesc.getDisplayName(), handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.TABPAGE))
+			return new TabPageWidget(paneldesc, parent, paneldesc.getDisplayName(), handler);
 		
-		if(type.equals(PanelWidgetT.STEPPERPAGE))
-			return new StepperPanelPageWidget(type,parent, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.STEPPERPAGE))
+			return new StepperPanelPageWidget(paneldesc,parent, handler);
 		
-		if(type.equals(PanelWidgetT.STEPPERPANEL))
-			return new StepperPanelWidget(type,parent, handler);
+		if(updatedDesc.getPanelType().equals(PanelWidgetT.STEPPERPANEL))
+			return new StepperPanelWidget(paneldesc,parent, handler);
 			
 		return null;
 	}

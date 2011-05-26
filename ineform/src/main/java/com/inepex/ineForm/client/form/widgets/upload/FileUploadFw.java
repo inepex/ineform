@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets.upload;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -12,10 +13,12 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.IFConsts;
@@ -24,6 +27,8 @@ public class FileUploadFw extends DenyingFormWidget {
 	private static final String imageBaseUrl = "documents/";
 	public static final String hasPreviewKey = "hasPreview";
 	public static final String hasImageFinderKey = "withImageFinder";
+	public static String customUploadUrl = "customUploadUrl";
+	public static String customName = "name";
 
 	private FlowPanel panelMain = new FlowPanel();
 	private String uploadUrl = IFConsts.uploadServletUrl;
@@ -37,6 +42,7 @@ public class FileUploadFw extends DenyingFormWidget {
 	private boolean withPreview = false;
 	
 	private DefaultSearchParamProvider defaultSearchParamProvider;
+	private String name = "fileupload";
 	
 	public interface DefaultSearchParamProvider {
 		public String getDefaultSearchParam();
@@ -45,6 +51,7 @@ public class FileUploadFw extends DenyingFormWidget {
 	private class FileUploadForm extends FlexTable {
 		private HTML title = new HTML("<h3>" + IneFormI18n_old.imagefinderUploadimage() + "</h3>");
 		private FormPanel panelForm = new FormPanel();
+		private FlowPanel panelInsideForm = new FlowPanel();
 		private FileUpload fileupload = new FileUpload();
 		private Button btnSubmit = new Button(IneFormI18n_old.imageuploadBtn());
 		private Button btnCancel = new Button(IneFormI18n_old.CANCEL());
@@ -77,8 +84,10 @@ public class FileUploadFw extends DenyingFormWidget {
 			panelForm.setAction(uploadUrl);
 			panelForm.setEncoding(FormPanel.ENCODING_MULTIPART);
 			panelForm.setMethod(FormPanel.METHOD_POST);
-			panelForm.setWidget(fileupload);
-			fileupload.setName("inefileupload");
+			panelForm.setWidget(panelInsideForm);
+			panelInsideForm.add(fileupload);
+			panelInsideForm.add(new Hidden("name", name));
+			fileupload.setName("file");
 			
 			panelForm
 					.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
@@ -142,19 +151,8 @@ public class FileUploadFw extends DenyingFormWidget {
 		
 		
 	}
-
-	public FileUploadFw(boolean withImageFinder) {
-		this(null, withImageFinder, true);
-	}
 	
-	public FileUploadFw(boolean withImageFinder, boolean withPreview) {
-		this(null, withImageFinder, withPreview);
-	}
-	public FileUploadFw(FDesc fieldDescripor, boolean withImageFinder) {
-		this(fieldDescripor, withImageFinder, true);
-	}
-	
-	public FileUploadFw(FDesc fieldDescripor, boolean withImageFinder, boolean withPreview) {
+	public FileUploadFw(FDesc fieldDescripor, WidgetRDesc wrDesc, boolean withImageFinder, boolean withPreview) {
 		super(fieldDescripor);
 		this.withPreview = withPreview;
 		initWidget(panelMain);
@@ -174,6 +172,12 @@ public class FileUploadFw extends DenyingFormWidget {
 				showPopupAndSetDefaultSearchValue();
 			}
 		});
+		if (wrDesc.hasProp(customUploadUrl)){
+			uploadUrl = GWT.getModuleBaseURL() + wrDesc.getPropValue(customUploadUrl);
+		}
+		if (wrDesc.hasProp(customName)){
+			name = wrDesc.getPropValue(customName);
+		}
 	}
 
 	private void showPopupAndSetDefaultSearchValue() {

@@ -17,6 +17,7 @@ import com.inepex.ineForm.client.form.widgets.RadioBoolFW;
 import com.inepex.ineForm.client.form.widgets.RadioEnumSelectorFW;
 import com.inepex.ineForm.client.form.widgets.RelationFW;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
+import com.inepex.ineForm.client.form.widgets.StringListBoxFw;
 import com.inepex.ineForm.client.form.widgets.StringListFw;
 import com.inepex.ineForm.client.form.widgets.TextAreaFW;
 import com.inepex.ineForm.client.form.widgets.TextBoxFW;
@@ -81,7 +82,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 		}
 		
 		else if (widgetType.equals(FWTypes.LISTBOX))
-			createdWidget = new ListBoxFW(formCtx, fieldDesc);
+			createdWidget = new ListBoxFW(formCtx, fieldDesc, wrDesc);
 		
 		else if (widgetType.equals(FWTypes.DATEBOX))
 			createdWidget = new DateTimeFW(formCtx.dateProvider, fieldDesc, wrDesc.getProps());
@@ -118,7 +119,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			if (wrDesc.getPropValue(EnumListFW.enumValues) == null){
 				throw new RuntimeException("No '" + EnumListFW.enumValues + "' propery found for EnumListBox: " + fieldDesc.getKey());
 			} else
-			createdWidget = new EnumListFW(fieldDesc, wrDesc.getPropValue(EnumListFW.enumValues));
+			createdWidget = new EnumListFW(fieldDesc, wrDesc, wrDesc.getPropValue(EnumListFW.enumValues));
 		} else if (widgetType.equals(FWTypes.CHOOSER)){
 			ListFDesc castedFieldDesc = (ListFDesc) fieldDesc; 
 			createdWidget = new ChooserFw(formCtx
@@ -130,6 +131,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			boolean withPreview = wrDesc.hasProp(FileUploadFw.hasPreviewKey);
 			createdWidget = new FileUploadFw(
 					fieldDesc
+					, wrDesc
 					, withImageFinder
 					, withPreview);			
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.RADIOBOOL)) {
@@ -140,6 +142,8 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget=new ThreeWayBoolFw(fieldDesc, wrDesc.getPropValue("null"), wrDesc.getPropValue("true"), wrDesc.getPropValue("false"));
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.RICHTEXTAREA)) {
 			createdWidget = new RichTextAreaFW(fieldDesc, wrDesc);
+		} else if(wrDesc.getFormWidgetType().equals(FWTypes.STRINGLISTBOX)) {
+			createdWidget = new StringListBoxFw(fieldDesc, wrDesc);
 		}
 		
 		return createdWidget;

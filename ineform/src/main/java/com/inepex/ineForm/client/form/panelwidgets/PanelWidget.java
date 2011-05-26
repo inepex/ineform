@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
+import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineForm.shared.types.PanelWidgetT;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
@@ -13,12 +14,12 @@ public abstract class PanelWidget extends HandlerAwareComposite implements Displ
 	protected final DisplayedFormUnitChangeHandler parentHandler;
 	protected final PanelWidget parent;
 	protected final List<AbstractFormUnit> formUnits = new ArrayList<AbstractFormUnit>();
-	protected final PanelWidgetT panelType;
+	protected final PanelWidgetRDesc descriptor;
 
-	public PanelWidget(PanelWidgetT type, PanelWidget parent, DisplayedFormUnitChangeHandler parentHandler) {
+	public PanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, DisplayedFormUnitChangeHandler parentHandler) {
 		this.parent=parent;
 		this.parentHandler=parentHandler;
-		this.panelType=type;
+		this.descriptor=descriptor;
 	}
 	
 	@Override
@@ -48,7 +49,12 @@ public abstract class PanelWidget extends HandlerAwareComposite implements Displ
 	}
 	
 	public PanelWidgetT getPanelWidgetType() {
-		return panelType;
+		return descriptor.getPanelType();
 	}
 
+	public PanelWidgetRDesc getDescriptor() {
+		return descriptor;
+	}
+
+	
 }

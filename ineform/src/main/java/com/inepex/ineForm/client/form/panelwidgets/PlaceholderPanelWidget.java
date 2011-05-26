@@ -13,8 +13,8 @@ public class PlaceholderPanelWidget extends PanelWidget {
 	private final FlowPanel formPanel = new FlowPanel();
 	private InlineHTML title;
 	
-	public PlaceholderPanelWidget(PanelWidgetT type, PanelWidget parent, PanelWidgetRDesc paneldesc, DisplayedFormUnitChangeHandler handler) {
-		super(type, parent, handler);
+	public PlaceholderPanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, PanelWidgetRDesc paneldesc, DisplayedFormUnitChangeHandler handler) {
+		super(descriptor, parent, handler);
 		initWidget(mainPanel);
 		mainPanel.add(placeholder);
 		mainPanel.add(formPanel);

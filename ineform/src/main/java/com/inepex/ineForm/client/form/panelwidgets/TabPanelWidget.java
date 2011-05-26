@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.inepex.ineForm.shared.types.PanelWidgetT;
+import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 
 public class TabPanelWidget extends PanelWidget {
 	
@@ -15,8 +15,8 @@ public class TabPanelWidget extends PanelWidget {
 	private final List<TabPageWidget> tabs = new ArrayList<TabPageWidget>();
 	boolean first=true;
 
-	public TabPanelWidget(PanelWidgetT type, PanelWidget parent, DisplayedFormUnitChangeHandler parentHandler) {
-		super(type, parent,parentHandler);
+	public TabPanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, DisplayedFormUnitChangeHandler parentHandler) {
+		super(descriptor, parent,parentHandler);
 		initWidget(mainPanel);
 		mainPanel.add(tabPanel);
 	}

@@ -37,6 +37,12 @@ public class PanelWidgetRDesc extends FormRDescBase {
 	public PanelWidgetT getPanelType() {
 		return panelType;
 	}
+
+	public void setPanelType(PanelWidgetT panelType) {
+		this.panelType = panelType;
+	}
+	
+	
 	
 	
 }

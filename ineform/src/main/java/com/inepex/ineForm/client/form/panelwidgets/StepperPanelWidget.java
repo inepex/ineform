@@ -5,17 +5,33 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.inepex.ineForm.shared.types.PanelWidgetT;
+import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 
-public class StepperPanelWidget extends PanelWidget{
+public class StepperPanelWidget extends PanelWidget {
+	
+	private class ChangeResponse extends DisplayedFormUnitChangeHandler.DisplayedFormUnitChangeResponse<Integer> {
+		
+		public ChangeResponse(Integer from, Integer to) {
+			super(from, to);
+		}
+
+		@Override
+		public void onSuccess() {
+			setDisplayedPage(to, false);
+		}
+
+		@Override
+		public void onCancel() {
+		}
+	}
 
 	private final FlowPanel mainPanel=new FlowPanel();
 	private final FlowPanel pagePanel=new FlowPanel();
 	private int displayedPage=-1;
 	private List<StepperPanelPageWidget> pages = new ArrayList<StepperPanelPageWidget>();
 	
-	public StepperPanelWidget(PanelWidgetT type,PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
-		super(type, parent, handler);
+	public StepperPanelWidget(PanelWidgetRDesc descriptor,PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
+		super(descriptor, parent, handler);
 		initWidget(mainPanel);
 		mainPanel.add(pagePanel);
 	}
@@ -58,20 +74,9 @@ public class StepperPanelWidget extends PanelWidget{
 		return displayedPage;
 	}
 	
-	private class ChangeResponse extends DisplayedFormUnitChangeHandler.DisplayedFormUnitChangeResponse<Integer> {
-		
-		public ChangeResponse(Integer from, Integer to) {
-			super(from, to);
-		}
-
-		@Override
-		public void onSuccess() {
-			setDisplayedPage(to, false);
-		}
-
-		@Override
-		public void onCancel() {
-		}
+	public StepperPanelPageWidget getDisplayedPage(){
+		if (displayedPage == -1) return null;
+		else return pages.get(displayedPage);
 	}
 	
 }

@@ -8,14 +8,17 @@ import com.inepex.example.ineForm.entity.kvo.Contact_ContactStateKVO;
 import com.inepex.example.ineForm.entity.kvo.search.ContactSearchKVO;
 import com.inepex.example.ineForm.enums.ContactRole;
 import com.inepex.example.ineForm.enums.ContactState;
+import com.inepex.ineForm.client.form.panelwidgets.StepperPanelPageWidget;
 import com.inepex.ineForm.client.form.widgets.chooser.ChooserFw;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
+import com.inepex.ineForm.shared.descriptorext.FormUnitRDesc;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
+import com.inepex.ineForm.shared.types.FormUnitT;
 import com.inepex.ineForm.shared.types.PanelWidgetT;
 import com.inepex.ineom.shared.descriptor.BooleanFDesc;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -66,6 +69,7 @@ public class ContactAssist extends Assist {
 	
 	@Override
 	protected void registerExtraDescriptors() {
+		descStore.addNamedTypedDesc(ContactKVO.descriptorName, "wizard", getWizardFormRDesc());
 	}
 	
 	@Override
@@ -151,19 +155,29 @@ public class ContactAssist extends Assist {
 			
 		formRDesc.getRootNode()
 		.addChildGC(new PanelWidgetRDesc(PanelWidgetT.STEPPERPANEL))
-			.addChild(ContactKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactKVO.k_firstName, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_lastName, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_address, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_createDate, new WidgetRDesc(/*hc:f5*/FWTypes.NUMBERTEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_numOfAccess, new WidgetRDesc(/*hc:f6*/FWTypes.NUMBERTEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_contactTypes, new WidgetRDesc(/*hc:f7*/FWTypes.CHOOSER/*hc*/))
-			.addChild(ContactKVO.k_profilePhoto, new WidgetRDesc(/*hc:f8*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_nationalities, new WidgetRDesc(/*hc:f9*/FWTypes.CHOOSER/*hc*/))
-			.addChild(ContactKVO.k_addressDetail, new WidgetRDesc(/*hc:f10*/FWTypes.RELATEDFORM/*hc*/))
-			.addChild(ContactKVO.k_happy, new WidgetRDesc(/*hc:f11*/FWTypes.CHECKBOX/*hc*/))
-			.addChild(ContactKVO.k_roles, new WidgetRDesc(/*hc:f12*/FWTypes.CHOOSER, ChooserFw.stringChooser, IFConsts.enumValues + ":" + ContactRole.getValuesAsString()/*hc*/))
-			.addChild(ContactKVO.k_states, new WidgetRDesc(/*hc:f13*/FWTypes.CHOOSER, ChooserFw.enumChooser, IFConsts.enumValues + ":" + ContactState.getValuesAsString()/*hc*/))
+			.addChildGC(new PanelWidgetRDesc(PanelWidgetT.STEPPERPAGE, StepperPanelPageWidget.Param.nextLabel+":köv2"))
+				.addChildGC("step1", new FormUnitRDesc(FormUnitT.SIMPLETABLEFORM))
+					.addChild(ContactKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
+					.addChild(ContactKVO.k_firstName, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
+					.addChild(ContactKVO.k_lastName, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
+					.addChild(ContactKVO.k_address, new WidgetRDesc(/*hc:f4*/FWTypes.STRINGLISTBOX/*hc*/))
+				.getParent()
+			.getParent()
+			.addChildGC(new PanelWidgetRDesc(PanelWidgetT.STEPPERPAGE, StepperPanelPageWidget.Param.prevVisible+":false",  StepperPanelPageWidget.Param.custButtons+":cust1,cust2"))
+				.addChildGC("step2", new FormUnitRDesc(FormUnitT.SIMPLETABLEFORM))			
+					.addChild(ContactKVO.k_createDate, new WidgetRDesc(/*hc:f5*/FWTypes.NUMBERTEXTBOX/*hc*/))
+					.addChild(ContactKVO.k_numOfAccess, new WidgetRDesc(/*hc:f6*/FWTypes.NUMBERTEXTBOX/*hc*/))
+					.addChild(ContactKVO.k_contactTypes, new WidgetRDesc(/*hc:f7*/FWTypes.CHOOSER/*hc*/))
+					.addChild(ContactKVO.k_profilePhoto, new WidgetRDesc(/*hc:f8*/FWTypes.TEXTBOX/*hc*/))
+					.addChild(ContactKVO.k_nationalities, new WidgetRDesc(/*hc:f9*/FWTypes.CHOOSER/*hc*/))
+					.addChild(ContactKVO.k_addressDetail, new WidgetRDesc(/*hc:f10*/FWTypes.RELATEDFORM/*hc*/))
+				.getParent()
+			.getParent()
+			.addChildGC(new PanelWidgetRDesc(PanelWidgetT.STEPPERPAGE))
+				.addChildGC("step2", new FormUnitRDesc(FormUnitT.SIMPLETABLEFORM))
+					.addChild(ContactKVO.k_happy, new WidgetRDesc(/*hc:f11*/FWTypes.CHECKBOX/*hc*/))
+					.addChild(ContactKVO.k_roles, new WidgetRDesc(/*hc:f12*/FWTypes.CHOOSER, ChooserFw.stringChooser, IFConsts.enumValues + ":" + ContactRole.getValuesAsString()/*hc*/))
+					.addChild(ContactKVO.k_states, new WidgetRDesc(/*hc:f13*/FWTypes.CHOOSER, ChooserFw.enumChooser, IFConsts.enumValues + ":" + ContactState.getValuesAsString()/*hc*/))
 			;
 		return formRDesc;
 	}

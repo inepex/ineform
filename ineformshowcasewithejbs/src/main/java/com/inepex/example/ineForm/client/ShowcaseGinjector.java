@@ -8,6 +8,7 @@ import com.google.gwt.inject.client.GinModules;
 import com.inepex.example.ineForm.client.page.CrudPage;
 import com.inepex.example.ineForm.client.page.DtoTestPage;
 import com.inepex.example.ineForm.client.page.TesterPage;
+import com.inepex.example.ineForm.client.page.WizardPage;
 import com.inepex.ineForm.client.gin.IneFormGinModule;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -19,4 +20,5 @@ public interface ShowcaseGinjector extends com.google.gwt.inject.client.Ginjecto
 	CrudPage getCrudPage();
 	DtoTestPage getDtoTestPage();
 	TesterPage getTesterPage();
+	WizardPage getWizardPage();
 }

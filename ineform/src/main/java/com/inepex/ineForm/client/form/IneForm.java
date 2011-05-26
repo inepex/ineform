@@ -680,5 +680,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 			afu.setSingleWidgetValue(key, value);
 		}
 	}
+
+	public FormContext getFormCtx() {
+		return formCtx;
+	}
 	
 }

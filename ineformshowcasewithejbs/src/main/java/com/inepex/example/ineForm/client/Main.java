@@ -82,9 +82,20 @@ public class Main extends IneFrameEntryPoint {
 			}
 		});
 		
+		Button showWizardTest = new Button("Wizard test page");
+		showWizardTest.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				content.clear();
+				content.add(INJECTOR.getWizardPage());				
+			}
+		});
+		
 		pages.add(showCrud);
 		pages.add(showTester);
 		pages.add(showDtoTest);
+		pages.add(showWizardTest);
 		
 	}
 

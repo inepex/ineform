@@ -1,5 +1,4 @@
 outpath:${class.workspaceRelativePath}mapper/${classname}Mapper.java
-
 package ${package}.mapper;
 
 import java.util.ArrayList;

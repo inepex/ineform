@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
@@ -12,8 +13,8 @@ public class EnumListFW extends AbstractListBoxFW {
 	private List<String> hidedNames = null;
 	private List<String> hidedValues = null;
 	
-	public EnumListFW(FDesc fieldDescriptor, String enumValues) {
-		super(fieldDescriptor);
+	public EnumListFW(FDesc fieldDescriptor, WidgetRDesc wrDesc, String enumValues) {
+		super(fieldDescriptor, wrDesc);
 		int i=0;
 		for (String value : enumValues.split(IFConsts.enumValueSplitChar)){
 			listBox.addItem(value, Integer.toString(i++));
@@ -22,7 +23,7 @@ public class EnumListFW extends AbstractListBoxFW {
 
     @Override
     public Long getLongValue() {
-    	if(DEFAULT_notSelectedText.equals(listBox.getValue(listBox.getSelectedIndex()))) return null;
+    	if(notSelectedText.equals(listBox.getValue(listBox.getSelectedIndex()))) return null;
     	return Long.parseLong(listBox.getValue(listBox.getSelectedIndex()));
 	}
     
@@ -36,7 +37,7 @@ public class EnumListFW extends AbstractListBoxFW {
     		return;
     	}
     	
-      	if (value == null) val=DEFAULT_notSelectedText;
+      	if (value == null) val=notSelectedText;
       	else val=value.toString();
       	
       	for(int i=0; i<listBox.getItemCount(); i++) {

@@ -126,14 +126,17 @@ public class SaveCancelForm extends IneForm {
 	private class SaveClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			originalData = getInitialOrEmptyData();
-			kvo = getValues(originalData.clone());
-			if (fireBeforeSaveEvent(kvo).isCancelled())
-				return;			
-			
-			doSave();
-			
+			save();			
 		}		
+	}
+	
+	public void save(){
+		originalData = getInitialOrEmptyData();
+		kvo = getValues(originalData.clone());
+		if (fireBeforeSaveEvent(kvo).isCancelled())
+			return;			
+		
+		doSave();
 	}
 	
 	public void doSave(){

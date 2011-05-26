@@ -41,6 +41,7 @@ public class FWTypes implements Serializable{
 	public static final FWTypes LABELBOOL = new FWTypes("LABELBOOL");
 	public static final FWTypes THREEWAYBOOL = new FWTypes("THREEWAYBOOL");
 	public static final FWTypes RICHTEXTAREA = new FWTypes("RICHTEXTAREA");
+	public static final FWTypes STRINGLISTBOX = new FWTypes("STRINGLISTBOX");
 	
 	private String typeName = "";
 
