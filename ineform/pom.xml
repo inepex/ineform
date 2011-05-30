@@ -59,6 +59,7 @@
 			<version>1.0.1</version>
 			<type>test-jar</type>
 			<scope>test</scope>
+			
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
