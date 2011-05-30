@@ -6,7 +6,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineform</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>ineform</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -50,13 +50,13 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.3</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 			
@@ -64,13 +64,13 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

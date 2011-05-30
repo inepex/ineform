@@ -143,38 +143,24 @@ public class WizardForm extends SaveCancelForm {
 		cancelButton.setVisible(true);
 		
 		if ((rootStepper.getDisplayedPage() != null && rootStepper.getDisplayedPage().getDescriptor().getProps().keySet().size() > 0))
-		{
+		{			
 			PanelWidgetRDesc desc = rootStepper.getDisplayedPage().getDescriptor();
-			if (desc.hasProp(StepperPanelPageWidget.Param.nextVisible)
-					|| desc.hasProp(StepperPanelPageWidget.Param.nextLabel)) {
-				boolean visible = desc.getPropValue(StepperPanelPageWidget.Param.nextVisible).equals(IFConsts.TRUE) 
-					|| desc.hasProp(StepperPanelPageWidget.Param.nextLabel);
-				nextButton.setVisible(visible);
-				nextButton.setEnabled(visible);
-				if (desc.hasProp(StepperPanelPageWidget.Param.nextLabel)) {
-					nextButton.setHTML(desc.getPropValue(StepperPanelPageWidget.Param.nextLabel));
-				}
-			}
-			if (desc.hasProp(StepperPanelPageWidget.Param.prevVisible) 
-					|| desc.hasProp(StepperPanelPageWidget.Param.prevLabel)) {
-				boolean visible = desc.getPropValue(StepperPanelPageWidget.Param.prevVisible).equals(IFConsts.TRUE) 
-					|| desc.hasProp(StepperPanelPageWidget.Param.prevLabel);
-				previousButton.setVisible(visible);
-				previousButton.setEnabled(visible);
-				if (desc.hasProp(StepperPanelPageWidget.Param.prevLabel)) {
-					previousButton.setHTML(desc.getPropValue(StepperPanelPageWidget.Param.prevLabel));
-				}
-			}
-			if (desc.hasProp(StepperPanelPageWidget.Param.saveVisible) 
-					|| desc.hasProp(StepperPanelPageWidget.Param.saveLabel)) {
-				boolean visible = desc.getPropValue(StepperPanelPageWidget.Param.saveVisible).equals(IFConsts.TRUE) 
-					|| desc.hasProp(StepperPanelPageWidget.Param.saveLabel);
-				saveButton.setVisible(visible);
-				saveButton.setEnabled(visible);
-				if (desc.hasProp(StepperPanelPageWidget.Param.saveLabel)) {
-					saveButton.setHTML(desc.getPropValue(StepperPanelPageWidget.Param.saveLabel));
-				}
-			}
+			processButtonProperties(desc, 
+					StepperPanelPageWidget.Param.nextVisible, 
+					StepperPanelPageWidget.Param.nextLabel,
+					nextButton);
+			processButtonProperties(desc, 
+					StepperPanelPageWidget.Param.prevVisible, 
+					StepperPanelPageWidget.Param.prevLabel,
+					previousButton);
+			processButtonProperties(desc, 
+					StepperPanelPageWidget.Param.saveVisible, 
+					StepperPanelPageWidget.Param.saveLabel,
+					saveButton);
+			processButtonProperties(desc, 
+					StepperPanelPageWidget.Param.cancelVisible, 
+					StepperPanelPageWidget.Param.cancelLabel,
+					cancelButton);
 			
 			for (HandlerRegistration hr : custHandlerRegs){
 				hr.removeHandler();
@@ -194,6 +180,19 @@ public class WizardForm extends SaveCancelForm {
 					custHandlerRegs.add(btn.addClickHandler(new CustomBtnClickHandler(btnLabel)));
 					buttonPanel.add(btn);
 				}
+			}
+		}
+	}
+	
+	private void processButtonProperties(PanelWidgetRDesc desc, String visibleParam, String labelParam, Button btn){
+		if (desc.hasProp(visibleParam) 
+				|| desc.hasProp(labelParam)) {
+			boolean visible = desc.getPropValue(visibleParam).equals(IFConsts.TRUE) 
+				|| desc.hasProp(labelParam);
+			btn.setVisible(visible);
+			btn.setEnabled(visible);
+			if (desc.hasProp(labelParam)) {
+				btn.setHTML(desc.getPropValue(labelParam));
 			}
 		}
 	}

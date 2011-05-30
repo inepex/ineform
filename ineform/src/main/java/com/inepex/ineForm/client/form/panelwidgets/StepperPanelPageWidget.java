@@ -10,9 +10,11 @@ public class StepperPanelPageWidget extends PanelWidget{
 		public static final String prevVisible = "prevVisible";
 		public static final String nextVisible = "nextVisible";
 		public static final String saveVisible = "saveVisible";
+		public static final String cancelVisible = "cancelVisible";
 		public static final String prevLabel = "prevLabel";
 		public static final String nextLabel = "nextLabel";
 		public static final String saveLabel = "saveLabel";
+		public static final String cancelLabel = "cancelLabel";
 		public static final String custButtons = "custButtons";
 	}
 
