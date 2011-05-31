@@ -54,6 +54,10 @@ public class WizardForm extends SaveCancelForm {
 	
 	private CustomClickHandler customClickHandler;
 	
+	private String wizardBtnStyleName = "wizardBtn";
+	
+	private String customBtnStyleName = "custBtn";
+	
 	@Inject
 	public WizardForm(FormContext formCtx,
 					@Assisted("dn") String descriptorName,
@@ -132,6 +136,9 @@ public class WizardForm extends SaveCancelForm {
 		nextButton.setText(nextButtonText);
 		previousButton.setText(previousButtonText);
 		
+		nextButton.setStyleName(wizardBtnStyleName);
+		previousButton.setStyleName(wizardBtnStyleName);
+		
 		saveButton.setEnabled(rootStepper.getDisplayedPageNumber()+1==rootStepper.getPageCount());
 		nextButton.setEnabled(rootStepper.getDisplayedPageNumber()+1!=rootStepper.getPageCount());
 		previousButton.setEnabled(rootStepper.getDisplayedPageNumber()!=0);
@@ -176,6 +183,7 @@ public class WizardForm extends SaveCancelForm {
 				String[] custButtons = desc.getPropValue(StepperPanelPageWidget.Param.custButtons).split(",");
 				for (String btnLabel : custButtons){
 					Button btn = new Button(btnLabel);
+					btn.setStyleName(customBtnStyleName);
 					this.custButtons.add(btn);
 					custHandlerRegs.add(btn.addClickHandler(new CustomBtnClickHandler(btnLabel)));
 					buttonPanel.add(btn);
@@ -219,7 +227,14 @@ public class WizardForm extends SaveCancelForm {
 	public void setCustomClickHandler(CustomClickHandler customClickHandler) {
 		this.customClickHandler = customClickHandler;
 	}
-	
+
+	public void setCustomBtnStyleName(String customBtnStyleName) {
+		this.customBtnStyleName = customBtnStyleName;
+	}
+
+	public void setWizardBtnStyleName(String wizardBtnStyleName) {
+		this.wizardBtnStyleName = wizardBtnStyleName;
+	}	
 	
 
 }

@@ -6,7 +6,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineom</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<name>ineom</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.4</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
