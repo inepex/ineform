@@ -68,5 +68,9 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 	public void setFocus(boolean focused) {
 		listBox.setFocus(focused);
 	}
+	
+	public ListBox getListBox(){
+		return listBox;
+	}
     
 }
