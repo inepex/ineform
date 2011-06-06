@@ -1,6 +1,5 @@
 package com.inepex.ineForm.server.handler;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -40,8 +39,8 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 	
 	@Override
 	protected GenericResult doExecute(SetActionForExportServletAction action,
-			ExecutionContext context) throws AuthenticationException,
-			NamingException, DispatchException {
+			ExecutionContext context) throws AuthenticationException, DispatchException {
+		
 		HttpServletRequest request = requestProvider.get();
 		request.getSession().setAttribute(
 				actionForCsvKey

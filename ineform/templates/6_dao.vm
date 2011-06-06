@@ -70,19 +70,19 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 
 	protected ${classname}Selector<Long> cSel = null;
 
-	@Inject
-	Provider<EntityManager> em;
+	
+	protected final Provider<EntityManager> em;
 	
 #if(${class.hasAnnotation("Kvo_Audited")})
-	@Inject
-	UserDaoExt userDaoExt; 
+	protected final UserDaoExt userDaoExt; 
 #end
 
 	@Inject
-	${classname}Dao(){}
-
-	public ${classname}Dao(Provider<EntityManager> em){
+	public ${classname}Dao(Provider<EntityManager> em#if(${class.hasAnnotation("Kvo_Audited")}), UserDaoExt userDaoExt#end){
 		this.em=em;
+		#if(${class.hasAnnotation("Kvo_Audited")})
+        	this.userDaoExt=userDaoExt; 
+        #end
 	}
 	
 	/*hc:customFields*/

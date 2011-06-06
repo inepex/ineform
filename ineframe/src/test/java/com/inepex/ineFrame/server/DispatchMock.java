@@ -2,7 +2,6 @@ package com.inepex.ineFrame.server;
 
 import java.util.Set;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -68,8 +67,7 @@ public class DispatchMock {
 		}
 		@Override
 		protected Result1 doExecute(Action1 action, ExecutionContext context)
-				throws AuthenticationException, NamingException,
-				DispatchException {
+				throws AuthenticationException, DispatchException {
 			return new Result1();
 		}
 	}
@@ -85,8 +83,7 @@ public class DispatchMock {
 		}
 		@Override
 		protected Result2 doExecute(Action2 action, ExecutionContext context)
-				throws AuthenticationException, NamingException,
-				DispatchException {
+				throws AuthenticationException, DispatchException {
 			return new Result2();
 		}
 	}
@@ -102,8 +99,7 @@ public class DispatchMock {
 		}
 		@Override
 		protected Result3 doExecute(ActionThrowsException action, ExecutionContext context)
-				throws AuthenticationException, NamingException,
-				DispatchException {
+				throws AuthenticationException, DispatchException {
 			throw new ActionException("");
 		}
 	}

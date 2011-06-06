@@ -9,8 +9,6 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.inepex.ineFrame.shared.dispatch.GenericResult;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
-import com.inepex.ineFrame.shared.exceptions.PublicException;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 import com.inepex.ineom.shared.validation.ValidationException;
@@ -30,16 +28,9 @@ public abstract class AbstractIneHandler<A extends Action<R>, R extends GenericR
 		ActionHandler<A, R> {
 	
 	@Override
-	public R execute(A arg0, ExecutionContext arg1)
-			throws DispatchException {
-		R result = null;
-		try {
-			result = doExecute(arg0, arg1);
-		} catch (NamingException e) {
-			e.printStackTrace();
-			throw new PublicException(IneFormI18n_old.generalError());
-		}
-		return result;
+	public R execute(A arg0, ExecutionContext arg1) throws DispatchException {
+		
+		return doExecute(arg0, arg1);
 	}
 	
 	protected void doValidate(KeyValueObjectValidationManager validatorManager, KeyValueObject kvo) throws ValidationException {
@@ -56,7 +47,7 @@ public abstract class AbstractIneHandler<A extends Action<R>, R extends GenericR
 	 * @throws NamingException
 	 */
 	protected abstract R doExecute(A action, ExecutionContext context)
-							throws AuthenticationException, NamingException, DispatchException;
+							throws AuthenticationException, DispatchException;
 
 
 	@Override

@@ -1,7 +1,5 @@
 package com.inepex.ineForm.server.handler;
 
-import javax.naming.NamingException;
-
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.DispatchException;
@@ -31,7 +29,7 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 	
 	@Override
 	public ObjectListResult doExecute(ObjectListAction action, ExecutionContext context)
-							throws AuthenticationException, NamingException, DispatchException {
+							throws AuthenticationException, DispatchException {
 		String descriptorName = action.getDescriptorName();
 		try {
 			ObjectListResult result;
