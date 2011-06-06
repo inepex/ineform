@@ -2,12 +2,14 @@ package com.inepex.example.ineForm.entity.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
 import com.inepex.example.ineForm.entity.Contact;
 import com.inepex.example.ineForm.entity.dao.query.ContactQuery;
 import com.inepex.example.ineForm.entity.kvo.ContactKVO;
@@ -22,11 +24,11 @@ import com.inepex.ineFrame.server.CriteriaSelector;
 import com.inepex.ineFrame.server.SelectorCustomizer;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
-@Stateless
+@Singleton
 public class ContactDao extends KVManipulatorDaoBase {
 
 	public static class ContactSelector<T> extends CriteriaSelector<T, Contact> {
-		public ContactSelector(EntityManager em, Class<T> resultClass) {
+		public ContactSelector(Provider<EntityManager> em, Class<T> resultClass) {
 			super(em, resultClass, Contact.class);
 		}
 		
@@ -58,22 +60,18 @@ public class ContactDao extends KVManipulatorDaoBase {
 
 	protected ContactSelector<Long> cSel = null;
 
+	@Inject
+	Provider<EntityManager> em;
+	
 
-	@PersistenceContext
-	protected EntityManager em;
+	@Inject
+	ContactDao(){}
+
+	public ContactDao(Provider<EntityManager> em){
+		this.em=em;
+	}
 	
 	/*hc:customFields*/
-	/*hc*/
-	
-	
-	public ContactDao(){
-	}	
-	
-	public ContactDao(EntityManager em){
-		this.em = em;
-	}	
-	
-	/*hc:customConstructors*/
 	/*hc*/
 	
 	protected void createDefaultSelector() {
@@ -87,7 +85,7 @@ public class ContactDao extends KVManipulatorDaoBase {
 	public void persist(Contact entity){
 		/*hc:beforepersist*/
 		/*hc*/
-		em.persist(entity);
+		em.get().persist(entity);
 		/*hc:afterpersist*/
 		/*hc*/
 	}
@@ -98,7 +96,7 @@ public class ContactDao extends KVManipulatorDaoBase {
 	public void merge(Contact entity) {
 		/*hc:beforemerge*/
 		/*hc*/
-		em.merge(entity);
+		em.get().merge(entity);
 		/*hc:aftermerge*/
 		/*hc*/	
 	}
@@ -106,16 +104,20 @@ public class ContactDao extends KVManipulatorDaoBase {
 	public void remove(Long id) {
 		/*hc:beforeremove*/
 		/*hc*/
-		em.remove(em.find(Contact.class, id));
+		em.get().remove(em.get().find(Contact.class, id));
 		/*hc:afterremove*/
 		/*hc*/
 	}
 	
 	public List<Contact> find(AbstractSearchAction action) {
-		return find(action, null, true);
+		return find(action, null, true, true);
 	}
 	
-	public List<Contact> find(AbstractSearchAction action, ContactSelectorCustomizer customizer, boolean useDefaultQuery) {
+	public List<Contact> find(
+				AbstractSearchAction action
+				, ContactSelectorCustomizer customizer
+				, boolean useDefaultQuery
+				, boolean useDefaultOrder) {
 		ContactSelector<Contact> selector 
 			= new ContactSelector<Contact>(em, Contact.class);
 			
@@ -127,7 +129,8 @@ public class ContactDao extends KVManipulatorDaoBase {
 
 		selector.setDistinctIfNotForcedFalse();
 		
-		selector.orderBy(action);
+		if (useDefaultOrder)
+			selector.orderBy(action);
 		
 		List<Contact> res = selector.executeRangeSelect(action.getFirstResult()
 											    , action.getNumMaxResult());
@@ -157,10 +160,11 @@ public class ContactDao extends KVManipulatorDaoBase {
 	}
 	
 	public Contact findById(Long id){
-		Contact o = em.find(Contact.class, id);
+		Contact o = em.get().find(Contact.class, id);
 		return o;
 	}
 	
+	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulationAction action) throws Exception {
 		ObjectManipulationResult result = new ObjectManipulationResult();
 		switch (action.getManipulationType()){
@@ -214,16 +218,20 @@ public class ContactDao extends KVManipulatorDaoBase {
 	}
 	
 	public ObjectListResult search(AbstractSearchAction action){
-		return search(action, true, null);
+		return search(action, true, true, null);
 	}
 	
-	public ObjectListResult search(AbstractSearchAction action, boolean useDefaultQuery, ContactSelectorCustomizer customizer){
+	public ObjectListResult search(
+					AbstractSearchAction action
+					, boolean useDefaultQuery
+					, boolean useDefaultOrder
+					, ContactSelectorCustomizer customizer){
 		ObjectListResult res = new ObjectListResult();
 		if (action.isQueryResultCount()){
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
 		if(action.getNumMaxResult() > 0)
-			res.setList(mapper.entityListToKvoList(find(action, customizer, useDefaultQuery)));		
+			res.setList(mapper.entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder)));		
 		return res;
 	}
 

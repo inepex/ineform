@@ -10,23 +10,25 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.google.inject.Provider;
+
 
 public abstract class CriteriaSelector<ResultType, RootType> {
-	public final EntityManager em;
+	public final Provider<EntityManager> em;
 	public final CriteriaBuilder cb;
 	public final CriteriaQuery<ResultType> cq;
 	public final Root<RootType> root;
 	public Boolean distinct = null;
 	
-	public CriteriaSelector(EntityManager em, Class<ResultType> resultClass, Class<RootType> rootClass) {
+	public CriteriaSelector(Provider<EntityManager> em, Class<ResultType> resultClass, Class<RootType> rootClass) {
 		this.em = em;
-		cb = em.getCriteriaBuilder();
+		cb = em.get().getCriteriaBuilder();
 		cq = cb.createQuery(resultClass);
 		root = cq.from(rootClass);
 	}
 	
 	public TypedQuery<ResultType> getTypedQuery(){
-		return em.createQuery(cq);		
+		return em.get().createQuery(cq);		
 	}
 	
 	public List<ResultType> executeSelect() {

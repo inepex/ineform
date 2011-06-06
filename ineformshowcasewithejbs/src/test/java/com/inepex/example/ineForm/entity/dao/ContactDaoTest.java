@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.Provider;
 import com.inepex.example.ineForm.EntityManagerInitializier;
 import com.inepex.example.ineForm.entity.ContactTestData;
 import com.inepex.example.ineForm.entity.assist.ContactAssist;
@@ -53,7 +54,13 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 
 		data.detach();
 		
-		dao = new ContactDao(em);
+		dao = new ContactDao(new Provider<EntityManager>() {
+			
+			@Override
+			public EntityManager get() {
+				return em;
+			}
+		});
 	}
 	
 	@Before

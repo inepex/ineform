@@ -11,8 +11,6 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
-import com.inepex.ineFrame.shared.exceptions.PublicException;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 import com.inepex.ineom.shared.validation.ValidationException;
@@ -22,7 +20,6 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * Abstract class for Object Manipulation type of actions.
  * Makes it easier to prepare the result that a {@link IneForm} can consume.
  * Sets {@link ValidationResult} when {@link ValidationException} is thrown.
- * Sends default error message when {@link NamingException} is encountered 
  * 
  * @author istvanszoboszlai
  *
@@ -45,10 +42,8 @@ public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectM
 			result = doExecute(arg0, arg1);
 		} catch (ValidationException e) {
 			result = new ObjectManipulationResult(e.getValidationResult());
-		} catch (NamingException e) {
-			e.printStackTrace();
-			throw new PublicException(IneFormI18n_old.generalError());
 		}
+		
 		return result;
 	}
 	
@@ -66,7 +61,7 @@ public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectM
 	 * @throws NamingException
 	 */
 	protected abstract ObjectManipulationResult doExecute(A action, ExecutionContext context)
-							throws ValidationException, AuthenticationException, NamingException, ActionException;
+							throws ValidationException, AuthenticationException, ActionException;
 
 
 	@Override

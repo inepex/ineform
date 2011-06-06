@@ -5,27 +5,25 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import com.inepex.ineForm.server.EjbUtil;
-import com.inepex.ineForm.server.KVManipulatorDaoBase;
+import com.google.inject.Inject;
+import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListResult;
 
 public class RelationListHandler implements ActionHandler<RelationListAction, RelationListResult> {
 
+	private final DaoFinder daoFinder;
+	
+	@Inject
+	RelationListHandler(DaoFinder daoFinder) {
+		this.daoFinder=daoFinder;
+	}
+	
 	@Override
 	public RelationListResult execute(RelationListAction action, ExecutionContext context) throws DispatchException {
 		String descriptorName = action.getDescriptorName();
 		try {
-			RelationListResult result;
-			KVManipulatorDaoBase manipulatorDao = EjbUtil.get().getDefaultDaoForDescriptor(descriptorName);
-			if (manipulatorDao == null)
-				throw new ActionException("DAO not found for descriptor" + descriptorName);
-			
-			result = manipulatorDao.searchAsRelation(action);
-			return result;
-
-		} catch (ActionException e) {
-			throw e;
+			return daoFinder.getDefaultDaoForDescriptor(descriptorName).searchAsRelation(action);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ActionException("Problem while performing search action: " + e.getMessage());

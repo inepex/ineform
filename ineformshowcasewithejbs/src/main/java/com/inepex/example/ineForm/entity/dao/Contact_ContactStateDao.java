@@ -2,12 +2,14 @@ package com.inepex.example.ineForm.entity.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
 import com.inepex.example.ineForm.entity.Contact_ContactState;
 import com.inepex.example.ineForm.entity.dao.query.Contact_ContactStateQuery;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactStateKVO;
@@ -22,11 +24,11 @@ import com.inepex.ineFrame.server.CriteriaSelector;
 import com.inepex.ineFrame.server.SelectorCustomizer;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
-@Stateless
+@Singleton
 public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 
 	public static class Contact_ContactStateSelector<T> extends CriteriaSelector<T, Contact_ContactState> {
-		public Contact_ContactStateSelector(EntityManager em, Class<T> resultClass) {
+		public Contact_ContactStateSelector(Provider<EntityManager> em, Class<T> resultClass) {
 			super(em, resultClass, Contact_ContactState.class);
 		}
 		
@@ -58,22 +60,18 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 
 	protected Contact_ContactStateSelector<Long> cSel = null;
 
+	@Inject
+	Provider<EntityManager> em;
+	
 
-	@PersistenceContext
-	protected EntityManager em;
+	@Inject
+	Contact_ContactStateDao(){}
+
+	public Contact_ContactStateDao(Provider<EntityManager> em){
+		this.em=em;
+	}
 	
 	/*hc:customFields*/
-	/*hc*/
-	
-	
-	public Contact_ContactStateDao(){
-	}	
-	
-	public Contact_ContactStateDao(EntityManager em){
-		this.em = em;
-	}	
-	
-	/*hc:customConstructors*/
 	/*hc*/
 	
 	protected void createDefaultSelector() {
@@ -87,7 +85,7 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 	public void persist(Contact_ContactState entity){
 		/*hc:beforepersist*/
 		/*hc*/
-		em.persist(entity);
+		em.get().persist(entity);
 		/*hc:afterpersist*/
 		/*hc*/
 	}
@@ -98,7 +96,7 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 	public void merge(Contact_ContactState entity) {
 		/*hc:beforemerge*/
 		/*hc*/
-		em.merge(entity);
+		em.get().merge(entity);
 		/*hc:aftermerge*/
 		/*hc*/	
 	}
@@ -106,16 +104,20 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 	public void remove(Long id) {
 		/*hc:beforeremove*/
 		/*hc*/
-		em.remove(em.find(Contact_ContactState.class, id));
+		em.get().remove(em.get().find(Contact_ContactState.class, id));
 		/*hc:afterremove*/
 		/*hc*/
 	}
 	
 	public List<Contact_ContactState> find(AbstractSearchAction action) {
-		return find(action, null, true);
+		return find(action, null, true, true);
 	}
 	
-	public List<Contact_ContactState> find(AbstractSearchAction action, Contact_ContactStateSelectorCustomizer customizer, boolean useDefaultQuery) {
+	public List<Contact_ContactState> find(
+				AbstractSearchAction action
+				, Contact_ContactStateSelectorCustomizer customizer
+				, boolean useDefaultQuery
+				, boolean useDefaultOrder) {
 		Contact_ContactStateSelector<Contact_ContactState> selector 
 			= new Contact_ContactStateSelector<Contact_ContactState>(em, Contact_ContactState.class);
 			
@@ -127,7 +129,8 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 
 		selector.setDistinctIfNotForcedFalse();
 		
-		selector.orderBy(action);
+		if (useDefaultOrder)
+			selector.orderBy(action);
 		
 		List<Contact_ContactState> res = selector.executeRangeSelect(action.getFirstResult()
 											    , action.getNumMaxResult());
@@ -157,10 +160,11 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 	}
 	
 	public Contact_ContactState findById(Long id){
-		Contact_ContactState o = em.find(Contact_ContactState.class, id);
+		Contact_ContactState o = em.get().find(Contact_ContactState.class, id);
 		return o;
 	}
 	
+	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulationAction action) throws Exception {
 		ObjectManipulationResult result = new ObjectManipulationResult();
 		switch (action.getManipulationType()){
@@ -214,16 +218,20 @@ public class Contact_ContactStateDao extends KVManipulatorDaoBase {
 	}
 	
 	public ObjectListResult search(AbstractSearchAction action){
-		return search(action, true, null);
+		return search(action, true, true, null);
 	}
 	
-	public ObjectListResult search(AbstractSearchAction action, boolean useDefaultQuery, Contact_ContactStateSelectorCustomizer customizer){
+	public ObjectListResult search(
+					AbstractSearchAction action
+					, boolean useDefaultQuery
+					, boolean useDefaultOrder
+					, Contact_ContactStateSelectorCustomizer customizer){
 		ObjectListResult res = new ObjectListResult();
 		if (action.isQueryResultCount()){
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
 		if(action.getNumMaxResult() > 0)
-			res.setList(mapper.entityListToKvoList(find(action, customizer, useDefaultQuery)));		
+			res.setList(mapper.entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder)));		
 		return res;
 	}
 

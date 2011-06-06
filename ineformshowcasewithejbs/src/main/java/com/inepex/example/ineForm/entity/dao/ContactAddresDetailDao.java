@@ -2,11 +2,14 @@ package com.inepex.example.ineForm.entity.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
 import com.inepex.example.ineForm.entity.ContactAddresDetail;
 import com.inepex.example.ineForm.entity.dao.query.ContactAddresDetailQuery;
 import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailKVO;
@@ -18,23 +21,28 @@ import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineForm.shared.dispatch.RelationListResult;
 import com.inepex.ineFrame.server.CriteriaSelector;
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineFrame.server.SelectorCustomizer;
+import com.inepex.ineom.shared.kvo.KeyValueObject;
 
-@Stateless
+@Singleton
 public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 
 	public static class ContactAddresDetailSelector<T> extends CriteriaSelector<T, ContactAddresDetail> {
-		public ContactAddresDetailSelector(EntityManager em, Class<T> resultClass) {
+		public ContactAddresDetailSelector(Provider<EntityManager> em, Class<T> resultClass) {
 			super(em, resultClass, ContactAddresDetail.class);
 		}
 		
 		public void buildDefaultQuery(AbstractSearchAction action) {
-			cq.distinct(true);
 			if (action.getSearchParameters() != null) {
 				Expression<Boolean> expr = null;
 				expr = ContactAddresDetailQuery.buildWhere(action, cb, root, expr);
-				if (expr != null) 
+				if (expr != null) {
+					Predicate exisitngRestriction = cq.getRestriction();
+					if (exisitngRestriction != null)
+						expr = cb.and(expr, exisitngRestriction);
+									
 					cq.where(expr);
+				}
 			}
 		}
 		
@@ -43,31 +51,40 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 		}
 	}
 
+	public static interface ContactAddresDetailSelectorCustomizer extends SelectorCustomizer<ContactAddresDetailSelector<?>> {
+	}
+	
 	public ContactAddresDetailMapper mapper = new ContactAddresDetailMapper();
 	
 	protected ContactAddresDetailSelector<ContactAddresDetail> sel = null;
 
-	@PersistenceContext
-	protected EntityManager em;
+	protected ContactAddresDetailSelector<Long> cSel = null;
+
+	@Inject
+	Provider<EntityManager> em;
 	
-	public ContactAddresDetailDao(){
-	}	
+
+	@Inject
+	ContactAddresDetailDao(){}
+
+	public ContactAddresDetailDao(Provider<EntityManager> em){
+		this.em=em;
+	}
 	
-	public ContactAddresDetailDao(EntityManager em){
-		this.em = em;
-	}	
-	
-	/*hc:customConstructors*/
+	/*hc:customFields*/
 	/*hc*/
 	
 	protected void createDefaultSelector() {
 		sel = new ContactAddresDetailSelector<ContactAddresDetail>(em, ContactAddresDetail.class);
 	}
 	
+	protected void createDefaultCountSelector() {
+		cSel = new ContactAddresDetailSelector<Long>(em, Long.class);
+	}
+	
 	public void persist(ContactAddresDetail entity){
 		/*hc:beforepersist*//*hc*/
-
-		em.persist(entity);
+		em.get().persist(entity);
 		/*hc:afterpersist*//*hc*/
 	}
 	
@@ -77,21 +94,41 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 	public void merge(ContactAddresDetail entity) {
 		/*hc:beforemerge*/
 		/*hc*/
-		em.merge(entity);
+		em.get().merge(entity);
 		/*hc:aftermerge*/
 		/*hc*/	
 	}
 		
 	public void remove(Long id) {
-		em.remove(em.find(ContactAddresDetail.class, id));
+		/*hc:beforeremove*/
+		/*hc*/
+		em.get().remove(em.get().find(ContactAddresDetail.class, id));
+		/*hc:afterremove*/
+		/*hc*/
 	}
 	
 	public List<ContactAddresDetail> find(AbstractSearchAction action) {
+		return find(action, null, true, true);
+	}
+	
+	public List<ContactAddresDetail> find(
+				AbstractSearchAction action
+				, ContactAddresDetailSelectorCustomizer customizer
+				, boolean useDefaultQuery
+				, boolean useDefaultOrder) {
 		ContactAddresDetailSelector<ContactAddresDetail> selector 
 			= new ContactAddresDetailSelector<ContactAddresDetail>(em, ContactAddresDetail.class);
 			
-		selector.buildDefaultQuery(action);
-		selector.orderBy(action);
+		if (customizer != null)
+			customizer.customizeSelect(selector);
+			
+		if(useDefaultQuery)
+			selector.buildDefaultQuery(action);
+
+		selector.setDistinctIfNotForcedFalse();
+		
+		if (useDefaultOrder)
+			selector.orderBy(action);
 		
 		List<ContactAddresDetail> res = selector.executeRangeSelect(action.getFirstResult()
 											    , action.getNumMaxResult());
@@ -99,9 +136,21 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 	}
 	
 	public Long count(AbstractSearchAction action){
+		return count(action, null, true);
+	}
+	
+	public Long count(AbstractSearchAction action, ContactAddresDetailSelectorCustomizer customizer, boolean useDefaultQuery){
 		ContactAddresDetailSelector<Long> selector 
 			= new ContactAddresDetailSelector<Long>(em, Long.class);
-		selector.buildDefaultQuery(action);
+		
+		if (customizer != null)
+			customizer.customizeSelect(selector);
+			
+		if(useDefaultQuery)
+			selector.buildDefaultQuery(action);
+		else 
+			selector.cq.distinct(true);
+			
 		selector.cq.select(selector.getCountExpression());
 		
 		Long res = selector.getTypedQuery().getSingleResult();
@@ -109,16 +158,18 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 	}
 	
 	public ContactAddresDetail findById(Long id){
-		ContactAddresDetail o = em.find(ContactAddresDetail.class, id);
+		ContactAddresDetail o = em.get().find(ContactAddresDetail.class, id);
 		return o;
 	}
 	
+	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulationAction action) throws Exception {
 		ObjectManipulationResult result = new ObjectManipulationResult();
 		switch (action.getManipulationType()){
 		case CREATE_OR_EDIT_REQUEST:
-			ContactAddresDetailKVO newState = doCreateOrEdit(action.getObject());
-			result.setObjectsNewState(newState);
+			ContactAddresDetail newState = doCreateOrEdit((KeyValueObject)action.getObject());
+			ContactAddresDetailKVO kvo = mapper.entityToKvo(newState);
+			result.setObjectsNewState(kvo);
 			break;
 		case DELETE:
 			remove(action.getObject().getId());
@@ -133,7 +184,7 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 		return result;
 	}
 	
-	protected ContactAddresDetailKVO doCreateOrEdit(AssistedObject kvo) {
+	protected ContactAddresDetail doCreateOrEdit(KeyValueObject kvo) {
 		ContactAddresDetail entity = null;
 		
 		if(kvo.isNew())
@@ -141,12 +192,13 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 		else
 			entity = findById(kvo.getId());
 
-		mapper.kvoToEntity(new ContactAddresDetailKVO(kvo), entity);
+		mapper.kvoToEntity(new ContactAddresDetailKVO((KeyValueObject)kvo), entity);
 		if(kvo.isNew())
 			persist(entity);
 		else
 			merge(entity);
-		return mapper.entityToKvo(entity);
+			
+		return entity;
 	}
 	
 	
@@ -155,13 +207,29 @@ public class ContactAddresDetailDao extends KVManipulatorDaoBase {
 		return mapper.entityToKvo(entity);
 	}
 	
+	public ContactAddresDetailKVO mergeWithDbState(KeyValueObject difference){
+		if (difference.isNew())
+			return new ContactAddresDetailKVO(difference);
+		ContactAddresDetailKVO dbState = findKvoById(difference.getId());
+		difference.copyValuesTo(dbState);
+		return dbState;
+	}
+	
 	public ObjectListResult search(AbstractSearchAction action){
+		return search(action, true, true, null);
+	}
+	
+	public ObjectListResult search(
+					AbstractSearchAction action
+					, boolean useDefaultQuery
+					, boolean useDefaultOrder
+					, ContactAddresDetailSelectorCustomizer customizer){
 		ObjectListResult res = new ObjectListResult();
 		if (action.isQueryResultCount()){
-			res.setAllResultCount(count(action));
+			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
 		if(action.getNumMaxResult() > 0)
-			res.setList(mapper.entityListToKvoList(find(action)));		
+			res.setList(mapper.entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder)));		
 		return res;
 	}
 

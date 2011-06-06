@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.Stateless;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Expression;
@@ -31,11 +34,11 @@ import ${package}.daoext.*;
 
 import com.inepex.ineForm.shared.kvo.*;
 
-@Stateless
+@Singleton
 public class ${classname}Dao extends KVManipulatorDaoBase {
 
 	public static class ${classname}Selector<T> extends CriteriaSelector<T, ${classname}> {
-		public ${classname}Selector(EntityManager em, Class<T> resultClass) {
+		public ${classname}Selector(Provider<EntityManager> em, Class<T> resultClass) {
 			super(em, resultClass, ${classname}.class);
 		}
 		
@@ -67,26 +70,22 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 
 	protected ${classname}Selector<Long> cSel = null;
 
-
-	@PersistenceContext
-	protected EntityManager em;
-	
-	/*hc:customFields*/
-	/*hc*/
+	@Inject
+	Provider<EntityManager> em;
 	
 #if(${class.hasAnnotation("Kvo_Audited")})
-	@EJB
+	@Inject
 	UserDaoExt userDaoExt; 
 #end
+
+	@Inject
+	${classname}Dao(){}
+
+	public ${classname}Dao(Provider<EntityManager> em){
+		this.em=em;
+	}
 	
-	public ${classname}Dao(){
-	}	
-	
-	public ${classname}Dao(EntityManager em){
-		this.em = em;
-	}	
-	
-	/*hc:customConstructors*/
+	/*hc:customFields*/
 	/*hc*/
 	
 	protected void createDefaultSelector() {
@@ -106,7 +105,7 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 		entity.setCreatingUser(new User(userDaoExt.getLoggedInUser().getId()));
 		entity.setModifyingUser(new User(userDaoExt.getLoggedInUser().getId()));
 #end
-		em.persist(entity);
+		em.get().persist(entity);
 		/*hc:afterpersist*/
 		/*hc*/
 	}
@@ -121,7 +120,7 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 		entity.setModifiedUtc(System.currentTimeMillis());
 		entity.setModifyingUser(new User(userDaoExt.getLoggedInUser().getId()));
 #end
-		em.merge(entity);
+		em.get().merge(entity);
 		/*hc:aftermerge*/
 		/*hc*/	
 	}
@@ -129,7 +128,7 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 	public void remove(Long id) {
 		/*hc:beforeremove*/
 		/*hc*/
-		em.remove(em.find(${classname}.class, id));
+		em.get().remove(em.get().find(${classname}.class, id));
 		/*hc:afterremove*/
 		/*hc*/
 	}
@@ -185,10 +184,11 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 	}
 	
 	public ${classname} findById(Long id){
-		${classname} o = em.find(${classname}.class, id);
+		${classname} o = em.get().find(${classname}.class, id);
 		return o;
 	}
 	
+	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulationAction action) throws Exception {
 		ObjectManipulationResult result = new ObjectManipulationResult();
 		switch (action.getManipulationType()){

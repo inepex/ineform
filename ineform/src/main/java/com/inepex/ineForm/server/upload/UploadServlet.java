@@ -10,7 +10,6 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,14 +20,12 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
+import com.google.inject.Singleton;
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineFrame.server.util.OnDemandProperties;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
-@WebServlet(
-		name = "UploadServlet", 
-	    urlPatterns = {"/" + IFConsts.uploadServletUrl}
-)
+@Singleton
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String PROPNAME = "conf/imageservice.properties";

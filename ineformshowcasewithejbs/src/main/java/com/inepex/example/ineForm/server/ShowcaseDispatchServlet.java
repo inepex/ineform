@@ -18,7 +18,7 @@ import com.inepex.example.ineForm.entity.assist.ContactTypeAssist;
 import com.inepex.example.ineForm.entity.assist.Contact_ContactRoleAssist;
 import com.inepex.example.ineForm.entity.assist.Contact_ContactStateAssist;
 import com.inepex.example.ineForm.entity.assist.NationalityAssist;
-import com.inepex.ineForm.server.EjbUtil;
+import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineFrame.server.AbstractGuiceDispatch;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
@@ -30,16 +30,18 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 public class ShowcaseDispatchServlet extends AbstractGuiceDispatch {
 
 	private static final long serialVersionUID = 1L;
+	private final DaoFinder daoFinder;
 
 	@Inject
 	public ShowcaseDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider, I18nStore_Server serverI18n,
-			MultiLangDescStore multiLangDescStore) {
+			MultiLangDescStore multiLangDescStore, DaoFinder daoFinder) {
 		super(dispatch, currentLangProvider, serverI18n, multiLangDescStore);
+		this.daoFinder=daoFinder;
 	}
 
 	@Override
 	public void init() throws ServletException {
-		EjbUtil.get().Init("java:global/IneFormShowCaseWithEjbs/");
+		daoFinder.addPackageByName("com.inepex.example.ineForm.entity.dao");
 		super.init();
 	}
 

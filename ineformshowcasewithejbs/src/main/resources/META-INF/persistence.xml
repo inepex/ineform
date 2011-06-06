@@ -5,14 +5,17 @@
 	<persistence-unit name="IneFormShowCaseWithEjbs">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-		<jta-data-source>jdbc/TestDB</jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.user" value="IneFormTest" />
+			<property name="javax.persistence.jdbc.password" value="IneFormTest" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/IneFormTest" />
+		
 			<property name="eclipselink.target-database" value="PostgreSQL"/>
 			<property name="eclipselink.exclude-eclipselink-orm" value="false"/>
 			<property name="eclipselink.logging.level" value="FINE" />
-
 		</properties>
 	</persistence-unit>
 </persistence>

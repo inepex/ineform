@@ -5,19 +5,22 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.inepex.ineForm.server.EjbUtil;
-import com.inepex.ineForm.server.KVManipulatorDaoBase;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 
+@Singleton
 public class ObjectManipulationHandler implements ActionHandler<ObjectManipulationAction, ObjectManipulationResult> {
-
-	final Logger logger = LoggerFactory.getLogger(ObjectManipulationHandler.class);
 	
+	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
+	
+	@Inject
+	ObjectManipulationHandler(DaoFinder daoFinder) {
+		this.daoFinder=daoFinder;
+	}
 	
 	public void setCustomActionHandler(CustomActionHandler customActionHandler) {
 		this.customActionHandler = customActionHandler;
@@ -28,7 +31,7 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 			throws DispatchException {
 		String descriptorName = action.getObject().getDescriptorName();
 
-		logger.debug("Manipulating object type '{}', id '{}'", descriptorName, action.getObject().getId());
+		System.out.printf("Manipulating object type '{}', id '{}'", descriptorName, action.getObject().getId());
 		
 		try {
 			ObjectManipulationResult result;
@@ -39,14 +42,8 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 			}
 			
 			// Do default behavior
-			KVManipulatorDaoBase manipulatorDao = EjbUtil.get().getDefaultDaoForDescriptor(descriptorName);
-			if (manipulatorDao == null)
-				throw new ActionException("DAO not found for descriptor " + descriptorName);
+			return daoFinder.getDefaultDaoForDescriptor(descriptorName).manipulate(action);
 
-			result = manipulatorDao.manipulate(action);
-			return result;
-		} catch (ActionException e) {
-			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ActionException("Problem while performing manipulate action: " + e.getMessage());

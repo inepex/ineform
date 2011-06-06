@@ -6,16 +6,24 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import com.inepex.ineForm.server.EjbUtil;
-import com.inepex.ineForm.server.KVManipulatorDaoBase;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectListResult;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
+@Singleton
 public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListResult> {
 
+	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
+	
+	@Inject
+	ObjectListHandler(DaoFinder daoFinder) {
+		this.daoFinder=daoFinder;
+	}
 	
 	public void setCustomActionHandler(CustomActionHandler customActionHandler) {
 		this.customActionHandler = customActionHandler;
@@ -33,15 +41,8 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 					return result;
 			}
 			
-			KVManipulatorDaoBase manipulatorDao = EjbUtil.get().getDefaultDaoForDescriptor(descriptorName);
-			if (manipulatorDao == null)
-				throw new ActionException("DAO not found for descriptor" + descriptorName);
-			
-			result = manipulatorDao.search(action);
-			return result;
+			return daoFinder.getDefaultDaoForDescriptor(descriptorName).search(action);
 
-		} catch (ActionException e) {
-			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ActionException("Problem while performing search action: " + e.getMessage());
