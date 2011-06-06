@@ -7,6 +7,7 @@
 	<source path="entity/assist" />
 	<source path="entity/kvo" />
 	<source path="enums" />
+	
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.user.UserAgent" />
 	<inherits name="com.inepex.ineForm.ineForm" />

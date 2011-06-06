@@ -40,6 +40,10 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 	
 	@Before
 	public void getEntityManager() {
+		descStore = getDefaultInjector().getInstance(DescriptorStore.class);
+		new ContactAssist(descStore).registerDescriptors();
+		new ContactCTypeRelAssist(descStore).registerDescriptors();
+		
 		em = EntityManagerInitializier.initInDropCreateMode();
 		et = em.getTransaction();
 		et.begin();
@@ -63,15 +67,14 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 		});
 	}
 	
-	@Before
-	public void registerDescriptors(){
-		descStore = getDefaultInjector().getInstance(DescriptorStore.class);
-		new ContactAssist(descStore).registerDescriptors();
-		new ContactCTypeRelAssist(descStore).registerDescriptors();
+	@Test
+	public void testSequence() {
+		createNewRelationTest();
+		modifyTest();
+		removeTest();
 	}
 	
-	@Test
-	public void modifyTest(){
+	void modifyTest(){
 		
 		RelationList relationList = new RelationList(
 				descStore
@@ -98,15 +101,13 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 		
 	}
 	
-	@Test
-	public void removeTest(){
+	void removeTest(){
 		et.begin();
 		dao.remove(data.contact.getId());
 		et.commit();
 	}
 	
-	@Test
-	public void createNewRelationTest(){
+	void createNewRelationTest(){
 		
 		ContactKVO kvo = new ContactKVO();
 		kvo.setId(data.contact.getId());

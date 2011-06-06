@@ -128,10 +128,11 @@
 				<configuration>
 					<logLevel>INFO</logLevel>
 					<style>PRETTY</style>
-					<runTarget>/apf.html</runTarget>
+					<runTarget>/IneFormShowcaseWithEjbs.html</runTarget>
 					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
 					<modules>
-						<module>${project.groupId}.example.ineForm.IneFormShowCaseWithEjbs</module>
+<!-- 					keep the letter C in lowercase!!!!!!!! -->
+						<module>${project.groupId}.example.ineForm.IneFormShowcaseWithEjbs</module>
 					</modules>
 					<copyWebapp>true</copyWebapp>
 				</configuration>
