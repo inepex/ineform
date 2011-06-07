@@ -110,6 +110,7 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 		/*hc*/
 	}
 	
+	
 	/** Should be called after modifying!
 	 * @param entity
 	 */	
