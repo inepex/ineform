@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.persist.Transactional;
 import com.google.inject.Singleton;
 import com.google.inject.persist.Transactional;
 import javax.persistence.EntityManager;
@@ -96,7 +97,12 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 		cSel = new ${classname}Selector<Long>(em, Long.class);
 	}
 	
-	public void persist(${classname} entity){
+	@Transactional
+	public void persistTrans(${classname} entity){
+		persist(entity);
+	}
+	
+	protected void persist(${classname} entity){
 		/*hc:beforepersist*/
 		/*hc*/
 #if(${class.hasAnnotation("Kvo_Audited")})
@@ -110,11 +116,15 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 		/*hc*/
 	}
 	
+	@Transactional
+	public void mergeTrans(${classname} entity){
+		merge(entity);
+	}
 	
 	/** Should be called after modifying!
 	 * @param entity
 	 */	
-	public void merge(${classname} entity) {
+	protected void merge(${classname} entity) {
 		/*hc:beforemerge*/
 		/*hc*/
 #if(${class.hasAnnotation("Kvo_Audited")})
@@ -126,7 +136,12 @@ public class ${classname}Dao extends KVManipulatorDaoBase {
 		/*hc*/	
 	}
 		
-	public void remove(Long id) {
+	@Transactional
+	public void removeTrans(Long id) {
+		remove(id);
+	}
+	
+	protected void remove(Long id) {
 		/*hc:beforeremove*/
 		/*hc*/
 		em.get().remove(em.get().find(${classname}.class, id));
