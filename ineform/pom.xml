@@ -51,10 +51,9 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.4</version>
+			<version>1.0.6</version>
 			<type>test-jar</type>
 			<scope>test</scope>
-			
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
@@ -144,17 +143,6 @@
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
-			<plugin>
-				<!-- NOTE: We don't need a groupId specification because the group is 
-					org.apache.maven.plugins ...which is assumed by default. -->
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-5</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>	
 			</plugin>
 			<plugin>
 			   <groupId>org.apache.maven.plugins</groupId>
