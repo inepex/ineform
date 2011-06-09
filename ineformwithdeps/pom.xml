@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.inepex</groupId>
+	<artifactId>ineformwithdeps</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.5</version>
+	<name>ineform</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<repositories>
+		<repository>
+			<id>eclipselink</id>
+			<name>eclipselink</name>
+			<url>http://eclipse.ialto.org/rt/eclipselink/maven.repo</url>
+		</repository>
+		<repository>
+			<id>maven.springframework.org.external</id>
+ 			<url>http://maven.springframework.org/external</url> 
+ 			<name>SpringSource Maven Repository - External Releases</name>
+ 		</repository> 
+ 		<repository>
+			<id>inerepo</id>
+ 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url> 
+ 			<name>inerepo</name>
+ 		</repository> 	
+		<repository>
+          <id>glassfish</id>
+          <name>glassfish</name>
+          <url>http://download.java.net/maven/glassfish/</url>
+        </repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>com.inepex</groupId>
+			<artifactId>ineform</artifactId>
+			<version>1.0.5</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/java</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- NOTE: We don't need a groupId specification because the group is 
+					org.apache.maven.plugins ...which is assumed by default. -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-5</version>
+				<configuration>
+					 <descriptors>
+            <descriptor>assembly.xml</descriptor>
+          </descriptors>
+
+				</configuration>	
+			</plugin>
+			<plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-jar-plugin</artifactId>
+			   <version>2.2</version>
+			   <executions>
+				 <execution>
+				   <goals>
+					 <goal>test-jar</goal>
+				   </goals>
+				 </execution>
+			   </executions>
+			 </plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+    <repository>
+      <id>inepex</id>
+      <name>Inepex Repository</name>
+      <url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+    </repository>
+  </distributionManagement>
+</project>

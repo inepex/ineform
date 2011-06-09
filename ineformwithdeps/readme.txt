@@ -1,0 +1,1 @@
+this project is used to build one jar with all dependencies for ineform
