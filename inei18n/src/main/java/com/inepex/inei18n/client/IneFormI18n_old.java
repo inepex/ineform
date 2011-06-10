@@ -7,7 +7,7 @@ public class IneFormI18n_old extends I18nModule {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String MODULE_NAME = "IneFormI18n";
+	public static final String MODULE_NAME = "IneFormI18n_old";
 	
 	static I18nModuleProvider<IneFormI18n_old> moduleProvider;
 	
@@ -98,6 +98,7 @@ public class IneFormI18n_old extends I18nModule {
 	public String month_october = "October";
 	public String month_september = "September";
 	public String reallyWantToDelete = "Do you really want to delete the selected element?";
+	public String restRequestError = "Request error";
 	public String saveError = "Error occurred during save: <br /> {error}";
 	public String saveSuccessful = "Save successful.";
 	public String saveUnknownError = "Unknown error occurred during save!";
@@ -784,6 +785,15 @@ public class IneFormI18n_old extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Request error
+	* <u><i>Magyarul:</i></u> Hiba a kérés során
+	*/
+	public static String restRequestError() {
+		return moduleProvider.get().restRequestError;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Error occurred during save: <br /> {error}
 	* <u><i>Magyarul:</i></u> A mentés során az alábbi hiba történt: <br /> {error}
 	*/
@@ -922,8 +932,8 @@ public class IneFormI18n_old extends I18nModule {
 	* <u><i>In English:</i></u> The number entered into field {fieldName} must be equal to {constvalAsString}!
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt szám értéke {constvalAsString} kell, hogy legyen!
 	*/
-	public static String validatorEQ(String fieldName, String constvalAsString) {
-		return moduleProvider.get().validatorEQ.replace("{fieldName}", fieldName).replace("{constvalAsString}", constvalAsString);
+	public static String validatorEQ(String constvalAsString, String fieldName) {
+		return moduleProvider.get().validatorEQ.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -931,8 +941,8 @@ public class IneFormI18n_old extends I18nModule {
 	* <u><i>In English:</i></u> The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak nagyobb-egyenlőnek kell lennie, mint {constvalAsString}!
 	*/
-	public static String validatorGE(String fieldName, String constvalAsString) {
-		return moduleProvider.get().validatorGE.replace("{fieldName}", fieldName).replace("{constvalAsString}", constvalAsString);
+	public static String validatorGE(String constvalAsString, String fieldName) {
+		return moduleProvider.get().validatorGE.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -940,8 +950,8 @@ public class IneFormI18n_old extends I18nModule {
 	* <u><i>In English:</i></u> The number entered into field {fieldName} must be greater then {constvalAsString}!
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak nagyobbnak kell lennie, mint {constvalAsString}!
 	*/
-	public static String validatorGT(String fieldName, String constvalAsString) {
-		return moduleProvider.get().validatorGT.replace("{fieldName}", fieldName).replace("{constvalAsString}", constvalAsString);
+	public static String validatorGT(String constvalAsString, String fieldName) {
+		return moduleProvider.get().validatorGT.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -949,8 +959,8 @@ public class IneFormI18n_old extends I18nModule {
 	* <u><i>In English:</i></u> The number entered into field {fieldName} must be less then or equal to {constvalAsString}!
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak kisebb-egyenlőnek kell lennie, mint {constvalAsString}!
 	*/
-	public static String validatorLE(String fieldName, String constvalAsString) {
-		return moduleProvider.get().validatorLE.replace("{fieldName}", fieldName).replace("{constvalAsString}", constvalAsString);
+	public static String validatorLE(String constvalAsString, String fieldName) {
+		return moduleProvider.get().validatorLE.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -958,8 +968,8 @@ public class IneFormI18n_old extends I18nModule {
 	* <u><i>In English:</i></u> he number entered into field {fieldName} must be less then {constvalAsString}!
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak kisebbnek kell lennie, mint {constvalAsString}!
 	*/
-	public static String validatorLT(String fieldName, String constvalAsString) {
-		return moduleProvider.get().validatorLT.replace("{fieldName}", fieldName).replace("{constvalAsString}", constvalAsString);
+	public static String validatorLT(String constvalAsString, String fieldName) {
+		return moduleProvider.get().validatorLT.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -994,8 +1004,8 @@ public class IneFormI18n_old extends I18nModule {
 	* <u><i>In English:</i></u> The {i}th ant the {j}th items are equal.
 	* <u><i>Magyarul:</i></u> A listában a {i}. és a {j}. elem megegyezik.
 	*/
-	public static String validatorUniqueRelList(String i, String j) {
-		return moduleProvider.get().validatorUniqueRelList.replace("{i}", i).replace("{j}", j);
+	public static String validatorUniqueRelList(String j, String i) {
+		return moduleProvider.get().validatorUniqueRelList.replace("{j}", j).replace("{i}", i);
 	}
 	
 	/**

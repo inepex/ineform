@@ -71,6 +71,7 @@
 "month_october";"";"October";"Október"
 "month_september";"";"September";"Szeptember"
 "reallyWantToDelete";"";"Do you really want to delete the selected element?";"Biztosn törölni kívánja a kiválaszott sort?"
+"restRequestError";"";"Request error";"Hiba a kérés során"
 "saveError";"";"Error occurred during save: <br /> {error}";"A mentés során az alábbi hiba történt: <br /> {error}"
 "saveSuccessful";"";"Save successful.";"Sikeresen elmentve"
 "saveUnknownError";"";"Unknown error occurred during save!";"A mentés során ismeretlen hiba történt."
