@@ -33,13 +33,11 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-			<version>3.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>extensions-parent</artifactId>
+			<version>3.0-rc2</version>
+			<type>pom</type>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<resources>

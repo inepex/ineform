@@ -32,18 +32,10 @@
 			<version>1.6.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-			<version>3.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-servlet</artifactId>
-			<version>3.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<artifactId>extensions-parent</artifactId>
+			<version>3.0-rc2</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>net.customware.gwt.dispatch</groupId>
@@ -62,6 +54,19 @@
 			<artifactId>gwt-user</artifactId>
 			<version>2.2.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0-rc2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-servlet</artifactId>
+			<version>3.0-rc2</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<build>
