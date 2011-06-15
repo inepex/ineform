@@ -10,9 +10,6 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 public abstract class FlowPanelBasedPage extends HandlerAwareComposite implements InePage {
 
 	protected FlowPanel mainPanel = new FlowPanel(); 
-
-	protected int paramsToParse = 0;
-	protected UrlParamsParsedCallback paramsParsedCallback = null;
 	
 	private boolean isFirstShow = true;
 	
@@ -20,17 +17,6 @@ public abstract class FlowPanelBasedPage extends HandlerAwareComposite implement
 	
 	public FlowPanelBasedPage() {
 		initWidget(mainPanel);
-	}
-	
-	/**
-	 * Calls onUrlParamsParsed if all parameters were parsed
-	 */
-	protected void paramParsed() {
-		paramsToParse--;
-		if (paramsToParse == 0) {
-			paramsParsedCallback.onUrlParamsParsed();
-			paramsParsedCallback = null;
-		}
 	}
 	
 	@Override
