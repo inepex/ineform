@@ -24,6 +24,7 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 /**
@@ -147,6 +148,9 @@ public class SaveCancelForm extends IneForm {
 		
 		// Send only the changes to the server 
 		AssistedObject difference = kvo.getDifference(originalData);
+		if (difference.getKeys().size() == 0 
+				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
+			return;
 		
 		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback());
 	}
@@ -174,6 +178,9 @@ public class SaveCancelForm extends IneForm {
 		public void onManipulationResult(ObjectManipulationResult result) {
 			dealValidationResult(result.getValidationResult());
 			if(result.getValidationResult() == null) {
+				if (result.getObjectsNewState() != null) {
+					setInitialData(result.getObjectsNewState());
+				}
 				fireSavedEvent(result);
 			} else {
 				fireAfterUnsuccesfulSaveEvent(result);

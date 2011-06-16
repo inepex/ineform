@@ -21,6 +21,8 @@ public class KeyValueObjectSerializer {
 	
 	ObjectDesc od;
 	
+	boolean includeId = true;
+	
 	public KeyValueObjectSerializer(AssistedObject kvo, String fieldSeparator, String equalsSign) {
 		this.kvo = kvo;
 		this.fieldSeparator = fieldSeparator;
@@ -43,12 +45,19 @@ public class KeyValueObjectSerializer {
 		return this;
 	}
 
+	public KeyValueObjectSerializer setIncludeId(boolean includeId) {
+		this.includeId = includeId;
+		return this;
+	}
+
 	public String serializeToString() {
 		StringBuilder sb = new StringBuilder();
 		if (includeDescriptorName)
 			sb.append(kvo.getDescriptorName()).append(fieldSeparator);
 		
 		for (String key : od.getFields().keySet()) {
+			if (!includeId && key.equals(IFConsts.KEY_ID)
+					|| od.getField(key).hasProp("notserialize")) continue;
 			String value = getValueAsString(key);
 			if (value == null)
 				continue;

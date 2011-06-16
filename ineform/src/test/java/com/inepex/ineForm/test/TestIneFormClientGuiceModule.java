@@ -32,6 +32,8 @@ import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.client.util.GwtRequestBuilderFactory;
+import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
@@ -61,6 +63,7 @@ public class TestIneFormClientGuiceModule extends AbstractModule {
 
 		bind(AsyncStatusIndicator.class).to(DummyStatusIndicator.class).in(Singleton.class);
 		bind(ValueRangeProvider.class).to(DefaultValueRangeProvider.class).in(Singleton.class);
+		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
 		
 		install(new FactoryModuleBuilder()
 					.implement(IneForm.class, Names.named("simple"), IneForm.class)

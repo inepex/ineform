@@ -1,5 +1,8 @@
 package com.inepex.ineFrame.client.kvo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.inepex.ineom.shared.descriptor.FDesc;
@@ -12,14 +15,26 @@ import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
 public class KvoJsonParser {
+	
+	public static interface ResultObjectExtractor {
+		
+		public JSONObject extract(JSONObject jso);
+		
+	}
 
 	JSONObject jso;
 	ObjectDesc od;
+	Map<String, ResultObjectExtractor> customResultExtractors = new HashMap<String, ResultObjectExtractor>();
 
 	public KvoJsonParser(JSONObject objectToParse, String descriptorName) {
 		super();
 		this.jso = objectToParse;
 		od = ExposedDescStore.get().getOD(descriptorName);
+	}
+	
+	public KvoJsonParser setCustomResultExtractors(Map<String, ResultObjectExtractor> customResultExtractors){
+		this.customResultExtractors = customResultExtractors;
+		return this;
 	}
 	
 	public KeyValueObject parse() throws RuntimeException {
@@ -63,14 +78,16 @@ public class KvoJsonParser {
 					break;
 				case RELATION:
 					if (childJso.isNull() != null) kvo.set(key, (Relation)null);
-					else if (childJso.isObject() == null){
+					else if (childJso.isObject() == null && childJso.isNumber() == null){
 						throw getParseException(key);
-					} else {
+					} else if (childJso.isObject() != null){
 						KeyValueObject relKvo = 
 							new KvoJsonParser(childJso.isObject(), ((RelationFDesc)fdesc).getRelatedDescriptorName())
 							.parse();
 						
 						kvo.set(key, new Relation(relKvo));
+					} else {
+						kvo.set(key, new Relation(new Double(childJso.isNumber().doubleValue()).longValue(), ""));
 					}
 					break;
 				case LIST:
@@ -80,9 +97,16 @@ public class KvoJsonParser {
 					} else {
 						IneList list = new IneList();
 						for (int i = 0; i < childJso.isArray().size(); i++){
+							String relatedDescName = ((ListFDesc)fdesc).getRelatedDescriptorType();
+							JSONObject relJso = null;
+							if (customResultExtractors.containsKey(relatedDescName)){
+								relJso = customResultExtractors.get(relatedDescName).extract(childJso.isArray().get(i).isObject());
+							} else {
+								relJso = childJso.isArray().get(i).isObject();
+							}
 							
 							KeyValueObject relKvo = 
-								new KvoJsonParser(childJso.isArray().get(i).isObject(), ((ListFDesc)fdesc).getRelatedDescriptorType())
+								new KvoJsonParser(relJso, relatedDescName)
 								.parse();
 							list.getRelationList().add(new Relation(relKvo));
 						}

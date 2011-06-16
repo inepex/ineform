@@ -238,4 +238,8 @@ public class ChooserFw extends DenyingFormWidget {
 		selectAll.setEnabled(enabled);
 		deselectAll.setEnabled(enabled);
 	}
+	
+	public Chooser getChooser(){
+		return chooser;
+	}
 }

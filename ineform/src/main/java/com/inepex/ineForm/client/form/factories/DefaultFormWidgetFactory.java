@@ -19,6 +19,7 @@ import com.inepex.ineForm.client.form.widgets.RelationFW;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.client.form.widgets.StringListBoxFw;
 import com.inepex.ineForm.client.form.widgets.StringListFw;
+import com.inepex.ineForm.client.form.widgets.SuggestBoxFw;
 import com.inepex.ineForm.client.form.widgets.TextAreaFW;
 import com.inepex.ineForm.client.form.widgets.TextBoxFW;
 import com.inepex.ineForm.client.form.widgets.ThreeWayBoolFw;
@@ -144,6 +145,8 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new RichTextAreaFW(fieldDesc, wrDesc);
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.STRINGLISTBOX)) {
 			createdWidget = new StringListBoxFw(fieldDesc, wrDesc);
+		} else  if(wrDesc.getFormWidgetType().equals(FWTypes.SUGGESTBOX)) {
+			createdWidget = new SuggestBoxFw(formCtx, fieldDesc);
 		}
 		
 		return createdWidget;

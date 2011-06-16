@@ -6,7 +6,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineformwithdeps</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<name>ineform</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineform</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.6</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
