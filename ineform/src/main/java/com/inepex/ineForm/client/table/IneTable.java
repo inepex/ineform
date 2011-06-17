@@ -142,6 +142,10 @@ public class IneTable extends HandlerAwareComposite {
 		}
 	
 	}
+	
+	public void setDateProvider(DateProvider dateProvider) {
+		this.dateProvider = dateProvider;
+	}
 
 	/**
 	 * Can not be injected yet. Do we need to make IneTable availale injected by a factory?
