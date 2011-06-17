@@ -127,6 +127,18 @@ public class ChooserTest extends DefaultIneFormClientSideTestBase {
 		
 	}
 	
+	@Test
+	public void selectNewItemTest() {
+		chooser.select(new Item(new Relation(IFConsts.NEW_ITEM_ID, "newitem")), true, true);
+		assertEquals(1, chooser.getChanged().size());
+		assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser.getChanged().get(0).getId().longValue());
+		assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser.getChanged().get(0).getKvo()
+								.getRelation(ContactNatRelKVO.k_nationality).getId().longValue());
+		
+		assertSelected(chooser, "1L", "newitem");
+		assertValueRange(chooser, "2L", "3L");
+	}
+	
 	
 	public static void assertSelected(RelationChooser chooser, String ... expected){
 		assertEquals(expected.length, chooser.getSelected().size());

@@ -23,10 +23,17 @@ import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.inei18n.client.DummyI18nProvider;
+import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.TestUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
+/**
+ * Not works because of json classes which tied to gwt
+ * @author Tibor
+ *
+ */
 public class RestDataConnectorComplexTest {
 
 	KeyValueObject testKvo;
@@ -40,6 +47,7 @@ public class RestDataConnectorComplexTest {
 
 	@Before
 	public void init() throws Exception {
+		IneFormI18n_old i18n = new IneFormI18n_old(new DummyI18nProvider());
 		MockitoAnnotations.initMocks(this);
 		descriptorStore = new ClientDescriptorStore();
 		testKvo = TestUtil.getTestKvo(descriptorStore);		
@@ -52,7 +60,8 @@ public class RestDataConnectorComplexTest {
 				"getUrl",
 				"newUrl",
 				"modifyUrl",
-				"deleteUrl");
+				"deleteUrl",
+				false);
 
 	}
 

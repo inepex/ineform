@@ -42,7 +42,7 @@ public class EnumChooser implements Chooser {
 	};
 	
 	boolean supportsOrdering;
-	ChooserFw chooserFw;	
+	ChooserView chooserView;	
 	FDesc fieldDescriptor;
 	WidgetRDesc widgetRDesc;
 	String relationDescriptorName;
@@ -61,11 +61,11 @@ public class EnumChooser implements Chooser {
 	final DescriptorStore descStore;
 	
 	public EnumChooser(DescriptorStore descStore
-			, ChooserFw chooserFw
+			, ChooserView chooserView
 			, FDesc fielddescriptor
 			, WidgetRDesc widgetRDesc
 			, String relationDescriptorName) {
-		this.chooserFw = chooserFw;
+		this.chooserView = chooserView;
 		this.fieldDescriptor = fielddescriptor;
 		this.widgetRDesc = widgetRDesc;
 		this.relationDescriptorName = relationDescriptorName;
@@ -132,7 +132,7 @@ public class EnumChooser implements Chooser {
 		}
 		updateOrders();
 		sortLists();
-		chooserFw.reRender();
+		chooserView.reRender();
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class EnumChooser implements Chooser {
 		if (reRender){
 			updateOrders();
 			sortLists();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 		
 	}
@@ -186,7 +186,7 @@ public class EnumChooser implements Chooser {
 		if (reRender){
 			updateOrders();
 			sortLists();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 
@@ -199,7 +199,7 @@ public class EnumChooser implements Chooser {
 		}
 		updateOrders();
 		sortLists();
-		chooserFw.reRender();
+		chooserView.reRender();
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class EnumChooser implements Chooser {
 		}
 		updateOrders();
 		sortLists();
-		chooserFw.reRender();
+		chooserView.reRender();
 	}
 
 	@Override
@@ -236,7 +236,7 @@ public class EnumChooser implements Chooser {
 			selectedOrdered.remove(item);
 			selectedOrdered.add(oldIndex-1, item);
 			updateOrders();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 
@@ -247,7 +247,7 @@ public class EnumChooser implements Chooser {
 			selectedOrdered.remove(item);
 			selectedOrdered.add(oldIndex+1, item);
 			updateOrders();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 	

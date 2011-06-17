@@ -21,7 +21,7 @@ import com.inepex.ineom.shared.kvo.Relation;
 public class RelationChooser implements Chooser {
 	private boolean supportsOrdering;
 	
-	private ChooserFw chooserFw;	
+	private ChooserView chooserView;	
 	private Map<String, Item> valueRange = new TreeMap<String, Item>();
 	private List<Item> valueRangeList = new ArrayList<Item>();
 	private LinkedList<Item> selected = new LinkedList<Item>();
@@ -59,10 +59,10 @@ public class RelationChooser implements Chooser {
 	
 	
 	public RelationChooser(FormContext formCtx
-			, ChooserFw chooserFw
+			, ChooserView chooserView
 			, FDesc fielddescriptor
 			, String relationDescriptorName) {
-		this.chooserFw = chooserFw;
+		this.chooserView = chooserView;
 		this.valueRangeProvider = formCtx.valueRangeProvider;
 		this.fieldDescriptor = fielddescriptor;
 		this.relationDescriptorName = relationDescriptorName;
@@ -72,12 +72,12 @@ public class RelationChooser implements Chooser {
 		
 		secondLevelJoin = fieldDescriptor.getPropValue("secondLevelJoin");
 		
-		chooserFw.setEnabled(false);
+		chooserView.setEnabled(false);
 		resetState();		
 	}
 	
 	public void resetState(){
-		chooserFw.setEnabled(false);
+		chooserView.setEnabled(false);
 		valueRange.clear();
 		valueRangeList.clear();
 		selected.clear();
@@ -136,11 +136,11 @@ public class RelationChooser implements Chooser {
 		}
 		
 		if (checkDataLoaded()){
-			chooserFw.setEnabled(true);
+			chooserView.setEnabled(true);
 			sortLists();
 		}
 		
-		chooserFw.reRender();
+		chooserView.reRender();
 	}
 	
 	public void select(Item item, boolean reRender, boolean isChange){
@@ -159,7 +159,7 @@ public class RelationChooser implements Chooser {
 		if (reRender){
 			updateOrders();
 			sortLists();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 	
@@ -183,7 +183,7 @@ public class RelationChooser implements Chooser {
 		if (reRender){
 			updateOrders();
 			sortLists();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 	
@@ -195,7 +195,7 @@ public class RelationChooser implements Chooser {
 		}
 		updateOrders();
 		sortLists();
-		chooserFw.reRender();
+		chooserView.reRender();
 	}
 	
 	public void deselectAll(){
@@ -206,7 +206,7 @@ public class RelationChooser implements Chooser {
 		}
 		updateOrders();
 		sortLists();
-		chooserFw.reRender();
+		chooserView.reRender();
 	}
 	
 	private void sortLists(){
@@ -235,7 +235,7 @@ public class RelationChooser implements Chooser {
 			selected.remove(rel);
 			selected.add(oldIndex-1, rel);
 			updateOrders();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 	
@@ -245,7 +245,7 @@ public class RelationChooser implements Chooser {
 			selected.remove(rel);
 			selected.add(oldIndex+1, rel);
 			updateOrders();
-			chooserFw.reRender();
+			chooserView.reRender();
 		}
 	}
 	

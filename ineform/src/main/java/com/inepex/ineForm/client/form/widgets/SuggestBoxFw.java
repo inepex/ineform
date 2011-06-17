@@ -79,6 +79,10 @@ public class SuggestBoxFw extends DenyingFormWidget {
 	public void setRelationValue(Relation value) {
 		if (value != null)
 			this.value = value;
+		
+		if (value != null && idToRelation.containsKey(value.getId())) {
+			suggestBox.setText(idToRelation.get(value.getId()).getDisplayName());
+		}
 	}
 
 	@Override
