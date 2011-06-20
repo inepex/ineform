@@ -632,7 +632,28 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		return filledWithInitialData;
 	}
 
-	public void resetValues() {
+	/**
+	 *  
+	 *  reset values to empty kvo
+	 *  clear validation result
+	 *  
+	 */
+	public void resetValuesToEmpty() {
+		setInitialData(new KeyValueObject(descriptorName));
+		initialData=null;
+		filledWithInitialData=false;
+		
+		dealValidationResult(null);
+		fireResetEvent();
+	}
+	
+	/**
+	 *  
+	 *  reset values to initial data (or empty kvo)
+	 *  clear validation result
+	 *  
+	 */
+	public void resetValuesToInitialData() {
 		if(!isFilledWithIntialData()) {
 			setInitialData(new KeyValueObject(descriptorName));
 			initialData=null;

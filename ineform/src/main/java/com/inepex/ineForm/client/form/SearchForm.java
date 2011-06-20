@@ -78,7 +78,7 @@ public class SearchForm extends IneForm {
 	}
 	
 	private void resetFieldsAndSendSearch(){
-		searchForm.resetValues();
+		searchForm.resetValuesToInitialData();
 		setSearchParamsForDataConnector();
 	}
 

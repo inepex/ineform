@@ -119,8 +119,8 @@ public class WizardForm extends SaveCancelForm {
 	 * this method uses standard Ineform resetValues and set the displayed page to the first
 	 */
 	@Override
-	public void resetValues() {
-		super.resetValues();
+	public void resetValuesToInitialData() {
+		super.resetValuesToInitialData();
 		rootStepper.setDisplayedPage(0, false);
 		refreshButtonsAndNavWidget();
 	}
