@@ -20,14 +20,14 @@
 		</repository>
 		<repository>
 			<id>maven.springframework.org.external</id>
- 			<url>http://maven.springframework.org/external</url> 
- 			<name>SpringSource Maven Repository - External Releases</name>
- 		</repository> 
- 		<repository>
+			<url>http://maven.springframework.org/external</url>
+			<name>SpringSource Maven Repository - External Releases</name>
+		</repository>
+		<repository>
 			<id>inerepo</id>
- 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url> 
- 			<name>inerepo</name>
- 		</repository>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
+			<name>inerepo</name>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -66,6 +66,13 @@
 			<artifactId>ineom</artifactId>
 			<version>1.0.7</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.inepex</groupId>
+			<artifactId>ineom</artifactId>
+			<version>1.0.7</version>
+			<type>test-jar</type>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.gwt.inject</groupId>
@@ -164,18 +171,18 @@
 				</configuration>
 			</plugin>
 			<plugin>
-			   <groupId>org.apache.maven.plugins</groupId>
-			   <artifactId>maven-jar-plugin</artifactId>
-			   <version>2.2</version>
-			   <executions>
-				 <execution>
-				   <goals>
-					 <goal>test-jar</goal>
-				   </goals>
-				 </execution>
-			   </executions>
-			 </plugin>
-			 <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.8</version>
@@ -189,10 +196,10 @@
 		</plugins>
 	</build>
 	<distributionManagement>
-    <repository>
-      <id>inepex</id>
-      <name>Inepex Repository</name>
-      <url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
-    </repository>
-  </distributionManagement>
+		<repository>
+			<id>inepex</id>
+			<name>Inepex Repository</name>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+		</repository>
+	</distributionManagement>
 </project>
