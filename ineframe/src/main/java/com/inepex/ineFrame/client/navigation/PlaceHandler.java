@@ -239,4 +239,57 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		};
 		t.schedule(500);
 	}
+	
+	//------------------------------
+	//navigation helper methods
+	//------------------------------
+	public PlaceRequestEvent generateSubMenuEvent(String... subMenuTokens) {
+		PlaceRequestEvent event = new PlaceRequestEvent();
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append(getPlacePart());
+		
+		for(String token : subMenuTokens) {
+			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
+			sb.append(token);
+		}
+		event.setHierarchicalTokenParts(sb.toString().split(Node.ID_SEPARATOR));
+		
+		return event;
+	}
+	
+	public PlaceRequestEvent generateJumpBackEvent() {
+		PlaceRequestEvent event = new PlaceRequestEvent();
+		
+		StringBuffer sb = new StringBuffer();
+		
+		String[] originalTokens = getPlacePart().split(Node.ID_SEPARATOR);
+		for(int i=0; i<originalTokens.length-1; i++) {
+			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
+			sb.append(originalTokens[i]);
+		}
+		
+		event.setHierarchicalTokenParts(sb.toString().split(Node.ID_SEPARATOR));
+		return event;
+	}
+	
+	public PlaceRequestEvent generateSameLevelMenuEvent(String... subMenuTokens) {
+		PlaceRequestEvent event = new PlaceRequestEvent();
+		
+		StringBuffer sb = new StringBuffer();
+		
+		String[] originalTokens = getPlacePart().split(Node.ID_SEPARATOR);
+		for(int i=0; i<originalTokens.length-1; i++) {
+			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
+			sb.append(originalTokens[i]);
+		}
+		
+		for(String token : subMenuTokens) {
+			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
+			sb.append(token);
+		}
+		
+		event.setHierarchicalTokenParts(sb.toString().split(Node.ID_SEPARATOR));
+		return event;
+	}
 }
