@@ -6,7 +6,7 @@ import com.google.gwt.json.client.JSONNull;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.junit.client.GWTTestCase;
-import com.inepex.ineom.shared.TestUtil;
+import com.inepex.ineom.shared.T_e_s_tUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
@@ -19,14 +19,14 @@ public class KvoJsonParserGwtTest extends GWTTestCase {
 	String jsonDataNullValue = "{'stringField': null}";
 	
 	public void testDefault(){
-		TestUtil.getTestKvo(new ClientDescriptorStore()); //to set exposed desrcriptorstore
+		T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()); //to set exposed desrcriptorstore
 		jsonData = jsonData.replace("'", "\"");
 		KeyValueObject kvo = new KvoJsonParser(JSONParser.parseStrict(jsonData).isObject(), "testKvo").parse();
-		TestUtil.assertEquals(TestUtil.getTestKvo(new ClientDescriptorStore()), kvo);
+		T_e_s_tUtil.assertEquals(T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()), kvo);
 	}
 	
 	public void testNull(){
-		TestUtil.getTestKvo(new ClientDescriptorStore()); //to set exposed desrcriptorstore
+		T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()); //to set exposed desrcriptorstore
 		jsonDataNullValue = jsonDataNullValue.replace("'", "\"");
 		KeyValueObject kvo = new KvoJsonParser(JSONParser.parseStrict(jsonDataNullValue).isObject(), "testKvo").parse();
 		Assert.assertTrue(kvo.containsString("stringField"));

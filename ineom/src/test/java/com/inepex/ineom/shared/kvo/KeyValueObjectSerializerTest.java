@@ -4,7 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.inepex.ineom.shared.TestUtil;
+import com.inepex.ineom.shared.T_e_s_tUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer.ListSerializer;
 import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer.RelationSerializer;
@@ -14,7 +14,7 @@ public class KeyValueObjectSerializerTest {
 	@Test
 	public void defaultSerialize(){
 		String serialized = new KeyValueObjectSerializer(
-				TestUtil.getTestKvo(new ClientDescriptorStore()), 
+				T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()), 
 				"{sep}", "=")
 		.serializeToString();
 		System.out.println(serialized);
@@ -24,7 +24,7 @@ public class KeyValueObjectSerializerTest {
 	@Test
 	public void customListSerializer(){
 		String serialized = new KeyValueObjectSerializer(
-				TestUtil.getTestKvo(new ClientDescriptorStore()), 
+				T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()), 
 				"{sep}", "=").setListSerializer(new ListSerializer() {
 					
 					@Override
@@ -44,7 +44,7 @@ public class KeyValueObjectSerializerTest {
 	@Test
 	public void customRelationSerializer(){
 		String serialized = new KeyValueObjectSerializer(
-				TestUtil.getTestKvo(new ClientDescriptorStore()), 
+				T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()), 
 				"{sep}", "=")
 		.setRelationSerializer(new RelationSerializer() {
 			

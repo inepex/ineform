@@ -13,7 +13,7 @@ import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class TestUtil {
+public class T_e_s_tUtil {
 
 	public static KeyValueObject getTestKvo(ClientDescriptorStore store){
 		ObjectDesc descriptor2 = new ObjectDesc("test2Kvo");
