@@ -36,7 +36,7 @@ public class MenuRendererView extends UnorderedListWidget implements MenuRendere
 		private boolean enabled = true;
 		private boolean selected = false;
 		
-		private OnClieckedLogic onClieckedLogic;
+		private OnClieckedLogic onClickedLogic;
 		
 		
 		public MenuBarWidget(String menuName, int level) {
@@ -55,8 +55,8 @@ public class MenuRendererView extends UnorderedListWidget implements MenuRendere
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					if(clickable && onClieckedLogic!=null)
-						onClieckedLogic.doLogic();
+					if(clickable && onClickedLogic!=null)
+						onClickedLogic.doLogic();
 				}
 				
 			}));
@@ -69,7 +69,7 @@ public class MenuRendererView extends UnorderedListWidget implements MenuRendere
 
 		@Override
 		public void setOnClickedLogic(OnClieckedLogic logic) {
-			this.onClieckedLogic=logic;
+			this.onClickedLogic=logic;
 		}
 
 		@Override

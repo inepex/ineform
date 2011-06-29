@@ -24,6 +24,10 @@ import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 
 public class MenuRendererTest {
 
+	/**
+	 * display nothing (a first level place is selected)
+	 * 
+	 */
 	@Test
 	public void testFirstLevelPlace() { 
 	
@@ -41,6 +45,9 @@ public class MenuRendererTest {
 		verify(view, never()).createTab(anyString(), anyInt());
 	}
 	
+	/**
+	 * display 4 tabs setting selected, visible... proterties fine
+	 */
 	@Test
 	public void testPlainPlaceIsSelected() { 
 	
@@ -117,6 +124,10 @@ public class MenuRendererTest {
 		verify(tabs[3], never()).setSelected(true);
 	}
 	
+	/**
+	 * display 4 tabs setting selected, visible... proterties fine
+	 * 
+	 */
 	@Test
 	public void testOnlyVisiblePlaceIsSelected() { 
 	
@@ -207,16 +218,21 @@ public class MenuRendererTest {
 		
 		public final InePlace onlyVisibleWhenActiveAndHasName = new SimpleCachingPlace(new DummyPageProvider())
 							.setOnlyVisibleWhenActive(true)
+							.setShowChildreWhenActive(false)
 							.setMenuName("Name of menu");
 		
 		@Override
 		public void createPlaceHierarchy() {
 			placeRoot
 				.addChildGC("MenuParent", parentPlace)
-					.addChild("plainChild", plainPlace)
+					.addChildGC("plainChild", plainPlace)
+						.addChild("youCanNotSeeInMenuBar", new SimpleCachingPlace(new DummyPageProvider()))
+						.getParent()
 					.addChild("hasMenuName", namedPlace)
 					.addChild("onlyVisibleWhenActive", visibleWhenActive)
-					.addChild("onlyVisibleWhenActiveAndHasName", onlyVisibleWhenActiveAndHasName)
+					.addChildGC("onlyVisibleWhenActiveAndHasName", onlyVisibleWhenActiveAndHasName)
+						.addChild("youCanNotSeeInMenuBarTOO", new SimpleCachingPlace(new DummyPageProvider()))
+						.getParent()
 					.getParent();
 						
 			placeRoot.setAllHierarchicalTokens();

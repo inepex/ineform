@@ -79,13 +79,14 @@ public class MenuRenderer {
 		
 		Tab tabPointer=null;
 		
-		for(int i=0; i<tokens.size(); i++) {
+		for(int i=0; i<tokens.size()
+				|| pointer!=null && pointer.getNodeElement()!=null && pointer.getNodeElement().isShowChildreWhenActive() && i==tokens.size(); i++) {
 			Tab selectedTab = null;
 			Node<InePlace> selectednode=null;
 			
 			if(pointer.hasChildren()) {
 				for(final Node<InePlace> node : pointer.getChildren()) {
-					boolean selected = node.getNodeId().equals(tokens.get(i));
+					boolean selected = i<tokens.size() && node.getNodeId().equals(tokens.get(i));
 					boolean visible = !
 							(node.getNodeElement().isOnlyVisibleWhenActive() && !selected
 							|| node.getNodeElement().getMenuName()==null
@@ -95,7 +96,7 @@ public class MenuRenderer {
 					if(tabPointer!=null)
 						tabPointer.addChild(tab);
 					
-					tab.setClickable((!selected || i<tokens.size()-1) && visible);
+					tab.setClickable((!selected || i!=tokens.size()-1) && visible);
 					tab.setSelected(selected);
 					tab.setEnabled(true); //TODO implement enabled-disabled logic
 					tab.setItemVisible(visible);

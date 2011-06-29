@@ -23,6 +23,7 @@ public abstract class InePlace {
 	private List<String> rolesNeeded = null;
 	
 	private boolean onlyVisibleWhenActive = false;
+	private boolean showChildreWhenActive = false;
 	
 	public abstract InePage getAssociatedPage();
 	
@@ -114,6 +115,15 @@ public abstract class InePlace {
 	public InePlace putRight() {
 		setRenderOnRightSide(true);
 		return this;
+	}
+	
+	public InePlace setShowChildreWhenActive(boolean showChildreWhenActive) {
+		this.showChildreWhenActive = showChildreWhenActive;
+		return this;
+	}
+	
+	public boolean isShowChildreWhenActive() {
+		return showChildreWhenActive;
 	}
 	
 }
