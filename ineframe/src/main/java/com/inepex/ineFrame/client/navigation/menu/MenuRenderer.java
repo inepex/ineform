@@ -63,7 +63,7 @@ public class MenuRenderer {
 	 * menurenderer does not show nodes that doesn't have menuName
 	 * 
 	 * 4.,
-	 * menurenderer does not show the selected node's children
+	 * menurenderer does not show the selected node's children by default
 	 * 
 	 */
 	public void realizeNewPlace(InePlace place) {
