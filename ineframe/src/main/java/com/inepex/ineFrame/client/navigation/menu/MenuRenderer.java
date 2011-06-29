@@ -60,7 +60,7 @@ public class MenuRenderer {
 	 * menurenderer shows the same level nodes by the "selected node line"
 	 * 
 	 * 3.,
-	 * menurenderer does not show nodes which have not menuName
+	 * menurenderer does not show nodes that doesn't have menuName
 	 * 
 	 * 4.,
 	 * menurenderer does not show the selected node's children
