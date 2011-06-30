@@ -70,6 +70,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 	
 	private static void appendTokenPart(StringBuffer sb, PlaceRequestEvent pre) {
+		if(pre.getHierarchicalToken()==null)
+			return;
+		
 		for (String hierarchicalTokenParts : pre.getHierarchicalToken()) {
 			sb.append(hierarchicalTokenParts).append(Node.ID_SEPARATOR);
 		}
@@ -163,10 +166,15 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private void realizePlaceChange() {
-		Node<InePlace> placeNode = placeHierarchyProvider.getCurrentRoot().findNodeByHierarchicalId(getPlacePart());
+		Node<InePlace> placeNode = placeHierarchyProvider.getCurrentRoot().findNodeByHierarchicalId(getPlacePart(), true);
 
 		if (placeNode == null) {
 			historyProvider.newItem(wrongTokenPlace);
+			return;
+		}
+		
+		if(placeNode.getNodeElement() instanceof RootPlace) {
+			historyProvider.newItem(defaultPlace);
 			return;
 		}
 
@@ -182,7 +190,14 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			firePlaceRequestEvent(getPlacePart() + Node.ID_SEPARATOR + cdPlace.getChildToken());
+			
+			String newHierarchicalId;
+			if(getPlacePart()==null || getPlacePart().length()==0)
+				newHierarchicalId=cdPlace.getChildToken();
+			else 
+				newHierarchicalId=getPlacePart() + Node.ID_SEPARATOR + cdPlace.getChildToken();
+				
+			firePlaceRequestEvent(newHierarchicalId);
 			return;
 		}
 

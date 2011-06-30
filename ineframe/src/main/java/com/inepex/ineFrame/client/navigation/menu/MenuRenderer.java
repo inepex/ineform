@@ -62,10 +62,10 @@ public class MenuRenderer {
 	public void realizeNewPlace(String hierarchycalId, InePlace place) {
 		view.clearView();
 		
-		List<String> tokens = new ArrayList<String>(Arrays.asList(hierarchycalId.split("/")));
-		
-		if(tokens.size()<1)
+		if(hierarchycalId==null || hierarchycalId.length()==0)
 			return;
+		
+		List<String> tokens = new ArrayList<String>(Arrays.asList(hierarchycalId.split("/")));
 		
 		Node<InePlace> pointer = hierarchyProvider.getCurrentRoot();
 		
@@ -81,10 +81,21 @@ public class MenuRenderer {
 			if(pointer.hasChildren()) {
 				for(final Node<InePlace> node : pointer.getChildren()) {
 					boolean selected = i<tokens.size() && node.getNodeId().equals(tokens.get(i));
-					boolean visible = !
-							(node.getNodeElement().isOnlyVisibleWhenActive() && !selected
-							|| node.getNodeElement().getMenuName()==null
-							|| node.getNodeElement().getMenuName().length()<1);
+					boolean visible;
+					if(node.getNodeElement().getMenuName()==null
+							|| node.getNodeElement().getMenuName().length()<1) {
+						//no menu name
+						visible=false;
+					} else if(selected){
+						//selected
+						visible=true;
+					} else if(node.getNodeElement().isOnlyVisibleWhenActive()) {
+						//only visible when active
+						visible=false;
+					} else {
+						//default
+						visible=true;
+					}
 					
 					Tab tab = view.createTab(node.getNodeElement().getMenuName(), i);
 					if(tabPointer!=null)

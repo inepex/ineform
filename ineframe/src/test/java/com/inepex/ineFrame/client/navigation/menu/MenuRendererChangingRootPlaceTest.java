@@ -228,7 +228,7 @@ public class MenuRendererChangingRootPlaceTest {
 
 		@Override
 		public PlaceNode getCurrentRoot() {
-			return createCurrentRootCached(realRoot.findNodeByHierarchicalId("parent1/parent2/parent3"));
+			return createCurrentRootCached(realRoot.findNodeByHierarchicalId("parent1/parent2/parent3", true));
 		}
 	}
 }

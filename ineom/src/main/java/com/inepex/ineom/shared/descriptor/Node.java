@@ -156,12 +156,14 @@ public class Node<T> implements Serializable {
 	 * Searches for a node in the tree by a given <b>hierarchical id</b> .
 	 *
 	 * @param hierarchicalId the complete token pointing to the Node requested
-	 * @return The found Node if exists of null
+	 * @return The found Node if exists or null
 	 */
-	public Node<T> findNodeByHierarchicalId(String hierarchicalId) {
-		// Obviously we can't search for null string or empty string
+	public Node<T> findNodeByHierarchicalId(String hierarchicalId, boolean returnThisWhenIdParamIsNull) {
 		if (hierarchicalId == null || hierarchicalId.trim().equals(""))
-			return null;
+			if(returnThisWhenIdParamIsNull)
+				return this;
+			else 
+				return null;
 
 		String[] tokenParts
 			= hierarchicalId.split("[" + ID_SEPARATOR + "]");
@@ -313,5 +315,10 @@ public class Node<T> implements Serializable {
 				copy(childCopy, c);
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return nodeId+" ("+getHierarchicalId()+")";
 	}
 }

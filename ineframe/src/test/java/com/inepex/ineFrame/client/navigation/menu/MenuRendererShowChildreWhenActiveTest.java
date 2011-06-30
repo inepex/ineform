@@ -85,7 +85,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 	public void testOnlyVisiblePlaceIsSelected() { 
 	
 		EventBus eventBus = mock(EventBus.class);
-		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[6];
+		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[7];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
 		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
@@ -109,9 +109,9 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(view, times(1)).clearView();
 		
 		//4 menu item
-		verify(view, times(6)).createTab(anyString(), anyInt());
+		verify(view, times(7)).createTab(anyString(), anyInt());
 		verify(view, times(4)).createTab(anyString(), eq(0));
-		verify(view, times(2)).createTab(anyString(), eq(1));
+		verify(view, times(3)).createTab(anyString(), eq(1));
 		
 		//only visible when... and has name
 		verify(tabs[3], times(1)).addChild(eq(tabs[4]));
@@ -138,6 +138,17 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(tabs[5], never()).setItemVisible(false);
 		verify(tabs[5], times(1)).setSelected(false);
 		verify(tabs[5], never()).setSelected(true);
+		
+		//invisible
+		verify(tabs[6], never()).addChild(any(MenuRenderer.View.Tab.class));
+		verify(tabs[6], times(1)).setClickable(false);
+		verify(tabs[6], never()).setClickable(true);
+		verify(tabs[6], times(1)).setEnabled(true);
+		verify(tabs[6], never()).setEnabled(false);
+		verify(tabs[6], times(1)).setItemVisible(false);
+		verify(tabs[6], never()).setItemVisible(true);
+		verify(tabs[6], times(1)).setSelected(false);
+		verify(tabs[6], never()).setSelected(true);
 		
 	}
 	
@@ -179,6 +190,8 @@ public class MenuRendererShowChildreWhenActiveTest {
 							.addChild("invisibleToo", new SimpleCachingPlace(new DummyPageProvider())
 								.setMenuName("invisibleToo1"))
 							.getParent()
+						.addChild("insivisble", new SimpleCachingPlace(new DummyPageProvider())
+							.setOnlyVisibleWhenActive(true))
 						.getParent()
 					.getParent();
 		}

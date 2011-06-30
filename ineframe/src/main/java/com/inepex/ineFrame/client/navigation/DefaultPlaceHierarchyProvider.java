@@ -29,6 +29,9 @@ public abstract class DefaultPlaceHierarchyProvider implements PlaceHierarchyPro
 	 * in a real application there are an administrator subtree, an public subtree, an user subtree....
 	 */
 	protected PlaceNode createCurrentRootCached(Node<InePlace> place) {
+		if(place.getHierarchicalId()==null)
+			return realRoot;
+		
 		if(placeNodeByRealHierarchicalId==null){
 			placeNodeByRealHierarchicalId=new TreeMap<String, PlaceNode>();
 		}
@@ -36,7 +39,7 @@ public abstract class DefaultPlaceHierarchyProvider implements PlaceHierarchyPro
 		PlaceNode pn = placeNodeByRealHierarchicalId.get(place.getHierarchicalId());
 		
 		if(pn==null) {
-			pn  = PlaceNode.createRootNode(new RootPlace());
+			pn  = PlaceNode.createRootNode(place.getNodeElement());
 			Node.copy(pn, place);
 			placeNodeByRealHierarchicalId.put(place.getHierarchicalId(), pn);			
 		}
