@@ -34,6 +34,7 @@ public class Node<T> implements Serializable {
 	private boolean hasDefaultId=false;
 	private T nodeElement = null;
 	private String nodeId = null;
+
 	
 //------------------------- Constructors
 //--------------------------------------------------------------------
@@ -56,6 +57,16 @@ public class Node<T> implements Serializable {
 	 */
 	protected Node(T nodeElement) {
 		this(false, nodeElement);
+	}
+	
+	
+	/**
+	 * ATTENTION: use this method wisely! This method breaks the parent relations in a {@link Node} tree!
+	 * @param node
+	 */
+	public void addNode(Node<T> node){
+		if(children==null) children=new ArrayList<Node<T>>();
+		children.add(node);
 	}
 
 //------------------------- adding child
@@ -113,8 +124,6 @@ public class Node<T> implements Serializable {
 //--------------------------------------------------------------------
 	
 	public String getHierarchicalId(){
-		//TODO caching hierarchycal id
-		
 		if (getNodeId() == null)
 			return null;
 
@@ -156,14 +165,12 @@ public class Node<T> implements Serializable {
 	 * Searches for a node in the tree by a given <b>hierarchical id</b> .
 	 *
 	 * @param hierarchicalId the complete token pointing to the Node requested
-	 * @return The found Node if exists or null
+	 * @return The found Node if exists of null
 	 */
-	public Node<T> findNodeByHierarchicalId(String hierarchicalId, boolean returnThisWhenIdParamIsNull) {
+	public Node<T> findNodeByHierarchicalId(String hierarchicalId) {
+		// Obviously we can't search for null string or empty string
 		if (hierarchicalId == null || hierarchicalId.trim().equals(""))
-			if(returnThisWhenIdParamIsNull)
-				return this;
-			else 
-				return null;
+			return null;
 
 		String[] tokenParts
 			= hierarchicalId.split("[" + ID_SEPARATOR + "]");
@@ -276,7 +283,7 @@ public class Node<T> implements Serializable {
 
 	public List<String> getNodeIdAsList() {
 		return SharedUtil.listFromDotSeparated(nodeId);
-	}	
+	}
 	
 	public List<Node<T>> getChildren() {
 		return children;
@@ -294,31 +301,18 @@ public class Node<T> implements Serializable {
 		return isRootNode;
 	}
 	
+//	public String getNodeIdOfFirstLevelNode(int serial){
+//		if (!IneFormProperties.showIds) serial++;
+//		return children.get(serial).getNodeId();
+//	}
+	
 	public Node<T> dummy(){
 		return this;
 	}
-	
+
 	public static List<String> idToIdList(String string) {
 		return SharedUtil.listFromDotSeparated(string);
 	}
 	
-	/**
-	 *  create copy from this node recursive,
-	 *  
-	 *  NOTICE that node element will be the same object!
-	 *  
-	 */
-	public static <T> void copy(Node<T> to, Node<T> from) {
-		if(from.getChildren()!=null) {
-			for(Node<T> c : from.getChildren()) {
-				Node<T> childCopy = to.addChildGC(c.getNodeId(),  c.getNodeElement());
-				copy(childCopy, c);
-			}
-		}
-	}
 	
-	@Override
-	public String toString() {
-		return nodeId+" ("+getHierarchicalId()+")";
-	}
 }

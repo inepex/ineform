@@ -26,6 +26,8 @@ public abstract class InePlace {
 	private boolean showChildreWhenActive = false;
 	
 	public abstract InePage getAssociatedPage();
+	
+	private String hierarchicalToken;
 		
 	public InePlace(){
 		
@@ -100,6 +102,14 @@ public abstract class InePlace {
 
 	public boolean isOnlyVisibleWhenActive() {
 		return onlyVisibleWhenActive;
+	}
+
+	public void setHierarchicalToken(String hierarchicalToken) {
+		this.hierarchicalToken = hierarchicalToken;
+	}
+
+	public String getHierarchicalToken() {
+		return hierarchicalToken;
 	}
 	
 	public InePlace putRight() {

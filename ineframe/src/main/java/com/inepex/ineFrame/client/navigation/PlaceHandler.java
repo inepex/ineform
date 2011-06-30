@@ -70,9 +70,6 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 	
 	private static void appendTokenPart(StringBuffer sb, PlaceRequestEvent pre) {
-		if(pre.getHierarchicalToken()==null)
-			return;
-		
 		for (String hierarchicalTokenParts : pre.getHierarchicalToken()) {
 			sb.append(hierarchicalTokenParts).append(Node.ID_SEPARATOR);
 		}
@@ -166,15 +163,10 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private void realizePlaceChange() {
-		Node<InePlace> placeNode = placeHierarchyProvider.getCurrentRoot().findNodeByHierarchicalId(getPlacePart(), true);
+		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(getPlacePart());
 
 		if (placeNode == null) {
 			historyProvider.newItem(wrongTokenPlace);
-			return;
-		}
-		
-		if(placeNode.getNodeElement() instanceof RootPlace) {
-			historyProvider.newItem(defaultPlace);
 			return;
 		}
 
@@ -186,25 +178,18 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			return;
 		}
 
-		checkRoleIfAuthNeeded(placeNode.getHierarchicalId(), place);
+		checkRoleIfAuthNeeded(place);
 
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			
-			String newHierarchicalId;
-			if(getPlacePart()==null || getPlacePart().length()==0)
-				newHierarchicalId=cdPlace.getChildToken();
-			else 
-				newHierarchicalId=getPlacePart() + Node.ID_SEPARATOR + cdPlace.getChildToken();
-				
-			firePlaceRequestEvent(newHierarchicalId);
+			firePlaceRequestEvent(getPlacePart() + Node.ID_SEPARATOR + cdPlace.getChildToken());
 			return;
 		}
 
 		if (specificAdjustPlaceShouldReturn(place))
 			return;
 
-		masterPage.render(placeNode.getHierarchicalId(), place, getUrlParameters());
+		masterPage.render(place, getUrlParameters());
 		
 		// change the browsers token if does not mach current token
 		if (!historyProvider.getToken().equals(currentFullToken))
@@ -214,13 +199,13 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);
 
-	private void checkRoleIfAuthNeeded(String hierarchicalId, InePlace place) {
+	private void checkRoleIfAuthNeeded(InePlace place) {
 		if (place.isAuthenticationNeeded()) {
 			List<String> allowedRolesForPlace = place.getRolesAllowed();
 
 			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
 					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
-				masterPage.renderForbidden(hierarchicalId, place);
+				masterPage.renderForbidden(place);
 			}
 		}
 	}

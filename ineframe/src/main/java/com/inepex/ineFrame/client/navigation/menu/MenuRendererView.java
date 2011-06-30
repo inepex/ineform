@@ -107,8 +107,13 @@ public class MenuRendererView extends UnorderedListWidget implements MenuRendere
 
 		@Override
 		public void setItemVisible(boolean visible) {
+			if(this.visible){
+				//TODO additional style name
+			} else {
+				
+			}
+			
 			this.visible=visible;
-			setVisible(visible);
 		}
 			
 		

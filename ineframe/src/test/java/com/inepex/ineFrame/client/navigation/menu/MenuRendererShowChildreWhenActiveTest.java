@@ -17,13 +17,33 @@ import org.mockito.stubbing.Answer;
 import com.google.gwt.event.shared.EventBus;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
-import com.inepex.ineFrame.client.navigation.PlaceNode;
 import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.defaults.SimpleCachingPlace;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 
 public class MenuRendererShowChildreWhenActiveTest {
+
+	/**
+	 * display nothing (a first level place is selected)
+	 * 
+	 */
+	@Test
+	public void testFirstLevelPlace() { 
+	
+		EventBus eventBus = mock(EventBus.class);
+		MenuRenderer.View view = mock(MenuRenderer.View.class);
+		
+		PlaceHierarchyProv phProvider = new PlaceHierarchyProv();
+		phProvider.createPlaceHierarchy();
+		
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
+		
+		renderer.realizeNewPlace(phProvider.parentPlace);
+		
+		verify(view, times(1)).clearView();
+		verify(view, never()).createTab(anyString(), anyInt());
+	}
 	
 	/**
 	 * displays 4 tabs setting selected, visible... proterties fine
@@ -54,7 +74,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
 		
-		renderer.realizeNewPlace("plainChild", phProvider.plainPlace);
+		renderer.realizeNewPlace(phProvider.plainPlace);
 		
 		//4 menu item
 		verify(view, times(5)).createTab(anyString(), anyInt());
@@ -85,7 +105,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 	public void testOnlyVisiblePlaceIsSelected() { 
 	
 		EventBus eventBus = mock(EventBus.class);
-		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[7];
+		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[6];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
 		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
@@ -104,14 +124,14 @@ public class MenuRendererShowChildreWhenActiveTest {
 		
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
 		
-		renderer.realizeNewPlace("onlyVisibleWhenActiveAndHasName", phProvider.onlyVisibleWhenActiveAndHasName);
+		renderer.realizeNewPlace(phProvider.onlyVisibleWhenActiveAndHasName);
 		
 		verify(view, times(1)).clearView();
 		
 		//4 menu item
-		verify(view, times(7)).createTab(anyString(), anyInt());
+		verify(view, times(6)).createTab(anyString(), anyInt());
 		verify(view, times(4)).createTab(anyString(), eq(0));
-		verify(view, times(3)).createTab(anyString(), eq(1));
+		verify(view, times(2)).createTab(anyString(), eq(1));
 		
 		//only visible when... and has name
 		verify(tabs[3], times(1)).addChild(eq(tabs[4]));
@@ -139,17 +159,6 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(tabs[5], times(1)).setSelected(false);
 		verify(tabs[5], never()).setSelected(true);
 		
-		//invisible
-		verify(tabs[6], never()).addChild(any(MenuRenderer.View.Tab.class));
-		verify(tabs[6], times(1)).setClickable(false);
-		verify(tabs[6], never()).setClickable(true);
-		verify(tabs[6], times(1)).setEnabled(true);
-		verify(tabs[6], never()).setEnabled(false);
-		verify(tabs[6], times(1)).setItemVisible(false);
-		verify(tabs[6], never()).setItemVisible(true);
-		verify(tabs[6], times(1)).setSelected(false);
-		verify(tabs[6], never()).setSelected(true);
-		
 	}
 	
 	private class PlaceHierarchyProv extends DefaultPlaceHierarchyProvider {
@@ -174,7 +183,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		
 		@Override
 		public void createPlaceHierarchy() {
-			realRoot
+			placeRoot
 				.addChildGC("MenuParent", parentPlace)
 					.addChildGC("plainChild", plainPlace)
 						.addChild("visibleItem1", new SimpleCachingPlace(new DummyPageProvider())
@@ -190,15 +199,10 @@ public class MenuRendererShowChildreWhenActiveTest {
 							.addChild("invisibleToo", new SimpleCachingPlace(new DummyPageProvider())
 								.setMenuName("invisibleToo1"))
 							.getParent()
-						.addChild("insivisble", new SimpleCachingPlace(new DummyPageProvider())
-							.setOnlyVisibleWhenActive(true))
 						.getParent()
 					.getParent();
-		}
-
-		@Override
-		public PlaceNode getCurrentRoot() {
-			return createCurrentRootCached(realRoot.findNodeById("MenuParent"));
+						
+			placeRoot.setAllHierarchicalTokens();
 		}
 	}
 }

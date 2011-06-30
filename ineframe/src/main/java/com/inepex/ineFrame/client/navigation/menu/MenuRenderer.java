@@ -52,50 +52,45 @@ public class MenuRenderer {
 	}
 
 	/**
+	 * 1.,
+	 * menu renderer DOES NOT display the rootNode's element, and it's children
+	 * the first displayed menu line will be the the one of root's child's children
+	 * 
+	 * 2.,
 	 * menurenderer shows the same level nodes by the "selected node line"
 	 * 
+	 * 3.,
 	 * menurenderer does not show nodes that doesn't have menuName
 	 * 
+	 * 4.,
 	 * menurenderer does not show the selected node's children by default
 	 * 
 	 */
-	public void realizeNewPlace(String hierarchycalId, InePlace place) {
+	public void realizeNewPlace(InePlace place) {
 		view.clearView();
 		
-		if(hierarchycalId==null || hierarchycalId.length()==0)
+		List<String> tokens = new ArrayList<String>(Arrays.asList(place.getHierarchicalToken().split("/")));
+		
+		if(tokens.size()<2)
 			return;
 		
-		List<String> tokens = new ArrayList<String>(Arrays.asList(hierarchycalId.split("/")));
-		
-		Node<InePlace> pointer = hierarchyProvider.getCurrentRoot();
+		Node<InePlace> pointer = hierarchyProvider.getPlaceRoot();
+		pointer=pointer.findNodeByHierarchicalId(tokens.remove(0));
 		
 		Tab tabPointer=null;
 		
 		for(int i=0; i<tokens.size()
-				|| pointer!=null && pointer.getNodeElement()!=null
-						&& pointer.getNodeElement().isShowChildreWhenActive()
-						&& i==tokens.size(); i++) {
+				|| pointer!=null && pointer.getNodeElement()!=null && pointer.getNodeElement().isShowChildreWhenActive() && i==tokens.size(); i++) {
 			Tab selectedTab = null;
 			Node<InePlace> selectednode=null;
 			
 			if(pointer.hasChildren()) {
 				for(final Node<InePlace> node : pointer.getChildren()) {
 					boolean selected = i<tokens.size() && node.getNodeId().equals(tokens.get(i));
-					boolean visible;
-					if(node.getNodeElement().getMenuName()==null
-							|| node.getNodeElement().getMenuName().length()<1) {
-						//no menu name
-						visible=false;
-					} else if(selected){
-						//selected
-						visible=true;
-					} else if(node.getNodeElement().isOnlyVisibleWhenActive()) {
-						//only visible when active
-						visible=false;
-					} else {
-						//default
-						visible=true;
-					}
+					boolean visible = !
+							(node.getNodeElement().isOnlyVisibleWhenActive() && !selected
+							|| node.getNodeElement().getMenuName()==null
+							|| node.getNodeElement().getMenuName().length()<1);
 					
 					Tab tab = view.createTab(node.getNodeElement().getMenuName(), i);
 					if(tabPointer!=null)
@@ -110,7 +105,7 @@ public class MenuRenderer {
 						
 						@Override
 						public void doLogic() {
-							PlaceRequestEvent pre = new PlaceRequestEvent(node.getHierarchicalId());
+							PlaceRequestEvent pre = new PlaceRequestEvent(node.getNodeElement().getHierarchicalToken());
 							eventBus.fireEvent(pre);
 						}
 					});

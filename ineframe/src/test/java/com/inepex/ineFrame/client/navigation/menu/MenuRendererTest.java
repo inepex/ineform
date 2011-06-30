@@ -17,13 +17,33 @@ import org.mockito.stubbing.Answer;
 import com.google.gwt.event.shared.EventBus;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
-import com.inepex.ineFrame.client.navigation.PlaceNode;
 import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.defaults.SimpleCachingPlace;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 
 public class MenuRendererTest {
+
+	/**
+	 * display nothing (a first level place is selected)
+	 * 
+	 */
+	@Test
+	public void testFirstLevelPlace() { 
+	
+		EventBus eventBus = mock(EventBus.class);
+		MenuRenderer.View view = mock(MenuRenderer.View.class);
+		
+		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
+		phProvider.createPlaceHierarchy();
+		
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
+		
+		renderer.realizeNewPlace(phProvider.parentPlace);
+		
+		verify(view, times(1)).clearView();
+		verify(view, never()).createTab(anyString(), anyInt());
+	}
 	
 	/**
 	 * display 4 tabs setting selected, visible... proterties fine
@@ -46,11 +66,12 @@ public class MenuRendererTest {
 			}
 		});
 		
-		PlainPlaceHierarchyProv phProvider = createAndInitPlaceHierarchyProvider(); 
+		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
+		phProvider.createPlaceHierarchy();
 		
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
 		
-		renderer.realizeNewPlace("plainChild", phProvider.plainPlace);
+		renderer.realizeNewPlace(phProvider.plainPlace);
 		
 		verify(view, times(1)).clearView();
 		
@@ -102,7 +123,7 @@ public class MenuRendererTest {
 		verify(tabs[3], times(1)).setSelected(false);
 		verify(tabs[3], never()).setSelected(true);
 	}
-
+	
 	/**
 	 * display 4 tabs setting selected, visible... proterties fine
 	 * 
@@ -125,11 +146,12 @@ public class MenuRendererTest {
 			}
 		});
 		
-		PlainPlaceHierarchyProv phProvider = createAndInitPlaceHierarchyProvider();
+		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
+		phProvider.createPlaceHierarchy();
 		
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
 		
-		renderer.realizeNewPlace("onlyVisibleWhenActiveAndHasName", phProvider.onlyVisibleWhenActiveAndHasName);
+		renderer.realizeNewPlace(phProvider.onlyVisibleWhenActiveAndHasName);
 		
 		verify(view, times(1)).clearView();
 		
@@ -181,13 +203,6 @@ public class MenuRendererTest {
 		verify(tabs[3], times(1)).setSelected(true);
 		verify(tabs[3], never()).setSelected(false);
 	}
-	
-	
-	protected PlainPlaceHierarchyProv createAndInitPlaceHierarchyProvider() {
-		PlainPlaceHierarchyProv phProvider= new PlainPlaceHierarchyProv();
-		phProvider.createPlaceHierarchy();
-		return phProvider;
-	}
 
 	private class PlainPlaceHierarchyProv extends DefaultPlaceHierarchyProvider {
 
@@ -208,7 +223,7 @@ public class MenuRendererTest {
 		
 		@Override
 		public void createPlaceHierarchy() {
-			realRoot
+			placeRoot
 				.addChildGC("MenuParent", parentPlace)
 					.addChildGC("plainChild", plainPlace)
 						.addChild("youCanNotSeeInMenuBar", new SimpleCachingPlace(new DummyPageProvider()))
@@ -219,11 +234,8 @@ public class MenuRendererTest {
 						.addChild("youCanNotSeeInMenuBarTOO", new SimpleCachingPlace(new DummyPageProvider()))
 						.getParent()
 					.getParent();
-		}
-
-		@Override
-		public PlaceNode getCurrentRoot() {
-			return createCurrentRootCached(realRoot.findNodeById("MenuParent"));
+						
+			placeRoot.setAllHierarchicalTokens();
 		}
 	}
 }
