@@ -163,7 +163,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private void realizePlaceChange() {
-		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(getPlacePart());
+		Node<InePlace> placeNode = placeHierarchyProvider.getCurrentRoot().findNodeByHierarchicalId(getPlacePart());
 
 		if (placeNode == null) {
 			historyProvider.newItem(wrongTokenPlace);
@@ -178,7 +178,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			return;
 		}
 
-		checkRoleIfAuthNeeded(place);
+		checkRoleIfAuthNeeded(placeNode.getHierarchicalId(), place);
 
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
@@ -189,7 +189,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (specificAdjustPlaceShouldReturn(place))
 			return;
 
-		masterPage.render(place, getUrlParameters());
+		masterPage.render(placeNode.getHierarchicalId(), place, getUrlParameters());
 		
 		// change the browsers token if does not mach current token
 		if (!historyProvider.getToken().equals(currentFullToken))
@@ -199,13 +199,13 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);
 
-	private void checkRoleIfAuthNeeded(InePlace place) {
+	private void checkRoleIfAuthNeeded(String hierarchicalId, InePlace place) {
 		if (place.isAuthenticationNeeded()) {
 			List<String> allowedRolesForPlace = place.getRolesAllowed();
 
 			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
 					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
-				masterPage.renderForbidden(place);
+				masterPage.renderForbidden(hierarchicalId, place);
 			}
 		}
 	}

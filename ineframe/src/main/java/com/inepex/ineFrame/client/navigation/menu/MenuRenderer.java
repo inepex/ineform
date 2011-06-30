@@ -52,35 +52,29 @@ public class MenuRenderer {
 	}
 
 	/**
-	 * 1.,
-	 * menu renderer DOES NOT display the rootNode's element, and it's children
-	 * the first displayed menu line will be the the one of root's child's children
-	 * 
-	 * 2.,
 	 * menurenderer shows the same level nodes by the "selected node line"
 	 * 
-	 * 3.,
 	 * menurenderer does not show nodes that doesn't have menuName
 	 * 
-	 * 4.,
 	 * menurenderer does not show the selected node's children by default
 	 * 
 	 */
-	public void realizeNewPlace(InePlace place) {
+	public void realizeNewPlace(String hierarchycalId, InePlace place) {
 		view.clearView();
 		
-		List<String> tokens = new ArrayList<String>(Arrays.asList(place.getHierarchicalToken().split("/")));
+		List<String> tokens = new ArrayList<String>(Arrays.asList(hierarchycalId.split("/")));
 		
-		if(tokens.size()<2)
+		if(tokens.size()<1)
 			return;
 		
-		Node<InePlace> pointer = hierarchyProvider.getPlaceRoot();
-		pointer=pointer.findNodeByHierarchicalId(tokens.remove(0));
+		Node<InePlace> pointer = hierarchyProvider.getCurrentRoot();
 		
 		Tab tabPointer=null;
 		
 		for(int i=0; i<tokens.size()
-				|| pointer!=null && pointer.getNodeElement()!=null && pointer.getNodeElement().isShowChildreWhenActive() && i==tokens.size(); i++) {
+				|| pointer!=null && pointer.getNodeElement()!=null
+						&& pointer.getNodeElement().isShowChildreWhenActive()
+						&& i==tokens.size(); i++) {
 			Tab selectedTab = null;
 			Node<InePlace> selectednode=null;
 			
@@ -105,7 +99,7 @@ public class MenuRenderer {
 						
 						@Override
 						public void doLogic() {
-							PlaceRequestEvent pre = new PlaceRequestEvent(node.getNodeElement().getHierarchicalToken());
+							PlaceRequestEvent pre = new PlaceRequestEvent(node.getHierarchicalId());
 							eventBus.fireEvent(pre);
 						}
 					});

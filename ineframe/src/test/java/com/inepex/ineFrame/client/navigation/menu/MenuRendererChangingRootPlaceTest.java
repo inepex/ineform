@@ -23,7 +23,11 @@ import com.inepex.ineFrame.client.navigation.defaults.SimpleCachingPlace;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 
-public class MenuRendererTest {
+/**
+ * MenuRendererTest
+ *
+ */
+public class MenuRendererChangingRootPlaceTest {
 	
 	/**
 	 * display 4 tabs setting selected, visible... proterties fine
@@ -46,7 +50,8 @@ public class MenuRendererTest {
 			}
 		});
 		
-		PlainPlaceHierarchyProv phProvider = createAndInitPlaceHierarchyProvider(); 
+		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
+		phProvider.createPlaceHierarchy();
 		
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
 		
@@ -102,7 +107,7 @@ public class MenuRendererTest {
 		verify(tabs[3], times(1)).setSelected(false);
 		verify(tabs[3], never()).setSelected(true);
 	}
-
+	
 	/**
 	 * display 4 tabs setting selected, visible... proterties fine
 	 * 
@@ -125,7 +130,8 @@ public class MenuRendererTest {
 			}
 		});
 		
-		PlainPlaceHierarchyProv phProvider = createAndInitPlaceHierarchyProvider();
+		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
+		phProvider.createPlaceHierarchy();
 		
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
 		
@@ -181,13 +187,6 @@ public class MenuRendererTest {
 		verify(tabs[3], times(1)).setSelected(true);
 		verify(tabs[3], never()).setSelected(false);
 	}
-	
-	
-	protected PlainPlaceHierarchyProv createAndInitPlaceHierarchyProvider() {
-		PlainPlaceHierarchyProv phProvider= new PlainPlaceHierarchyProv();
-		phProvider.createPlaceHierarchy();
-		return phProvider;
-	}
 
 	private class PlainPlaceHierarchyProv extends DefaultPlaceHierarchyProvider {
 
@@ -209,21 +208,27 @@ public class MenuRendererTest {
 		@Override
 		public void createPlaceHierarchy() {
 			realRoot
-				.addChildGC("MenuParent", parentPlace)
-					.addChildGC("plainChild", plainPlace)
-						.addChild("youCanNotSeeInMenuBar", new SimpleCachingPlace(new DummyPageProvider()))
+				.addChildGC("parent1", parentPlace)
+					.addChildGC("parent2", parentPlace)
+						.addChildGC("parent3", parentPlace)
+							.addChildGC("plainChild", plainPlace)
+								.addChild("youCanNotSeeInMenuBar", new SimpleCachingPlace(new DummyPageProvider()))
+								.getParent()
+							.addChild("hasMenuName", namedPlace)
+							.addChild("onlyVisibleWhenActive", visibleWhenActive)
+							.addChildGC("onlyVisibleWhenActiveAndHasName", onlyVisibleWhenActiveAndHasName)
+								.addChild("youCanNotSeeInMenuBarTOO", new SimpleCachingPlace(new DummyPageProvider()))
+								.getParent()
+							.getParent()
 						.getParent()
-					.addChild("hasMenuName", namedPlace)
-					.addChild("onlyVisibleWhenActive", visibleWhenActive)
-					.addChildGC("onlyVisibleWhenActiveAndHasName", onlyVisibleWhenActiveAndHasName)
-						.addChild("youCanNotSeeInMenuBarTOO", new SimpleCachingPlace(new DummyPageProvider()))
-						.getParent()
-					.getParent();
+					.getParent()
+				.getParent();
+						
 		}
 
 		@Override
 		public PlaceNode getCurrentRoot() {
-			return createCurrentRootCached(realRoot.findNodeById("MenuParent"));
+			return createCurrentRootCached(realRoot.findNodeByHierarchicalId("parent1/parent2/parent3"));
 		}
 	}
 }

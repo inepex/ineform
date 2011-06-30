@@ -11,5 +11,11 @@ public interface PlaceHierarchyProvider {
 	 * Override this function to provide place hierarchy to IneFrame.
 	 */
 	void createPlaceHierarchy();
-	PlaceNode getPlaceRoot();
+	
+	/**
+	 * 
+	 * @return root of currently used tree (eg. loggedin, admin, subuser......)
+	 * 
+	 */
+	PlaceNode getCurrentRoot();
 }

@@ -34,13 +34,13 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 	}
 	
 	@Override
-	public void render(final InePlace place, Map<String, String> urlParams) {
+	public void render(String hierarchicalId, final InePlace place, Map<String, String> urlParams) {
 		
 		final InePage page = place.getAssociatedPage();
 		page.setCurrentPlace(place);
 		
 		try {
-			menuRenderer.realizeNewPlace(place);
+			menuRenderer.realizeNewPlace(hierarchicalId, place);
 			contentPanel.clear();
 			
 			page.setUrlParameters(urlParams, new InePage.UrlParamsParsedCallback() {
@@ -59,8 +59,8 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 	}
 
 	@Override
-	public void renderForbidden(InePlace place) {
-		menuRenderer.realizeNewPlace(place);
+	public void renderForbidden(String hierarchycalId, InePlace place) {
+		menuRenderer.realizeNewPlace(hierarchycalId, place);
 		contentPanel.clear();
 		
 		contentPanel.add(new HTML("<h2>access denied</h2>"));

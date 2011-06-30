@@ -1,5 +1,9 @@
 package com.inepex.ineFrame.client.navigation;
 
+import java.util.TreeMap;
+
+import com.inepex.ineom.shared.descriptor.Node;
+
 
 /**
  * Provides simple base class for {@link PlaceHierarchyProvider}
@@ -7,16 +11,36 @@ package com.inepex.ineFrame.client.navigation;
  *
  */
 public abstract class DefaultPlaceHierarchyProvider implements PlaceHierarchyProvider {
+	
+	private TreeMap<String, PlaceNode> placeNodeByRealHierarchicalId;
 
-	protected PlaceNode placeRoot;
+	/**
+	 * the real root of static tree
+	 */
+	protected PlaceNode realRoot;
 
 	public DefaultPlaceHierarchyProvider() {
-		placeRoot = PlaceNode.createRootNode(new RootPlace());
+		realRoot = PlaceNode.createRootNode(new RootPlace());
 	}
 	
-	@Override
-	public PlaceNode getPlaceRoot() {
-		return placeRoot;
+	/**
+	 * create a root-copy of selected sub-tree (cached)
+	 * 
+	 * in a real application there are an administrator subtree, an public subtree, an user subtree....
+	 */
+	protected PlaceNode createCurrentRootCached(Node<InePlace> place) {
+		if(placeNodeByRealHierarchicalId==null){
+			placeNodeByRealHierarchicalId=new TreeMap<String, PlaceNode>();
+		}
+		
+		PlaceNode pn = placeNodeByRealHierarchicalId.get(place.getHierarchicalId());
+		
+		if(pn==null) {
+			pn  = PlaceNode.createRootNode(new RootPlace());
+			Node.copy(pn, place);
+			placeNodeByRealHierarchicalId.put(place.getHierarchicalId(), pn);			
+		}
+		
+		return pn;
 	}
-
 }
