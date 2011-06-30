@@ -52,19 +52,12 @@ public class MenuRenderer {
 	}
 
 	/**
-	 * 1.,
-	 * menu renderer DOES NOT display the rootNode's element, and it's children
-	 * the first displayed menu line will be the the one of root's child's children
 	 * 
-	 * 2.,
 	 * menurenderer shows the same level nodes by the "selected node line"
 	 * 
-	 * 3.,
 	 * menurenderer does not show nodes that doesn't have menuName
 	 * 
-	 * 4.,
 	 * menurenderer does not show the selected node's children by default
-	 * 
 	 */
 	public void realizeNewPlace(InePlace place) {
 		view.clearView();
@@ -75,7 +68,19 @@ public class MenuRenderer {
 			return;
 		
 		Node<InePlace> pointer = hierarchyProvider.getPlaceRoot();
-		pointer=pointer.findNodeByHierarchicalId(tokens.remove(0));
+		if(hierarchyProvider.getCurrentMenuRoot()!=null) {
+			for(String s : hierarchyProvider.getCurrentMenuRoot()) {
+				pointer=pointer.findNodeById(s);
+				if(pointer==null)
+					throw new RuntimeException();
+				
+				String token = tokens.remove(0);
+				if(!token.equals(s))
+					throw new RuntimeException();
+			}
+		}
+		
+//		pointer=pointer.findNodeByHierarchicalId(tokens.remove(0));
 		
 		Tab tabPointer=null;
 		

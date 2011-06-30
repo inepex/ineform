@@ -1,5 +1,7 @@
 package com.inepex.ineFrame.client.navigation;
 
+import java.util.List;
+
 
 /**
  * Interface for providing Place Hierarchy for IneFrame
@@ -12,4 +14,9 @@ public interface PlaceHierarchyProvider {
 	 */
 	void createPlaceHierarchy();
 	PlaceNode getPlaceRoot();
+	
+	/**
+	 * these tokens select the current root place
+	 */
+	List<String> getCurrentMenuRoot();
 }

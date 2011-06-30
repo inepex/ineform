@@ -10,6 +10,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -21,6 +23,7 @@ import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.defaults.SimpleCachingPlace;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class MenuRendererTest {
 
@@ -236,6 +239,11 @@ public class MenuRendererTest {
 					.getParent();
 						
 			placeRoot.setAllHierarchicalTokens();
+		}
+
+		@Override
+		public List<String> getCurrentMenuRoot() {
+			return SharedUtil.Li("MenuParent");
 		}
 	}
 }
