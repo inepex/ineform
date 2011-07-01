@@ -6,9 +6,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
+@Singleton
 public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	
 	private final FlowPanel menu = new FlowPanel();
@@ -33,6 +35,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		subMenu.add(subMenuUL);
 		add(subMenu);
 		
+		menu3.addStyleName(ResourceHelper.getRes().style().menu3());
 		menu3.add(menu3UL);
 		add(menu3);
 		

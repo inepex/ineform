@@ -8,6 +8,7 @@ public interface IneFrameStyle extends CssResource {
 	
 	String menu();
 	String submenu();
+	String menu3();
 	
 	@ClassName("current_page_item")
 	String current_page_item();
