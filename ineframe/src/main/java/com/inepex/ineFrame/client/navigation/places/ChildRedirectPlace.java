@@ -1,5 +1,6 @@
-package com.inepex.ineFrame.client.navigation;
+package com.inepex.ineFrame.client.navigation.places;
 
+import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.page.InePage;
 
 

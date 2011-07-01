@@ -1,8 +1,9 @@
 package com.inepex.ineFrame.client.navigation;
 
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.*;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.defaultPlace;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceRequestHandler {
@@ -53,108 +55,17 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		});
 	}
 
-	public static String getFullTokenFromPlaceRequestEvent(PlaceRequestEvent pre) {
-		StringBuffer sb = new StringBuffer();
-		
-		appendTokenPart(sb, pre);
-
-		Map<String, String> paramMap = getParamMapFromEvent(pre);
-		if (paramMap == null)
-			return sb.toString();
-		
-		sb.append(QUESTION_MARK);
-
-		appendParameters(sb, paramMap);
-		
-		return sb.toString();
-	}
-	
-	private static void appendTokenPart(StringBuffer sb, PlaceRequestEvent pre) {
-		for (String hierarchicalTokenParts : pre.getHierarchicalToken()) {
-			sb.append(hierarchicalTokenParts).append(Node.ID_SEPARATOR);
-		}
-		sb.delete(sb.length() - 1, sb.length());
-	}
-	
-	private static Map<String, String> getParamMapFromEvent(PlaceRequestEvent pre) {
-		String[] parameters = pre.getParameters();
-		if (parameters == null || parameters.length == 0)
-			return null;
-		
-		if (parameters.length % 2 != 0)
-			throw new RuntimeException("number of parameters in PlaceRequestEvent must be multiple of 2");
-
-		Map<String, String> paramMap = null;
-		paramMap = new HashMap<String, String>(parameters.length / 2);
-		for (int i = 0; i < parameters.length; i += 2) {
-			paramMap.put(parameters[i], parameters[i + 1]);
-		}
-		
-		return paramMap;
-	}
-	
-	private static void appendParameters(StringBuffer sb, Map<String, String> paramMap) {
-		if (paramMap == null || paramMap.size() == 0)
-			return;
-		
-		for (String key : paramMap.keySet()) {
-			sb.append(key).append(EQUALS_SIGN);
-			sb.append(paramMap.get(key)).append(AND_SIGN);
-		}
-		sb.delete(sb.length() - 1, sb.length());
-	}
-
-	public void firePlaceRequestEvent(String fullTokenWithParams) {
-		PlaceRequestEvent pre = new PlaceRequestEvent(fullTokenWithParams);
-		eventBus.fireEvent(pre);
-	}
-
-	protected String getPlacePart() {
-		String[] parts = currentFullToken.split(regExp(QUESTION_MARK));
-		if (parts.length == 0)
-			return "";
-		return parts[0];
-	}
-
-	private Map<String, String> getUrlParameters() {
-		Map<String, String> urlParams = new HashMap<String, String>();
-		String[] parts = currentFullToken.split(regExp(QUESTION_MARK));
-		if (parts.length < 2)
-			return urlParams;
-
-		// parameter "redirect" behaves another way!
-		if (parts[1].indexOf(REDIRECT) == 0) {
-			String redirectParam = parts[1].substring(REDIRECT.length() + 1);
-			if (parts.length > 2)
-				redirectParam = redirectParam + QUESTION_MARK + parts[2];
-			urlParams.put(REDIRECT, redirectParam);
-			return urlParams;
-		}
-
-		String params[] = parts[1].split(regExp(AND_SIGN));
-		for (String string : params) {
-			String[] keyValue = string.split(regExp(EQUALS_SIGN));
-			if (keyValue.length == 2)
-				urlParams.put(keyValue[0], keyValue[1]);
-		}
-		return urlParams;
-	}
-
-	private String regExp(String str) {
-		return "[" + str + "]";
-	}
-
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		if (event.getValue().equals(currentFullToken))
 			return;
 		else
-			firePlaceRequestEvent(event.getValue());
+			eventBus.fireEvent(new PlaceRequestEvent(event.getValue()));
 	}
 
 	@Override
 	public void onPlaceRequest(PlaceRequestEvent e) {
-		currentFullToken =  getFullTokenFromPlaceRequestEvent(e);
+		currentFullToken =  e.getHierarchicalTokensWithParam();
 		if (e.isOpenInNewWindow()){
 			openInNewWindow("#" + currentFullToken);
 		} else {
@@ -163,8 +74,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private void realizePlaceChange() {
-		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(getPlacePart());
-
+		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
+				PlaceHandlerHelper.getPlacePart(currentFullToken));
+		
 		if (placeNode == null) {
 			historyProvider.newItem(wrongTokenPlace);
 			return;
@@ -172,24 +84,43 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		InePlace place = placeNode.getNodeElement();
 
-		// TODO: too specific functionality!
 		if (place.isAuthenticationNeeded() && !authManager.isUserLoggedIn()) {
-			eventBus.fireEvent(new PlaceRequestEvent(defaultPlace, REDIRECT, historyProvider.getToken()));
+			eventBus.fireEvent(new PlaceRequestEvent(
+					defaultPlace+
+					QUESTION_MARK+
+					REDIRECT+
+					EQUALS_SIGN+
+					currentFullToken));
 			return;
 		}
 
-		checkRoleIfAuthNeeded(place);
+		if (place.isAuthenticationNeeded()) {
+			List<String> allowedRolesForPlace = place.getRolesAllowed();
+
+			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
+					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
+				masterPage.renderForbidden(place);
+			}
+			
+			return;
+		}
 
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			firePlaceRequestEvent(getPlacePart() + Node.ID_SEPARATOR + cdPlace.getChildToken());
+			eventBus.fireEvent(new PlaceRequestEvent(currentFullToken + Node.ID_SEPARATOR + cdPlace.getChildToken()));
 			return;
 		}
 
 		if (specificAdjustPlaceShouldReturn(place))
 			return;
 
-		masterPage.render(place, getUrlParameters());
+		//param place checking
+		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullToken);
+		//TODO param place check
+		//TODO param place check
+		//TODO param place check
+		
+		masterPage.render(place, urlParams);
 		
 		// change the browsers token if does not mach current token
 		if (!historyProvider.getToken().equals(currentFullToken))
@@ -198,17 +129,6 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);
-
-	private void checkRoleIfAuthNeeded(InePlace place) {
-		if (place.isAuthenticationNeeded()) {
-			List<String> allowedRolesForPlace = place.getRolesAllowed();
-
-			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
-					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
-				masterPage.renderForbidden(place);
-			}
-		}
-	}
 
 	public void back() {
 		historyProvider.back();
@@ -240,36 +160,37 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		t.schedule(500);
 	}
 	
-	//------------------------------
-	//navigation helper methods
-	//------------------------------
+	
+//------- ------------------------------
+//        navigation helper methods
+//------- ------------------------------
 	public PlaceRequestEvent generateSubMenuEvent(String... subMenuTokens) {
 		PlaceRequestEvent event = new PlaceRequestEvent();
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append(getPlacePart());
+		sb.append(currentFullToken);
 		
 		for(String token : subMenuTokens) {
 			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
 			sb.append(token);
 		}
-		event.setHierarchicalTokenParts(sb.toString().split(Node.ID_SEPARATOR));
 		
+		event.setHierarchicalTokensWithParam(sb.toString());
 		return event;
 	}
-	
-	public PlaceRequestEvent generateJumpBackEvent() {
+
+	public PlaceRequestEvent generateJumpUpEvent() {
 		PlaceRequestEvent event = new PlaceRequestEvent();
 		
 		StringBuffer sb = new StringBuffer();
 		
-		String[] originalTokens = getPlacePart().split(Node.ID_SEPARATOR);
+		String[] originalTokens = currentFullToken.split(Node.ID_SEPARATOR);
 		for(int i=0; i<originalTokens.length-1; i++) {
 			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
 			sb.append(originalTokens[i]);
 		}
 		
-		event.setHierarchicalTokenParts(sb.toString().split(Node.ID_SEPARATOR));
+		event.setHierarchicalTokensWithParam(sb.toString());
 		return event;
 	}
 	
@@ -278,7 +199,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		
 		StringBuffer sb = new StringBuffer();
 		
-		String[] originalTokens = getPlacePart().split(Node.ID_SEPARATOR);
+		String[] originalTokens = currentFullToken.split(Node.ID_SEPARATOR);
 		for(int i=0; i<originalTokens.length-1; i++) {
 			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
 			sb.append(originalTokens[i]);
@@ -289,7 +210,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			sb.append(token);
 		}
 		
-		event.setHierarchicalTokenParts(sb.toString().split(Node.ID_SEPARATOR));
+		event.setHierarchicalTokensWithParam(sb.toString());
 		return event;
 	}
 }

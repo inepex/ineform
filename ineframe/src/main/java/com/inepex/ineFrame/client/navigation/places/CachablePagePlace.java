@@ -1,5 +1,7 @@
-package com.inepex.ineFrame.client.navigation;
+package com.inepex.ineFrame.client.navigation.places;
 
+import com.inepex.ineFrame.client.navigation.InePlace;
+import com.inepex.ineFrame.client.navigation.RequiresAuthentication;
 import com.inepex.ineFrame.client.page.InePage;
 
 public abstract class CachablePagePlace<W extends InePage> extends InePlace{

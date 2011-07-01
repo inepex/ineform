@@ -74,7 +74,7 @@ public class IneDispatch {
 				return;
 			} else if (caught instanceof PageNotFoundException){
 				PlaceRequestEvent pre = new PlaceRequestEvent();
-				pre.setHierarchicalTokenParts(NavigationProperties.pageNotFoundPlace);
+				pre.setHierarchicalTokensWithParam(NavigationProperties.pageNotFoundPlace);
 				eventBus.fireEvent(pre);
 				successCallback.onFailure(caught);
 				statusIndicator.onSuccess("");

@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.client.navigation.defaults;
+package com.inepex.ineFrame.client.navigation.places;
 
 import com.google.inject.Provider;
 import com.inepex.ineFrame.client.navigation.InePlace;

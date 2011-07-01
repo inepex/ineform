@@ -3,6 +3,7 @@ package com.inepex.ineFrame.client.navigation;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
+ * 
  * {@link PlaceRequestEvent} is used in IneFrame based applications to navigate among the hierarchical places, or change
  * parameters on the current place.<br/><br/>
  * 
@@ -16,18 +17,11 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 	
 	public static Type<PlaceRequestHandler> TYPE = new Type<PlaceRequestHandler>();
 	
-	private String[] hierarchicalTokenParts;
-	
+	private String hierarchicalTokensWithParam;
 	boolean openInNewWindow = false;
 	
-	
-	/**
-	 * Key, value series. So length of array should be multiple of 2!
-	 */
-	private String[] parameters;
-	
 	public PlaceRequestEvent() {
-		
+		super();
 	}
 		
 	public PlaceRequestEvent(boolean openInNewWindow) {
@@ -35,12 +29,15 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 		this.openInNewWindow = openInNewWindow;
 	}
 
-	public PlaceRequestEvent(String hierarchicalToken,
-			String... parameters) {
+	public PlaceRequestEvent(String hierarchicalTokensWithParam) {
 		super();
-		hierarchicalTokenParts = new String[1];
-		this.hierarchicalTokenParts[0] = hierarchicalToken;
-		this.parameters = parameters;
+		this.hierarchicalTokensWithParam=hierarchicalTokensWithParam;
+	}
+	
+	public PlaceRequestEvent(boolean openInNewWindow, String hierarchicalTokensWithParam) {
+		super();
+		this.openInNewWindow=openInNewWindow;
+		this.hierarchicalTokensWithParam=hierarchicalTokensWithParam;
 	}
 
 	@Override
@@ -53,25 +50,13 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 		return TYPE;
 	}
 
-	public String[] getHierarchicalToken() {
-		return hierarchicalTokenParts;
-	}
-
-	public String[] getParameters() {
-		return parameters;
+	public String getHierarchicalTokensWithParam() {
+		return hierarchicalTokensWithParam;
 	}
 	
-	public PlaceRequestEvent setHierarchicalTokenParts(String... hierarchicalTokenParts) {
-		this.hierarchicalTokenParts = hierarchicalTokenParts;
-		return this;
-	}
-
-	/**
-	 * Parameters are stored in key, value series. So length of array should be multiple of 2!
-	 */
-	public PlaceRequestEvent setParameters(String... parameters) {
-		this.parameters = parameters;
-		return this;
+	public void setHierarchicalTokensWithParam(
+			String hierarchicalTokensWithParam) {
+		this.hierarchicalTokensWithParam = hierarchicalTokensWithParam;
 	}
 
 	public boolean isOpenInNewWindow() {
@@ -81,6 +66,4 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 	public void setOpenInNewWindow(boolean openInNewWindow) {
 		this.openInNewWindow = openInNewWindow;
 	}
-	
-	
 }
