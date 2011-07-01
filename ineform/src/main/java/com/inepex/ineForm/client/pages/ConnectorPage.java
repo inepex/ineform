@@ -65,17 +65,24 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 	final public void setUrlParameters(Map<String, String> urlParams,
 			UrlParamsParsedCallback callback) throws Exception {
 		
-		affectUrlParameters(urlParams);
-		
-		if(connectors.size()<1) {
-			callback.onUrlParamsParsed();
-		} else {
-			pc = new PageCallback(connectors.size(), callback);
-			updateConnectors(true);
+		if(affectUrlParameters(urlParams)) {
+			if(connectors.size()<1) {
+				callback.onUrlParamsParsed();
+			} else {
+				pc = new PageCallback(connectors.size(), callback);
+				updateConnectors(true);
+			}
 		}
 	}
 	
-	protected void affectUrlParameters(Map<String, String> urlParams) {
+	/**
+	 * 
+	 * @param urlParams
+	 * @return true if parameters are correct
+	 * 			false when should skip the updating and invonking the callback
+	 */
+	protected boolean affectUrlParameters(Map<String, String> urlParams) {
+		return true;
 	}
 	
 	protected void updateConnectors(boolean updateDisplays) {
