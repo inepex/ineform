@@ -27,12 +27,12 @@ public class MenuRenderer {
 		public Tab createTab(String menuName, int level);
 		
 		static interface Tab {
-			public void addChild(Tab tab);
 			public void setOnClickedLogic(OnClieckedLogic logic);
 			public void setItemVisible(boolean visible);
 			public void setEnabled(boolean enabled);
 			public void setClickable(boolean clickable);
 			public void setSelected(boolean selected);
+			public void renderToRightSide();
 		}
 		
 		static interface OnClieckedLogic{
@@ -58,6 +58,7 @@ public class MenuRenderer {
 	 * menurenderer does not show nodes that doesn't have menuName
 	 * 
 	 * menurenderer does not show the selected node's children by default
+	 * 
 	 */
 	public void realizeNewPlace(InePlace place) {
 		view.clearView();
@@ -80,13 +81,8 @@ public class MenuRenderer {
 			}
 		}
 		
-//		pointer=pointer.findNodeByHierarchicalId(tokens.remove(0));
-		
-		Tab tabPointer=null;
-		
 		for(int i=0; i<tokens.size()
 				|| pointer!=null && pointer.getNodeElement()!=null && pointer.getNodeElement().isShowChildreWhenActive() && i==tokens.size(); i++) {
-			Tab selectedTab = null;
 			Node<InePlace> selectednode=null;
 			
 			if(pointer.hasChildren()) {
@@ -98,13 +94,13 @@ public class MenuRenderer {
 							|| node.getNodeElement().getMenuName().length()<1);
 					
 					Tab tab = view.createTab(node.getNodeElement().getMenuName(), i);
-					if(tabPointer!=null)
-						tabPointer.addChild(tab);
 					
 					tab.setClickable((!selected || i!=tokens.size()-1) && visible);
 					tab.setSelected(selected);
 					tab.setEnabled(true); //TODO implement enabled-disabled logic
 					tab.setItemVisible(visible);
+					if(node.getNodeElement().isRenderOnRightSide())
+						tab.renderToRightSide();
 					
 					tab.setOnClickedLogic(new OnClieckedLogic() {
 						
@@ -116,14 +112,12 @@ public class MenuRenderer {
 					});
 					
 					if(selected) {
-						selectedTab=tab;
 						selectednode=node;
 					}
 				}
 			}
 			
 			pointer=selectednode;
-			tabPointer=selectedTab;
 		}
 	}
 }

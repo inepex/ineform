@@ -1,6 +1,5 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -21,7 +20,6 @@ import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.defaults.SimpleCachingPlace;
-import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 import com.inepex.ineom.shared.util.SharedUtil;
 
@@ -84,11 +82,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(view, times(4)).createTab(anyString(), eq(0));
 		verify(view, times(1)).createTab(anyString(), eq(1));
 		
-		//plain place
-		verify(tabs[0], times(1)).addChild(eq(tabs[4]));
-		
 		//visibleItem1
-		verify(tabs[4], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[4], times(1)).setClickable(true);
 		verify(tabs[4], never()).setClickable(false);
 		verify(tabs[4], times(1)).setEnabled(true);
@@ -136,12 +130,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(view, times(4)).createTab(anyString(), eq(0));
 		verify(view, times(2)).createTab(anyString(), eq(1));
 		
-		//only visible when... and has name
-		verify(tabs[3], times(1)).addChild(eq(tabs[4]));
-		verify(tabs[3], times(1)).addChild(eq(tabs[5]));
-		
 		//visibleItem2
-		verify(tabs[4], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[4], times(1)).setClickable(true);
 		verify(tabs[4], never()).setClickable(false);
 		verify(tabs[4], times(1)).setEnabled(true);
@@ -152,7 +141,6 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(tabs[4], never()).setSelected(true);
 		
 		//visibleItem3
-		verify(tabs[5], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[5], times(1)).setClickable(true);
 		verify(tabs[5], never()).setClickable(false);
 		verify(tabs[5], times(1)).setEnabled(true);

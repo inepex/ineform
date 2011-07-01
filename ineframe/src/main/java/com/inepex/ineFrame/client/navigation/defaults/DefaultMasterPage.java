@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -31,6 +32,8 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 		
 		add((Widget)menuRenderer.getView());
 		add(contentPanel);
+		
+		contentPanel.addStyleName(ResourceHelper.getRes().style().pageContent());
 	}
 	
 	@Override

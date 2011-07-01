@@ -1,6 +1,5 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -21,7 +20,6 @@ import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.defaults.SimpleCachingPlace;
-import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 import com.inepex.ineom.shared.util.SharedUtil;
 
@@ -83,7 +81,6 @@ public class MenuRendererTest {
 		verify(view, times(4)).createTab(anyString(), eq(0));
 		
 		//plain place
-		verify(tabs[0], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[0], times(1)).setClickable(false);
 		verify(tabs[0], never()).setClickable(true);
 		verify(tabs[0], times(1)).setEnabled(true);
@@ -94,7 +91,6 @@ public class MenuRendererTest {
 		verify(tabs[0], never()).setSelected(false);
 		
 		//has menu name
-		verify(tabs[1], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[1], times(1)).setClickable(true);
 		verify(tabs[1], never()).setClickable(false);
 		verify(tabs[1], times(1)).setEnabled(true);
@@ -105,7 +101,6 @@ public class MenuRendererTest {
 		verify(tabs[1], never()).setSelected(true);
 		
 		//only visible when...
-		verify(tabs[2], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[2], times(1)).setClickable(false);
 		verify(tabs[2], never()).setClickable(true);
 		verify(tabs[2], times(1)).setEnabled(true);
@@ -116,7 +111,6 @@ public class MenuRendererTest {
 		verify(tabs[2], never()).setSelected(true);
 		
 		//only visible when... and has name
-		verify(tabs[3], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[3], times(1)).setClickable(false);
 		verify(tabs[3], never()).setClickable(true);
 		verify(tabs[3], times(1)).setEnabled(true);
@@ -163,7 +157,6 @@ public class MenuRendererTest {
 		verify(view, times(4)).createTab(anyString(), eq(0));
 		
 		//plain place
-		verify(tabs[0], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[0], times(1)).setClickable(false);
 		verify(tabs[0], never()).setClickable(true);
 		verify(tabs[0], times(1)).setEnabled(true);
@@ -174,7 +167,6 @@ public class MenuRendererTest {
 		verify(tabs[0], never()).setSelected(true);
 		
 		//has menu name
-		verify(tabs[1], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[1], times(1)).setClickable(true);
 		verify(tabs[1], never()).setClickable(false);
 		verify(tabs[1], times(1)).setEnabled(true);
@@ -185,7 +177,6 @@ public class MenuRendererTest {
 		verify(tabs[1], never()).setSelected(true);
 		
 		//only visible when...
-		verify(tabs[2], never()).addChild(any(MenuRenderer.View.Tab.class));
 		verify(tabs[2], times(1)).setClickable(false);
 		verify(tabs[2], never()).setClickable(true);
 		verify(tabs[2], times(1)).setEnabled(true);
@@ -195,8 +186,7 @@ public class MenuRendererTest {
 		verify(tabs[2], times(1)).setSelected(false);
 		verify(tabs[2], never()).setSelected(true);
 		
-		//only visible when... and has name
-		verify(tabs[3], never()).addChild(any(MenuRenderer.View.Tab.class));
+		//only visible when... and has names
 		verify(tabs[3], times(1)).setClickable(false);
 		verify(tabs[3], never()).setClickable(true);
 		verify(tabs[3], times(1)).setEnabled(true);
