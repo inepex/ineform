@@ -1,5 +1,9 @@
 package com.inepex.ineForm.client.form.widgets.upload;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -29,6 +33,7 @@ public class FileUploadFw extends DenyingFormWidget {
 	public static final String hasImageFinderKey = "withImageFinder";
 	public static String customUploadUrl = "customUploadUrl";
 	public static String customName = "name";
+	public static String fileParamName = "fileParamName";
 
 	private FlowPanel panelMain = new FlowPanel();
 	private String uploadUrl = IFConsts.uploadServletUrl;
@@ -43,6 +48,9 @@ public class FileUploadFw extends DenyingFormWidget {
 	
 	private DefaultSearchParamProvider defaultSearchParamProvider;
 	private String name = "fileupload";
+	private String fileParam = "inefileupload";
+	
+	private Map<String, String> additionalPostParams = new HashMap<String, String>();
 	
 	public interface DefaultSearchParamProvider {
 		public String getDefaultSearchParam();
@@ -87,7 +95,13 @@ public class FileUploadFw extends DenyingFormWidget {
 			panelForm.setWidget(panelInsideForm);
 			panelInsideForm.add(fileupload);
 			panelInsideForm.add(new Hidden("name", name));
-			fileupload.setName("inefileupload");
+			
+			for (Entry<String, String> entry : additionalPostParams.entrySet()){
+				panelInsideForm.add(new Hidden(entry.getKey(), entry.getValue()));
+			}
+			
+			fileupload.setName(fileParam);
+			
 			
 			panelForm
 					.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
@@ -178,6 +192,9 @@ public class FileUploadFw extends DenyingFormWidget {
 		if (wrDesc.hasProp(customName)){
 			name = wrDesc.getPropValue(customName);
 		}
+		if (wrDesc.hasProp(fileParamName)){
+			fileParam = wrDesc.getPropValue(fileParamName);
+		}
 	}
 
 	private void showPopupAndSetDefaultSearchValue() {
@@ -234,6 +251,15 @@ public class FileUploadFw extends DenyingFormWidget {
 	public void setDefaultSearchParamProvider(
 			DefaultSearchParamProvider defaultSearchParamProvider) {
 		this.defaultSearchParamProvider = defaultSearchParamProvider;
+	}
+	
+	public Map<String, String> getAdditionalPostParams(){
+		return additionalPostParams;
+	}
+	
+	@Override
+	public void setEnabled(boolean enabled) {
+		upload.setEnabled(enabled);
 	}
 
 }
