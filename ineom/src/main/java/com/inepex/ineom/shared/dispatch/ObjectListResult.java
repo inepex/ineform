@@ -1,8 +1,7 @@
-package com.inepex.ineForm.shared.dispatch;
+package com.inepex.ineom.shared.dispatch;
 
 import java.util.List;
 
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
 /**

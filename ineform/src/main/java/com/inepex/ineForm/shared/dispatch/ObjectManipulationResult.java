@@ -1,6 +1,6 @@
 package com.inepex.ineForm.shared.dispatch;
 
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericResult;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.validation.ValidationResult;
 

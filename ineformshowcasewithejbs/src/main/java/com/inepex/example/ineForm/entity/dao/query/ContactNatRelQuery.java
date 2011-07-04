@@ -15,8 +15,8 @@ import com.inepex.example.ineForm.entity.Nationality;
 import com.inepex.example.ineForm.entity.assist.NationalityAssist;
 import com.inepex.example.ineForm.entity.kvo.ContactNatRelKVO;
 import com.inepex.example.ineForm.entity.metaentity.ContactNatRel_;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactNatRelQuery {

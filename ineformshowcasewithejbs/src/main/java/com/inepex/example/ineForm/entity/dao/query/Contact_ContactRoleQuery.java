@@ -9,8 +9,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import com.inepex.example.ineForm.entity.Contact_ContactRole;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class Contact_ContactRoleQuery {

@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.shared.dispatch;
+package com.inepex.ineom.shared.dispatch;
 
 import net.customware.gwt.dispatch.shared.Result;
 

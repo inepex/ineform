@@ -1,4 +1,4 @@
-package com.inepex.ineForm.shared.dispatch;
+package com.inepex.ineom.shared.dispatch;
 
 import java.io.Serializable;
 import java.util.List;

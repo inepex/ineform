@@ -8,10 +8,10 @@ import com.google.inject.Inject;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ChangeLanguageAction;
 import com.inepex.inei18n.shared.SimpleResult;
+import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class LanguageChangeWidget extends HandlerAwareComposite {
 

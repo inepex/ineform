@@ -7,8 +7,6 @@ import com.google.gwt.view.client.HasData;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.dispatch.ManipulationTypes;
-import com.inepex.ineForm.shared.dispatch.ObjectListAction;
-import com.inepex.ineForm.shared.dispatch.ObjectListResult;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
@@ -16,6 +14,8 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatch.PushedActionContext;
 import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
+import com.inepex.ineom.shared.dispatch.ObjectListAction;
+import com.inepex.ineom.shared.dispatch.ObjectListResult;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 

@@ -4,13 +4,13 @@ import java.util.Set;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineFrame.server.UserHasRequiredRoleVerifier;
 import com.inepex.ineFrame.server.auth.RightDescriptor;
 import com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights;
 import com.inepex.ineFrame.shared.exceptions.AuthorizationException;
+import com.inepex.ineom.shared.dispatch.ObjectListAction;
 
 public class RightChecker {
 	final Action<?> action;

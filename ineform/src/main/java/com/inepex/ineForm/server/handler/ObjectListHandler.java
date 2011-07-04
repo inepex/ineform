@@ -7,10 +7,10 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.DaoFinder;
-import com.inepex.ineForm.shared.dispatch.ObjectListAction;
-import com.inepex.ineForm.shared.dispatch.ObjectListResult;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
+import com.inepex.ineom.shared.dispatch.ObjectListAction;
+import com.inepex.ineom.shared.dispatch.ObjectListResult;
 
 @Singleton
 public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListResult> {

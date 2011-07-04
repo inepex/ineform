@@ -9,9 +9,9 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class SetActionForExportServletHandler extends AbstractIneHandler<SetActionForExportServletAction, GenericResult> {
 

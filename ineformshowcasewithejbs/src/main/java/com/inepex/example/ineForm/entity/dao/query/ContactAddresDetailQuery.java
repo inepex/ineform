@@ -8,7 +8,7 @@ import javax.persistence.criteria.Root;
 
 import com.inepex.example.ineForm.entity.ContactAddresDetail;
 import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailKVO;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactAddresDetailQuery {

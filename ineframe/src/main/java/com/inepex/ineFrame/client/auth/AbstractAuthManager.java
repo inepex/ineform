@@ -9,7 +9,7 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public abstract class AbstractAuthManager<A extends AuthStatusResultBase> implements AuthManager<A> {
 

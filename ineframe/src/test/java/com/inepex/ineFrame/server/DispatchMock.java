@@ -24,13 +24,13 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.SilentStatusIndicator;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseActionHanlderModule;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class DispatchMock {
 

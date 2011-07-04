@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
+import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 

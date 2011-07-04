@@ -1,10 +1,10 @@
 package com.inepex.ineForm.server;
 
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
-import com.inepex.ineForm.shared.dispatch.ObjectListResult;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineForm.shared.dispatch.RelationListResult;
+import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.ObjectListResult;
 
 /**
  * This is base KVO manipulator class in the server. Just generate it to an entry!

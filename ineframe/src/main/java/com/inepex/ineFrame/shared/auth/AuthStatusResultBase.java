@@ -2,7 +2,7 @@ package com.inepex.ineFrame.shared.auth;
 
 import java.util.Set;
 
-import com.inepex.ineFrame.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class AuthStatusResultBase extends GenericResult {
 

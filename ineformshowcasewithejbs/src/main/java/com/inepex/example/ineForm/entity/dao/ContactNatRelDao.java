@@ -15,13 +15,13 @@ import com.inepex.example.ineForm.entity.dao.query.ContactNatRelQuery;
 import com.inepex.example.ineForm.entity.kvo.ContactNatRelKVO;
 import com.inepex.example.ineForm.entity.mapper.ContactNatRelMapper;
 import com.inepex.ineForm.server.KVManipulatorDaoBase;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
-import com.inepex.ineForm.shared.dispatch.ObjectListResult;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineForm.shared.dispatch.RelationListResult;
 import com.inepex.ineFrame.server.CriteriaSelector;
 import com.inepex.ineFrame.server.SelectorCustomizer;
+import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.ObjectListResult;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 @Singleton
