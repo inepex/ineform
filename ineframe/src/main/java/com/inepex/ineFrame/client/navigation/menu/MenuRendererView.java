@@ -1,10 +1,12 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
 import com.google.gwt.dom.client.Style.Cursor;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
@@ -13,76 +15,68 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 @Singleton
 public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	
-	private final FlowPanel menu = new FlowPanel();
-	private final UnorderedListWidget menuUL = new UnorderedListWidget();
-	
-	private final FlowPanel subMenu = new FlowPanel();
-	private final UnorderedListWidget subMenuUL = new UnorderedListWidget();
-	
-	private final FlowPanel menu3 = new FlowPanel();
-	private final UnorderedListWidget menu3UL = new UnorderedListWidget();
-	
-	private final FlowPanel menu4 = new FlowPanel();
-	private final UnorderedListWidget menu4UL = new UnorderedListWidget();
+	private FlowPanel target = this;
+	private UnorderedListWidget menuUL=null;
+	private int menuLevel=-1;
 	
 	@Inject
 	public MenuRendererView() {
-		menu.addStyleName(ResourceHelper.getRes().style().menu());
-		menu.add(menuUL);
-		add(menu);
-		
-		subMenu.addStyleName(ResourceHelper.getRes().style().submenu());
-		subMenu.add(subMenuUL);
-		add(subMenu);
-		
-		menu3.addStyleName(ResourceHelper.getRes().style().menu3());
-		menu3.add(menu3UL);
-		add(menu3);
-		
-		menu4.add(menu4UL);
-		add(menu4);
 	}
 
 	@Override
 	public void clearView() {
-		menuUL.clear();
-		menu.setVisible(false);
-		subMenuUL.clear();
-		subMenu.setVisible(false);
-		menu3UL.clear();
-		menu3.setVisible(false);
-		menu4UL.clear();
-		menu4.setVisible(false);
+		clear();
+		target= this;
+		menuUL=null;
+		menuLevel=-1;
+	}
+	
+	@Override
+	public void addWidget(IsWidget w) {
+		target.add(w);
+		FlowPanel fp = new FlowPanel();
+		setUpTargetStyle(fp);
+		target.add(fp);
+		target=fp;
 	}
 
 	@Override
 	public Tab createTab(String menuName, int level) {
-		 MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
-		 
-		 switch (level) {
-		 case 0:
-			menu.setVisible(true);
-			menuUL.add(barWidget);
-			break;
-		 case 1:
-			subMenu.setVisible(true);
-			subMenuUL.add(barWidget);
-			break;
-		 case 2:
-			menu3.setVisible(true);
-			menu3UL.add(barWidget);
-			break;
-		 case 3:
-			menu4.setVisible(true);
-			menu4UL.add(barWidget);
-			break;
-		 default:
-			throw new RuntimeException("not implemented yet!!");
-		 }
-		 
-		 return barWidget;
+		if(level>menuLevel) {
+			menuLevel=level;
+			
+			FlowPanel newMenuDiv = new FlowPanel();
+			switch (level) {
+			case 0:
+				newMenuDiv.addStyleName(ResourceHelper.getRes().style().menu());
+				break;
+			case 1:
+				newMenuDiv.addStyleName(ResourceHelper.getRes().style().submenu());
+				break;
+			case 2:
+				newMenuDiv.addStyleName(ResourceHelper.getRes().style().menu3());
+				break;
+			}
+			
+			menuUL=new UnorderedListWidget();
+			newMenuDiv.add(menuUL);
+			target.add(newMenuDiv);
+			
+			FlowPanel newTarget = new FlowPanel();
+			target.add(newTarget);
+			target=newTarget;
+			setUpTargetStyle(target);
+		}
+		
+		MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
+		menuUL.add(barWidget);
+		return barWidget;
 	}
 	
+	private void setUpTargetStyle(FlowPanel target) {
+		target.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+	}
+
 	private class MenuBarWidget extends HandlerAwareComposite implements Tab {
 
 		private final ListItemWidget listWidget;
@@ -155,5 +149,10 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		public void renderToRightSide() {
 			getElement().getStyle().setFloat(Float.RIGHT);
 		}
+	}
+
+	@Override
+	public FlowPanel getTarget() {
+		return target;
 	}
 }

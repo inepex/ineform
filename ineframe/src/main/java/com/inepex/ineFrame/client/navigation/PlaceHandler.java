@@ -6,6 +6,7 @@ import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTo
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
+import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceRequestHandler {
@@ -104,21 +106,28 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			
 			return;
 		}
-
+		
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
 			eventBus.fireEvent(new PlaceRequestEvent(currentFullToken + Node.ID_SEPARATOR + cdPlace.getChildToken()));
 			return;
 		}
+		
+		//param place checking
+		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullToken);
+		String firstIncorrecParamPlaceFullToken = getFirstIncorrectParamPlace();
+		if(firstIncorrecParamPlaceFullToken!=null && !firstIncorrecParamPlaceFullToken.equals(currentFullToken)) {
+			eventBus.fireEvent(new PlaceRequestEvent(firstIncorrecParamPlaceFullToken));
+			return;
+		}
+		
+		if(place instanceof ParamPlace && firstIncorrecParamPlaceFullToken==null) {
+			eventBus.fireEvent(generateSubMenuEvent(((ParamPlace) place).getChildToken()));
+			return;
+		}
 
 		if (specificAdjustPlaceShouldReturn(place))
 			return;
-
-		//param place checking
-		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullToken);
-		//TODO param place check
-		//TODO param place check
-		//TODO param place check
 		
 		masterPage.render(place, urlParams);
 		
@@ -126,6 +135,34 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (!historyProvider.getToken().equals(currentFullToken))
 			historyProvider.newItem(currentFullToken);
 
+	}
+
+	private String getFirstIncorrectParamPlace() {
+		PlaceNode root = placeHierarchyProvider.getPlaceRoot();
+		
+		StringBuffer sbPlace = new StringBuffer();
+		StringBuffer sbFull = new StringBuffer();
+		Map<String, String> params = new TreeMap<String, String>();
+		
+		for(String fullPart : currentFullToken.split(Node.ID_SEPARATOR)) {
+			if(sbPlace.length()>0)
+				sbPlace.append(Node.ID_SEPARATOR);
+			sbPlace.append(PlaceHandlerHelper.getPlacePart(fullPart));
+			
+			if(sbFull.length()>0)
+				sbFull.append(Node.ID_SEPARATOR);
+			sbFull.append(fullPart);
+			
+			params.putAll(PlaceHandlerHelper.getUrlParameters(fullPart));
+			
+			Node<InePlace> n = root.findNodeByHierarchicalId(sbPlace.toString());
+			if(n.getNodeElement()!=null && n.getNodeElement() instanceof ParamPlace) {
+				if(!((ParamPlace)n.getNodeElement()).isParamSet(params))
+					return sbFull.toString();
+			}
+		}
+		
+		return null;
 	}
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -12,6 +14,8 @@ import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.OnClieckedLogic;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
+import com.inepex.ineFrame.client.navigation.places.ParamPlace;
+import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlaceWidget;
 import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
@@ -25,6 +29,8 @@ public class MenuRenderer {
 		
 		public void clearView();
 		public Tab createTab(String menuName, int level);
+		public void addWidget(IsWidget w);
+		public FlowPanel getTarget();
 		
 		static interface Tab {
 			public void setOnClickedLogic(OnClieckedLogic logic);
@@ -60,13 +66,13 @@ public class MenuRenderer {
 	 * menurenderer does not show the selected node's children by default
 	 * 
 	 */
-	public void realizeNewPlace(InePlace place) {
+	public FlowPanel realizeNewPlace(InePlace place) {
 		view.clearView();
 		
 		List<String> tokens = new ArrayList<String>(Arrays.asList(place.getHierarchicalToken().split("/")));
 		
 		if(tokens.size()<2)
-			return;
+			return view.getTarget();
 		
 		Node<InePlace> pointer = hierarchyProvider.getPlaceRoot();
 		if(hierarchyProvider.getCurrentMenuRoot()!=null) {
@@ -118,6 +124,15 @@ public class MenuRenderer {
 			}
 			
 			pointer=selectednode;
+			
+			if(selectednode!=null) {
+				if(selectednode.getNodeElement()!=null && selectednode.getNodeElement() instanceof ParamPlace) {
+					ParamPlaceWidget w = ((ParamPlace) selectednode.getNodeElement()).getSelectorWidget();
+					if(w!=null) view.addWidget(w);
+				}
+			}
 		}
+		
+		return view.getTarget();
 	}
 }

@@ -32,6 +32,8 @@ public class PlaceHandlerHelperTest {
 		test(new TreeMap<String, String>(), PlaceHandlerHelper.getUrlParameters("token"));
 		test(new TreeMap<String, String>(), PlaceHandlerHelper.getUrlParameters("token1/token2"));
 		
+		test(map("id", "2"), PlaceHandlerHelper.getUrlParameters("token?id=2"));
+		
 		test(map("id", "2"), PlaceHandlerHelper.getUrlParameters("token1/token2?id=2"));
 		test(map("id", "2"), PlaceHandlerHelper.getUrlParameters("token1?id=2/token2"));
 		
