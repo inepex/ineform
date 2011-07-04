@@ -1,4 +1,4 @@
-package com.inepex.ineForm.client.RESOURCES;
+package com.inepex.ineForm.client.resources;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
