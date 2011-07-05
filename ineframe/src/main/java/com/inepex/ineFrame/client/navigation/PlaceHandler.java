@@ -6,7 +6,6 @@ import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTo
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -83,6 +82,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			historyProvider.newItem(wrongTokenPlace);
 			return;
 		}
+		
+		PlaceHandlerHelper.updateHierarchicalTokens(currentFullToken, placeHierarchyProvider.getPlaceRoot());
 
 		InePlace place = placeNode.getNodeElement();
 
@@ -109,18 +110,21 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			eventBus.fireEvent(new PlaceRequestEvent(currentFullToken + Node.ID_SEPARATOR + cdPlace.getChildToken()));
+			eventBus.fireEvent(new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullToken, cdPlace.getChildToken())));
 			return;
 		}
 		
 		//param place checking
 		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullToken);
-		String firstIncorrecParamPlaceFullToken = getFirstIncorrectParamPlace();
+		String firstIncorrecParamPlaceFullToken = PlaceHandlerHelper
+					.getFirstIncorrectParamPlace(currentFullToken, placeHierarchyProvider.getPlaceRoot());
+		
 		if(firstIncorrecParamPlaceFullToken!=null && !firstIncorrecParamPlaceFullToken.equals(currentFullToken)) {
 			eventBus.fireEvent(new PlaceRequestEvent(firstIncorrecParamPlaceFullToken));
 			return;
 		}
 		
+		//selector widget update
 		if(place instanceof ParamPlace && firstIncorrecParamPlaceFullToken==null) {
 			eventBus.fireEvent(generateSubMenuEvent(((ParamPlace) place).getChildToken()));
 			return;
@@ -135,34 +139,6 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (!historyProvider.getToken().equals(currentFullToken))
 			historyProvider.newItem(currentFullToken);
 
-	}
-
-	private String getFirstIncorrectParamPlace() {
-		PlaceNode root = placeHierarchyProvider.getPlaceRoot();
-		
-		StringBuffer sbPlace = new StringBuffer();
-		StringBuffer sbFull = new StringBuffer();
-		Map<String, String> params = new TreeMap<String, String>();
-		
-		for(String fullPart : currentFullToken.split(Node.ID_SEPARATOR)) {
-			if(sbPlace.length()>0)
-				sbPlace.append(Node.ID_SEPARATOR);
-			sbPlace.append(PlaceHandlerHelper.getPlacePart(fullPart));
-			
-			if(sbFull.length()>0)
-				sbFull.append(Node.ID_SEPARATOR);
-			sbFull.append(fullPart);
-			
-			params.putAll(PlaceHandlerHelper.getUrlParameters(fullPart));
-			
-			Node<InePlace> n = root.findNodeByHierarchicalId(sbPlace.toString());
-			if(n.getNodeElement()!=null && n.getNodeElement() instanceof ParamPlace) {
-				if(!((ParamPlace)n.getNodeElement()).isParamSet(params))
-					return sbFull.toString();
-			}
-		}
-		
-		return null;
 	}
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);
@@ -203,51 +179,19 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 //------- ------------------------------
 	public PlaceRequestEvent generateSubMenuEvent(String... subMenuTokens) {
 		PlaceRequestEvent event = new PlaceRequestEvent();
-		
-		StringBuffer sb = new StringBuffer();
-		sb.append(currentFullToken);
-		
-		for(String token : subMenuTokens) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(token);
-		}
-		
-		event.setHierarchicalTokensWithParam(sb.toString());
+		event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createSubMenuToken(currentFullToken, subMenuTokens));
 		return event;
 	}
 
 	public PlaceRequestEvent generateJumpUpEvent() {
 		PlaceRequestEvent event = new PlaceRequestEvent();
-		
-		StringBuffer sb = new StringBuffer();
-		
-		String[] originalTokens = currentFullToken.split(Node.ID_SEPARATOR);
-		for(int i=0; i<originalTokens.length-1; i++) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(originalTokens[i]);
-		}
-		
-		event.setHierarchicalTokensWithParam(sb.toString());
+		event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createUpToken(currentFullToken));
 		return event;
 	}
 	
 	public PlaceRequestEvent generateSameLevelMenuEvent(String... subMenuTokens) {
 		PlaceRequestEvent event = new PlaceRequestEvent();
-		
-		StringBuffer sb = new StringBuffer();
-		
-		String[] originalTokens = currentFullToken.split(Node.ID_SEPARATOR);
-		for(int i=0; i<originalTokens.length-1; i++) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(originalTokens[i]);
-		}
-		
-		for(String token : subMenuTokens) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(token);
-		}
-		
-		event.setHierarchicalTokensWithParam(sb.toString());
+		event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createSameLevelMenuToken(currentFullToken, subMenuTokens));
 		return event;
 	}
 }

@@ -4,7 +4,9 @@ import com.google.gwt.resources.client.CssResource;
 
 public interface IneFormStyle extends CssResource {
  
-	String selectorWidget();
+	String selectorPanel();
+	String selector();
+	
 	
 }
 

@@ -211,7 +211,7 @@ public class MenuRendererTest {
 		
 		public final InePlace onlyVisibleWhenActiveAndHasName = new SimpleCachingPlace(new DummyPageProvider())
 							.setOnlyVisibleWhenActive(true)
-							.setShowChildreWhenActive(false)
+							.setShowChildrenWhenActive(false)
 							.setMenuName("Name of menu");
 		
 		@Override
@@ -227,8 +227,6 @@ public class MenuRendererTest {
 						.addChild("youCanNotSeeInMenuBarTOO", new SimpleCachingPlace(new DummyPageProvider()))
 						.getParent()
 					.getParent();
-						
-			placeRoot.setAllHierarchicalTokens();
 		}
 
 		@Override

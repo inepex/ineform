@@ -157,7 +157,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		public final InePlace parentPlace = new SimpleCachingPlace(new DummyPageProvider());
 		
 		public final InePlace plainPlace = new SimpleCachingPlace(new DummyPageProvider())
-								.setShowChildreWhenActive(true)
+								.setShowChildrenWhenActive(true)
 								;
 		
 		public final InePlace namedPlace = new SimpleCachingPlace(new DummyPageProvider())
@@ -168,7 +168,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		
 		public final InePlace onlyVisibleWhenActiveAndHasName = new SimpleCachingPlace(new DummyPageProvider())
 							.setOnlyVisibleWhenActive(true)
-							.setShowChildreWhenActive(true)
+							.setShowChildrenWhenActive(true)
 							.setMenuName("Name of menu")
 							;
 		
@@ -192,8 +192,6 @@ public class MenuRendererShowChildreWhenActiveTest {
 							.getParent()
 						.getParent()
 					.getParent();
-						
-			placeRoot.setAllHierarchicalTokens();
 		}
 
 		@Override

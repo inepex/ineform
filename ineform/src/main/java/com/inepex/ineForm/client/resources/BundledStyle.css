@@ -1,6 +1,10 @@
 @CHARSET 'UTF-8';
 
-.selectorWidget{
-	width: 150px;	
+.selectorPanel{
+	display: inline-block;
 	vertical-align: top;
+}
+
+.selector{
+	width: 150px;
 }

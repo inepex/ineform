@@ -53,7 +53,8 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 			case 1:
 				newMenuDiv.addStyleName(ResourceHelper.getRes().style().submenu());
 				break;
-			case 2:
+				
+			default:
 				newMenuDiv.addStyleName(ResourceHelper.getRes().style().menu3());
 				break;
 			}

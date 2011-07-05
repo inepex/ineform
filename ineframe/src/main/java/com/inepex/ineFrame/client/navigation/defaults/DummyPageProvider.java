@@ -6,6 +6,7 @@ import com.inepex.ineFrame.client.page.defaults.DummyPage;
 public class DummyPageProvider implements Provider<DummyPage>{
 	
 	private String text;
+	private DummyPage page;
 	
 	public DummyPageProvider(){}
 	
@@ -15,10 +16,14 @@ public class DummyPageProvider implements Provider<DummyPage>{
 
 	@Override
 	public DummyPage get() {
-		if(text==null)
-			return new DummyPage();
-		else
-			return new DummyPage(text);
+		if(page==null) {
+			if(text==null)
+				page =new DummyPage();
+			else
+				page = new DummyPage(text);
+		}
+		
+		return page;
 	}
 
 }

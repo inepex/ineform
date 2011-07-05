@@ -18,22 +18,4 @@ public class PlaceNode extends Node<InePlace> {
 	protected PlaceNode(InePlace nodeElement) {
 		super(nodeElement);
 	}
-	
-	public void setAllHierarchicalTokens() {
-		setAllHierarchicalTokensRecursive(this.getRootNode());
-	}
-	
-	private void setAllHierarchicalTokensRecursive(Node<InePlace> node) {
-		if (!node.isRootNode()) {
-			if (node.getHierarchicalId() != null)
-				node.getNodeElement().setHierarchicalToken(node.getHierarchicalId());
-		}
-		
-		if (node.hasChildren()) {
-			for (Node<InePlace> childNode : node.getChildren()) {
-				setAllHierarchicalTokensRecursive(childNode);
-			}
-		}
-	}
-
 }

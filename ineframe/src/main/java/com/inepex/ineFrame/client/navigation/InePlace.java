@@ -108,6 +108,12 @@ public abstract class InePlace {
 		this.hierarchicalToken = hierarchicalToken;
 	}
 
+	/**
+	 * WARNING!!!
+	 * 
+	 * do not cache it, it changes by place requests
+	 * 
+	 */
 	public String getHierarchicalToken() {
 		return hierarchicalToken;
 	}
@@ -117,7 +123,7 @@ public abstract class InePlace {
 		return this;
 	}
 	
-	public InePlace setShowChildreWhenActive(boolean showChildreWhenActive) {
+	public InePlace setShowChildrenWhenActive(boolean showChildreWhenActive) {
 		this.showChildreWhenActive = showChildreWhenActive;
 		return this;
 	}

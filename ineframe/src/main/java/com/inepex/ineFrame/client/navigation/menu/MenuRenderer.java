@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.navigation.InePlace;
+import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.OnClieckedLogic;
@@ -20,10 +21,6 @@ import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
 public class MenuRenderer {
-	
-	private final PlaceHierarchyProvider hierarchyProvider;
-	private final EventBus eventBus;
-	private final View view;
 	
 	public static interface View {
 		
@@ -45,6 +42,10 @@ public class MenuRenderer {
 			public void doLogic();
 		}
 	}
+	
+	private final PlaceHierarchyProvider hierarchyProvider;
+	private final EventBus eventBus;
+	private final View view;
 	
 	@Inject
 	public MenuRenderer(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus, View view) {
@@ -69,7 +70,9 @@ public class MenuRenderer {
 	public FlowPanel realizeNewPlace(InePlace place) {
 		view.clearView();
 		
-		List<String> tokens = new ArrayList<String>(Arrays.asList(place.getHierarchicalToken().split("/")));
+		List<String> tokens = new ArrayList<String>(Arrays.asList(
+				PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken())
+				.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
 		
 		if(tokens.size()<2)
 			return view.getTarget();
@@ -83,7 +86,7 @@ public class MenuRenderer {
 				
 				String token = tokens.remove(0);
 				if(!token.equals(s))
-					throw new RuntimeException();
+					throw new RuntimeException(token+" != "+ s);
 			}
 		}
 		
