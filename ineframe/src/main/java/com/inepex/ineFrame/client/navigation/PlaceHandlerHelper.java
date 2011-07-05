@@ -112,7 +112,8 @@ public class PlaceHandlerHelper {
 	}
 	
 	public static String getFirstIncorrectParamPlace(String currentFullToken, Node<InePlace> root) {
-		//TODO make tests
+		if(currentFullToken==null || currentFullToken.length()<1)
+			return null;
 		
 		StringBuffer sbPlace = new StringBuffer();
 		StringBuffer sbFull = new StringBuffer();
@@ -140,7 +141,6 @@ public class PlaceHandlerHelper {
 	}
 	
 	public static void updateHierarchicalTokens(String currentFullToken, Node<InePlace> placeRoot) {
-		//TODO make tests
 		if(currentFullToken==null || currentFullToken.length()<1)
 			return;
 		
@@ -181,14 +181,15 @@ public class PlaceHandlerHelper {
 	}
 
 	public static String createSubMenuToken(String currentFullToken, String... subMenuTokens) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(currentFullToken);
+		if(subMenuTokens==null || subMenuTokens.length<1)
+			return currentFullToken;
 		
-		for(String token : subMenuTokens) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(token);
+		String res = currentFullToken;
+		for(String s : subMenuTokens) {
+			res = appendChild(res, s);
 		}
-		return sb.toString();
+		
+		return res;
 	}
 
 	public static String createSameLevelMenuToken(String currentFullToken, String... subMenuTokens) {

@@ -11,6 +11,27 @@ import org.junit.Test;
 public class PlaceHandlerHelperTest {
 	
 	@Test
+	public void testCreateSubMenuToken() {
+		Assert.assertEquals("a", PlaceHandlerHelper.createSubMenuToken("", "a"));
+		Assert.assertEquals("a/b", PlaceHandlerHelper.createSubMenuToken("", "a", "b"));
+		
+		Assert.assertEquals("a/b/c", PlaceHandlerHelper.createSubMenuToken("a/b", "c"));
+		Assert.assertEquals("a/b/c/d", PlaceHandlerHelper.createSubMenuToken("a/b", "c", "d"));
+		
+	}
+	
+	@Test
+	public void testCreateSameLevelMenuToken() {
+		Assert.assertEquals("a", PlaceHandlerHelper.createSameLevelMenuToken("anyToken", "a"));
+		Assert.assertEquals("newToken", PlaceHandlerHelper.createSameLevelMenuToken("anyToken", "newToken"));
+		
+		Assert.assertEquals("a/b", PlaceHandlerHelper.createSameLevelMenuToken("anyToken", "a", "b"));
+		Assert.assertEquals("newToken/newToken2", PlaceHandlerHelper.createSameLevelMenuToken("anyToken", "newToken", "newToken2"));
+		
+		Assert.assertEquals("token/token2/newToken", PlaceHandlerHelper.createSameLevelMenuToken("token/token2/token3", "newToken"));
+	}
+	
+	@Test
 	public void testAppendChild() {
 		Assert.assertEquals("childToken", PlaceHandlerHelper.appendChild("", "childToken"));
 		Assert.assertEquals("mainToken/childToken", PlaceHandlerHelper.appendChild("mainToken", "childToken"));
