@@ -35,13 +35,13 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 	public void render(final InePlace place, Map<String, String> urlParams) {
 		
 		final FlowPanel fp = menuRenderer.realizeNewPlace(place);
-		fp.addStyleName(ResourceHelper.getRes().style().pageContent());
 		
 		final InePage page = place.getAssociatedPage();
 		if(page==null)
 			return;
 		
 		page.setCurrentPlace(place);
+		page.asWidget().addStyleName(ResourceHelper.getRes().style().pageContent());
 		
 		try {
 			page.setUrlParameters(urlParams, new InePage.UrlParamsParsedCallback() {

@@ -19,6 +19,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	private UnorderedListWidget menuUL=null;
 	private int menuLevel=-1;
 	
+	
 	@Inject
 	public MenuRendererView() {
 	}
@@ -74,8 +75,8 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		return barWidget;
 	}
 	
-	private void setUpTargetStyle(FlowPanel target) {
-		target.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+	private void setUpTargetStyle(FlowPanel fp) {
+		fp.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
 	}
 
 	private class MenuBarWidget extends HandlerAwareComposite implements Tab {
