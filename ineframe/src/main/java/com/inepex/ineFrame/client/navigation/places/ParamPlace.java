@@ -9,7 +9,7 @@ public abstract class ParamPlace extends InePlace {
 
 	public abstract String getChildToken(); 
 	
-	public abstract boolean isParamSet(Map<String, String> urlParams);
+	public abstract boolean notifyParamChangedReturnIsParamSet(Map<String, String> urlParams);
 	
 	/**
 	 * @return - null or a ParamPlaceWidget

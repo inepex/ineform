@@ -131,7 +131,7 @@ public class PlaceHandlerHelper {
 			
 			Node<InePlace> n = root.findNodeByHierarchicalId(sbPlace.toString());
 			if(n.getNodeElement()!=null && n.getNodeElement() instanceof ParamPlace) {
-				if(!((ParamPlace)n.getNodeElement()).isParamSet(params))
+				if(!((ParamPlace)n.getNodeElement()).notifyParamChangedReturnIsParamSet(params))
 					return sbFull.toString();
 			}
 		}
@@ -159,11 +159,10 @@ public class PlaceHandlerHelper {
 			Node<InePlace> selectedNode=null;
 			for(Node<InePlace> pn : pointer.getChildren()) {
 				if(partWithoutParams.equals(pn.getNodeId())) {
-					pn.getNodeElement().setHierarchicalToken(PlaceHandlerHelper.appendChild(curreFullPart.toString(), parts[i]));
 					selectedNode=pn;
-				} else {
-					pn.getNodeElement().setHierarchicalToken(PlaceHandlerHelper.appendChild(curreFullPart.toString(), pn.getNodeId()));
 				}
+				
+				pn.getNodeElement().setHierarchicalToken(PlaceHandlerHelper.appendChild(curreFullPart.toString(), pn.getNodeId()));
 			}
 			
 			if(curreFullPart.length()>0)
@@ -189,18 +188,6 @@ public class PlaceHandlerHelper {
 			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
 			sb.append(token);
 		}
-		return sb.toString();
-	}
-
-	public static String createUpToken(String currentFullToken) {
-		StringBuffer sb = new StringBuffer();
-		
-		String[] originalTokens = currentFullToken.split(regExp(Node.ID_SEPARATOR));
-		for(int i=0; i<originalTokens.length-1; i++) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(originalTokens[i]);
-		}
-		
 		return sb.toString();
 	}
 

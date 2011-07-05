@@ -10,6 +10,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
+import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
+import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
@@ -36,12 +38,15 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 	private final Button newButton;
 	
 	private Long selectedId=null;
+	private boolean updatingNOW=false;
 	
 	/**
 	 * @param newToken - can be null... newToken should be in the same level
+	 * 
+	 * @param listAction - can be null
 	 */
 	SelectorWidget(String paramToken, String descriptorName,
-			String childToken, InePlace place, FormContext formContext, String newToken) {
+			String childToken, InePlace place, FormContext formContext, String newToken, RelationListAction listAction) {
 		this.childToken=childToken;
 		this.formContext=formContext;
 		this.place=place;
@@ -56,8 +61,10 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 			add(newButton);
 		}
 			
-		
-		listAction= new RelationListAction(descriptorName, null, 0, 1000, false);
+		if(listAction==null)
+			this.listAction= new RelationListAction(descriptorName, null, 0, 1000, false);
+		else
+			this.listAction=listAction;
 		
 		listItemIdById = new TreeMap<Long, Integer>();
 		listBox=new ListBox(false);
@@ -82,6 +89,14 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 	@Override
 	protected void onAttach() {
 		super.onAttach();
+		
+		registerHandler(formContext.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new KeyValueObjectListModifiedEventHandler() {
+			
+			@Override
+			public void onObjectListModified(KeyValueObjectListModifiedEvent event) {
+				updateList();
+			}
+		}));
 		
 		if(newToken!=null) {
 			registerHandler(newButton.addClickHandler(new ClickHandler() {
@@ -121,6 +136,11 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 	}
 
 	private void updateList() {
+		if(updatingNOW)
+			return;
+		
+		updatingNOW=true;
+		
 		listBox.clear();
 		listItemIdById.clear();
 		
@@ -145,6 +165,8 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 					else
 						System.out.println("warning: SelectorWidget: there is no item for id "+selectedId);
 				}
+				
+				updatingNOW=false;
 			}
 		});
 	}

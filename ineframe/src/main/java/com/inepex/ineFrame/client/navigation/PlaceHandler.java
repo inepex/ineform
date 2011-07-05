@@ -123,11 +123,22 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			eventBus.fireEvent(new PlaceRequestEvent(firstIncorrecParamPlaceFullToken));
 			return;
 		}
-		
-		//selector widget update
+			
+		//param place redirect
 		if(place instanceof ParamPlace && firstIncorrecParamPlaceFullToken==null) {
 			eventBus.fireEvent(generateSubMenuEvent(((ParamPlace) place).getChildToken()));
 			return;
+		}
+		
+		//selector widget update
+		Node<InePlace> pointer= placeNode;
+		while(pointer!=null) {
+			InePlace pointerPlace = pointer.getNodeElement();
+			if(pointerPlace instanceof ParamPlace && ((ParamPlace) pointerPlace).getSelectorWidget()!=null) {
+				((ParamPlace) pointerPlace).getSelectorWidget().realizeUrlParams(urlParams);
+			}
+			
+			pointer=pointer.getParent();
 		}
 
 		if (specificAdjustPlaceShouldReturn(place))
@@ -185,7 +196,12 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 	public PlaceRequestEvent generateJumpUpEvent() {
 		PlaceRequestEvent event = new PlaceRequestEvent();
-		event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createUpToken(currentFullToken));
+		
+		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
+				PlaceHandlerHelper.getPlacePart(currentFullToken));
+		
+		event.setHierarchicalTokensWithParam(placeNode.getParent().getNodeElement().getHierarchicalToken());
+		
 		return event;
 	}
 	

@@ -14,7 +14,6 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.MasterPage;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
-import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineFrame.client.page.InePage;
 
 @Singleton
@@ -37,10 +36,6 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 		
 		final FlowPanel fp = menuRenderer.realizeNewPlace(place);
 		fp.addStyleName(ResourceHelper.getRes().style().pageContent());
-		
-		if(place instanceof ParamPlace && ((ParamPlace) place).getSelectorWidget()!=null) {
-			((ParamPlace) place).getSelectorWidget().realizeUrlParams(urlParams);
-		}
 		
 		final InePage page = place.getAssociatedPage();
 		if(page==null)

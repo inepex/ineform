@@ -4,43 +4,47 @@ import java.util.Map;
 
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
+import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineFrame.client.page.InePage;
 
 public class SelectorPlace extends ParamPlace {
 	
 	private final Provider<? extends InePage> provider;
-	private final String paramToken;
-	private final String childToken;
-	private final String newToken;
-	private final String desciptorName;
-	private final FormContext formContext;
+	protected final String paramToken;	
+	protected final String desciptorName;
+	protected final FormContext formContext;
+	
+	protected String childToken;
+	protected String newToken;
+	protected RelationListAction relListAction;
 	
 	private InePage page;
 	private SelectorWidget selectorWidget;
 	
-	/**
-	 * 
-	 * @param provider - can be null
-	 * @param paramToken
-	 * @param desciptorName
-	 * @param childToken - redirect to child when param is set
-	 * @param formContext
-	 * @param newToken - can be null, if not null a selector widget display a "New" button.. new place must be in the same level 
-	 * 
-	 */
 	public SelectorPlace(Provider<? extends InePage> provider, String paramToken, String desciptorName,
-			String childToken, FormContext formContext, String newToken) {
+			FormContext formContext) {
 		this.provider=provider;
 		this.paramToken=paramToken;
 		this.desciptorName=desciptorName;
-		this.childToken=childToken;
 		this.formContext=formContext;
-		this.newToken=newToken;
 	}
 	
+	public void setRelListAction(RelationListAction relListAction) {
+		this.relListAction = relListAction;
+	}
+	
+	public RelationListAction getRelListAction() {
+		return relListAction;
+	}
+
 	@Override
-	public InePage getAssociatedPage() {
+	public boolean notifyParamChangedReturnIsParamSet(Map<String, String> urlParams) {
+		return urlParams.get(paramToken)!=null && urlParams.get(paramToken).length()>0;
+	}
+
+	@Override
+	final public InePage getAssociatedPage() {
 		if(provider==null)
 			return null;
 		
@@ -49,24 +53,39 @@ public class SelectorPlace extends ParamPlace {
 		
 		return page;
 	}
-
+	
 	@Override
-	public boolean isParamSet(Map<String, String> urlParams) {
-		return urlParams.get(paramToken)!=null && urlParams.get(paramToken).length()>0;
-	}
-
-	@Override
-	public ParamPlaceWidget getSelectorWidget() {
+	final public ParamPlaceWidget getSelectorWidget() {
+		if(childToken==null)
+			throw new RuntimeException("you may forgot to set childToken!");
+			
 		if(selectorWidget==null) {
-			selectorWidget = new SelectorWidget(paramToken, desciptorName, childToken, this, formContext, newToken);
+			selectorWidget = new SelectorWidget(paramToken, desciptorName, childToken, this, formContext, newToken, relListAction);
 		}
 		
 		return selectorWidget;
 	}
 
 	@Override
-	public String getChildToken() {
+	final public String getChildToken() {
 		return childToken;
+	}
+	
+	final public SelectorPlace setChildToken(String childToken) {
+		this.childToken = childToken;
+		return this;
+	}
+	
+	final public String getNewToken() {
+		return newToken;
+	}
+	
+	/**
+	 * @param newToken - can be null, if not null a selector widget display a "New" button.. new place must be in the same level
+	 */
+	final public SelectorPlace setNewToken(String newToken) {
+		this.newToken = newToken;
+		return this;
 	}
 
 }
