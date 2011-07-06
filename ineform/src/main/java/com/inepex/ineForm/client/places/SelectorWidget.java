@@ -3,12 +3,8 @@ package com.inepex.ineForm.client.places;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
@@ -17,25 +13,22 @@ import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
+import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlaceWidget;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceWidget{
+public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceWidget{
 
 	private final ListBox listBox;
 	private final String paramToken;
 	private final RelationListAction listAction;
 	private final String childToken;
-	private final String newToken;
 	private final InePlace place;
 	private final FormContext formContext;
 	private final Map<Long, Integer> listItemIdById;
-	private final Button newButton;
 	
 	private Long selectedId=null;
 	private boolean updatingNOW=false;
@@ -46,20 +39,11 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 	 * @param listAction - can be null
 	 */
 	SelectorWidget(String paramToken, String descriptorName,
-			String childToken, InePlace place, FormContext formContext, String newToken, RelationListAction listAction) {
+			String childToken, InePlace place, FormContext formContext, RelationListAction listAction) {
 		this.childToken=childToken;
 		this.formContext=formContext;
 		this.place=place;
 		this.paramToken=paramToken;
-		this.newToken=newToken;
-		
-		if(newToken==null) {
-			newButton=null;
-		} else {
-			newButton= new Button(IneFormI18n_old.NEW());
-			newButton.getElement().getStyle().setDisplay(Display.BLOCK);
-			add(newButton);
-		}
 			
 		if(listAction==null)
 			this.listAction= new RelationListAction(descriptorName, null, 0, 1000, false);
@@ -69,7 +53,7 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 		listItemIdById = new TreeMap<Long, Integer>();
 		listBox=new ListBox(false);
 		listBox.setVisibleItemCount(30);
-		add(listBox);
+		initWidget(listBox);
 		
 		addStyleName(ResourceHelper.getRes().style().selectorPanel());
 		listBox.addStyleName(ResourceHelper.getRes().style().selector());
@@ -97,17 +81,6 @@ public class SelectorWidget extends HandlerAwareFlowPanel implements ParamPlaceW
 				updateList();
 			}
 		}));
-		
-		if(newToken!=null) {
-			registerHandler(newButton.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					formContext.eventBus.fireEvent(new PlaceRequestEvent(
-							PlaceHandlerHelper.createSameLevelMenuToken(place.getHierarchicalToken(), newToken)));
-				}
-			}));
-		}
 		
 		registerHandler(listBox.addChangeHandler(new ChangeHandler() {
 			

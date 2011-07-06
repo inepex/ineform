@@ -1,10 +1,14 @@
 @CHARSET 'UTF-8';
 
+.menuRendererWidgetContainer{
+	width: 100%;
+	border-collapse: collapse;
+}
+	
 .pageContent {
 	padding-top: 20px;
 	padding-left: 10px;
     padding-right: 10px;
-    width: 100%;
 }
 
 /* menu */

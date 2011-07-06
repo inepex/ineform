@@ -16,7 +16,6 @@ public class SelectorPlace extends ParamPlace {
 	protected final FormContext formContext;
 	
 	protected String childToken;
-	protected String newToken;
 	protected RelationListAction relListAction;
 	
 	private InePage page;
@@ -60,7 +59,7 @@ public class SelectorPlace extends ParamPlace {
 			throw new RuntimeException("you may forgot to set childToken!");
 			
 		if(selectorWidget==null) {
-			selectorWidget = new SelectorWidget(paramToken, desciptorName, childToken, this, formContext, newToken, relListAction);
+			selectorWidget = new SelectorWidget(paramToken, desciptorName, childToken, this, formContext, relListAction);
 		}
 		
 		return selectorWidget;
@@ -73,18 +72,6 @@ public class SelectorPlace extends ParamPlace {
 	
 	final public SelectorPlace setChildToken(String childToken) {
 		this.childToken = childToken;
-		return this;
-	}
-	
-	final public String getNewToken() {
-		return newToken;
-	}
-	
-	/**
-	 * @param newToken - can be null, if not null a selector widget display a "New" button.. new place must be in the same level
-	 */
-	final public SelectorPlace setNewToken(String newToken) {
-		this.newToken = newToken;
 		return this;
 	}
 

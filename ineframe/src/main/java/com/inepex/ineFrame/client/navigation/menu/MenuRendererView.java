@@ -3,11 +3,13 @@ package com.inepex.ineFrame.client.navigation.menu;
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.dom.client.Style.VerticalAlign;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
@@ -35,13 +37,16 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	
 	@Override
 	public void addWidget(IsWidget w) {
-		HorizontalPanel hp = new HorizontalPanel();
-		hp.getElement().getStyle().setWidth(100, Unit.PCT);
-		hp.add(w);
+		Grid grid = new Grid(1, 2);
+		grid.setWidget(0, 0, (Widget) w);
 		FlowPanel fp = new FlowPanel();
-		hp.add(fp);
-		target.add(hp);
+		grid.setWidget(0, 1, fp);
+		target.add(grid);
 		target=fp;
+		
+		grid.addStyleName(ResourceHelper.getRes().style().menuRendererWidgetContainer());
+		grid.getColumnFormatter().getElement(0).getStyle().setWidth(0, Unit.PX);
+		grid.getRowFormatter().getElement(0).getStyle().setVerticalAlign(VerticalAlign.TOP);
 	}
 
 	@Override
