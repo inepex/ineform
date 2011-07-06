@@ -1,11 +1,12 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
 import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Float;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -34,10 +35,12 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	
 	@Override
 	public void addWidget(IsWidget w) {
-		target.add(w);
+		HorizontalPanel hp = new HorizontalPanel();
+		hp.getElement().getStyle().setWidth(100, Unit.PCT);
+		hp.add(w);
 		FlowPanel fp = new FlowPanel();
-		setUpTargetStyle(fp);
-		target.add(fp);
+		hp.add(fp);
+		target.add(hp);
 		target=fp;
 	}
 
@@ -67,17 +70,12 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 			FlowPanel newTarget = new FlowPanel();
 			target.add(newTarget);
 			target=newTarget;
-			setUpTargetStyle(target);
 		}
 		
 		MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
 		menuUL.add(barWidget);
 		return barWidget;
-	}
-	
-	private void setUpTargetStyle(FlowPanel fp) {
-		fp.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
-	}
+	}	
 
 	private class MenuBarWidget extends HandlerAwareComposite implements Tab {
 

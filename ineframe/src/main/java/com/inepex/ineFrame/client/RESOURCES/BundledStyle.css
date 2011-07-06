@@ -4,11 +4,14 @@
 	padding-top: 20px;
 	padding-left: 10px;
     padding-right: 10px;
+    width: 100%;
 }
 
 /* menu */
 @sprite .menu {
 	gwt-image: 'menu';
+	width: 100%;
+	
 	height: 30px;
 	padding: 0;
 	padding-left: 10px;
@@ -19,6 +22,7 @@
 }
 
 .menu ul {
+	width: 100%;
 	margin: 0;
 	padding: 0px;
 	list-style: none;
@@ -62,6 +66,7 @@
 
 /* submenu */
 @sprite .submenu {
+	width: 100%;    
 	gwt-image: 'submenu';
 	padding: 0;
 	margin: 0;
@@ -70,6 +75,7 @@
 }
 
 .submenu ul {
+	width: 100%;
 	margin: 0;
 	padding: 0px;
 	list-style: none;
@@ -119,6 +125,7 @@
 
 /* menu3 */
 .menu3 {
+	width: 100%;
 	padding: 0;
 	margin: 0;
 	padding-top: 3px;
@@ -127,6 +134,7 @@
 }
 
 .menu3 ul {
+	width: 100%;
 	margin: 0;
 	padding: 0px;
 	list-style: none;
