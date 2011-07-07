@@ -2,7 +2,9 @@ package com.inepex.ineFrame.client.navigation;
 
 
 public class NavigationProperties {
+	public static String SETTINGS = "settings";
 	public static String REDIRECT = "redirect";
+	
 	public static String defaultWindowTitle = "IneForm";
 	
 	public static String defaultPlace = "home";
