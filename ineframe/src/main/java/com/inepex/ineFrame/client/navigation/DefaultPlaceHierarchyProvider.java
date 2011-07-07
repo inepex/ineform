@@ -7,6 +7,8 @@ package com.inepex.ineFrame.client.navigation;
  *
  */
 public abstract class DefaultPlaceHierarchyProvider implements PlaceHierarchyProvider {
+	
+	public static final String SETTINGS = "settings";
 
 	protected PlaceNode placeRoot;
 

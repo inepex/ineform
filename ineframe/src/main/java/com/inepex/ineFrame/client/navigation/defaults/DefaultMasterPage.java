@@ -13,26 +13,31 @@ import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.MasterPage;
+import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.page.InePage;
 
 @Singleton
 public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPage, IsWidget{
 
+	private final IneFrameHeader header;
 	private final MenuRenderer menuRenderer;
 	
 	private final AsyncStatusIndicator statusIndicator;
 	
 	@Inject
-	public DefaultMasterPage(AsyncStatusIndicator statusIndicator, MenuRenderer menuRenderer) {
+	public DefaultMasterPage(AsyncStatusIndicator statusIndicator, MenuRenderer menuRenderer, IneFrameHeader header) {
 		this.statusIndicator=statusIndicator;
 		this.menuRenderer=menuRenderer;
+		this.header=header;
 		
+		this.add(header);
 		this.add((Widget)menuRenderer.getView());
 	}
 	
 	@Override
 	public void render(final InePlace place, Map<String, String> urlParams) {
+		header.refresh();
 		
 		final FlowPanel fp = menuRenderer.realizeNewPlace(place);
 		
