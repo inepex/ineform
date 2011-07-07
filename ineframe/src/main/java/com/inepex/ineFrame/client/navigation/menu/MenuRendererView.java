@@ -45,7 +45,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		target=fp;
 		
 		grid.addStyleName(ResourceHelper.getRes().style().menuRendererWidgetContainer());
-		grid.getColumnFormatter().getElement(0).getStyle().setWidth(0, Unit.PX);
+		grid.getCellFormatter().getElement(0, 0).getStyle().setWidth(1, Unit.PX);
 		grid.getRowFormatter().getElement(0).getStyle().setVerticalAlign(VerticalAlign.TOP);
 	}
 
