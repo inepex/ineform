@@ -31,13 +31,20 @@ import com.inepex.ineom.shared.kvo.Relation;
 public class SelectorPresenter  implements ParamPlacePresenter{
 	
 	public interface View extends IsWidget{
+		
 		void addNextClickHandler(ClickHandler h);
 		void addPreviousClickHandler(ClickHandler h);
-		void addItemSelectionHandler(SelectionHandler<String> h);
+		void addItemSelectedClickHandler(ClickHandler h);
+		
 		int getSelectedIndex();
-		void setSelectedIndex();
+		String getSelectedItem();
+		void setSelectedIndex(int index);
+		void setVisibleItemCount(int visibleItemCount);
+		void setScrollStep(int scrollStep);
+		
 		void showLoading();
 		void hideLoading();
+		
 		void addItem(String name);
 		void clear();
 	}
@@ -74,8 +81,6 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 			this.listAction=listAction;
 		
 		listItemIdById = new TreeMap<Long, Integer>();
-		
-
 		selectorView = new SelectorView();
 		bindView();
 		
@@ -101,13 +106,16 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 			}
 		});
 		
-		selectorView.addItemSelectionHandler(new SelectionHandler<String>() {
+		
+		selectorView.setScrollStep(1);
+		selectorView.setVisibleItemCount(5);
+		selectorView.addItemSelectedClickHandler(new ClickHandler() {
 			
 			@Override
-			public void onSelection(SelectionEvent<String> event) {
+			public void onClick(ClickEvent event) {
 				if(lastListResult != null){
 					for(Relation rel : lastListResult.getList()) {
-						if(event.getSelectedItem() == rel.getDisplayName()){
+						if(selectorView.getSelectedItem() == rel.getDisplayName()){
 							selectedId = rel.getId();
 							break;
 						}
@@ -129,7 +137,7 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 				formContext.eventBus.fireEvent(new PlaceRequestEvent(newHierarchicalToken));
 			}
 		});
-		
+				
 	
 	}
 

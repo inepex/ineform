@@ -1,11 +1,14 @@
 package com.inepex.ineForm.client.widget;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
+
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -18,41 +21,64 @@ import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 
 
-public class SelectorView extends HandlerAwareFlowPanel implements SelectorPresenter.View, HasSelectionHandlers<String>{
+public class SelectorView extends FlowPanel implements SelectorPresenter.View{
 	
 
-	private class ItemClickHandler implements ClickHandler{
+	private class InnerClickHandler implements ClickHandler{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			int selected = elementOrder.indexOf(((Label)((SimplePanel)event.getSource()).getWidget()).getText());
-			if(selected != -1 && selected != selectedIndex){
-				selectedIndex = selected;
-				fireSelectionEvent();
+			if(event.getSource().equals(nextButton)){
+				scrollDown();
+				for(int i=0;i<hmDown.getHandlerCount(ClickEvent.getType());i++){
+					hmDown.getHandler(ClickEvent.getType(), 0).onClick(event);
+				}
 			}
-			
+			else if(event.getSource().equals(previousButton)){
+				scrollUp();
+				for(int i=0;i<hmUp.getHandlerCount(ClickEvent.getType());i++){
+					hmUp.getHandler(ClickEvent.getType(), 0).onClick(event);
+				}
+			}
+			else{
+				int selected = elementOrder.indexOf(((Label)((SimplePanel)event.getSource()).getWidget()).getText());
+				if(selected != -1 && selected != selectedIndex){
+					setSelectedItem(selected);
+					for(int i=0;i<hm.getHandlerCount(ClickEvent.getType());i++){
+						hm.getHandler(ClickEvent.getType(), 0).onClick(event);
+					}
+				}
+			}
 		}
-		
 	}
 	
-	protected ItemClickHandler itemClickHandler;
+	protected InnerClickHandler innerClickHandler;
 	protected FlowPanel itemContainer;
 	protected ArrayList<String> elementOrder;
 	protected Panel nextButton;
 	protected Panel previousButton;
 	protected int selectedIndex;
-	protected HandlerManager hm;
+	protected HandlerManager hm, hmUp, hmDown;
+	protected int visibleItemCount;
+	protected int firstVisibleItem;
+	protected int scrollStep;
+	protected TreeMap<String,Panel> items;
 
 	public SelectorView() {
 		super();
 		elementOrder = new ArrayList<String>();
-		itemClickHandler = new ItemClickHandler();
+		items = new TreeMap<String, Panel>();
+		innerClickHandler = new InnerClickHandler();
 		hm = new HandlerManager(this);
+		hmUp = new HandlerManager(this);
+		hmDown = new HandlerManager(this);
 		selectedIndex = -1;
+		visibleItemCount = 7;
+		firstVisibleItem = 0;
+		scrollStep = 1;
 		initLayout();
 	}
-	
-	
+
 	
 	private void initLayout(){
 		itemContainer = new FlowPanel();
@@ -66,6 +92,9 @@ public class SelectorView extends HandlerAwareFlowPanel implements SelectorPrese
 		previousButton.add(prev);
 		nextButton.add(next);
 		
+		previousButton.addDomHandler(innerClickHandler, ClickEvent.getType());
+		nextButton.addDomHandler(innerClickHandler, ClickEvent.getType());
+		
 		this.add(previousButton);
 		this.add(itemContainer);
 		this.add(nextButton);		
@@ -75,10 +104,8 @@ public class SelectorView extends HandlerAwareFlowPanel implements SelectorPrese
 		elementOrder.clear();
 		itemContainer.clear();
 		selectedIndex = -1;
-	}
-	
-	private void fireSelectionEvent(){
-		SelectionEvent.fire(this, elementOrder.get(selectedIndex));
+		firstVisibleItem = 0;
+		items.clear();
 	}
 	
 	@Override
@@ -95,48 +122,116 @@ public class SelectorView extends HandlerAwareFlowPanel implements SelectorPrese
 
 	@Override
 	public void addItem(String name) {
+		elementOrder.add(name);
+		items.put(name, createSimpleItem(name));
+		if(isItemVisible(name))
+			update();
+	}
+	
+	private Panel createSimpleItem(String name){
 		SimplePanel c = new SimplePanel();
 		Label lbl = new Label(name);
 		c.addStyleName(ResourceHelper.getRes().style().item());
 		lbl.addStyleName(ResourceHelper.getRes().style().content());
-		c.addDomHandler(itemClickHandler, ClickEvent.getType());
+		c.addDomHandler(innerClickHandler, ClickEvent.getType());
 		c.setWidget(lbl);
-		itemContainer.add(c);
+		return c;
+	}
+	
+	private boolean isItemVisible(String name){
+		int i = elementOrder.indexOf(name);
+		if(i >= firstVisibleItem && i <= firstVisibleItem + visibleItemCount)
+			return true;
+		else 
+			return false;
+	}
+	
+	private void update(){
+		itemContainer.clear();
+		for(int i = firstVisibleItem; i < firstVisibleItem + visibleItemCount && i < elementOrder.size(); i++){
+			Panel item = items.get(elementOrder.get(i));
+//			if(item == null){
+//				item = createSimpleItem(elementOrder.get(i));
+//				items.put(elementOrder.get(i), item);
+//			}
+			itemContainer.add(item);				
+		}
 	}
 
 	@Override
 	public void addNextClickHandler(ClickHandler h) {
-		registerHandler(nextButton.addDomHandler(h, ClickEvent.getType()));
+		hmDown.addHandler(ClickEvent.getType(),h);
 	}
 
 	@Override
 	public void addPreviousClickHandler(ClickHandler h) {
-		registerHandler(previousButton.addDomHandler(h, ClickEvent.getType()));
+		hmUp.addHandler(ClickEvent.getType(),h);
 	}
 
 	@Override
-	public void addItemSelectionHandler(SelectionHandler<String> h) {
-		registerHandler(addSelectionHandler(h));
+	public void addItemSelectedClickHandler(ClickHandler h) {
+		hm.addHandler(ClickEvent.getType(),h);
 	}
 
 	@Override
 	public int getSelectedIndex() {
 		return selectedIndex;
 	}
-
-	@Override
-	public HandlerRegistration addSelectionHandler(
-			SelectionHandler<String> handler) {
-		return hm.addHandler(SelectionEvent.getType(),handler);
+	
+	public String getSelectedItem(){
+		if(selectedIndex == -1)
+			return null;
+		else
+			return elementOrder.get(selectedIndex);
 	}
 
-
-
 	@Override
-	public void setSelectedIndex() {
-		// TODO Auto-generated method stub
-		
+	public void setSelectedIndex(int index) {
+		if(index < elementOrder.size() && index > -2 && index != selectedIndex){
+			setSelectedItem(index);
+		}
+	}
+	
+	@Override
+	public void setVisibleItemCount(int visibleItemCount) {
+		if(visibleItemCount >= 0)
+			this.visibleItemCount = visibleItemCount;
+	}
+	
+	private void scrollDown(){
+		int i = firstVisibleItem;
+		if(scrollStep + firstVisibleItem + visibleItemCount >= elementOrder.size()){
+			firstVisibleItem = elementOrder.size()-visibleItemCount;
+			if(firstVisibleItem < 0)
+				firstVisibleItem = 0;
+		}
+		else
+			firstVisibleItem += scrollStep;
+		if(i != firstVisibleItem)
+			update();
+	}
+	
+	private void scrollUp(){
+		int i = firstVisibleItem;
+		if(firstVisibleItem - scrollStep < 0)
+			firstVisibleItem = 0;
+		else
+			firstVisibleItem -= scrollStep;
+		if(i != firstVisibleItem)
+			update();
 	}
 
+	private void setSelectedItem(int index){
+		//de-select previous
+		//TODO
+		//select
+		items.get(elementOrder.get(index));
+		selectedIndex = index;
+	}
 
+	@Override
+	public void setScrollStep(int scrollStep) {
+		if(scrollStep > 0)
+			this.scrollStep = scrollStep;
+	}
 }
