@@ -53,6 +53,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected void onAttach() {
 		super.onAttach();
 		
+		registerHandler(userName.addKeyPressHandler(new PassEnterPressHandler()));
 		registerHandler(password.addKeyPressHandler(new PassEnterPressHandler()));
 		registerHandler(loginButton.addClickHandler(new ClickHandler() {
 			
@@ -110,7 +111,9 @@ public abstract class LoginBox extends HandlerAwareComposite {
 					doLoggedinLogic();
 				}
 			} else {
-				//TODO validation message
+				//TODO validate message
+				//TODO validate message
+				//TODO validate message
 				Window.alert("Invalid user or password!");
 			}
 		}

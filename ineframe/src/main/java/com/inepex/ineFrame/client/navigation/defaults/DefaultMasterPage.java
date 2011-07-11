@@ -17,6 +17,15 @@ import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.page.InePage;
 
+/**
+ * 
+ * 
+ * TODO This class may equals to MasterPage
+ * TODO This class may equals to MasterPage
+ * TODO This class may equals to MasterPage
+ * TODO This class may equals to MasterPage
+ * 
+ */
 @Singleton
 public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPage, IsWidget{
 
