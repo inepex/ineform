@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -13,6 +14,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
+import com.inepex.ineFrame.client.navigation.HistoryProvider;
+import com.inepex.ineFrame.client.navigation.NavigationProperties;
+import com.inepex.ineFrame.client.navigation.PlaceHandler;
+import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 
 public abstract class LoginBox extends HandlerAwareComposite {
 
@@ -22,9 +27,13 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected final Button loginButton;
 
 	protected final AuthManager authManager;
+	protected final HistoryProvider historyProvider;
+	protected final EventBus eventBus;
 	
-	protected LoginBox(AuthManager authManager) {
+	protected LoginBox(AuthManager authManager, HistoryProvider historyProvider, EventBus eventBus) {
 		this.authManager = authManager;
+		this.historyProvider=historyProvider;
+		this.eventBus=eventBus;
 	
 		vp= new VerticalPanel();
 		
@@ -88,12 +97,20 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	class LoginCallback implements AuthActionCallback {
 		@Override
 		public void onAuthCheckDone() {
-			//TODO add redirect logic
-			//TODO add redirect logic
-			//TODO add redirect logic
 			if(authManager.isUserLoggedIn()) {
-				doLoggedinLogic();
+				if(historyProvider.getToken().contains((NavigationProperties.REDIRECT))) {
+					PlaceRequestEvent pre = new PlaceRequestEvent();
+					pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
+							historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
+								+NavigationProperties.REDIRECT.length()
+								+PlaceHandler.EQUALS_SIGN.length()
+							, historyProvider.getToken().length()));
+					eventBus.fireEvent(pre);
+				} else {
+					doLoggedinLogic();
+				}
 			} else {
+				//TODO validation message
 				Window.alert("Invalid user or password!");
 			}
 		}

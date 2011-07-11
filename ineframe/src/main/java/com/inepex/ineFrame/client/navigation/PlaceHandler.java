@@ -75,15 +75,23 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private void realizePlaceChange() {
+		String currentFullTokenWithoutRedirect;
+		if(currentFullToken.contains(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT))
+			currentFullTokenWithoutRedirect=currentFullToken.substring(0,
+					currentFullToken.indexOf(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT));
+		else
+			currentFullTokenWithoutRedirect=currentFullToken;
+		
+		
 		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
-				PlaceHandlerHelper.getPlacePart(currentFullToken));
+				PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));
 		
 		if (placeNode == null) {
 			historyProvider.newItem(wrongTokenPlace);
 			return;
 		}
 		
-		PlaceHandlerHelper.updateHierarchicalTokens(currentFullToken, placeHierarchyProvider.getPlaceRoot());
+		PlaceHandlerHelper.updateHierarchicalTokens(currentFullTokenWithoutRedirect, placeHierarchyProvider.getPlaceRoot());
 
 		InePlace place = placeNode.getNodeElement();
 
@@ -93,15 +101,16 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
 					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
-				if(authManager.isUserLoggedIn())
+				
+				if(authManager.isUserLoggedIn()) {
 					masterPage.renderForbidden(place);
-				else {
+				} else {
 					eventBus.fireEvent(new PlaceRequestEvent(
 							defaultPlace+
 							QUESTION_MARK+
 							REDIRECT+
 							EQUALS_SIGN+
-							currentFullToken));
+							currentFullTokenWithoutRedirect));
 					return;
 				}
 			}
@@ -109,14 +118,14 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			eventBus.fireEvent(new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullToken, cdPlace.getChildToken())));
+			eventBus.fireEvent(new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken())));
 			return;
 		}
 		
 		//param place checking
-		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullToken);
+		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullTokenWithoutRedirect);
 		String firstIncorrecParamPlaceFullToken = PlaceHandlerHelper
-					.getFirstIncorrectParamPlace(currentFullToken, placeHierarchyProvider.getPlaceRoot());
+					.getFirstIncorrectParamPlace(currentFullTokenWithoutRedirect, placeHierarchyProvider.getPlaceRoot());
 		
 		if(firstIncorrecParamPlaceFullToken!=null && !firstIncorrecParamPlaceFullToken.equals(currentFullToken)) {
 			eventBus.fireEvent(new PlaceRequestEvent(firstIncorrecParamPlaceFullToken));

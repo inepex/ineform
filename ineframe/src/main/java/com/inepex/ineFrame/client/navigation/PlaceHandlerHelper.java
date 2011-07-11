@@ -62,7 +62,6 @@ public class PlaceHandlerHelper {
 		
 	}
 	
-	
 	public static String getPlacePart(String currentFullToken) {
 		StringBuffer sb = new StringBuffer();
 		boolean firstToken=true;
