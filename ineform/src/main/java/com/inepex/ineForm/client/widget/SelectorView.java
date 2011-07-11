@@ -43,7 +43,7 @@ public class SelectorView extends FlowPanel implements SelectorPresenter.View{
 			else{
 				int selected = elementOrder.indexOf(((Label)((SimplePanel)event.getSource()).getWidget()).getText());
 				if(selected != -1 && selected != selectedIndex){
-					setSelectedItem(selected);
+					selectItem(elementOrder.get(selected));
 					for(int i=0;i<hm.getHandlerCount(ClickEvent.getType());i++){
 						hm.getHandler(ClickEvent.getType(), 0).onClick(event);
 					}
@@ -186,10 +186,9 @@ public class SelectorView extends FlowPanel implements SelectorPresenter.View{
 	}
 
 	@Override
-	public void setSelectedIndex(int index) {
-		if(index < elementOrder.size() && index > -2 && index != selectedIndex){
-			setSelectedItem(index);
-		}
+	public void setSelectedItem(String name) {
+			setSelectedItem(name);
+//TODO zoom to selected element
 	}
 	
 	@Override
@@ -221,12 +220,12 @@ public class SelectorView extends FlowPanel implements SelectorPresenter.View{
 			update();
 	}
 
-	private void setSelectedItem(int index){
+	private void selectItem(String name){
 		//de-select previous
 		//TODO
 		//select
-		items.get(elementOrder.get(index));
-		selectedIndex = index;
+		items.get(name);
+		selectedIndex = elementOrder.indexOf(name);
 	}
 
 	@Override

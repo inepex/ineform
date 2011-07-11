@@ -38,7 +38,7 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 		
 		int getSelectedIndex();
 		String getSelectedItem();
-		void setSelectedIndex(int index);
+		void setSelectedItem(String name);
 		void setVisibleItemCount(int visibleItemCount);
 		void setScrollStep(int scrollStep);
 		
@@ -57,7 +57,6 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 	private final String childToken;
 	private final InePlace place;
 	private final FormContext formContext;
-	private final Map<Long, Integer> listItemIdById;
 	
 	private Long selectedId=null;
 	private boolean updatingNOW=false;
@@ -80,7 +79,6 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 		else
 			this.listAction=listAction;
 		
-		listItemIdById = new TreeMap<Long, Integer>();
 		selectorView = new SelectorView();
 		bindView();
 		
@@ -149,7 +147,7 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 		updatingNOW=true;
 		
 		selectorView.clear();
-		listItemIdById.clear();
+		
 		
 		formContext.ineDispatch.execute(listAction, new IneDispatch.SuccessCallback<RelationListResult>() {
 
@@ -163,14 +161,15 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 					}
 				}
 				
-//				if(selectedId!=null) {
-//					Integer itemId = listItemIdById.get(selectedId);
-//					if(itemId!=null)
-//						listBox.setSelectedIndex(itemId);
-//					else
-//						System.out.println("warning: SelectorWidget: there is no item for id "+selectedId);
-//				}
-//				
+				if(selectedId!=null) {
+					for(Relation rel : result.getList()){
+						if(rel.getId() == selectedId){
+							selectorView.setSelectedItem(rel.getDisplayName());
+							break;
+						}
+					}
+				}
+						
 				updatingNOW=false;
 			}
 		});
