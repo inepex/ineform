@@ -11,13 +11,13 @@ import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 
-public abstract class AbstractAuthManager<A extends AuthStatusResultBase> implements AuthManager<A> {
+public abstract class AbstractAuthManager implements AuthManager {
 
 	public static interface AuthActionCallback {
 		void onAuthCheckDone();
 	}
 
-	A lastAuthStatusResult = null;
+	AuthStatusResultBase lastAuthStatusResult = null;
 
 	final IneDispatch dispatcher;
 	
@@ -51,11 +51,10 @@ public abstract class AbstractAuthManager<A extends AuthStatusResultBase> implem
 			callback.onAuthCheckDone();
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void onSuccess(AuthStatusResultBase result) {
 			try {
-				lastAuthStatusResult = (A) result;
+				lastAuthStatusResult = result;
 			} catch (Exception e) {
 				Window.alert("Wrong AuthStatusHandler bound on server side!");
 			}
@@ -64,7 +63,7 @@ public abstract class AbstractAuthManager<A extends AuthStatusResultBase> implem
 	}
 
 	@Override
-	public A getLastAuthStatusResult() {
+	public AuthStatusResultBase getLastAuthStatusResult() {
 		return lastAuthStatusResult;
 	}	
 	

@@ -10,6 +10,7 @@ import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
 import com.inepex.ineFrame.client.async.SimpleFailureStatusIndicator;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.inei18n.shared.ClientI18nProvider;
@@ -31,7 +32,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
 	public abstract void onIneModuleLoad();
 
-	protected abstract AuthManager<?> getAuthManager();
+	protected final AuthManager authManager;
 
 	protected final DispatchAsync dispatchAsync;
 	protected final EventBus eventBus;
@@ -39,9 +40,10 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	private boolean i18nQueried = false;
 	private boolean authStatusQueried = false;
 
-	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus) {
+	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager) {
 		this.dispatchAsync = dispatchAsync;
 		this.eventBus = eventBus;
+		this.authManager=authManager;
 	}
 
 	@Override
@@ -57,8 +59,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		dispatch.execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
 
 		// query auth status
-		AuthManager<?> authManager = getAuthManager();
-		if (authManager != null)
+		if (!(authManager instanceof NoAuthManager))
 			authManager.checkAuthStatus(new AuthStatusCallback());
 		else
 			authStatusQueried = true;

@@ -27,13 +27,13 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 	protected PlaceHierarchyProvider placeHierarchyProvider;
 	protected MasterPage masterPage;
-	protected AuthManager<?> authManager;
+	protected AuthManager authManager;
 	protected HistoryProvider historyProvider;
 	protected EventBus eventBus;
 
 	private String currentFullToken = null;
 
-	public PlaceHandler(PlaceHierarchyProvider placeHierarchyProvider, MasterPage masterPage, AuthManager<?> authManager,
+	public PlaceHandler(PlaceHierarchyProvider placeHierarchyProvider, MasterPage masterPage, AuthManager authManager,
 			HistoryProvider historyProvider, EventBus eventBus) {
 		this.placeHierarchyProvider = placeHierarchyProvider;
 		this.masterPage = masterPage;

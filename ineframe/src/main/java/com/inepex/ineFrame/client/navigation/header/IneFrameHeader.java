@@ -11,24 +11,24 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
-import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
 public class IneFrameHeader extends HandlerAwareFlowPanel {
 	
-//	@Inject
-	private AuthManager<AuthStatusResultBase> authManager;
+	@Inject
+	private AuthManager authManager;
 	
 	@Inject
-	PlaceHierarchyProvider placeHierarchyProvider;
+	private PlaceHierarchyProvider placeHierarchyProvider;
 	
 	@Inject
-	Provider<SettingsPopup> popup;
+	private Provider<SettingsPopup> popup;
 	
 	private boolean inited=false;
 	private HTML userName;
@@ -56,10 +56,10 @@ public class IneFrameHeader extends HandlerAwareFlowPanel {
 
 	public void refresh() {
 		//user name
-		if(authManager!=null && authManager.isUserLoggedIn()) {
+		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
 			userName.setVisible(true);
 			userName.setHTML(authManager.getLastAuthStatusResult().getFirstName()
-					+"&nbps;"+authManager.getLastAuthStatusResult().getLastName());
+					+"&nbsp;"+authManager.getLastAuthStatusResult().getLastName());
 		} else {
 			userName.setVisible(false);
 		}
@@ -86,7 +86,11 @@ public class IneFrameHeader extends HandlerAwareFlowPanel {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				popup.get().showRelativeTo(settingsImg);
+				if(popup.get().isShowing()) {
+					popup.get().hide();
+				} else {
+					popup.get().showRelativeTo(settingsImg);
+				}
 			}
 		}));
 	}

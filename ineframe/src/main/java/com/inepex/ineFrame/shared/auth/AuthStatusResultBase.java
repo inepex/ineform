@@ -15,6 +15,17 @@ public class AuthStatusResultBase extends GenericResult {
 		super();
 	}
 
+	public AuthStatusResultBase(String firstName, String lastName, Long userId,
+			Set<String> roles) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userId = userId;
+		this.roles = roles;
+	}
+
+
+
 	public String getFirstName() {
 		return firstName;
 	}

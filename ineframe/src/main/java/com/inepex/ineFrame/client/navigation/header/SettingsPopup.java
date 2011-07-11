@@ -27,7 +27,7 @@ public class SettingsPopup extends DialogBox {
 	
 	@Inject
 	SettingsPopup() {
-		super(true);
+		super(false, false);
 	}
 	
 	private void init() {
