@@ -19,7 +19,7 @@ public class SelectorPlace extends ParamPlace {
 	protected RelationListAction relListAction;
 	
 	private InePage page;
-	private SelectorWidget selectorWidget;
+	private SelectorPresenter selectorPresenter;
 	
 	public SelectorPlace(Provider<? extends InePage> provider, String paramToken, String desciptorName,
 			FormContext formContext) {
@@ -54,18 +54,6 @@ public class SelectorPlace extends ParamPlace {
 	}
 	
 	@Override
-	final public ParamPlaceWidget getSelectorWidget() {
-		if(childToken==null)
-			throw new RuntimeException("you may forgot to set childToken!");
-			
-		if(selectorWidget==null) {
-			selectorWidget = new SelectorWidget(paramToken, desciptorName, childToken, this, formContext, relListAction);
-		}
-		
-		return selectorWidget;
-	}
-
-	@Override
 	final public String getChildToken() {
 		return childToken;
 	}
@@ -73,6 +61,18 @@ public class SelectorPlace extends ParamPlace {
 	final public SelectorPlace setChildToken(String childToken) {
 		this.childToken = childToken;
 		return this;
+	}
+
+	@Override
+	final public ParamPlacePresenter getSelectorPresenter() {
+		if(childToken==null)
+			throw new RuntimeException("you may forgot to set childToken!");
+			
+		if(selectorPresenter==null) {
+			selectorPresenter = new SelectorPresenter(paramToken, desciptorName, childToken, this, formContext, relListAction);
+		}
+		
+		return selectorPresenter;
 	}
 
 }

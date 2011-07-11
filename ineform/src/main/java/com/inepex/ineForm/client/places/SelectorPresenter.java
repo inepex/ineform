@@ -5,11 +5,19 @@ import java.util.TreeMap;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.resources.ResourceHelper;
+import com.inepex.ineForm.client.widget.SelectorView;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -17,14 +25,28 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlaceWidget;
+import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlacePresenter;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceWidget{
+public class SelectorPresenter  implements ParamPlacePresenter{
+	
+	public interface View extends IsWidget{
+		void addNextClickHandler(ClickHandler h);
+		void addPreviousClickHandler(ClickHandler h);
+		void addItemSelectionHandler(SelectionHandler<String> h);
+		int getSelectedIndex();
+		void setSelectedIndex();
+		void showLoading();
+		void hideLoading();
+		void addItem(String name);
+		void clear();
+	}
 
-	private final ListBox listBox;
+	private final View selectorView;
+	
 	private final String paramToken;
 	private final RelationListAction listAction;
+	private RelationListResult lastListResult;
 	private final String childToken;
 	private final InePlace place;
 	private final FormContext formContext;
@@ -38,8 +60,9 @@ public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceW
 	 * 
 	 * @param listAction - can be null
 	 */
-	SelectorWidget(String paramToken, String descriptorName,
+	SelectorPresenter(String paramToken, String descriptorName,
 			String childToken, InePlace place, FormContext formContext, RelationListAction listAction) {
+	
 		this.childToken=childToken;
 		this.formContext=formContext;
 		this.place=place;
@@ -51,12 +74,11 @@ public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceW
 			this.listAction=listAction;
 		
 		listItemIdById = new TreeMap<Long, Integer>();
-		listBox=new ListBox(false);
-		listBox.setVisibleItemCount(30);
-		initWidget(listBox);
 		
-		addStyleName(ResourceHelper.getRes().style().selectorPanel());
-		listBox.addStyleName(ResourceHelper.getRes().style().selector());
+
+		selectorView = new SelectorView();
+		bindView();
+		
 	}
 
 	@Override
@@ -70,27 +92,28 @@ public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceW
 		updateList();
 	}
 	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		registerHandler(formContext.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new KeyValueObjectListModifiedEventHandler() {
+	private void bindView(){
+		formContext.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new KeyValueObjectListModifiedEventHandler() {
 			
 			@Override
 			public void onObjectListModified(KeyValueObjectListModifiedEvent event) {
 				updateList();
 			}
-		}));
+		});
 		
-		registerHandler(listBox.addChangeHandler(new ChangeHandler() {
+		selectorView.addItemSelectionHandler(new SelectionHandler<String>() {
 			
 			@Override
-			public void onChange(ChangeEvent event) {
-				int i = listBox.getSelectedIndex();
-				if(i==-1)
-					selectedId=null;
-				else
-					selectedId=Long.parseLong(listBox.getValue(i));
+			public void onSelection(SelectionEvent<String> event) {
+				if(lastListResult != null){
+					for(Relation rel : lastListResult.getList()) {
+						if(event.getSelectedItem() == rel.getDisplayName()){
+							selectedId = rel.getId();
+							break;
+						}
+					}
+				}
+					
 				
 				String newHierarchicalToken;
 				if(selectedId==null) {
@@ -105,8 +128,11 @@ public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceW
 				
 				formContext.eventBus.fireEvent(new PlaceRequestEvent(newHierarchicalToken));
 			}
-		}));
+		});
+		
+	
 	}
+
 
 	private void updateList() {
 		if(updatingNOW)
@@ -114,34 +140,38 @@ public class SelectorWidget extends HandlerAwareComposite implements ParamPlaceW
 		
 		updatingNOW=true;
 		
-		listBox.clear();
+		selectorView.clear();
 		listItemIdById.clear();
 		
 		formContext.ineDispatch.execute(listAction, new IneDispatch.SuccessCallback<RelationListResult>() {
 
 			@Override
 			public void onSuccess(RelationListResult result) {
-				int i=0;
+				lastListResult = result;
 				
 				if(result.getList()!=null && result.getList().size()>0) {
 					for(Relation rel : result.getList()) {
-						listBox.addItem(rel.getDisplayName(), rel.getId().toString());
-						listItemIdById.put(rel.getId(), new Integer(i));
-						i++;
+						selectorView.addItem(rel.getDisplayName());
 					}
 				}
 				
-				if(selectedId!=null) {
-					Integer itemId = listItemIdById.get(selectedId);
-					if(itemId!=null)
-						listBox.setSelectedIndex(itemId);
-					else
-						System.out.println("warning: SelectorWidget: there is no item for id "+selectedId);
-				}
-				
+//				if(selectedId!=null) {
+//					Integer itemId = listItemIdById.get(selectedId);
+//					if(itemId!=null)
+//						listBox.setSelectedIndex(itemId);
+//					else
+//						System.out.println("warning: SelectorWidget: there is no item for id "+selectedId);
+//				}
+//				
 				updatingNOW=false;
 			}
 		});
 	}
+
+	@Override
+	public Widget asWidget() {
+		return selectorView.asWidget();
+	}
+	
 	
 }
