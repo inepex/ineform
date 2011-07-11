@@ -134,8 +134,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		Node<InePlace> pointer= placeNode;
 		while(pointer!=null) {
 			InePlace pointerPlace = pointer.getNodeElement();
-			if(pointerPlace instanceof ParamPlace && ((ParamPlace) pointerPlace).getSelectorWidget()!=null) {
-				((ParamPlace) pointerPlace).getSelectorWidget().realizeUrlParams(urlParams);
+			if(pointerPlace instanceof ParamPlace && ((ParamPlace) pointerPlace).getSelectorPresenter()!=null) {
+				((ParamPlace) pointerPlace).getSelectorPresenter().realizeUrlParams(urlParams);
 			}
 			
 			pointer=pointer.getParent();

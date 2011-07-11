@@ -43,4 +43,19 @@ public interface IneFrameResources extends ClientBundle {
 	
 	@Source("settings.png")
 	ImageResource settings();
+
+
+	@Source("selector_arrow_bg.gif")
+	@ImageOptions(repeatStyle=RepeatStyle.Horizontal)
+	ImageResource selector_arrow_bg();
+	
+	@Source("selector_item_bg.gif")
+	@ImageOptions(repeatStyle=RepeatStyle.Horizontal)
+	ImageResource selector_item_bg();
+	
+	@Source("selector_up_arrow.gif")
+	ImageResource selector_up_arrow();
+	
+	@Source("selector_down_arrow.gif")
+	ImageResource selector_down_arrow();
 }

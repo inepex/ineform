@@ -16,7 +16,7 @@ import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.OnClieckedLogic;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
-import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlaceWidget;
+import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlacePresenter;
 import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
@@ -130,8 +130,9 @@ public class MenuRenderer {
 			
 			if(selectednode!=null) {
 				if(selectednode.getNodeElement()!=null && selectednode.getNodeElement() instanceof ParamPlace) {
-					ParamPlaceWidget w = ((ParamPlace) selectednode.getNodeElement()).getSelectorWidget();
-					if(w!=null) view.addWidget(w);
+					ParamPlacePresenter w = ((ParamPlace) selectednode.getNodeElement()).getSelectorPresenter();
+					if(w!=null)
+						view.addWidget(w.asWidget());
 				}
 			}
 		}

@@ -14,9 +14,9 @@ public abstract class ParamPlace extends InePlace {
 	/**
 	 * @return - null or a ParamPlaceWidget
 	 */
-	public abstract ParamPlaceWidget getSelectorWidget();
+	public abstract ParamPlacePresenter getSelectorPresenter();
 	
-	public static interface ParamPlaceWidget extends IsWidget {
+	public static interface ParamPlacePresenter extends IsWidget{
 		public void realizeUrlParams(Map<String, String> params);
 	}
 }

@@ -84,7 +84,7 @@ public class GetFirstIncorrectParamPlaceTest {
 		}
 
 		@Override
-		public ParamPlaceWidget getSelectorWidget() {
+		public ParamPlacePresenter getSelectorPresenter() {
 			throw new RuntimeException();
 		}
 

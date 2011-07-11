@@ -290,3 +290,40 @@
 	border:1px solid;
 	border-color: #b1afa5;
 }
+
+.selector{
+	width: 150px;
+	color: #6d6d6d;
+	font-family: arial;
+	font-weight: bold;
+	font-size: 11pt;
+	text-align: center;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+@sprite .arrow{
+	gwt-image: 'selector_arrow_bg';
+	
+	height: 13px;
+	width: 100%;
+	border-bottom: 1px solid  #2e2e2d;
+	border-right: 1px solid  #2e2e2d;
+}
+
+.selector .arrow img{
+	margin-bottom: 5px;
+}
+
+@sprite .item{
+	gwt-image: 'selector_item_bg';
+	
+	height: 28px;
+	width: 100%;
+	border-bottom: 1px solid  #2e2e2d;
+	border-right: 1px solid  #2e2e2d;
+}
+
+.selector .item .content{
+	margin-top: 5px;
+}
