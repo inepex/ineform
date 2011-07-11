@@ -178,6 +178,9 @@ public class Node<T> implements Serializable {
 		// Find the node by scanning on each level
 		Node<T> cursorNode = getRootNode();
 		for (int i = 0; i < tokenParts.length; i++) {
+			if(cursorNode==null || cursorNode.getChildren()==null)
+				return null;
+			
 			for (Node<T> node : cursorNode.getChildren()) {
 				if (tokenParts[i].equals(node.getNodeId().toString())) {
 					cursorNode = node;

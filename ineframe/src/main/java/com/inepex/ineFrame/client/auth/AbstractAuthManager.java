@@ -2,6 +2,8 @@ package com.inepex.ineFrame.client.auth;
 
 import java.util.Set;
 
+import net.customware.gwt.dispatch.shared.UnsupportedActionException;
+
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -47,17 +49,18 @@ public abstract class AbstractAuthManager implements AuthManager {
 		
 		@Override
 		public void onFailure(Throwable arg0) {
+			if(arg0 instanceof UnsupportedActionException)  {
+				Window.alert(arg0.getMessage());
+			}
+			
 			lastAuthStatusResult = null;
 			callback.onAuthCheckDone();
 		}
 
 		@Override
 		public void onSuccess(AuthStatusResultBase result) {
-			try {
-				lastAuthStatusResult = result;
-			} catch (Exception e) {
-				Window.alert("Wrong AuthStatusHandler bound on server side!");
-			}
+			lastAuthStatusResult = result;
+			
 			callback.onAuthCheckDone();
 		}
 	}
@@ -80,6 +83,10 @@ public abstract class AbstractAuthManager implements AuthManager {
 		}
 		@Override
 		public void onFailure(Throwable arg0) {
+			if(arg0 instanceof UnsupportedActionException)  {
+				Window.alert(arg0.getMessage());
+			}
+			
 			lastAuthStatusResult = null;
 			callback.onAuthCheckDone();
 		}
@@ -93,15 +100,15 @@ public abstract class AbstractAuthManager implements AuthManager {
 
 	@Override
 	public boolean isUserLoggedIn() {
-		return (!(lastAuthStatusResult == null || lastAuthStatusResult.userId == null));
+		return (!(lastAuthStatusResult == null || lastAuthStatusResult.getUserId() == null));
 	}
 	
 	@Override
 	public boolean doUserHaveAnyOfRoles(String... roles) {
-		if (getLastAuthStatusResult() == null || getLastAuthStatusResult().roles == null)
+		if (getLastAuthStatusResult() == null || getLastAuthStatusResult().getRoles() == null)
 			return false;
 		
-		Set<String> usersRoles = getLastAuthStatusResult().roles;
+		Set<String> usersRoles = getLastAuthStatusResult().getRoles();
 		
 		for (String role : roles) {
 			for (String usersRole : usersRoles) {

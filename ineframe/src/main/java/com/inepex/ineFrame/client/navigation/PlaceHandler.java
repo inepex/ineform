@@ -87,25 +87,24 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		InePlace place = placeNode.getNodeElement();
 
-		if (place.isAuthenticationNeeded() && !authManager.isUserLoggedIn()) {
-			eventBus.fireEvent(new PlaceRequestEvent(
-					defaultPlace+
-					QUESTION_MARK+
-					REDIRECT+
-					EQUALS_SIGN+
-					currentFullToken));
-			return;
-		}
-
 		if (place.isAuthenticationNeeded()) {
+			
 			List<String> allowedRolesForPlace = place.getRolesAllowed();
 
 			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
 					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
-				masterPage.renderForbidden(place);
+				if(authManager.isUserLoggedIn())
+					masterPage.renderForbidden(place);
+				else {
+					eventBus.fireEvent(new PlaceRequestEvent(
+							defaultPlace+
+							QUESTION_MARK+
+							REDIRECT+
+							EQUALS_SIGN+
+							currentFullToken));
+					return;
+				}
 			}
-			
-			return;
 		}
 		
 		if (place instanceof ChildRedirectPlace) {
