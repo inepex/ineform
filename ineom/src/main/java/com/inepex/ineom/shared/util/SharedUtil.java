@@ -3,6 +3,8 @@ package com.inepex.ineom.shared.util;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.validation.ValidationResult;
@@ -68,5 +70,16 @@ public class SharedUtil {
 		}
 		
 		vr.addFieldError(fields[0], errorMsg);
+	}
+
+	public static Set<String> Set(String... strings) {
+		Set<String> set = new TreeSet<String>();
+		if(strings!=null) {
+			for(String s : strings) {
+				set.add(s);
+			}
+		}
+		
+		return set;
 	}
 }
