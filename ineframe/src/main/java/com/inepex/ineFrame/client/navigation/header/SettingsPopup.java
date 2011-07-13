@@ -40,28 +40,26 @@ public class SettingsPopup extends DialogBox implements PlaceRequestHandler {
 		this.authManager=authManager;
 		
 		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
-	}
-	
-	private void init() {
-		inited=true;
 		
 		panel = new VerticalPanel();
-		for(Node<InePlace> placeNode : hierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS).getChildren()) {
-				panel.add(new PlaceButton(placeNode.getHierarchicalId(), placeNode.getNodeElement()));
-		}
-		
 		logoutButton = new LogoutButton();
-		panel.add(logoutButton);
-		
 		add(panel);
 	}
 	
 	@Override
 	public void show() {
-		if(!inited)
-			init();
+		panel.clear();
 		
-		logoutButton.setVisible((!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()));
+		for(Node<InePlace> placeNode : hierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS).getChildren()) {
+			if(!(authManager instanceof NoAuthManager) &&
+					!authManager.doUserHaveAnyOfRoles(placeNode.getNodeElement().getRolesAllowedInArray()))
+				continue;
+		
+			panel.add(new PlaceButton(placeNode.getHierarchicalId(), placeNode.getNodeElement()));
+		}
+		
+		if((!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()))
+			panel.add(logoutButton);
 		
 		super.show();
 	}

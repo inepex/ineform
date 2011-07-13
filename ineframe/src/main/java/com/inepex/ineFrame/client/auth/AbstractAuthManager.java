@@ -105,11 +105,13 @@ public abstract class AbstractAuthManager implements AuthManager {
 	
 	@Override
 	public boolean doUserHaveAnyOfRoles(String... roles) {
+		if(roles.length==0)
+			return true;
+		
 		if (getLastAuthStatusResult() == null || getLastAuthStatusResult().getRoles() == null)
 			return false;
 		
 		Set<String> usersRoles = getLastAuthStatusResult().getRoles();
-		
 		for (String role : roles) {
 			for (String usersRole : usersRoles) {
 				if (role.equals(usersRole))
