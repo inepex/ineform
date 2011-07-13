@@ -14,41 +14,22 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.MasterPage;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
-import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.page.InePage;
 
-/**
- * 
- * 
- * TODO This class may equals to MasterPage
- * TODO This class may equals to MasterPage
- * TODO This class may equals to MasterPage
- * TODO This class may equals to MasterPage
- * 
- */
-@Singleton
-public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPage, IsWidget{
-
-	private final IneFrameHeader header;
-	private final MenuRenderer menuRenderer;
+public abstract class AbstractMasterPage implements MasterPage {
 	
-	private final AsyncStatusIndicator statusIndicator;
+	protected final AsyncStatusIndicator statusIndicator;
 	
-	@Inject
-	public DefaultMasterPage(AsyncStatusIndicator statusIndicator, MenuRenderer menuRenderer, IneFrameHeader header) {
+	public AbstractMasterPage(AsyncStatusIndicator statusIndicator) {
 		this.statusIndicator=statusIndicator;
-		this.menuRenderer=menuRenderer;
-		this.header=header;
-		
-		this.add(header);
-		this.add((Widget)menuRenderer.getView());
 	}
+	
+
+	protected abstract FlowPanel getPanel();
 	
 	@Override
 	public void render(final InePlace place, Map<String, String> urlParams) {
-		header.refresh();
-		
-		final FlowPanel fp = menuRenderer.realizeNewPlace(place);
+		getPanel().clear();
 		
 		final InePage page = place.getAssociatedPage();
 		if(page==null)
@@ -62,7 +43,7 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 				
 				@Override
 				public void onUrlParamsParsed() {
-					fp.add(page.asWidget());
+					getPanel().add(page.asWidget());
 					page.onShow();
 					
 				}
@@ -75,6 +56,7 @@ public class DefaultMasterPage extends HandlerAwareFlowPanel implements MasterPa
 
 	@Override
 	public void renderForbidden(InePlace place) {
-		menuRenderer.realizeNewPlace(place).add(new HTML("<h2>access denied</h2>"));
+		getPanel().clear();
+		getPanel().add(new HTML("<h2>access denied</h2>"));
 	}
 }

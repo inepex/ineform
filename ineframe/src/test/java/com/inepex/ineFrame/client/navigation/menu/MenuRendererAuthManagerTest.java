@@ -18,7 +18,8 @@ import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
-import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
+import com.inepex.ineFrame.client.navigation.defaults.MenuRenderer;
+import com.inepex.ineFrame.client.navigation.defaults.MenuRenderer.View.Tab;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 import com.inepex.ineom.shared.util.SharedUtil;
 
