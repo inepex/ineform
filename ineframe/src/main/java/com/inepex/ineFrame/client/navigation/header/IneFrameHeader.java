@@ -1,98 +1,128 @@
 package com.inepex.ineFrame.client.navigation.header;
 
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Float;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.event.shared.EventBus;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
+import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
-import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
+import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
+import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineFrame.client.navigation.PlaceRequestHandler;
 import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
-public class IneFrameHeader extends HandlerAwareFlowPanel {
+public class IneFrameHeader implements PlaceRequestHandler {
+	
+	public static interface View {
+		/**
+		 * @param username - username as html or null to hide
+		 */
+		public void setUserName(String username);
+		
+		public void setSettingsButtonVisible(boolean visible);
+		public void setSettingsButtonLogic(OnClickedLogic logic);
+		
+		public void clearSettingsPopup();
+		public void addToSettingsPopup(String name, OnClickedLogic logic);
+		public void showSettingsPopup();
+		public void hideSettingsPopup();
+		public boolean isSettingsPopupShowing();
+	}
+	
+	private final AuthManager authManager;
+	private final PlaceHierarchyProvider placeHierarchyProvider;
+	private final EventBus eventBus;
+	
+	private final View view;
 	
 	@Inject
-	private AuthManager authManager;
-	
-	@Inject
-	private PlaceHierarchyProvider placeHierarchyProvider;
-	
-	@Inject
-	private Provider<SettingsPopup> popup;
-	
-	private boolean inited=false;
-	private HTML userName;
-	private Image settingsImg;
-	
+	public IneFrameHeader(AuthManager authManager,
+			PlaceHierarchyProvider placeHierarchyProvider,
+			View view, EventBus eventBus) {
+		super();
+		this.authManager = authManager;
+		this.placeHierarchyProvider = placeHierarchyProvider;
+		this.view = view;
+		this.eventBus=eventBus;
+		
+		init();
+	}
 	
 	private void init() {
-		inited=true;
+		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
 		
-		setStyleName(ResourceHelper.getRes().style().header());
-		
-		Image logo = new Image(ResourceHelper.getRes().logo());
-		logo.setStyleName(ResourceHelper.getRes().style().logo());
-		add(logo);
-		
-		settingsImg = new Image(ResourceHelper.getRes().settings());
-		settingsImg.getElement().getStyle().setFloat(Float.RIGHT);
-		settingsImg.getElement().getStyle().setCursor(Cursor.POINTER);
-		add(settingsImg);
-		
-		userName=new HTML();
-		userName.setStyleName(ResourceHelper.getRes().style().settingsUserName());
-		add(userName);
-	}
-
-	public void refresh() {
-		//user name
-		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
-			userName.setVisible(true);
-			userName.setHTML(authManager.getLastAuthStatusResult().getFirstName()
-					+"&nbsp;"+authManager.getLastAuthStatusResult().getLastName());
-		} else {
-			userName.setVisible(false);
-		}
-		
-		//settings img
-		Node<InePlace> settingsNode = placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS);
-		if(settingsNode!=null && settingsNode.getChildren()!=null && settingsNode.getChildren().size()>0) {
-			settingsImg.setVisible(true);
-		} else {
-			settingsImg.setVisible(false);
-		}
-		
+		view.setSettingsButtonLogic(new OnClickedLogic() {
+			
+			@Override
+			public void doLogic() {
+				if(view.isSettingsPopupShowing()) {
+					view.hideSettingsPopup();
+				} else {
+					view.showSettingsPopup();
+				}
+			}
+		});
 	}
 
 	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		if(!inited) { 
-			init();
-		}
-		
-		registerHandler(settingsImg.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				if(popup.get().isShowing()) {
-					popup.get().hide();
-				} else {
-					popup.get().showRelativeTo(settingsImg);
-				}
-			}
-		}));
+	public void onPlaceRequest(PlaceRequestEvent e) {
+		view.hideSettingsPopup();
 	}
 
+	public void refresh() {
+		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
+			view.setUserName(authManager.getLastAuthStatusResult().getFirstName()
+					+"&nbsp;"+authManager.getLastAuthStatusResult().getLastName());
+		} else {
+			view.setUserName(null);
+		}
+		
+		boolean showSettings=false;
+		view.clearSettingsPopup();
+		
+		for(Node<InePlace> placeNode : placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS).getChildren()) {
+			
+			if(placeNode.getNodeElement().getMenuName()==null || placeNode.getNodeElement().isOnlyVisibleWhenActive())
+				continue;
+			
+			if(!(authManager instanceof NoAuthManager) &&
+					!authManager.doUserHaveAnyOfRoles(placeNode.getNodeElement().getRolesAllowedInArray()))
+				continue;
+		
+			showSettings=true;
+			final String hierarchicalID = placeNode.getHierarchicalId();
+			view.addToSettingsPopup(placeNode.getNodeElement().getMenuName(), new OnClickedLogic() {
+				
+				@Override
+				public void doLogic() {
+					eventBus.fireEvent(new PlaceRequestEvent(hierarchicalID));
+				}
+			});
+		}
+		
+		if((!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn())) {
+			showSettings=true;
+			
+			//TODO get from i18n
+			view.addToSettingsPopup("Log out", new OnClickedLogic() {
+				
+				@Override
+				public void doLogic() {
+					authManager.doLogout(new AuthActionCallback() {
+						
+						@Override
+						public void onAuthCheckDone() {
+							eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
+						}
+					});
+				}
+			});
+		}
+		
+		view.setSettingsButtonVisible(showSettings);
+	}
 }

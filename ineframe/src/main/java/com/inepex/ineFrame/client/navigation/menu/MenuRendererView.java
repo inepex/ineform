@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.client.navigation.defaults;
+package com.inepex.ineFrame.client.navigation.menu;
 
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Float;
@@ -14,6 +14,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
+import com.inepex.ineFrame.client.navigation.OnClickedLogic;
+import com.inepex.ineFrame.client.page.InePage;
 import com.inepex.ineFrame.client.widgets.AnchorWidget;
 import com.inepex.ineFrame.client.widgets.ListItemWidget;
 import com.inepex.ineFrame.client.widgets.UnorderedListWidget;
@@ -93,7 +95,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		private boolean clickable = true;
 		private boolean enabled = true;
 		
-		private OnClieckedLogic onClickedLogic;
+		private OnClickedLogic onClickedLogic;
 		
 		
 		public MenuBarWidget(String menuName, int level) {
@@ -117,7 +119,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		}
 
 		@Override
-		public void setOnClickedLogic(OnClieckedLogic logic) {
+		public void setOnClickedLogic(OnClickedLogic logic) {
 			this.onClickedLogic=logic;
 		}
 
@@ -160,7 +162,8 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	}
 
 	@Override
-	public FlowPanel getTarget() {
-		return target;
+	public void showPage(InePage page) {
+		target.add(page.asWidget());
 	}
+
 }

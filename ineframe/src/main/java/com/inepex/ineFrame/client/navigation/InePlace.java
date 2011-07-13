@@ -53,10 +53,6 @@ public abstract class InePlace {
 		return this;
 	}
 	
-	public boolean isMenuVisible() {
-		return menuName != null;
-	}
-	
 	public String getMenuName() {
 		return menuName;
 	}

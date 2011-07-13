@@ -1,20 +1,11 @@
-package com.inepex.ineFrame.client.navigation.defaults;
+package com.inepex.ineFrame.client.navigation;
 
 import java.util.Map;
 
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
-import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
-import com.inepex.ineFrame.client.navigation.InePlace;
-import com.inepex.ineFrame.client.navigation.MasterPage;
-import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.page.InePage;
+import com.inepex.ineFrame.client.page.defaults.DummyPage;
 
 public abstract class AbstractMasterPage implements MasterPage {
 	
@@ -24,13 +15,10 @@ public abstract class AbstractMasterPage implements MasterPage {
 		this.statusIndicator=statusIndicator;
 	}
 	
-
-	protected abstract FlowPanel getPanel();
+	protected abstract void showPage(InePage page);
 	
 	@Override
 	public void render(final InePlace place, Map<String, String> urlParams) {
-		getPanel().clear();
-		
 		final InePage page = place.getAssociatedPage();
 		if(page==null)
 			return;
@@ -43,7 +31,7 @@ public abstract class AbstractMasterPage implements MasterPage {
 				
 				@Override
 				public void onUrlParamsParsed() {
-					getPanel().add(page.asWidget());
+					showPage(page);
 					page.onShow();
 					
 				}
@@ -56,7 +44,6 @@ public abstract class AbstractMasterPage implements MasterPage {
 
 	@Override
 	public void renderForbidden(InePlace place) {
-		getPanel().clear();
-		getPanel().add(new HTML("<h2>access denied</h2>"));
+		showPage(new DummyPage("<h2>access denied</h2>"));
 	}
 }

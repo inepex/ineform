@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceNode;
-import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
+import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 
 public class UpdateHierarchicalTokensSimpleTest {

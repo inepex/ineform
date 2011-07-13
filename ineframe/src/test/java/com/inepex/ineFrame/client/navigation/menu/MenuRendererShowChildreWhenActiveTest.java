@@ -19,9 +19,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
-import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
-import com.inepex.ineFrame.client.navigation.defaults.MenuRenderer;
-import com.inepex.ineFrame.client.navigation.defaults.MenuRenderer.View.Tab;
+import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
+import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 import com.inepex.ineom.shared.util.SharedUtil;
 
@@ -43,7 +42,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.parentPlace.setHierarchicalToken("MenuParent");
-		renderer.realizeNewPlace(phProvider.parentPlace);
+		renderer.realizeNewPlaceOnMenu(phProvider.parentPlace);
 		
 		verify(view, times(1)).clearView();
 		verify(view, never()).createTab(anyString(), anyInt());
@@ -79,7 +78,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view,new NoAuthManager());
 		
 		phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
-		renderer.realizeNewPlace(phProvider.plainPlace);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace);
 		
 		//4 menu item
 		verify(view, times(5)).createTab(anyString(), anyInt());
@@ -126,7 +125,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.onlyVisibleWhenActiveAndHasName.setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
-		renderer.realizeNewPlace(phProvider.onlyVisibleWhenActiveAndHasName);
+		renderer.realizeNewPlaceOnMenu(phProvider.onlyVisibleWhenActiveAndHasName);
 		
 		verify(view, times(1)).clearView();
 		

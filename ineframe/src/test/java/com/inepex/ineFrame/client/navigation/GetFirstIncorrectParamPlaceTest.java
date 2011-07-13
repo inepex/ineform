@@ -6,7 +6,7 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
+import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 import com.inepex.ineFrame.client.page.InePage;

@@ -17,9 +17,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
-import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
-import com.inepex.ineFrame.client.navigation.defaults.MenuRenderer;
-import com.inepex.ineFrame.client.navigation.defaults.MenuRenderer.View.Tab;
+import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
+import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 import com.inepex.ineom.shared.util.SharedUtil;
 
@@ -53,7 +52,7 @@ public class MenuRendererAuthManagerTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
-		renderer.realizeNewPlace(phProvider.plainPlace1);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1);
 		
 		verify(view, times(1)).clearView();
 		
@@ -143,7 +142,7 @@ public class MenuRendererAuthManagerTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
-		renderer.realizeNewPlace(phProvider.plainPlace1);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1);
 		
 		verify(view, times(1)).clearView();
 		
@@ -214,7 +213,7 @@ public class MenuRendererAuthManagerTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
-		renderer.realizeNewPlace(phProvider.plainPlace1);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1);
 		
 		verify(view, times(1)).clearView();
 		
