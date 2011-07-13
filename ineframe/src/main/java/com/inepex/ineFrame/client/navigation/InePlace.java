@@ -81,6 +81,15 @@ public abstract class InePlace {
 	public List<String> getRolesAllowed() {
 		return rolesNeeded;
 	}
+	
+	public String[] getRolesAllowedInArray() {
+		if(rolesNeeded==null)
+			return new String[]{};
+		
+		String[] aR = new String[rolesNeeded.size()];
+		rolesNeeded.toArray(aR);
+		return aR;
+	}
 
 	public void setRolesNeeded(List<String> rolesNeeded) {
 		this.rolesNeeded = rolesNeeded;

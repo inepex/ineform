@@ -16,6 +16,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
+import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.defaults.DummyPageProvider;
@@ -38,7 +39,7 @@ public class MenuRendererTest {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.parentPlace.setHierarchicalToken("MenuParent");
 		renderer.realizeNewPlace(phProvider.parentPlace);
@@ -71,7 +72,7 @@ public class MenuRendererTest {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
 		renderer.realizeNewPlace(phProvider.plainPlace);
@@ -148,7 +149,7 @@ public class MenuRendererTest {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view);
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.onlyVisibleWhenActiveAndHasName.setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
 		renderer.realizeNewPlace(phProvider.onlyVisibleWhenActiveAndHasName);

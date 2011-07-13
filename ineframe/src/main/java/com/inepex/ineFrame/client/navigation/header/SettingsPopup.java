@@ -17,14 +17,15 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineFrame.client.navigation.PlaceRequestHandler;
 import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
-public class SettingsPopup extends DialogBox {
+public class SettingsPopup extends DialogBox implements PlaceRequestHandler {
 
-	@Inject PlaceHierarchyProvider hierarchyProvider;
-	@Inject EventBus eventBus;
-	@Inject AuthManager authManager;
+	private final PlaceHierarchyProvider hierarchyProvider;
+	private final EventBus eventBus;
+	private final AuthManager authManager;
 	
 	boolean inited = false;
 	VerticalPanel panel;
@@ -32,8 +33,13 @@ public class SettingsPopup extends DialogBox {
 	LogoutButton logoutButton;
 	
 	@Inject
-	SettingsPopup() {
+	SettingsPopup(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus, AuthManager authManager) {
 		super(false, false);
+		this.hierarchyProvider=hierarchyProvider;
+		this.eventBus=eventBus;
+		this.authManager=authManager;
+		
+		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
 	}
 	
 	private void init() {
@@ -60,15 +66,17 @@ public class SettingsPopup extends DialogBox {
 		super.show();
 	}
 	
+	@Override
+	public void onPlaceRequest(PlaceRequestEvent e) {
+		hide(true);
+	}
+	
 	private class LogoutButton extends HandlerAwareComposite {
 		
 		private final Label label;
 		
 		public LogoutButton() {
 			
-			//TODO get from i18n
-			//TODO get from i18n
-			//TODO get from i18n
 			//TODO get from i18n
 			label=new Label("Log out");
 			label.getElement().getStyle().setCursor(Cursor.POINTER);

@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
@@ -46,11 +48,13 @@ public class MenuRenderer {
 	private final PlaceHierarchyProvider hierarchyProvider;
 	private final EventBus eventBus;
 	private final View view;
+	private final AuthManager authManager;
 	
 	@Inject
-	public MenuRenderer(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus, View view) {
+	public MenuRenderer(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus, View view, AuthManager authManager) {
 		this.hierarchyProvider= hierarchyProvider;
 		this.eventBus=eventBus;
+		this.authManager=authManager;
 		this.view=view;
 	}
 	
@@ -96,6 +100,10 @@ public class MenuRenderer {
 			
 			if(pointer.hasChildren()) {
 				for(final Node<InePlace> node : pointer.getChildren()) {
+					if(!(authManager instanceof NoAuthManager) &&
+							!authManager.doUserHaveAnyOfRoles(node.getNodeElement().getRolesAllowedInArray()))
+						continue;
+					
 					boolean selected = i<tokens.size() && node.getNodeId().equals(tokens.get(i));
 					boolean visible = !
 							(node.getNodeElement().isOnlyVisibleWhenActive() && !selected

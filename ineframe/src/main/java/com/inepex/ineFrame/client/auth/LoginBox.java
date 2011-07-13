@@ -37,6 +37,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	
 		vp= new VerticalPanel();
 		
+		//TODO get string from i18n
 		vp.add(new Label("User:"));
 		userName= new TextBox();
 		vp.add(userName);
@@ -111,8 +112,6 @@ public abstract class LoginBox extends HandlerAwareComposite {
 					doLoggedinLogic();
 				}
 			} else {
-				//TODO validate message
-				//TODO validate message
 				//TODO validate message
 				Window.alert("Invalid user or password!");
 			}
