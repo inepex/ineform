@@ -6,7 +6,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>inei18n</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<name>inei18n</name>
 	<url>http://maven.apache.org</url>
 	<properties>
