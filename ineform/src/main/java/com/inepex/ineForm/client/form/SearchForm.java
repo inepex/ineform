@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
@@ -17,8 +17,8 @@ public class SearchForm extends IneForm {
 	private FlowPanel mainPanel = new FlowPanel(); 
 	private IneForm searchForm;
 	private Grid buttons = new Grid(1, 3);
-	private Button doSearch = new Button(IneFormI18n_old.SEARCH());
-	private Button doReset = new Button(IneFormI18n_old.RESET());
+	private Button doSearch = new Button(IneFormI18n.SEARCH());
+	private Button doReset = new Button(IneFormI18n.RESET());
 	private Label message = new Label();
 	
 	private IneDataConnector dataConnector;
@@ -51,7 +51,7 @@ public class SearchForm extends IneForm {
 			@Override
 			public void onClick(ClickEvent event) {
 				setSearchParamsForDataConnector();
-				message.setText(IneFormI18n_old.searchForm_filtered());
+				message.setText(IneFormI18n.searchForm_filtered());
 			}
 		});
 		

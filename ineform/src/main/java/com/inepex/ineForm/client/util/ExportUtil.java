@@ -3,7 +3,7 @@ package com.inepex.ineForm.client.util;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Renderer;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -83,7 +83,7 @@ public class ExportUtil {
 			public void onSuccess(GenericResult result) {
 				if (Window.Navigator.getUserAgent().contains("MSIE")){
 					
-					new InfoDialog(IneFormI18n_old.CSVEXPORT(), IneFormI18n_old.csvComment() + "<a href = '"+ IFConsts.exportServletUrl +"'>" + IneFormI18n_old.csvDownload() + "</a>");
+					new InfoDialog(IneFormI18n.CSVEXPORT(), IneFormI18n.csvComment() + "<a href = '"+ IFConsts.exportServletUrl +"'>" + IneFormI18n.csvDownload() + "</a>");
 				} else {
 					Window.open(IFConsts.exportServletUrl, "CSV export", "_blank");
 				}

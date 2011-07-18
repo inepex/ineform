@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.upload.UrlDownloadService;
 import com.inepex.ineForm.shared.upload.UrlDownloadServiceAsync;
 
@@ -31,11 +31,11 @@ public class ImageFinderGoogle extends VerticalPanel {
 	
 	int attaching = 0;
 	
-	HTML title = new HTML("<h3>" + IneFormI18n_old.imagefinderChoosefromgoogle() + "</h3>");
-	Button previous = new Button(IneFormI18n_old.PREVIOUS());
-	Button next = new Button(IneFormI18n_old.NEXT());
-	Label lbl_actualpage = new Label(IneFormI18n_old.imagefinderPage() + ": " + String.valueOf(page));
-	Label lbl_noresult = new Label(IneFormI18n_old.imagefinderNoresult());
+	HTML title = new HTML("<h3>" + IneFormI18n.imagefinderChoosefromgoogle() + "</h3>");
+	Button previous = new Button(IneFormI18n.PREVIOUS());
+	Button next = new Button(IneFormI18n.NEXT());
+	Label lbl_actualpage = new Label(IneFormI18n.imagefinderPage() + ": " + String.valueOf(page));
+	Label lbl_noresult = new Label(IneFormI18n.imagefinderNoresult());
 	
 //	private class ImageFinderImage extends Composite{
 //		

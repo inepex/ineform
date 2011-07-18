@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.IneList;
@@ -33,12 +33,12 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 	private ListBox selected = new ListBox();
 	private VerticalPanel selectedPanel = new VerticalPanel();
 	private VerticalPanel buttons = new VerticalPanel();
-	private Button select = new Button(IneFormI18n_old.SELECT());
-	private Button deselect = new Button(IneFormI18n_old.DESELECT());
-	private Button selectAll = new Button(IneFormI18n_old.SELECTALL());
-	private Button deselectAll = new Button(IneFormI18n_old.DESELECTALL());
-	private Button moveUp = new Button(IneFormI18n_old.MOVEUP());
-	private Button moveDown = new Button(IneFormI18n_old.MOVEDOWN());
+	private Button select = new Button(IneFormI18n.SELECT());
+	private Button deselect = new Button(IneFormI18n.DESELECT());
+	private Button selectAll = new Button(IneFormI18n.SELECTALL());
+	private Button deselectAll = new Button(IneFormI18n.DESELECTALL());
+	private Button moveUp = new Button(IneFormI18n.MOVEUP());
+	private Button moveDown = new Button(IneFormI18n.MOVEDOWN());
 	
 	private Map<String, Item> stringToObject = new HashMap<String, Item>();
 

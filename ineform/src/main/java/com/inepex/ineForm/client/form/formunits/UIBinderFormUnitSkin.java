@@ -8,7 +8,7 @@ import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.form.widgets.DummyFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
@@ -62,7 +62,7 @@ public abstract class UIBinderFormUnitSkin extends Composite {
 	public UIFWTitle createTitle(String key) {
 		Node<FormRDescBase> descNode = uiBinderFormUnit.getSelectedFields().get(key);
 		if(descNode==null) 
-			return new UIFWTitle(IneFormI18n_old.ERR_CouldNotRenderWidget());
+			return new UIFWTitle(IneFormI18n.ERR_CouldNotRenderWidget());
 		
 		if(((WidgetRDesc) descNode.getNodeElement()).getDisplayName()!=null) {
 			return new UIFWTitle(((WidgetRDesc) descNode.getNodeElement()).getDisplayName());
@@ -91,7 +91,7 @@ public abstract class UIBinderFormUnitSkin extends Composite {
 		
 		private CouldNotRenderFW() {
 			super(null);
-			initWidget(new InlineLabel(IneFormI18n_old.ERR_CouldNotRenderWidget()));
+			initWidget(new InlineLabel(IneFormI18n.ERR_CouldNotRenderWidget()));
 		}
 		
 	}

@@ -17,7 +17,7 @@ import com.inepex.ineForm.client.form.events.BeforeSaveEvent;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.SavedEvent;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
@@ -55,8 +55,8 @@ public class SaveCancelForm extends IneForm {
 	protected final MainPanel mainPanel = new MainPanel();
 	protected final FlowPanel buttonPanel = new FlowPanel();
 	
-	private String saveButtonText=IneFormI18n_old.SAVE();
-	private String cancelButtonText=IneFormI18n_old.CANCEL();
+	private String saveButtonText=IneFormI18n.SAVE();
+	private String cancelButtonText=IneFormI18n.CANCEL();
 	
 	protected final Button saveButton = new Button();
 	protected final Button cancelButton = new Button();

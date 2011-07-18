@@ -23,7 +23,7 @@ import com.google.gwt.http.client.RequestBuilder.Method;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
 import com.inepex.ineForm.client.i18n.DummyI18nProvider;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
@@ -50,7 +50,7 @@ public class RestDataConnectorComplexTest {
 
 	@Before
 	public void init() throws Exception {
-		IneFormI18n_old i18n = new IneFormI18n_old(new DummyI18nProvider());
+		IneFormI18n i18n = new IneFormI18n(new DummyI18nProvider());
 		MockitoAnnotations.initMocks(this);
 		descriptorStore = new ClientDescriptorStore();
 		testKvo = T_e_s_tUtil.getTestKvo(descriptorStore);		

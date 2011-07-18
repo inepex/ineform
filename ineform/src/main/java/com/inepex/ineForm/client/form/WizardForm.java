@@ -14,7 +14,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelPageWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineom.shared.kvo.IFConsts;
@@ -42,8 +42,8 @@ public class WizardForm extends SaveCancelForm {
 	
 	private StepperPanelWidget rootStepper;
 	
-	private String nextButtonText=IneFormI18n_old.NEXT();
-	private String previousButtonText=IneFormI18n_old.PREVIOUS();
+	private String nextButtonText=IneFormI18n.NEXT();
+	private String previousButtonText=IneFormI18n.PREVIOUS();
 	
 	private NavWidget navWidget;
 	private Button nextButton = new Button();

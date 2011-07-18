@@ -19,7 +19,7 @@ import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.AssistedObject;
@@ -38,7 +38,7 @@ public class RelationListFW extends DenyingFormWidget {
 	final FlowPanelDropController dropController = new FlowPanelDropController(relationsPanel);
 
 	final FlowPanel mainPanel = new FlowPanel();
-	final Button addButton = new Button(IneFormI18n_old.ADD());
+	final Button addButton = new Button(IneFormI18n.ADD());
 
 	final String relationDescriptorName;
 	final FormContext formCtx;
@@ -214,9 +214,9 @@ public class RelationListFW extends DenyingFormWidget {
 		HorizontalPanel hp = new HorizontalPanel();
 
 		private final IneForm relatedForm;
-		Button removeButton = new Button(IneFormI18n_old.REMOVE());
-		Button upButton = new Button(IneFormI18n_old.UP());
-		Button downButton = new Button(IneFormI18n_old.DOWN());
+		Button removeButton = new Button(IneFormI18n.REMOVE());
+		Button upButton = new Button(IneFormI18n.UP());
+		Button downButton = new Button(IneFormI18n.DOWN());
 		InlineLabel dragLabel = new InlineLabel("Drag");
 		
 		private Relation rel;

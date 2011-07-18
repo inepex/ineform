@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 
 class OOO_HOField extends FlowPanel implements DateTimeFieldInterface {
 	
@@ -40,7 +40,7 @@ class OOO_HOField extends FlowPanel implements DateTimeFieldInterface {
 		}
 
 		add(lb);
-		add(new InlineHTML("&nbsp;"+IneFormI18n_old.hours()));
+		add(new InlineHTML("&nbsp;"+IneFormI18n.hours()));
 		
 		lb.setSelectedIndex(0);
 	}

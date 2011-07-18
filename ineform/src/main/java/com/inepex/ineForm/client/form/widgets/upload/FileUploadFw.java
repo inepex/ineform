@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.IFConsts;
@@ -39,7 +39,7 @@ public class FileUploadFw extends DenyingFormWidget {
 	private String uploadUrl = IFConsts.uploadServletUrl;
 	private Image preview = new Image();
 	private InlineLabel filename = new InlineLabel();
-	private Button upload = new Button(IneFormI18n_old.imageuploadBtn());
+	private Button upload = new Button(IneFormI18n.imageuploadBtn());
 	
 	private ImageUploadPopup popup;
 	
@@ -57,12 +57,12 @@ public class FileUploadFw extends DenyingFormWidget {
 	}
 
 	private class FileUploadForm extends FlexTable {
-		private HTML title = new HTML("<h3>" + IneFormI18n_old.imagefinderUploadimage() + "</h3>");
+		private HTML title = new HTML("<h3>" + IneFormI18n.imagefinderUploadimage() + "</h3>");
 		private FormPanel panelForm = new FormPanel();
 		private FlowPanel panelInsideForm = new FlowPanel();
 		private FileUpload fileupload = new FileUpload();
-		private Button btnSubmit = new Button(IneFormI18n_old.imageuploadBtn());
-		private Button btnCancel = new Button(IneFormI18n_old.CANCEL());
+		private Button btnSubmit = new Button(IneFormI18n.imageuploadBtn());
+		private Button btnCancel = new Button(IneFormI18n.CANCEL());
 		private Label error = new Label();
 		
 		private FileUploadFw parent;
@@ -108,11 +108,11 @@ public class FileUploadFw extends DenyingFormWidget {
 						public void onSubmitComplete(SubmitCompleteEvent event) {
 							btnSubmit.setEnabled(true);
 							if (event.getResults().equals("<pre>-1</pre>") || event.getResults().equals("-1")){
-								error.setText(IneFormI18n_old.imageuploadInvalidFileFormat());
+								error.setText(IneFormI18n.imageuploadInvalidFileFormat());
 								return;
 							}
 							if (event.getResults().equals("\n") || event.getResults().equals("")){
-								error.setText(IneFormI18n_old.imageuploadError());
+								error.setText(IneFormI18n.imageuploadError());
 								return;
 							}
 							setStringValue(event.getResults());
@@ -136,7 +136,7 @@ public class FileUploadFw extends DenyingFormWidget {
 		public ImageUploadPopup(FileUploadFw parent, boolean withImageFinder) {
 			super(true);
 			this.parent = parent;
-			setText(IneFormI18n_old.imageuploadTitle());
+			setText(IneFormI18n.imageuploadTitle());
 			setAnimationEnabled(true);
 			setGlassEnabled(true);
 			setWidget(main);
@@ -177,7 +177,7 @@ public class FileUploadFw extends DenyingFormWidget {
 			preview.setVisible(false);
 		}
 		panelMain.add(filename);
-		filename.setText(IneFormI18n_old.imagefinderNoimage());
+		filename.setText(IneFormI18n.imagefinderNoimage());
 		panelMain.add(upload);
 		upload.addClickHandler(new ClickHandler() {
 
@@ -209,7 +209,7 @@ public class FileUploadFw extends DenyingFormWidget {
 
 	@Override
 	public String getStringValue() {
-		if (!filename.getText().equals(IneFormI18n_old.imagefinderNoimage()))
+		if (!filename.getText().equals(IneFormI18n.imagefinderNoimage()))
 			return filename.getText();
 		else return null;
 	}
@@ -229,7 +229,7 @@ public class FileUploadFw extends DenyingFormWidget {
 			preview.setUrl(getUrl(value, ""));
 			preview.setVisible(true);
 		}
-		upload.setText(IneFormI18n_old.imageuploadBtn_change());
+		upload.setText(IneFormI18n.imageuploadBtn_change());
 	}
 	
 	private String getUrl(String imgRelUrl, String size){

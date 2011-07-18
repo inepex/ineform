@@ -15,7 +15,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
@@ -67,7 +67,7 @@ public class RestValueRangeProvider implements ValueRangeProvider {
 
 	@Override
 	public void getRelationValueRange(FDesc fieldDesc, final ValueRangeResultCallback callback) {
-		statusIndicator.onAsyncRequestStarted(IneFormI18n_old.loading());
+		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
 		final RelationFDesc castedFieldDesc = castDescriptorCheckType(fieldDesc, callback);
 
 		String url = descriptorToUrlMapping.get(castedFieldDesc.getRelatedDescriptorName());
@@ -83,23 +83,23 @@ public class RestValueRangeProvider implements ValueRangeProvider {
 								callback);
 						statusIndicator.onSuccess("");
 					} else {
-						statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+						statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 					}
 				}
 
 				@Override
 				public void onError(Request request, Throwable exception) {
-					statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 				}
 			});
 		} catch (Exception e) {
-			statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 		}
 
 	}
 
 	protected void parseListAndDoCallback(String descriptorName, String text, ValueRangeResultCallback callback) {
-		if (text.equals("")) statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+		if (text.equals("")) statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 		JSONArray jsonList = null;
 		if (!descriptorToExtractorMapping.containsKey(descriptorName)){
 			jsonList = JSONParser.parseStrict(text).isArray();

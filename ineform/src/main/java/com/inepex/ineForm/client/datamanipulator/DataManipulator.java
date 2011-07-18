@@ -12,7 +12,7 @@ import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.SavedEvent;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
@@ -151,7 +151,7 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	protected void onDeleteClicked(final AssistedObject kvo) {
 		ConfirmDialogBox cb = new ConfirmDialogBox();
 
-		cb.show(IneFormI18n_old.reallyWantToDelete());
+		cb.show(IneFormI18n.reallyWantToDelete());
 
 		cb.addClickHandler(new ClickHandler() {
 			@Override

@@ -18,7 +18,7 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -122,7 +122,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 							}
 						}
 						
-						widgetsInThisLine.add(createdWidget!=null ? createdWidget : new Label(IneFormI18n_old.ERR_CouldNotRenderWidget()));
+						widgetsInThisLine.add(createdWidget!=null ? createdWidget : new Label(IneFormI18n.ERR_CouldNotRenderWidget()));
 						if(titleOfLine==null) {
 							String titleFromProp = ((WidgetRDesc) nodeElement).getDisplayName();
 							if(titleFromProp==null) {

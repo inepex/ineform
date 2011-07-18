@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.IneFormProperties;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class StringListFw extends DenyingFormWidget {
@@ -20,7 +20,7 @@ public class StringListFw extends DenyingFormWidget {
 
 	final FlowPanel textBoxFlowPanel = new FlowPanel(); 
 	final FlowPanel mainFlowPanel = new FlowPanel(); 
-	final Button addButton = new Button(IneFormI18n_old.ADD());
+	final Button addButton = new Button(IneFormI18n.ADD());
 	
 	final List<TextBox> textBoxList = new ArrayList<TextBox>();
 	final ValueChangeHandler<String> ch;

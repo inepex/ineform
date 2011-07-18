@@ -15,7 +15,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
 import com.inepex.ineForm.server.util.NumberUtilSrv;
@@ -55,7 +55,7 @@ public class ExportServlet extends HttpServlet{
 			if (req.getSession().getAttribute(SetActionForExportServletHandler.actionForCsvKey) == null
 					|| req.getSession().getAttribute(SetActionForExportServletHandler.filenameForCsvKey) == null
 					|| req.getSession().getAttribute(SetActionForExportServletHandler.rendererForCsvKey) == null){
-				resp.getWriter().write(IneFormI18n_old.csvInvalid());
+				resp.getWriter().write(IneFormI18n.csvInvalid());
 				resp.getWriter().close();
 				return;
 			}
@@ -141,7 +141,7 @@ public class ExportServlet extends HttpServlet{
 			resp.getWriter().close();
 		} catch (DispatchException e) {
 			System.out.print("CsvServlet exception: " + e.getMessage());
-			resp.getWriter().write(IneFormI18n_old.csvError());
+			resp.getWriter().write(IneFormI18n.csvError());
 			resp.getWriter().close();
 		}
 		

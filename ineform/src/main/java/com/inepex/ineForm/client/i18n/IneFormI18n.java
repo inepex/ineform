@@ -3,21 +3,21 @@ package com.inepex.ineForm.client.i18n;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nModuleProvider;
 
-public class IneFormI18n_old extends I18nModule {
+public class IneFormI18n extends I18nModule {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String MODULE_NAME = "IneFormI18n_old";
+	public static final String MODULE_NAME = "IneFormI18n";
 	
-	static I18nModuleProvider<IneFormI18n_old> moduleProvider;
+	static I18nModuleProvider<IneFormI18n> moduleProvider;
 	
-	public IneFormI18n_old() {
+	public IneFormI18n() {
 		super(MODULE_NAME);
 	}
 		
-	public IneFormI18n_old(I18nModuleProvider<IneFormI18n_old> moduleProvider) {
+	public IneFormI18n(I18nModuleProvider<IneFormI18n> moduleProvider) {
 		super(MODULE_NAME);
-		IneFormI18n_old.moduleProvider = moduleProvider;
+		IneFormI18n.moduleProvider = moduleProvider;
 	}
 
 	@Override

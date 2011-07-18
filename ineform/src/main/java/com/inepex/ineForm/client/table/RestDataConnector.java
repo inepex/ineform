@@ -14,7 +14,7 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.view.client.HasData;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
@@ -114,7 +114,7 @@ public class RestDataConnector extends IneDataConnector {
 
 	@Override
 	public void objectCreateOrEditRequested(final AssistedObject object, final ManipulateResultCallback callback) {
-		statusIndicator.onAsyncRequestStarted(IneFormI18n_old.loading());
+		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
 		String url = "";
 		if (object.isNew()){
 			url = newUrl;
@@ -137,26 +137,26 @@ public class RestDataConnector extends IneDataConnector {
 					statusIndicator.onSuccess("");
 				} else {
 					System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
-					statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 				}				
 			}
 			
 			@Override
 			public void onError(Request request, Throwable exception) {
 				exception.printStackTrace();
-				statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+				statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 				
 			}
 		});
 		} catch (RequestException e) {
 			e.printStackTrace();
-			statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 		}
 	}
 
 	@Override
 	public void objectDeleteRequested(final AssistedObject object, final ManipulateResultCallback callback) {
-		statusIndicator.onAsyncRequestStarted(IneFormI18n_old.loading());
+		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
 		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, deleteUrl);
 		builder.setHeader("Content-Type",
 			"application/x-www-form-urlencoded");
@@ -170,20 +170,20 @@ public class RestDataConnector extends IneDataConnector {
 						statusIndicator.onSuccess("");
 					} else {
 						System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
-						statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+						statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 					}				
 				}
 				
 				@Override
 				public void onError(Request request, Throwable exception) {
 					exception.printStackTrace();
-					statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 					
 				}
 			});
 		} catch (RequestException e) {
 			e.printStackTrace();
-			statusIndicator.onGeneralFailure(IneFormI18n_old.restRequestError());
+			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
 		}
 	}
 

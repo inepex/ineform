@@ -1,11 +1,11 @@
 package com.inepex.ineForm.server.i18n;
 
 import com.google.inject.Provider;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
 
-public class ServerIneFormI18nProvider extends ServerI18nProvider<IneFormI18n_old> {
+public class ServerIneFormI18nProvider extends ServerI18nProvider<IneFormI18n> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,12 +14,12 @@ public class ServerIneFormI18nProvider extends ServerI18nProvider<IneFormI18n_ol
 	}
 
 	@Override
-	protected Class<IneFormI18n_old> getModuleClass() {
-		return IneFormI18n_old.class;
+	protected Class<IneFormI18n> getModuleClass() {
+		return IneFormI18n.class;
 	}
 
 	@Override
-	protected IneFormI18n_old getVirgineI18nModule() {
-		return new IneFormI18n_old(this);
+	protected IneFormI18n getVirgineI18nModule() {
+		return new IneFormI18n(this);
 	}
 }

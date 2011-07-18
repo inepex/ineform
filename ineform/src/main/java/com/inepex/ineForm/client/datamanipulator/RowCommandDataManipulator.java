@@ -10,7 +10,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.FormFactory;
-import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.IneTable.UserCommand;
@@ -19,10 +19,10 @@ import com.inepex.ineom.shared.kvo.AssistedObject;
 public class RowCommandDataManipulator extends DataManipulator {
 	private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
-	protected final Button newButton = new Button(IneFormI18n_old.NEW());
+	protected final Button newButton = new Button(IneFormI18n.NEW());
 	
-	private String editText = IneFormI18n_old.EDIT();
-	private String deleteText = IneFormI18n_old.DELETE();
+	private String editText = IneFormI18n.EDIT();
+	private String deleteText = IneFormI18n.DELETE();
 	
 	@Inject
 	public RowCommandDataManipulator(FormContext formCtx
