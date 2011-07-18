@@ -1,4 +1,5 @@
-package com.inepex.inei18n.client;
+package com.inepex.ineForm.client.i18n;
+
 
 public class DateI18nHelper {
 

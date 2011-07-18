@@ -22,8 +22,8 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.IFConsts;
 

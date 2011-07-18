@@ -1,4 +1,4 @@
-package com.inepex.inei18n.client;
+package com.inepex.ineForm.client.i18n;
 
 import com.inepex.inei18n.shared.I18nModuleProvider;
 

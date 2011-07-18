@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client;
 
-import com.inepex.inei18n.client.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 
 public class ConstantHelper {
 	public static String[] NAME_OF_MONTHS() {

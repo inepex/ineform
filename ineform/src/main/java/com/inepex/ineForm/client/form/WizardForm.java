@@ -14,9 +14,9 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelPageWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class WizardForm extends SaveCancelForm {

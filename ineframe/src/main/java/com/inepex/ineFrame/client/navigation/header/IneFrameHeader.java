@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
@@ -108,7 +109,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 			showSettings=true;
 			
 			//TODO get from i18n
-			view.addToSettingsPopup("Log out", new OnClickedLogic() {
+			view.addToSettingsPopup(IneFrameI18n_old.LOGOUT(), new OnClickedLogic() {
 				
 				@Override
 				public void doLogic() {

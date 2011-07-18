@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.IneFormProperties;
-import com.inepex.inei18n.client.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class StringListFw extends DenyingFormWidget {

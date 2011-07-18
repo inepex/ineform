@@ -8,9 +8,9 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineForm.shared.upload.UrlDownloadService;
 import com.inepex.ineForm.shared.upload.UrlDownloadServiceAsync;
-import com.inepex.inei18n.client.IneFormI18n_old;
 
 public class ImageFinderGoogle extends VerticalPanel {
 	private static UrlDownloadServiceAsync urlDownloadService = (UrlDownloadServiceAsync) GWT

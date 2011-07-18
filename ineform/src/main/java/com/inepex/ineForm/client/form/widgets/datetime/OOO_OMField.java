@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
-import com.inepex.inei18n.client.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 
 class OOO_OMField extends FlowPanel implements DateTimeFieldInterface {
 	

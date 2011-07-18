@@ -12,6 +12,7 @@ import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.SavedEvent;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
@@ -21,7 +22,6 @@ import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineFrame.client.dialog.ConfirmDialogBox;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
 /**

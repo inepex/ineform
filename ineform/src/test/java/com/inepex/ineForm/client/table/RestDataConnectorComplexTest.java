@@ -1,7 +1,10 @@
 package com.inepex.ineForm.client.table;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -19,12 +22,12 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestBuilder.Method;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
+import com.inepex.ineForm.client.i18n.DummyI18nProvider;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
-import com.inepex.inei18n.client.DummyI18nProvider;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.T_e_s_tUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.kvo.KeyValueObject;

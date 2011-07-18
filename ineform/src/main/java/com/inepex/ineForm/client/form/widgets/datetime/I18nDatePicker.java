@@ -4,7 +4,7 @@ import com.google.gwt.user.datepicker.client.CalendarModel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.datepicker.client.DefaultCalendarView;
 import com.google.gwt.user.datepicker.client.DefaultMonthSelector;
-import com.inepex.inei18n.client.DateI18nHelper;
+import com.inepex.ineForm.client.i18n.DateI18nHelper;
 
 public class I18nDatePicker extends DatePicker {
 	

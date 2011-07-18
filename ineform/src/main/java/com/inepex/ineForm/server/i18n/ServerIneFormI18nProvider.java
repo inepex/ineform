@@ -1,7 +1,8 @@
-package com.inepex.inei18n.server;
+package com.inepex.ineForm.server.i18n;
 
 import com.google.inject.Provider;
-import com.inepex.inei18n.client.IneFormI18n_old;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
+import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
 
 public class ServerIneFormI18nProvider extends ServerI18nProvider<IneFormI18n_old> {

@@ -1,4 +1,4 @@
-package com.inepex.inei18n.client;
+package com.inepex.ineForm.client.i18n;
 
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nModuleProvider;
@@ -49,8 +49,7 @@ public class IneFormI18n_old extends I18nModule {
 	public String SELECT = "Select";
 	public String SELECTALL = "Select all";
 	public String UP = "Up";
-	public String confirmDialogTitle = "Question";
-	public String csvComment = "csvComment";
+	public String csvComment = "Click here to download:";
 	public String csvDownload = "Download";
 	public String csvError = "Something went wrong. See server log!";
 	public String csvInvalid = "Invalid request. Try to refresh!";
@@ -61,12 +60,8 @@ public class IneFormI18n_old extends I18nModule {
 	public String day_thursday = "Thursday";
 	public String day_tuesday = "Tuesday";
 	public String day_wednesday = "Wednesday";
-	public String dialogCancelButton = "Cancel";
 	public String dialogEditTitle = "Edit entry";
 	public String dialogNewTitle = "New entry";
-	public String dialogOkButton = "Ok";
-	public String errorDialogTitle = "Error";
-	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
 	public String hours = "hours";
 	public String imagefinderChoosefromgoogle = "Choose images from Google image search";
 	public String imagefinderDowloading = "Downloading...";
@@ -99,10 +94,6 @@ public class IneFormI18n_old extends I18nModule {
 	public String month_september = "September";
 	public String reallyWantToDelete = "Do you really want to delete the selected element?";
 	public String restRequestError = "Request error";
-	public String saveError = "Error occurred during save: <br /> {error}";
-	public String saveSuccessful = "Save successful.";
-	public String saveUnknownError = "Unknown error occurred during save!";
-	public String savingInProgress = "Saving of {savedThing} in progress";
 	public String searchForm_filtered = "Result is filtered!";
 	public String shortday_friday = "F";
 	public String shortday_monday = "M";
@@ -344,16 +335,7 @@ public class IneFormI18n_old extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Question
-	* <u><i>Magyarul:</i></u> Kérdés
-	*/
-	public static String confirmDialogTitle() {
-		return moduleProvider.get().confirmDialogTitle;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> csvComment
+	* <u><i>In English:</i></u> Click here to download:
 	* <u><i>Magyarul:</i></u> Az adatok letölthetőek: 
 	*/
 	public static String csvComment() {
@@ -452,15 +434,6 @@ public class IneFormI18n_old extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Cancel
-	* <u><i>Magyarul:</i></u> Mégse
-	*/
-	public static String dialogCancelButton() {
-		return moduleProvider.get().dialogCancelButton;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Edit entry
 	* <u><i>Magyarul:</i></u> Sor módosítása
 	*/
@@ -475,33 +448,6 @@ public class IneFormI18n_old extends I18nModule {
 	*/
 	public static String dialogNewTitle() {
 		return moduleProvider.get().dialogNewTitle;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Ok
-	* <u><i>Magyarul:</i></u> Ok
-	*/
-	public static String dialogOkButton() {
-		return moduleProvider.get().dialogOkButton;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Error
-	* <u><i>Magyarul:</i></u> Hiba
-	*/
-	public static String errorDialogTitle() {
-		return moduleProvider.get().errorDialogTitle;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!
-	* <u><i>Magyarul:</i></u> A szerveren nem várt hiba lépett fel! Próbálja meg újratölteni az oldalt. Ha a hibajelenséget továbbra is tapasztalja kérem értesítse a rendszergazdát!
-	*/
-	public static String generalError() {
-		return moduleProvider.get().generalError;
 	}
 	
 	/**
@@ -790,42 +736,6 @@ public class IneFormI18n_old extends I18nModule {
 	*/
 	public static String restRequestError() {
 		return moduleProvider.get().restRequestError;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Error occurred during save: <br /> {error}
-	* <u><i>Magyarul:</i></u> A mentés során az alábbi hiba történt: <br /> {error}
-	*/
-	public static String saveError(String error) {
-		return moduleProvider.get().saveError.replace("{error}", error);
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Save successful.
-	* <u><i>Magyarul:</i></u> Sikeresen elmentve
-	*/
-	public static String saveSuccessful() {
-		return moduleProvider.get().saveSuccessful;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Unknown error occurred during save!
-	* <u><i>Magyarul:</i></u> A mentés során ismeretlen hiba történt.
-	*/
-	public static String saveUnknownError() {
-		return moduleProvider.get().saveUnknownError;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Saving of {savedThing} in progress
-	* <u><i>Magyarul:</i></u> A(z) {savedThing} mentése folyamatban
-	*/
-	public static String savingInProgress(String savedThing) {
-		return moduleProvider.get().savingInProgress.replace("{savedThing}", savedThing);
 	}
 	
 	/**

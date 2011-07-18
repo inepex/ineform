@@ -9,8 +9,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.i18n.IneFormI18n_old;
 import com.inepex.ineForm.client.table.IneDataConnector;
-import com.inepex.inei18n.client.IneFormI18n_old;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public class SearchForm extends IneForm {
