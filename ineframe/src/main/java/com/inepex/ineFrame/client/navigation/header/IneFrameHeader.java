@@ -85,24 +85,26 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		boolean showSettings=false;
 		view.clearSettingsPopup();
 		
-		for(Node<InePlace> placeNode : placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS).getChildren()) {
-			
-			if(placeNode.getNodeElement().getMenuName()==null || placeNode.getNodeElement().isOnlyVisibleWhenActive())
-				continue;
-			
-			if(!(authManager instanceof NoAuthManager) &&
-					!authManager.doUserHaveAnyOfRoles(placeNode.getNodeElement().getRolesAllowedInArray()))
-				continue;
-		
-			showSettings=true;
-			final String hierarchicalID = placeNode.getHierarchicalId();
-			view.addToSettingsPopup(placeNode.getNodeElement().getMenuName(), new OnClickedLogic() {
+		if(placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS)!=null) {
+			for(Node<InePlace> placeNode : placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS).getChildren()) {
 				
-				@Override
-				public void doLogic() {
-					eventBus.fireEvent(new PlaceRequestEvent(hierarchicalID));
-				}
-			});
+				if(placeNode.getNodeElement().getMenuName()==null || placeNode.getNodeElement().isOnlyVisibleWhenActive())
+					continue;
+				
+				if(!(authManager instanceof NoAuthManager) &&
+						!authManager.doUserHaveAnyOfRoles(placeNode.getNodeElement().getRolesAllowedInArray()))
+					continue;
+			
+				showSettings=true;
+				final String hierarchicalID = placeNode.getHierarchicalId();
+				view.addToSettingsPopup(placeNode.getNodeElement().getMenuName(), new OnClickedLogic() {
+					
+					@Override
+					public void doLogic() {
+						eventBus.fireEvent(new PlaceRequestEvent(hierarchicalID));
+					}
+				});
+			}
 		}
 		
 		if((!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn())) {

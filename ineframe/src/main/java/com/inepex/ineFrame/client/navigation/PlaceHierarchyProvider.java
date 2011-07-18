@@ -16,7 +16,7 @@ public interface PlaceHierarchyProvider {
 	PlaceNode getPlaceRoot();
 	
 	/**
-	 * these tokens select the current root place
+	 * these tokens select the current root place, null means placeRoot
 	 */
 	List<String> getCurrentMenuRoot();
 }
