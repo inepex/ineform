@@ -24,7 +24,7 @@ public class ${classname}Assist extends Assist {
 //
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
-		public final static String ${classnameL1}_${attr.name} = /*hc:i18n_${velocityCount}*/"${attr.nameU1}"/*hc*/;
+		public static String ${classnameL1}_${attr.name}() {return /*hc:i18n_${velocityCount}*/"${attr.nameU1}"/*hc*/;}
 #end
 #end		
 	}
@@ -50,20 +50,20 @@ public class ${classname}Assist extends Assist {
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
 #if($attr.type == "Date" || $attr.enum)
-			, new LongFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
+			, new LongFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
 #elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
 			, new ${attr.typeU1}FDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
 #elseif($attr.list == true)
 #if(${attr.hasAnnotation("OneToMany")} && ${attr.hasAnnotation("Kvo_SearchParam")})
-			, new ListFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/,${attr.fistGenTypeU1}KVO.descriptorName, "secondLevelJoin:$attr.getAnnotationParamValue("Kvo_SearchParam","secondLevelJoin")")/*hc:d2_${velocityCount}*//*hc*/
+			, new ListFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/,${attr.fistGenTypeU1}KVO.descriptorName, "secondLevelJoin:$attr.getAnnotationParamValue("Kvo_SearchParam","secondLevelJoin")")/*hc:d2_${velocityCount}*//*hc*/
 #else
-			, new ListFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/,${attr.fistGenTypeU1}KVO.descriptorName)/*hc:d2_${velocityCount}*//*hc*/
+			, new ListFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/,${attr.fistGenTypeU1}KVO.descriptorName)/*hc:d2_${velocityCount}*//*hc*/
 #end
 #elseif(${attr.hasAnnotation("Kvo_RelationType")})
-			, new RelationFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/
+			, new RelationFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/
 										, ${attr.getAnnotationParamValue("Kvo_RelationType","name")})/*hc:d2_${velocityCount}*//*hc*/
 #else
-			, new RelationFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/
+			, new RelationFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/
 										, ${attr.type}KVO.descriptorName)/*hc:d2_${velocityCount}*//*hc*/
 #end
 #if(${attr.hasAnnotation("Column")}  || ${attr.hasAnnotation("JoinColumn")})
