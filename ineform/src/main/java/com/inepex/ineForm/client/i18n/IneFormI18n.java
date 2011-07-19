@@ -105,6 +105,7 @@ public class IneFormI18n extends I18nModule {
 	public String validationEmail = "This is not valid e-mail address!";
 	public String validationFieldError = "Field error";
 	public String validationGeneralError = "Error:";
+	public String validationNothingToSave = "Nothing to save";
 	public String validatorEQ = "The number entered into field {fieldName} must be equal to {constvalAsString}!";
 	public String validatorGE = "The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!";
 	public String validatorGT = "The number entered into field {fieldName} must be greater then {constvalAsString}!";
@@ -835,6 +836,15 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String validationGeneralError() {
 		return moduleProvider.get().validationGeneralError;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Nothing to save
+	* <u><i>Magyarul:</i></u> Nincs változás a formon
+	*/
+	public static String validationNothingToSave() {
+		return moduleProvider.get().validationNothingToSave;
 	}
 	
 	/**

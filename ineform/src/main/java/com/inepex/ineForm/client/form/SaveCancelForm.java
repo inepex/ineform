@@ -149,8 +149,12 @@ public class SaveCancelForm extends IneForm {
 		// Send only the changes to the server 
 		AssistedObject difference = kvo.getDifference(originalData);
 		if (difference.getKeys().size() == 0 
-				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
+				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID)) {
+			ValidationResult vr = new ValidationResult();
+			vr.addGeneralError(IneFormI18n.validationNothingToSave());
+			dealValidationResult(vr);
 			return;
+		}
 		
 		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback());
 	}
