@@ -6,6 +6,7 @@
 "confirmDialogTitle";"";"Question";"Kérdés"
 "dialogCancelButton";"";"Cancel";"Mégse"
 "dialogOkButton";"";"Ok";"Ok"
+"dummyPageText";"";"not implemented yet...";"készülőben..."
 "errorDialogTitle";"";"Error";"Hiba"
 "generalError";"";"Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";"A szerveren nem várt hiba lépett fel! Próbálja meg újratölteni az oldalt. Ha a hibajelenséget továbbra is tapasztalja kérem értesítse a rendszergazdát!"
 "loading";"";"Loading data...";"Adatok betöltése..."

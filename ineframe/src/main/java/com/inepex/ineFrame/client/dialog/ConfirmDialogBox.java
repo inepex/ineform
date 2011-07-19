@@ -8,7 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 
 /**
@@ -21,12 +21,12 @@ public class ConfirmDialogBox extends DialogBoxBase {
 
 	public ConfirmDialogBox() {
 		super();
-		setText(IneFrameI18n_old.confirmDialogTitle());
+		setText(IneFrameI18n.confirmDialogTitle());
 	}    
 	
 	@Override
 	protected void configureButtonBar() {		
-		cancelButton = new Button(IneFrameI18n_old.dialogCancelButton());		
+		cancelButton = new Button(IneFrameI18n.dialogCancelButton());		
         cancelButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 hide();

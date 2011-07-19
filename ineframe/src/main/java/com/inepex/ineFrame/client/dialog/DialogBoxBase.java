@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 /**
  * Base class for pretty dialogs
@@ -27,7 +27,7 @@ public abstract class DialogBoxBase extends DialogBox {
 	protected HTML message = new HTML();
 	protected VerticalPanel panel = new VerticalPanel();
 	protected HorizontalPanel buttonBar = new HorizontalPanel();
-	protected Button okButton = new Button(IneFrameI18n_old.dialogOkButton());
+	protected Button okButton = new Button(IneFrameI18n.dialogOkButton());
 
 	public DialogBoxBase() {
 		super();

@@ -4,7 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 /**
  * Dialog for convenient notification about saving
@@ -17,7 +17,7 @@ public class SavingDialog extends DialogBoxBase {
 	private HandlerRegistration hr = null;
 
 	public SavingDialog(String savedThingsName) {
-		message.setText(IneFrameI18n_old.savingInProgress(savedThingsName));
+		message.setText(IneFrameI18n.savingInProgress(savedThingsName));
 		this.show();
 	}
 
@@ -44,16 +44,16 @@ public class SavingDialog extends DialogBoxBase {
 	public void saveDone(boolean success){
 		okButton.setEnabled(true);
 		if (success) {
-			message.setHTML(IneFrameI18n_old.saveSuccessful());
+			message.setHTML(IneFrameI18n.saveSuccessful());
 		} else {
-			message.setHTML(IneFrameI18n_old.saveUnknownError());
+			message.setHTML(IneFrameI18n.saveUnknownError());
 		}
 		this.center();
 	}
 
 	public void showSaveFailure(String failure){
 		okButton.setEnabled(true);
-		message.setHTML(IneFrameI18n_old.saveError(failure));
+		message.setHTML(IneFrameI18n.saveError(failure));
 		this.center();
 	}
 

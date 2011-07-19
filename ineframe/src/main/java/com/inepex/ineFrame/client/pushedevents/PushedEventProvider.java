@@ -20,7 +20,7 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatch.PushedActionContext;
 import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
 import com.inepex.ineFrame.client.async.SilentStatusIndicator;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.shared.IneFrameProperties;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
@@ -198,7 +198,7 @@ public class PushedEventProvider {
 		failureCount++;
 		
 		if (failureCount >= maxRetryNum) {
-			dispatch.getDefaultStatusIndicator().onGeneralFailure(IneFrameI18n_old.generalError());
+			dispatch.getDefaultStatusIndicator().onGeneralFailure(IneFrameI18n.generalError());
 			stoppedOnFailures = true;
 			return true;
 		}

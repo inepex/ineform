@@ -4,7 +4,7 @@
 package com.inepex.ineFrame.client.dialog;
 
 import com.google.gwt.resources.client.ImageResource;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 /**
  * @author Horváth Szabolcs, Istvan Szoboszlai
@@ -14,7 +14,7 @@ public class ErrorDialogBox extends DialogBoxBase {
 
 	public ErrorDialogBox() {
 		super();
-		setText(IneFrameI18n_old.errorDialogTitle());
+		setText(IneFrameI18n.errorDialogTitle());
 	}
 
 	/* (non-Javadoc)

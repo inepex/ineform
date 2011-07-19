@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
@@ -38,13 +38,13 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	
 		vp= new VerticalPanel();
 		
-		vp.add(new Label(IneFrameI18n_old.USERNAME()));
+		vp.add(new Label(IneFrameI18n.USERNAME()));
 		userName= new TextBox();
 		vp.add(userName);
-		vp.add(new Label(IneFrameI18n_old.PASSWORD()));
+		vp.add(new Label(IneFrameI18n.PASSWORD()));
 		password= new PasswordTextBox();
 		vp.add(password);
-		loginButton= new Button(IneFrameI18n_old.LOGIN());
+		loginButton= new Button(IneFrameI18n.LOGIN());
 		vp.add(loginButton);
 		
 		initWidget(vp);

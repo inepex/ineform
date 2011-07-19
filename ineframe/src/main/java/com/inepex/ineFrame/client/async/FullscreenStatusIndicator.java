@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 public class FullscreenStatusIndicator extends Composite implements
 	AsyncStatusIndicator  {
@@ -41,7 +41,7 @@ public class FullscreenStatusIndicator extends Composite implements
 	@Override
 	public void onAsyncRequestStarted(String loadingMessage) {
 		if (generalLoadingMessage == null) {
-			generalLoadingMessage = new HTML("<h1>" + IneFrameI18n_old.loading() + "</h1>");
+			generalLoadingMessage = new HTML("<h1>" + IneFrameI18n.loading() + "</h1>");
 			centerPanel.add(generalLoadingMessage);
 			generalLoadingMessage.setVisible(false);
 		}
@@ -76,7 +76,7 @@ public class FullscreenStatusIndicator extends Composite implements
 	
 	private Widget getErrorWidget(String errorMsg) {
 		final FlowPanel fp = new FlowPanel();
-		Button confirmButton = new Button(IneFrameI18n_old.OK());
+		Button confirmButton = new Button(IneFrameI18n.OK());
 		confirmButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {

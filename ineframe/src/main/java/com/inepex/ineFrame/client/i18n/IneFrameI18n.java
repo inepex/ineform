@@ -3,21 +3,21 @@ package com.inepex.ineFrame.client.i18n;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nModuleProvider;
 
-public class IneFrameI18n_old extends I18nModule {
+public class IneFrameI18n extends I18nModule {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String MODULE_NAME = "IneFrameI18n_old";
+	public static final String MODULE_NAME = "IneFrameI18n";
 	
-	static I18nModuleProvider<IneFrameI18n_old> moduleProvider;
+	static I18nModuleProvider<IneFrameI18n> moduleProvider;
 	
-	public IneFrameI18n_old() {
+	public IneFrameI18n() {
 		super(MODULE_NAME);
 	}
 		
-	public IneFrameI18n_old(I18nModuleProvider<IneFrameI18n_old> moduleProvider) {
+	public IneFrameI18n(I18nModuleProvider<IneFrameI18n> moduleProvider) {
 		super(MODULE_NAME);
-		IneFrameI18n_old.moduleProvider = moduleProvider;
+		IneFrameI18n.moduleProvider = moduleProvider;
 	}
 
 	@Override
@@ -33,6 +33,7 @@ public class IneFrameI18n_old extends I18nModule {
 	public String confirmDialogTitle = "Question";
 	public String dialogCancelButton = "Cancel";
 	public String dialogOkButton = "Ok";
+	public String dummyPageText = "not implemented yet...";
 	public String errorDialogTitle = "Error";
 	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
 	public String loading = "Loading data...";
@@ -112,6 +113,15 @@ public class IneFrameI18n_old extends I18nModule {
 	*/
 	public static String dialogOkButton() {
 		return moduleProvider.get().dialogOkButton;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> not implemented yet...
+	* <u><i>Magyarul:</i></u> készülőben...
+	*/
+	public static String dummyPageText() {
+		return moduleProvider.get().dummyPageText;
 	}
 	
 	/**

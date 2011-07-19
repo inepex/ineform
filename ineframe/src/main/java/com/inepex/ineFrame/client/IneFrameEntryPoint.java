@@ -11,7 +11,7 @@ import com.inepex.ineFrame.client.async.SimpleFailureStatusIndicator;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
-import com.inepex.ineFrame.client.i18n.IneFrameI18n_old;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAction;
@@ -50,7 +50,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	public void onModuleLoad() {
 		if (dispatchAsync == null)
 			throw new RuntimeException("dispatchAsync is not set! Set it in the contsructor of the derived class," + " or use GIN!");
-		clientI18nStore.registerModule(new IneFrameI18n_old(new ClientI18nProvider<IneFrameI18n_old>()));
+		clientI18nStore.registerModule(new IneFrameI18n(new ClientI18nProvider<IneFrameI18n>()));
 		registerAdditionalI18nModules();
 
 		// query i18n
