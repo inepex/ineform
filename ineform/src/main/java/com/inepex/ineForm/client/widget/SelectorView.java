@@ -3,14 +3,9 @@ package com.inepex.ineForm.client.widget;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import com.google.gwt.event.logical.shared.HasSelectionHandlers;
-import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -18,7 +13,6 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.inepex.ineForm.client.places.SelectorPresenter;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
-import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 
 
 public class SelectorView extends FlowPanel implements SelectorPresenter.View{
@@ -187,7 +181,6 @@ public class SelectorView extends FlowPanel implements SelectorPresenter.View{
 
 	@Override
 	public void setSelectedItem(String name) {
-			setSelectedItem(name);
 //TODO zoom to selected element
 	}
 	
