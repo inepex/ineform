@@ -24,7 +24,7 @@ public class ${classname}Assist extends Assist {
 //
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
-		public static String ${classnameL1}_${attr.name}() {return /*hc:i18n_${velocityCount}*/"${attr.nameU1}"/*hc*/;}
+		public static String ${classnameL1}_${attr.name}() { return /*hc:i18n_${velocityCount}*/"${attr.nameU1}"/*hc*/;}
 #end
 #end		
 	}
@@ -52,7 +52,7 @@ public class ${classname}Assist extends Assist {
 #if($attr.type == "Date" || $attr.enum)
 			, new LongFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
 #elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
-			, new ${attr.typeU1}FDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
+			, new ${attr.typeU1}FDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
 #elseif($attr.list == true)
 #if(${attr.hasAnnotation("OneToMany")} && ${attr.hasAnnotation("Kvo_SearchParam")})
 			, new ListFDesc(${classname}KVO.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/,${attr.fistGenTypeU1}KVO.descriptorName, "secondLevelJoin:$attr.getAnnotationParamValue("Kvo_SearchParam","secondLevelJoin")")/*hc:d2_${velocityCount}*//*hc*/
