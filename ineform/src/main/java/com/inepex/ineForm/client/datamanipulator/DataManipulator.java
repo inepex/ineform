@@ -47,8 +47,6 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	// Properties
 	protected String objectDescriptorName;
 
-	private AssistedObject searchParameters = null;
-
 	// Dependencies
 	protected final IneDataConnector ineDataConnector;
 	protected final ValueRangeProvider valueRangeProvider;
@@ -95,14 +93,9 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 		// if (sortable) ineTable.setSortPolicy(SortPolicy.SINGLE_CELL);
 	}
 	
-	public void setSearchParameters(AssistedObject searchParameters) {
-		this.searchParameters = searchParameters;
-	}
-	
 	private void buildManipulator() {
 		initilaizeIneTableAndBuildCustom();
 		ineTable.renderTable();
-		ineDataConnector.setSearchParametersAndUpdate(searchParameters);
 	}
 	
 	public void updateCount(boolean updateDisplays) {
@@ -161,11 +154,15 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 			}
 		});
 	}
+	
+	protected String getFRD() {
+		return null;
+	}
 
 	protected void showObjectEditor(AssistedObject selectedValue) {
 		boolean isEditMode = selectedValue != null;
 
-		SaveCancelForm saveCancelForm = formFactory.createSaveCancel(objectDescriptorName, null, ineDataConnector);
+		SaveCancelForm saveCancelForm = formFactory.createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector);
 
 		showForm(saveCancelForm); // this is needed here to make event processing available!
 		
@@ -205,6 +202,10 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	}
 	
 	private void showTable() {
+		if(ineTable.getSingleSelectionModel()!=null)
+			if(ineTable.getSingleSelectionModel().getSelectedObject()!=null)
+				ineTable.getSelectionModel().setSelected(ineTable.getSingleSelectionModel().getSelectedObject(), false);
+		
 		outerPanel.setWidget(mainPanel);
 	}
 

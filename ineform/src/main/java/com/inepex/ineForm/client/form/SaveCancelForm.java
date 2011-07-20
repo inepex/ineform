@@ -96,6 +96,10 @@ public class SaveCancelForm extends IneForm {
 		panel.registerHandler(cancelButton.addClickHandler(new CancelClickHandler()));
 	}
 	
+	public void setSaveButtonVisible(boolean visible) {
+		saveButton.setVisible(visible);
+	}
+	
 	public void setCancelButtonVisible(boolean visible) {
 		cancelButton.setVisible(visible);
 	}
