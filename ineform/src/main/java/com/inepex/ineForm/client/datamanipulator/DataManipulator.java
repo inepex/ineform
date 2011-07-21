@@ -201,6 +201,12 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 		outerPanel.setWidget(saveCancelForm.asWidget());
 	}
 	
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		showTable();
+	}
+	
 	private void showTable() {
 		if(ineTable.getSingleSelectionModel()!=null)
 			if(ineTable.getSingleSelectionModel().getSelectedObject()!=null)
