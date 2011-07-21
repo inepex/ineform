@@ -111,7 +111,12 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				} else {
 					doLoggedinLogic();
 				}
+				
+				userName.setValue("");
+				password.setValue("");
+				
 			} else {
+				password.setValue("");
 				//TODO validate message
 				Window.alert("Invalid user or password!");
 			}
