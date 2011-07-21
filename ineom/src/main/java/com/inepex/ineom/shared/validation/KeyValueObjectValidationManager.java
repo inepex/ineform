@@ -177,6 +177,8 @@ public class KeyValueObjectValidationManager {
 						}
 					}
 				}
+				
+				//TODO relation list
 			}
 		
 		return result;
@@ -236,6 +238,8 @@ public class KeyValueObjectValidationManager {
 					}
 				}
 			}
+			
+			//TODO relation list
 		}
 		
 		//TODO handling handmade validators
