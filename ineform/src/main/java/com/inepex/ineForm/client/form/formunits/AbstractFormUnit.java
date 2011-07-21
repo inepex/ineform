@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
-import com.inepex.ineForm.client.general.ErrorMessageManegerInterFace;
+import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -35,7 +35,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	//data flow
 	protected TreeMap<String, HTML> titlesByKey = new TreeMap<String, HTML>();
 	protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
-	protected TreeMap<String, ErrorMessageManegerInterFace> errormanagersByKey = new TreeMap<String, ErrorMessageManegerInterFace>();
+	protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey = new TreeMap<String, ErrorMessageManagerInterface>();
 	
 	//gui behaviour
 	protected FormWidget firstFocusableWidget = null;
@@ -67,12 +67,12 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 		insert(w, beforeIndex);
 	}
 	
-	public void joinToDataFlow(String key, FormWidget fw, ErrorMessageManegerInterFace errorMessageManager) {
+	public void joinToDataFlow(String key, FormWidget fw, ErrorMessageManagerInterface errorMessageManager) {
 		widgetsByKey.put(key, fw);
 		errormanagersByKey.put(key, errorMessageManager);
 	}
 	
-	public void joinAndAddToMainPanel(String key, FormWidget fw, ErrorMessageManegerInterFace errorMessageManager) {
+	public void joinAndAddToMainPanel(String key, FormWidget fw, ErrorMessageManagerInterface errorMessageManager) {
 		joinToDataFlow(key, fw, errorMessageManager);
 		add(fw);
 	}
@@ -87,7 +87,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 		this.objectDescriptor=ds.getOD(objectDescriptorsName);
 	}
 
-	public void registerErrorMessegeManager(String key, ErrorMessageManegerInterFace errorMessageManager) {
+	public void registerErrorMessegeManager(String key, ErrorMessageManagerInterface errorMessageManager) {
 		errormanagersByKey.put(key, errorMessageManager);
 	}
 
@@ -160,7 +160,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	
 	
 	
-	public TreeMap<String, ErrorMessageManegerInterFace> getErrormanagersByKey() {
+	public TreeMap<String, ErrorMessageManagerInterface> getErrormanagersByKey() {
 		return errormanagersByKey;
 	}
 

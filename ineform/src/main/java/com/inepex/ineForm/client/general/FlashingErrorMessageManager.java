@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.Timer;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 
-public class FlashingErrorMessageManager implements ErrorMessageManegerInterFace {
+public class FlashingErrorMessageManager implements ErrorMessageManagerInterface {
 	
 	private final FormWidget widget;
 	

@@ -17,14 +17,21 @@ import com.inepex.ineForm.client.form.events.BeforeSaveEvent;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.SavedEvent;
+import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
+import com.inepex.ineForm.client.form.widgets.RelationList;
+import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
+import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
+import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 /**
@@ -168,10 +175,12 @@ public class SaveCancelForm extends IneForm {
 		switch(validateData) {
 		case ALL:
 			vr = formCtx.validatorManager.validate(kvo);
+			validateRelationLists(vr, null);
 			break;
 		case PARTIAL:
 			Collection<String> fields = formRenderDescriptor.getRootNode().getKeysUnderNode();
 			vr = formCtx.validatorManager.validatePartial(kvo, fields);
+			validateRelationLists(vr, fields);
 			break;
 		case NONE:
 			break;
@@ -181,6 +190,53 @@ public class SaveCancelForm extends IneForm {
 		return vr;
 	}
 	
+	/**
+	 * 
+	 * @param vr - set invalid if relation list contains error!!!!
+	 */
+	private void validateRelationLists(ValidationResult vr, Collection<String> fields) {
+		//TODO move to KeyValueObjectValidationManager
+		
+		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
+			for(String s : unit.getFormWidgetKeySet()) {
+				if(!(unit.getWidgetByKey(s) instanceof RelationListFW) || (fields!=null && !fields.contains(s)))
+					continue;
+				
+				RelationList relList =  ((RelationListFW)unit.getWidgetByKey(s)).getRelationList();
+				
+				if(relList.getRelations()!=null && relList.getRelations().size()>0) {
+					for(int i=0; i<relList.getRelations().size(); i++) {
+						AssistedObject relKVO = relList.getRelations().get(i).getKvo();
+						if(relKVO==null)
+							relKVO=new KeyValueObject(((ListFDesc)formCtx.descStore
+									.getRelatedFieldDescrMultiLevel(objectDescriptor, SharedUtil.listFromDotSeparated(s))).getRelatedDescriptorType());
+						
+						ValidationResult related_vr=null;
+						switch (validateData) {
+						case PARTIAL:
+							related_vr=
+								formCtx.validatorManager.validatePartial(relKVO,
+										formCtx.descStore.getDefaultTypedDesc(relKVO.getDescriptorName(), FormRDesc.class).getRootNode().getKeysUnderNode());
+							break;
+						case ALL:
+							related_vr=formCtx.validatorManager.validate(relKVO);
+							break;
+							
+						default:
+							related_vr=new ValidationResult();
+						}
+						
+						if(!related_vr.isValid()) {
+							vr.setValid(false);
+						}
+						
+						((RelationListFW)unit.getWidgetByKey(s)).dealValidationResult(i, related_vr);
+					}
+				}
+			}
+		}
+	}
+
 	private class ManipulateCallback implements ManipulateResultCallback {
 		@Override
 		public void onManipulationResult(ObjectManipulationResult result) {

@@ -6,7 +6,7 @@ import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTML;
 
-public class SimpleTableErrorMessageManager implements ErrorMessageManegerInterFace {
+public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterface {
 	
 	private HTML html_error;
 	private Element holder;
