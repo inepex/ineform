@@ -3,9 +3,11 @@ package com.inepex.ineFrame.client.navigation.menu;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AuthManager;
@@ -18,6 +20,7 @@ import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlacePresenter;
+import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
 import com.inepex.ineFrame.client.page.InePage;
 import com.inepex.ineom.shared.descriptor.Node;
 
@@ -29,6 +32,8 @@ public class MenuRenderer {
 		public void clearView();
 
 		public Tab createTab(String menuName, int level);
+		public void appendMenuWidget(Widget widget, int level);
+		
 		public void addWidget(IsWidget w);
 		public void showPage(InePage page);
 		
@@ -67,7 +72,7 @@ public class MenuRenderer {
 	 * menurenderer does not show the selected node's children by default
 	 * 
 	 */
-	public void realizeNewPlaceOnMenu(InePlace place) {
+	public void realizeNewPlaceOnMenu(InePlace place, Map<String, String> urlParams) {
 		view.clearView();
 		
 		List<String> tokens = new ArrayList<String>(Arrays.asList(
@@ -99,6 +104,14 @@ public class MenuRenderer {
 					if(!(authManager instanceof NoAuthManager) &&
 							!authManager.doUserHaveAnyOfRoles(node.getNodeElement().getRolesAllowedInArray()))
 						continue;
+					
+					if(node.getNodeElement() instanceof WidgetPlace) {
+						WidgetPlace wp = (WidgetPlace) node.getNodeElement();
+						if(wp.isWidget(urlParams))
+							view.appendMenuWidget(wp.getWidget(urlParams), i);
+						
+						continue;
+					}
 					
 					boolean selected = i<tokens.size() && node.getNodeId().equals(tokens.get(i));
 					boolean visible = !

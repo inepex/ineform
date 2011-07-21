@@ -42,7 +42,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.parentPlace.setHierarchicalToken("MenuParent");
-		renderer.realizeNewPlaceOnMenu(phProvider.parentPlace);
+		renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
 		
 		verify(view, times(1)).clearView();
 		verify(view, never()).createTab(anyString(), anyInt());
@@ -78,7 +78,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view,new NoAuthManager());
 		
 		phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
-		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
 		
 		//4 menu item
 		verify(view, times(5)).createTab(anyString(), anyInt());
@@ -125,7 +125,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
 		phProvider.onlyVisibleWhenActiveAndHasName.setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
-		renderer.realizeNewPlaceOnMenu(phProvider.onlyVisibleWhenActiveAndHasName);
+		renderer.realizeNewPlaceOnMenu(phProvider.onlyVisibleWhenActiveAndHasName, null);
 		
 		verify(view, times(1)).clearView();
 		

@@ -34,7 +34,7 @@ public class DefaultIneFrameMasterPage extends AbstractMasterPage {
 	@Override
 	public void render(InePlace place, Map<String, String> urlParams) {
 		header.refresh();
-		menuRenderer.realizeNewPlaceOnMenu(place);
+		menuRenderer.realizeNewPlaceOnMenu(place, urlParams);
 		super.render(place, urlParams);
 	}
 

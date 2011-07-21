@@ -56,6 +56,20 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 
 	@Override
 	public Tab createTab(String menuName, int level) {
+		upToMenuLevel(level);
+		
+		MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
+		menuUL.add(barWidget);
+		return barWidget;
+	}	
+	
+	@Override
+	public void appendMenuWidget(Widget widget, int level) {
+		upToMenuLevel(level);
+		menuUL.add(new ListItemWidget(widget));
+	}
+	
+	private void upToMenuLevel(int level) {
 		if(level>menuLevel) {
 			menuLevel=level;
 			
@@ -81,11 +95,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 			target.add(newTarget);
 			target=newTarget;
 		}
-		
-		MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
-		menuUL.add(barWidget);
-		return barWidget;
-	}	
+	}
 
 	private class MenuBarWidget extends HandlerAwareComposite implements Tab {
 

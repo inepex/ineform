@@ -52,7 +52,7 @@ public class MenuRendererAuthManagerTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
-		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
 		
 		verify(view, times(1)).clearView();
 		
@@ -142,7 +142,7 @@ public class MenuRendererAuthManagerTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
-		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
 		
 		verify(view, times(1)).clearView();
 		
@@ -213,7 +213,7 @@ public class MenuRendererAuthManagerTest {
 		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
-		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1);
+		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
 		
 		verify(view, times(1)).clearView();
 		
