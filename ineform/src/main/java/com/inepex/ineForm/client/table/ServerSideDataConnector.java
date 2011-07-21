@@ -122,6 +122,7 @@ public class ServerSideDataConnector extends IneDataConnector {
 						}
 						if (callback != null)
 							callback.onManipulationResult(result);
+						
 						updateDisplaysAndfireListChangedEvent();
 					}
 
@@ -130,6 +131,10 @@ public class ServerSideDataConnector extends IneDataConnector {
 
 	@Override
 	public void update(boolean updateDisplays) {
+		update(updateDisplays, null);
+	}
+	
+	public void update(boolean updateDisplays, DataConnectorReadyCallback callback) {
 		createDefaultListActionIfNull();		
 		
 		if (!isPaging) {
@@ -140,18 +145,24 @@ public class ServerSideDataConnector extends IneDataConnector {
 		
 		// if table is a paging table than we should query count
 		setListActionDetails(associatedListAction, searchParameters, 0, 0 , true);
-		dispatcher.execute(associatedListAction, new ObjectListSuccess(updateDisplays)
+		dispatcher.execute(associatedListAction, new ObjectListSuccess(updateDisplays, callback)
 						 , customListingStatusIndicator);
 	}
 	
 	private class ObjectListSuccess extends SuccessCallback<ObjectListResult> {
-		boolean updateDisplays;
-		public ObjectListSuccess(boolean updateDisplays) {
+		private final boolean updateDisplays;
+		private final DataConnectorReadyCallback readyCallback;
+		
+		public ObjectListSuccess(boolean updateDisplays,DataConnectorReadyCallback readyCallback) {
 			this.updateDisplays = updateDisplays;
+			this.readyCallback=readyCallback;
 		}
 		@Override
 		public void onSuccess(ObjectListResult result) {
 			updateWithObjectListResultCount(result, updateDisplays);
+			
+			if(readyCallback!=null)
+				readyCallback.ready();
 		}
 	}
 	
@@ -238,5 +249,11 @@ public class ServerSideDataConnector extends IneDataConnector {
 	 * @param objectListResult
 	 */
 	protected void onNewData(ObjectListResult objectListResult) {
+	}
+	
+	public static interface DataConnectorReadyCallback {
+
+		void ready();
+		
 	}
 }

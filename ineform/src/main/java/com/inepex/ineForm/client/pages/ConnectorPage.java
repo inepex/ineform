@@ -30,19 +30,17 @@ import com.inepex.ineFrame.client.page.InePage;
  */
 public abstract class ConnectorPage extends HandlerAwareComposite implements InePage {
 
-	private final List<Connector> connectors = new ArrayList<ConnectorPage.Connector>();
+	private final List<ServerSideDataConnector> connectors = new ArrayList<ServerSideDataConnector>();
 	protected InePlace currentPlace;
 	
 	protected final FlowPanel mainPanel = new FlowPanel(); 
-	
-	private PageCallback pc;
 	
 	public ConnectorPage() {
 		initWidget(mainPanel);
 	}
 	
 	public ServerSideDataConnector createConnector(IneDispatch dispatcher, EventBus eventBus, String descriptorName) {
-		Connector c = new Connector(dispatcher, eventBus, descriptorName);
+		ServerSideDataConnector c = new ServerSideDataConnector(dispatcher, eventBus, descriptorName);
 		connectors.add(c);
 		return c;
 	}
@@ -69,8 +67,7 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 			if(connectors.size()<1) {
 				callback.onUrlParamsParsed();
 			} else {
-				pc = new PageCallback(connectors.size(), callback);
-				updateConnectors(true);
+				updateConnectors(true, new PageCallback(connectors.size(), callback));
 			}
 		}
 	}
@@ -85,12 +82,12 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 		return true;
 	}
 	
-	protected void updateConnectors(boolean updateDisplays) {
-		for(Connector c : connectors)
-			c.update(updateDisplays);
+	protected void updateConnectors(boolean updateDisplays, PageCallback pageCallback) {
+		for(ServerSideDataConnector c : connectors)
+			c.update(updateDisplays, pageCallback);
 	}
 	
-	private class PageCallback {
+	private class PageCallback implements ServerSideDataConnector.DataConnectorReadyCallback{
 
 		private int size;
 		private UrlParamsParsedCallback callback;
@@ -100,26 +97,12 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 			this.callback=callback;
 		}
 
+		@Override
 		public void ready() {
+			System.out.println(size);
 			size--;
 			if(size==0)
 				callback.onUrlParamsParsed();
-		}
-		
-	}
-	
-	private class Connector extends ServerSideDataConnector {
-
-		public Connector(IneDispatch dispatcher, EventBus eventBus, String descriptorName) {
-			super(dispatcher, eventBus, descriptorName);
-		}
-
-		@Override
-		protected void updateDisplaysAndfireListChangedEvent() {
-			if(pc!=null)
-				pc.ready();
-			
-			super.updateDisplaysAndfireListChangedEvent();
 		}
 		
 	}

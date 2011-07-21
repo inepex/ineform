@@ -84,8 +84,7 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 		if (!rendered) {
 			buildManipulator();
 			rendered = true;
-		} else
-			updateCount(true);	
+		}
 	}
 
 	public void setTableParams(int pageSize, boolean sortable) {
@@ -96,10 +95,6 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	private void buildManipulator() {
 		initilaizeIneTableAndBuildCustom();
 		ineTable.renderTable();
-	}
-	
-	public void updateCount(boolean updateDisplays) {
-		ineDataConnector.update(updateDisplays);
 	}
 	
 	public void setAutoUpdating(PushedEventProvider pEventProvider) {

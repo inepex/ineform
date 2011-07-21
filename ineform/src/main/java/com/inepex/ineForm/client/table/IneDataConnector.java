@@ -101,5 +101,4 @@ public abstract class IneDataConnector extends
 	}
 
 	public abstract void update(boolean updateDisplays);
-	
 }
