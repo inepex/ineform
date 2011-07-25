@@ -79,8 +79,9 @@ public class MenuRenderer {
 				PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken())
 				.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
 		
-		if(tokens.size()<2)
-			return;
+		//TODO sebi check it!
+//		if(tokens.size()<2)
+//			return;
 		
 		Node<InePlace> pointer = hierarchyProvider.getPlaceRoot();
 		if(hierarchyProvider.getCurrentMenuRoot()!=null) {
