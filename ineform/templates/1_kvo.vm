@@ -1,9 +1,9 @@
 outpath:${class.workspaceRelativePath}kvo/${classname}KVO.java
 package ${package}.kvo;
 
-import com.inepex.ineForm.shared.kvo.IneList;
-import com.inepex.ineForm.shared.kvo.KeyValueObject;
-import com.inepex.ineForm.shared.kvo.Relation;
+import com.inepex.ineom.shared.kvo.IneList;
+import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.kvo.Relation;
 
 public class ${classname}KVO extends KeyValueObject {
 

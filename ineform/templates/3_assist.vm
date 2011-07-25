@@ -1,13 +1,13 @@
-outpath:${class.workspaceRelativePath}assist/${classname}Assist.java
+outpath:${class.workspaceRelativePath}/assist/${classname}Assist.java
 package ${package}.assist;
 import java.util.Date;
 
-import com.inepex.ineForm.shared.descriptor.*;
-import com.inepex.ineForm.shared.descriptor.form.*;
-import com.inepex.ineForm.shared.descriptor.table.*;
-import com.inepex.ineForm.shared.types.*;
+import com.inepex.ineom.shared.descriptor.*;
+import com.inepex.ineom.shared.descriptor.form.*;
+import com.inepex.ineom.shared.descriptor.table.*;
+import com.inepex.ineom.shared.types.*;
 
-import static com.inepex.ineForm.shared.util.SharedUtil.*;
+import static com.inepex.ineom.shared.util.SharedUtil.*;
 
 import ${package}.kvo.*;
 import ${package}.kvo.search.*;

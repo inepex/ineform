@@ -1,5 +1,6 @@
-outpath:${class.workspaceRelativePath}mapper/${classname}Mapper.java
+outpath:${class.workspaceRelativePath}/mapper/${classname}Mapper.java
 package ${package}.mapper;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import ${package}.assist.*;
 import ${package}.kvo.search.*;
 import ${package}.mapper.*;
 import ${package}.enums.*;
-import com.inepex.ineForm.shared.kvo.*;
+import com.inepex.ineom.shared.kvo.*;
 
 public class ${classname}Mapper {
 

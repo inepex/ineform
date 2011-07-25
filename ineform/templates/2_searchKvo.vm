@@ -1,9 +1,9 @@
-outpath:${class.workspaceRelativePath}kvo/search/${classname}SearchKVO.java
+outpath:${class.workspaceRelativePath}/kvo/search/${classname}SearchKVO.java
 package ${package}.kvo.search;
 
-import com.inepex.ineForm.shared.kvo.IneList;
-import com.inepex.ineForm.shared.kvo.KeyValueObject;
-import com.inepex.ineForm.shared.kvo.Relation;
+import com.inepex.ineom.shared.kvo.IneList;
+import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.kvo.Relation;
 
 public class ${classname}SearchKVO extends KeyValueObject {
 
