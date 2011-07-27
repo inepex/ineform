@@ -1,0 +1,87 @@
+package com.inepex.example.ContactManager.client.page;
+
+import java.util.Map;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.inject.Inject;
+import com.inepex.example.ContactManager.client.i18n.CMI18n;
+import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
+import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
+import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineFrame.client.async.IneDispatch;
+import com.inepex.ineFrame.client.navigation.PlaceHandler;
+import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+
+public class CompanyDeletePage extends FlowPanelBasedPage {
+
+	private final ServerSideDataConnector connector;
+	
+	private final EventBus eventBus;
+	private final PlaceHandler placeHandler;
+	
+	private final HTML html;
+	private final Button button;
+	
+	private Long companyId;
+	
+	@Inject
+	CompanyDeletePage(IneDispatch dispatcher, EventBus eventBus, PlaceHandler placeHandler) {
+		this.placeHandler=placeHandler;
+		this.eventBus=eventBus;
+		
+		connector = new ServerSideDataConnector(dispatcher, eventBus, CompanyKVO.descriptorName);
+		
+		html= new HTML(CMI18n.reallyWantToDeleteCompany());
+		mainPanel.add(html);
+		
+		mainPanel.add(new HTML("<br />"));
+		
+		button= new Button(IneFormI18n.DELETE());
+		mainPanel.add(button);
+	}
+	
+	@Override
+	public void setUrlParameters(Map<String, String> urlParams,
+			UrlParamsParsedCallback callback) throws Exception {
+		
+		companyId=Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
+		callback.onUrlParamsParsed();
+	}
+	
+	@Override
+	protected void onAttach() {
+		super.onAttach();
+		
+		registerHandler(button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				CompanyKVO kvo = new CompanyKVO();
+				kvo.setId(companyId);
+				connector.objectDeleteRequested(kvo,new ManipulateResultCallback() {
+
+					@Override
+					public void onManipulationResult(ObjectManipulationResult result) {
+						if(result.isSuccess()) {
+							eventBus.fireEvent(placeHandler.generateJumpUpEvent());
+						}
+					}
+					
+				});
+			}
+		}));
+	}
+	
+	
+	@Override
+	protected void onShow(boolean isFirstShow) {
+	}
+
+}

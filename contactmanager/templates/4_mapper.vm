@@ -1,0 +1,182 @@
+outpath:${class.getParentRelativePath(0)}/shared/mapper/${classname}Mapper.java
+package ${class.getParentPackage(0)}.shared.mapper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ${package}.*;
+import ${package}.kvo.*;
+import ${package}.assist.*;
+import ${package}.kvo.search.*;
+import ${package}.mapper.*;
+import ${package}.enums.*;
+import com.inepex.ineForm.shared.kvo.*;
+import com.inepex.ineom.shared.kvo.Relation;
+
+public class ${classname}Mapper {
+
+	public ${classname} kvoToEntity(${classname}KVO from, ${classname} to) {
+		if (to == null)
+			to = new ${classname}();
+#foreach( $attr in $attrs )
+#if ( $attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if($attr.name == "id")
+		if (!from.isNew()) 
+			to.set${attr.nameU1}(from.get${attr.nameU1}());
+#elseif($attr.type == "Date") 
+		if (from.containsLong(${classname}KVO.k_${attr.name}))  
+			to.set${attr.nameU1}(new Date(from.get${attr.nameU1}()));
+#elseif($attr.type == "Long")
+		if (from.containsLong(${classname}KVO.k_${attr.name})) 
+			to.set${attr.nameU1}(from.get${attr.nameU1}());
+#elseif($attr.type == "Boolean")
+		if (from.containsBoolean(${classname}KVO.k_${attr.name})) 
+			to.set${attr.nameU1}(from.get${attr.nameU1}());
+#elseif($attr.type == "Double")
+		if (from.containsDouble(${classname}KVO.k_${attr.name})) 
+			to.set${attr.nameU1}(from.get${attr.nameU1}());
+#elseif($attr.type == "String")
+		if (from.containsString(${classname}KVO.k_${attr.name})) 
+			to.set${attr.nameU1}(from.get${attr.nameU1}());
+#elseif($attr.enum)
+ 		if (from.containsLong(${classname}KVO.k_${attr.name})) 
+			to.set${attr.nameU1}(${attr.type}.values()[new Long(from.get${attr.nameU1}()).intValue()]);
+#elseif($attr.list == true && $attr.hasAnnotation("OneToMany"))
+		if (from.containsList(${classname}KVO.k_${attr.name})) {
+			if (to.get${attr.nameU1}() == null)
+				to.set${attr.nameU1}(new ArrayList<${attr.fistGenTypeU1}>());
+
+    		Map<Long,${attr.fistGenTypeU1}> origItems = new HashMap<Long, ${attr.fistGenTypeU1}>();
+			for (${attr.fistGenTypeU1} item : to.get${attr.nameU1}()) {
+				origItems.put(item.getId(), item);
+			}
+			
+			${attr.fistGenTypeU1}Mapper mapper = new ${attr.fistGenTypeU1}Mapper();
+			for (Relation rel : from.get${attr.nameU1}().getRelationList()) {
+				if (rel == null)
+					continue;
+				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
+					${attr.fistGenTypeU1} entity = new ${attr.fistGenTypeU1}(IFConsts.NEW_ITEM_ID);
+					mapper.kvoToEntity(new ${attr.fistGenTypeU1}KVO(rel.getKvo()), entity);
+					entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
+					to.get${attr.nameU1}().add(entity);
+				} else {
+					${attr.fistGenTypeU1} origItem = origItems.get(rel.getId());
+					if (rel.getKvo() == null) { 			    // delete item
+						to.get${attr.nameU1}().remove(origItem);
+					} else {									// edit item
+						mapper.kvoToEntity(new ${attr.fistGenTypeU1}KVO(rel.getKvo())
+										 , origItem);
+					}
+				}
+			}
+		}
+#else
+		if (from.containsRelation(${classname}KVO.k_${attr.name})) {
+			if (from.get${attr.nameU1}() == null){
+				to.set${attr.nameU1}(null);
+			} else {
+#if($attr.hasAnnotation("ManyToOne"))
+				to.set${attr.nameU1}(new ${attr.typeU1}(from.get${attr.nameU1}().getId()));
+#elseif($attr.hasAnnotation("OneToOne"))
+				${attr.typeU1} relatedEntity = to.get${attr.nameU1}();
+    			if (relatedEntity == null) {
+					relatedEntity = new ${attr.typeU1}(IFConsts.NEW_ITEM_ID);
+				}
+				new ${attr.typeU1}Mapper()
+					.kvoToEntity(new ${attr.typeU1}KVO(from.get${attr.nameU1}().getKvo())
+								, relatedEntity);
+				to.set${attr.nameU1}(relatedEntity);
+#end
+			}
+		}
+#end 
+#end 
+#end
+
+		/*hc:customToEntity*/
+		//custom mappings to Entity comes here.
+		/*hc*/
+		
+		return to;
+	}
+	
+	public ${classname}KVO entityToKvo(${classname} entity) {
+		${classname}KVO kvo = new ${classname}KVO();
+#foreach( $attr in $attrs )
+#if ($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if ($attr.type == "Date" )
+		if (entity.get${attr.nameU1}() != null && entity.get${attr.nameU1}().getTime() != null) 
+			kvo.set${attr.nameU1}(entity.get${attr.nameU1}().getTime());
+#elseif($attr.type == "Long" || $attr.type == "Double" || $attr.type == "Integer" || $attr.type == "Char" || $attr.type == "Boolean")
+		if (entity.get${attr.nameU1}() != null) 
+			kvo.set${attr.nameU1}(entity.get${attr.nameU1}());
+#elseif($attr.type == "String")
+		if (entity.get${attr.nameU1}() != null && !"".equals(entity.get${attr.nameU1}())) 
+			kvo.set${attr.nameU1}(entity.get${attr.nameU1}());  
+#elseif($attr.enum)
+		if (entity.get${attr.nameU1}() != null){
+			kvo.set${attr.nameU1}(new Long(entity.get${attr.nameU1}().ordinal()));
+		}
+#elseif($attr.list == true)
+		{
+    		IneList ineList = new IneList();
+    		List<Relation> relationList = new ArrayList<Relation>();
+    		if (entity.get${attr.nameU1}() != null)
+    			for (${attr.fistGenTypeU1} item : entity.get${attr.nameU1}()) {
+    				relationList.add(new ${attr.fistGenTypeU1}Mapper().toRelation(item, true));
+    			}
+    		if (relationList.size() > 0) {
+    			ineList.setRelationList(relationList);
+    			kvo.set${attr.nameU1}(ineList);
+    		}
+		}
+#else
+		if (entity.get${attr.nameU1}() != null) 
+#if (!$attr.hasAnnotation("Kvo_Fetch") || !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")
+			kvo.set${attr.nameU1}(new ${attr.typeU1}Mapper().toRelation(entity.get${attr.nameU1}(), false));
+#elseif ($attr.hasAnnotation("Kvo_Fetch") && !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.relation")
+			// TODO: use findRelationById
+			kvo.set${attr.nameU1}(new ${attr.typeU1}Mapper().toRelation(entity.get${attr.nameU1}(), true));
+#else
+			kvo.set${attr.nameU1}(new ${attr.typeU1}Mapper().toRelation(entity.get${attr.nameU1}(), true));
+#end
+#end
+#end
+#end
+
+		/*hc:customToKvo*/
+		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
+		/*hc*/
+
+		return kvo;
+	}
+	
+	public Relation toRelation(${classname} entity, boolean includeKvo){
+		if (entity == null)
+			return null;
+		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
+	}
+	
+	public List<Relation> toRelationList(List<${classname}> entityList){
+		return toRelationList(entityList, false);
+	}
+	
+	public List<Relation> toRelationList(List<${classname}> entityList, boolean includeKvo){
+		List<Relation> result = new ArrayList<Relation>();
+		for (${classname} entity : entityList) {
+			result.add(toRelation(entity, includeKvo));
+		}
+		return result;
+	}
+	
+	public ArrayList<AssistedObject> entityListToKvoList(List<${classname}> entityList){
+		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
+		for (${classname} o: entityList){
+			result.add(entityToKvo(o));
+		}
+		return result;
+	}	
+}

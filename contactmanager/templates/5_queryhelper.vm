@@ -1,0 +1,155 @@
+outpath:${class.getParentRelativePath(0)}/server/dao/query/${classname}Query.java
+package ${class.getParentPackage(0)}.server.dao.query;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
+
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineOm.shared.kvo.IneList;
+import com.inepex.ineOm.shared.kvo.Relation;
+import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.descriptor.Node;
+
+public class ${classname}Query {
+
+	
+	public static Expression<Boolean> buildWhere(
+		AbstractSearchAction action
+		, CriteriaBuilder cb
+		, Root<${classname}> from
+		, Expression<Boolean> base){
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
+#if($attr.type == "Date" || $attr.type == "Long")
+		Long ${attr.name} = action.getSearchParameters().getLong(${classname}SearchKVO.k_${attr.name});
+		if (${attr.name}!=null)
+			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
+#elseif($attr.enum)
+		Long ${attr.name} = action.getSearchParameters().getLong(${classname}SearchKVO.k_${attr.name});
+		if (${attr.name}!=null)
+			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.type}.values()[${attr.name}.intValue()]));
+#elseif($attr.type == "String")
+		String ${attr.name} = action.getSearchParameters().getString(${classname}SearchKVO.k_${attr.name});
+		if (${attr.name}!=null)
+			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(${classname}_.${attr.name})), ${attr.name}.toUpperCase() + "%"));
+#elseif($attr.type == "Double")
+		Double ${attr.name} = action.getSearchParameters().getDouble(${classname}SearchKVO.k_${attr.name});
+		if (${attr.name}!=null)
+			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
+#elseif($attr.type == "Boolean")
+		Boolean ${attr.name} = action.getSearchParameters().getBoolean(${classname}SearchKVO.k_${attr.name});
+		if (Boolean.TRUE.equals(${attr.name}))
+			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
+#elseif(${attr.hasAnnotation("Kvo_OneToOne")})
+		String ${attr.name} = action.getSearchParameters().getString(${classname}SearchKVO.k_${attr.name});
+		if (${attr.name}!=null && !${attr.name}.equals(""))
+			base = addAndExpression(
+				cb
+				, base
+				,${attr.typeU1}Query.getSearchExpression(cb, from.get(${classname}_.${attr.name}), ${attr.name}));
+#elseif($attr.list == false)
+		Relation ${attr.name} = action.getSearchParameters().getRelation(${classname}SearchKVO.k_${attr.name});
+		if (${attr.name}!=null)
+			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}).get(${attr.type}_.id), ${attr.name}.getId()));
+#else
+		IneList ${attr.name} = action.getSearchParameters().getList(${classname}KVO.k_${attr.name});
+		if (${attr.name} != null && ${attr.name}.getRelationList().size() > 0){
+			List<Long> relationIds = new ArrayList<Long>();
+			for (Relation r : ${attr.name}.getRelationList()){
+				if (r.getKvo().getRelation(${attr.fistGenType}KVO.k_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}) != null){
+					relationIds.add(r.getKvo().getRelation(${attr.fistGenType}KVO.k_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}).getId());
+				}
+			}
+			if (relationIds.size()>0){
+				base = addAndExpression(cb, base, (from.join(${classname}_.${attr.name}).get(${attr.fistGenType}_.${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}).get("id")).in(relationIds));
+			}
+		}
+#end
+#end
+#end
+	return base;
+	}
+	
+	
+	public static Order getOrderExpression(
+			AbstractSearchAction action
+			, CriteriaBuilder cb
+			, Root<${classname}> from
+			){
+		Order o;
+		String orderKey = action == null ? null : action.getOrderKey();
+		if (orderKey == null) {
+			//default default order
+			orderKey = IFConsts.KEY_ID;
+			//default order specified:
+#foreach( $attr in $attrs )
+#if (${attr.hasAnnotation("Kvo_SortDefault")})
+			orderKey = ${classname}KVO.k_${attr.name};		
+#end
+#end				
+		}
+		Expression<?> orderExpr = null;
+		List<String> idList = Node.idToIdList(orderKey);
+			
+#foreach( $attr in $attrs )			
+#if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic && $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean" && !$attr.enum && !$attr.hasAnnotation("Transient"))
+		if(idList.get(0).equals(${classname}KVO.k_${attr.name})){
+			if(idList.size()==1) {
+				Join<${classname}, ${attr.type}> title = from.join(${classname}_.${attr.name});
+				orderExpr = title.get(${attr.type}Assist.getOrderKey());
+			} else {
+    			Join<${classname}, ?> orderPath =  from.join(idList.get(0));
+    			for (int i = 1; i < idList.size()-1; i++ ){
+    				orderPath = orderPath.join(idList.get(i));
+    			}
+    			orderExpr = orderPath.get(idList.get(idList.size()-1));
+			}
+		}
+		else
+#end
+#end
+		{
+			orderExpr = from.get(orderKey);
+		}
+		if (action.isDescending())
+			o = cb.desc(orderExpr);
+		else
+			o = cb.asc(orderExpr);
+		return o;
+	}
+	
+	public static Expression<Boolean> getSearchExpression(
+			CriteriaBuilder cb
+			, Path<${classname}> from
+			, String value){
+		Expression<Boolean> expr = null;
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
+#if(${attr.type} == "String")
+		expr = addOrExpression(cb, expr, 
+				cb.like(cb.upper(from.get(${classname}_.${attr.name})), value.toUpperCase() + "%"));
+#end
+#end
+#end
+		return expr;	
+	}
+
+	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
+		if (base == null) base = toAdd;
+		else base = cb.and(base, toAdd);
+		return base;
+	}
+	
+	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
+		if (base == null) base = toAdd;
+		else base = cb.or(base, toAdd);
+		return base;
+	}	
+}
