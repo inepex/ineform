@@ -6,23 +6,23 @@ import com.inepex.ineom.shared.kvo.IneT;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 public abstract class FDesc extends DescriptorBase {
-	
+
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -6754736044439157370L;
 
-	private String							key;
+	private String key;
 
 	// the field can be edited
-	private boolean							editable			= true;
-	
-	protected final TreeSet<String>			validatorNames		= new TreeSet<String>();
+	private boolean editable = true;
+
+	protected final TreeSet<String> validatorNames = new TreeSet<String>();
 
 	protected IneT type = null;
 
 	private String defaultDisplayName = null;
-	
+
 	private boolean nullable = true;
 
 	public FDesc() {
@@ -40,7 +40,8 @@ public abstract class FDesc extends DescriptorBase {
 		this.defaultDisplayName = defaultDisplayName;
 	}
 
-	public FDesc(String key, IneT type, String defaultDisplayName, String... properties) {
+	public FDesc(String key, IneT type, String defaultDisplayName,
+			String... properties) {
 		this.key = key;
 		this.type = type;
 		this.defaultDisplayName = defaultDisplayName;
@@ -54,17 +55,17 @@ public abstract class FDesc extends DescriptorBase {
 	}
 
 	public FDesc addValidators(String... names) {
-		for(String name : names) {
+		for (String name : names) {
 			validatorNames.add(name);
 		}
-		
+
 		return this;
 	}
-	
+
 	public TreeSet<String> getValidatorNames() {
 		return validatorNames;
 	}
-	
+
 	public boolean hasValidator(String validatorName) {
 		return validatorNames.contains(validatorName);
 	}
@@ -72,7 +73,6 @@ public abstract class FDesc extends DescriptorBase {
 	public String getKey() {
 		return key;
 	}
-
 
 	public boolean isEditable() {
 		return editable;
@@ -91,6 +91,10 @@ public abstract class FDesc extends DescriptorBase {
 		return defaultDisplayName;
 	}
 
+	public void setDefaultDisplayName(String defaultDisplayName) {
+		this.defaultDisplayName = defaultDisplayName;
+	}
+
 	public boolean isNullable() {
 		return nullable;
 	}
@@ -99,9 +103,14 @@ public abstract class FDesc extends DescriptorBase {
 		this.nullable = nullable;
 		return this;
 	}
-	
-	public FDesc mandatory()  {
+
+	public FDesc mandatory() {
 		validatorNames.add(KeyValueObjectValidationManager.MANDATORY);
 		return this;
 	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
 }
