@@ -27,6 +27,7 @@ import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer;
 import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer.ListSerializer;
 import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer.RelationSerializer;
 import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.validation.ValidationResult;
 
 /**
  * DataConnector implementation using http requests
@@ -66,6 +67,12 @@ public class RestDataConnector extends IneDataConnector {
 		
 	}
 	
+	public static interface ErrorExtractor {
+		
+		public ValidationResult extract(String json);
+		
+	}
+	
 	AsyncStatusIndicator statusIndicator;
 	RequestBuilderFactory requestBuilderFactory;
 	String getUrl;
@@ -74,6 +81,7 @@ public class RestDataConnector extends IneDataConnector {
 	String deleteUrl;
 	boolean serializeId;
 	Map<String, ResultExtractor> descriptorToExtractorMapping = new HashMap<String, ResultExtractor>();
+	ErrorExtractor errorExtractor;
 	
 	@Inject
 	public RestDataConnector(EventBus eventBus, 
@@ -131,10 +139,23 @@ public class RestDataConnector extends IneDataConnector {
 			@Override
 			public void onResponseReceived(Request request, Response response) {
 				if (response.getStatusCode() == Response.SC_OK){
-					ObjectManipulationResult omr = new ObjectManipulationResult(
-							getObjectFromJSON(response.getText(), object.getDescriptorName()));
+					ValidationResult vr = null;
+					if (errorExtractor != null){
+						vr = errorExtractor.extract(response.getText());
+					}
+					
+					ObjectManipulationResult omr = null;
+					if (vr == null){
+						omr = new ObjectManipulationResult(
+								getObjectFromJSON(response.getText(), object.getDescriptorName()));
+					} else {
+						omr = new ObjectManipulationResult();
+						omr.setSuccess(false);
+						omr.setValidationResult(vr);
+					}
 					callback.onManipulationResult(omr);
 					statusIndicator.onSuccess("");
+					
 				} else {
 					System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
 					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
@@ -165,7 +186,7 @@ public class RestDataConnector extends IneDataConnector {
 				
 				@Override
 				public void onResponseReceived(Request request, Response response) {
-					if (response.getStatusCode() == Response.SC_OK){
+					if (response.getStatusCode() == Response.SC_OK){						
 						callback.onManipulationResult(new ObjectManipulationResult());
 						statusIndicator.onSuccess("");
 					} else {
@@ -222,5 +243,11 @@ public class RestDataConnector extends IneDataConnector {
 		}
 		return new KvoJsonParser(jso, descriptorName).parse();
 	}
+
+	public void setErrorExtractor(ErrorExtractor errorExtractor) {
+		this.errorExtractor = errorExtractor;
+	}
+	
+	
 
 }

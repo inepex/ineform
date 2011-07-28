@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineForm.client.form.FormContext;
-import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.kvo.Relation;
@@ -27,6 +27,8 @@ public class SuggestBoxFw extends DenyingFormWidget {
 
 	Relation value;
 
+	boolean isFwEnabled = true;
+	
 	public SuggestBoxFw(FormContext formContext, FDesc fielddescriptor) {
 		super(fielddescriptor);
 		initWidget(suggestBox);
@@ -43,7 +45,8 @@ public class SuggestBoxFw extends DenyingFormWidget {
 				@Override
 				public void onValueRangeResultReady(List<Relation> relationList) {
 					if (relationList != null) {
-						suggestBox.getTextBox().setEnabled(true);
+						if (isFwEnabled)
+							suggestBox.getTextBox().setEnabled(true);
 						setValueRange(relationList);
 					}
 				}
@@ -89,5 +92,12 @@ public class SuggestBoxFw extends DenyingFormWidget {
 	public boolean handlesRelation() {
 		return true;
 	}
+	
+	@Override
+	public void setEnabled(boolean enabled) {
+		isFwEnabled = enabled;
+		suggestBox.getTextBox().setEnabled(enabled);
+	}
+
 
 }
