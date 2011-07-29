@@ -2,16 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+	<properties>
+		<gwtVersion>2.3.0</gwtVersion>
+		<ineformVersion>1.0.12</ineformVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inepex</groupId>
 	<artifactId>ineframe</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.11</version>
+	<version>1.0.12</version>
 	<name>ineframe</name>
 	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+
 	<repositories>
 		<repository>
 			<id>maven.springframework.org.external</id>
@@ -45,31 +49,31 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>1.0.11</version>
+			<version>${ineformVersion}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>1.0.11</version>
+			<version>${ineformVersion}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>2.2.0</version>
+			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>2.2.0</version>
+			<version>${gwtVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-dev</artifactId>
-			<version>2.2.0</version>
+			<version>${gwtVersion}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
