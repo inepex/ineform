@@ -12,7 +12,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>ineform</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.12</version>
+	<version>${ineformVersion}</version>
 	<name>ineform</name>
 	<url>http://maven.apache.org</url>
 
