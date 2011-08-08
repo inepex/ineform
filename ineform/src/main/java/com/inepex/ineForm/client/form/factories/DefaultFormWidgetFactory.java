@@ -7,6 +7,7 @@ import com.inepex.ineForm.client.form.widgets.DummyFW;
 import com.inepex.ineForm.client.form.widgets.EnumLabelFW;
 import com.inepex.ineForm.client.form.widgets.EnumListFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
+import com.inepex.ineForm.client.form.widgets.IneTableFW;
 import com.inepex.ineForm.client.form.widgets.LabelBoolFW;
 import com.inepex.ineForm.client.form.widgets.LabelFW;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
@@ -111,11 +112,13 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			}			
 			
 			createdWidget = numberTextbox;
-		}	
-
-		else if (widgetType.equals(FWTypes.RELATIONLIST)) {
+		} else if (widgetType.equals(FWTypes.RELATIONLIST)) {
 			ListFDesc castedFieldDesc = (ListFDesc) fieldDesc; 
 			createdWidget = new RelationListFW(formCtx, castedFieldDesc, castedFieldDesc.getRelatedDescriptorType());
+		} else if (widgetType.equals(FWTypes.TABLE)) {
+			ListFDesc castedFieldDesc = (ListFDesc) fieldDesc; 
+			createdWidget = new IneTableFW(castedFieldDesc, formCtx, castedFieldDesc.getRelatedDescriptorType(),
+					wrDesc.hasProp(IneTableFW.PROP_SINGLESELECT));
 		} else if (widgetType.equals(FWTypes.ENUMLISTBOX)) {
 			if (wrDesc.getPropValue(EnumListFW.enumValues) == null){
 				throw new RuntimeException("No '" + EnumListFW.enumValues + "' propery found for EnumListBox: " + fieldDesc.getKey());

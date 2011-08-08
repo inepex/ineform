@@ -4,7 +4,7 @@
 
 	<properties>
 		<gwtVersion>2.3.0</gwtVersion>
-		<ineformVersion>1.0.12</ineformVersion>
+		<ineformVersion>1.0.13</ineformVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
