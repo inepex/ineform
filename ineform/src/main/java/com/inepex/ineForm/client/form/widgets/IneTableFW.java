@@ -48,7 +48,7 @@ public class IneTableFW extends DenyingFormWidget {
 		
 		List<AssistedObject> kvos = new  ArrayList<AssistedObject>();
 		
-		if(value.getRelationList()!=null) {
+		if(value!=null && value.getRelationList()!=null) {
 			for(Relation r : value.getRelationList()) {
 				kvos.add(r.getKvo());
 			}
