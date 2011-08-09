@@ -13,7 +13,7 @@ import java.util.Set;
 public class ObjectDesc implements Serializable {
 	private static final long serialVersionUID = 7161148180827105250L;
 
-	private final LinkedHashMap<String, FDesc> fields = new LinkedHashMap<String, FDesc>();
+	private LinkedHashMap<String, FDesc> fields = new LinkedHashMap<String, FDesc>();
 
 	private String name;
 	private String titleKey;

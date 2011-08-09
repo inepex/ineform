@@ -17,7 +17,7 @@ public abstract class FDesc extends DescriptorBase {
 	// the field can be edited
 	private boolean editable = true;
 
-	protected final TreeSet<String> validatorNames = new TreeSet<String>();
+	protected TreeSet<String> validatorNames = new TreeSet<String>();
 
 	protected IneT type = null;
 
