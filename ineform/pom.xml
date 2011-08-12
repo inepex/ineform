@@ -2,19 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<properties>
-		<gwtVersion>2.3.0</gwtVersion>
-		<ineformVersion>1.0.13</ineformVersion>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<parent>
+	    <artifactId>ineall</artifactId>
+	    <groupId>com.inepex</groupId>
+	    <version>1.0.13</version>
+	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inepex</groupId>
 	<artifactId>ineform</artifactId>
 	<packaging>jar</packaging>
-	<version>${ineformVersion}</version>
+	<version>${parent.version}</version>
 	<name>ineform</name>
-	<url>http://maven.apache.org</url>
 
 	<repositories>
 		<repository>
@@ -37,83 +36,73 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>${jUnitVersion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>1.8.5</version>
+			<version>${mockitoVersion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>${ineformVersion}</version>
-			<scope>compile</scope>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>${ineformVersion}</version>
+			<version>${parent.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>${ineformVersion}</version>
-			<scope>compile</scope>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>${ineformVersion}</version>
-			<scope>compile</scope>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>${ineformVersion}</version>
+			<version>${parent.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.gwt.inject</groupId>
 			<artifactId>gin</artifactId>
-			<version>1.5</version>
+			<version>${ginVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>3.0-rc2</version>
-			<scope>compile</scope>
+			<version>${guiceVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.allen_sauer.gwt.dnd</groupId>
 			<artifactId>gwt-dnd</artifactId>
-			<version>3.0.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${gwtDndVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
+			<version>${commonsFileUploadVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${commonsCollectionsVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.0.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${commonsIoVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -126,15 +115,12 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${javaxServletVersion}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -147,17 +133,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
+				<version>${mavenCompilerVersion}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
+					<source>${mavenCompilerSourceVersion}</source>
+					<target>${mavenCompilerTargetVersion}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
+				<version>${mavenJarVersion}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -169,7 +155,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.8</version>
+				<version>${mavenSureFireVersion}</version>
 				<configuration>
 					<excludes>
 						<exclude>**/*ComplexTest*.java</exclude>

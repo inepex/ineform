@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<properties>
-		<gwtVersion>2.3.0</gwtVersion>
-		<ineformVersion>1.0.13</ineformVersion>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<parent>
+	    <artifactId>ineall</artifactId>
+	    <groupId>com.inepex</groupId>
+	    <version>1.0.13</version>
+	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inepex</groupId>
 	<artifactId>ineframe</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.13</version>
+	<version>${parent.version}</version>
 	<name>ineframe</name>
 	<url>http://maven.apache.org</url>
 
@@ -37,25 +37,23 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>${jUnitVersion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>inei18n</artifactId>
-			<version>1.0.11</version>
-			<scope>compile</scope>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>${ineformVersion}</version>
-			<scope>compile</scope>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineom</artifactId>
-			<version>${ineformVersion}</version>
+			<version>${parent.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -80,50 +78,45 @@
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
-			<version>2.2.0</version>
+			<version>${eclipselinkVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
-			<version>2.0.0</version>
+			<version>${javaxPersistenceVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>1.8.5</version>
+			<version>${mockitoVersion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.gwt.inject</groupId>
 			<artifactId>gin</artifactId>
-			<version>1.5</version>
+			<version>${ginVersion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-servlet</artifactId>
-			<version>3.0-rc2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${guiceVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>3.0-rc2</version>
-			<scope>compile</scope>
+			<version>${guiceVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>extensions-parent</artifactId>
-			<version>3.0-rc2</version>
+			<version>${guiceVersion}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
-			<version>3.0-rc2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${guiceVersion}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -136,17 +129,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
+				<version>${mavenCompilerVersion}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
+					<source>${mavenCompilerSourceVersion}</source>
+					<target>${mavenCompilerTargetVersion}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
+				<version>${mavenJarVersion}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -158,7 +151,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.8</version>
+				<version>${mavenSureFireVersion}</version>
 				<configuration>
 					<excludes>
 						<exclude>**/*GwtTest*.java</exclude>

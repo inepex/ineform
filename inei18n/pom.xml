@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<properties>
-		<gwtVersion>2.3.0</gwtVersion>
-		<ineformVersion>1.0.13</ineformVersion>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<parent>
+	    <artifactId>ineall</artifactId>
+	    <groupId>com.inepex</groupId>
+	    <version>1.0.13</version>
+	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inepex</groupId>
 	<artifactId>inei18n</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.13</version>
+	<version>${parent.version}</version>
 	<name>inei18n</name>
 	<url>http://maven.apache.org</url>
 
@@ -27,31 +27,29 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>${jUnitVersion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
+			<version>${slf4jVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>extensions-parent</artifactId>
-			<version>3.0-rc2</version>
+			<version>${guiceVersion}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>net.customware.gwt.dispatch</groupId>
 			<artifactId>gwt-dispatch</artifactId>
-			<version>1.1.0</version>
+			<version>${gwtDispatchVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
-			<version>1.6.2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${velocityVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -62,15 +60,12 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>3.0-rc2</version>
-			<scope>compile</scope>
+			<version>${guiceVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-servlet</artifactId>
-			<version>3.0-rc2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<version>${guiceVersion}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -83,25 +78,25 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
+				<version>${mavenCompilerVersion}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
+					<source>${mavenCompilerSourceVersion}</source>
+					<target>${mavenCompilerTargetVersion}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
-			   <groupId>org.apache.maven.plugins</groupId>
-			   <artifactId>maven-jar-plugin</artifactId>
-			   <version>2.2</version>
-			   <executions>
-			     <execution>
-			       <goals>
-			         <goal>test-jar</goal>
-			       </goals>
-			     </execution>
-			   </executions>
-			 </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${mavenJarVersion}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 		<distributionManagement>
