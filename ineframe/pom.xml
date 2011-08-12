@@ -16,23 +16,6 @@
 	<name>ineframe</name>
 	<url>http://maven.apache.org</url>
 
-	<repositories>
-		<repository>
-			<id>maven.springframework.org.external</id>
-			<url>http://maven.springframework.org/external</url>
-			<name>SpringSource Maven Repository - External Releases</name>
-		</repository>
-		<repository>
-			<id>eclipselink</id>
-			<name>eclipselink</name>
-			<url>http://eclipse.ialto.org/rt/eclipselink/maven.repo</url>
-		</repository>
-		<repository>
-			<id>inerepo</id>
-			<name>inerepo</name>
-			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -162,11 +145,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>inepex</id>
-			<name>Inepex Repository</name>
-			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
-		</repository>
-	</distributionManagement>
 </project>

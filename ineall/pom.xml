@@ -1,43 +1,70 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.inepex</groupId>
-  <version>1.0.13</version>
-  <artifactId>ineall</artifactId>
-  <packaging>pom</packaging>
-  
-  <modules>
-  	<module>../inei18n</module>
-	<module>../ineom</module>
-	<module>../ineframe</module>
-    <module>../ineform</module>    
-  </modules>
-  
-  <properties>
-  	<gwtVersion>2.3.0</gwtVersion>
-  	<jUnitVersion>4.8.2</jUnitVersion>
-  	<mockitoVersion>1.8.5</mockitoVersion>
-  	<ginVersion>1.5</ginVersion>
-  	<guiceVersion>3.0-rc2</guiceVersion>
-  	<gwtDndVersion>3.0.1</gwtDndVersion>
-  	<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
-  	<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
-  	<commonsIoVersion>2.0.1</commonsIoVersion>
-  	<javaxServletVersion>2.5</javaxServletVersion>
-  	<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
-  	<mavenCompilerVersion>2.1</mavenCompilerVersion>
-  	<mavenCompilerSourceVersion>1.6</mavenCompilerSourceVersion>
-  	<mavenCompilerTargetVersion>1.6</mavenCompilerTargetVersion>
-  	<mavenJarVersion>2.2</mavenJarVersion>
-  	<mavenSureFireVersion>2.8</mavenSureFireVersion>
-  	<eclipselinkVersion>2.2.0</eclipselinkVersion>
-  	<slf4jVersion>1.6.1</slf4jVersion>
-  	<velocityVersion>1.6.2</velocityVersion>
-  	<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
-  	
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
-  </properties>
-  
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.inepex</groupId>
+	<version>1.0.13</version>
+	<artifactId>ineall</artifactId>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../inei18n</module>
+		<module>../ineom</module>
+		<module>../ineframe</module>
+		<module>../ineform</module>
+	</modules>
+
+	<properties>
+		<gwtVersion>2.3.0</gwtVersion>
+		<jUnitVersion>4.8.2</jUnitVersion>
+		<mockitoVersion>1.8.5</mockitoVersion>
+		<ginVersion>1.5</ginVersion>
+		<guiceVersion>3.0-rc2</guiceVersion>
+		<gwtDndVersion>3.0.1</gwtDndVersion>
+		<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
+		<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
+		<commonsIoVersion>2.0.1</commonsIoVersion>
+		<javaxServletVersion>2.5</javaxServletVersion>
+		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
+		<mavenCompilerVersion>2.1</mavenCompilerVersion>
+		<mavenCompilerSourceVersion>1.6</mavenCompilerSourceVersion>
+		<mavenCompilerTargetVersion>1.6</mavenCompilerTargetVersion>
+		<mavenJarVersion>2.2</mavenJarVersion>
+		<mavenSureFireVersion>2.8</mavenSureFireVersion>
+		<eclipselinkVersion>2.2.0</eclipselinkVersion>
+		<slf4jVersion>1.6.1</slf4jVersion>
+		<velocityVersion>1.6.2</velocityVersion>
+		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>eclipselink</id>
+			<name>eclipselink</name>
+			<url>http://eclipse.ialto.org/rt/eclipselink/maven.repo</url>
+		</repository>
+		<repository>
+			<id>maven.springframework.org.external</id>
+			<url>http://maven.springframework.org/external</url>
+			<name>SpringSource Maven Repository - External Releases</name>
+		</repository>
+		<repository>
+			<id>inerepo</id>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
+			<name>inerepo</name>
+		</repository>
+
+
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>inepex</id>
+			<name>Inepex Repository</name>
+			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+		</repository>
+	</distributionManagement>
+
 </project>
