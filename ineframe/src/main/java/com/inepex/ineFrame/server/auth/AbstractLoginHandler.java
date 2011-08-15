@@ -34,8 +34,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 			return null;
 		
 		R result = createResultBase();
-		result.setFirstName(user.getFirstName());
-		result.setLastName(user.getLastName());
+		result.setDisplayName(user.getDisplayName());
 		result.setRoles(user.getAllowedRoles());
 		result.setUserId(user.getUserId());
 		

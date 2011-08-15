@@ -5,8 +5,7 @@ import java.util.Set;
 public interface AuthUser {
 	
 	Long getUserId();
-	String getFirstName();
-	String getLastName();
+	String getDisplayName();
 	
 	/**
 	 * for login (may e-mail address, may nickname...)

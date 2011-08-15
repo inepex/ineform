@@ -6,8 +6,7 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class AuthStatusResultBase extends GenericResult {
 
-	private String firstName = null;
-	private String lastName = null;
+	private String displayName;
 	private Long userId = null;
 	private Set<String> roles = null;
 
@@ -15,22 +14,20 @@ public class AuthStatusResultBase extends GenericResult {
 		super();
 	}
 
-	public AuthStatusResultBase(String firstName, String lastName, Long userId,
-			Set<String> roles) {
+	public AuthStatusResultBase(String displayName, Long userId, Set<String> roles) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.displayName = displayName;
 		this.userId = userId;
 		this.roles = roles;
 	}
 
 
-	public String getFirstName() {
-		return firstName;
+	public String getDisplayName() {
+		return displayName;
 	}
-
-	public String getLastName() {
-		return lastName;
+	
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public Long getUserId() {
@@ -39,14 +36,6 @@ public class AuthStatusResultBase extends GenericResult {
 
 	public Set<String> getRoles() {
 		return roles;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public void setUserId(Long userId) {

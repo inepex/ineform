@@ -76,8 +76,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 
 	public void refresh() {
 		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
-			view.setUserName(authManager.getLastAuthStatusResult().getFirstName()
-					+"&nbsp;"+authManager.getLastAuthStatusResult().getLastName());
+			view.setUserName(authManager.getLastAuthStatusResult().getDisplayName());
 		} else {
 			view.setUserName(null);
 		}
