@@ -24,7 +24,7 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
@@ -239,7 +239,7 @@ public class SaveCancelForm extends IneForm {
 
 	private class ManipulateCallback implements ManipulateResultCallback {
 		@Override
-		public void onManipulationResult(ObjectManipulationResult result) {
+		public void onManipulationResult(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
 			dealValidationResult(result.getValidationResult());
 			if(result.getValidationResult() == null) {
 				if (result.getObjectsNewState() != null) {
@@ -296,11 +296,11 @@ public class SaveCancelForm extends IneForm {
 		return doFireEvent(new BeforeSaveEvent(kvo));
 	}
 	
-	public SavedEvent fireSavedEvent(ObjectManipulationResult objectManipulationResult) {
+	public SavedEvent fireSavedEvent(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
 		return doFireEvent(new SavedEvent(objectManipulationResult));
 	}
 	
-	public AfterUnsuccessfulSaveEvent fireAfterUnsuccesfulSaveEvent(ObjectManipulationResult objectManipulationResult) {
+	public AfterUnsuccessfulSaveEvent fireAfterUnsuccesfulSaveEvent(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
 		return doFireEvent(new AfterUnsuccessfulSaveEvent(objectManipulationResult));
 	}
 	

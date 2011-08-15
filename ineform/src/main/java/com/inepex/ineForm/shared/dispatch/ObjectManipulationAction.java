@@ -3,6 +3,8 @@ package com.inepex.ineForm.shared.dispatch;
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.inepex.ineFrame.shared.dispatch.Loggable;
+import com.inepex.ineom.shared.dispatch.ManipulationTypes;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
 /**
@@ -12,7 +14,7 @@ import com.inepex.ineom.shared.kvo.AssistedObject;
  * @author István Szoboszlai
  *
  */
-public class ObjectManipulationAction implements Action<ObjectManipulationResult>, Loggable {
+public class ObjectManipulationAction implements Action<ObjectManipulationActionResult>, Loggable, ObjectManipulation {
 
 	private static final long serialVersionUID = -7036154087856790606L;
 

@@ -4,13 +4,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Renderer;
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.dialog.InfoDialog;
 import com.inepex.ineom.shared.dispatch.GenericResult;
-import com.inepex.ineom.shared.dispatch.ObjectListAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ExportUtil {

@@ -9,10 +9,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 
 @Singleton
-public class ObjectManipulationHandler implements ActionHandler<ObjectManipulationAction, ObjectManipulationResult> {
+public class ObjectManipulationHandler implements ActionHandler<ObjectManipulationAction, ObjectManipulationActionResult> {
 	
 	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
@@ -27,14 +27,14 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 	}
 
 	@Override
-	public ObjectManipulationResult execute(ObjectManipulationAction action, ExecutionContext context)
+	public ObjectManipulationActionResult execute(ObjectManipulationAction action, ExecutionContext context)
 			throws DispatchException {
 		String descriptorName = action.getObject().getDescriptorName();
 
 		System.out.printf("Manipulating object type '{}', id '{}'", descriptorName, action.getObject().getId());
 		
 		try {
-			ObjectManipulationResult result;
+			ObjectManipulationActionResult result;
 			if (customActionHandler !=null) {
 				result = customActionHandler.doCustomAction(action);
 				if (result != null)
@@ -56,7 +56,7 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 	}
 
 	@Override
-	public void rollback(ObjectManipulationAction action, ObjectManipulationResult result, ExecutionContext context)
+	public void rollback(ObjectManipulationAction action, ObjectManipulationActionResult result, ExecutionContext context)
 			throws DispatchException {
 
 	}

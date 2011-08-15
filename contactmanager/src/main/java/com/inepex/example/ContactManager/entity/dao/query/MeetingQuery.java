@@ -23,8 +23,8 @@ import com.inepex.example.ContactManager.entity.assist.UserAssist;
 import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
 import com.inepex.example.ContactManager.entity.kvo.search.MeetingSearchKVO;
 import com.inepex.example.ContactManager.shared.MeetingType;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.Relation;
 

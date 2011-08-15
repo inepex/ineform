@@ -7,13 +7,13 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.DaoFinder;
+import com.inepex.ineForm.shared.dispatch.ObjectListAction;
+import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
-import com.inepex.ineom.shared.dispatch.ObjectListAction;
-import com.inepex.ineom.shared.dispatch.ObjectListResult;
 
 @Singleton
-public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListResult> {
+public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListActionResult> {
 
 	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
@@ -28,11 +28,11 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 	}
 	
 	@Override
-	public ObjectListResult doExecute(ObjectListAction action, ExecutionContext context)
+	public ObjectListActionResult doExecute(ObjectListAction action, ExecutionContext context)
 							throws AuthenticationException, DispatchException {
 		String descriptorName = action.getDescriptorName();
 		try {
-			ObjectListResult result;
+			ObjectListActionResult result;
 			if (customActionHandler !=null) {
 				result = customActionHandler.doCustomAction(action);
 				if (result != null)

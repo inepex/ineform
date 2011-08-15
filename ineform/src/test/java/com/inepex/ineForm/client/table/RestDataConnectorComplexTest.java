@@ -26,7 +26,7 @@ import com.inepex.ineForm.client.i18n.DummyI18nProvider;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineom.shared.T_e_s_tUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
@@ -92,7 +92,7 @@ public class RestDataConnectorComplexTest {
 		ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
 		verify(requestBuilder).sendRequest(argument.capture(), any(RequestCallback.class));
 		Assert.assertEquals(response, argument.getValue());
-		ArgumentCaptor<ObjectManipulationResult> omrCapture = ArgumentCaptor.forClass(ObjectManipulationResult.class);
+		ArgumentCaptor<ObjectManipulationActionResult> omrCapture = ArgumentCaptor.forClass(ObjectManipulationActionResult.class);
 		verify(callback).onManipulationResult(omrCapture.capture());
 		
 		T_e_s_tUtil.assertEquals(testKvo, omrCapture.getValue().getObjectsNewState());

@@ -3,6 +3,7 @@ package com.inepex.ineForm.shared.dispatch;
 import java.util.List;
 
 import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 import com.inepex.ineom.shared.kvo.Relation;
 
 /**
@@ -11,23 +12,23 @@ import com.inepex.ineom.shared.kvo.Relation;
  * @author István Szoboszlai
  * 
  */
-public class RelationListResult extends GenericResult {
+public class RelationListActionResult extends GenericResult implements RelationListResult {
 
 	private static final long serialVersionUID = 3223896182657888457L;
 
 	private List<Relation> list;
 	private Long allResultCount;
 
-	public RelationListResult() {
+	public RelationListActionResult() {
 		super();
 	}
 
-	public RelationListResult(List<Relation> requestedPage) {
+	public RelationListActionResult(List<Relation> requestedPage) {
 		super();
 		this.list = requestedPage;
 	}
 
-	public RelationListResult(List<Relation> firstPage, Long allResultCount) {
+	public RelationListActionResult(List<Relation> firstPage, Long allResultCount) {
 		this(firstPage);
 		this.allResultCount = allResultCount;
 

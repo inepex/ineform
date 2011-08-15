@@ -1,16 +1,14 @@
 package com.inepex.example.ContactManager.client.page;
 
-import net.customware.gwt.dispatch.shared.Action;
-
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
 import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
 import com.inepex.example.ContactManager.entity.kvo.search.ContactSearchKVO;
-import com.inepex.ineForm.client.form.DefaultValueRangeProvider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
+import com.inepex.ineForm.client.form.ServerSideValueRangeProvider;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
@@ -18,12 +16,12 @@ import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
-import com.inepex.ineForm.shared.dispatch.RelationListResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 import com.inepex.ineom.shared.kvo.Relation;
 
 public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
@@ -91,14 +89,14 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 								event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
 	}
 
-	private class MeetingValueRangeProvider extends DefaultValueRangeProvider {
+	private class MeetingValueRangeProvider extends ServerSideValueRangeProvider {
 
 		public MeetingValueRangeProvider(IneDispatch dispatch) {
 			super(dispatch);
 		}
 		
 		@Override
-		protected Action<RelationListResult> getActionForDescriptorName(
+		protected RelationList getActionForDescriptorName(
 				String descriptorName) {
 			if(!ContactKVO.descriptorName.equals(descriptorName)
 					|| form.getRootPanelWidget()==null)

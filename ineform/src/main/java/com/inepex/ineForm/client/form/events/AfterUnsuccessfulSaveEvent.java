@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.form.events;
 
 import com.google.gwt.event.shared.EventHandler;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 
 public class AfterUnsuccessfulSaveEvent extends FormLifecycleEventBase<AfterUnsuccessfulSaveEvent.Handler> {
 
@@ -18,12 +18,12 @@ public class AfterUnsuccessfulSaveEvent extends FormLifecycleEventBase<AfterUnsu
 		return TYPE;
 	}
 	
-	private ObjectManipulationResult objectManipulationResult;
+	private com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult;
 	
 	public AfterUnsuccessfulSaveEvent() {
 	}
 
-	public AfterUnsuccessfulSaveEvent(ObjectManipulationResult objectManipulationResult) {
+	public AfterUnsuccessfulSaveEvent(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
 		super();
 		this.objectManipulationResult = objectManipulationResult;
 	}
@@ -38,12 +38,12 @@ public class AfterUnsuccessfulSaveEvent extends FormLifecycleEventBase<AfterUnsu
 	    handler.onSaved(this);
 	}
 
-	public ObjectManipulationResult getObjectManipulationResult() {
+	public com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult getObjectManipulationResult() {
 		return objectManipulationResult;
 	}
 
 	public void setObjectManipulationResult(
-			ObjectManipulationResult objectManipulationResult) {
+			ObjectManipulationActionResult objectManipulationResult) {
 		this.objectManipulationResult = objectManipulationResult;
 	}
 	

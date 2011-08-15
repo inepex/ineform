@@ -16,8 +16,8 @@ import com.inepex.example.ContactManager.entity.Contact_;
 import com.inepex.example.ContactManager.entity.assist.CompanyAssist;
 import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
 import com.inepex.example.ContactManager.entity.kvo.search.ContactSearchKVO;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.Relation;
 

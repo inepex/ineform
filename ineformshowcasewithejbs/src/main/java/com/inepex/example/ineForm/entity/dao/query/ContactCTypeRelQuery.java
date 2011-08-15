@@ -15,8 +15,8 @@ import com.inepex.example.ineForm.entity.ContactType;
 import com.inepex.example.ineForm.entity.assist.ContactTypeAssist;
 import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelKVO;
 import com.inepex.example.ineForm.entity.metaentity.ContactCTypeRel_;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactCTypeRelQuery {

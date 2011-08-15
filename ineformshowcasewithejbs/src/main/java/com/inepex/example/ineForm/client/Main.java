@@ -16,9 +16,11 @@ import com.inepex.example.ineForm.entity.assist.ContactTypeAssist;
 import com.inepex.example.ineForm.entity.assist.Contact_ContactRoleAssist;
 import com.inepex.example.ineForm.entity.assist.Contact_ContactStateAssist;
 import com.inepex.example.ineForm.entity.assist.NationalityAssist;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.IneFrameEntryPoint;
-import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 public class Main extends IneFrameEntryPoint {
 	DescriptorStore descStore = null;
@@ -28,7 +30,7 @@ public class Main extends IneFrameEntryPoint {
 	public static ShowcaseGinjector INJECTOR = GWT.create(ShowcaseGinjector.class);
 	
 	public Main() {
-		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus());
+		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager());
 		descStore = INJECTOR.getDescriptorStore();
 		
 
@@ -101,12 +103,8 @@ public class Main extends IneFrameEntryPoint {
 
 	@Override
 	protected void registerAdditionalI18nModules() {
+		clientI18nStore.registerModule(new IneOmI18n(new ClientI18nProvider<IneOmI18n>()));
+		clientI18nStore.registerModule(new IneFormI18n(new ClientI18nProvider<IneFormI18n>()));
 	}
-
-	@Override
-	protected AuthManager<?> getAuthManager() {
-		return null;
-	}
-	
 	
 }

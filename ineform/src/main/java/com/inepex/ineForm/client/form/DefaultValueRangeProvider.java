@@ -1,26 +1,19 @@
 package com.inepex.ineForm.client.form;
 
-import net.customware.gwt.dispatch.shared.Action;
-
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
-import com.inepex.ineForm.shared.dispatch.RelationListAction;
-import com.inepex.ineForm.shared.dispatch.RelationListResult;
-import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 import com.inepex.ineom.shared.kvo.IneT;
 
-public class DefaultValueRangeProvider implements ValueRangeProvider {
-	
-	protected final IneDispatch dispatch;
-	
-	
+public abstract class DefaultValueRangeProvider implements ValueRangeProvider {
+
 	@Inject
-	public DefaultValueRangeProvider(IneDispatch dispatch) {
-		this.dispatch = dispatch;
+	public DefaultValueRangeProvider() {
 	}
 	
 	@Override
@@ -30,9 +23,13 @@ public class DefaultValueRangeProvider implements ValueRangeProvider {
 			return;
 		}
 		
-		dispatch.execute(getActionForDescriptorName(castedFieldDesc.getRelatedDescriptorName())
-					   , new RelationListResultCallback(callback));
+		execute(getActionForDescriptorName(castedFieldDesc.getRelatedDescriptorName())
+				   , new RelationListResultCallback(callback));
 	}
+	
+	protected abstract void execute(RelationList relationList, RelationListResultCallback callback);
+	
+	protected abstract RelationList createNew();
 	
 	/**
 	 * Checks weather the fieldDescriptor received is valid. Also calls the callback with null if it is invalid!
@@ -51,11 +48,16 @@ public class DefaultValueRangeProvider implements ValueRangeProvider {
 		return (RelationFDesc) fieldDesc;
 	}
 	
-	protected Action<RelationListResult> getActionForDescriptorName(String descriptorName) {
-		return new RelationListAction(descriptorName, null, 0, 10000, false);
+	protected RelationList getActionForDescriptorName(String descriptorName) {
+		RelationList relationList = createNew();
+		relationList.setDescriptorName(descriptorName);
+		relationList.setFirstResult(0);
+		relationList.setNumMaxResult(10000);
+		relationList.setQueryResultCount(false);
+		return relationList;
 	}
 		
-	class RelationListResultCallback extends SuccessCallback<RelationListResult> {
+	protected class RelationListResultCallback extends SuccessCallback<RelationListResult> {
 		
 		final ValueRangeResultCallback valueRagecallback;
 		

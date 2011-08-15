@@ -19,6 +19,8 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
 import com.inepex.ineForm.server.util.NumberUtilSrv;
+import com.inepex.ineForm.shared.dispatch.ObjectListAction;
+import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Renderer;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
@@ -27,8 +29,6 @@ import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.ObjectListAction;
-import com.inepex.ineom.shared.dispatch.ObjectListResult;
 
 @Singleton
 public class ExportServlet extends HttpServlet{
@@ -85,7 +85,7 @@ public class ExportServlet extends HttpServlet{
 			currLangProvider.get().setLangOverride((String) req.getSession()
 				.getAttribute(SetActionForExportServletHandler.rendererLanguage));
 			
-			ObjectListResult listResult = (ObjectListResult)dispatcher.execute(action);
+			ObjectListActionResult listResult = (ObjectListActionResult)dispatcher.execute(action);
 			
 			TableRenderer renderer = null;
 			switch (rendererType) {

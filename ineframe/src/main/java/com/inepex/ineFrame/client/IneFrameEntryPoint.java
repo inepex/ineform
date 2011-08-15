@@ -6,7 +6,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.async.SimpleFailureStatusIndicator;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;

@@ -11,8 +11,8 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.PhoneNumberType_;
 import com.inepex.example.ContactManager.entity.kvo.search.PhoneNumberTypeSearchKVO;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class PhoneNumberTypeQuery {

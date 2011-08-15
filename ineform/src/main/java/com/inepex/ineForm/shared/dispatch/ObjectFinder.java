@@ -1,7 +1,8 @@
 package com.inepex.ineForm.shared.dispatch;
 
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
@@ -24,10 +25,10 @@ public class ObjectFinder<T extends AssistedObject> {
 		dispatcher.execute(action, new ObjectRefreshCallback());
 	}
 	
-	private class ObjectRefreshCallback extends SuccessCallback<ObjectManipulationResult> {
+	private class ObjectRefreshCallback extends SuccessCallback<ObjectManipulationActionResult> {
 		@SuppressWarnings("unchecked")
 		@Override
-		public void onSuccess(ObjectManipulationResult result) {
+		public void onSuccess(ObjectManipulationActionResult result) {
 			callback.onObjectFound((T) result.getObjectsNewState());
 		}
 	}

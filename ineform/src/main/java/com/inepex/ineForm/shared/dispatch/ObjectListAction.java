@@ -1,9 +1,10 @@
-package com.inepex.ineom.shared.dispatch;
+package com.inepex.ineForm.shared.dispatch;
 
 import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
@@ -14,7 +15,7 @@ import com.inepex.ineom.shared.kvo.KeyValueObject;
  * @author István Szoboszlai
  *
  */
-public class ObjectListAction extends AbstractSearchAction implements Action<ObjectListResult> {
+public class ObjectListAction extends AbstractSearchAction implements Action<ObjectListActionResult>, ObjectList {
 
 	/**
 	 * 

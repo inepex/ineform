@@ -22,6 +22,7 @@ import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SearchForm;
+import com.inepex.ineForm.client.form.ServerSideValueRangeProvider;
 import com.inepex.ineForm.client.form.WizardForm;
 import com.inepex.ineForm.client.form.factories.DefaultFormUnitFactory;
 import com.inepex.ineForm.client.form.factories.DefaultFormWidgetFactory;
@@ -62,7 +63,7 @@ public class TestIneFormClientGuiceModule extends AbstractModule {
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
 
 		bind(AsyncStatusIndicator.class).to(DummyStatusIndicator.class).in(Singleton.class);
-		bind(ValueRangeProvider.class).to(DefaultValueRangeProvider.class).in(Singleton.class);
+		bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
 		
 		install(new FactoryModuleBuilder()

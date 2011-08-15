@@ -10,7 +10,7 @@ public class GenericResult implements Result {
     
 	private static final long serialVersionUID = 1L;
 	private String message = null;
-    private boolean success = true;
+    private Boolean success = true;
 
     public GenericResult() {
     }
@@ -24,7 +24,7 @@ public class GenericResult implements Result {
         return message;
     }
 
-    public boolean isSuccess() {
+    public Boolean isSuccess() {
         return success;
     }
 
@@ -32,7 +32,7 @@ public class GenericResult implements Result {
         this.message = message;
     }
 
-    public void setSuccess(boolean success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
     

@@ -16,8 +16,8 @@ import com.inepex.example.ContactManager.entity.PhoneNumber_;
 import com.inepex.example.ContactManager.entity.assist.PhoneNumberTypeAssist;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
 import com.inepex.example.ContactManager.entity.kvo.search.PhoneNumberSearchKVO;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.Relation;
 

@@ -5,7 +5,14 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>IneFormShowCaseWithEjbs</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.6</version>
+	<properties>
+		<gwtVersion>2.3.0</gwtVersion>
+		<slf4j.version>1.6.1</slf4j.version>
+		<ineformVersion>1.0.13</ineformVersion>
+		<draftCompile>true</draftCompile>
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+	</properties>
+	<version>${ineformVersion}</version>
 	<name>IneFormShowCaseWithEjbs</name>
 	<repositories>
 		<repository>
@@ -30,33 +37,33 @@
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineform</artifactId>
-			<version>1.0.6</version>
+			<version>${ineformVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineform</artifactId>
-			<version>1.0.6</version>
+			<version>${ineformVersion}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
-			<version>1.0.6</version>
+			<version>${ineformVersion}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-dev</artifactId>
-			<version>2.2.0</version>
+			<version>${gwtVersion}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>2.2.0</version>
+			<version>${gwtVersion}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -66,6 +73,21 @@
 			<version>8.4-702.jdbc4</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<type>jar</type>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -124,7 +146,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.1.0-1</version>
+				<version>${gwtVersion}</version>
 				<configuration>
 					<logLevel>INFO</logLevel>
 					<style>PRETTY</style>

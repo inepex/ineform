@@ -8,7 +8,7 @@ import javax.persistence.criteria.Root;
 
 import com.inepex.example.ineForm.entity.Nationality;
 import com.inepex.example.ineForm.entity.kvo.NationalityKVO;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class NationalityQuery {

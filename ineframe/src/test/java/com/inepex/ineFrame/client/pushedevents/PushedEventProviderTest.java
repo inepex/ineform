@@ -11,7 +11,7 @@ import org.mockito.InOrder;
 
 import com.google.gwt.junit.GWTMockUtilities;
 import com.google.gwt.user.client.Timer;
-import com.inepex.ineFrame.client.async.IneDispatch.PushedActionContext;
+import com.inepex.ineFrame.client.async.IneDispatchBase.PushedActionContext;
 import com.inepex.ineFrame.server.DispatchMock;
 import com.inepex.ineFrame.server.DispatchMock.Action1;
 import com.inepex.ineFrame.server.DispatchMock.Action2;

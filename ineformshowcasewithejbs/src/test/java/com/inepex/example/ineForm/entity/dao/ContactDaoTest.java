@@ -21,10 +21,10 @@ import com.inepex.example.ineForm.entity.kvo.ContactKVO;
 import com.inepex.example.ineForm.entity.mapper.ContactCTypeRelMapper;
 import com.inepex.example.ineForm.entity.mapper.ContactMapper;
 import com.inepex.ineForm.client.form.widgets.RelationList;
+import com.inepex.ineForm.shared.dispatch.ObjectListAction;
+import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.ObjectListAction;
-import com.inepex.ineom.shared.dispatch.ObjectListResult;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
@@ -137,8 +137,10 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 		assertNotSame(IFConsts.NEW_ITEM_ID.longValue(), result.getContactTypes().getRelationList().get(1).getId().longValue());
 	
 		ObjectListAction searchAction = new ObjectListAction(ContactKVO.descriptorName);
+		searchAction.setQueryResultCount(false);
 		searchAction.setNumMaxResult(10);
-		ObjectListResult searchRes = dao.search(searchAction);
+		searchAction.setFirstResult(0);
+		ObjectListActionResult searchRes = dao.search(searchAction);
 		assertEquals(1, searchRes.getList().size());
 		
 		assertNotSame(IFConsts.NEW_ITEM_ID.longValue(), searchRes.getList().get(0)

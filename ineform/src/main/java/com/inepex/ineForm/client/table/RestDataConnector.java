@@ -11,14 +11,21 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.view.client.HasData;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineForm.shared.dispatch.ObjectListAction;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
+import com.inepex.ineom.shared.dispatch.ManipulationTypes;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
@@ -120,112 +127,6 @@ public class RestDataConnector extends IneDataConnector {
 		this.statusIndicator = statusIndicator;
 	}
 
-	@Override
-	public void objectCreateOrEditRequested(final AssistedObject object, final ManipulateResultCallback callback) {
-		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
-		String url = "";
-		if (object.isNew()){
-			url = newUrl;
-		} else {
-			url = modifyUrl.replace("{id}", "" + object.getId());
-		}
-		
-		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, url);
-		builder.setHeader("Content-Type",
-			"application/x-www-form-urlencoded");
-		try {
-		builder.sendRequest(getSerializedValue(object), new RequestCallback() {
-			
-			@Override
-			public void onResponseReceived(Request request, Response response) {
-				if (response.getStatusCode() == Response.SC_OK){
-					ValidationResult vr = null;
-					if (errorExtractor != null){
-						vr = errorExtractor.extract(response.getText());
-					}
-					
-					ObjectManipulationResult omr = null;
-					if (vr == null){
-						omr = new ObjectManipulationResult(
-								getObjectFromJSON(response.getText(), object.getDescriptorName()));
-					} else {
-						omr = new ObjectManipulationResult();
-						omr.setSuccess(false);
-						omr.setValidationResult(vr);
-					}
-					callback.onManipulationResult(omr);
-					statusIndicator.onSuccess("");
-					
-				} else {
-					System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
-					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-				}				
-			}
-			
-			@Override
-			public void onError(Request request, Throwable exception) {
-				exception.printStackTrace();
-				statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-				
-			}
-		});
-		} catch (RequestException e) {
-			e.printStackTrace();
-			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-		}
-	}
-
-	@Override
-	public void objectDeleteRequested(final AssistedObject object, final ManipulateResultCallback callback) {
-		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
-		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, deleteUrl);
-		builder.setHeader("Content-Type",
-			"application/x-www-form-urlencoded");
-		try {
-			builder.sendRequest(IFConsts.KEY_ID + "=" + object.getId(), new RequestCallback() {
-				
-				@Override
-				public void onResponseReceived(Request request, Response response) {
-					if (response.getStatusCode() == Response.SC_OK){						
-						callback.onManipulationResult(new ObjectManipulationResult());
-						statusIndicator.onSuccess("");
-					} else {
-						System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
-						statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-					}				
-				}
-				
-				@Override
-				public void onError(Request request, Throwable exception) {
-					exception.printStackTrace();
-					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-					
-				}
-			});
-		} catch (RequestException e) {
-			e.printStackTrace();
-			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-		}
-	}
-
-	@Override
-	public void objectUnDeleteRequested(AssistedObject object, ManipulateResultCallback callback) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(boolean updateDisplays) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void onRangeChanged(HasData<AssistedObject> display) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	private String getSerializedValue(AssistedObject object){
 		return new KeyValueObjectSerializer(object, "&", "=")
 		.setListSerializer(listSerializer)
@@ -247,6 +148,131 @@ public class RestDataConnector extends IneDataConnector {
 	public void setErrorExtractor(ErrorExtractor errorExtractor) {
 		this.errorExtractor = errorExtractor;
 	}
+
+	@Override
+	protected ObjectList createNewObjectList() {
+		return new ObjectListAction(getDescriptorName());
+	}
+
+	@Override
+	protected ObjectManipulation createNewObjectManipulate() {
+		return new ObjectManipulationAction();
+	}
+
+	@Override
+	protected void executeManipulation(
+			ObjectManipulation objectManipulation,
+			ObjectManipulationCallback manipulationCallback,
+			AsyncStatusIndicator statusIndicator) {
+		
+		if (objectManipulation.getManipulationType() == ManipulationTypes.CREATE_OR_EDIT_REQUEST) {
+			objectCreateOrEdit(objectManipulation, manipulationCallback, statusIndicator);
+		} else {
+			objectDelete(objectManipulation, manipulationCallback, statusIndicator);
+		}
+	}
+
+	@Override
+	protected void executeObjectList(
+			ObjectList objectList,
+			SuccessCallback<ObjectListResult> objectListCallback,
+			AsyncStatusIndicator statusIndicator) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void objectCreateOrEdit(final ObjectManipulation objectManipulation,
+			final ObjectManipulationCallback manipulationCallback,
+			final AsyncStatusIndicator statusIndicator){
+		if (statusIndicator != null) this.statusIndicator = statusIndicator; 
+		this.statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
+		String url = "";
+		if (objectManipulation.getObject().isNew()){
+			url = newUrl;
+		} else {
+			url = modifyUrl.replace("{id}", "" + objectManipulation.getObject().getId());
+		}
+		
+		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, url);
+		builder.setHeader("Content-Type",
+			"application/x-www-form-urlencoded");
+		try {
+		builder.sendRequest(getSerializedValue(objectManipulation.getObject()), new RequestCallback() {
+			
+			@Override
+			public void onResponseReceived(Request request, Response response) {
+				if (response.getStatusCode() == Response.SC_OK){
+					ValidationResult vr = null;
+					if (errorExtractor != null){
+						vr = errorExtractor.extract(response.getText());
+					}
+					
+					ObjectManipulationResult omr = null;
+					if (vr == null){
+						omr = new ObjectManipulationActionResult(
+								getObjectFromJSON(response.getText(), objectManipulation.getObject().getDescriptorName()));
+					} else {
+						omr = new ObjectManipulationActionResult();
+						omr.setSuccess(false);
+						omr.setValidationResult(vr);
+					}
+					manipulationCallback.onSuccess(omr);
+					RestDataConnector.this.statusIndicator.onSuccess("");
+					
+				} else {
+					System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
+					RestDataConnector.this.statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+				}				
+			}
+			
+			@Override
+			public void onError(Request request, Throwable exception) {
+				exception.printStackTrace();
+				statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+				
+			}
+		});
+		} catch (RequestException e) {
+			e.printStackTrace();
+			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+		}
+	}
+	
+	private void objectDelete(final ObjectManipulation objectManipulation,
+			final ObjectManipulationCallback manipulationCallback,
+			final AsyncStatusIndicator statusIndicator){
+		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
+		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, deleteUrl);
+		builder.setHeader("Content-Type",
+			"application/x-www-form-urlencoded");
+		try {
+			builder.sendRequest(IFConsts.KEY_ID + "=" + objectManipulation.getObject().getId(), new RequestCallback() {
+				
+				@Override
+				public void onResponseReceived(Request request, Response response) {
+					if (response.getStatusCode() == Response.SC_OK){		
+						manipulationCallback.onSuccess(new ObjectManipulationActionResult());
+						statusIndicator.onSuccess("");
+					} else {
+						System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
+						statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+					}				
+				}
+				
+				@Override
+				public void onError(Request request, Throwable exception) {
+					exception.printStackTrace();
+					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+					
+				}
+			});
+		} catch (RequestException e) {
+			e.printStackTrace();
+			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+		}
+	}
+
+
 	
 	
 

@@ -1,7 +1,9 @@
-package com.inepex.ineom.shared.dispatch;
+package com.inepex.ineForm.shared.dispatch;
 
 import java.util.List;
 
+import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
 /**
@@ -10,24 +12,24 @@ import com.inepex.ineom.shared.kvo.AssistedObject;
  * @author István Szoboszlai
  * 
  */
-public class ObjectListResult extends GenericResult {
+public class ObjectListActionResult extends GenericResult implements ObjectListResult{
 
 	private static final long serialVersionUID = 3223896182657888457L;
 
 	private List<AssistedObject> list;
 	private Long allResultCount;
 
-	public ObjectListResult() {
+	public ObjectListActionResult() {
 		super();
 	}
 
-	public ObjectListResult(List<AssistedObject> requestedPage) {
+	public ObjectListActionResult(List<AssistedObject> requestedPage) {
 		super();
 		this.list = requestedPage;
 		allResultCount = new Long(requestedPage.size());
 	}
 
-	public ObjectListResult(List<AssistedObject> firstPage, Long allResultCount) {
+	public ObjectListActionResult(List<AssistedObject> firstPage, Long allResultCount) {
 		this(firstPage);
 		this.allResultCount = allResultCount;
 

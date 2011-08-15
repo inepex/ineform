@@ -14,10 +14,11 @@ import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 
 public class CompanyDeletePage extends FlowPanelBasedPage {
 

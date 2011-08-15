@@ -10,6 +10,7 @@ import com.inepex.example.ineForm.client.page.DtoTestPage;
 import com.inepex.example.ineForm.client.page.TesterPage;
 import com.inepex.example.ineForm.client.page.WizardPage;
 import com.inepex.ineForm.client.gin.IneFormGinModule;
+import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 @GinModules({ShowcaseGinModule.class, StandardDispatchModule.class, IneFormGinModule.class})
@@ -21,4 +22,5 @@ public interface ShowcaseGinjector extends com.google.gwt.inject.client.Ginjecto
 	DtoTestPage getDtoTestPage();
 	TesterPage getTesterPage();
 	WizardPage getWizardPage();
+	public AuthManager getAuthManager();
 }

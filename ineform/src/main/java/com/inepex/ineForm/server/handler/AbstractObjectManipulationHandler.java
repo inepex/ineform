@@ -9,7 +9,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.inepex.ineForm.client.form.IneForm;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
@@ -25,8 +25,8 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  *
  * @param <A>
  */
-public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectManipulationResult>> implements
-		ActionHandler<A, ObjectManipulationResult> {
+public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectManipulationActionResult>> implements
+		ActionHandler<A, ObjectManipulationActionResult> {
 	
 	final KeyValueObjectValidationManager validatorManager;
 	
@@ -35,13 +35,13 @@ public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectM
 	}
 	
 	@Override
-	public ObjectManipulationResult execute(A arg0, ExecutionContext arg1)
+	public ObjectManipulationActionResult execute(A arg0, ExecutionContext arg1)
 			throws DispatchException {
-		ObjectManipulationResult result = null;
+		ObjectManipulationActionResult result = null;
 		try {
 			result = doExecute(arg0, arg1);
 		} catch (ValidationException e) {
-			result = new ObjectManipulationResult(e.getValidationResult());
+			result = new ObjectManipulationActionResult(e.getValidationResult());
 		}
 		
 		return result;
@@ -60,12 +60,12 @@ public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectM
 	 * @throws AuthenticationException
 	 * @throws NamingException
 	 */
-	protected abstract ObjectManipulationResult doExecute(A action, ExecutionContext context)
+	protected abstract ObjectManipulationActionResult doExecute(A action, ExecutionContext context)
 							throws ValidationException, AuthenticationException, ActionException;
 
 
 	@Override
-	public void rollback(A arg0, ObjectManipulationResult arg1,
+	public void rollback(A arg0, ObjectManipulationActionResult arg1,
 			ExecutionContext arg2) throws DispatchException {
 	}
 

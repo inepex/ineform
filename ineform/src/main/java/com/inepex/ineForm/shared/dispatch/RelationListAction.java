@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
@@ -15,7 +15,8 @@ import com.inepex.ineom.shared.kvo.KeyValueObject;
  * @author István Szoboszlai
  *
  */
-public class RelationListAction extends AbstractSearchAction implements Action<RelationListResult> {
+public class RelationListAction extends AbstractSearchAction 
+	implements Action<RelationListActionResult>, RelationList {
 	/**
 	 * 
 	 */

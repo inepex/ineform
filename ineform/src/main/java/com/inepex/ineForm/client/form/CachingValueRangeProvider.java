@@ -12,14 +12,14 @@ import net.customware.gwt.dispatch.shared.BatchResult;
 
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
-import com.inepex.ineForm.shared.dispatch.RelationListResult;
+import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class CachingValueRangeProvider extends DefaultValueRangeProvider {
+public class CachingValueRangeProvider extends ServerSideValueRangeProvider {
 
 	final Map<String, List<Relation>> cachedRelationLists = new HashMap<String, List<Relation>>();
 	final boolean useDefaultProviderIfNotCached;
@@ -82,7 +82,7 @@ public class CachingValueRangeProvider extends DefaultValueRangeProvider {
 		@Override
 		public void onSuccess(BatchResult result) {
 			for (int i = 0; i < actions.length ; i++) {
-				RelationListResult relListResult = (RelationListResult) result.getResult(i);
+				RelationListActionResult relListResult = (RelationListActionResult) result.getResult(i);
 				String descriptorName = ((RelationListAction)actions[i]).getDescriptorName();
 				cachedRelationLists.put(descriptorName
 							, relListResult.getList());

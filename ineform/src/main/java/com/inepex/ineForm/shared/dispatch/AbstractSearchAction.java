@@ -1,4 +1,4 @@
-package com.inepex.ineom.shared.dispatch;
+package com.inepex.ineForm.shared.dispatch;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,12 +24,12 @@ public class AbstractSearchAction implements Serializable{
 	String descriptorName;
 	AssistedObject searchParameters;
 	
-	int firstResult;
-	int numMaxResult;
-	boolean queryResultCount;
+	Integer firstResult;
+	Integer numMaxResult;
+	Boolean queryResultCount;
 
 	String orderKey = null;
-	boolean descending = false;
+	Boolean descending = false;
 	
 	public AbstractSearchAction() {
 	}
@@ -48,45 +48,6 @@ public class AbstractSearchAction implements Serializable{
 		this.queryResultCount = queryResultCount;
 	}
 
-	public AssistedObject getSearchParameters() {
-		return searchParameters;
-	}
-	public int getFirstResult() {
-		return firstResult;
-	}
-	public int getNumMaxResult() {
-		return numMaxResult;
-	}
-	
-	public void setFirstResult(int firstResult) {
-		this.firstResult = firstResult;
-	}
-
-	public void setNumMaxResult(int numMaxResult) {
-		this.numMaxResult = numMaxResult;
-	}
-
-	public String getOrderKey() {
-		return orderKey;
-	}
-	public void setOrderKey(String orderKey) {
-		this.orderKey = orderKey;
-	}
-	public boolean isDescending() {
-		return descending;
-	}
-	public void setDescending(boolean descending) {
-		this.descending = descending;
-	}
-
-	public boolean isQueryResultCount() {
-		return queryResultCount;
-	}
-
-	public void setQueryResultCount(boolean queryResultCount) {
-		this.queryResultCount = queryResultCount;
-	}
-
 	public String getDescriptorName() {
 		return descriptorName;
 	}
@@ -95,7 +56,53 @@ public class AbstractSearchAction implements Serializable{
 		this.descriptorName = descriptorName;
 	}
 
+	public AssistedObject getSearchParameters() {
+		return searchParameters;
+	}
+
 	public void setSearchParameters(AssistedObject searchParameters) {
 		this.searchParameters = searchParameters;
 	}
+
+	public Integer getFirstResult() {
+		return firstResult;
+	}
+
+	public void setFirstResult(Integer firstResult) {
+		this.firstResult = firstResult;
+	}
+
+	public Integer getNumMaxResult() {
+		return numMaxResult;
+	}
+
+	public void setNumMaxResult(Integer numMaxResult) {
+		this.numMaxResult = numMaxResult;
+	}
+
+	public Boolean isQueryResultCount() {
+		return queryResultCount;
+	}
+
+	public void setQueryResultCount(Boolean queryResultCount) {
+		this.queryResultCount = queryResultCount;
+	}
+
+	public String getOrderKey() {
+		return orderKey;
+	}
+
+	public void setOrderKey(String orderKey) {
+		this.orderKey = orderKey;
+	}
+
+	public Boolean isDescending() {
+		return descending;
+	}
+
+	public void setDescending(Boolean descending) {
+		this.descending = descending;
+	}
+
+
 }

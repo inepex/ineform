@@ -11,13 +11,11 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
 import com.inepex.ineom.shared.kvo.IFConsts;
-
-import ${package}.*;
+import com.inepex.ineom.shared.descriptor.Node;
 
 public class ${classname}Query {
 

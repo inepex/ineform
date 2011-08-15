@@ -1,9 +1,9 @@
 package com.inepex.ineForm.shared.dispatch;
 
+import com.inepex.ineom.shared.dispatch.GenericResult;
+
 import net.customware.gwt.dispatch.shared.Action;
 
-import com.inepex.ineom.shared.dispatch.GenericResult;
-import com.inepex.ineom.shared.dispatch.ObjectListAction;
 
 public class SetActionForExportServletAction implements Action<GenericResult>{
 

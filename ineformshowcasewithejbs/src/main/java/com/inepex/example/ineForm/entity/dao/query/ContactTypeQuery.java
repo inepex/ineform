@@ -10,7 +10,7 @@ import com.inepex.example.ineForm.entity.ContactType;
 import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
 import com.inepex.example.ineForm.entity.kvo.search.ContactTypeSearchKVO;
 import com.inepex.example.ineForm.entity.metaentity.ContactType_;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactTypeQuery {

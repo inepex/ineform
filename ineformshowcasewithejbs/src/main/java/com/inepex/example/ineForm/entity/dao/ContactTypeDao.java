@@ -15,13 +15,13 @@ import com.inepex.example.ineForm.entity.dao.query.ContactTypeQuery;
 import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
 import com.inepex.example.ineForm.entity.mapper.ContactTypeMapper;
 import com.inepex.ineForm.server.KVManipulatorDaoBase;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
-import com.inepex.ineForm.shared.dispatch.ObjectManipulationResult;
-import com.inepex.ineForm.shared.dispatch.RelationListResult;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
+import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.server.CriteriaSelector;
 import com.inepex.ineFrame.server.SelectorCustomizer;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
-import com.inepex.ineom.shared.dispatch.ObjectListResult;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 @Singleton
@@ -163,8 +163,8 @@ public class ContactTypeDao extends KVManipulatorDaoBase {
 	}
 	
 	@Transactional
-	public ObjectManipulationResult manipulate(ObjectManipulationAction action) throws Exception {
-		ObjectManipulationResult result = new ObjectManipulationResult();
+	public ObjectManipulationActionResult manipulate(ObjectManipulationAction action) throws Exception {
+		ObjectManipulationActionResult result = new ObjectManipulationActionResult();
 		switch (action.getManipulationType()){
 		case CREATE_OR_EDIT_REQUEST:
 			ContactType newState = doCreateOrEdit((KeyValueObject)action.getObject());
@@ -215,16 +215,16 @@ public class ContactTypeDao extends KVManipulatorDaoBase {
 		return dbState;
 	}
 	
-	public ObjectListResult search(AbstractSearchAction action){
+	public ObjectListActionResult search(AbstractSearchAction action){
 		return search(action, true, true, null);
 	}
 	
-	public ObjectListResult search(
+	public ObjectListActionResult search(
 					AbstractSearchAction action
 					, boolean useDefaultQuery
 					, boolean useDefaultOrder
 					, ContactTypeSelectorCustomizer customizer){
-		ObjectListResult res = new ObjectListResult();
+		ObjectListActionResult res = new ObjectListActionResult();
 		if (action.isQueryResultCount()){
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
@@ -233,8 +233,8 @@ public class ContactTypeDao extends KVManipulatorDaoBase {
 		return res;
 	}
 
-	public RelationListResult searchAsRelation(AbstractSearchAction action){
-		RelationListResult res = new RelationListResult();
+	public RelationListActionResult searchAsRelation(AbstractSearchAction action){
+		RelationListActionResult res = new RelationListActionResult();
 		if (action.isQueryResultCount()){
 			res.setAllResultCount(count(action));
 		}

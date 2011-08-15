@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.client.navigation;
 
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.*;
 
 import java.util.HashMap;
 import java.util.Map;

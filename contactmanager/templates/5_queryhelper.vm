@@ -1,5 +1,5 @@
-outpath:${class.getParentRelativePath(0)}/server/dao/query/${classname}Query.java
-package ${class.getParentPackage(0)}.server.dao.query;
+outpath:${class.workspaceRelativePath}dao/query/${classname}Query.java
+package ${package}.dao.query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
-import com.inepex.ineOm.shared.kvo.IneList;
-import com.inepex.ineOm.shared.kvo.Relation;
+import com.inepex.ineom.shared.kvo.IneList;
+import com.inepex.ineom.shared.kvo.Relation;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 

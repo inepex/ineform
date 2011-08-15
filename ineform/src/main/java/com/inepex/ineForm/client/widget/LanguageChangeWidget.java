@@ -6,12 +6,11 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.inject.Inject;
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.async.IneDispatch.SuccessCallback;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ChangeLanguageAction;
 import com.inepex.inei18n.shared.SimpleResult;
-import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class LanguageChangeWidget extends HandlerAwareComposite {
 

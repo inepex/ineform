@@ -19,7 +19,7 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.client.widget.SelectorView;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
-import com.inepex.ineForm.shared.dispatch.RelationListResult;
+import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -53,7 +53,7 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 	
 	private final String paramToken;
 	private final RelationListAction listAction;
-	private RelationListResult lastListResult;
+	private RelationListActionResult lastListResult;
 	private final String childToken;
 	private final InePlace place;
 	private final FormContext formContext;
@@ -149,10 +149,10 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 		selectorView.clear();
 		
 		
-		formContext.ineDispatch.execute(listAction, new IneDispatch.SuccessCallback<RelationListResult>() {
+		formContext.ineDispatch.execute(listAction, new IneDispatch.SuccessCallback<RelationListActionResult>() {
 
 			@Override
-			public void onSuccess(RelationListResult result) {
+			public void onSuccess(RelationListActionResult result) {
 				lastListResult = result;
 				
 				if(result.getList()!=null && result.getList().size()>0) {

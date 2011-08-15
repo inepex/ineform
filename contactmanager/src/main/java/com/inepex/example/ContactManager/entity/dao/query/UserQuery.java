@@ -12,8 +12,8 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.User_;
 import com.inepex.example.ContactManager.entity.kvo.search.UserSearchKVO;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class UserQuery {

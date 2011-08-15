@@ -8,9 +8,9 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import com.google.inject.Inject;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
-import com.inepex.ineForm.shared.dispatch.RelationListResult;
+import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 
-public class RelationListHandler implements ActionHandler<RelationListAction, RelationListResult> {
+public class RelationListHandler implements ActionHandler<RelationListAction, RelationListActionResult> {
 
 	private final DaoFinder daoFinder;
 	
@@ -20,7 +20,7 @@ public class RelationListHandler implements ActionHandler<RelationListAction, Re
 	}
 	
 	@Override
-	public RelationListResult execute(RelationListAction action, ExecutionContext context) throws DispatchException {
+	public RelationListActionResult execute(RelationListAction action, ExecutionContext context) throws DispatchException {
 		String descriptorName = action.getDescriptorName();
 		try {
 			return daoFinder.getDefaultDaoForDescriptor(descriptorName).searchAsRelation(action);
@@ -36,7 +36,7 @@ public class RelationListHandler implements ActionHandler<RelationListAction, Re
 	}
 
 	@Override
-	public void rollback(RelationListAction action, RelationListResult result, ExecutionContext context)
+	public void rollback(RelationListAction action, RelationListActionResult result, ExecutionContext context)
 			throws DispatchException {
 
 	}

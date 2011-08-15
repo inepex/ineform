@@ -18,13 +18,17 @@ import com.inepex.example.ineForm.entity.assist.ContactTypeAssist;
 import com.inepex.example.ineForm.entity.assist.Contact_ContactRoleAssist;
 import com.inepex.example.ineForm.entity.assist.Contact_ContactStateAssist;
 import com.inepex.example.ineForm.entity.assist.NationalityAssist;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.DaoFinder;
+import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
 import com.inepex.ineFrame.server.AbstractGuiceDispatch;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
+import com.inepex.ineom.server.ServerIneOmI18nProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 @Singleton
 public class ShowcaseDispatchServlet extends AbstractGuiceDispatch {
@@ -81,6 +85,8 @@ public class ShowcaseDispatchServlet extends AbstractGuiceDispatch {
 
 	@Override
 	public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {
+		serverI18n.registerModule(new IneFormI18n(new ServerIneFormI18nProvider(currentLangProvider)));
+		serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
 	}
 
 }

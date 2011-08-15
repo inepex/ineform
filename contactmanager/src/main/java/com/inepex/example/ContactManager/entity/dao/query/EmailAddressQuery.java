@@ -11,8 +11,8 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.EmailAddress;
 import com.inepex.example.ContactManager.entity.EmailAddress_;
 import com.inepex.example.ContactManager.entity.kvo.search.EmailAddressSearchKVO;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class EmailAddressQuery {
@@ -48,8 +48,9 @@ public class EmailAddressQuery {
 		Expression<?> orderExpr = null;
 		List<String> idList = Node.idToIdList(orderKey);
 			
-		orderExpr = from.get(orderKey);
-		
+		{
+			orderExpr = from.get(orderKey);
+		}
 		if (action.isDescending())
 			o = cb.desc(orderExpr);
 		else

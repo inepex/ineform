@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
+		<relativePath>../ineall</relativePath>
 	    <artifactId>ineall</artifactId>
 	    <groupId>com.inepex</groupId>
 	    <version>1.0.13</version>

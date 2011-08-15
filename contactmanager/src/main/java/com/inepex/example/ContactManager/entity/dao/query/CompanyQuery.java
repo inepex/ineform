@@ -11,8 +11,8 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Company_;
 import com.inepex.example.ContactManager.entity.kvo.search.CompanySearchKVO;
+import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineom.shared.dispatch.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class CompanyQuery {

@@ -1,6 +1,7 @@
 package com.inepex.ineForm.shared.dispatch;
 
 import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
@@ -10,34 +11,34 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * @author István Szoboszlai
  *
  */
-public class ObjectManipulationResult extends GenericResult {
+public class ObjectManipulationActionResult extends GenericResult implements ObjectManipulationResult {
 
 	private static final long serialVersionUID = 5884303239610810826L;
 
-	private long newObjectsId = -1;
+	private Long newObjectsId = -1L;
 	private AssistedObject objectsNewState = null;
 
 	private ValidationResult validationResult;
 
-	public ObjectManipulationResult() {
+	public ObjectManipulationActionResult() {
 	}
 
-	public ObjectManipulationResult(AssistedObject objectsNewState) {
+	public ObjectManipulationActionResult(AssistedObject objectsNewState) {
 		super();
 		this.objectsNewState = objectsNewState;
 	}
 
-	public ObjectManipulationResult(long newObjectsId) {
+	public ObjectManipulationActionResult(long newObjectsId) {
 		super();
 		this.newObjectsId = newObjectsId;
 	}
 
-	public ObjectManipulationResult(AssistedObject objectsNewState, String message, boolean success) {
+	public ObjectManipulationActionResult(AssistedObject objectsNewState, String message, boolean success) {
 		super(message, success);
 		this.objectsNewState = objectsNewState;
 	}
 
-	public ObjectManipulationResult(ValidationResult validationResult) {
+	public ObjectManipulationActionResult(ValidationResult validationResult) {
 		super("", false);
 		this.validationResult = validationResult;
 	}
@@ -50,7 +51,7 @@ public class ObjectManipulationResult extends GenericResult {
 		this.objectsNewState = objectsNewState;
 	}
 
-	public long getNewObjectsId() {
+	public Long getNewObjectsId() {
 		return newObjectsId;
 	}
 

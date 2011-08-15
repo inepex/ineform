@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.HasData;
+import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public class DummyDataConnector extends IneDataConnector{
@@ -22,29 +27,37 @@ public class DummyDataConnector extends IneDataConnector{
 			updateRowData(d, d.getVisibleRange().getStart(), items);
 		}
 	}
-	
+
 	@Override
-	public void objectCreateOrEditRequested(AssistedObject object,
-			ManipulateResultCallback callback) {
+	protected ObjectList createNewObjectList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void objectDeleteRequested(AssistedObject object,
-			ManipulateResultCallback callback) {
+	protected ObjectManipulation createNewObjectManipulate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void objectUnDeleteRequested(AssistedObject object,
-			ManipulateResultCallback callback) {
-	}
-
-	@Override
-	protected void onRangeChanged(HasData<AssistedObject> display) {
+	protected void executeManipulation(
+			ObjectManipulation objectManipulation,
+			ObjectManipulationCallback manipulationCallback,
+			AsyncStatusIndicator statusIndicator) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(boolean updateDisplays) {
+	protected void executeObjectList(
+			ObjectList objectList,
+			SuccessCallback<ObjectListResult> objectListCallback,
+			AsyncStatusIndicator statusIndicator) {
+		// TODO Auto-generated method stub
+		
 	}
+	
+
 
 }

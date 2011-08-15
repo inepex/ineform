@@ -18,6 +18,7 @@ import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.RestValueRangeProvider;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SearchForm;
+import com.inepex.ineForm.client.form.ServerSideValueRangeProvider;
 import com.inepex.ineForm.client.form.ValueRangeProviderFactory;
 import com.inepex.ineForm.client.form.WizardForm;
 import com.inepex.ineForm.client.form.factories.DefaultFormUnitFactory;
@@ -63,7 +64,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
 
 		bind(AsyncStatusIndicator.class).to(FullscreenStatusIndicator.class).in(Singleton.class);
-		bind(ValueRangeProvider.class).to(DefaultValueRangeProvider.class).in(Singleton.class);
+		bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
 		
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
 		
@@ -85,7 +86,7 @@ public class IneFormGinModule extends AbstractGinModule {
 					.build(ManipulatorFactory.class));
 		
 		install(new GinFactoryModuleBuilder()
-	 	.implement(ValueRangeProvider.class, Names.named("default"), DefaultValueRangeProvider.class)
+	 	.implement(ValueRangeProvider.class, Names.named("default"), ServerSideValueRangeProvider.class)
 	 	.implement(ValueRangeProvider.class, Names.named("rest"), RestValueRangeProvider.class)
 		.build(ValueRangeProviderFactory.class));
 		
