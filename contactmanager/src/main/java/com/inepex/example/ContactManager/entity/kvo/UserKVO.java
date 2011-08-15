@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.entity.kvo;
 
+
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 

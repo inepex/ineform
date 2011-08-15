@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.entity.kvo.search;
 
+
 import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 public class UserSearchKVO extends KeyValueObject {

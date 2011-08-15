@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.entity.dao.query;
 
+
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;

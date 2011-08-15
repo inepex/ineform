@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
+
 import java.util.ArrayList;
 import java.util.List;
 

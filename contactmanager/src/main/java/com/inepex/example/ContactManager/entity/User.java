@@ -56,14 +56,10 @@ public class User implements AuthUser{
 	}
 
 	@Override
-	public String getFirstName() {
-		return firstName;
+	public String getDisplayName() {
+		return firstName+" "+lastName;
 	}
-
-	@Override
-	public String getLastName() {
-		return lastName;
-	}
+	
 
 	@Override
 	public String getUserAuthString() {
@@ -111,5 +107,13 @@ public class User implements AuthUser{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
 	}
 }
