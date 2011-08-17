@@ -1,22 +1,22 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.inepex.example.ContactManager.entity.EmailAddress;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class EmailAddressMapper {
+public class EmailAddressMapper extends BaseMapper<EmailAddress>{
 
-	public EmailAddress kvoToEntity(EmailAddressKVO from, EmailAddress to) {
+	public EmailAddress kvoToEntity(AssistedObject fromKvo, EmailAddress to) {
+		EmailAddressKVO from = new EmailAddressKVO(fromKvo);
 		if (to == null)
 			to = new EmailAddress();
 		if (!from.isNew()) 
 			to.setId(from.getId());
 		if (from.containsString(EmailAddressKVO.k_email)) 
 			to.setEmail(from.getEmail());
+
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
 		/*hc*/
@@ -44,23 +44,4 @@ public class EmailAddressMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<EmailAddress> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<EmailAddress> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (EmailAddress entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<EmailAddress> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (EmailAddress o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

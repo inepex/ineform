@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.example.ContactManager.entity.User;
-import com.inepex.example.ContactManager.entity.dao.ext.UserDaoExt;
+import com.inepex.example.ContactManager.entity.dao.UserDao;
 import com.inepex.ineFrame.server.auth.AbstractLoginHandler;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
@@ -12,17 +12,17 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 @Singleton
 public class LoginHandler extends AbstractLoginHandler<User, AuthStatusResultBase>{
 	
-	private final UserDaoExt userDaoExt;
+	private final UserDao userDao;
 	
 	@Inject
-	protected LoginHandler(Provider<SessionScopedAuthStat> authStat, UserDaoExt userDaoExt) {
+	protected LoginHandler(Provider<SessionScopedAuthStat> authStat, UserDao userDao) {
 		super(authStat);
-		this.userDaoExt=userDaoExt;
+		this.userDao=userDao;
 	}
 
 	@Override
 	protected User findByUserNameAndPassword(String userAuthString, String password) {
-		User u = userDaoExt.findByEmail(userAuthString);		
+		User u = userDao.findByEmail(userAuthString);		
 		if(u!=null && password!=null && password.equals(u.getPassword()))
 			return u;
 		else

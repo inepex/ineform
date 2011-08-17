@@ -11,14 +11,15 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.EmailAddress;
 import com.inepex.example.ContactManager.entity.EmailAddress_;
 import com.inepex.example.ContactManager.entity.kvo.search.EmailAddressSearchKVO;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
-public class EmailAddressQuery {
+public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 
 	
-	public static Expression<Boolean> buildWhere(
+	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<EmailAddress> from
@@ -33,7 +34,7 @@ public class EmailAddressQuery {
 	}
 	
 	
-	public static Order getOrderExpression(
+	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
 			, Root<EmailAddress> from
@@ -58,7 +59,7 @@ public class EmailAddressQuery {
 		return o;
 	}
 	
-	public static Expression<Boolean> getSearchExpression(
+	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<EmailAddress> from
 			, String value){
@@ -67,16 +68,5 @@ public class EmailAddressQuery {
 				cb.like(cb.upper(from.get(EmailAddress_.email)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-
-	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.and(base, toAdd);
-		return base;
-	}
 	
-	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.or(base, toAdd);
-		return base;
-	}	
 }

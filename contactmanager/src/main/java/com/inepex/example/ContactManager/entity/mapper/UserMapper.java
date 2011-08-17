@@ -1,17 +1,15 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.kvo.UserKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class UserMapper {
+public class UserMapper extends BaseMapper<User>{
 
-	public User kvoToEntity(UserKVO from, User to) {
+	public User kvoToEntity(AssistedObject fromKvo, User to) {
+		UserKVO from = new UserKVO(fromKvo);
 		if (to == null)
 			to = new User();
 		if (!from.isNew()) 
@@ -54,23 +52,4 @@ public class UserMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<User> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<User> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (User entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<User> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (User o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

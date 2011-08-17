@@ -16,15 +16,16 @@ import com.inepex.example.ContactManager.entity.Contact_;
 import com.inepex.example.ContactManager.entity.assist.CompanyAssist;
 import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
 import com.inepex.example.ContactManager.entity.kvo.search.ContactSearchKVO;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactQuery {
+public class ContactQuery extends BaseQuery<Contact>{
 
 	
-	public static Expression<Boolean> buildWhere(
+	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<Contact> from
@@ -42,7 +43,7 @@ public class ContactQuery {
 	}
 	
 	
-	public static Order getOrderExpression(
+	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
 			, Root<Contact> from
@@ -80,7 +81,7 @@ public class ContactQuery {
 		return o;
 	}
 	
-	public static Expression<Boolean> getSearchExpression(
+	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<Contact> from
 			, String value){
@@ -89,16 +90,5 @@ public class ContactQuery {
 				cb.like(cb.upper(from.get(Contact_.name)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-
-	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.and(base, toAdd);
-		return base;
-	}
 	
-	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.or(base, toAdd);
-		return base;
-	}	
 }

@@ -1,17 +1,18 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.inepex.example.ContactManager.entity.PhoneNumber;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
+import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class PhoneNumberMapper {
+public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
 
-	public PhoneNumber kvoToEntity(PhoneNumberKVO from, PhoneNumber to) {
+	public PhoneNumber kvoToEntity(AssistedObject fromKvo, PhoneNumber to) {
+		PhoneNumberKVO from = new PhoneNumberKVO(fromKvo);
 		if (to == null)
 			to = new PhoneNumber();
 		if (!from.isNew()) 
@@ -23,6 +24,14 @@ public class PhoneNumberMapper {
 				to.setType(null);
 			} else {
 				to.setType(new PhoneNumberType(from.getType().getId()));
+//				PhoneNumberType relatedEntity = to.getType();
+//    			if (relatedEntity == null) {
+//					relatedEntity = new PhoneNumberType(IFConsts.NEW_ITEM_ID);
+//				}
+//				new PhoneNumberTypeMapper()
+//					.kvoToEntity(new PhoneNumberTypeKVO(from.getType().getKvo())
+//								, relatedEntity);
+//				to.setType(relatedEntity);
 			}
 		}
 
@@ -55,23 +64,4 @@ public class PhoneNumberMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<PhoneNumber> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<PhoneNumber> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (PhoneNumber entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<PhoneNumber> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (PhoneNumber o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

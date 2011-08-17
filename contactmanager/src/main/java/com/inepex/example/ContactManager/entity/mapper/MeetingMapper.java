@@ -1,20 +1,19 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Contact;
 import com.inepex.example.ContactManager.entity.Meeting;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
 import com.inepex.example.ContactManager.shared.MeetingType;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class MeetingMapper {
+public class MeetingMapper extends BaseMapper<Meeting>{
 
-	public Meeting kvoToEntity(MeetingKVO from, Meeting to) {
+	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to) {
+		MeetingKVO from = new MeetingKVO(fromKvo);
 		if (to == null)
 			to = new Meeting();
 		if (!from.isNew()) 
@@ -85,23 +84,4 @@ public class MeetingMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<Meeting> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<Meeting> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (Meeting entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<Meeting> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (Meeting o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

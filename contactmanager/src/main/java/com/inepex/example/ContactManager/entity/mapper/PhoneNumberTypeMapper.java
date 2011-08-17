@@ -1,16 +1,15 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class PhoneNumberTypeMapper {
+public class PhoneNumberTypeMapper extends BaseMapper<PhoneNumberType>{
 
-	public PhoneNumberType kvoToEntity(PhoneNumberTypeKVO from, PhoneNumberType to) {
+	public PhoneNumberType kvoToEntity(AssistedObject fromKvo, PhoneNumberType to) {
+		PhoneNumberTypeKVO from = new PhoneNumberTypeKVO(fromKvo);
 		if (to == null)
 			to = new PhoneNumberType();
 		if (!from.isNew()) 
@@ -45,23 +44,4 @@ public class PhoneNumberTypeMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<PhoneNumberType> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<PhoneNumberType> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (PhoneNumberType entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<PhoneNumberType> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (PhoneNumberType o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

@@ -11,14 +11,15 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Company_;
 import com.inepex.example.ContactManager.entity.kvo.search.CompanySearchKVO;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
-public class CompanyQuery {
+public class CompanyQuery extends BaseQuery<Company>{
 
 	
-	public static Expression<Boolean> buildWhere(
+	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<Company> from
@@ -42,7 +43,7 @@ public class CompanyQuery {
 	}
 	
 	
-	public static Order getOrderExpression(
+	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
 			, Root<Company> from
@@ -67,7 +68,7 @@ public class CompanyQuery {
 		return o;
 	}
 	
-	public static Expression<Boolean> getSearchExpression(
+	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<Company> from
 			, String value){
@@ -82,16 +83,5 @@ public class CompanyQuery {
 				cb.like(cb.upper(from.get(Company_.webPage)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-
-	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.and(base, toAdd);
-		return base;
-	}
 	
-	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.or(base, toAdd);
-		return base;
-	}	
 }

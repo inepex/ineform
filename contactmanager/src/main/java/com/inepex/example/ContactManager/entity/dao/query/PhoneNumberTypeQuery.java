@@ -11,14 +11,15 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.PhoneNumberType_;
 import com.inepex.example.ContactManager.entity.kvo.search.PhoneNumberTypeSearchKVO;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
-public class PhoneNumberTypeQuery {
+public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType>{
 
 	
-	public static Expression<Boolean> buildWhere(
+	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<PhoneNumberType> from
@@ -33,7 +34,7 @@ public class PhoneNumberTypeQuery {
 	}
 	
 	
-	public static Order getOrderExpression(
+	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
 			, Root<PhoneNumberType> from
@@ -58,7 +59,7 @@ public class PhoneNumberTypeQuery {
 		return o;
 	}
 	
-	public static Expression<Boolean> getSearchExpression(
+	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<PhoneNumberType> from
 			, String value){
@@ -67,16 +68,5 @@ public class PhoneNumberTypeQuery {
 				cb.like(cb.upper(from.get(PhoneNumberType_.name)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-
-	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.and(base, toAdd);
-		return base;
-	}
 	
-	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.or(base, toAdd);
-		return base;
-	}	
 }

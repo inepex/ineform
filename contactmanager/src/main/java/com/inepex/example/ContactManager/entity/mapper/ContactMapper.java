@@ -12,14 +12,16 @@ import com.inepex.example.ContactManager.entity.PhoneNumber;
 import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressKVO;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactMapper {
+public class ContactMapper extends BaseMapper<Contact>{
 
-	public Contact kvoToEntity(ContactKVO from, Contact to) {
+	public Contact kvoToEntity(AssistedObject fromKvo, Contact to) {
+		ContactKVO from = new ContactKVO(fromKvo);
 		if (to == null)
 			to = new Contact();
 		if (!from.isNew()) 
@@ -42,7 +44,7 @@ public class ContactMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					PhoneNumber entity = new PhoneNumber(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new PhoneNumberKVO(rel.getKvo()), entity);
-					to.getPhone().add(entity);
+										to.getPhone().add(entity);
 				} else {
 					PhoneNumber origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -70,7 +72,7 @@ public class ContactMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					EmailAddress entity = new EmailAddress(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new EmailAddressKVO(rel.getKvo()), entity);
-					to.getEmail().add(entity);
+										to.getEmail().add(entity);
 				} else {
 					EmailAddress origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -143,23 +145,4 @@ public class ContactMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<Contact> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<Contact> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (Contact entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<Contact> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (Contact o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

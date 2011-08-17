@@ -9,14 +9,16 @@ import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Contact;
 import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
 import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class CompanyMapper {
+public class CompanyMapper extends BaseMapper<Company>{
 
-	public Company kvoToEntity(CompanyKVO from, Company to) {
+	public Company kvoToEntity(AssistedObject fromKvo, Company to) {
+		CompanyKVO from = new CompanyKVO(fromKvo);
 		if (to == null)
 			to = new Company();
 		if (!from.isNew()) 
@@ -45,8 +47,7 @@ public class CompanyMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					Contact entity = new Contact(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new ContactKVO(rel.getKvo()), entity);
-					entity.setCompany(to);
-					to.getContacts().add(entity);
+										to.getContacts().add(entity);
 				} else {
 					Contact origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -104,23 +105,4 @@ public class CompanyMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<Company> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<Company> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (Company entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<Company> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (Company o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

@@ -1,6 +1,5 @@
 package com.inepex.example.ContactManager.entity.dao.query;
 
-
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,14 +11,15 @@ import javax.persistence.criteria.Root;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.User_;
 import com.inepex.example.ContactManager.entity.kvo.search.UserSearchKVO;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 
-public class UserQuery {
+public class UserQuery extends BaseQuery<User>{
 
 	
-	public static Expression<Boolean> buildWhere(
+	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<User> from
@@ -40,7 +40,7 @@ public class UserQuery {
 	}
 	
 	
-	public static Order getOrderExpression(
+	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
 			, Root<User> from
@@ -65,7 +65,7 @@ public class UserQuery {
 		return o;
 	}
 	
-	public static Expression<Boolean> getSearchExpression(
+	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<User> from
 			, String value){
@@ -78,16 +78,5 @@ public class UserQuery {
 				cb.like(cb.upper(from.get(User_.email)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-
-	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.and(base, toAdd);
-		return base;
-	}
 	
-	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.or(base, toAdd);
-		return base;
-	}	
 }
