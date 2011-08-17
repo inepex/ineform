@@ -23,7 +23,7 @@ public class RelationListHandler implements ActionHandler<RelationListAction, Re
 	public RelationListActionResult execute(RelationListAction action, ExecutionContext context) throws DispatchException {
 		String descriptorName = action.getDescriptorName();
 		try {
-			return daoFinder.getDefaultDaoForDescriptor(descriptorName).searchAsRelation(action);
+			return (RelationListActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).searchAsRelation(action);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ActionException("Problem while performing search action: " + e.getMessage());

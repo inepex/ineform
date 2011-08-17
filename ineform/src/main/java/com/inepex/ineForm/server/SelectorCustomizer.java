@@ -1,4 +1,5 @@
-package com.inepex.ineFrame.server;
+package com.inepex.ineForm.server;
+
 
 
 public interface SelectorCustomizer<T extends CriteriaSelector<?, ?>> {

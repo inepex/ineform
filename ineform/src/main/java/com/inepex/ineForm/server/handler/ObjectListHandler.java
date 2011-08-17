@@ -39,7 +39,7 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 					return result;
 			}
 			
-			return daoFinder.getDefaultDaoForDescriptor(descriptorName).search(action);
+			return (ObjectListActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).search(action);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,7 +1,6 @@
 outpath:${class.workspaceRelativePath}/mapper/${classname}Mapper.java
 package ${package}.mapper;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +12,14 @@ import ${package}.assist.*;
 import ${package}.kvo.search.*;
 import ${package}.mapper.*;
 import ${package}.enums.*;
-import com.inepex.ineom.shared.kvo.*;
+import com.inepex.ineForm.shared.kvo.*;
+import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineFrame.server.BaseMapper;
 
-public class ${classname}Mapper {
+public class ${classname}Mapper extends BaseMapper<${classname}>{
 
-	public ${classname} kvoToEntity(${classname}KVO from, ${classname} to) {
+	public ${classname} kvoToEntity(AssistedObject fromKvo, ${classname} to) {
+		${classname}KVO from = new ${classname}KVO(fromKvo);
 		if (to == null)
 			to = new ${classname}();
 #foreach( $attr in $attrs )
@@ -60,7 +62,7 @@ public class ${classname}Mapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					${attr.fistGenTypeU1} entity = new ${attr.fistGenTypeU1}(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new ${attr.fistGenTypeU1}KVO(rel.getKvo()), entity);
-					entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
+					##entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
 					to.get${attr.nameU1}().add(entity);
 				} else {
 					${attr.fistGenTypeU1} origItem = origItems.get(rel.getId());
@@ -160,23 +162,4 @@ public class ${classname}Mapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<${classname}> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<${classname}> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (${classname} entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<${classname}> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (${classname} o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }
