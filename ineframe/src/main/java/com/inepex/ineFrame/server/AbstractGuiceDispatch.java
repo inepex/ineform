@@ -18,6 +18,7 @@ import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
+import com.inepex.ineom.shared.kvo.ExposedDescStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 											implements UserHasRequiredRoleVerifier
@@ -57,6 +58,10 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 		new LocalizationInitializer(serverI18n, this, currentLangProvider)
 			.doInitialize();
 		setupDescriptorStores();
+		
+		
+		//TODO is this the right place for expose?
+		ExposedDescStore.setExposedStore(multiLangDescStore);
 		super.init();
 	}
 

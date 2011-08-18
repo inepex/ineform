@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
@@ -13,6 +14,7 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
+@Singleton
 public class MultiLangDescStore implements DescriptorStore {
 
 	private final String DEFAULT_LANG = "en"; 
