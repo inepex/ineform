@@ -30,13 +30,11 @@ public class DummyDataConnector extends IneDataConnector{
 
 	@Override
 	protected ObjectList createNewObjectList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected ObjectManipulation createNewObjectManipulate() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -45,8 +43,6 @@ public class DummyDataConnector extends IneDataConnector{
 			ObjectManipulation objectManipulation,
 			ObjectManipulationCallback manipulationCallback,
 			AsyncStatusIndicator statusIndicator) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -54,10 +50,13 @@ public class DummyDataConnector extends IneDataConnector{
 			ObjectList objectList,
 			SuccessCallback<ObjectListResult> objectListCallback,
 			AsyncStatusIndicator statusIndicator) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 
+	@Override
+	protected void setListActionDetails(ObjectList objectList,
+			AssistedObject searchParameters, int firstResult, int numMaxResult,
+			boolean queryResultCount) {
+	}
 
 }
