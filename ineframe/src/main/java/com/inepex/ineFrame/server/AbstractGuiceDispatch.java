@@ -18,6 +18,7 @@ import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.kvo.ExposedDescStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
@@ -38,11 +39,11 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	public AbstractGuiceDispatch(Dispatch dispatch
 							   , Provider<CurrentLang> currentLangProvider
 							   , I18nStore_Server serverI18n
-							   , MultiLangDescStore multiLangDescStore) {
+							   , DescriptorStore multiLangDescStore) {
 		super(dispatch);
 		this.currentLangProvider = currentLangProvider;
 		this.serverI18n = serverI18n;
-		this.multiLangDescStore = multiLangDescStore;
+		this.multiLangDescStore = (MultiLangDescStore)multiLangDescStore;
 	}
 	
 	@Override
