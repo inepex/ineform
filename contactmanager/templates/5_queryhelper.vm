@@ -119,7 +119,10 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 		{
 			orderExpr = from.get(orderKey);
 		}
-		if (action.isDescending())
+		if (action.isDescending() == null)
+			//default order
+			o = cb.asc(orderExpr);
+		else if (action.isDescending())
 			o = cb.desc(orderExpr);
 		else
 			o = cb.asc(orderExpr);
