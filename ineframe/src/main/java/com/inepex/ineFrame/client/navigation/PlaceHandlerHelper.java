@@ -200,9 +200,11 @@ public class PlaceHandlerHelper {
 			sb.append(originalTokens[i]);
 		}
 		
-		for(String token : subMenuTokens) {
-			if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
-			sb.append(token);
+		if(subMenuTokens!=null) {
+			for(String token : subMenuTokens) {
+				if(sb.length()>0) sb.append(Node.ID_SEPARATOR);
+				sb.append(token);
+			}
 		}
 		
 		return sb.toString();

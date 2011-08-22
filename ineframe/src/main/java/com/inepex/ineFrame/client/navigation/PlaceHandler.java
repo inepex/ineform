@@ -194,6 +194,10 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 //------- ------------------------------
 //        navigation helper methods
 //------- ------------------------------
+	public PlaceRequestEvent generateRefreshEvent() {
+		return generateSubMenuEvent();
+	}
+	
 	public PlaceRequestEvent generateSubMenuEvent(String... subMenuTokens) {
 		PlaceRequestEvent event = new PlaceRequestEvent();
 		event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createSubMenuToken(currentFullToken, subMenuTokens));
