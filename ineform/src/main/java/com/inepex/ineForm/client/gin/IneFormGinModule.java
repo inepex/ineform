@@ -64,7 +64,6 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
 
 		bind(AsyncStatusIndicator.class).to(FullscreenStatusIndicator.class).in(Singleton.class);
-		bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
 		
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
 		
