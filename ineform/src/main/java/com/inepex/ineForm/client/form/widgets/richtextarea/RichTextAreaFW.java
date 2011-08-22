@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.StringFormWidget;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
@@ -22,7 +23,9 @@ public class RichTextAreaFW extends StringFormWidget {
 		initWidget(grid);
 	    grid.setWidget(0, 0, toolbar);
 	    grid.setWidget(1, 0, textArea);
-	    textArea.addStyleName("richTextArea");
+	    
+	    textArea.addStyleName(ResourceHelper.getRes().style().richTextArea());
+	    
 		if (renderDesc.hasProp(textBoxWidth)){
 			textArea.setWidth(renderDesc.getPropValue(textBoxWidth));
 		} else {

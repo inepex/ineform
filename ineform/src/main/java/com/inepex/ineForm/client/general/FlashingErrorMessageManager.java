@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.Timer;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 
 public class FlashingErrorMessageManager implements ErrorMessageManagerInterface {
 	
@@ -31,9 +32,9 @@ public class FlashingErrorMessageManager implements ErrorMessageManagerInterface
 					}
 						
 					if(i%2==0) {
-						widget.addStyleName("flashingBorder");
+						widget.addStyleName(ResourceHelper.getRes().style().flashingBorder());
 					} else {
-						widget.removeStyleName("flashingBorder");
+						widget.removeStyleName(ResourceHelper.getRes().style().flashingBorder());
 					}
 					i++;
 				}

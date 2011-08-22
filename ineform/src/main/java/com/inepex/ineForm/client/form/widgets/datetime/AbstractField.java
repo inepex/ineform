@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.IneResources;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
 abstract class AbstractField extends HandlerAwareComposite implements DateTimeFieldInterface{
@@ -50,10 +51,8 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 
 		if(usetextbox) {
 			tb_datetime = new DateTimeTextBox(precision, enableselectmanager);
-			tb_datetime.addStyleName("tb");
 		} else {
 			lbl_datetime=new InlineLabel();
-			lbl_datetime.addStyleName("lbl");
 		}
 
 		if(showstepbuttons) panel_main.add(img_step_bck);
@@ -141,13 +140,13 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 			if(enabled) {
 				img_step_bck.setResource(IneResources.INSTANCE.arrowLeft());
 				img_step_fwd.setResource(IneResources.INSTANCE.arrowRight());
-				img_step_bck.addStyleName("clickable");
-				img_step_fwd.addStyleName("clickable");
+				img_step_bck.addStyleName(ResourceHelper.getRes().style().clickable());
+				img_step_fwd.addStyleName(ResourceHelper.getRes().style().clickable());
 			} else {
 				img_step_bck.setResource(IneResources.INSTANCE.arrowLeft_disabled());
 				img_step_fwd.setResource(IneResources.INSTANCE.arrowRight_disabled());
-				img_step_bck.removeStyleName("clickable");
-				img_step_fwd.removeStyleName("clickable");
+				img_step_bck.removeStyleName(ResourceHelper.getRes().style().clickable());
+				img_step_fwd.removeStyleName(ResourceHelper.getRes().style().clickable());
 			}
 		}
 

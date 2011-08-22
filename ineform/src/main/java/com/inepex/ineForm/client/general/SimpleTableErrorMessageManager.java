@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTML;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 
 public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterface {
 	
@@ -16,7 +17,7 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 	public SimpleTableErrorMessageManager(Element holder) {
 		this.html_error=new HTML("");
 		this.holder=holder;
-		holder.setClassName("errorMessageHolder_dontShowError");
+		holder.setClassName(ResourceHelper.getRes().style().errorMessageHolder_dontShowError());
 	}
 	
 	/**
@@ -24,7 +25,7 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 	 */
 	@Override
 	public void clearErrorMsg() {
-		holder.setClassName("errorMessageHolder_dontShowError");
+		holder.setClassName(ResourceHelper.getRes().style().errorMessageHolder_dontShowError());
 		html_error.setHTML("");
 		
 		if(shouldRemove) {
@@ -43,7 +44,7 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 	@Override
 	public void addErrorMsg(List<String> errorlist) {
 		if(errorlist!=null && errorlist.size()>0) {
-			holder.setClassName("errorMessageHolder_showError");
+			holder.setClassName(ResourceHelper.getRes().style().errorMessageHolder_showError());
 			StringBuffer sb = new StringBuffer(html_error.getHTML());
 			
 			boolean first=sb.length()==0;

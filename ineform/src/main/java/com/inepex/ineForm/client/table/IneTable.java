@@ -34,6 +34,7 @@ import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.EnumListFW;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.client.util.NumberUtilCln;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
@@ -245,7 +246,7 @@ public class IneTable extends HandlerAwareComposite {
 	
 	public void renderTable() {
 		if (!rendered) {
-			cellTable.addStyleName("ineTable");
+			cellTable.addStyleName(ResourceHelper.getRes().style().ineTable());
 			
 			batchColumnAddig=true;
 			initTableColumns();
@@ -503,7 +504,7 @@ public class IneTable extends HandlerAwareComposite {
 			}
 			
 			return 
-				((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? "clickable" : "" ) +  
+				((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? ResourceHelper.getRes().style().clickable() : "" ) +  
 				((extraStyle == null) ? ("") : (" "+extraStyle));
 		}
 		

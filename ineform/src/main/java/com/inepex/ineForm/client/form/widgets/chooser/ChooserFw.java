@@ -15,6 +15,7 @@ import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.kvo.IneList;
@@ -164,7 +165,8 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 		valueRange.setVisibleItemCount(listSize);
 		selected.setVisibleItemCount(listSize);
 		
-		addStyleName("ChooserFw");
+		addStyleName(ResourceHelper.getRes().style().ChooserFw());
+		
 		selected.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
 		valueRange.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
 		
