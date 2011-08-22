@@ -22,8 +22,6 @@ public class AppGuiceModule  extends ActionHandlerModule {
 		bindHandler(GetAuthStatusAction.class, GetAuthStatusHandler.class);
 		bindHandler(LogoutAction.class, LogoutHandler.class);
 		bindHandler(LoginAction.class, LoginHandler.class);
-		
-		bind(ManipulationObjectFactory.class).to(ActionObjectFactory.class);
 	}
 
 }
