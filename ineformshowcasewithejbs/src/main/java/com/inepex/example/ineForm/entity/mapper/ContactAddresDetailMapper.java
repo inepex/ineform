@@ -1,17 +1,15 @@
-
 package com.inepex.example.ineForm.entity.mapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.inepex.example.ineForm.entity.ContactAddresDetail;
 import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactAddresDetailMapper {
+public class ContactAddresDetailMapper extends BaseMapper<ContactAddresDetail>{
 
-	public ContactAddresDetail kvoToEntity(ContactAddresDetailKVO from, ContactAddresDetail to) {
+	public ContactAddresDetail kvoToEntity(AssistedObject fromKvo, ContactAddresDetail to) {
+		ContactAddresDetailKVO from = new ContactAddresDetailKVO(fromKvo);
 		if (to == null)
 			to = new ContactAddresDetail();
 		if (!from.isNew()) 
@@ -20,6 +18,11 @@ public class ContactAddresDetailMapper {
 			to.setCity(from.getCity());
 		if (from.containsString(ContactAddresDetailKVO.k_country)) 
 			to.setCountry(from.getCountry());
+
+		/*hc:customToEntity*/
+		//custom mappings to Entity comes here.
+		/*hc*/
+		
 		return to;
 	}
 	
@@ -45,23 +48,4 @@ public class ContactAddresDetailMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<ContactAddresDetail> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<ContactAddresDetail> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (ContactAddresDetail entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<ContactAddresDetail> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (ContactAddresDetail o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

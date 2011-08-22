@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
+import com.inepex.core.module.client.CommandDataConnectorFactory;
 import com.inepex.example.ineForm.entity.kvo.ContactKVO;
 import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
 import com.inepex.example.ineForm.entity.kvo.NationalityKVO;
@@ -54,6 +55,7 @@ public class CrudPage extends FlowPanel {
 				
 		// Contact manipulator
 		IneDataConnector contactDataConn = dataConnectorFactory.createServerSide(ContactKVO.descriptorName);
+//		IneDataConnector contactDataConn = dataConnectorFactory.create(ContactKVO.descriptorName);
 		
 		SearchForm searchForm = formFactory.createSearch(ContactSearchKVO.descriptorName
 				, null , contactDataConn);

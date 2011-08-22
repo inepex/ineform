@@ -6,7 +6,9 @@ import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
+import com.inepex.core.module.guice.IneModuleGuiceModule;
 import com.inepex.ineForm.server.guice.IneFormActionHanlderModule;
+import com.inepex.ineForm.server.guice.IneFormDispatcherGuiceModule;
 import com.inepex.ineForm.server.upload.UploadServletModule;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseActionHanlderModule;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseModule;
@@ -24,11 +26,16 @@ public class ShowcaseServletConfig extends GuiceServletContextListener {
 										};
 									}
 									, new IneFrameBaseServletModule("ineformshowcasewithejbs", ShowcaseDispatchServlet.class)
+//									, new IneCoreBaseServletModule("ineformshowcasewithejbs", ShowcaseDispatchServlet.class)
 									, new UploadServletModule() 
 									, new TestServletModule()
 									, new IneFrameBaseActionHanlderModule()
 									, new IneFrameBaseModule()
-									, new IneFormActionHanlderModule());
+									, new IneFormActionHanlderModule()
+									, new IneFormDispatcherGuiceModule()
+//									, new IneFrameModuleGuiceModule()
+									, new IneModuleGuiceModule(false)
+									);
 	}
 	
 }

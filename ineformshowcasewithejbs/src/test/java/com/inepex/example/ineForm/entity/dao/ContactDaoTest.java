@@ -21,10 +21,11 @@ import com.inepex.example.ineForm.entity.kvo.ContactKVO;
 import com.inepex.example.ineForm.entity.mapper.ContactCTypeRelMapper;
 import com.inepex.example.ineForm.entity.mapper.ContactMapper;
 import com.inepex.ineForm.client.form.widgets.RelationList;
+import com.inepex.ineForm.shared.dispatch.ActionObjectFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
-import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
@@ -64,7 +65,7 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 			public EntityManager get() {
 				return em;
 			}
-		});
+		}, new ActionObjectFactory());
 	}
 	
 	@Test
@@ -103,7 +104,7 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 	
 	void removeTest(){
 		et.begin();
-		dao.remove(data.contact.getId());
+		dao.removeTrans(data.contact.getId());
 		et.commit();
 	}
 	
@@ -140,7 +141,7 @@ public class ContactDaoTest extends DefaultIneFormClientSideTestBase{
 		searchAction.setQueryResultCount(false);
 		searchAction.setNumMaxResult(10);
 		searchAction.setFirstResult(0);
-		ObjectListActionResult searchRes = dao.search(searchAction);
+		ObjectListResult searchRes = dao.search(searchAction);
 		assertEquals(1, searchRes.getList().size());
 		
 		assertNotSame(IFConsts.NEW_ITEM_ID.longValue(), searchRes.getList().get(0)

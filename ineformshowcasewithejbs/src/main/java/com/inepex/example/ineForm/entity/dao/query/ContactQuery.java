@@ -16,20 +16,25 @@ import com.inepex.example.ineForm.entity.assist.ContactAddresDetailAssist;
 import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelKVO;
 import com.inepex.example.ineForm.entity.kvo.ContactKVO;
 import com.inepex.example.ineForm.entity.kvo.ContactNatRelKVO;
+import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleKVO;
+import com.inepex.example.ineForm.entity.kvo.Contact_ContactStateKVO;
 import com.inepex.example.ineForm.entity.kvo.search.ContactSearchKVO;
 import com.inepex.example.ineForm.entity.metaentity.ContactCTypeRel_;
 import com.inepex.example.ineForm.entity.metaentity.ContactNatRel_;
 import com.inepex.example.ineForm.entity.metaentity.Contact_;
-import com.inepex.ineForm.shared.dispatch.AbstractSearchAction;
+import com.inepex.example.ineForm.entity.metaentity.Contact_ContactRole_;
+import com.inepex.example.ineForm.entity.metaentity.Contact_ContactState_;
+import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactQuery {
+public class ContactQuery extends BaseQuery<Contact>{
 
 	
-	public static Expression<Boolean> buildWhere(
+	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<Contact> from
@@ -65,13 +70,37 @@ public class ContactQuery {
 			}
 		}
 		Boolean happy = action.getSearchParameters().getBoolean(ContactSearchKVO.k_happy);
-		if (happy!=false)
+		if (Boolean.TRUE.equals(happy))
 			base = addAndExpression(cb, base, cb.equal(from.get(Contact_.happy), happy));
+		IneList roles = action.getSearchParameters().getList(ContactKVO.k_roles);
+		if (roles != null && roles.getRelationList().size() > 0){
+			List<Long> relationIds = new ArrayList<Long>();
+			for (Relation r : roles.getRelationList()){
+				if (r.getKvo().getRelation(Contact_ContactRoleKVO.k_role) != null){
+					relationIds.add(r.getKvo().getRelation(Contact_ContactRoleKVO.k_role).getId());
+				}
+			}
+			if (relationIds.size()>0){
+				base = addAndExpression(cb, base, (from.join(Contact_.roles).get(Contact_ContactRole_.role).get("id")).in(relationIds));
+			}
+		}
+		IneList states = action.getSearchParameters().getList(ContactKVO.k_states);
+		if (states != null && states.getRelationList().size() > 0){
+			List<Long> relationIds = new ArrayList<Long>();
+			for (Relation r : states.getRelationList()){
+				if (r.getKvo().getRelation(Contact_ContactStateKVO.k_state) != null){
+					relationIds.add(r.getKvo().getRelation(Contact_ContactStateKVO.k_state).getId());
+				}
+			}
+			if (relationIds.size()>0){
+				base = addAndExpression(cb, base, (from.join(Contact_.states).get(Contact_ContactState_.state).get("id")).in(relationIds));
+			}
+		}
 	return base;
 	}
 	
 	
-	public static Order getOrderExpression(
+	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
 			, Root<Contact> from
@@ -103,14 +132,17 @@ public class ContactQuery {
 		{
 			orderExpr = from.get(orderKey);
 		}
-		if (action.isDescending())
+		if (action.isDescending() == null)
+			//default order
+			o = cb.asc(orderExpr);
+		else if (action.isDescending())
 			o = cb.desc(orderExpr);
 		else
 			o = cb.asc(orderExpr);
 		return o;
 	}
 	
-	public static Expression<Boolean> getSearchExpression(
+	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<Contact> from
 			, String value){
@@ -121,16 +153,5 @@ public class ContactQuery {
 				cb.like(cb.upper(from.get(Contact_.lastName)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-
-	public static Expression<Boolean> addAndExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.and(base, toAdd);
-		return base;
-	}
 	
-	public static Expression<Boolean> addOrExpression(CriteriaBuilder cb, Expression<Boolean> base, Expression<Boolean> toAdd){
-		if (base == null) base = toAdd;
-		else base = cb.or(base, toAdd);
-		return base;
-	}	
 }

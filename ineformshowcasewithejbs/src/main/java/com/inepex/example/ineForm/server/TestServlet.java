@@ -26,7 +26,7 @@ public class TestServlet extends HttpServlet {
 		ContactTypeKVO kvo = new ContactTypeKVO();
 		kvo.setTypeName("type2");
 		ContactType entity = new ContactType();
-		contactTypeDAO.persist(new ContactTypeMapper().kvoToEntity(kvo, entity));
+		contactTypeDAO.persistTrans(new ContactTypeMapper().kvoToEntity(kvo, entity));
 		
 		resp.getWriter().println("Ready");
 	}

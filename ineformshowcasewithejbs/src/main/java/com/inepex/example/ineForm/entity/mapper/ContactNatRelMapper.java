@@ -1,18 +1,16 @@
-
 package com.inepex.example.ineForm.entity.mapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.inepex.example.ineForm.entity.ContactNatRel;
 import com.inepex.example.ineForm.entity.Nationality;
 import com.inepex.example.ineForm.entity.kvo.ContactNatRelKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactNatRelMapper {
+public class ContactNatRelMapper extends BaseMapper<ContactNatRel>{
 
-	public ContactNatRel kvoToEntity(ContactNatRelKVO from, ContactNatRel to) {
+	public ContactNatRel kvoToEntity(AssistedObject fromKvo, ContactNatRel to) {
+		ContactNatRelKVO from = new ContactNatRelKVO(fromKvo);
 		if (to == null)
 			to = new ContactNatRel();
 		if (!from.isNew()) 
@@ -26,6 +24,11 @@ public class ContactNatRelMapper {
 		}
 		if (from.containsLong(ContactNatRelKVO.k_orderNum)) 
 			to.setOrderNum(from.getOrderNum());
+
+		/*hc:customToEntity*/
+		//custom mappings to Entity comes here.
+		/*hc*/
+		
 		return to;
 	}
 	
@@ -51,23 +54,4 @@ public class ContactNatRelMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<ContactNatRel> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<ContactNatRel> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (ContactNatRel entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<ContactNatRel> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (ContactNatRel o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

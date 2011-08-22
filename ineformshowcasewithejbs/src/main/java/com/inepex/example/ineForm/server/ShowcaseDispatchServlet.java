@@ -10,6 +10,7 @@ import net.customware.gwt.dispatch.server.Dispatch;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.inepex.core.module.IneModule;
 import com.inepex.example.ineForm.entity.assist.ContactAddresDetailAssist;
 import com.inepex.example.ineForm.entity.assist.ContactAssist;
 import com.inepex.example.ineForm.entity.assist.ContactCTypeRelAssist;
@@ -25,7 +26,6 @@ import com.inepex.ineFrame.server.AbstractGuiceDispatch;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.server.ServerIneOmI18nProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
@@ -35,17 +35,20 @@ public class ShowcaseDispatchServlet extends AbstractGuiceDispatch {
 
 	private static final long serialVersionUID = 1L;
 	private final DaoFinder daoFinder;
+	private final IneModule ineModule;
 
 	@Inject
 	public ShowcaseDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider, I18nStore_Server serverI18n,
-			MultiLangDescStore multiLangDescStore, DaoFinder daoFinder) {
+			DescriptorStore multiLangDescStore, DaoFinder daoFinder, IneModule ineModule) {
 		super(dispatch, currentLangProvider, serverI18n, multiLangDescStore);
 		this.daoFinder=daoFinder;
+		this.ineModule = ineModule;
 	}
 
 	@Override
 	public void init() throws ServletException {
 		daoFinder.addPackageByName("com.inepex.example.ineForm.entity.dao");
+		ineModule.start();
 		super.init();
 	}
 

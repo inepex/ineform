@@ -1,17 +1,15 @@
-
 package com.inepex.example.ineForm.entity.mapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.inepex.example.ineForm.entity.Contact_ContactRole;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class Contact_ContactRoleMapper {
+public class Contact_ContactRoleMapper extends BaseMapper<Contact_ContactRole>{
 
-	public Contact_ContactRole kvoToEntity(Contact_ContactRoleKVO from, Contact_ContactRole to) {
+	public Contact_ContactRole kvoToEntity(AssistedObject fromKvo, Contact_ContactRole to) {
+		Contact_ContactRoleKVO from = new Contact_ContactRoleKVO(fromKvo);
 		if (to == null)
 			to = new Contact_ContactRole();
 		if (!from.isNew()) 
@@ -50,23 +48,4 @@ public class Contact_ContactRoleMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<Contact_ContactRole> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<Contact_ContactRole> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (Contact_ContactRole entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<Contact_ContactRole> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (Contact_ContactRole o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

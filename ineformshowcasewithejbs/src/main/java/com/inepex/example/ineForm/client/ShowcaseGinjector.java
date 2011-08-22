@@ -9,11 +9,16 @@ import com.inepex.example.ineForm.client.page.CrudPage;
 import com.inepex.example.ineForm.client.page.DtoTestPage;
 import com.inepex.example.ineForm.client.page.TesterPage;
 import com.inepex.example.ineForm.client.page.WizardPage;
+import com.inepex.ineForm.client.gin.IneFormDispatcherGinModule;
 import com.inepex.ineForm.client.gin.IneFormGinModule;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
-@GinModules({ShowcaseGinModule.class, StandardDispatchModule.class, IneFormGinModule.class})
+@GinModules({ShowcaseGinModule.class, StandardDispatchModule.class, IneFormGinModule.class
+		, IneFormDispatcherGinModule.class
+//	, IneFrameModuleGinModule.class
+	
+})
 public interface ShowcaseGinjector extends com.google.gwt.inject.client.Ginjector{
 	DispatchAsync getDispatchAsync();
 	EventBus getEventBus();

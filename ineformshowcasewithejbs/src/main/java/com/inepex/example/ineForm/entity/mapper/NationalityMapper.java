@@ -1,17 +1,15 @@
-
 package com.inepex.example.ineForm.entity.mapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.inepex.example.ineForm.entity.Nationality;
 import com.inepex.example.ineForm.entity.kvo.NationalityKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class NationalityMapper {
+public class NationalityMapper extends BaseMapper<Nationality>{
 
-	public Nationality kvoToEntity(NationalityKVO from, Nationality to) {
+	public Nationality kvoToEntity(AssistedObject fromKvo, Nationality to) {
+		NationalityKVO from = new NationalityKVO(fromKvo);
 		if (to == null)
 			to = new Nationality();
 		if (!from.isNew()) 
@@ -20,6 +18,11 @@ public class NationalityMapper {
 			to.setName(from.getName());
 		if (from.containsString(NationalityKVO.k_description)) 
 			to.setDescription(from.getDescription());
+
+		/*hc:customToEntity*/
+		//custom mappings to Entity comes here.
+		/*hc*/
+		
 		return to;
 	}
 	
@@ -45,23 +48,4 @@ public class NationalityMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<Nationality> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<Nationality> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (Nationality entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<Nationality> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (Nationality o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

@@ -1,4 +1,3 @@
-
 package com.inepex.example.ineForm.entity.mapper;
 
 import java.util.ArrayList;
@@ -18,14 +17,16 @@ import com.inepex.example.ineForm.entity.kvo.ContactKVO;
 import com.inepex.example.ineForm.entity.kvo.ContactNatRelKVO;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleKVO;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactStateKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.kvo.IneList;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactMapper {
+public class ContactMapper extends BaseMapper<Contact>{
 
-	public Contact kvoToEntity(ContactKVO from, Contact to) {
+	public Contact kvoToEntity(AssistedObject fromKvo, Contact to) {
+		ContactKVO from = new ContactKVO(fromKvo);
 		if (to == null)
 			to = new Contact();
 		if (!from.isNew()) 
@@ -56,8 +57,7 @@ public class ContactMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					ContactCTypeRel entity = new ContactCTypeRel(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new ContactCTypeRelKVO(rel.getKvo()), entity);
-					entity.setContact(to);
-					to.getContactTypes().add(entity);
+										to.getContactTypes().add(entity);
 				} else {
 					ContactCTypeRel origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -87,8 +87,7 @@ public class ContactMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					ContactNatRel entity = new ContactNatRel(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new ContactNatRelKVO(rel.getKvo()), entity);
-					entity.setContact(to);
-					to.getNationalities().add(entity);
+										to.getNationalities().add(entity);
 				} else {
 					ContactNatRel origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -132,8 +131,7 @@ public class ContactMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					Contact_ContactRole entity = new Contact_ContactRole(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new Contact_ContactRoleKVO(rel.getKvo()), entity);
-					entity.setContact(to);
-					to.getRoles().add(entity);
+										to.getRoles().add(entity);
 				} else {
 					Contact_ContactRole origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -161,8 +159,7 @@ public class ContactMapper {
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					Contact_ContactState entity = new Contact_ContactState(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(new Contact_ContactStateKVO(rel.getKvo()), entity);
-					entity.setContact(to);
-					to.getStates().add(entity);
+										to.getStates().add(entity);
 				} else {
 					Contact_ContactState origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
@@ -264,23 +261,4 @@ public class ContactMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<Contact> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<Contact> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (Contact entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<Contact> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (Contact o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

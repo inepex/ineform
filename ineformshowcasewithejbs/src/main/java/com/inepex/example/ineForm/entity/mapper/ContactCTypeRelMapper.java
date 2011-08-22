@@ -1,18 +1,16 @@
-
 package com.inepex.example.ineForm.entity.mapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.inepex.example.ineForm.entity.ContactCTypeRel;
 import com.inepex.example.ineForm.entity.ContactType;
 import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelKVO;
+import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.kvo.Relation;
 
-public class ContactCTypeRelMapper {
+public class ContactCTypeRelMapper extends BaseMapper<ContactCTypeRel>{
 
-	public ContactCTypeRel kvoToEntity(ContactCTypeRelKVO from, ContactCTypeRel to) {
+	public ContactCTypeRel kvoToEntity(AssistedObject fromKvo, ContactCTypeRel to) {
+		ContactCTypeRelKVO from = new ContactCTypeRelKVO(fromKvo);
 		if (to == null)
 			to = new ContactCTypeRel();
 		if (!from.isNew()) 
@@ -26,6 +24,11 @@ public class ContactCTypeRelMapper {
 		}
 		if (from.containsLong(ContactCTypeRelKVO.k_orderNum)) 
 			to.setOrderNum(from.getOrderNum());
+
+		/*hc:customToEntity*/
+		//custom mappings to Entity comes here.
+		/*hc*/
+		
 		return to;
 	}
 	
@@ -51,23 +54,4 @@ public class ContactCTypeRelMapper {
 		return new Relation(entity.getId(), entity.toString(), includeKvo ? entityToKvo(entity) : null);
 	}
 	
-	public List<Relation> toRelationList(List<ContactCTypeRel> entityList){
-		return toRelationList(entityList, false);
-	}
-	
-	public List<Relation> toRelationList(List<ContactCTypeRel> entityList, boolean includeKvo){
-		List<Relation> result = new ArrayList<Relation>();
-		for (ContactCTypeRel entity : entityList) {
-			result.add(toRelation(entity, includeKvo));
-		}
-		return result;
-	}
-	
-	public ArrayList<AssistedObject> entityListToKvoList(List<ContactCTypeRel> entityList){
-		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
-		for (ContactCTypeRel o: entityList){
-			result.add(entityToKvo(o));
-		}
-		return result;
-	}	
 }

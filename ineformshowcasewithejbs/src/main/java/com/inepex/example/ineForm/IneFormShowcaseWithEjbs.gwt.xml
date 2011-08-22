@@ -16,6 +16,8 @@
 	<inherits name="com.inepex.ineom.ineOm" />
 	<inherits name='net.customware.gwt.dispatch.Dispatch' />	
 	<inherits name="com.google.gwt.inject.Inject"/>
+	<inherits name="com.inepex.core.inecommand" />
+  	<inherits name="com.inepex.core.ineframemodule" />
 	
 
 	<stylesheet src="../IneFormShowcaseWithEjbs.css" />
