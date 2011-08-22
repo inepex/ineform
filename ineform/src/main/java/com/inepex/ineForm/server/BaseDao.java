@@ -47,7 +47,7 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 	/**
 	 * Override to implement extra behaviour before or after persist
 	 */
-	protected void persist(E entity) {
+	public void persist(E entity) {
 		em.get().persist(entity);
 	}
 
@@ -62,7 +62,7 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 	 * 
 	 * @param entity
 	 */
-	protected void merge(E entity) {
+	public void merge(E entity) {
 		em.get().merge(entity);
 	}
 
@@ -74,7 +74,7 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 	/**
 	 * Override to implement extra behaviour before or after remove
 	 */
-	protected void remove(Long id) {
+	public void remove(Long id) {
 		em.get().remove(em.get().find(getClazz(), id));
 	}
 
@@ -154,7 +154,7 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 		return result;
 	}
 
-	protected E doCreateOrEdit(AssistedObject kvo) {
+	public E doCreateOrEdit(AssistedObject kvo) {
 		E entity = null;
 
 		if (kvo.isNew())
