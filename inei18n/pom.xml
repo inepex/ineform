@@ -6,7 +6,7 @@
 		<relativePath>../ineall</relativePath>
 	    <artifactId>ineall</artifactId>
 	    <groupId>com.inepex</groupId>
-	    <version>1.0.14</version>
+	    <version>1.0.15</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
