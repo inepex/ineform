@@ -1,4 +1,4 @@
-package com.inepex.example.ContactManager;
+package com.inepex.example.contactmanager;
 
 import java.io.IOException;
 import java.util.Map;
