@@ -13,7 +13,7 @@
 	<groupId>com.inepex</groupId>
 	<artifactId>inei18n</artifactId>
 	<packaging>jar</packaging>
-	<version>${parent.version}</version>
+	<version>${project.parent.version}</version>
 	<name>inei18n</name>
 	<url>http://maven.apache.org</url>
 
