@@ -19,7 +19,7 @@
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.8.5</mockitoVersion>
 		<ginVersion>1.5</ginVersion>
-		<guiceVersion>3.0-rc2</guiceVersion>
+		<guiceVersion>3.0</guiceVersion>
 		<gwtDndVersion>3.0.1</gwtDndVersion>
 		<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
 		<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
