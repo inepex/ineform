@@ -8,8 +8,8 @@ import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.GenericResult;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 import com.inepex.ineom.shared.validation.ValidationException;
 import com.inepex.ineom.shared.validation.ValidationResult;

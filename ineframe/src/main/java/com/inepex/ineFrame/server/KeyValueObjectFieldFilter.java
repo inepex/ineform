@@ -4,25 +4,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 
-public class KeyValueObjcetHidingUtil {
+public class KeyValueObjectFieldFilter {
 	
 	/**
 	 * copy id and enabled keys into an another kvo
-	 * 
 	 *  !!!!!!!!! logic for RELATED fields and RELATION are not implemented yet !!!!!!
 	 *  
-	 *  TODO: SEBI: rename (class: KeyValueObjectFieldFilter, method: filterKvo)
 	 */
-	public static KeyValueObject createHidedKVO(DescriptorStore descStore, Collection<String> enabledKeys, KeyValueObject kvo) {
+	public static KeyValueObject filterKvo(DescriptorStore descStore, Collection<String> enabledKeys,
+			KeyValueObject kvo, AssistedObjectHandlerFactory factory) {
 		
-		KeyValueObject ret = new KeyValueObject(kvo.getDescriptorName(), kvo.getId());
 		ObjectDesc od = descStore.getOD(kvo.getDescriptorName());
+		
+		AssistedObjectHandler ret = factory.createHandler(
+				new KeyValueObject(kvo.getDescriptorName(), kvo.getId()));
+				
+		AssistedObjectHandler kvoChecker = factory.createHandler(kvo);
 		
 		List<String> copylist = new ArrayList<String>(enabledKeys);
 		copylist.add(IFConsts.KEY_ID);
@@ -33,27 +38,26 @@ public class KeyValueObjcetHidingUtil {
 			if(fDesc!=null) {
 				switch(fDesc.getType()) {
 				case BOOLEAN:
-					ret.set(key, kvo.getBoolean(key));
+					ret.set(key, kvoChecker.getBoolean(key));
 					break;
 				case DOUBLE:
-					ret.set(key, kvo.getDouble(key));
+					ret.set(key, kvoChecker.getDouble(key));
 					break;
 				case LIST:
-					ret.set(key, kvo.getList(key));
+					ret.set(key, kvoChecker.getList(key));
 					break;
 				case LONG:
-					ret.set(key, kvo.getLong(key));
+					ret.set(key, kvoChecker.getLong(key));
 					break;
 				case STRING:
-					ret.set(key, kvo.getString(key));
+					ret.set(key, kvoChecker.getString(key));
 					break;
 				case RELATION:
 					//TODO implements
 				}
 			}
-			
 		}
 		
-		return ret;
+		return (KeyValueObject) ret.getAssistedObject();
 	}
 }

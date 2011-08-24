@@ -1,8 +1,13 @@
 package com.inepex.ineFrame.client.pushedevents;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import net.customware.gwt.dispatch.shared.Result;
 
 import org.junit.Before;
@@ -71,10 +76,12 @@ public class PushedEventProviderTest extends DefaultIneFrameClientSideTestBase {
 		PushedActionContext<Result3> actionThrExCallack = mock(PushedActionContext.class);
 		pep.addAction(new ActionThrowsException(), actionThrExCallack);
 
-		// Call queryEvents 5 times. The last 2 calls should return at beginning because of errors. 
+		// Call queryEvents 5 times. The last 2 calls should return at beginning because of errors.
 		pep.queryEvents();
+		pep.queryEvents();		
 		pep.queryEvents();
-		pep.queryEvents();
+		
+		
 		assertEquals(true, pep.stoppedOnFailures);
 		assertEquals(3, pep.failureCount);
 		

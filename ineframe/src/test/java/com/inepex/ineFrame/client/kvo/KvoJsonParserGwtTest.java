@@ -2,13 +2,10 @@ package com.inepex.ineFrame.client.kvo;
 
 import junit.framework.Assert;
 
-import com.google.gwt.json.client.JSONNull;
-import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.junit.client.GWTTestCase;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.T_e_s_tUtil;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 //FIXME: it makes time out
 public class KvoJsonParserGwtTest {//extends GWTTestCase {
@@ -18,26 +15,19 @@ public class KvoJsonParserGwtTest {//extends GWTTestCase {
 	String jsonData = "{'stringField': 'hello', 'relField': {'longField': 3}, 'listField': [{'longField': 4}, {'longField': 5}]}";
 	
 	String jsonDataNullValue = "{'stringField': null}";
-	
+
 	public void testDefault(){
-		T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()); //to set exposed desrcriptorstore
 		jsonData = jsonData.replace("'", "\"");
-		KeyValueObject kvo = new KvoJsonParser(JSONParser.parseStrict(jsonData).isObject(), "testKvo").parse();
-		T_e_s_tUtil.assertEquals(T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()), kvo);
-	}
-	
-	public void testNull(){
-		T_e_s_tUtil.getTestKvo(new ClientDescriptorStore()); //to set exposed desrcriptorstore
-		jsonDataNullValue = jsonDataNullValue.replace("'", "\"");
-		KeyValueObject kvo = new KvoJsonParser(JSONParser.parseStrict(jsonDataNullValue).isObject(), "testKvo").parse();
-		Assert.assertTrue(kvo.containsString("stringField"));
-		Assert.assertNull(kvo.getString("stringField"));
-		
+		KeyValueObject kvo = new KvoJsonParser(T_e_s_tUtil.descriptorStore, JSONParser.parseStrict(jsonData).isObject(), "testKvo").parse();
+		T_e_s_tUtil.assertEquals(T_e_s_tUtil.getTestKvo().getAssistedObject(), kvo);
 	}
 
-	//TODO
-//	@Override
-//	public String getModuleName() {
-//		return "com.inepex.ineFrame.ineFrame";
-//	}
+	public void testNull(){
+		jsonDataNullValue = jsonDataNullValue.replace("'", "\"");
+		KeyValueObject kvo = new KvoJsonParser(T_e_s_tUtil.descriptorStore, JSONParser.parseStrict(jsonDataNullValue).isObject(), "testKvo").parse();
+		AssistedObjectHandler ch = T_e_s_tUtil.objectHandlerFactory.createHandler(kvo);
+		
+		Assert.assertTrue(ch.containsString("stringField"));
+		Assert.assertNull(ch.getString("stringField"));
+	}
 }
