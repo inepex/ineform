@@ -40,7 +40,7 @@ public class T_e_s_tUtil {
 	
 
 	public static AssistedObjectChecker getTestKvo(){
-		AssistedObjectChecker checker = objectHandlerFactory.createChecker(new KeyValueObject("testKvo"));
+		AssistedObjectHandler checker = objectHandlerFactory.createHandler(new KeyValueObject("testKvo"));
 		
 		checker.set("stringField", "hello");
 		checker.set("relField", new Relation(getRelKvo(3L).getAssistedObject()));
@@ -49,7 +49,7 @@ public class T_e_s_tUtil {
 	}
 	
 	private static AssistedObjectChecker getRelKvo(Long value){
-		AssistedObjectChecker checker = objectHandlerFactory.createChecker(new KeyValueObject("test2Kvo"));
+		AssistedObjectHandler checker = objectHandlerFactory.createHandler(new KeyValueObject("test2Kvo"));
 		checker.set("longField", value);
 		return checker;
 	}

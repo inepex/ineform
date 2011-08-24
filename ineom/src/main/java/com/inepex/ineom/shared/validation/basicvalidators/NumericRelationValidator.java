@@ -1,9 +1,9 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.ineom.shared.util.DoubleUtil;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
@@ -52,7 +52,7 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 		double secondVal = 0;
 		String constvalAsString ="";
 		
-		AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+		AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
 		
 		switch (type) {
 			case DOUBLE:

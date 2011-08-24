@@ -3,7 +3,6 @@ package com.inepex.ineom.shared;
 import java.util.List;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
@@ -13,11 +12,13 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
 
-@Singleton
 public class AssistedObjectHandlerFactory {
 
 	private final DescriptorStore descriptorStore;
 
+	/**
+	 * can be injected or created with 'new AIHF(decStore)'
+	 */
 	@Inject
 	public AssistedObjectHandlerFactory(DescriptorStore descriptorStore) {
 		this.descriptorStore = descriptorStore;
@@ -26,28 +27,24 @@ public class AssistedObjectHandlerFactory {
 	public AssistedObjectHandler createHandler(AssistedObject assistedObject) {
 		return new AssistedObjectHandler(assistedObject);
 	}
-	
-	public AssistedObjectChecker createChecker(AssistedObject assistedObject) {
-		String descriptorName = assistedObject.getDescriptorName();
-		if (descriptorName == null) {
-			// TODO some logic
-		}
 
-		ObjectDesc objectDescriptor = descriptorStore.getOD(assistedObject
-				.getDescriptorName());
-		if (objectDescriptor == null) {
-			// TODO some logic
-		}
-		
-		return new AssistedObjectChecker(assistedObject, descriptorName, objectDescriptor);
-	}
-
-	public class AssistedObjectHandler {
-
-		private final AssistedObjectChecker checker;
+	public class AssistedObjectHandler extends AssistedObjectChecker {
 
 		private AssistedObjectHandler(AssistedObject assistedObject) {
-			this.checker = createChecker(assistedObject);
+			super(assistedObject, assistedObject.getDescriptorName(), descriptorStore.getOD(assistedObject.getDescriptorName()));
+			
+			String descriptorName = assistedObject.getDescriptorName();
+			if (descriptorName == null) {
+				// TODO some logic
+			}
+
+			ObjectDesc objectDescriptor = descriptorStore.getOD(assistedObject
+					.getDescriptorName());
+			if (objectDescriptor == null) {
+				// TODO some logic
+			}
+			
+			
 		}
 
 		// -------------------------------------------------------
@@ -107,38 +104,38 @@ public class AssistedObjectHandlerFactory {
 		public String getValueAsString(String key) {
 			Object o;
 
-			switch (checker.objectDescriptor.getField(key).getType()) {
+			switch (objectDescriptor.getField(key).getType()) {
 			case BOOLEAN:
-				o = checker.getBoolean(key) ? IFConsts.TRUE
+				o = getBoolean(key) ? IFConsts.TRUE
 						: IFConsts.FALSE;
 				return o == null ? null : o.toString();
 
 			case DOUBLE:
-				o = checker.getDouble(key);
+				o = getDouble(key);
 				return o == null ? null : o.toString();
 
 			case LIST:
-				o = checker.getList(key);
+				o = getList(key);
 				return o == null ? null : o.toString();
 
 			case LONG:
-				o = checker.getLong(key);
+				o = getLong(key);
 				return o == null ? null : o.toString();
 
 			case RELATION:
-				Relation r = checker.getRelation(key);
+				Relation r = getRelation(key);
 				return r == null ? null : r.getDisplayName();
 
 			case STRING:
-				o = checker.getString(key);
+				o = getString(key);
 				return o == null ? null : o.toString();
 			}
 
 			return null;
 		}
 
-		public AssistedObjectChecker getRelatedKVOMultiLevel(List<String> path) {
-			AssistedObjectChecker actual = checker;
+		public AssistedObjectHandler getRelatedKVOMultiLevel(List<String> path) {
+			AssistedObjectHandler actual = this;
 			for (int i = 0; i < path.size() - 1; i++) {
 				Relation rel = actual.getRelation(path.get(i));
 				if (rel == null) {
@@ -154,31 +151,28 @@ public class AssistedObjectHandlerFactory {
 							.getRelatedDescriptorName()));
 				}
 
-				actual = new AssistedObjectChecker(rel.getKvo(), rel.getKvo().getDescriptorName(),
-						descriptorStore.getOD(rel.getKvo().getDescriptorName()));
+				actual = createHandler(rel.getKvo());
 			}
 			
 			return actual;
 		}
 
-		public AssistedObjectChecker getDifference(AssistedObjectChecker original) {
+		public AssistedObjectHandler getDifference(AssistedObjectChecker original) {
 			if (original == null)
-				return checker;
+				return this;
 
-			if (!checker.descriptorName.equals(original.getDescriptorName()))
+			if (!descriptorName.equals(original.getDescriptorName()))
 				throw new IllegalArgumentException();
 
-			AssistedObjectChecker difference =
-				new AssistedObjectChecker(new KeyValueObject(
-						original.getDescriptorName(), original.getId()), original.getDescriptorName(),
-						descriptorStore.getOD(original.getDescriptorName()));
+			AssistedObjectHandler difference =
+				createHandler(new KeyValueObject(original.getDescriptorName(), original.getId()));
 
-			for (String key : checker.objectDescriptor.getFields().keySet()) {
-				FDesc fieldDesc = checker.objectDescriptor.getFields().get(key);
+			for (String key : objectDescriptor.getFields().keySet()) {
+				FDesc fieldDesc = objectDescriptor.getFields().get(key);
 				switch (fieldDesc.getType()) {
 				case BOOLEAN: {
 					Boolean orig = original.getBoolean(key);
-					Boolean chng = checker.getBoolean(key);
+					Boolean chng = getBoolean(key);
 					if (orig == null) {
 						if (chng == null)
 							continue;
@@ -191,7 +185,7 @@ public class AssistedObjectHandlerFactory {
 				}
 				case DOUBLE: {
 					Double orig = original.getDouble(key);
-					Double chng = checker.getDouble(key);
+					Double chng = getDouble(key);
 					if (orig == null) {
 						if (chng == null)
 							continue;
@@ -206,7 +200,7 @@ public class AssistedObjectHandlerFactory {
 					// IMPORTANT: IneList always just contains the difference
 					// after
 					// edited in a form!
-					IneList chng = checker.getList(key);
+					IneList chng = getList(key);
 					if (chng == null || chng.getRelationList() == null
 							|| chng.getRelationList().size() == 0)
 						continue;
@@ -215,7 +209,7 @@ public class AssistedObjectHandlerFactory {
 				}
 				case LONG: {
 					Long orig = original.getLong(key);
-					Long chng = checker.getLong(key);
+					Long chng = getLong(key);
 					if (orig == null) {
 						if (chng == null)
 							continue;
@@ -228,7 +222,7 @@ public class AssistedObjectHandlerFactory {
 				}
 				case RELATION: {
 					Relation orig = original.getRelation(key);
-					Relation chng = checker.getRelation(key);
+					Relation chng = getRelation(key);
 					if (orig == null) {
 						if (chng == null)
 							continue;
@@ -245,7 +239,7 @@ public class AssistedObjectHandlerFactory {
 								if (chng.getKvo() != null) {
 									AssistedObjectHandler hChng = createHandler(chng
 											.getKvo());
-									AssistedObjectChecker hOrig = createChecker(orig.getKvo());
+									AssistedObjectChecker hOrig = createHandler(orig.getKvo());
 									rel.setKvo(hChng.getDifference(hOrig).getAssistedObject());
 								}
 								difference.set(key, rel);
@@ -256,7 +250,7 @@ public class AssistedObjectHandlerFactory {
 				}
 				case STRING: {
 					String orig = original.getString(key);
-					String chng = checker.getString(key);
+					String chng = getString(key);
 					if (orig == null) {
 						if (chng == null)
 							continue;
@@ -275,7 +269,7 @@ public class AssistedObjectHandlerFactory {
 
 		
 		public <T extends Enum<T>> T getEnum(String key, Class<T> enumType) {
-			Long l = checker.getLong(key);
+			Long l = getLong(key);
 			if (l == null)
 				return null;
 			else

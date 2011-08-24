@@ -27,7 +27,7 @@ public class LengthValidator implements KeyValueObjectValidator {
 	public void doValidation(AssistedObject kvo,
 			ValidationResult validationResult) {
 		
-		String val = objectHandlerFactory.createChecker(kvo).getString(fieldName);
+		String val = objectHandlerFactory.createHandler(kvo).getString(fieldName);
 		if(val!=null && val.length()>maxLength) {
 			validationResult.addFieldError(fieldName, IneOmI18n.validatorLength(Integer.toString(maxLength)));
 		}

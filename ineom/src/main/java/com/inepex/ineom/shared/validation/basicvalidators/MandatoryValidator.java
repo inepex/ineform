@@ -1,9 +1,9 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
@@ -27,7 +27,7 @@ public class MandatoryValidator implements KeyValueObjectValidator {
 	@Override
 	public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
 		String msg=null;
-		AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+		AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
 		
 		switch (type) {
 			case BOOLEAN:

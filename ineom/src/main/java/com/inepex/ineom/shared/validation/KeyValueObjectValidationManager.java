@@ -164,7 +164,7 @@ public class KeyValueObjectValidationManager {
 					continue;
 
 				if (fDesc instanceof RelationFDesc) {
-					AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+					AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
 					Relation rel = checker.getRelation(fDesc.getKey());
 					if (rel == null) {
 						//FIXME
@@ -221,7 +221,7 @@ public class KeyValueObjectValidationManager {
 			if(fDesc==null) continue;
 			
 			if(fDesc instanceof RelationFDesc) {
-				AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+				AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
 				Relation rel = checker.getRelation(fDesc.getKey());
 				if (rel != null && rel.getKvo()!=null) {
 					ValidationResult vr = validate(rel.getKvo());

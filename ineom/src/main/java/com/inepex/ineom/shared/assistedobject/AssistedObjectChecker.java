@@ -13,15 +13,15 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
  *
  * it's not superclass of AssistedObject for avoid mistypes, but has the same methods
  * 
- * use {@link AssistedObjectHandlerFactory} to create instances
+ * see {@link AssistedObjectHandlerFactory}'s java doc too
  */
-public class AssistedObjectChecker {
+public abstract class AssistedObjectChecker {
 
 	private final AssistedObject assistedObject;
 	public final String descriptorName;
 	public final ObjectDesc objectDescriptor;
 
-	public AssistedObjectChecker(AssistedObject assistedObject,
+	protected AssistedObjectChecker(AssistedObject assistedObject,
 			String descriptorName, ObjectDesc objectDescriptor) {
 		this.assistedObject = assistedObject;
 		this.descriptorName = descriptorName;
@@ -168,6 +168,9 @@ public class AssistedObjectChecker {
 	}
 
 	public void copyValuesTo(AssistedObject otherKvo) {
+		if(!getDescriptorName().equals(otherKvo.getDescriptorName()))
+			throw new IllegalArgumentException();
+		
 		assistedObject.copyValuesTo(otherKvo);
 	}
 
