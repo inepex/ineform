@@ -22,7 +22,7 @@ import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineFrame.client.dialog.ConfirmDialogBox;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 /**
  * <p>DataManipulator is the base class for displaying a table and manipulating it's

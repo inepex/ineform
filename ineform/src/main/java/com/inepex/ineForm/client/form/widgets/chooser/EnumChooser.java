@@ -9,12 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneT;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.IneT;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class EnumChooser implements Chooser {
 	
@@ -33,8 +34,8 @@ public class EnumChooser implements Chooser {
 			if (supportsOrdering) {
 				Relation mappedRel1 = relationToItemId.get(o1.getId());
 				Relation mappedRel2 = relationToItemId.get(o2.getId());
-				return mappedRel1.getKvo().getLong(IFConsts.KEY_ORDERNUM)
-					.compareTo(mappedRel2.getKvo().getLong(IFConsts.KEY_ORDERNUM));
+				return handlerFactory.createHandler(mappedRel1.getKvo()).getLong(IFConsts.KEY_ORDERNUM)
+					.compareTo(handlerFactory.createHandler(mappedRel2.getKvo()).getLong(IFConsts.KEY_ORDERNUM));
 			}
 				
 			else return o1.getDisplayName().compareTo(o2.getDisplayName());
@@ -59,6 +60,7 @@ public class EnumChooser implements Chooser {
 	private String[] values;
 	
 	final DescriptorStore descStore;
+	final AssistedObjectHandlerFactory handlerFactory;
 	
 	public EnumChooser(DescriptorStore descStore
 			, ChooserView chooserView
@@ -70,6 +72,7 @@ public class EnumChooser implements Chooser {
 		this.widgetRDesc = widgetRDesc;
 		this.relationDescriptorName = relationDescriptorName;
 		this.descStore = descStore;
+		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
 		supportsOrdering = descStore.getOD(relationDescriptorName).containsKey(IFConsts.KEY_ORDERNUM);
 		
@@ -123,9 +126,9 @@ public class EnumChooser implements Chooser {
 		for (Relation rel : selected){
 			Item item = null;
 			if (isEnum) {
-				item = valueRange.get("" + rel.getKvo().getLong(secondLevelJoin));
+				item = valueRange.get("" + handlerFactory.createHandler(rel.getKvo()).getLong(secondLevelJoin));
 			} else {
-				item = valueRange.get(rel.getKvo().getString(secondLevelJoin));
+				item = valueRange.get(handlerFactory.createHandler(rel.getKvo()).getString(secondLevelJoin));
 			}
 			relationToItemId.put(item.getId(), rel);
 			select(item, false, false);
@@ -146,9 +149,9 @@ public class EnumChooser implements Chooser {
 			rel.setId(IFConsts.NEW_ITEM_ID);
 			KeyValueObject kvo = new KeyValueObject(relationDescriptorName);
 			if (isEnum) {
-				kvo.set(secondLevelJoin, Long.valueOf(item.getId()));
+				handlerFactory.createHandler(kvo).set(secondLevelJoin, Long.valueOf(item.getId()));
 			} else {
-				kvo.set(secondLevelJoin, item.getId());
+				handlerFactory.createHandler(kvo).set(secondLevelJoin, item.getId());
 			}		
 			rel.setKvo(kvo);
 		
@@ -265,10 +268,9 @@ public class EnumChooser implements Chooser {
 			for (int i = 0; i < selectedOrdered.size(); i++){
 				Relation mappedRel = relationToItemId.get(selectedOrdered.get(i).getId());
 				if (mappedRel.getKvo() != null){					
-					Long prevValue = mappedRel.getKvo()
-							.getLong(IFConsts.KEY_ORDERNUM);
-					mappedRel.getKvo()
-						.set(IFConsts.KEY_ORDERNUM, new Long(i));					
+					Long prevValue =
+						handlerFactory.createHandler(mappedRel.getKvo()).getLong(IFConsts.KEY_ORDERNUM);
+					handlerFactory.createHandler(mappedRel.getKvo()).set(IFConsts.KEY_ORDERNUM, new Long(i));					
 					
 					if (!changed.contains(mappedRel)
 							&& (prevValue == null || prevValue.longValue() != new Long(i).longValue()) 

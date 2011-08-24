@@ -15,9 +15,9 @@ import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class CachingValueRangeProvider extends ServerSideValueRangeProvider {
 

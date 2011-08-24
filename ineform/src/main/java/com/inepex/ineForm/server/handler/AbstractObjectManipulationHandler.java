@@ -11,7 +11,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 import com.inepex.ineom.shared.validation.ValidationException;
 import com.inepex.ineom.shared.validation.ValidationResult;

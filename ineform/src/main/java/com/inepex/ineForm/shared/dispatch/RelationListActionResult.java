@@ -2,9 +2,9 @@ package com.inepex.ineForm.shared.dispatch;
 
 import java.util.List;
 
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
-import com.inepex.ineom.shared.kvo.Relation;
 
 /**
  * 

@@ -30,10 +30,10 @@ import com.inepex.ineForm.client.form.widgets.richtextarea.RichTextAreaFW;
 import com.inepex.ineForm.client.form.widgets.upload.FileUploadFw;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
+import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
-import com.inepex.ineom.shared.kvo.IneT;
 
 public class DefaultFormWidgetFactory implements FormWidgetFactory {
 	

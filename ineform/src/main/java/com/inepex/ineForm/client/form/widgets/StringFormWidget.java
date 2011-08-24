@@ -1,10 +1,10 @@
 package com.inepex.ineForm.client.form.widgets;
 
 import com.inepex.ineForm.client.util.NumberUtilCln;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
 
 /**
  * A FormWidget for convenience, that converts every type of value to String

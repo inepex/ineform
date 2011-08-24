@@ -12,11 +12,12 @@ import java.util.TreeMap;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineForm.client.form.FormContext;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class RelationChooser implements Chooser {
 	private boolean supportsOrdering;
@@ -33,6 +34,7 @@ public class RelationChooser implements Chooser {
 	private Map<String, Relation> relationToItemId = new HashMap<String, Relation>();
 	
 	final DescriptorStore descStore;
+	final AssistedObjectHandlerFactory handlerFactory;
 	
 	private Comparator<Item> relationNameComparator = new Comparator<Item>() {
 
@@ -49,8 +51,8 @@ public class RelationChooser implements Chooser {
 			if (supportsOrdering) {
 				Relation mappedRel1 = relationToItemId.get(o1.getId());
 				Relation mappedRel2 = relationToItemId.get(o2.getId());
-				return mappedRel1.getKvo().getLong(IFConsts.KEY_ORDERNUM)
-					.compareTo(mappedRel2.getKvo().getLong(IFConsts.KEY_ORDERNUM));
+				return handlerFactory.createHandler(mappedRel1.getKvo()).getLong(IFConsts.KEY_ORDERNUM)
+					.compareTo(handlerFactory.createHandler(mappedRel2.getKvo()).getLong(IFConsts.KEY_ORDERNUM));
 			}
 				
 			else return o1.getDisplayName().compareTo(o2.getDisplayName());
@@ -67,6 +69,7 @@ public class RelationChooser implements Chooser {
 		this.fieldDescriptor = fielddescriptor;
 		this.relationDescriptorName = relationDescriptorName;
 		this.descStore = formCtx.descStore;
+		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
 		supportsOrdering = descStore.getOD(relationDescriptorName).containsKey(IFConsts.KEY_ORDERNUM);
 		
@@ -113,7 +116,7 @@ public class RelationChooser implements Chooser {
 	public void setSelected(List<Relation> relationList){
 		resetState();
 		for (Relation rel : relationList){
-			Relation mappedRel = rel.getKvo().getRelation(secondLevelJoin);
+			Relation mappedRel = handlerFactory.createHandler(rel.getKvo()).getRelation(secondLevelJoin);
 			Item item = new Item(mappedRel);
 			selected.add(item);
 			relationToItemId.put(item.getId(), rel);
@@ -151,7 +154,7 @@ public class RelationChooser implements Chooser {
 		parentRel.setId(IFConsts.NEW_ITEM_ID);
 		KeyValueObject kvo = new KeyValueObject(relationDescriptorName);
 		kvo.setId(IFConsts.NEW_ITEM_ID);
-		kvo.set(secondLevelJoin, (Relation)item.getO());
+		handlerFactory.createHandler(kvo).set(secondLevelJoin, (Relation)item.getO());
 		parentRel.setKvo(kvo);
 		relationToItemId.put(item.getId(), parentRel);
 		changed.add(parentRel);
@@ -254,10 +257,9 @@ public class RelationChooser implements Chooser {
 			for (int i = 0; i < selected.size(); i++){
 				Relation mappedRel = relationToItemId.get(selected.get(i).getId());
 				if (mappedRel.getKvo() != null){					
-					Long prevValue = mappedRel.getKvo()
-							.getLong(IFConsts.KEY_ORDERNUM);
-					mappedRel.getKvo()
-						.set(IFConsts.KEY_ORDERNUM, new Long(i));					
+					Long prevValue =
+						handlerFactory.createHandler(mappedRel.getKvo()).getLong(IFConsts.KEY_ORDERNUM);
+						handlerFactory.createHandler(mappedRel.getKvo()).set(IFConsts.KEY_ORDERNUM, new Long(i));					
 					
 					if (!changed.contains(mappedRel)
 							&& (prevValue == null || prevValue.longValue() != new Long(i).longValue()) 

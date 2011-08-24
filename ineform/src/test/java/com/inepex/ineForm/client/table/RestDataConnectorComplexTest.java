@@ -29,8 +29,8 @@ import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineom.shared.T_e_s_tUtil;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 /**
  * Not works because of json classes which tied to gwt

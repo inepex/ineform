@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.form.widgets.kvo;
 
-import com.inepex.ineom.shared.kvo.KeyValueObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class ContactNatRelKVO extends KeyValueObject {
 

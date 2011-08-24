@@ -12,8 +12,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class RadioEnumSelectorFW extends DenyingFormWidget {
 	

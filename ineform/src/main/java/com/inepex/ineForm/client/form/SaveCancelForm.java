@@ -26,11 +26,11 @@ import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.ValidationResult;
 

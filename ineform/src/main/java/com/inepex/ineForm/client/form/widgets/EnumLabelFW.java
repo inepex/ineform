@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class EnumLabelFW extends DenyingFormWidget {
 	

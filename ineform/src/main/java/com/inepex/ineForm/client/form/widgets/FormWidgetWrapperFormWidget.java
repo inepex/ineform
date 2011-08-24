@@ -2,8 +2,8 @@ package com.inepex.ineForm.client.form.widgets;
 
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
 
 /**
  * overriding this class is the easiest way to wrap a formWidget

@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
 
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 /**
  * General action for searching when a {@link List} of {@link KeyValueObject} is returned.

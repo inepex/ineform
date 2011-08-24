@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class RelationListFwTest extends DefaultIneFormClientSideTestBase {
 	

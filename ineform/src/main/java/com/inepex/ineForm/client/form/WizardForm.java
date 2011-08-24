@@ -17,7 +17,7 @@ import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.IFConsts;
 
 public class WizardForm extends SaveCancelForm {
 

@@ -3,9 +3,9 @@ package com.inepex.ineForm.shared.dispatch;
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.inepex.ineFrame.shared.dispatch.Loggable;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 /**
  * This action can be easily used with ServerSideTableModel that supports

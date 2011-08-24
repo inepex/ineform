@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
-import com.inepex.ineFrame.server.KeyValueObjcetHidingUtil;
+import com.inepex.ineFrame.server.KeyValueObjectFieldFilter;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 
@@ -38,7 +38,7 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		
 		List<String> enabled_keys = SharedUtil.Li(NationalityKVO.k_name, "afdgsd", "sfdfds");
 		
-		KeyValueObject result = KeyValueObjcetHidingUtil.createHidedKVO(descStore, enabled_keys, kvo);
+		KeyValueObject result = KeyValueObjectFieldFilter.filterKvo(descStore, enabled_keys, kvo);
 		
 		Assert.assertEquals(NationalityKVO.descriptorName, result.getDescriptorName());
 		Assert.assertEquals(kvo.getDescriptorName(), result.getDescriptorName());
@@ -62,7 +62,7 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		
 		List<String> enabled_keys = SharedUtil.Li("afdgsd", "sfdfds");
 		
-		KeyValueObject result = KeyValueObjcetHidingUtil.createHidedKVO(descStore,enabled_keys, kvo);
+		KeyValueObject result = KeyValueObjectFieldFilter.filterKvo(descStore,enabled_keys, kvo);
 		
 		Assert.assertEquals(NationalityKVO.descriptorName, result.getDescriptorName());
 		Assert.assertEquals(kvo.getDescriptorName(), result.getDescriptorName());
@@ -89,7 +89,7 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		List<String> enabled_keys = SharedUtil.Li(NationalityKVO.k_name);
 		
 		KeyValueObject result = 
-			KeyValueObjcetHidingUtil.createHidedKVO(descStore, enabled_keys, kvo);
+			KeyValueObjectFieldFilter.filterKvo(descStore, enabled_keys, kvo);
 		
 		Assert.assertNull(result.getString(NationalityKVO.k_name));
 		Assert.assertTrue(result.getKeys().contains(NationalityKVO.k_name));

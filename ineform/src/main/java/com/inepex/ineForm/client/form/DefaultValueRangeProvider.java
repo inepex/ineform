@@ -4,11 +4,11 @@ import com.google.inject.Inject;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
-import com.inepex.ineom.shared.kvo.IneT;
 
 public abstract class DefaultValueRangeProvider implements ValueRangeProvider {
 

@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class EnumListFW extends AbstractListBoxFW {
 	public final static String enumValues = "enumValues";

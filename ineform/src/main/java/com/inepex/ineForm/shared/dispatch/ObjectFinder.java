@@ -2,9 +2,9 @@ package com.inepex.ineForm.shared.dispatch;
 
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 public class ObjectFinder<T extends AssistedObject> {
 	

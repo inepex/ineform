@@ -17,8 +17,8 @@ import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
 import com.inepex.ineFrame.server.util.CETDateProviderSrv;
 import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public class HtmlRendererTest extends DefaultIneFormClientSideTestBase {
 	List<AssistedObject> kvos;

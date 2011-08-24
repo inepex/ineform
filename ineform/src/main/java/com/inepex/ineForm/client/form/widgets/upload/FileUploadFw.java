@@ -24,8 +24,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class FileUploadFw extends DenyingFormWidget {
 	private static final String imageBaseUrl = "documents/";

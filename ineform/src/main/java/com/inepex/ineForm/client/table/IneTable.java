@@ -41,12 +41,14 @@ import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 /**
@@ -89,6 +91,7 @@ public class IneTable extends HandlerAwareComposite {
 	// Dependencies
 	protected final IneDataConnector dataConnector;
 	protected final DescriptorStore descStore;
+	protected final AssistedObjectHandlerFactory handlerFactory;
 	
 	private SingleSelectionModel<AssistedObject> singleSelectionModel = null;
 	protected SimplePager pager = null;
@@ -171,6 +174,8 @@ public class IneTable extends HandlerAwareComposite {
 			TableRDesc tableRenderDescriptor,
 			IneDataConnector dataProvider) {
 		this.descStore = descStore;
+		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
+		
 		cellTable = new CellTable<AssistedObject>(DEFAULT_PAGE_SIZE, IneCellTableResources.INSTANCE, KEY_PROVIDER) {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
@@ -418,9 +423,10 @@ public class IneTable extends HandlerAwareComposite {
 		@Override
 		public void render(Context context, AssistedObject rowValue,
 				 SafeHtmlBuilder sb) {
+			AssistedObjectHandler rowHandler = handlerFactory.createHandler(rowValue);
 			//custom cell display
 			if(customCellContentDisplayer!=null) {
-				String customHtmlContent = customCellContentDisplayer.getCustomCellContent(rowValue, key, colRdesc);
+				String customHtmlContent = customCellContentDisplayer.getCustomCellContent(rowHandler, key, colRdesc);
 					if(customHtmlContent!=null) {
 						sb.appendHtmlConstant(customHtmlContent);
 					}
@@ -432,41 +438,41 @@ public class IneTable extends HandlerAwareComposite {
 					String result = null;
 		
 					if(SharedUtil.isMultilevelKey(key))
-						rowValue = rowValue.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
+						rowHandler = rowHandler.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
 					
 					//default cell display
 					if (colRdesc.getPropValue(ColRDesc.AS_DATE) != null) {
-						Long date = rowValue.getLong(deepestKey);
+						Long date = rowHandler.getLong(deepestKey);
 						if (date != null)
 							result = defaultDateTimeFormat.format(dateProvider.getDate(date));
 					} else if (colRdesc.getPropValue(ColRDesc.AS_SHORTDATE) != null) {
-						Long date = rowValue.getLong(deepestKey);
+						Long date = rowHandler.getLong(deepestKey);
 						if (date != null)
 							result = defaultShortDateTimeFormat.format(dateProvider.getDate(date));
 					} else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
-						Double val = rowValue.getDouble(deepestKey);
+						Double val = rowHandler.getDouble(deepestKey);
 						if (val != null) {
 							result = new NumberUtilCln().formatNumberToFractial(val, Integer.parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
 						}
 					} else if (colRdesc.getPropValue(ColRDesc.AS_DATE_WITHSEC) != null) {
-						Long date = rowValue.getLong(deepestKey);
+						Long date = rowHandler.getLong(deepestKey);
 						if (date != null)
 							result = defaultSecDateTimeFormat.format(dateProvider.getDate(date));
 					} else if (colRdesc.getPropValue(EnumListFW.enumValues) != null) {
 						String[] enumValues = colRdesc.getPropValue(
 								EnumListFW.enumValues).split(IFConsts.enumValueSplitChar);
-						if (null!=rowValue.getLong(deepestKey))
-							result = enumValues[rowValue.getLong(deepestKey).intValue()];
+						if (null!=rowHandler.getLong(deepestKey))
+							result = enumValues[rowHandler.getLong(deepestKey).intValue()];
 					} else if (colRdesc.getPropValue(ColRDesc.AS_GROUPTHOUSANDS) != null) {
-						Long val = rowValue.getLong(deepestKey);
+						Long val = rowHandler.getLong(deepestKey);
 						if (val != null)
 							result = new NumberUtilCln().formatNumberGroupThousands(val);
 					} else if (colRdesc.getPropValue(ColRDesc.AS_FORMATTEDDOUBLE)!=null) {
-						Double val = rowValue.getDouble(deepestKey);
+						Double val = rowHandler.getDouble(deepestKey);
 						if (val != null)
 							result = new NumberUtilCln().formatNumberToFractial(val);	
 					} else
-						result = rowValue.getValueAsString(deepestKey);
+						result = rowHandler.getValueAsString(deepestKey);
 		
 					if (result == null)
 						result = "";
@@ -517,7 +523,7 @@ public class IneTable extends HandlerAwareComposite {
 		/**
 		 * @return the html (or string) value of the pointed column's
 		 */
-		public String getCustomCellContent(AssistedObject rowKvo, String fieldId, ColRDesc colRDesc);
+		public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc);
 	}
 	
 	

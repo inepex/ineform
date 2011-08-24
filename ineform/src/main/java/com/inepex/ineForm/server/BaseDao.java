@@ -8,23 +8,27 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
 
 public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 
+	protected final AssistedObjectHandlerFactory handlerFactory;
 	protected final Provider<EntityManager> em;
+	
 	protected ManipulationObjectFactory objectFactory;
 
 	@Inject
-	public BaseDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory) {
+	public BaseDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory, AssistedObjectHandlerFactory handlerFactory) {
 		this.em = em;
 		this.objectFactory = objectFactory;
+		this.handlerFactory=handlerFactory;
 	}
 
 	public abstract BaseQuery<E> getQuery();
@@ -179,8 +183,9 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 	public AssistedObject mergeWithDbState(AssistedObject difference) {
 		if (difference.isNew())
 			return difference;
+		
 		AssistedObject dbState = findKvoById(difference.getId());
-		difference.copyValuesTo((KeyValueObject) dbState);
+		handlerFactory.createHandler(difference).copyValuesTo(dbState);
 		return dbState;
 	}
 

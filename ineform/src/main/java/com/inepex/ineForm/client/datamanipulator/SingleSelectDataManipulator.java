@@ -11,7 +11,7 @@ import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class SingleSelectDataManipulator extends DataManipulator {
 	private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();

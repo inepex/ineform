@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class RelationList {
 

@@ -3,8 +3,8 @@ package com.inepex.ineForm.shared.dispatch;
 import java.io.Serializable;
 import java.util.List;
 
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 /**
  * General action for searching when a {@link List} of {@link KeyValueObject} is returned.
@@ -34,9 +34,9 @@ public class AbstractSearchAction implements Serializable{
 	public AbstractSearchAction() {
 	}
 
-	public AbstractSearchAction(String descriptorName,
+	public AbstractSearchAction(String descriptorName, String searchDescriptorName,
 			int firstResult, int numMaxResult, boolean queryResultCount){
-		this(descriptorName, new KeyValueObject(), firstResult, numMaxResult, queryResultCount);
+		this(descriptorName, new KeyValueObject(searchDescriptorName), firstResult, numMaxResult, queryResultCount);
 	}
 	
 	public AbstractSearchAction(String descriptorName, AssistedObject searchParameters,

@@ -21,19 +21,21 @@ import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.KeyValueObjectSerializer;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.KeyValueObjectSerializer.ListSerializer;
+import com.inepex.ineom.shared.KeyValueObjectSerializer.RelationSerializer;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
-import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer;
-import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer.ListSerializer;
-import com.inepex.ineom.shared.kvo.KeyValueObjectSerializer.RelationSerializer;
-import com.inepex.ineom.shared.kvo.Relation;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 /**
@@ -89,11 +91,15 @@ public class RestDataConnector extends IneDataConnector {
 	boolean serializeId;
 	Map<String, ResultExtractor> descriptorToExtractorMapping = new HashMap<String, ResultExtractor>();
 	ErrorExtractor errorExtractor;
+	DescriptorStore descriptorStore;
+	AssistedObjectHandlerFactory handlerFactory;
 	
 	@Inject
 	public RestDataConnector(EventBus eventBus, 
 			AsyncStatusIndicator statusIndicator,
 			RequestBuilderFactory requestBuilderFactory,
+			DescriptorStore descriptorStore,
+			AssistedObjectHandlerFactory handlerFactory,
 			@Assisted("descriptorName") String descriptorName,
 			@Assisted("getUrl") String getUrl,
 			@Assisted("newUrl") String newUrl, 
@@ -105,10 +111,12 @@ public class RestDataConnector extends IneDataConnector {
 		this.statusIndicator = statusIndicator;
 		this.requestBuilderFactory = requestBuilderFactory;
 		this.getUrl = getUrl;
+		this.handlerFactory=handlerFactory;
 		this.newUrl = newUrl;
 		this.modifyUrl = modifyUrl;
 		this.deleteUrl = deleteUrl;
 		this.serializeId = serializeId;
+		this.descriptorStore=descriptorStore;
 	}
 	
 	public void setListSerializer(ListSerializer listSerializer) {
@@ -128,7 +136,7 @@ public class RestDataConnector extends IneDataConnector {
 	}
 
 	private String getSerializedValue(AssistedObject object){
-		return new KeyValueObjectSerializer(object, "&", "=")
+		return new KeyValueObjectSerializer(handlerFactory.createHandler(object), "&", "=")
 		.setListSerializer(listSerializer)
 		.setRelationSerializer(relationSerializer)
 		.setIncludeId(serializeId)
@@ -142,7 +150,7 @@ public class RestDataConnector extends IneDataConnector {
 		} else {
 			jso = JSONParser.parseStrict(jsonString).isObject();
 		}
-		return new KvoJsonParser(jso, descriptorName).parse();
+		return new KvoJsonParser(descriptorStore, jso, descriptorName).parse();
 	}
 
 	public void setErrorExtractor(ErrorExtractor errorExtractor) {

@@ -1,8 +1,8 @@
 package com.inepex.ineForm.client.form.widgets;
 
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
 
 /**
  * A {@link FormWidget} child that overrides all abstract classes, and does not support

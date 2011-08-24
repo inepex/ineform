@@ -3,8 +3,8 @@ package com.inepex.ineForm.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 
 public abstract class BaseMapper<E> {

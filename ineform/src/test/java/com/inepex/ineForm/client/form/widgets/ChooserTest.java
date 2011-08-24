@@ -14,9 +14,9 @@ import com.inepex.ineForm.client.form.widgets.chooser.Item;
 import com.inepex.ineForm.client.form.widgets.chooser.RelationChooser;
 import com.inepex.ineForm.client.form.widgets.kvo.ContactNatRelKVO;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class ChooserTest extends DefaultIneFormClientSideTestBase {
 

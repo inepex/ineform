@@ -1,7 +1,7 @@
 package com.inepex.ineForm.server.upload;
 
 import com.google.inject.servlet.ServletModule;
-import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.IFConsts;
 
 public class UploadServletModule extends ServletModule {
 	

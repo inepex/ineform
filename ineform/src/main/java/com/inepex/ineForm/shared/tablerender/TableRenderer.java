@@ -10,12 +10,14 @@ import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IFConsts;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public abstract class TableRenderer {
@@ -67,6 +69,7 @@ public abstract class TableRenderer {
 
 
 	public String render(List<AssistedObject> kvos){
+		AssistedObjectHandlerFactory factory = new AssistedObjectHandlerFactory(descStore);
 		sb = new StringBuffer();
 		renderStart();
 		if (renderHeader) renderHeader();
@@ -82,9 +85,9 @@ public abstract class TableRenderer {
 				
 				FDesc fieldDesc = getFieldDescForColumn(columnNode);
 				
-				AssistedObject kvoOrRelatedKvo = kvo.getRelatedKVOMultiLevel(
+				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
-				sb.append(renderField(fieldDesc, colRenderDesc, kvoOrRelatedKvo));
+				sb.append(renderField(fieldDesc, colRenderDesc, kvoOrRelatedKvoChecker));
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
 					renderFieldEnd();
@@ -135,7 +138,7 @@ public abstract class TableRenderer {
 	protected abstract void renderHeaderFieldEnd();
 	
 	
-	protected String renderField(FDesc fieldDesc, ColRDesc colRdesc, AssistedObject rowValue){
+	protected String renderField(FDesc fieldDesc, ColRDesc colRdesc, AssistedObjectHandler rowValue){
 		try {	
 	
 			String deepestKey = SharedUtil.deepestKey(fieldDesc.getKey());

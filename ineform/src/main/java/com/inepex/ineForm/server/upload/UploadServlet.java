@@ -23,7 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineFrame.server.util.OnDemandProperties;
-import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.IFConsts;
 
 @Singleton
 public class UploadServlet extends HttpServlet {

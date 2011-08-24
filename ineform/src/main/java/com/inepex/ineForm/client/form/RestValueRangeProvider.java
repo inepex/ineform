@@ -19,11 +19,11 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
+import com.inepex.ineom.shared.IneT;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IneT;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class RestValueRangeProvider implements ValueRangeProvider {
 

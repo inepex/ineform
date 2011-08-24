@@ -7,10 +7,10 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.table.DummyDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class IneTableFW extends DenyingFormWidget {
 

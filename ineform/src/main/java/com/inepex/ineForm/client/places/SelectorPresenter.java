@@ -26,7 +26,7 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlacePresenter;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.Relation;
 
 public class SelectorPresenter  implements ParamPlacePresenter{
 	

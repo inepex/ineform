@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.form.events;
 
 import com.google.gwt.event.shared.EventHandler;
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class BeforeSaveEvent extends FormLifecycleEventBase<BeforeSaveEvent.Handler> {
 

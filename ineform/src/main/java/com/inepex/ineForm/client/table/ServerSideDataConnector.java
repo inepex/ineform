@@ -15,10 +15,10 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.PushedActionContext;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 /**
  * IneDataConnector, that lists and manipualtes {@link AssistedObject}s. You can

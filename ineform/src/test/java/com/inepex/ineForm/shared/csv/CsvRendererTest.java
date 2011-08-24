@@ -16,8 +16,8 @@ import com.inepex.ineForm.server.util.NumberUtilSrv;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
 import com.inepex.ineFrame.server.util.CETDateProviderSrv;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public class CsvRendererTest extends DefaultIneFormClientSideTestBase {
 

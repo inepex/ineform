@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.form.widgets.kvo.search;
 
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.KeyValueObject;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class ContactSearchKVO extends KeyValueObject {
 

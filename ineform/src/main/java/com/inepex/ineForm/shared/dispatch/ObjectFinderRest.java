@@ -14,7 +14,8 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser.ResultObjectExtractor;
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class ObjectFinderRest {
 	public static interface ResultExtractor {
@@ -23,19 +24,24 @@ public class ObjectFinderRest {
 		
 	}
 	
-	String descriptorName;
-	String url;
-	RequestBuilderFactory requestBuilderFactory;
-	ResultExtractor resultExtractor;
-	Map<String, ResultObjectExtractor> customResultExtractors = new HashMap<String, KvoJsonParser.ResultObjectExtractor>();
+	private final String descriptorName;
+	private final String url;
+	private final DescriptorStore descriptorStore;
+	private final RequestBuilderFactory requestBuilderFactory;
+	private final ResultExtractor resultExtractor;
+	
+	private Map<String, ResultObjectExtractor> customResultExtractors = new HashMap<String, KvoJsonParser.ResultObjectExtractor>();
 
 	@Inject
-	public ObjectFinderRest(RequestBuilderFactory requestBuilderFactory
+	public ObjectFinderRest(RequestBuilderFactory requestBuilderFactory,
+			DescriptorStore descriptorStore
 			, @Assisted("descriptorName") String descriptorName
 			, @Assisted("url") String url
 			, @Assisted ResultExtractor resultExtractor 
 			, @Assisted Map<String, ResultObjectExtractor> customResultExtractors
 			) {
+		
+		this.descriptorStore=descriptorStore;
 		this.requestBuilderFactory = requestBuilderFactory;
 		this.url = url;
 		this.descriptorName = descriptorName;
@@ -52,8 +58,7 @@ public class ObjectFinderRest {
 			public void onResponseReceived(Request request, Response response) {
 					if (response.getStatusCode() == Response.SC_OK) {
 						
-						
-						AssistedObject kvo = new KvoJsonParser(
+						AssistedObject kvo = new KvoJsonParser(descriptorStore,
 								resultExtractor.extract(response.getText())
 								, descriptorName).setCustomResultExtractors(customResultExtractors).parse();
 						callback.onSuccess(kvo);

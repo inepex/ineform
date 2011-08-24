@@ -7,10 +7,10 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.HasData;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public class DummyDataConnector extends IneDataConnector{
 

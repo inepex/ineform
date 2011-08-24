@@ -10,8 +10,8 @@ import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Render
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.dialog.InfoDialog;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.dispatch.GenericResult;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ExportUtil {
 

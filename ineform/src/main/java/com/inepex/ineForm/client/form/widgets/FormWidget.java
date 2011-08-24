@@ -7,9 +7,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public abstract class FormWidget extends HandlerAwareComposite {
 		
