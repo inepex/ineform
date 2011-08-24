@@ -1,6 +1,8 @@
-package com.inepex.ineom.shared.kvo;
+package com.inepex.ineom.shared;
 
 import java.io.Serializable;
+
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class Relation implements Serializable {
 

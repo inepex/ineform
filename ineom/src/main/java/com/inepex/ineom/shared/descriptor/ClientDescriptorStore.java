@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.google.inject.Inject;
-import com.inepex.ineom.shared.kvo.ExposedDescStore;
 
 /**
  * This class is used for storing {@link ObjectDesc}s, {@link FormRDesc}s, {@link ValidatorDesc}s
@@ -23,7 +22,6 @@ public class ClientDescriptorStore implements DescriptorStore {
 	
 	@Inject
 	public ClientDescriptorStore() {
-		ExposedDescStore.setExposedStore(this);
 	}
 
 	protected final Map<String, ObjectDesc>	objectDescriptorMap = new TreeMap<String, ObjectDesc>();

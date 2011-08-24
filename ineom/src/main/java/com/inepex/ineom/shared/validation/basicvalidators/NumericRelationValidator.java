@@ -1,14 +1,18 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IneT;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IneT;
 import com.inepex.ineom.shared.util.DoubleUtil;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class NumericRelationValidator implements KeyValueObjectValidator{
 
+	private final AssistedObjectHandlerFactory objectHandlerFactory;
+	
 	private final String firstFieldName;
 	private String secondFieldName;
 	private Double constval;
@@ -21,7 +25,9 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 		gt, lt, ge, le, eq;
 	}
 	
-	public NumericRelationValidator(IneT type, String fieldName, String numberOrFieldname, RelType reltype, String fieldDisplayname) {
+	public NumericRelationValidator(IneT type, String fieldName,
+			String numberOrFieldname, RelType reltype, String fieldDisplayname, AssistedObjectHandlerFactory objectHandlerFactory) {
+		this.objectHandlerFactory=objectHandlerFactory;
 		this.firstFieldName=fieldName;
 		this.type=type;
 		this.reltype=reltype;
@@ -46,14 +52,16 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 		double secondVal = 0;
 		String constvalAsString ="";
 		
+		AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+		
 		switch (type) {
 			case DOUBLE:
-				Double tmp = kvo.getDouble(firstFieldName);
+				Double tmp = checker.getDouble(firstFieldName);
 				if(tmp==null) return;
 				else firstVal=tmp;
 				
 				if (secondFieldName != null){
-					tmp = kvo.getDouble(secondFieldName);
+					tmp = checker.getDouble(secondFieldName);
 					if(tmp==null) return;
 					else secondVal=tmp;
 				} else {
@@ -63,12 +71,12 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 				break;
 				
 			case LONG:
-				Long tmp2 = kvo.getLong(firstFieldName);
+				Long tmp2 = checker.getLong(firstFieldName);
 				if(tmp2==null) return;
 				else firstVal=tmp2;
 				
 				if (secondFieldName != null){
-					tmp2 = kvo.getLong(secondFieldName);
+					tmp2 = checker.getLong(secondFieldName);
 					if (tmp2 == null) return;
 					else secondVal = tmp2;
 				} else {

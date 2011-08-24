@@ -1,6 +1,6 @@
 package com.inepex.ineom.shared.validation;
 
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public interface KeyValueObjectValidator {
 

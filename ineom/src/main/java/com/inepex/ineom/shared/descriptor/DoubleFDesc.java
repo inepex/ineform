@@ -2,7 +2,7 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
-import com.inepex.ineom.shared.kvo.IneT;
+import com.inepex.ineom.shared.IneT;
 
 public class DoubleFDesc extends NumericFDesc implements
 		Serializable {

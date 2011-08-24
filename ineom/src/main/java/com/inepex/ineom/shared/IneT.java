@@ -1,4 +1,4 @@
-package com.inepex.ineom.shared.kvo;
+package com.inepex.ineom.shared;
 
 /**
  * @author Istv�n Szoboszlai

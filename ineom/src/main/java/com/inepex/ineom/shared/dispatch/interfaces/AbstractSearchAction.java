@@ -1,6 +1,7 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+
 
 public interface AbstractSearchAction {
 

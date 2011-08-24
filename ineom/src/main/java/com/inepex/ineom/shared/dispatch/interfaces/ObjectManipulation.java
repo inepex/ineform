@@ -1,7 +1,7 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public interface ObjectManipulation {
 

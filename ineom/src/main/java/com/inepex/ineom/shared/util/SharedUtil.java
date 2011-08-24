@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class SharedUtil {
@@ -61,15 +61,6 @@ public class SharedUtil {
 	
 	public static boolean isMultilevelKey(String key) {
 		return key.contains(ID_PART_SEPARATOR);
-	}
-	
-	public static void validateBoolean(String errorMsg, ValidationResult vr, AssistedObject kvo, String... fields) {
-		for(String field : fields) {
-			Boolean b = kvo.getBoolean(field);
-			if(b!=null && b) return;
-		}
-		
-		vr.addFieldError(fields[0], errorMsg);
 	}
 
 	public static Set<String> Set(String... strings) {

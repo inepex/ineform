@@ -1,20 +1,23 @@
 package com.inepex.ineom.shared.validation;
 
-import static com.inepex.ineom.shared.util.SharedUtil.*;
+import static com.inepex.ineom.shared.util.SharedUtil.listFromDotSeparated;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IneT;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IneT;
-import com.inepex.ineom.shared.kvo.Relation;
 import com.inepex.ineom.shared.validation.basicvalidators.BeforeAfterValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.EmailValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.LengthValidator;
@@ -36,11 +39,23 @@ public class KeyValueObjectValidationManager {
 	public final static String EMAIL = "email";
 	
 	private final DescriptorStore descStore;
+	private final AssistedObjectHandlerFactory objectHandlerFactory;
 	
 	@Inject
-	protected KeyValueObjectValidationManager(DescriptorStore descStore) {
+	protected KeyValueObjectValidationManager(DescriptorStore descStore, AssistedObjectHandlerFactory objectHandlerFactory) {
 		this.descStore = descStore;
+		this.objectHandlerFactory=objectHandlerFactory;
 	}
+	
+	//TODO create handmade validator for boolean list
+//	public static void validateBoolean(String errorMsg, ValidationResult vr, AssistedObject kvo, String... fields) {
+//		for(String field : fields) {
+//			Boolean b = kvo.getBoolean(field);
+//			if(b!=null && b) return;
+//		}
+//		
+//		vr.addFieldError(fields[0], errorMsg);
+//	}
 	
 	
 //------------------------------ GETTING VALIDATORS
@@ -65,34 +80,34 @@ public class KeyValueObjectValidationManager {
 		
 		//mandatory
 		if(validatorName.contains(MANDATORY))
-			return new MandatoryValidator(type, fieldName);
+			return new MandatoryValidator(type, fieldName, objectHandlerFactory);
 				
 		//relation
 		if(validatorName.contains(LESSTHEN))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSTHEN+":", ""), RelType.lt, fieldDisplayname);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSTHEN+":", ""), RelType.lt, fieldDisplayname, objectHandlerFactory);
 		if(validatorName.contains(GREATERTHEN))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATERTHEN+":", ""), RelType.gt, fieldDisplayname);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATERTHEN+":", ""), RelType.gt, fieldDisplayname, objectHandlerFactory);
 		if(validatorName.contains(LESSEQUAL))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSEQUAL+":", ""), RelType.le, fieldDisplayname);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSEQUAL+":", ""), RelType.le, fieldDisplayname, objectHandlerFactory);
 		if(validatorName.contains(GREATEREQUAL))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATEREQUAL+":", ""), RelType.ge, fieldDisplayname);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATEREQUAL+":", ""), RelType.ge, fieldDisplayname, objectHandlerFactory);
 		if(validatorName.contains(EQUAL))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(EQUAL+":", ""), RelType.eq, fieldDisplayname);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(EQUAL+":", ""), RelType.eq, fieldDisplayname, objectHandlerFactory);
 		
 
 		//timeline
 		if(validatorName.contains(BEFORE))
-			return new BeforeAfterValidator(fieldName, validatorName.replaceAll(BEFORE+":", ""), false, fieldDisplayname);
+			return new BeforeAfterValidator(fieldName, validatorName.replaceAll(BEFORE+":", ""), false, fieldDisplayname, objectHandlerFactory);
 		if(validatorName.contains(AFTER))
-			return new BeforeAfterValidator(validatorName.replaceAll(AFTER+":", ""), fieldName, true, fieldDisplayname);
+			return new BeforeAfterValidator(validatorName.replaceAll(AFTER+":", ""), fieldName, true, fieldDisplayname, objectHandlerFactory);
 		
 		//length of a string
 		if(validatorName.contains(MAXLENGTH))
-			return new LengthValidator(type, fieldName, Integer.parseInt(validatorName.replaceAll(MAXLENGTH+":", "")));
+			return new LengthValidator(type, fieldName, Integer.parseInt(validatorName.replaceAll(MAXLENGTH+":", "")), objectHandlerFactory);
 		
 		//e-mail
 		if(validatorName.contains(EMAIL))
-			return new EmailValidator(type, fieldName);
+			return new EmailValidator(type, fieldName, objectHandlerFactory);
 		
 		
 		return null;
@@ -149,7 +164,8 @@ public class KeyValueObjectValidationManager {
 					continue;
 
 				if (fDesc instanceof RelationFDesc) {
-					Relation rel = kvo.getRelation(fDesc.getKey());
+					AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+					Relation rel = checker.getRelation(fDesc.getKey());
 					if (rel == null) {
 						//FIXME
 //						rel = new Relation();
@@ -197,14 +213,16 @@ public class KeyValueObjectValidationManager {
 		
 		for(String fieldName : fieldNames) {
 			List<String> nameAsList = listFromDotSeparated(fieldName);
-			AssistedObject actual = kvo.getRelatedKVOMultiLevel(nameAsList);
+			AssistedObjectHandler handler = objectHandlerFactory.createHandler(kvo);
+			AssistedObjectChecker actual = handler.getRelatedKVOMultiLevel(nameAsList);
 			String lastKey = nameAsList.get(nameAsList.size()-1);
 			FDesc fDesc = descStore.getRelatedFieldDescrMultiLevel(od, nameAsList);
 			
 			if(fDesc==null) continue;
 			
 			if(fDesc instanceof RelationFDesc) {
-				Relation rel = kvo.getRelation(fDesc.getKey());
+				AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+				Relation rel = checker.getRelation(fDesc.getKey());
 				if (rel != null && rel.getKvo()!=null) {
 					ValidationResult vr = validate(rel.getKvo());
 					if(!vr.isValid()) {
@@ -227,7 +245,7 @@ public class KeyValueObjectValidationManager {
 			
 			for(String validatorName : fDesc.getValidatorNames()) {
 				KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName());
-				if(validator!=null) validator.doValidation(actual, vr);
+				if(validator!=null) validator.doValidation(actual.getAssistedObject(), vr);
 			}
 			
 			if(!vr.isValid()) {
@@ -239,7 +257,7 @@ public class KeyValueObjectValidationManager {
 				}
 			}
 			
-			//TODO relation list
+			//TODO relation list: there is some rel list validation in SaveCancelForm
 		}
 		
 		//TODO handling handmade validators

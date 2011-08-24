@@ -1,6 +1,6 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
-import com.inepex.ineom.shared.kvo.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public interface ObjectManipulationResult extends GenericResult {

@@ -1,11 +1,7 @@
-package com.inepex.ineom.shared.kvo;
+package com.inepex.ineom.shared.assistedobject;
 
+@SuppressWarnings("serial")
 public class InvalidKeyException extends RuntimeException {
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1146288007549495343L;
 
 	public InvalidKeyException() {
 	}

@@ -1,18 +1,23 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class BeforeAfterValidator implements KeyValueObjectValidator{
+	
+	private final AssistedObjectHandlerFactory objectHandlerFactory;
 	
 	private final String before;
 	private final String after;
 	private final String otherFieldsName;
 	private final boolean msgOnFirst;
 	
-	public BeforeAfterValidator(String before, String after, boolean msgOnFirst, String nameOfIndex) {
+	public BeforeAfterValidator(String before, String after, boolean msgOnFirst, String nameOfIndex, AssistedObjectHandlerFactory objectHandlerFactory) {
+		this.objectHandlerFactory=objectHandlerFactory;
 		this.before=before;
 		this.after=after;
 		this.otherFieldsName=nameOfIndex;
@@ -21,8 +26,9 @@ public class BeforeAfterValidator implements KeyValueObjectValidator{
 
 	@Override
 	public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
-		Long lb=kvo.getLong(before);
-		Long la=kvo.getLong(after);
+		AssistedObjectChecker checker = objectHandlerFactory.createChecker(kvo);
+		Long lb=checker.getLong(before);
+		Long la=checker.getLong(after);
 		
 		if(lb==null || la==null) return;
 		

@@ -1,4 +1,4 @@
-package com.inepex.ineom.shared.kvo;
+package com.inepex.ineom.shared;
 
 public class IFConsts {
 	public static final String KEY_ID = "id";

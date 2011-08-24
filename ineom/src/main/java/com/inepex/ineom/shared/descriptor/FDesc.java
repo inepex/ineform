@@ -2,7 +2,7 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.util.TreeSet;
 
-import com.inepex.ineom.shared.kvo.IneT;
+import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 public abstract class FDesc extends DescriptorBase {
