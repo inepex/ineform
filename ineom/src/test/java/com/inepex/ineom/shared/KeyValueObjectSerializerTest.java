@@ -1,4 +1,4 @@
-package com.inepex.ineom.shared.kvo;
+package com.inepex.ineom.shared;
 
 import junit.framework.Assert;
 
@@ -10,7 +10,6 @@ import com.inepex.ineom.shared.KeyValueObjectSerializer;
 import com.inepex.ineom.shared.KeyValueObjectSerializer.ListSerializer;
 import com.inepex.ineom.shared.KeyValueObjectSerializer.RelationSerializer;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.T_e_s_tUtil;
 
 public class KeyValueObjectSerializerTest {
 
