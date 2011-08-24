@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.validation.ValidationResult;
-
 public class SharedUtil {
 	
 	public static final String ID_PART_SEPARATOR = ".";

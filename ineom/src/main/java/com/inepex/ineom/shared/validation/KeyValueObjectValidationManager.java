@@ -8,9 +8,9 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
