@@ -1,10 +1,9 @@
 package com.inepex.example.ContactManager.entity.assist;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
-import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
-import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
-import com.inepex.example.ContactManager.entity.kvo.EmailAddressKVO;
-import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
-import com.inepex.example.ContactManager.entity.kvo.search.ContactSearchKVO;
+import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
+import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
+import com.inepex.example.ContactManager.entity.kvo.EmailAddressConsts;
+import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -29,26 +28,26 @@ public class ContactAssist extends Assist {
 	
 	@Override
 	protected void registerExtraDescriptors() {
-		descStore.addNamedTypedDesc(ContactKVO.descriptorName, roFRD, getROFormRDesc());
+		descStore.addNamedTypedDesc(ContactConsts.descriptorName, roFRD, getROFormRDesc());
 	}
 	
 	@Override
 	public ValidatorDesc getValidatorDesc() {
-		return new ValidatorDesc(ContactKVO.descriptorName, new String[] {/*hc:vd1*/
+		return new ValidatorDesc(ContactConsts.descriptorName, new String[] {/*hc:vd1*/
 			
 		/*hc*/});
 	}
 
 	@Override
 	public ObjectDesc getObjectDesc() {
-		ObjectDesc objDesc = new ObjectDesc(ContactKVO.descriptorName
-			, new LongFDesc(ContactKVO.k_id, /*hc:d1*/CMI18n.contact_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(ContactKVO.k_name, /*hc:d2*/CMI18n.contact_name()/*hc*/)/*hc:d2_2*//*hc*/
+		ObjectDesc objDesc = new ObjectDesc(ContactConsts.descriptorName
+			, new LongFDesc(ContactConsts.k_id, /*hc:d1*/CMI18n.contact_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new StringFDesc(ContactConsts.k_name, /*hc:d2*/CMI18n.contact_name()/*hc*/)/*hc:d2_2*//*hc*/
 					.mandatory()
-			, new ListFDesc(ContactKVO.k_phone, /*hc:d3*/CMI18n.contact_phone()/*hc*/,PhoneNumberKVO.descriptorName)/*hc:d2_3*//*hc*/
-			, new ListFDesc(ContactKVO.k_email, /*hc:d4*/CMI18n.contact_email()/*hc*/,EmailAddressKVO.descriptorName)/*hc:d2_4*//*hc*/
-			, new RelationFDesc(ContactKVO.k_company, /*hc:d5*/CMI18n.contact_company()/*hc*/
-										, CompanyKVO.descriptorName)/*hc:d2_5*//*hc*/
+			, new ListFDesc(ContactConsts.k_phone, /*hc:d3*/CMI18n.contact_phone()/*hc*/,PhoneNumberConsts.descriptorName)/*hc:d2_3*//*hc*/
+			, new ListFDesc(ContactConsts.k_email, /*hc:d4*/CMI18n.contact_email()/*hc*/,EmailAddressConsts.descriptorName)/*hc:d2_4*//*hc*/
+			, new RelationFDesc(ContactConsts.k_company, /*hc:d5*/CMI18n.contact_company()/*hc*/
+										, CompanyConsts.descriptorName)/*hc:d2_5*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -57,24 +56,24 @@ public class ContactAssist extends Assist {
 
 	@Override
 	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(ContactKVO.descriptorName);
+		TableRDesc tableRDesc = new TableRDesc(ContactConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(ContactKVO.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(ContactKVO.k_phone, new ColRDesc(/*hc:tdr1_3*/100/*hc*/)/*hc:tdr2_3*//*hc*/)				
-			.addChild(ContactKVO.k_email, new ColRDesc(/*hc:tdr1_4*/100/*hc*/)/*hc:tdr2_4*//*hc*/)				
+			.addChild(ContactConsts.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
+			.addChild(ContactConsts.k_phone, new ColRDesc(/*hc:tdr1_3*/100/*hc*/)/*hc:tdr2_3*//*hc*/)				
+			.addChild(ContactConsts.k_email, new ColRDesc(/*hc:tdr1_4*/100/*hc*/)/*hc:tdr2_4*//*hc*/)				
 			;
 		return tableRDesc;
 	}
 	
 	public FormRDesc getROFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(ContactKVO.descriptorName);
+		FormRDesc formRDesc = new FormRDesc(ContactConsts.descriptorName);
 			
 		formRDesc.getRootNode()
-			.addChild(ContactKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactKVO.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactKVO.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactKVO.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.LABEL/*hc*/))
 			;
 		
 		return formRDesc;
@@ -82,37 +81,37 @@ public class ContactAssist extends Assist {
 	
 	@Override
 	public FormRDesc getFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(ContactKVO.descriptorName/*hc:frd_props*/
+		FormRDesc formRDesc = new FormRDesc(ContactConsts.descriptorName/*hc:frd_props*/
 			
 			/*hc*/);
 			
 		formRDesc.getRootNode()
-			.addChild(ContactKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactKVO.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactKVO.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.RELATIONLIST/*hc*/))
-			.addChild(ContactKVO.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.RELATIONLIST/*hc*/))
+			.addChild(ContactConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(ContactConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.RELATIONLIST/*hc*/))
+			.addChild(ContactConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.RELATIONLIST/*hc*/))
 			;
 		return formRDesc;
 	}
 
 	@Override
 	public ObjectDesc getSearchObjectDesc() {			
-		return new ObjectDesc(ContactSearchKVO.descriptorName
-			, new LongFDesc(ContactSearchKVO.k_id, /*hc:ds1*/"Id"/*hc*/)
-			, new StringFDesc(ContactSearchKVO.k_name, /*hc:ds2*/"Name"/*hc*/)
-			, new RelationFDesc(ContactSearchKVO.k_company, /*hc:ds5*/"Company"/*hc*/
-										, CompanyKVO.descriptorName)
+		return new ObjectDesc(ContactConsts.searchDescriptor
+			, new LongFDesc(ContactConsts.s_id, /*hc:ds1*/"Id"/*hc*/)
+			, new StringFDesc(ContactConsts.s_name, /*hc:ds2*/"Name"/*hc*/)
+			, new RelationFDesc(ContactConsts.s_company, /*hc:ds5*/"Company"/*hc*/
+										, CompanyConsts.searchDescriptor)
 		);
 	}
 	
 	@Override
 	public FormRDesc getSearchFormRDesc() {
-		FormRDesc searchFormRDesc = new FormRDesc(ContactSearchKVO.descriptorName);
+		FormRDesc searchFormRDesc = new FormRDesc(ContactConsts.searchDescriptor);
 			
 		searchFormRDesc.getRootNode().dummy()
-			.addChild(ContactSearchKVO.k_id, new WidgetRDesc(/*hc:fs1*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactSearchKVO.k_name, new WidgetRDesc(/*hc:fs2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactSearchKVO.k_company, new WidgetRDesc(/*hc:fs5*/FWTypes.LISTBOX/*hc*/))
+			.addChild(ContactConsts.s_id, new WidgetRDesc(/*hc:fs1*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactConsts.s_name, new WidgetRDesc(/*hc:fs2*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(ContactConsts.s_company, new WidgetRDesc(/*hc:fs5*/FWTypes.LISTBOX/*hc*/))
 
 			;
 		return searchFormRDesc;

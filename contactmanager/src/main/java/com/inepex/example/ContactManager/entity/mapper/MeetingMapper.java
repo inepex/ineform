@@ -1,49 +1,65 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
+import com.google.inject.Inject;
 import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Contact;
 import com.inepex.example.ContactManager.entity.Meeting;
 import com.inepex.example.ContactManager.entity.User;
-import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
+import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
+import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory;
+import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory.MeetingHandler;
 import com.inepex.example.ContactManager.shared.MeetingType;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class MeetingMapper extends BaseMapper<Meeting>{
+	
+	private final DescriptorStore descriptorStore;
+	private final MeetingHandlerFactory handlerFactory;
+	
+	@Inject
+	public MeetingMapper(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
+		this.handlerFactory=new MeetingHandlerFactory(descriptorStore);
+	}
 
 	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to) {
-		MeetingKVO from = new MeetingKVO(fromKvo);
+		MeetingHandler fromHandler = handlerFactory.createHandler(fromKvo);
+		
 		if (to == null)
 			to = new Meeting();
-		if (!from.isNew()) 
-			to.setId(from.getId());
-		if (from.containsLong(MeetingKVO.k_meetingTimestamp)) 
-			to.setMeetingTimestamp(from.getMeetingTimestamp());
-		if (from.containsRelation(MeetingKVO.k_user)) {
-			if (from.getUser() == null){
+		if (!fromHandler.isNew()) 
+			to.setId(fromHandler.getId());
+		if (fromHandler.containsLong(MeetingConsts.k_meetingTimestamp)) 
+			to.setMeetingTimestamp(fromHandler.getMeetingTimestamp());
+		if (fromHandler.containsRelation(MeetingConsts.k_user)) {
+			if (fromHandler.getUser() == null){
 				to.setUser(null);
 			} else {
-				to.setUser(new User(from.getUser().getId()));
+				to.setUser(new User(fromHandler.getUser().getId()));
 			}
 		}
-		if (from.containsRelation(MeetingKVO.k_company)) {
-			if (from.getCompany() == null){
+		if (fromHandler.containsRelation(MeetingConsts.k_company)) {
+			if (fromHandler.getCompany() == null){
 				to.setCompany(null);
 			} else {
-				to.setCompany(new Company(from.getCompany().getId()));
+				to.setCompany(new Company(fromHandler.getCompany().getId()));
 			}
 		}
-		if (from.containsRelation(MeetingKVO.k_contact)) {
-			if (from.getContact() == null){
+		if (fromHandler.containsRelation(MeetingConsts.k_contact)) {
+			if (fromHandler.getContact() == null){
 				to.setContact(null);
 			} else {
-				to.setContact(new Contact(from.getContact().getId()));
+				to.setContact(new Contact(fromHandler.getContact().getId()));
 			}
 		}
- 		if (from.containsLong(MeetingKVO.k_meetingType)) 
-			to.setMeetingType(MeetingType.values()[new Long(from.getMeetingType()).intValue()]);
-		if (from.containsString(MeetingKVO.k_description)) 
-			to.setDescription(from.getDescription());
+ 		if (fromHandler.containsLong(MeetingConsts.k_meetingType)) 
+			to.setMeetingType(MeetingType.values()[new Long(fromHandler.getMeetingType()).intValue()]);
+		if (fromHandler.containsString(MeetingConsts.k_description)) 
+			to.setDescription(fromHandler.getDescription());
 
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
@@ -52,29 +68,30 @@ public class MeetingMapper extends BaseMapper<Meeting>{
 		return to;
 	}
 	
-	public MeetingKVO entityToKvo(Meeting entity) {
-		MeetingKVO kvo = new MeetingKVO();
+	public AssistedObject entityToKvo(Meeting entity) {
+		MeetingHandler handler = handlerFactory.createHandler(new KeyValueObject(MeetingConsts.descriptorName));
+	
 		if (entity.getId() != null) 
-			kvo.setId(entity.getId());
+			handler.setId(entity.getId());
 		if (entity.getMeetingTimestamp() != null) 
-			kvo.setMeetingTimestamp(entity.getMeetingTimestamp());
+			handler.setMeetingTimestamp(entity.getMeetingTimestamp());
 		if (entity.getUser() != null) 
-			kvo.setUser(new UserMapper().toRelation(entity.getUser(), false));
+			handler.setUser(new UserMapper(descriptorStore).toRelation(entity.getUser(), false));
 		if (entity.getCompany() != null) 
-			kvo.setCompany(new CompanyMapper().toRelation(entity.getCompany(), false));
+			handler.setCompany(new CompanyMapper(descriptorStore).toRelation(entity.getCompany(), false));
 		if (entity.getContact() != null) 
-			kvo.setContact(new ContactMapper().toRelation(entity.getContact(), false));
+			handler.setContact(new ContactMapper(descriptorStore).toRelation(entity.getContact(), false));
 		if (entity.getMeetingType() != null){
-			kvo.setMeetingType(new Long(entity.getMeetingType().ordinal()));
+			handler.setMeetingType(new Long(entity.getMeetingType().ordinal()));
 		}
 		if (entity.getDescription() != null && !"".equals(entity.getDescription())) 
-			kvo.setDescription(entity.getDescription());  
+			handler.setDescription(entity.getDescription());  
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
 		/*hc*/
 
-		return kvo;
+		return handler.getAssistedObject();
 	}
 	
 	public Relation toRelation(Meeting entity, boolean includeKvo){

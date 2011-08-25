@@ -1,34 +1,49 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
+import com.google.inject.Inject;
 import com.inepex.example.ContactManager.entity.PhoneNumber;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
-import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
+import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
+import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory;
+import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory.PhoneNumberHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
+	
+	private final DescriptorStore descriptorStore;
+	private final PhoneNumberHandlerFactory handlerFactory;
+	
+	@Inject
+	public PhoneNumberMapper(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
+		this.handlerFactory=new PhoneNumberHandlerFactory(descriptorStore);
+	}
 
 	public PhoneNumber kvoToEntity(AssistedObject fromKvo, PhoneNumber to) {
-		PhoneNumberKVO from = new PhoneNumberKVO(fromKvo);
+		PhoneNumberHandler fromHandler = handlerFactory.createHandler(fromKvo);
+		
 		if (to == null)
 			to = new PhoneNumber();
-		if (!from.isNew()) 
-			to.setId(from.getId());
-		if (from.containsString(PhoneNumberKVO.k_number)) 
-			to.setNumber(from.getNumber());
-		if (from.containsRelation(PhoneNumberKVO.k_type)) {
-			if (from.getType() == null){
+		if (!fromHandler.isNew()) 
+			to.setId(fromHandler.getId());
+		if (fromHandler.containsString(PhoneNumberConsts.k_number)) 
+			to.setNumber(fromHandler.getNumber());
+		if (fromHandler.containsRelation(PhoneNumberConsts.k_type)) {
+			if (fromHandler.getType() == null){
 				to.setType(null);
 			} else {
-				to.setType(new PhoneNumberType(from.getType().getId()));
-//				PhoneNumberType relatedEntity = to.getType();
-//    			if (relatedEntity == null) {
-//					relatedEntity = new PhoneNumberType(IFConsts.NEW_ITEM_ID);
-//				}
-//				new PhoneNumberTypeMapper()
-//					.kvoToEntity(new PhoneNumberTypeKVO(from.getType().getKvo())
-//								, relatedEntity);
-//				to.setType(relatedEntity);
+				PhoneNumberType relatedEntity = to.getType();
+    			if (relatedEntity == null) {
+					relatedEntity = new PhoneNumberType(IFConsts.NEW_ITEM_ID);
+				}
+				new PhoneNumberTypeMapper(descriptorStore)
+					.kvoToEntity(fromHandler.getType().getKvo(), relatedEntity);
+				to.setType(relatedEntity);
 			}
 		}
 
@@ -39,20 +54,21 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
 		return to;
 	}
 	
-	public PhoneNumberKVO entityToKvo(PhoneNumber entity) {
-		PhoneNumberKVO kvo = new PhoneNumberKVO();
+	public AssistedObject entityToKvo(PhoneNumber entity) {
+		PhoneNumberHandler handler = handlerFactory.createHandler(new KeyValueObject(PhoneNumberConsts.descriptorName));
+	
 		if (entity.getId() != null) 
-			kvo.setId(entity.getId());
+			handler.setId(entity.getId());
 		if (entity.getNumber() != null && !"".equals(entity.getNumber())) 
-			kvo.setNumber(entity.getNumber());  
+			handler.setNumber(entity.getNumber());  
 		if (entity.getType() != null) 
-			kvo.setType(new PhoneNumberTypeMapper().toRelation(entity.getType(), false));
+			handler.setType(new PhoneNumberTypeMapper(descriptorStore).toRelation(entity.getType(), false));
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
 		/*hc*/
 
-		return kvo;
+		return handler.getAssistedObject();
 	}
 	
 	public Relation toRelation(PhoneNumber entity, boolean includeKvo){

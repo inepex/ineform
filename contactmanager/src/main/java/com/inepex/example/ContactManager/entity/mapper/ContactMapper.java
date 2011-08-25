@@ -5,29 +5,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.inject.Inject;
 import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Contact;
 import com.inepex.example.ContactManager.entity.EmailAddress;
 import com.inepex.example.ContactManager.entity.PhoneNumber;
-import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
-import com.inepex.example.ContactManager.entity.kvo.EmailAddressKVO;
-import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
+import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.ContactHandler;
 import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class ContactMapper extends BaseMapper<Contact>{
+	
+	private final DescriptorStore descriptorStore;
+	private final ContactHandlerFactory handlerFactory;
+	
+	@Inject
+	public ContactMapper(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
+		this.handlerFactory=new ContactHandlerFactory(descriptorStore);
+	}
 
 	public Contact kvoToEntity(AssistedObject fromKvo, Contact to) {
-		ContactKVO from = new ContactKVO(fromKvo);
+		ContactHandler fromHandler = handlerFactory.createHandler(fromKvo);
+		
 		if (to == null)
 			to = new Contact();
-		if (!from.isNew()) 
-			to.setId(from.getId());
-		if (from.containsString(ContactKVO.k_name)) 
-			to.setName(from.getName());
-		if (from.containsList(ContactKVO.k_phone)) {
+		if (!fromHandler.isNew()) 
+			to.setId(fromHandler.getId());
+		if (fromHandler.containsString(ContactConsts.k_name)) 
+			to.setName(fromHandler.getName());
+		if (fromHandler.containsList(ContactConsts.k_phone)) {
 			if (to.getPhone() == null)
 				to.setPhone(new ArrayList<PhoneNumber>());
 
@@ -36,26 +50,25 @@ public class ContactMapper extends BaseMapper<Contact>{
 				origItems.put(item.getId(), item);
 			}
 			
-			PhoneNumberMapper mapper = new PhoneNumberMapper();
-			for (Relation rel : from.getPhone().getRelationList()) {
+			PhoneNumberMapper mapper = new PhoneNumberMapper(descriptorStore);
+			for (Relation rel : fromHandler.getPhone().getRelationList()) {
 				if (rel == null)
 					continue;
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					PhoneNumber entity = new PhoneNumber(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(new PhoneNumberKVO(rel.getKvo()), entity);
+					mapper.kvoToEntity(rel.getKvo(), entity);
 										to.getPhone().add(entity);
 				} else {
 					PhoneNumber origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
 						to.getPhone().remove(origItem);
 					} else {									// edit item
-						mapper.kvoToEntity(new PhoneNumberKVO(rel.getKvo())
-										 , origItem);
+						mapper.kvoToEntity(rel.getKvo(), origItem);
 					}
 				}
 			}
 		}
-		if (from.containsList(ContactKVO.k_email)) {
+		if (fromHandler.containsList(ContactConsts.k_email)) {
 			if (to.getEmail() == null)
 				to.setEmail(new ArrayList<EmailAddress>());
 
@@ -64,30 +77,29 @@ public class ContactMapper extends BaseMapper<Contact>{
 				origItems.put(item.getId(), item);
 			}
 			
-			EmailAddressMapper mapper = new EmailAddressMapper();
-			for (Relation rel : from.getEmail().getRelationList()) {
+			EmailAddressMapper mapper = new EmailAddressMapper(descriptorStore);
+			for (Relation rel : fromHandler.getEmail().getRelationList()) {
 				if (rel == null)
 					continue;
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					EmailAddress entity = new EmailAddress(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(new EmailAddressKVO(rel.getKvo()), entity);
+					mapper.kvoToEntity(rel.getKvo(), entity);
 										to.getEmail().add(entity);
 				} else {
 					EmailAddress origItem = origItems.get(rel.getId());
 					if (rel.getKvo() == null) { 			    // delete item
 						to.getEmail().remove(origItem);
 					} else {									// edit item
-						mapper.kvoToEntity(new EmailAddressKVO(rel.getKvo())
-										 , origItem);
+						mapper.kvoToEntity(rel.getKvo(), origItem);
 					}
 				}
 			}
 		}
-		if (from.containsRelation(ContactKVO.k_company)) {
-			if (from.getCompany() == null){
+		if (fromHandler.containsRelation(ContactConsts.k_company)) {
+			if (fromHandler.getCompany() == null){
 				to.setCompany(null);
 			} else {
-				to.setCompany(new Company(from.getCompany().getId()));
+				to.setCompany(new Company(fromHandler.getCompany().getId()));
 			}
 		}
 
@@ -98,22 +110,23 @@ public class ContactMapper extends BaseMapper<Contact>{
 		return to;
 	}
 	
-	public ContactKVO entityToKvo(Contact entity) {
-		ContactKVO kvo = new ContactKVO();
+	public AssistedObject entityToKvo(Contact entity) {
+		ContactHandler handler = handlerFactory.createHandler(new KeyValueObject(ContactConsts.descriptorName));
+	
 		if (entity.getId() != null) 
-			kvo.setId(entity.getId());
+			handler.setId(entity.getId());
 		if (entity.getName() != null && !"".equals(entity.getName())) 
-			kvo.setName(entity.getName());  
+			handler.setName(entity.getName());  
 		{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();
     		if (entity.getPhone() != null)
     			for (PhoneNumber item : entity.getPhone()) {
-    				relationList.add(new PhoneNumberMapper().toRelation(item, true));
+    				relationList.add(new PhoneNumberMapper(descriptorStore).toRelation(item, true));
     			}
     		if (relationList.size() > 0) {
     			ineList.setRelationList(relationList);
-    			kvo.setPhone(ineList);
+    			handler.setPhone(ineList);
     		}
 		}
 		{
@@ -121,21 +134,21 @@ public class ContactMapper extends BaseMapper<Contact>{
     		List<Relation> relationList = new ArrayList<Relation>();
     		if (entity.getEmail() != null)
     			for (EmailAddress item : entity.getEmail()) {
-    				relationList.add(new EmailAddressMapper().toRelation(item, true));
+    				relationList.add(new EmailAddressMapper(descriptorStore).toRelation(item, true));
     			}
     		if (relationList.size() > 0) {
     			ineList.setRelationList(relationList);
-    			kvo.setEmail(ineList);
+    			handler.setEmail(ineList);
     		}
 		}
 		if (entity.getCompany() != null) 
-			kvo.setCompany(new CompanyMapper().toRelation(entity.getCompany(), false));
+			handler.setCompany(new CompanyMapper(descriptorStore).toRelation(entity.getCompany(), false));
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
 		/*hc*/
 
-		return kvo;
+		return handler.getAssistedObject();
 	}
 	
 	public Relation toRelation(Contact entity, boolean includeKvo){

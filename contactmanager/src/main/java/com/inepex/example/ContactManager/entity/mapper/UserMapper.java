@@ -1,24 +1,40 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
+import com.google.inject.Inject;
 import com.inepex.example.ContactManager.entity.User;
-import com.inepex.example.ContactManager.entity.kvo.UserKVO;
+import com.inepex.example.ContactManager.entity.kvo.UserConsts;
+import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory;
+import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory.UserHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class UserMapper extends BaseMapper<User>{
+	
+	private final DescriptorStore descriptorStore;
+	private final UserHandlerFactory handlerFactory;
+	
+	@Inject
+	public UserMapper(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
+		this.handlerFactory=new UserHandlerFactory(descriptorStore);
+	}
 
 	public User kvoToEntity(AssistedObject fromKvo, User to) {
-		UserKVO from = new UserKVO(fromKvo);
+		UserHandler fromHandler = handlerFactory.createHandler(fromKvo);
+		
 		if (to == null)
 			to = new User();
-		if (!from.isNew()) 
-			to.setId(from.getId());
-		if (from.containsString(UserKVO.k_firstName)) 
-			to.setFirstName(from.getFirstName());
-		if (from.containsString(UserKVO.k_lastName)) 
-			to.setLastName(from.getLastName());
-		if (from.containsString(UserKVO.k_email)) 
-			to.setEmail(from.getEmail());
+		if (!fromHandler.isNew()) 
+			to.setId(fromHandler.getId());
+		if (fromHandler.containsString(UserConsts.k_firstName)) 
+			to.setFirstName(fromHandler.getFirstName());
+		if (fromHandler.containsString(UserConsts.k_lastName)) 
+			to.setLastName(fromHandler.getLastName());
+		if (fromHandler.containsString(UserConsts.k_email)) 
+			to.setEmail(fromHandler.getEmail());
 
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
@@ -27,22 +43,23 @@ public class UserMapper extends BaseMapper<User>{
 		return to;
 	}
 	
-	public UserKVO entityToKvo(User entity) {
-		UserKVO kvo = new UserKVO();
+	public AssistedObject entityToKvo(User entity) {
+		UserHandler handler = handlerFactory.createHandler(new KeyValueObject(UserConsts.descriptorName));
+	
 		if (entity.getId() != null) 
-			kvo.setId(entity.getId());
+			handler.setId(entity.getId());
 		if (entity.getFirstName() != null && !"".equals(entity.getFirstName())) 
-			kvo.setFirstName(entity.getFirstName());  
+			handler.setFirstName(entity.getFirstName());  
 		if (entity.getLastName() != null && !"".equals(entity.getLastName())) 
-			kvo.setLastName(entity.getLastName());  
+			handler.setLastName(entity.getLastName());  
 		if (entity.getEmail() != null && !"".equals(entity.getEmail())) 
-			kvo.setEmail(entity.getEmail());  
+			handler.setEmail(entity.getEmail());  
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
 		/*hc*/
 
-		return kvo;
+		return handler.getAssistedObject();
 	}
 	
 	public Relation toRelation(User entity, boolean includeKvo){
