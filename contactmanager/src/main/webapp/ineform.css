@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 
-.green-table-line td {
-	background-color: #FFAACC;	
-}
-
 .displayInline {
 	display: inline;
 }

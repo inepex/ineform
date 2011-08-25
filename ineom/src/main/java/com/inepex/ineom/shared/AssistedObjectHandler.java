@@ -21,13 +21,13 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 		
 		String descriptorName = assistedObject.getDescriptorName();
 		if (descriptorName == null) {
-			// TODO some logic
+			throw new IllegalArgumentException();
 		}
 
 		ObjectDesc objectDescriptor = descriptorStore.getOD(assistedObject
 				.getDescriptorName());
 		if (objectDescriptor == null) {
-			// TODO some logic
+			throw new IllegalArgumentException("No object descriptor registered for '"+descriptorName+"'");
 		}
 		
 		

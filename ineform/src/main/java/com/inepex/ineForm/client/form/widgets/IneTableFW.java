@@ -36,6 +36,10 @@ public class IneTableFW extends DenyingFormWidget {
 		initWidget(ineTable);
 	}
 	
+	@Override
+	public boolean isReadOnlyWidget() {
+		return true;
+	}
 
 	@Override
 	public boolean handlesList() {
@@ -64,10 +68,5 @@ public class IneTableFW extends DenyingFormWidget {
 	@Override
 	public IneList getListValue() {
 		return val;
-	}
-
-	@Override
-	public boolean isReadOnlyWidget() {
-		return true;
 	}
 }

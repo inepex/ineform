@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
@@ -23,8 +23,8 @@ public class PhoneNumber {
 	private String number;
 	
 	@Kvo_SearchParam
-	@OneToOne()
 	@JoinColumn(nullable=false)
+	@ManyToOne
 	private PhoneNumberType type;
 	
 	public PhoneNumber(){

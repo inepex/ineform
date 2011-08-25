@@ -8,20 +8,26 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
+import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
+import com.inepex.ineom.shared.AssistedObjectHandler;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class MeetingWidgetPlace extends WidgetPlace {
 	
 	private final IneDispatch dispatch;
+	private final AssistedObjectHandlerFactory handlerFactory;
 	
 	private HTML html;
 	
+	
 	@Inject 
-	private MeetingWidgetPlace(IneDispatch dispatch){
+	private MeetingWidgetPlace(IneDispatch dispatch, AssistedObjectHandlerFactory handlerFactory){
 		this.dispatch=dispatch;
+		this.handlerFactory=handlerFactory;
 		
 		html = new HTML();
 		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
@@ -33,13 +39,15 @@ public class MeetingWidgetPlace extends WidgetPlace {
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_MEETING));
 		
-		new ObjectFinder<MeetingKVO>(MeetingKVO.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback<MeetingKVO>() {
+		new ObjectFinder<AssistedObject>(MeetingConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback<AssistedObject>() {
 
 					@Override
-					public void onObjectFound(MeetingKVO foundObject) {
+					public void onObjectFound(AssistedObject foundObject) {
+						AssistedObjectHandler handler = handlerFactory.createHandler(foundObject);
+						
 						html.setHTML(
-								foundObject.getCompany().getDisplayName()+"&nbsp;"+
-								foundObject.getContact().getDisplayName()+"&nbsp;");
+								handler.getRelation(MeetingConsts.k_company).getDisplayName()+"&nbsp;"+
+								handler.getRelation(MeetingConsts.k_contact).getDisplayName()+"&nbsp;");
 					}
 				});
 		

@@ -4,11 +4,9 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
-import com.inepex.example.ContactManager.shared.MeetingType;
+import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneTable.CustomCellContentDisplayer;
-import com.inepex.ineForm.client.table.IneTable.RowStylesProvider;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
@@ -18,6 +16,7 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -34,12 +33,11 @@ public class MeetingSelectorPage extends ConnectorPage {
 		this.eventBus=eventBus;
 		this.authManager = authManager;
 		
-		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, MeetingKVO.descriptorName);
+		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, MeetingConsts.descriptorName);
 		
-		sortableIneTable = new SortableIneTable(descriptorStore, MeetingKVO.descriptorName, connector);
+		sortableIneTable = new SortableIneTable(descriptorStore, MeetingConsts.descriptorName, connector);
 		sortableIneTable.setDateProvider(dateProvider);
-		sortableIneTable.setRowStylesProvider(new HomeStyleProvider());
-		sortableIneTable.addCellContentDisplayer(MeetingKVO.k_user, new Highlighter());
+		sortableIneTable.addCellContentDisplayer(MeetingConsts.k_user, new Highlighter());
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		
 		sortableIneTable.renderTable();
@@ -72,24 +70,12 @@ public class MeetingSelectorPage extends ConnectorPage {
 	private class Highlighter implements CustomCellContentDisplayer {
 
 		@Override
-		public String getCustomCellContent(AssistedObject rowKvo,
+		public String getCustomCellContent(AssistedObjectHandler rowKvo,
 				String fieldId, ColRDesc colRDesc) {
-			if(authManager.getLastAuthStatusResult().getUserId().equals(rowKvo.getRelation(MeetingKVO.k_user).getId()))
+			if(authManager.getLastAuthStatusResult().getUserId().equals(rowKvo.getRelation(MeetingConsts.k_user).getId()))
 				return "<font style='color:red; font-weight: bold'>me</font>";
 			else
-				return rowKvo.getRelation(MeetingKVO.k_user).getDisplayName();
-		}
-		
-	}
-	
-	private class HomeStyleProvider implements RowStylesProvider {
-
-		@Override
-		public String getStyleNames(AssistedObject row, int rowIndex) {
-			if(MeetingType.INE_OFFICE.equals(row.getEnum(MeetingKVO.k_meetingType, MeetingType.class)))
-				return "green-table-line";
-			else
-				return null;
+				return rowKvo.getRelation(MeetingConsts.k_user).getDisplayName();
 		}
 		
 	}

@@ -10,7 +10,7 @@ import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
 
-public class AppGuiceModule  extends ActionHandlerModule {
+public class AppGuiceModule extends ActionHandlerModule {
 
 	@Override
 	protected void configureHandlers() {

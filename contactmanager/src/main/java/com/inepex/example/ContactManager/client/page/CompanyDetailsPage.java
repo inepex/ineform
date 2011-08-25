@@ -5,11 +5,12 @@ import java.util.Map;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.assist.CompanyAssist;
-import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
+import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class CompanyDetailsPage extends FlowPanelBasedPage {
 	
@@ -20,19 +21,19 @@ public class CompanyDetailsPage extends FlowPanelBasedPage {
 	CompanyDetailsPage(FormContext formContext) {
 		this.formContext=formContext;
 		
-		form= new IneForm(formContext, CompanyKVO.descriptorName, CompanyAssist.roFRD);
+		form= new IneForm(formContext, CompanyConsts.descriptorName, CompanyAssist.roFRD);
 		form.renderForm();
 		mainPanel.add(form.asWidget());
 	}
 	
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
-		new ObjectFinder<CompanyKVO>(CompanyKVO.descriptorName,
+		new ObjectFinder<AssistedObject>(CompanyConsts.descriptorName,
 				Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)), formContext.ineDispatch)
-					.executeFind(new ObjectFinder.Callback<CompanyKVO>() {
+					.executeFind(new ObjectFinder.Callback<AssistedObject>() {
 
 						@Override
-						public void onObjectFound(CompanyKVO foundObject) {
+						public void onObjectFound(AssistedObject foundObject) {
 							form.resetValuesToEmpty();
 							form.setInitialData(foundObject);
 							callback.onUrlParamsParsed();

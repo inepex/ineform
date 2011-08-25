@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
@@ -98,5 +100,17 @@ public class SuggestBoxFw extends DenyingFormWidget {
 		suggestBox.getTextBox().setEnabled(enabled);
 	}
 
+	@Override
+	protected void onAttach() {
+		super.onAttach();
+		
+		registerHandler(suggestBox.addValueChangeHandler(new ValueChangeHandler<String>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<String> event) {
+				SuggestBoxFw.this.fireFormWidgetChanged();
+			}
+		}));
+	}
 
 }

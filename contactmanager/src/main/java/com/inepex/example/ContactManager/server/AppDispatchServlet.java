@@ -21,13 +21,11 @@ import com.inepex.example.ContactManager.entity.assist.UserAssist;
 import com.inepex.example.ContactManager.server.i18n.ServerCMI18nProvider;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.DaoFinder;
-import com.inepex.ineForm.server.handler.ObjectManipulationHandler;
 import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
 import com.inepex.ineFrame.server.AbstractGuiceDispatch;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.server.ServerIneOmI18nProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
@@ -37,15 +35,12 @@ import com.inepex.ineom.shared.i18n.IneOmI18n;
 public class AppDispatchServlet extends AbstractGuiceDispatch {
 	
 	private final DaoFinder daofinder;
-	private final ObjectManipulationHandler handler;
 
 	@Inject
 	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
-			I18nStore_Server serverI18n, MultiLangDescStore multiLangDescStore, DaoFinder daoFinder,
-			ObjectManipulationHandler handler) {
-		super(dispatch, currentLangProvider, serverI18n, multiLangDescStore);
+			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder) {
+		super(dispatch, currentLangProvider, serverI18n, descStore);
 		this.daofinder=daoFinder;
-		this.handler=handler;
 	}
 	
 	@Override
@@ -72,7 +67,6 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 
 	@Override
 	public void registerAssists(DescriptorStore descStore) {
-		
 		new MeetingAssist(descStore).registerDescriptors();
 		new CompanyAssist(descStore).registerDescriptors();
 		new ContactAssist(descStore).registerDescriptors();
@@ -80,7 +74,6 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 		new PhoneNumberAssist(descStore).registerDescriptors();
 		new PhoneNumberTypeAssist(descStore).registerDescriptors();
 		new UserAssist(descStore).registerDescriptors();
-		
 	}
 
 	@Override

@@ -8,20 +8,24 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
+import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class ContactWidgetPlace extends WidgetPlace {
 	
 	private final IneDispatch dispatch;
+	private final ContactHandlerFactory contactHandlerFactory;
 	
 	private HTML html;
 	
 	@Inject 
-	private ContactWidgetPlace(IneDispatch dispatch){
+	private ContactWidgetPlace(IneDispatch dispatch, ContactHandlerFactory contactHandlerFactory){
 		this.dispatch=dispatch;
+		this.contactHandlerFactory=contactHandlerFactory;
 		
 		html = new HTML();
 		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
@@ -33,11 +37,11 @@ public class ContactWidgetPlace extends WidgetPlace {
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_CONTACT));
 		
-		new ObjectFinder<ContactKVO>(ContactKVO.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback<ContactKVO>() {
+		new ObjectFinder<AssistedObject>(ContactConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback<AssistedObject>() {
 
 					@Override
-					public void onObjectFound(ContactKVO foundObject) {
-						html.setHTML(foundObject.getName()+"&nbsp;");
+					public void onObjectFound(AssistedObject foundObject) {
+						html.setHTML(contactHandlerFactory.createHandler(foundObject).getName()+"&nbsp;");
 					}
 				});
 		

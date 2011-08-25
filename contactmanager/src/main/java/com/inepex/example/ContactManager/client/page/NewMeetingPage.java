@@ -2,9 +2,10 @@ package com.inepex.example.ContactManager.client.page;
 
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
-import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
-import com.inepex.example.ContactManager.entity.kvo.search.ContactSearchKVO;
+import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.ContactSearchHandler;
+import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
@@ -22,6 +23,7 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 
 public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
@@ -32,17 +34,19 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 	
 	private final ServerSideDataConnector connector;
 	private final SaveCancelForm form;
+	private final ContactHandlerFactory contactHandlerFactory;
 	
 	@Inject
-	NewMeetingPage(FormContext formContext, PlaceHandler placeHandler, AuthManager authManager) {
+	NewMeetingPage(FormContext formContext, PlaceHandler placeHandler, AuthManager authManager, ContactHandlerFactory contactHandlerFactory) {
 		this.formContext=formContext;
 		this.placeHandler=placeHandler;
 		this.authManager=authManager;
+		this.contactHandlerFactory=contactHandlerFactory;
 		
 		formContext.valueRangeProvider=new MeetingValueRangeProvider(formContext.ineDispatch);
 		
-		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, MeetingKVO.descriptorName);
-		form= new SaveCancelForm(formContext, MeetingKVO.descriptorName, null, connector);
+		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, MeetingConsts.descriptorName);
+		form= new SaveCancelForm(formContext, MeetingConsts.descriptorName, null, connector);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());
@@ -51,7 +55,7 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 	@Override
 	protected void onShow(boolean isFirstShow) {
 		form.resetValuesToEmpty();
-		form.getRootPanelWidget().getFormUnits().get(0).setSingleWidgetValue(MeetingKVO.k_user,
+		form.getRootPanelWidget().getFormUnits().get(0).setSingleWidgetValue(MeetingConsts.k_user,
 				new Relation(authManager.getLastAuthStatusResult().getUserId(), ""));
 		
 	}
@@ -63,12 +67,12 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 		registerHandler(form.addSavedHandler(this));
 		registerHandler(form.addCancelledHandler(this));
 		
-		registerHandler(form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingKVO.k_company)
+		registerHandler(form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingConsts.k_company)
 				.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
 			
 			@Override
 			public void onFormWidgetChange(FormWidgetChangeEvent e) {
-				((ListBoxFW)form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingKVO.k_contact))
+				((ListBoxFW)form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingConsts.k_contact))
 					.reLoadListAndKeepSelectedOrSetToNull();
 			}
 		}));
@@ -98,13 +102,14 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 		@Override
 		protected RelationList getActionForDescriptorName(
 				String descriptorName) {
-			if(!ContactKVO.descriptorName.equals(descriptorName)
+			if(!ContactConsts.descriptorName.equals(descriptorName)
 					|| form.getRootPanelWidget()==null)
 				return super.getActionForDescriptorName(descriptorName);
 			else {
-				ContactSearchKVO searchKVO = new ContactSearchKVO();
-				searchKVO.setCompany(form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingKVO.k_company).getRelationValue());
-				return new RelationListAction(ContactKVO.descriptorName, searchKVO, 0, 1000, false);
+				ContactSearchHandler searchKVO = contactHandlerFactory.createSearchHandler(
+						new KeyValueObject(ContactConsts.searchDescriptor));
+				searchKVO.setCompany(form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingConsts.k_company).getRelationValue());
+				return new RelationListAction(ContactConsts.descriptorName, searchKVO.getAssistedObject(), 0, 1000, false);
 			}
 		}
 	}

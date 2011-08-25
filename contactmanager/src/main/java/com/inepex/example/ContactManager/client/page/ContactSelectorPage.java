@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
+import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
@@ -25,9 +25,9 @@ public class ContactSelectorPage extends ConnectorPage {
 	ContactSelectorPage(IneDispatch dispatcher, EventBus eventBus, DescriptorStore descriptorStore) {
 		this.eventBus=eventBus;
 		
-		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, ContactKVO.descriptorName);
+		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, ContactConsts.descriptorName);
 		
-		sortableIneTable = new SortableIneTable(descriptorStore, ContactKVO.descriptorName, connector);
+		sortableIneTable = new SortableIneTable(descriptorStore, ContactConsts.descriptorName, connector);
 		
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		

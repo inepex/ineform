@@ -1,11 +1,14 @@
 package com.inepex.example.ContactManager.entity.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.example.ContactManager.entity.User;
+import com.inepex.example.ContactManager.entity.User_;
 import com.inepex.example.ContactManager.entity.dao.query.UserQuery;
 import com.inepex.example.ContactManager.entity.mapper.UserMapper;
 import com.inepex.ineForm.server.BaseDao;
@@ -68,6 +71,24 @@ public class UserDao extends BaseDao<User> {
 	@Override
 	public User newInstance() {
 		return new User();
+	}
+
+	public User findByEmail(String email) {
+		CriteriaSelector<User, User> sel = getSelector();
+		
+		sel.cq.select(sel.root);
+		sel.cq.from(User.class);
+		sel.cq.where(sel.cb.equal(sel.root.get(User_.email), email));
+		sel.cq.distinct(true);
+		
+		try {
+			return sel.getTypedQuery().getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		} catch (NonUniqueResultException ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 		
 }

@@ -7,7 +7,6 @@ import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory.PhoneNumberHandler;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
@@ -37,13 +36,7 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
 			if (fromHandler.getType() == null){
 				to.setType(null);
 			} else {
-				PhoneNumberType relatedEntity = to.getType();
-    			if (relatedEntity == null) {
-					relatedEntity = new PhoneNumberType(IFConsts.NEW_ITEM_ID);
-				}
-				new PhoneNumberTypeMapper(descriptorStore)
-					.kvoToEntity(fromHandler.getType().getKvo(), relatedEntity);
-				to.setType(relatedEntity);
+				to.setType(new PhoneNumberType(fromHandler.getType().getId()));
 			}
 		}
 

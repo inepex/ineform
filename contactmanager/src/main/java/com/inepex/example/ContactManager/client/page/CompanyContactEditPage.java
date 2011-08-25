@@ -8,8 +8,9 @@ import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.assist.ContactAssist;
-import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
-import com.inepex.example.ContactManager.entity.kvo.search.ContactSearchKVO;
+import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
+import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.ContactSearchHandler;
 import com.inepex.ineForm.client.datamanipulator.DataManipulator;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;
 import com.inepex.ineForm.client.form.FormContext;
@@ -22,21 +23,25 @@ import com.inepex.ineForm.client.table.IneTable.UserCommand;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class CompanyContactEditPage extends ConnectorPage {
 
-	private ContactSearchKVO searchKVO;
+	private final ContactHandlerFactory contactHandlerFactory;
 	
+	private ContactSearchHandler searchKVO;
 	private Long compId;
 	
 	@Inject
-	CompanyContactEditPage(FormContext formCtx, FormFactory formFactory) {
-		searchKVO= new ContactSearchKVO();
+	CompanyContactEditPage(FormContext formCtx, FormFactory formFactory, ContactHandlerFactory contactHandlerFactory) {
+		this.contactHandlerFactory=contactHandlerFactory;
 		
-		ServerSideDataConnector connector = createConnector(formCtx.ineDispatch, formCtx.eventBus, ContactKVO.descriptorName);
-		connector.setSearchParametersAndUpdate(searchKVO);
+		searchKVO = contactHandlerFactory.createSearchHandler(new KeyValueObject(ContactConsts.searchDescriptor));
 		
-		DataManipulator dm = new CompanyDataManipulator(formCtx, formFactory, ContactKVO.descriptorName,connector, true);
+		ServerSideDataConnector connector = createConnector(formCtx.ineDispatch, formCtx.eventBus, ContactConsts.descriptorName);
+		connector.setSearchParametersAndUpdate(searchKVO.getAssistedObject());
+		
+		DataManipulator dm = new CompanyDataManipulator(formCtx, formFactory, ContactConsts.descriptorName,connector, true);
 		dm.render();
 		
 		mainPanel.add(dm);
@@ -71,7 +76,7 @@ public class CompanyContactEditPage extends ConnectorPage {
 					
 					@Override
 					public void onBeforeSave(BeforeSaveEvent event) {
-						event.getKvo().set(ContactKVO.k_company, new Relation(compId, ""));
+						contactHandlerFactory.createHandler(event.getKvo()).set(ContactConsts.k_company, new Relation(compId, ""));
 					}
 				});
 		}

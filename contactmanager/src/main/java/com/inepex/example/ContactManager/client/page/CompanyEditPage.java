@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
+import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
@@ -14,6 +14,7 @@ import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
 	
@@ -28,8 +29,8 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 		this.formContext=formContext;
 		this.placeHandler=placeHandler;
 		
-		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, CompanyKVO.descriptorName);
-		form= new SaveCancelForm(formContext, CompanyKVO.descriptorName, null, connector);
+		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, CompanyConsts.descriptorName);
+		form= new SaveCancelForm(formContext, CompanyConsts.descriptorName, null, connector);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());
@@ -37,12 +38,12 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 	
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
-		new ObjectFinder<CompanyKVO>(CompanyKVO.descriptorName,
+		new ObjectFinder<AssistedObject>(CompanyConsts.descriptorName,
 				Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)), formContext.ineDispatch)
-					.executeFind(new ObjectFinder.Callback<CompanyKVO>() {
+					.executeFind(new ObjectFinder.Callback<AssistedObject>() {
 
 						@Override
-						public void onObjectFound(CompanyKVO foundObject) {
+						public void onObjectFound(AssistedObject foundObject) {
 							form.resetValuesToEmpty();
 							form.setInitialData(foundObject);
 							callback.onUrlParamsParsed();

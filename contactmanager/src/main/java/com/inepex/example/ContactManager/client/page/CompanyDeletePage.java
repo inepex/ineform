@@ -10,13 +10,14 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.kvo.CompanyKVO;
+import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 
 public class CompanyDeletePage extends FlowPanelBasedPage {
@@ -36,7 +37,7 @@ public class CompanyDeletePage extends FlowPanelBasedPage {
 		this.placeHandler=placeHandler;
 		this.eventBus=eventBus;
 		
-		connector = new ServerSideDataConnector(dispatcher, eventBus, CompanyKVO.descriptorName);
+		connector = new ServerSideDataConnector(dispatcher, eventBus, CompanyConsts.descriptorName);
 		
 		html= new HTML(CMI18n.reallyWantToDeleteCompany());
 		mainPanel.add(html);
@@ -63,7 +64,7 @@ public class CompanyDeletePage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				CompanyKVO kvo = new CompanyKVO();
+				KeyValueObject kvo = new KeyValueObject(CompanyConsts.descriptorName);
 				kvo.setId(companyId);
 				connector.objectDeleteRequested(kvo,new ManipulateResultCallback() {
 

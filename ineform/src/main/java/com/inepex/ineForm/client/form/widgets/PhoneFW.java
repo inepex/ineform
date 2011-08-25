@@ -2,6 +2,8 @@ package com.inepex.ineForm.client.form.widgets;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class PhoneFW extends DenyingFormWidget {
@@ -47,6 +49,32 @@ public class PhoneFW extends DenyingFormWidget {
 	}
 	
 	@Override
+	protected void onAttach() {
+		super.onAttach();
+		
+		registerHandler(country.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+			@Override
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
+				PhoneFW.this.fireFormWidgetChanged();
+			}
+		}));
+		
+		registerHandler(area.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+			@Override
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
+				PhoneFW.this.fireFormWidgetChanged();
+			}
+		}));
+		
+		registerHandler(local.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+			@Override
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
+				PhoneFW.this.fireFormWidgetChanged();
+			}
+		}));
+	}
+	
+	@Override
 	public void setEnabled(boolean enabled) {
 		country.setEnabled(enabled);
 		area.setEnabled(enabled);
@@ -61,10 +89,18 @@ public class PhoneFW extends DenyingFormWidget {
 			local.setLongValue(null);
 		} else {
 			String[] parts = value.split("["+PART_SEPARATOR+"]");
+			String p0 = parts[0].replace(PLUS_SIGN, "");
+			String p1 = parts[1];
+			String p2 = parts[2];
+			
 			try {
-				country.setLongValue(Long.parseLong(parts[0].replace(PLUS_SIGN, "")));
-				area.setLongValue(Long.parseLong(parts[1]));
-				local.setLongValue(Long.parseLong(parts[2]));
+				country.setLongValue(
+						p0.length() > 0 ? Long.parseLong(p0) : null);
+				area.setLongValue(
+						p1.length() > 0 ? Long.parseLong(p1) : null);
+				local.setLongValue(
+						p2.length() > 0 ? Long.parseLong(p2) : null);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

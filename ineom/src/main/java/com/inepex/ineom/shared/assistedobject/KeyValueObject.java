@@ -72,12 +72,20 @@ public class KeyValueObject extends AssistedObject {
 		longValues.put(IFConsts.KEY_ID, id);
 	}
 
+	/**
+	 * TODO unused yet
+	 * 
+	 */
 	protected boolean isDeleted() {
 		//TODO unused yet
 		Boolean deleted = booleanValues.get(IFConsts.KEY_ISDELETED);
 		return deleted != null || deleted;
 	}
 
+	/**
+	 * TODO unused yet
+	 * 
+	 */
 	void setDeleleted(boolean b) {
 		//TODO unused yet
 		booleanValues.put(IFConsts.KEY_ISDELETED, b);
@@ -85,6 +93,8 @@ public class KeyValueObject extends AssistedObject {
 
 	/**
 	 * not generated
+	 * 
+	 * TODO unused yet
 	 */
 	@Override
 	public boolean equals(Object obj) {
