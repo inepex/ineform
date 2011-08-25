@@ -1,7 +1,7 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
+import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
-import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;

@@ -29,7 +29,7 @@ import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
-import com.inepex.ineom.shared.T_e_s_tUtil;
+import com.inepex.ineom.shared.TestUtil;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -53,8 +53,8 @@ public class RestDataConnectorComplexTest {
 	public void init() throws Exception {
 		IneFormI18n i18n = new IneFormI18n(new DummyI18nProvider());
 		MockitoAnnotations.initMocks(this);
-		descriptorStore = T_e_s_tUtil.descriptorStore;
-		testKvo = (KeyValueObject) T_e_s_tUtil.getTestKvo().getAssistedObject();		
+		descriptorStore = TestUtil.descriptorStore;
+		testKvo = (KeyValueObject) TestUtil.getTestKvo().getAssistedObject();		
 		when(requestBuilderFactory.createBuilder(any(Method.class), anyString())).thenReturn(requestBuilder);
 		restDataConnector = new RestDataConnector(
 				Mockito.mock(EventBus.class),
@@ -98,7 +98,7 @@ public class RestDataConnectorComplexTest {
 		ArgumentCaptor<ObjectManipulationActionResult> omrCapture = ArgumentCaptor.forClass(ObjectManipulationActionResult.class);
 		verify(callback).onManipulationResult(omrCapture.capture());
 		
-		T_e_s_tUtil.assertEquals(testKvo, omrCapture.getValue().getObjectsNewState());
+		TestUtil.assertEquals(testKvo, omrCapture.getValue().getObjectsNewState());
 		
 
 	}

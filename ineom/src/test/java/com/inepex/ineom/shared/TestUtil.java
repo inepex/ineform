@@ -2,7 +2,6 @@ package com.inepex.ineom.shared;
 
 import junit.framework.Assert;
 
-import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
@@ -14,7 +13,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
 
-public class T_e_s_tUtil {
+public class TestUtil {
 	
 	public static DescriptorStore descriptorStore;
 	public static AssistedObjectHandlerFactory objectHandlerFactory;

@@ -23,7 +23,6 @@ import ${package}.dao.*;
 import ${package}.daoext.*;
 
 
-@Singleton
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
@@ -31,6 +30,7 @@ import ${package}.daoext.*;
  * forget to call super.persist, super.merge ...)
  * 
  */
+@Singleton
 public class ${classname}Dao extends BaseDao<${classname}> {
 
 	public static interface ${classname}SelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,${classname}>> {

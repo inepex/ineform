@@ -4,7 +4,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.KeyValueObjectSerializer;
 import com.inepex.ineom.shared.KeyValueObjectSerializer.ListSerializer;
@@ -16,7 +15,7 @@ public class KeyValueObjectSerializerTest {
 	@Test
 	public void defaultSerialize(){
 		String serialized = new KeyValueObjectSerializer(
-				T_e_s_tUtil.getTestKvo(), 
+				TestUtil.getTestKvo(), 
 				"{sep}", "=")
 		.serializeToString();
 		System.out.println(serialized);
@@ -26,14 +25,14 @@ public class KeyValueObjectSerializerTest {
 	@Test
 	public void customListSerializer(){
 		String serialized = new KeyValueObjectSerializer(
-				T_e_s_tUtil.getTestKvo(), 
+				TestUtil.getTestKvo(), 
 				"{sep}", "=").setListSerializer(new ListSerializer() {
 					
 					@Override
 					public String serialize(IneList list) {
 						StringBuffer sb = new StringBuffer();
 						for (Relation rel : list.getRelationList()){
-							AssistedObjectHandler handler = T_e_s_tUtil.objectHandlerFactory.createHandler(rel.getKvo());
+							AssistedObjectHandler handler = TestUtil.objectHandlerFactory.createHandler(rel.getKvo());
 							sb.append(handler.getValueAsString("longField"));
 							sb.append(",");
 						}
@@ -47,13 +46,13 @@ public class KeyValueObjectSerializerTest {
 	@Test
 	public void customRelationSerializer(){
 		String serialized = new KeyValueObjectSerializer(
-				T_e_s_tUtil.getTestKvo(), 
+				TestUtil.getTestKvo(), 
 				"{sep}", "=")
 		.setRelationSerializer(new RelationSerializer() {
 			
 			@Override
 			public String serialize(Relation relation) {
-				AssistedObjectHandler handler = T_e_s_tUtil.objectHandlerFactory.createHandler(relation.getKvo());
+				AssistedObjectHandler handler = TestUtil.objectHandlerFactory.createHandler(relation.getKvo());
 				return "value in rel is: " + handler.getValueAsString("longField");
 			}
 		})

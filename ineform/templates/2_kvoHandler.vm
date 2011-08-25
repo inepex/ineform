@@ -1,0 +1,156 @@
+outpath:${class.workspaceRelativePath}kvo/${classname}HandlerFactory.java
+package ${package}.kvo;
+
+import com.google.inject.Inject;
+import com.inepex.ineom.shared.AssistedObjectHandler;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.Relation;
+
+public class ${classname}HandlerFactory { 
+
+	private final DescriptorStore descriptorStore;
+
+	/**
+	 * can be injected or created with 'new ${classname}HandlerFactory(decStore)'
+	 */
+	@Inject
+	public ${classname}HandlerFactory(DescriptorStore descriptorStore) {
+		this.descriptorStore = descriptorStore;
+	}
+	
+	public ${classname}Handler createHandler(AssistedObject assistedObject) {
+		if(!${classname}Consts.descriptorName.equals(assistedObject.getDescriptorName()))
+			throw new IllegalArgumentException("Type incompatibility: handler: '"+${classname}Consts.descriptorName+
+				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
+		
+		return new ${classname}Handler(assistedObject, descriptorStore);
+	}
+	
+#if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+	public ${classname}SearchHandler createSearchHandler(AssistedObject assistedObject) {
+		if(!${classname}Consts.searchDescriptor.equals(assistedObject.getDescriptorName()))
+			throw new IllegalArgumentException("Type incompatibility: handler: '"+${classname}Consts.searchDescriptor+
+				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
+		
+		return new ${classname}SearchHandler(assistedObject, descriptorStore);
+	}
+#end
+	
+	public static class ${classname}Handler extends AssistedObjectHandler {
+	
+		private ${classname}Handler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+			super(assistedObject, descriptorStore);
+		}
+	
+#foreach( $attr in $attrs )
+#if ($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")} && $attr.name != "id")
+			
+##---------------------------------------------------
+##getter methods
+##---------------------------------------------------
+#if( $attr.type == "Date"  || $attr.enum)
+        public Long get${attr.nameU1}() {
+    		return getLong(${classname}Consts.k_${attr.name});
+    	}
+        	
+#elseif($attr.type == "Long" || $attr.type == "Double" || $attr.type == "String" || $attr.type == "Boolean")
+        public ${attr.type} get${attr.nameU1}() {
+        	return get${attr.typeU1}(${classname}Consts.k_${attr.name});
+        }
+        
+#elseif($attr.list == true)
+    	public IneList get${attr.nameU1}() {
+    		return getList(${classname}Consts.k_${attr.name});
+        }
+#else 
+        public Relation get${attr.nameU1}() {
+    		return getRelation(${classname}Consts.k_${attr.name});
+        }	
+#end
+##---------------------------------------------------
+##setter methods
+##---------------------------------------------------
+#if( $attr.type == "Date" || $attr.enum)
+        public void set${attr.nameU1}(Long ${attr.name}) {
+    		set(${classname}Consts.k_${attr.name}, ${attr.name});
+        }	
+#elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
+        public void set${attr.nameU1}(${attr.type} ${attr.name}) {
+    		set(${classname}Consts.k_${attr.name}, ${attr.name});
+        }
+#elseif($attr.list == true)
+        public void set${attr.nameU1}(IneList ${attr.name}) {
+    		set(${classname}Consts.k_${attr.name}, ${attr.name});
+        }	
+#else 
+        public void set${attr.nameU1}(Relation ${attr.name}) {
+    		set(${classname}Consts.k_${attr.name}, ${attr.name});
+        }
+#end
+#end
+#end
+	}
+
+##---------------------------------------
+## sarch stuffs
+##----------------------------------------
+#if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+	public static class ${classname}SearchHandler extends AssistedObjectHandler {
+	
+		private ${classname}SearchHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+			super(assistedObject, descriptorStore);
+		}
+	
+#foreach( $attr in $attrs )
+#if ($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")} && $attr.name != "id")
+#if(${attr.hasAnnotation("Kvo_SearchParam")})			
+##---------------------------------------------------
+##getter methods
+##---------------------------------------------------
+#if( $attr.type == "Date"  || $attr.enum)
+        public Long get${attr.nameU1}() {
+    		return getLong(${classname}Consts.s_${attr.name});
+    	}
+        	
+#elseif($attr.type == "Long" || $attr.type == "Double" || $attr.type == "String" || $attr.type == "Boolean")
+        public ${attr.type} get${attr.nameU1}() {
+        	return get${attr.typeU1}(${classname}Consts.s_${attr.name});
+        }
+        
+#elseif($attr.list == true)
+    	public IneList get${attr.nameU1}() {
+    		return getList(${classname}Consts.s_${attr.name});
+        }
+#else 
+        public Relation get${attr.nameU1}() {
+    		return getRelation(${classname}Consts.s_${attr.name});
+        }	
+#end
+##---------------------------------------------------
+##setter methods
+##---------------------------------------------------
+#if( $attr.type == "Date" || $attr.enum)
+        public void set${attr.nameU1}(Long ${attr.name}) {
+    		set(${classname}Consts.s_${attr.name}, ${attr.name});
+        }	
+#elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
+        public void set${attr.nameU1}(${attr.type} ${attr.name}) {
+    		set(${classname}Consts.s_${attr.name}, ${attr.name});
+        }
+#elseif($attr.list == true)
+        public void set${attr.nameU1}(IneList ${attr.name}) {
+    		set(${classname}Consts.s_${attr.name}, ${attr.name});
+        }	
+#else 
+        public void set${attr.nameU1}(Relation ${attr.name}) {
+    		set(${classname}Consts.s_${attr.name}, ${attr.name});
+        }
+#end
+#end
+#end
+#end
+	}
+#end
+}
