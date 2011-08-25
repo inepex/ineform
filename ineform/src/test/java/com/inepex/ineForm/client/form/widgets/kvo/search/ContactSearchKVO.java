@@ -18,7 +18,10 @@ public class ContactSearchKVO extends KeyValueObject {
 		super(descriptorName);
 		if (other != null)
 			if (descriptorName.equals(other.getDescriptorName()))
-				other.copyValuesTo(this);
+//				other.copyValuesTo(this);
+				//TODO
+				//TODO
+				;
 	}
 	
 	public IneList getNationalities() {

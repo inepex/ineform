@@ -157,7 +157,7 @@ public class AssistedObjectHandlerFactory {
 			return actual;
 		}
 
-		public AssistedObjectHandler getDifference(AssistedObjectChecker original) {
+		public AssistedObjectHandler getDifference(AssistedObjectHandler original) {
 			if (original == null)
 				return this;
 
@@ -239,7 +239,7 @@ public class AssistedObjectHandlerFactory {
 								if (chng.getKvo() != null) {
 									AssistedObjectHandler hChng = createHandler(chng
 											.getKvo());
-									AssistedObjectChecker hOrig = createHandler(orig.getKvo());
+									AssistedObjectHandler hOrig = createHandler(orig.getKvo());
 									rel.setKvo(hChng.getDifference(hOrig).getAssistedObject());
 								}
 								difference.set(key, rel);

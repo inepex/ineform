@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -20,12 +21,14 @@ public class RelationListFwTest extends DefaultIneFormClientSideTestBase {
 	
 	FormContext formCtx;
 	DescriptorStore descStore;
+	AssistedObjectHandlerFactory handlerFactory;
 	
 	@Before
 	public void before(){
 
 		formCtx = getDefaultInjector().getInstance(FormContext.class);
 		descStore = getDefaultInjector().getInstance(DescriptorStore.class);
+		handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
 		data = new RelationTestData(descStore);
 		
@@ -135,7 +138,7 @@ public class RelationListFwTest extends DefaultIneFormClientSideTestBase {
 			else assertNotNull(changedRel.getKvo());
 			if (!isKvoNull){
 				assertEquals(id, changedRel.getKvo().getId().longValue());
-				assertEquals(order, changedRel.getKvo().getLong(IFConsts.KEY_ORDERNUM).longValue());
+				assertEquals(order, handlerFactory.createHandler(changedRel.getKvo()).getLong(IFConsts.KEY_ORDERNUM).longValue());
 			}
 		}
 	}

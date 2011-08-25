@@ -19,9 +19,11 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 
@@ -33,20 +35,25 @@ public class RestValueRangeProvider implements ValueRangeProvider {
 		
 	}
 	
-	AsyncStatusIndicator statusIndicator;
-	RequestBuilderFactory requestBuilderFactory;
-	Map<String, String> descriptorToUrlMapping;
-	Map<String, RelationResultExtractor> descriptorToExtractorMapping = new HashMap<String, RestValueRangeProvider.RelationResultExtractor>();
-	Map<String, String> descriptorToDisplayNameFieldMapping = new HashMap<String, String>();
+	private final AssistedObjectHandlerFactory handlerFactory;
+	private final DescriptorStore descriptorStore;
+	private AsyncStatusIndicator statusIndicator;
+	private final RequestBuilderFactory requestBuilderFactory;
+	private Map<String, String> descriptorToUrlMapping;
+	private Map<String, RelationResultExtractor> descriptorToExtractorMapping = new HashMap<String, RestValueRangeProvider.RelationResultExtractor>();
+	private Map<String, String> descriptorToDisplayNameFieldMapping = new HashMap<String, String>();
 
 	@Inject
 	public RestValueRangeProvider(
+			DescriptorStore descriptorStore,
 			AsyncStatusIndicator statusIndicator,
 			RequestBuilderFactory requestBuilderFactory,
 			@Assisted Map<String, String> descriptorToUrlMapping) {
+		this.descriptorStore=descriptorStore;
 		this.statusIndicator = statusIndicator;
 		this.requestBuilderFactory = requestBuilderFactory;
 		this.descriptorToUrlMapping = descriptorToUrlMapping;
+		this.handlerFactory=new AssistedObjectHandlerFactory(descriptorStore);
 	}
 
 	public Map<String, String> getDescriptorToUrlMapping() {
@@ -110,10 +117,10 @@ public class RestValueRangeProvider implements ValueRangeProvider {
 		List<Relation> relationList = new ArrayList<Relation>();
 		
 		for (int i = 0; i < jsonList.size(); i++){
-			AssistedObject kvo = new KvoJsonParser(jsonList.get(i).isObject(), descriptorName).parse();
+			AssistedObject kvo = new KvoJsonParser(descriptorStore, jsonList.get(i).isObject(), descriptorName).parse();
 			String displayName = kvo.toString();
 			if (descriptorToUrlMapping.containsKey(descriptorName)) 
-				displayName = kvo.getString(descriptorToDisplayNameFieldMapping.get(descriptorName));
+				displayName = handlerFactory.createHandler(kvo).getString(descriptorToDisplayNameFieldMapping.get(descriptorName));
 			relationList.add(new Relation(kvo.getId(), displayName, kvo));			 
 		}
 		

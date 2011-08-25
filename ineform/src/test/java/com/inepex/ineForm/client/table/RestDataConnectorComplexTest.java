@@ -28,9 +28,10 @@ import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.T_e_s_tUtil;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 /**
  * Not works because of json classes which tied to gwt
@@ -43,7 +44,7 @@ public class RestDataConnectorComplexTest {
 	
 	@Mock RequestBuilderFactory requestBuilderFactory;
 	@Mock RequestBuilder requestBuilder;
-	ClientDescriptorStore descriptorStore;
+	DescriptorStore descriptorStore;
 	RestDataConnector restDataConnector;
 	@Mock ManipulateResultCallback callback;
 	String response = "{'stringField': 'hello', 'relField': {'longField': 3}, 'listField': [{'longField': 4}, {'longField': 5}]}";
@@ -52,13 +53,15 @@ public class RestDataConnectorComplexTest {
 	public void init() throws Exception {
 		IneFormI18n i18n = new IneFormI18n(new DummyI18nProvider());
 		MockitoAnnotations.initMocks(this);
-		descriptorStore = new ClientDescriptorStore();
-		testKvo = T_e_s_tUtil.getTestKvo(descriptorStore);		
+		descriptorStore = T_e_s_tUtil.descriptorStore;
+		testKvo = (KeyValueObject) T_e_s_tUtil.getTestKvo().getAssistedObject();		
 		when(requestBuilderFactory.createBuilder(any(Method.class), anyString())).thenReturn(requestBuilder);
 		restDataConnector = new RestDataConnector(
 				Mockito.mock(EventBus.class),
 				Mockito.mock(AsyncStatusIndicator.class),
 				requestBuilderFactory,
+				descriptorStore,
+				new AssistedObjectHandlerFactory(descriptorStore),
 				"testKvo",
 				"getUrl",
 				"newUrl",

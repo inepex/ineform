@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -16,9 +17,11 @@ public class RelationList {
 	private LinkedList<Relation> relations = new LinkedList<Relation>();
 	
 	private List<Relation> changes = new ArrayList<Relation>();
+	private final AssistedObjectHandlerFactory handlerFactory;
 	
 	public RelationList(DescriptorStore descStore, String relationDescriptorName
 			, boolean allowOrdering) {
+		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
 		if (allowOrdering) {
 			supportsOrdering = descStore.getOD(relationDescriptorName).containsKey(IFConsts.KEY_ORDERNUM);
@@ -30,7 +33,7 @@ public class RelationList {
 		if (supportsOrdering){
 			TreeMap<Long, Relation> orderedRelationList = new TreeMap<Long, Relation>();
 			for (Relation relation : relations) {
-				orderedRelationList.put(relation.getKvo().getLong(IFConsts.KEY_ORDERNUM), relation);
+				orderedRelationList.put(handlerFactory.createHandler(relation.getKvo()).getLong(IFConsts.KEY_ORDERNUM), relation);
 			}
 			this.relations.addAll(orderedRelationList.values());
 		} else {
@@ -87,10 +90,9 @@ public class RelationList {
 		if (supportsOrdering){
 			for (int i = 0; i < relations.size(); i++){
 				if (relations.get(i).getKvo() != null){
-					Long prevValue = relations.get(i).getKvo()
-							.getLong(IFConsts.KEY_ORDERNUM);
-					relations.get(i).getKvo()
-						.set(IFConsts.KEY_ORDERNUM, new Long(i));
+					Long prevValue =
+						handlerFactory.createHandler(relations.get(i).getKvo()).getLong(IFConsts.KEY_ORDERNUM);
+					handlerFactory.createHandler(relations.get(i).getKvo()).set(IFConsts.KEY_ORDERNUM, new Long(i));
 					
 					
 					if (!changes.contains(relations.get(i))

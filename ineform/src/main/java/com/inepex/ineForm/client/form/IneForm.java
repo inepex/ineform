@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.form;
 
-import static com.inepex.ineom.shared.util.SharedUtil.*;
+import static com.inepex.ineom.shared.util.SharedUtil.listFromDotSeparated;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +32,8 @@ import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.FormUnitRDesc;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
@@ -63,6 +65,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	protected final EventBus eventBus;
 	protected final DescriptorStore descStore;
 	protected final FormContext formCtx; 
+	protected final AssistedObjectHandlerFactory handlerFactory;
 	
 	// named panels and forms (because its interesting for programmer)
 	protected HashMap<String, PanelWidget> panels = new HashMap<String, PanelWidget>();
@@ -89,6 +92,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		this.valueRangeProvider = formCtx.valueRangeProvider;
 		this.eventBus = formCtx.eventBus;
 		this.formCtx = formCtx;
+		this.handlerFactory=new AssistedObjectHandlerFactory(descStore);
 	}
 	
 	public void setValueRangeProvider(ValueRangeProvider valueRangeProvider) {
@@ -396,23 +400,24 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
 		filledWithInitialData = true;
 		initialData = data;
+		AssistedObjectHandler dataHandler = handlerFactory.createHandler(data);
 
 		for (AbstractFormUnit form : getRootPanelWidget().getFormUnits()) {
 			for (String key : form.getFormWidgetKeySet()) {
 				FormWidget widget = form.getWidgetByKey(key);
 				
 				String lastKey = null;
-				AssistedObject actual = null;
+				AssistedObjectHandler actual = null;
 				IneT type = null;
 				
 				if(SharedUtil.isMultilevelKey(key)) {
 					List<String> keyAsList = listFromDotSeparated(key);
 					lastKey = keyAsList.get(keyAsList.size() - 1);
-					actual = data.getRelatedKVOMultiLevel(keyAsList);
+					actual = dataHandler.getRelatedKVOMultiLevel(keyAsList);
 					type = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
 				} else {
 					lastKey = key;
-					actual = data;
+					actual = dataHandler;
 					type = objectDescriptor.getField(key).getType();
 				}
 
@@ -464,21 +469,23 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 			throw new IncompatibleObjectException(
 					"setValues: the given AssistedObject's type is not the same as the one provided when constructing the form");
 		
+		AssistedObjectHandler dataHandler = handlerFactory.createHandler(data);
+		
 		for (String key : form.getFormWidgetKeySet()) {
 			FormWidget widget = form.getWidgetByKey(key);
 			
 			String lastKey = null;
-			AssistedObject actual = null;
+			AssistedObjectHandler actual = null;
 			IneT type = null;
 			
 			if(SharedUtil.isMultilevelKey(key)) {
 				List<String> keyAsList = listFromDotSeparated(key);
 				lastKey = keyAsList.get(keyAsList.size() - 1);
-				actual = data.getRelatedKVOMultiLevel(keyAsList);
+				actual = dataHandler.getRelatedKVOMultiLevel(keyAsList);
 				type = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
 			} else {
 				lastKey = key;
-				actual = data;
+				actual = dataHandler;
 				type = objectDescriptor.getField(key).getType();
 			}
 
@@ -574,21 +581,23 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
 	public AssistedObject getValuesOfFormUnit(AssistedObject objectToFill,
 			AbstractFormUnit formUnit) {
+		
+		AssistedObjectHandler objectHandler = handlerFactory.createHandler(objectToFill);
 		for (String key : formUnit.getFormWidgetKeySet()) {
 			FormWidget widget = formUnit.getWidgetByKey(key);
 			
 			String lastKey = null;
-			AssistedObject actual = null;
+			AssistedObjectHandler actual = null;
 			IneT type = null;
 			
 			if(SharedUtil.isMultilevelKey(key)) {
 				List<String> keyAsList = listFromDotSeparated(key);
 				lastKey = keyAsList.get(keyAsList.size() - 1);
-				actual = objectToFill.getRelatedKVOMultiLevel(keyAsList);
+				actual = objectHandler.getRelatedKVOMultiLevel(keyAsList);
 				type = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
 			} else {
 				lastKey = key;
-				actual = objectToFill;
+				actual = objectHandler;
 				type = objectDescriptor.getField(key).getType();
 			}
 			

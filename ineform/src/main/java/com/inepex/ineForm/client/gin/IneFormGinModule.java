@@ -11,7 +11,6 @@ import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;
 import com.inepex.ineForm.client.datamanipulator.SingleSelectDataManipulator;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
-import com.inepex.ineForm.client.form.DefaultValueRangeProvider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.IneForm;

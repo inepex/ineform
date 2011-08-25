@@ -1,27 +1,18 @@
 package com.inepex.ineForm.client.places;
 
 import java.util.Map;
-import java.util.TreeMap;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
 import com.inepex.ineForm.client.form.FormContext;
-import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.client.widget.SelectorView;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
-import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;

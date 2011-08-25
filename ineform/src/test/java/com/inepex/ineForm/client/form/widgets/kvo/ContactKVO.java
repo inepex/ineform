@@ -19,7 +19,11 @@ public class ContactKVO extends KeyValueObject {
 		super(descriptorName);
 		if (other != null)
 			if (descriptorName.equals(other.getDescriptorName()))
-				other.copyValuesTo(this);
+//				other.copyValuesTo(this);
+				//TODO
+				//TODO
+				//TODO
+				;
 	}
 	
 	public Long getId() {

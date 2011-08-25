@@ -14,6 +14,7 @@ import com.inepex.ineForm.client.form.widgets.chooser.Item;
 import com.inepex.ineForm.client.form.widgets.chooser.RelationChooser;
 import com.inepex.ineForm.client.form.widgets.kvo.ContactNatRelKVO;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -23,6 +24,7 @@ public class ChooserTest extends DefaultIneFormClientSideTestBase {
 	RelationTestData data;
 	RelationChooser chooser;
 	
+	AssistedObjectHandlerFactory factory;
 	
 	@Before
 	public void before(){
@@ -31,6 +33,7 @@ public class ChooserTest extends DefaultIneFormClientSideTestBase {
 		ChooserFw chooserFw = mock(ChooserFw.class);
 		FormContext formCtx = getDefaultInjector().getInstance(FormContext.class);
 		formCtx.valueRangeProvider = RelationTestData.valueRangeProvider;
+		factory= new AssistedObjectHandlerFactory(formCtx.descStore);
 		
 		chooser = new RelationChooser(formCtx, chooserFw, data.fieldDesc
 				, data.fieldDesc.getRelatedDescriptorType());
@@ -53,7 +56,7 @@ public class ChooserTest extends DefaultIneFormClientSideTestBase {
 		chooser.select(new Item(new Relation(2L, "2L")), true, true);
 		assertEquals(1, chooser.getChanged().size());
 		assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser.getChanged().get(0).getId().longValue());
-		assertEquals(2L, chooser.getChanged().get(0).getKvo()
+		assertEquals(2L, factory.createHandler(chooser.getChanged().get(0).getKvo())
 								.getRelation(ContactNatRelKVO.k_nationality).getId().longValue());
 		
 		assertSelected(chooser, "1L", "2L");
@@ -92,7 +95,7 @@ public class ChooserTest extends DefaultIneFormClientSideTestBase {
 		assertEquals(IFConsts.NEW_ITEM_ID.longValue()
 				, chooser.getChanged().get(1).getId().longValue());
 		
-		assertEquals(1L, chooser.getChanged().get(1).getKvo()
+		assertEquals(1L, factory.createHandler(chooser.getChanged().get(1).getKvo())
 				.getRelation(ContactNatRelKVO.k_nationality).getId().longValue());
 		
 		
@@ -132,7 +135,7 @@ public class ChooserTest extends DefaultIneFormClientSideTestBase {
 		chooser.select(new Item(new Relation(IFConsts.NEW_ITEM_ID, "newitem")), true, true);
 		assertEquals(1, chooser.getChanged().size());
 		assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser.getChanged().get(0).getId().longValue());
-		assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser.getChanged().get(0).getKvo()
+		assertEquals(IFConsts.NEW_ITEM_ID.longValue(), factory.createHandler(chooser.getChanged().get(0).getKvo())
 								.getRelation(ContactNatRelKVO.k_nationality).getId().longValue());
 		
 		assertSelected(chooser, "1L", "newitem");

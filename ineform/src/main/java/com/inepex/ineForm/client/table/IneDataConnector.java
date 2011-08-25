@@ -4,7 +4,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
-import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.ServerSideDataConnector.DataConnectorReadyCallback;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;

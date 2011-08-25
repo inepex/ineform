@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
 import com.inepex.ineFrame.server.KeyValueObjectFieldFilter;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
@@ -22,10 +23,12 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 	final String name = "asfasdfasfdasdf12323";
 	
 	DescriptorStore descStore;
+	AssistedObjectHandlerFactory handlerFactory;
 	
 	@Before
 	public void init() {
 		descStore = getDefaultInjector().getInstance(DescriptorStore.class);
+		handlerFactory = new AssistedObjectHandlerFactory(descStore);
 	}
 	
 	@Test
@@ -38,7 +41,7 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		
 		List<String> enabled_keys = SharedUtil.Li(NationalityKVO.k_name, "afdgsd", "sfdfds");
 		
-		KeyValueObject result = KeyValueObjectFieldFilter.filterKvo(descStore, enabled_keys, kvo);
+		KeyValueObject result = KeyValueObjectFieldFilter.filterKvo(descStore, enabled_keys, kvo, handlerFactory);
 		
 		Assert.assertEquals(NationalityKVO.descriptorName, result.getDescriptorName());
 		Assert.assertEquals(kvo.getDescriptorName(), result.getDescriptorName());
@@ -46,8 +49,8 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		Assert.assertEquals(id, result.getId());
 		Assert.assertEquals(kvo.getId(), result.getId());
 		
-		Assert.assertEquals(name, result.getString(NationalityKVO.k_name));
-		Assert.assertEquals(kvo.getName(), result.getString(NationalityKVO.k_name));
+		Assert.assertEquals(name, handlerFactory.createHandler(result).getString(NationalityKVO.k_name));
+		Assert.assertEquals(kvo.getName(), handlerFactory.createHandler(result).getString(NationalityKVO.k_name));
 		
 		Assert.assertEquals(kvo.getKeys(), result.getKeys());
 	}
@@ -62,7 +65,7 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		
 		List<String> enabled_keys = SharedUtil.Li("afdgsd", "sfdfds");
 		
-		KeyValueObject result = KeyValueObjectFieldFilter.filterKvo(descStore,enabled_keys, kvo);
+		KeyValueObject result = KeyValueObjectFieldFilter.filterKvo(descStore,enabled_keys, kvo, handlerFactory);
 		
 		Assert.assertEquals(NationalityKVO.descriptorName, result.getDescriptorName());
 		Assert.assertEquals(kvo.getDescriptorName(), result.getDescriptorName());
@@ -71,7 +74,7 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		Assert.assertEquals(kvo.getId(), result.getId());
 		
 		
-		Assert.assertNull(result.getString(NationalityKVO.k_name));
+		Assert.assertNull(handlerFactory.createHandler(result).getString(NationalityKVO.k_name));
 		List<String> resPlus = new ArrayList<String>(result.getKeys());
 		Assert.assertTrue(!kvo.getKeys().equals(resPlus));
 		resPlus.add(NationalityKVO.k_name);
@@ -89,9 +92,9 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 		List<String> enabled_keys = SharedUtil.Li(NationalityKVO.k_name);
 		
 		KeyValueObject result = 
-			KeyValueObjectFieldFilter.filterKvo(descStore, enabled_keys, kvo);
+			KeyValueObjectFieldFilter.filterKvo(descStore, enabled_keys, kvo, handlerFactory);
 		
-		Assert.assertNull(result.getString(NationalityKVO.k_name));
+		Assert.assertNull(handlerFactory.createHandler(result).getString(NationalityKVO.k_name));
 		Assert.assertTrue(result.getKeys().contains(NationalityKVO.k_name));
 		Assert.assertEquals(2, result.getKeys().size());
 	}
