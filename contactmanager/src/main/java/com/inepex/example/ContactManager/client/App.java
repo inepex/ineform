@@ -12,7 +12,6 @@ import com.inepex.example.ContactManager.entity.assist.MeetingAssist;
 import com.inepex.example.ContactManager.entity.assist.PhoneNumberAssist;
 import com.inepex.example.ContactManager.entity.assist.PhoneNumberTypeAssist;
 import com.inepex.example.ContactManager.entity.assist.UserAssist;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.IneFrameEntryPoint;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;

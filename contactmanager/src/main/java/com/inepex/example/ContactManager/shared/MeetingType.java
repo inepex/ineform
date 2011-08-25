@@ -1,7 +1,7 @@
 package com.inepex.example.ContactManager.shared;
 
 import com.inepex.example.ContactManager.client.i18n.CMI18nExt;
-import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.IFConsts;
 
 public enum MeetingType {
 	INE_OFFICE,

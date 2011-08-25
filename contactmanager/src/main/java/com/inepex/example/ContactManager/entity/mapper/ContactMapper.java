@@ -13,10 +13,9 @@ import com.inepex.example.ContactManager.entity.kvo.ContactKVO;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressKVO;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberKVO;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.IFConsts;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class ContactMapper extends BaseMapper<Contact>{
 

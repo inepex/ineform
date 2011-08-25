@@ -3,8 +3,6 @@ package com.inepex.example.ContactManager.server;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import com.inepex.example.ContactManager.server.handler.LoginHandler;
-import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
-import com.inepex.ineForm.shared.dispatch.ActionObjectFactory;
 import com.inepex.ineFrame.server.auth.GetAuthStatusHandler;
 import com.inepex.ineFrame.server.auth.LogoutHandler;
 import com.inepex.ineFrame.server.di.jpa.PersistInitializer;

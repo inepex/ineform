@@ -7,8 +7,7 @@ import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.kvo.MeetingKVO;
 import com.inepex.example.ContactManager.shared.MeetingType;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class MeetingMapper extends BaseMapper<Meeting>{
 

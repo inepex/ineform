@@ -3,8 +3,7 @@ package com.inepex.example.ContactManager.entity.mapper;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.kvo.UserKVO;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class UserMapper extends BaseMapper<User>{
 

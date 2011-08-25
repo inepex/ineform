@@ -18,8 +18,8 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.kvo.AssistedObject;
 
 public class MeetingSelectorPage extends ConnectorPage {
 	

@@ -3,8 +3,7 @@ package com.inepex.example.ContactManager.entity.mapper;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeKVO;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class PhoneNumberTypeMapper extends BaseMapper<PhoneNumberType>{
 

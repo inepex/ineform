@@ -11,7 +11,7 @@
 	<properties>
 		<gwtVersion>2.3.0</gwtVersion>
 		<slf4j.version>1.6.1</slf4j.version>
-		<ineformVersion>1.0.14</ineformVersion>
+		<ineformVersion>1.0.16</ineformVersion>
 		<draftCompile>true</draftCompile>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 	</properties>

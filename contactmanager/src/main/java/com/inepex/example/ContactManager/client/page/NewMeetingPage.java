@@ -21,8 +21,8 @@ import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
-import com.inepex.ineom.shared.kvo.Relation;
 
 public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
 	

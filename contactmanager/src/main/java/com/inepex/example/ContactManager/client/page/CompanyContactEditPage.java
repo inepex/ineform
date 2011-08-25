@@ -20,8 +20,8 @@ import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable.UserCommand;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class CompanyContactEditPage extends ConnectorPage {
 
