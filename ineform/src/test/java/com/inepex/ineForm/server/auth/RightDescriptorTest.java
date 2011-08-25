@@ -1,7 +1,16 @@
 package com.inepex.ineForm.server.auth;
 
-import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.*;
-import static org.junit.Assert.*;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.ALL;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.ALL_LISTING;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.ALL_MANIPULATION;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.LISTING;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_CREATE;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_DELETE;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_REFRESH;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_UNDELETE;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.RELATION_LISTING;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

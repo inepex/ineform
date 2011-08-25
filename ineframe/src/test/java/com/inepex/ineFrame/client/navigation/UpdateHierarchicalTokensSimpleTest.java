@@ -1,15 +1,13 @@
 package com.inepex.ineFrame.client.navigation;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyZeroInteractions;
+
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
-
-import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
-import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
-import com.inepex.ineFrame.client.navigation.PlaceNode;
 import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 

@@ -1,6 +1,8 @@
 package com.inepex.ineFrame.client.navigation;
 
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.*;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.defaultPlace;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
 
 import java.util.List;
 import java.util.Map;

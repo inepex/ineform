@@ -1,8 +1,6 @@
 package com.inepex.ineFrame.test;
 
 import com.google.gwt.junit.GWTMockUtilities;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.inepex.ineFrame.server.IneFrameInitializer;
 import com.inepex.ineFrame.server.LocalizationInitializer;

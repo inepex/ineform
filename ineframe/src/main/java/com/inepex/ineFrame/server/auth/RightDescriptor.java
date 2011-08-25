@@ -1,6 +1,11 @@
 package com.inepex.ineFrame.server.auth;
 
-import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.*;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.LISTING;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_CREATE;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_DELETE;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_REFRESH;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.MANIPULATION_UNDELETE;
+import static com.inepex.ineFrame.server.auth.RightDescriptor.ObjectRights.RELATION_LISTING;
 
 import java.util.ArrayList;
 import java.util.HashSet;
