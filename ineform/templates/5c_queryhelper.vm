@@ -11,61 +11,78 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.google.inject.Inject;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
-import com.inepex.ineom.shared.kvo.IneList;
-import com.inepex.ineom.shared.kvo.Relation;
-import com.inepex.ineom.shared.kvo.IFConsts;
+import com.inepex.ineom.shared.IneList;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
-import com.inepex.ineFrame.server.BaseQuery;
+import com.inepex.ineForm.server.BaseQuery;
+import ${package}.kvo.${classname};
+import ${package}.kvo.${classname}_;
+import ${package}.kvo.${classname}Consts;
+import ${package}.kvo.${classname}HandlerFactory;
+import ${package}.kvo.${classname}HandlerFactory.${classname}SearchHandler;
 
 public class ${classname}Query extends BaseQuery<${classname}>{
 
+	private final DescriptorStore descriptorStore;
+	private final ${classname}HandlerFactory handlerFactory;
+	
+	@Inject
+	public ${classname}Query(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
+		this.handlerFactory= new ${classname}HandlerFactory(descriptorStore);
+	}
 	
 	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<${classname}> from
 		, Expression<Boolean> base){
+			
+		${classname}SearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
 #foreach( $attr in $attrs )
 #if(${attr.hasAnnotation("Kvo_SearchParam")})
 #if($attr.type == "Date" || $attr.type == "Long")
-		Long ${attr.name} = action.getSearchParameters().getLong(${classname}SearchKVO.k_${attr.name});
+		Long ${attr.name} = handler.getLong(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif($attr.enum)
-		Long ${attr.name} = action.getSearchParameters().getLong(${classname}SearchKVO.k_${attr.name});
+		Long ${attr.name} = handler.getLong(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.type}.values()[${attr.name}.intValue()]));
 #elseif($attr.type == "String")
-		String ${attr.name} = action.getSearchParameters().getString(${classname}SearchKVO.k_${attr.name});
+		String ${attr.name} = handler.getString(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
 			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(${classname}_.${attr.name})), ${attr.name}.toUpperCase() + "%"));
 #elseif($attr.type == "Double")
-		Double ${attr.name} = action.getSearchParameters().getDouble(${classname}SearchKVO.k_${attr.name});
+		Double ${attr.name} = handler.getDouble(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif($attr.type == "Boolean")
-		Boolean ${attr.name} = action.getSearchParameters().getBoolean(${classname}SearchKVO.k_${attr.name});
+		Boolean ${attr.name} = handler.getBoolean(${classname}Consts.s_${attr.name});
 		if (Boolean.TRUE.equals(${attr.name}))
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif(${attr.hasAnnotation("Kvo_OneToOne")})
-		String ${attr.name} = action.getSearchParameters().getString(${classname}SearchKVO.k_${attr.name});
+		String ${attr.name} = handler.getString(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null && !${attr.name}.equals(""))
 			base = addAndExpression(
 				cb
 				, base
 				,${attr.typeU1}Query.getSearchExpression(cb, from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif($attr.list == false)
-		Relation ${attr.name} = action.getSearchParameters().getRelation(${classname}SearchKVO.k_${attr.name});
+		Relation ${attr.name} = handler.getRelation(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}).get(${attr.type}_.id), ${attr.name}.getId()));
 #else
-		IneList ${attr.name} = action.getSearchParameters().getList(${classname}KVO.k_${attr.name});
+		IneList ${attr.name} = handler.getList(${classname}Consts.s_${attr.name});
 		if (${attr.name} != null && ${attr.name}.getRelationList().size() > 0){
 			List<Long> relationIds = new ArrayList<Long>();
 			for (Relation r : ${attr.name}.getRelationList()){
-				if (r.getKvo().getRelation(${attr.fistGenType}KVO.k_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}) != null){
-					relationIds.add(r.getKvo().getRelation(${attr.fistGenType}KVO.k_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}).getId());
+				if (r.getKvo().getRelation(${attr.fistGenType}Consts.s_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}) != null){
+					relationIds.add(r.getKvo().getRelation(${attr.fistGenType}Consts.s_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}).getId());
 				}
 			}
 			if (relationIds.size()>0){
@@ -92,7 +109,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 			//default order specified:
 #foreach( $attr in $attrs )
 #if (${attr.hasAnnotation("Kvo_SortDefault")})
-			orderKey = ${classname}KVO.k_${attr.name};		
+			orderKey = ${classname}Consts.k_${attr.name};		
 #end
 #end				
 		}
@@ -101,7 +118,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 			
 #foreach( $attr in $attrs )			
 #if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic && $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean" && !$attr.enum && !$attr.hasAnnotation("Transient"))
-		if(idList.get(0).equals(${classname}KVO.k_${attr.name})){
+		if(idList.get(0).equals(${classname}Consts.k_${attr.name})){
 			if(idList.size()==1) {
 				Join<${classname}, ${attr.type}> title = from.join(${classname}_.${attr.name});
 				orderExpr = title.get(${attr.type}Assist.getOrderKey());

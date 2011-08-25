@@ -21,7 +21,8 @@ import ${package}.meta.*;
 import ${package}.dao.query.*;
 import ${package}.dao.*;
 import ${package}.daoext.*;
-
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
@@ -36,19 +37,24 @@ public class ${classname}Dao extends BaseDao<${classname}> {
 	public static interface ${classname}SelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,${classname}>> {
 	}
 	
+	private final DescriptorStore descStore;
+	
 	@Inject
-	public ${classname}Dao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory){
-		super(em, objectFactory);
+	public ${classname}Dao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
+		, AssistedObjectHandlerFactory handlerFactory
+		, DescriptorStore descStore){
+		super(em, objectFactory, handlerFactory);
+		this.descStore=descStore;
 	}
 
 	@Override
 	public BaseQuery<${classname}> getQuery() {
-		return new ${classname}Query();
+		return new ${classname}Query(descStore);
 	}
 
 	@Override
 	public BaseMapper<${classname}> getMapper() {
-		return new ${classname}Mapper();
+		return new ${classname}Mapper(descStore);
 	}
 
 	@Override
