@@ -8,9 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
+import com.inepex.ineForm.server.kvopersist.CustomKVO;
 
 @Entity
 public class Company {
@@ -39,21 +42,26 @@ public class Company {
 	@OneToMany(mappedBy="company", cascade={CascadeType.ALL} )
 	private List<Contact> contacts;
 	
-	@Override
-	public String toString() {
-		return name;
-	}
+	
+	@JoinColumn(nullable=false)
+	@OneToOne(cascade={CascadeType.ALL})
+	private CustomKVO extData;
 	
 	public Company(){
 	}
 	
-	
-	public Company(String name, String phone, String email, String webPage, List<Contact> contacts) {
+	public Company(String name, String phone, String email, String webPage, List<Contact> contacts, CustomKVO extData) {
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
 		this.webPage = webPage;
-		this.contacts=contacts;
+		this.contacts = contacts;
+		this.extData = extData;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 
 	public Company(Long id){
@@ -106,5 +114,13 @@ public class Company {
 
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
+	}
+	
+	public CustomKVO getExtData() {
+		return extData;
+	}
+	
+	public void setExtData(CustomKVO extData) {
+		this.extData = extData;
 	}
 }

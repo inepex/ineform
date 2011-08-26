@@ -15,13 +15,13 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
  * 
  * see {@link AssistedObjectHandlerFactory}'s java doc too
  */
-public abstract class AssistedObjectChecker {
+public class AssistedObjectChecker {
 
 	private final AssistedObject assistedObject;
 	public final String descriptorName;
 	public final ObjectDesc objectDescriptor;
 
-	protected AssistedObjectChecker(AssistedObject assistedObject,
+	public AssistedObjectChecker(AssistedObject assistedObject,
 			String descriptorName, ObjectDesc objectDescriptor) {
 		this.assistedObject = assistedObject;
 		this.descriptorName = descriptorName;

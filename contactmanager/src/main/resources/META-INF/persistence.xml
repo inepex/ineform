@@ -6,8 +6,11 @@
 	<persistence-unit name="ContactManager">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
+		<class>com.inepex.ineForm.server.kvopersist.PersistField</class>
+		<class>com.inepex.ineForm.server.kvopersist.CustomKVO</class>
+		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="manager" />
