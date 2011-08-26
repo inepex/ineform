@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class MeetingHandlerFactory { 
@@ -18,12 +19,22 @@ public class MeetingHandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public MeetingHandler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(MeetingConsts.descriptorName);
+		return new MeetingHandler(assistedObject, descriptorStore);
+	}
+	
 	public MeetingHandler createHandler(AssistedObject assistedObject) {
 		if(!MeetingConsts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+MeetingConsts.descriptorName+
 				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
 		
 		return new MeetingHandler(assistedObject, descriptorStore);
+	}
+	
+	public MeetingSearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(MeetingConsts.searchDescriptor);
+		return new MeetingSearchHandler(assistedObject, descriptorStore);
 	}
 	
 	public MeetingSearchHandler createSearchHandler(AssistedObject assistedObject) {

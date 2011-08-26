@@ -5,6 +5,7 @@ import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class ContactHandlerFactory { 
@@ -19,12 +20,22 @@ public class ContactHandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public ContactHandler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(ContactConsts.descriptorName);
+		return new ContactHandler(assistedObject, descriptorStore);
+	}
+	
 	public ContactHandler createHandler(AssistedObject assistedObject) {
 		if(!ContactConsts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+ContactConsts.descriptorName+
 				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
 		
 		return new ContactHandler(assistedObject, descriptorStore);
+	}
+	
+	public ContactSearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(ContactConsts.searchDescriptor);
+		return new ContactSearchHandler(assistedObject, descriptorStore);
 	}
 	
 	public ContactSearchHandler createSearchHandler(AssistedObject assistedObject) {

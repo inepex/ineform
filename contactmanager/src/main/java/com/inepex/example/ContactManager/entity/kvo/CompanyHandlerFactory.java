@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class CompanyHandlerFactory { 
@@ -18,12 +19,22 @@ public class CompanyHandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public CompanyHandler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(CompanyConsts.descriptorName);
+		return new CompanyHandler(assistedObject, descriptorStore);
+	}
+	
 	public CompanyHandler createHandler(AssistedObject assistedObject) {
 		if(!CompanyConsts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+CompanyConsts.descriptorName+
 				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
 		
 		return new CompanyHandler(assistedObject, descriptorStore);
+	}
+	
+	public CompanySearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(CompanyConsts.searchDescriptor);
+		return new CompanySearchHandler(assistedObject, descriptorStore);
 	}
 	
 	public CompanySearchHandler createSearchHandler(AssistedObject assistedObject) {

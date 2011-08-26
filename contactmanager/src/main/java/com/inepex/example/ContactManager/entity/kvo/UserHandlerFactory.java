@@ -3,6 +3,7 @@ package com.inepex.example.ContactManager.entity.kvo;
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class UserHandlerFactory { 
@@ -17,12 +18,22 @@ public class UserHandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public UserHandler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(UserConsts.descriptorName);
+		return new UserHandler(assistedObject, descriptorStore);
+	}
+	
 	public UserHandler createHandler(AssistedObject assistedObject) {
 		if(!UserConsts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+UserConsts.descriptorName+
 				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
 		
 		return new UserHandler(assistedObject, descriptorStore);
+	}
+	
+	public UserSearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(UserConsts.searchDescriptor);
+		return new UserSearchHandler(assistedObject, descriptorStore);
 	}
 	
 	public UserSearchHandler createSearchHandler(AssistedObject assistedObject) {

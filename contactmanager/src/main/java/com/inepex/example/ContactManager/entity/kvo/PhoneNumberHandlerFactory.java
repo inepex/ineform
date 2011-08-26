@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class PhoneNumberHandlerFactory { 
@@ -18,12 +19,22 @@ public class PhoneNumberHandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public PhoneNumberHandler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(PhoneNumberConsts.descriptorName);
+		return new PhoneNumberHandler(assistedObject, descriptorStore);
+	}
+	
 	public PhoneNumberHandler createHandler(AssistedObject assistedObject) {
 		if(!PhoneNumberConsts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+PhoneNumberConsts.descriptorName+
 				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
 		
 		return new PhoneNumberHandler(assistedObject, descriptorStore);
+	}
+	
+	public PhoneNumberSearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(PhoneNumberConsts.searchDescriptor);
+		return new PhoneNumberSearchHandler(assistedObject, descriptorStore);
 	}
 	
 	public PhoneNumberSearchHandler createSearchHandler(AssistedObject assistedObject) {

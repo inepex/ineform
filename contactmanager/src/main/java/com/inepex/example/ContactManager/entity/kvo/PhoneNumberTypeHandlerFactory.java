@@ -3,6 +3,7 @@ package com.inepex.example.ContactManager.entity.kvo;
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class PhoneNumberTypeHandlerFactory { 
@@ -17,12 +18,22 @@ public class PhoneNumberTypeHandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public PhoneNumberTypeHandler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(PhoneNumberTypeConsts.descriptorName);
+		return new PhoneNumberTypeHandler(assistedObject, descriptorStore);
+	}
+	
 	public PhoneNumberTypeHandler createHandler(AssistedObject assistedObject) {
 		if(!PhoneNumberTypeConsts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+PhoneNumberTypeConsts.descriptorName+
 				"' assistedObject: '"+assistedObject.getDescriptorName()+"'");
 		
 		return new PhoneNumberTypeHandler(assistedObject, descriptorStore);
+	}
+	
+	public PhoneNumberTypeSearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(PhoneNumberTypeConsts.searchDescriptor);
+		return new PhoneNumberTypeSearchHandler(assistedObject, descriptorStore);
 	}
 	
 	public PhoneNumberTypeSearchHandler createSearchHandler(AssistedObject assistedObject) {

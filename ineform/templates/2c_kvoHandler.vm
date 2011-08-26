@@ -7,6 +7,7 @@ import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class ${classname}HandlerFactory { 
 
@@ -20,6 +21,11 @@ public class ${classname}HandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	public ${classname}Handler createHandler() {
+		AssistedObject assistedObject = new KeyValueObject(${classname}Consts.descriptorName);
+		return new ${classname}Handler(assistedObject, descriptorStore);
+	}
+	
 	public ${classname}Handler createHandler(AssistedObject assistedObject) {
 		if(!${classname}Consts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+${classname}Consts.descriptorName+
@@ -29,6 +35,11 @@ public class ${classname}HandlerFactory {
 	}
 	
 #if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+	public ${classname}SearchHandler createSearchHandler() {
+		AssistedObject assistedObject = new KeyValueObject(${classname}Consts.searchDescriptor);
+		return new ${classname}SearchHandler(assistedObject, descriptorStore);
+	}
+	
 	public ${classname}SearchHandler createSearchHandler(AssistedObject assistedObject) {
 		if(!${classname}Consts.searchDescriptor.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+${classname}Consts.searchDescriptor+

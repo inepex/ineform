@@ -40,7 +40,12 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 	}
 	
 	public ServerSideDataConnector createConnector(IneDispatch dispatcher, EventBus eventBus, String descriptorName) {
-		ServerSideDataConnector c = new ServerSideDataConnector(dispatcher, eventBus, descriptorName);
+		ServerSideDataConnector c = new ServerSideDataConnector(dispatcher, eventBus, descriptorName) {
+			@Override
+			public void update(boolean updateDisplays) {
+				//nothing to do page manages the updating
+			}
+		};
 		connectors.add(c);
 		return c;
 	}
