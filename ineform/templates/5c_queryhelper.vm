@@ -27,12 +27,10 @@ import ${package}.kvo.${classname}HandlerFactory.${classname}SearchHandler;
 
 public class ${classname}Query extends BaseQuery<${classname}>{
 
-	private final DescriptorStore descriptorStore;
 	private final ${classname}HandlerFactory handlerFactory;
 	
 	@Inject
 	public ${classname}Query(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new ${classname}HandlerFactory(descriptorStore);
 	}
 	

@@ -34,12 +34,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class MeetingQuery extends BaseQuery<Meeting>{
 
-	private final DescriptorStore descriptorStore;
 	private final MeetingHandlerFactory handlerFactory;
 	
 	@Inject
 	public MeetingQuery(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new MeetingHandlerFactory(descriptorStore);
 	}
 	

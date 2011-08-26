@@ -118,7 +118,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 	}
 	
 	public AssistedObject entityToKvo(${classname} entity) {
-		${classname}Handler handler = handlerFactory.createHandler(new KeyValueObject(${classname}Consts.descriptorName));
+		${classname}Handler handler = handlerFactory.createHandler();
 	
 #foreach( $attr in $attrs )
 #if ($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})

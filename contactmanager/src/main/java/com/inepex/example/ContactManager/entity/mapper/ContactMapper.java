@@ -18,7 +18,6 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class ContactMapper extends BaseMapper<Contact>{
@@ -111,7 +110,7 @@ public class ContactMapper extends BaseMapper<Contact>{
 	}
 	
 	public AssistedObject entityToKvo(Contact entity) {
-		ContactHandler handler = handlerFactory.createHandler(new KeyValueObject(ContactConsts.descriptorName));
+		ContactHandler handler = handlerFactory.createHandler();
 	
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());

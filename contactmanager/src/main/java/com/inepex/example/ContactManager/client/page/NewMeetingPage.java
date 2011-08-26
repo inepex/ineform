@@ -23,7 +23,6 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 
 public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
@@ -106,8 +105,7 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 					|| form.getRootPanelWidget()==null)
 				return super.getActionForDescriptorName(descriptorName);
 			else {
-				ContactSearchHandler searchKVO = contactHandlerFactory.createSearchHandler(
-						new KeyValueObject(ContactConsts.searchDescriptor));
+				ContactSearchHandler searchKVO = contactHandlerFactory.createSearchHandler();
 				searchKVO.setCompany(form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(MeetingConsts.k_company).getRelationValue());
 				return new RelationListAction(ContactConsts.descriptorName, searchKVO.getAssistedObject(), 0, 1000, false);
 			}

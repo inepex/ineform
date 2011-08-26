@@ -8,7 +8,6 @@ import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory.E
 import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class EmailAddressMapper extends BaseMapper<EmailAddress>{
@@ -40,7 +39,7 @@ public class EmailAddressMapper extends BaseMapper<EmailAddress>{
 	}
 	
 	public AssistedObject entityToKvo(EmailAddress entity) {
-		EmailAddressHandler handler = handlerFactory.createHandler(new KeyValueObject(EmailAddressConsts.descriptorName));
+		EmailAddressHandler handler = handlerFactory.createHandler();
 	
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());

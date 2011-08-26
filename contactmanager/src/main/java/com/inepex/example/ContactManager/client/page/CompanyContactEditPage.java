@@ -23,7 +23,6 @@ import com.inepex.ineForm.client.table.IneTable.UserCommand;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class CompanyContactEditPage extends ConnectorPage {
 
@@ -36,7 +35,7 @@ public class CompanyContactEditPage extends ConnectorPage {
 	CompanyContactEditPage(FormContext formCtx, FormFactory formFactory, ContactHandlerFactory contactHandlerFactory) {
 		this.contactHandlerFactory=contactHandlerFactory;
 		
-		searchKVO = contactHandlerFactory.createSearchHandler(new KeyValueObject(ContactConsts.searchDescriptor));
+		searchKVO = contactHandlerFactory.createSearchHandler();
 		
 		ServerSideDataConnector connector = createConnector(formCtx.ineDispatch, formCtx.eventBus, ContactConsts.descriptorName);
 		connector.setSearchParametersAndUpdate(searchKVO.getAssistedObject());

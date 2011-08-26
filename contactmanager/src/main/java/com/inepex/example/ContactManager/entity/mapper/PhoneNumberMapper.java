@@ -9,7 +9,6 @@ import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory.Ph
 import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
@@ -48,7 +47,7 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
 	}
 	
 	public AssistedObject entityToKvo(PhoneNumber entity) {
-		PhoneNumberHandler handler = handlerFactory.createHandler(new KeyValueObject(PhoneNumberConsts.descriptorName));
+		PhoneNumberHandler handler = handlerFactory.createHandler();
 	
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());

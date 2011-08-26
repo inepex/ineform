@@ -22,12 +22,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class CompanyQuery extends BaseQuery<Company>{
 
-	private final DescriptorStore descriptorStore;
 	private final CompanyHandlerFactory handlerFactory;
 	
 	@Inject
 	public CompanyQuery(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new CompanyHandlerFactory(descriptorStore);
 	}
 	

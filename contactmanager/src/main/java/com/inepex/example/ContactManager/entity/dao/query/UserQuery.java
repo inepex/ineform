@@ -22,12 +22,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class UserQuery extends BaseQuery<User>{
 
-	private final DescriptorStore descriptorStore;
 	private final UserHandlerFactory handlerFactory;
 	
 	@Inject
 	public UserQuery(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new UserHandlerFactory(descriptorStore);
 	}
 	

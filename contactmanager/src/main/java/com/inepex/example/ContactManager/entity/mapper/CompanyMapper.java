@@ -16,7 +16,6 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class CompanyMapper extends BaseMapper<Company>{
@@ -81,7 +80,7 @@ public class CompanyMapper extends BaseMapper<Company>{
 	}
 	
 	public AssistedObject entityToKvo(Company entity) {
-		CompanyHandler handler = handlerFactory.createHandler(new KeyValueObject(CompanyConsts.descriptorName));
+		CompanyHandler handler = handlerFactory.createHandler();
 	
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());

@@ -27,12 +27,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class ContactQuery extends BaseQuery<Contact>{
 
-	private final DescriptorStore descriptorStore;
 	private final ContactHandlerFactory handlerFactory;
 	
 	@Inject
 	public ContactQuery(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new ContactHandlerFactory(descriptorStore);
 	}
 	

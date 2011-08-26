@@ -22,12 +22,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 
-	private final DescriptorStore descriptorStore;
 	private final EmailAddressHandlerFactory handlerFactory;
 	
 	@Inject
 	public EmailAddressQuery(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new EmailAddressHandlerFactory(descriptorStore);
 	}
 	

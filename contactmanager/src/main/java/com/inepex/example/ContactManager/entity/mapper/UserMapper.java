@@ -8,7 +8,6 @@ import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory.UserHandl
 import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class UserMapper extends BaseMapper<User>{
@@ -44,7 +43,7 @@ public class UserMapper extends BaseMapper<User>{
 	}
 	
 	public AssistedObject entityToKvo(User entity) {
-		UserHandler handler = handlerFactory.createHandler(new KeyValueObject(UserConsts.descriptorName));
+		UserHandler handler = handlerFactory.createHandler();
 	
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());

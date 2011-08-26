@@ -22,12 +22,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType>{
 
-	private final DescriptorStore descriptorStore;
 	private final PhoneNumberTypeHandlerFactory handlerFactory;
 	
 	@Inject
 	public PhoneNumberTypeQuery(DescriptorStore descriptorStore) {
-		this.descriptorStore=descriptorStore;
 		this.handlerFactory= new PhoneNumberTypeHandlerFactory(descriptorStore);
 	}
 	
