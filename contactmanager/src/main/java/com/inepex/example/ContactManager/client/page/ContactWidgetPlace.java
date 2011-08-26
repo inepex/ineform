@@ -37,7 +37,7 @@ public class ContactWidgetPlace extends WidgetPlace {
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_CONTACT));
 		
-		new ObjectFinder<AssistedObject>(ContactConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback<AssistedObject>() {
+		new ObjectFinder(ContactConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback() {
 
 					@Override
 					public void onObjectFound(AssistedObject foundObject) {

@@ -6,11 +6,11 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 
-public class ObjectFinder<T extends AssistedObject> {
+public class ObjectFinder {
 	
 	KeyValueObject idObject;
 	IneDispatch dispatcher;
-	Callback<T> callback = null;
+	Callback callback = null;
 		
 	public ObjectFinder(String descriptorName, Long id, IneDispatch dispatcher) {
 		idObject = new KeyValueObject(descriptorName);
@@ -18,7 +18,7 @@ public class ObjectFinder<T extends AssistedObject> {
 		this.dispatcher = dispatcher;
 	}
 	
-	public void executeFind(Callback<T> callback) {
+	public void executeFind(Callback callback) {
 		this.callback = callback;
 		ObjectManipulationAction action = new ObjectManipulationAction(ManipulationTypes.REFRESH
 				, idObject);
@@ -26,19 +26,17 @@ public class ObjectFinder<T extends AssistedObject> {
 	}
 	
 	private class ObjectRefreshCallback extends SuccessCallback<ObjectManipulationActionResult> {
-		@SuppressWarnings("unchecked")
 		@Override
 		public void onSuccess(ObjectManipulationActionResult result) {
-			callback.onObjectFound((T) result.getObjectsNewState());
+			callback.onObjectFound(result.getObjectsNewState());
 		}
 	}
 	
 	/**
 	 * @author istvanszoboszlai
 	 * ObjectFinder's callback
-	 * @param <T>
 	 */
-	public static interface Callback<T> {
-		void onObjectFound(T foundObject);
+	public static interface Callback {
+		void onObjectFound(AssistedObject foundObject);
 	}
 }

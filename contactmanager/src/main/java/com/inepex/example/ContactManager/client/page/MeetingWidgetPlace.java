@@ -39,7 +39,7 @@ public class MeetingWidgetPlace extends WidgetPlace {
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_MEETING));
 		
-		new ObjectFinder<AssistedObject>(MeetingConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback<AssistedObject>() {
+		new ObjectFinder(MeetingConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback() {
 
 					@Override
 					public void onObjectFound(AssistedObject foundObject) {
