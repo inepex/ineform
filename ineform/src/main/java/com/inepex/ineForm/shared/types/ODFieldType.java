@@ -4,7 +4,7 @@ import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
-public enum OdFieldType {
+public enum ODFieldType {
 	
 	BOOLEAN(IneT.BOOLEAN),
 	DOUBLE(IneT.DOUBLE),
@@ -15,12 +15,12 @@ public enum OdFieldType {
 	public final IneT ineT;
 	public final String[] validators;
 	
-	private OdFieldType(IneT ineT, String... validators) {
+	private ODFieldType(IneT ineT, String... validators) {
 		this.ineT=ineT;
 		this.validators=validators;
 	}
 
-	public static OdFieldType searchByFDesc(FDesc fd) {
+	public static ODFieldType searchByFDesc(FDesc fd) {
 		switch (fd.getType()) {
 		case BOOLEAN:
 			return BOOLEAN;

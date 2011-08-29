@@ -7,7 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.inepex.ineForm.shared.types.OdFieldType;
+import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -30,11 +30,11 @@ public class MapFromCustomKVOTest {
 		customKVO.setId(1L);
 		
 		List<PersistField> persistFields =  new ArrayList<PersistField>();
-		persistFields.add(new PersistField(23L, null, k_long, OdFieldType.LONG, 123L));
-		persistFields.add(new PersistField(25L, null, k_bool, OdFieldType.BOOLEAN, false));
-		persistFields.add(new PersistField(28L, null, k_double, OdFieldType.DOUBLE, 1.3321));
-		persistFields.add(new PersistField(32L, null, k_str, OdFieldType.STRING, "a string value"));
-		persistFields.add(new PersistField(43L, null, k_str2, OdFieldType.EMAIL, "email@domain.co"));
+		persistFields.add(new PersistField(23L, null, k_long, ODFieldType.LONG, 123L));
+		persistFields.add(new PersistField(25L, null, k_bool, ODFieldType.BOOLEAN, false));
+		persistFields.add(new PersistField(28L, null, k_double, ODFieldType.DOUBLE, 1.3321));
+		persistFields.add(new PersistField(32L, null, k_str, ODFieldType.STRING, "a string value"));
+		persistFields.add(new PersistField(43L, null, k_str2, ODFieldType.EMAIL, "email@domain.co"));
 		
 		customKVO.setFields(persistFields);
 	}

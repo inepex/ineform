@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.inepex.ineForm.shared.types.OdFieldType;
+import com.inepex.ineForm.shared.types.ODFieldType;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class PersistField {
 	private String key;
 	
 	@Column(nullable=false)
-	private OdFieldType fieldType;
+	private ODFieldType fieldType;
 	
 	/**
 	 * only one can holds value depending on fieldType
@@ -49,7 +49,7 @@ public class PersistField {
 	public PersistField(){
 	}
 	
-	public PersistField(Long id, CustomKVO parent, String key, OdFieldType fieldType, Object value) {
+	public PersistField(Long id, CustomKVO parent, String key, ODFieldType fieldType, Object value) {
 		this.id = id;
 		this.parent = parent;
 		this.key = key;
@@ -91,11 +91,11 @@ public class PersistField {
 		this.key = key;
 	}
 
-	public OdFieldType getFieldType() {
+	public ODFieldType getFieldType() {
 		return fieldType;
 	}
 
-	public void setFieldType(OdFieldType fieldType) {
+	public void setFieldType(ODFieldType fieldType) {
 		this.fieldType = fieldType;
 	}
 
@@ -139,8 +139,14 @@ public class PersistField {
 		this.parent = parent;
 	}
 
+	@Override
+	public String toString() {
+		return key+" ("+fieldType.toString()+")";
+	}
+	
 	/**
-	 * generated for testing
+	 * NOT GENERATED,
+	 * equality doesn't depends on id
 	 * 
 	 */
 	@Override
@@ -163,11 +169,6 @@ public class PersistField {
 		} else if (!doubleVal.equals(other.doubleVal))
 			return false;
 		if (fieldType != other.fieldType)
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
 			return false;
 		if (key == null) {
 			if (other.key != null)

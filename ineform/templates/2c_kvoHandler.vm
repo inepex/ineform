@@ -70,7 +70,12 @@ public class ${classname}HandlerFactory {
         public ${attr.type} get${attr.nameU1}() {
         	return get${attr.typeU1}(${classname}Consts.k_${attr.name});
         }
-        
+
+#elseif($attr.type == "CustomKVO")
+		public Relation get${attr.nameU1}() {
+    		return getRelation(${classname}Consts.k_${attr.name});
+        }	
+		
 #elseif($attr.list == true)
     	public IneList get${attr.nameU1}() {
     		return getList(${classname}Consts.k_${attr.name});
@@ -91,6 +96,12 @@ public class ${classname}HandlerFactory {
         public void set${attr.nameU1}(${attr.type} ${attr.name}) {
     		set(${classname}Consts.k_${attr.name}, ${attr.name});
         }
+		
+#elseif($attr.type == "CustomKVO")
+		public void set${attr.nameU1}(Relation ${attr.name}) {
+    		set(${classname}Consts.k_${attr.name}, ${attr.name});
+        }
+	
 #elseif($attr.list == true)
         public void set${attr.nameU1}(IneList ${attr.name}) {
     		set(${classname}Consts.k_${attr.name}, ${attr.name});

@@ -30,7 +30,7 @@ public class CustomKVO {
 
 	@Override
 	public String toString() {
-		return "CustomKVO";
+		return "CustomKVO #"+id;
 	}
 	
 	public Long getId() {
@@ -60,6 +60,7 @@ public class CustomKVO {
 
 	/**
 	 * generated for testing
+	 * 
 	 */
 	@Override
 	public boolean equals(Object obj) {

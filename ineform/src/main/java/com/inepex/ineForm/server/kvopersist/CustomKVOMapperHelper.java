@@ -3,7 +3,7 @@ package com.inepex.ineForm.server.kvopersist;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.inepex.ineForm.shared.types.OdFieldType;
+import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -69,7 +69,7 @@ public class CustomKVOMapperHelper {
 		
 		//adding new ones and editing existed rows
 		for(FDesc fd : sourceOd.getFields().values()) {
-			PersistField pf = searchOrCreate(target, fd);
+			PersistField pf = searchOrCreateAndSetType(target, fd);
 			clearFields(fd.getType(), pf);
 			
 			String key = fd.getKey();
@@ -102,17 +102,20 @@ public class CustomKVOMapperHelper {
 	 * @return an existing or a created PersistField (never returns null)
 	 * 
 	 */
-	private static PersistField searchOrCreate(CustomKVO target, FDesc fd) {
+	private static PersistField searchOrCreateAndSetType(CustomKVO target, FDesc fd) {
 		for(PersistField pf : target.getFields()) {
-			if(pf.getKey().equals(fd.getKey()))
+			if(pf.getKey().equals(fd.getKey())) {
+				pf.setFieldType(ODFieldType.searchByFDesc(fd));
 				return pf;
+			}
 		}
 		
 		PersistField pf = new PersistField();
 		pf.setParent(new CustomKVO(target.getId()));
-		pf.setFieldType(OdFieldType.searchByFDesc(fd));
+		pf.setFieldType(ODFieldType.searchByFDesc(fd));
 		pf.setKey(fd.getKey());
 		target.getFields().add(pf);
+		
 		return pf;
 	}
 
@@ -150,7 +153,7 @@ public class CustomKVOMapperHelper {
 	
 	
 	@SuppressWarnings("serial")
-	private static class CreatedFdesc extends FDesc {
+	static class CreatedFdesc extends FDesc {
 
 		public CreatedFdesc(String key, IneT type, String... properties) {
 			super(key, type, properties);
@@ -158,7 +161,7 @@ public class CustomKVOMapperHelper {
 	}
 	
 	@SuppressWarnings("serial")
-	private static class UncheckedKVO extends KeyValueObject {
+	static class UncheckedKVO extends KeyValueObject {
 
 		public UncheckedKVO(String descriptorName) {
 			super(descriptorName);

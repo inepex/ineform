@@ -6,6 +6,7 @@ import java.util.Date;
 import com.inepex.ineForm.shared.types.*;
 import com.inepex.ineForm.shared.descriptorext.*;
 import com.inepex.ineom.shared.descriptor.*;
+import com.inepex.ineom.shared.IFConsts;
 
 import static com.inepex.ineom.shared.util.SharedUtil.*;
 
@@ -48,6 +49,10 @@ public class ${classname}Assist extends Assist {
 		ObjectDesc objDesc = new ObjectDesc(${classname}Consts.descriptorName
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if($attr.type == "CustomKVO")
+	, new RelationFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/
+										, IFConsts.customDescriptorName)/*hc:d2_${velocityCount}*//*hc*/
+#else
 #if($attr.type == "Date" || $attr.enum)
 			, new LongFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
 #elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
@@ -73,6 +78,7 @@ public class ${classname}Assist extends Assist {
 #end
 #end
 #end
+#end
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -85,7 +91,7 @@ public class ${classname}Assist extends Assist {
 			
 		tableRDesc.getRootNode()
 #foreach( $attr in $attrs )
-#if ( $attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if ( $attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")} && $attr.type != "CustomKVO")
 #if ( $attr.type == "Date" )
 			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/100, true/*hc*/)/*hc:tdr2_${velocityCount}*/.prop(ColRDesc.AS_DATE)#if(${attr.hasAnnotation("Kvo_SortDefault")}).prop(ColRDesc.DEFAULTSORT)#end/*hc*/)
 #elseif ($attr.enum)
@@ -120,6 +126,8 @@ public class ${classname}Assist extends Assist {
 			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.NUMBERTEXTBOX/*hc*/))
 #elseif($attr.type == "Boolean")
 			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.CHECKBOX/*hc*/))
+#elseif($attr.type == "CustomKVO")
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.CUSTOMKVO/*hc*/))
 #elseif($attr.enum)
 			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.ENUMLISTBOX/*hc*/, EnumListFW.enumValues + ":" + ${attr.type}.getValuesAsString()))
 #elseif(${attr.hasAnnotation("Kvo_OneToOne")})
