@@ -1,14 +1,15 @@
-package com.inepex.ineForm.server.kvopersist;
+package com.inepex.ineForm.server.customkvo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
+import com.inepex.ineForm.shared.customkvo.UncheckedKVO;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
@@ -149,43 +150,5 @@ public class CustomKVOMapperHelper {
 		default:
 			throw new IllegalArgumentException(ineT.toString());
 		}
-	}
-	
-	
-	@SuppressWarnings("serial")
-	static class CreatedFdesc extends FDesc {
-
-		public CreatedFdesc(String key, IneT type, String... properties) {
-			super(key, type, properties);
-		}
-	}
-	
-	@SuppressWarnings("serial")
-	static class UncheckedKVO extends KeyValueObject {
-
-		public UncheckedKVO(String descriptorName) {
-			super(descriptorName);
-		}
-		
-		@Override
-		public void set(String key, Boolean value) {
-			super.set(key, value);
-		}
-		
-		@Override
-		public void set(String key, Double value) {
-			super.set(key, value);
-		}
-		
-		@Override
-		public void set(String key, Long value) {
-			super.set(key, value);
-		}
-		
-		@Override
-		public void set(String key, String value) {
-			super.set(key, value);
-		}
-		
 	}
 }

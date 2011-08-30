@@ -7,8 +7,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.AddCallback;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.RemoveCallback;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 
@@ -21,6 +19,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	private RemoveCallback removeCallback;
 	private AddCallback addCallback;
+	private RowValueChangeCallback rowValueChangeCallback;
 	
 	CustomKVOFWView() {
 		add(rowPanel);
@@ -36,6 +35,12 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	public void setAddCallback(AddCallback addCallback) {
 		this.addCallback=addCallback;
 	}
+	
+	@Override
+	public void setRowValueChangeCallback(
+			RowValueChangeCallback rowValueChangeCallback) {
+		this.rowValueChangeCallback = rowValueChangeCallback;
+	}
 
 	@Override
 	public void clearRows() {
@@ -45,7 +50,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	@Override
 	public void addRow(CustomKVORow r) {
-		DispRow dr = new DispRow(r, removeCallback);
+		DispRow dr = new DispRow(r, removeCallback, rowValueChangeCallback);
 		rowPanel.add(dr);
 		rowsByInnerId.put(r.getInnerId(), dr);
 	}
@@ -65,7 +70,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				addCallback.onClick();
+				addCallback.onAdd();
 			}
 		}));
 	}

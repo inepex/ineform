@@ -8,7 +8,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.RemoveCallback;
 import com.inepex.ineForm.client.general.FlowPanelBasedEMM;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -16,6 +15,7 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 class DispRow extends HandlerAwareFlowPanel {
 	
 	private final RemoveCallback removeCallback;
+	private final RowValueChangeCallback rowValueChangeCallback;
 	private final CustomKVORow row;
 	
 	private final TextBox keyBox = new TextBox();
@@ -24,9 +24,10 @@ class DispRow extends HandlerAwareFlowPanel {
 	private final Button removeBtn = new Button(IneFormI18n.REMOVE());
 	private final FlowPanelBasedEMM errorManager = FlowPanelBasedEMM.newInstance();
 	
-	public DispRow(CustomKVORow row, RemoveCallback removeCallback) {
+	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback) {
 		this.row=row;
 		this.removeCallback=removeCallback;
+		this.rowValueChangeCallback=rowValueChangeCallback;
 		
 		add(keyBox);
 		add(typeBox);
@@ -48,6 +49,7 @@ class DispRow extends HandlerAwareFlowPanel {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				row.setKey(keyBox.getValue());
+				rowValueChangeCallback.onRowValueChanged();
 			}
 		}));
 		
@@ -56,6 +58,7 @@ class DispRow extends HandlerAwareFlowPanel {
 			@Override
 			public void onChange(ChangeEvent event) {
 				row.setType(typeBox.getValue());
+				rowValueChangeCallback.onRowValueChanged();
 			}
 		}));
 		
@@ -64,6 +67,7 @@ class DispRow extends HandlerAwareFlowPanel {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				row.setValue(valueBox.getValue());
+				rowValueChangeCallback.onRowValueChanged();
 			}
 		}));
 		
@@ -71,7 +75,7 @@ class DispRow extends HandlerAwareFlowPanel {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				removeCallback.onClick(row);
+				removeCallback.onRemove(row);
 			}
 		}));
 	}

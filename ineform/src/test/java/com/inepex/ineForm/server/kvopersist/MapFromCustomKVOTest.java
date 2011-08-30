@@ -7,6 +7,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.inepex.ineForm.server.customkvo.CustomKVO;
+import com.inepex.ineForm.server.customkvo.CustomKVOMapperHelper;
+import com.inepex.ineForm.server.customkvo.PersistField;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;

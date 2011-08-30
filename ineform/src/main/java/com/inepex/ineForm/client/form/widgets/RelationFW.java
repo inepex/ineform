@@ -25,6 +25,11 @@ public class RelationFW extends DenyingFormWidget {
 		form.renderForm();
 		
 		initWidget(form.asWidget());
+	}
+	
+	@Override
+	protected void onAttach() {
+		super.onAttach();
 		
 		for(AbstractFormUnit innerFormUnits : form.getRootPanelWidget().getFormUnits()) {
 			registerHandler(innerFormUnits.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
@@ -34,8 +39,6 @@ public class RelationFW extends DenyingFormWidget {
 				}
 			}));
 		}
-		
-		
 	}
 	
 	@Override

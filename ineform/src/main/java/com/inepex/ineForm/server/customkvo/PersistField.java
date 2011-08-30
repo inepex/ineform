@@ -1,4 +1,4 @@
-package com.inepex.ineForm.server.kvopersist;
+package com.inepex.ineForm.server.customkvo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +39,7 @@ public class PersistField {
 	/**
 	 * only one can holds value depending on fieldType
 	 * 
-	 * see {@link com.inepex.ineForm.server.kvopersist.PersistField#checkfields()}
+	 * see {@link com.inepex.ineForm.server.customkvo.PersistField#checkfields()}
 	 */
 	private Boolean booleanVal;
 	private Long longVal;

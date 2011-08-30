@@ -1,4 +1,4 @@
-package com.inepex.ineForm.server.kvopersist;
+package com.inepex.ineForm.server.customkvo;
 
 import java.util.List;
 

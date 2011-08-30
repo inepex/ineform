@@ -6,6 +6,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.inepex.ineForm.server.customkvo.CustomKVO;
+import com.inepex.ineForm.server.customkvo.CustomKVOMapperHelper;
+import com.inepex.ineForm.server.customkvo.PersistField;
+import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
@@ -56,7 +60,7 @@ public class MapIntoCustomKVOTest {
 		
 		
 		ObjectDesc od = CustomKVOMapperHelper.getODFromCustomKVO(kvo);
-		od.addField(new CustomKVOMapperHelper.CreatedFdesc(k_bool_toAdd, IneT.BOOLEAN));
+		od.addField(new CreatedFdesc(k_bool_toAdd, IneT.BOOLEAN));
 		
 		AssistedObject ao = CustomKVOMapperHelper.getKVOFromCustomKVO(kvo);
 		new AssistedObjectChecker(ao, IFConsts.customDescriptorName, od).set(k_bool_toAdd, true);
@@ -121,7 +125,7 @@ public class MapIntoCustomKVOTest {
 		FDesc fd = od.getField(k_bool_tillChange);
 		od.getFields().remove(fd);
 		
-		od.addField(new CustomKVOMapperHelper.CreatedFdesc(k_bool_tillChange, IneT.STRING, KeyValueObjectValidationManager.EMAIL));
+		od.addField(new CreatedFdesc(k_bool_tillChange, IneT.STRING, KeyValueObjectValidationManager.EMAIL));
 		
 		AssistedObject ao = CustomKVOMapperHelper.getKVOFromCustomKVO(kvo);
 		new AssistedObjectChecker(ao, IFConsts.customDescriptorName, od).set(k_bool_tillChange, "new_email_type@domain.com");

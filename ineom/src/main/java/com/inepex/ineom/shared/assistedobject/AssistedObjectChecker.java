@@ -3,6 +3,7 @@ package com.inepex.ineom.shared.assistedobject;
 import java.util.List;
 
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
@@ -184,5 +185,38 @@ public class AssistedObjectChecker {
 
 	public boolean isNew() {
 		return assistedObject.isNew();
+	}
+	
+	public String getValueAsString(String key) {
+		Object o;
+
+		switch (objectDescriptor.getField(key).getType()) {
+		case BOOLEAN:
+			o = getBoolean(key) ? IFConsts.TRUE
+					: IFConsts.FALSE;
+			return o == null ? null : o.toString();
+
+		case DOUBLE:
+			o = getDouble(key);
+			return o == null ? null : o.toString();
+
+		case LIST:
+			o = getList(key);
+			return o == null ? null : o.toString();
+
+		case LONG:
+			o = getLong(key);
+			return o == null ? null : o.toString();
+
+		case RELATION:
+			Relation r = getRelation(key);
+			return r == null ? null : r.getDisplayName();
+
+		case STRING:
+			o = getString(key);
+			return o == null ? null : o.toString();
+		}
+
+		return null;
 	}
 }

@@ -87,38 +87,6 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 	// -------------------------------------------------------
 	// helper methods
 	// -------------------------------------------------------
-	public String getValueAsString(String key) {
-		Object o;
-
-		switch (objectDescriptor.getField(key).getType()) {
-		case BOOLEAN:
-			o = getBoolean(key) ? IFConsts.TRUE
-					: IFConsts.FALSE;
-			return o == null ? null : o.toString();
-
-		case DOUBLE:
-			o = getDouble(key);
-			return o == null ? null : o.toString();
-
-		case LIST:
-			o = getList(key);
-			return o == null ? null : o.toString();
-
-		case LONG:
-			o = getLong(key);
-			return o == null ? null : o.toString();
-
-		case RELATION:
-			Relation r = getRelation(key);
-			return r == null ? null : r.getDisplayName();
-
-		case STRING:
-			o = getString(key);
-			return o == null ? null : o.toString();
-		}
-
-		return null;
-	}
 
 	public AssistedObjectHandler getRelatedKVOMultiLevel(List<String> path) {
 		AssistedObjectHandler actual = this;

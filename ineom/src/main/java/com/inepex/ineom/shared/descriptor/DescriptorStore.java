@@ -28,4 +28,6 @@ public interface DescriptorStore {
 	
 	public FDesc getRelatedFieldDescrMultiLevel(ObjectDesc baseOD, List<String> path);
 
+	public abstract ObjectDesc getCustomOd(Long id);
+
 }
