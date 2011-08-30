@@ -110,6 +110,9 @@ public class PlaceHandlerHelper {
 		return urlParams;
 	}
 	
+	/**
+	 * @return first paramplace which parameters are not filled correctly
+	 */
 	public static String getFirstIncorrectParamPlace(String currentFullToken, Node<InePlace> root) {
 		if(currentFullToken==null || currentFullToken.length()<1)
 			return null;
@@ -208,5 +211,19 @@ public class PlaceHandlerHelper {
 		}
 		
 		return sb.toString();
+	}
+	
+	public static String createParentLevelMenuToken(String currentFullToken){
+		String[] originalTokens = currentFullToken.split(regExp(Node.ID_SEPARATOR));
+		StringBuffer newToken = new StringBuffer();
+		
+		for (int i = 0; i<originalTokens.length - 1; i++){
+			newToken.append(originalTokens[i]);
+			
+			if (i != originalTokens.length - 2)
+				newToken.append(Node.ID_SEPARATOR);
+		}
+		
+		return newToken.toString();
 	}
 }

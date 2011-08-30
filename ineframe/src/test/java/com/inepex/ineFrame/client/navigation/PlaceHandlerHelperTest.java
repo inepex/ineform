@@ -120,4 +120,10 @@ public class PlaceHandlerHelperTest {
 		
 		return map;
 	}
+	
+	@Test
+	public void testCreateParentLevelToken(){
+		Assert.assertEquals("a/b?id=0", PlaceHandlerHelper.createParentLevelMenuToken("a/b?id=0/c"));
+		Assert.assertEquals("", PlaceHandlerHelper.createParentLevelMenuToken("a"));
+	}
 }
