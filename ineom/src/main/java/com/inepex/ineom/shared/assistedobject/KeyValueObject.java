@@ -91,44 +91,6 @@ public class KeyValueObject extends AssistedObject {
 		booleanValues.put(IFConsts.KEY_ISDELETED, b);
 	}
 
-	/**
-	 * not generated
-	 * 
-	 * TODO unused yet
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		//TODO unused yet 
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-
-		KeyValueObject other = (KeyValueObject) obj;
-		if (descriptorName == null) {
-			if (other.descriptorName != null)
-				return false;
-		} else if (!descriptorName.equals(other.descriptorName))
-			return false;
-
-		if (!booleanValues.equals(other.booleanValues))
-			return false;
-		if (!doubleValues.equals(other.doubleValues))
-			return false;
-		if (!listValues.equals(other.listValues))
-			return false;
-		if (!longValues.equals(other.longValues))
-			return false;
-		if (!relationValues.equals(other.relationValues))
-			return false;
-		if (!stringValues.equals(other.stringValues))
-			return false;
-
-		return true;
-	}
-
 	@Override
 	public boolean isNew() {
 		return getId().equals(IFConsts.NEW_ITEM_ID);

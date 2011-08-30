@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import com.google.gwt.json.client.JSONParser;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.TestUtil;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 //FIXME: it makes time out
 public class KvoJsonParserGwtTest {//extends GWTTestCase {
@@ -18,13 +18,13 @@ public class KvoJsonParserGwtTest {//extends GWTTestCase {
 
 	public void testDefault(){
 		jsonData = jsonData.replace("'", "\"");
-		KeyValueObject kvo = new KvoJsonParser(TestUtil.descriptorStore, JSONParser.parseStrict(jsonData).isObject(), "testKvo").parse();
+		AssistedObject kvo = new KvoJsonParser(TestUtil.descriptorStore, JSONParser.parseStrict(jsonData).isObject(), "testKvo").parse();
 		TestUtil.assertEquals(TestUtil.getTestKvo().getAssistedObject(), kvo);
 	}
 
 	public void testNull(){
 		jsonDataNullValue = jsonDataNullValue.replace("'", "\"");
-		KeyValueObject kvo = new KvoJsonParser(TestUtil.descriptorStore, JSONParser.parseStrict(jsonDataNullValue).isObject(), "testKvo").parse();
+		AssistedObject kvo = new KvoJsonParser(TestUtil.descriptorStore, JSONParser.parseStrict(jsonDataNullValue).isObject(), "testKvo").parse();
 		AssistedObjectHandler ch = TestUtil.objectHandlerFactory.createHandler(kvo);
 		
 		Assert.assertTrue(ch.containsString("stringField"));

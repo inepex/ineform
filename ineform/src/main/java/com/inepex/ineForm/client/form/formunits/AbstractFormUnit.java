@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
@@ -36,6 +38,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	protected TreeMap<String, HTML> titlesByKey = new TreeMap<String, HTML>();
 	protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
 	protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey = new TreeMap<String, ErrorMessageManagerInterface>();
+	protected TreeMap<String, CustomKVOFW> customKvoFwsByKey = new TreeMap<String, CustomKVOFW>();
 	
 	//gui behaviour
 	protected FormWidget firstFocusableWidget = null;
@@ -52,6 +55,8 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	
 	public void joinToDataFlow(String key, FormWidget fw) {
 		widgetsByKey.put(key, fw);
+		if(fw instanceof CustomKVOFW)
+			customKvoFwsByKey.put(key, (CustomKVOFW) fw);
 	}
 	
 	public void joinAndAddToMainPanel(String key, FormWidget fw) {
@@ -69,6 +74,10 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	
 	public void joinToDataFlow(String key, FormWidget fw, ErrorMessageManagerInterface errorMessageManager) {
 		widgetsByKey.put(key, fw);
+		
+		if(fw instanceof CustomKVOFW)
+			customKvoFwsByKey.put(key, (CustomKVOFW) fw);
+		
 		errormanagersByKey.put(key, errorMessageManager);
 	}
 	
@@ -149,19 +158,28 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	}
 
 //********************* data flow for - objectEditor's data management 
-	
 	public Set<String> getFormWidgetKeySet() {
 		return widgetsByKey.keySet();
 	}
 
 	public Set<String> getErrorManagerKeySet() {
-		return errormanagersByKey.keySet();
+		Set<String> keys = new TreeSet<String>();
+		keys.addAll(errormanagersByKey.keySet());
+		for(String key : customKvoFwsByKey.keySet()) {
+			keys.addAll(customKvoFwsByKey.get(key).getModelKeys(key));
+		}
+			
+		return keys;
 	}
 	
-	
-	
 	public TreeMap<String, ErrorMessageManagerInterface> getErrormanagersByKey() {
-		return errormanagersByKey;
+		TreeMap<String, ErrorMessageManagerInterface> ret = new TreeMap<String, ErrorMessageManagerInterface>();
+		ret.putAll(errormanagersByKey);
+		for(String key : customKvoFwsByKey.keySet()) {
+			ret.putAll(customKvoFwsByKey.get(key).getErrorManagers(key));
+		}
+		
+		return ret;
 	}
 
 	public FormWidget getWidgetByKey(String key) {

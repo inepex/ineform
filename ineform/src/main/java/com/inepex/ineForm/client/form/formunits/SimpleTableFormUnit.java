@@ -17,6 +17,7 @@ import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
+import com.inepex.ineForm.client.form.widgets.RelationFW;
 import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
@@ -112,6 +113,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						if (createdWidget != null) {
 							registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);
 							modelNameKeySet.add(descNode.getNodeId());
+							
+							if(createdWidget instanceof RelationFW)
+								modelNameKeySet.addAll(((RelationFW) createdWidget).getErrorManagerKeySet(descNode.getNodeId()));
 							
 							// if the widget should not be rendered, move on
 							if (createdWidget.isShouldRender()) {

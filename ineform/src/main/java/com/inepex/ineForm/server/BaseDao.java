@@ -10,7 +10,6 @@ import com.google.inject.persist.Transactional;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
@@ -141,7 +140,7 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
 		switch (action.getManipulationType()) {
 		case CREATE_OR_EDIT_REQUEST:
-			E newState = doCreateOrEdit((KeyValueObject) action.getObject());
+			E newState = doCreateOrEdit(action.getObject());
 			AssistedObject kvo = getMapper().entityToKvo(newState);
 			result.setObjectsNewState(kvo);
 			break;

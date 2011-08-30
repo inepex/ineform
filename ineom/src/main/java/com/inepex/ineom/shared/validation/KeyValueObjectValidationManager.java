@@ -18,6 +18,7 @@ import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.basicvalidators.BeforeAfterValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.EmailValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.LengthValidator;
@@ -76,7 +77,7 @@ public class KeyValueObjectValidationManager {
 	 * @param validatorName
 	 * @return
 	 */
-	protected KeyValueObjectValidator createBaseValidator(IneT type, String fieldName, String validatorName, String fieldDisplayname) {
+	public KeyValueObjectValidator createBaseValidator(IneT type, String fieldName, String validatorName, String fieldDisplayname) {
 		
 		//mandatory
 		if(validatorName.contains(MANDATORY))
@@ -184,7 +185,7 @@ public class KeyValueObjectValidationManager {
 							if (vr.getFieldErrors() != null) {
 								Map<String, List<String>> fieldErrors = vr.getFieldErrors();
 								for (String key : fieldErrors.keySet()) {
-									String newKey = fDesc.getKey() + "." + key;
+									String newKey = fDesc.getKey() + SharedUtil.ID_PART_SEPARATOR + key;
 									for (String error : fieldErrors.get(key)) {
 										result.addFieldError(newKey, error);
 									}
@@ -230,7 +231,7 @@ public class KeyValueObjectValidationManager {
 						if(vr.getFieldErrors()!=null) {
 							Map<String, List<String>> fieldErrors = vr.getFieldErrors();
 							for(String key : fieldErrors.keySet()) {
-								String newKey = fDesc.getKey() + "." + key;
+								String newKey = fDesc.getKey() + SharedUtil.ID_PART_SEPARATOR + key;
 								for(String error : fieldErrors.get(key)) {
 									result.addFieldError(newKey, error);
 								}

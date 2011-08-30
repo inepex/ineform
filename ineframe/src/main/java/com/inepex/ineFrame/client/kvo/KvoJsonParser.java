@@ -9,6 +9,7 @@ import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
@@ -43,7 +44,7 @@ public class KvoJsonParser {
 		return this;
 	}
 	
-	public KeyValueObject parse() throws RuntimeException {
+	public AssistedObject parse() throws RuntimeException {
 		AssistedObjectHandler kvoChecker = 
 			factory.createHandler(new KeyValueObject(od.getName()));
 					
@@ -89,7 +90,7 @@ public class KvoJsonParser {
 					else if (childJso.isObject() == null && childJso.isNumber() == null){
 						throw getParseException(key);
 					} else if (childJso.isObject() != null){
-						KeyValueObject relKvo = 
+						AssistedObject relKvo = 
 							new KvoJsonParser(descriptorStore, childJso.isObject(), ((RelationFDesc)fdesc).getRelatedDescriptorName())
 							.parse();
 						
@@ -113,7 +114,7 @@ public class KvoJsonParser {
 								relJso = childJso.isArray().get(i).isObject();
 							}
 							
-							KeyValueObject relKvo = 
+							AssistedObject relKvo = 
 								new KvoJsonParser(descriptorStore, relJso, relatedDescName)
 								.parse();
 							list.getRelationList().add(new Relation(relKvo));
@@ -125,7 +126,7 @@ public class KvoJsonParser {
 				}
 			}
 		}
-		return (KeyValueObject) kvoChecker.getAssistedObject();
+		return kvoChecker.getAssistedObject();
 	}
 	
 	private RuntimeException getParseException(String key) {

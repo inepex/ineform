@@ -96,5 +96,4 @@ public class ClientDescriptorStore implements DescriptorStore {
 		}
 		return relObjectDesc.getField(path.get(path.size()-1));
 	}
-
 }

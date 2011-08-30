@@ -8,6 +8,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
+import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.general.FlowPanelBasedEMM;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -38,6 +39,10 @@ class DispRow extends HandlerAwareFlowPanel {
 		keyBox.setValue(row.getKey());
 		typeBox.setValue(row.getType());
 		valueBox.setValue(row.getValue());
+	}
+	
+	public ErrorMessageManagerInterface getErrorManager() {
+		return errorManager;
 	}
 	
 	@Override

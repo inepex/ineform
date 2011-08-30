@@ -7,6 +7,7 @@ import java.util.List;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
@@ -19,7 +20,7 @@ public class KeyValueObjectFieldFilter {
 	 *  !!!!!!!!! logic for RELATED fields and RELATION are not implemented yet !!!!!!
 	 *  
 	 */
-	public static KeyValueObject filterKvo(DescriptorStore descStore, Collection<String> enabledKeys,
+	public static AssistedObject filterKvo(DescriptorStore descStore, Collection<String> enabledKeys,
 			KeyValueObject kvo, AssistedObjectHandlerFactory factory) {
 		
 		ObjectDesc od = descStore.getOD(kvo.getDescriptorName());
@@ -58,6 +59,6 @@ public class KeyValueObjectFieldFilter {
 			}
 		}
 		
-		return (KeyValueObject) ret.getAssistedObject();
+		return ret.getAssistedObject();
 	}
 }

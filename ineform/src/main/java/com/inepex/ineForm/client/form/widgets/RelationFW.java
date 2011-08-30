@@ -1,5 +1,8 @@
 package com.inepex.ineForm.client.form.widgets;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
@@ -9,6 +12,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class RelationFW extends DenyingFormWidget {
 	
@@ -68,5 +72,13 @@ public class RelationFW extends DenyingFormWidget {
 		return new Relation(kvo.getId(), "", kvo);
 	}
 	
-
+	public Set<String> getErrorManagerKeySet(String prefix) {	
+		Set<String> keys= new TreeSet<String>();
+		for(AbstractFormUnit unit : form.getRootPanelWidget().getFormUnits()) {
+			for(String key : unit.getErrorManagerKeySet())
+				keys.add(prefix+SharedUtil.ID_PART_SEPARATOR+key);
+		}
+		
+		return keys;
+	}
 }

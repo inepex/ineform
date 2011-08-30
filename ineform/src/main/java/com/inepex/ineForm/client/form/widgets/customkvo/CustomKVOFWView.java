@@ -7,8 +7,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOFW.View {
 	
@@ -73,5 +75,20 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 				addCallback.onAdd();
 			}
 		}));
+	}
+
+	@Override
+	public void dealResult(Map<Integer, String> res) {
+		for(DispRow dr : rowsByInnerId.values())
+			dr.getErrorManager().clearErrorMsg();
+		
+		for(Integer i : res.keySet()) {
+			rowsByInnerId.get(i).getErrorManager().addErrorMsg(SharedUtil.Li(res.get(i)));
+		}
+	}
+
+	@Override
+	public ErrorMessageManagerInterface getErrorManager(CustomKVORow r) {
+		return rowsByInnerId.get(r.getInnerId()).getErrorManager();
 	}
 }

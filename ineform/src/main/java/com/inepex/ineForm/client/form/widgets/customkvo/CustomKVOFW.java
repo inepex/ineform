@@ -1,17 +1,22 @@
 package com.inepex.ineForm.client.form.widgets.customkvo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.google.gwt.user.client.ui.IsWidget;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFW extends DenyingFormWidget implements AddCallback, RemoveCallback, RowValueChangeCallback {
 	
@@ -23,11 +28,14 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		public void clearRows();
 		public void addRow(CustomKVORow r);
 		public void removeRow(CustomKVORow r);
+		
+		public void dealResult(Map<Integer, String> res);
+		public ErrorMessageManagerInterface getErrorManager(CustomKVORow r);
 	}
 	
 	private final DescriptorStore descStore;
 	
-	private final CustomKVOFWView view;
+	private final View view;
 	private final List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
 	
 	private Relation relation = null;
@@ -44,7 +52,7 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		view.setRemoveCallback(this);
 		view.setRowValueChangeCallback(this);
 		
-		initWidget(view);
+		initWidget(view.asWidget());
 	}
 
 	@Override
@@ -74,10 +82,6 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		return true;
 	}
 	
-	/**
-	 * TODO check
-	 * 
-	 */
 	@Override
 	public void setRelationValue(Relation value) {
 		if(!IFConsts.customDescriptorName.equals(value.getKvo().getDescriptorName()))
@@ -108,8 +112,41 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	
 	@Override
 	public Relation getRelationValue(){
-		relation.setKvo(ODAOCustomKVOMappingHelper.getAoFromRows(rows));
+		AssistedObject ao = ODAOCustomKVOMappingHelper.getAoFromRows(rows);
+		ao.setId(relation.getId());
+		relation.setKvo(ao);
 		
 		return relation;
+	}
+	
+	/**
+	 * @return false if it's in inconsistent state
+	 */
+	public boolean validateConsistence() {
+		Map<Integer, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
+		view.dealResult(res);
+		
+		return res.isEmpty();
+	}
+	
+	public ObjectDesc getOdFromRows() {
+		return ODAOCustomKVOMappingHelper.getOdFromRows(rows);
+	}
+
+	public Collection<? extends String> getModelKeys(String prefix) {
+		ArrayList<String> rowKeys = new  ArrayList<String>();
+		for(CustomKVORow r : rows)
+			rowKeys.add(prefix+SharedUtil.ID_PART_SEPARATOR+r.getKey());
+		
+		return rowKeys;
+	}
+
+	public TreeMap<String, ErrorMessageManagerInterface> getErrorManagers(String prefix) {
+		TreeMap<String, ErrorMessageManagerInterface> ret = new TreeMap<String, ErrorMessageManagerInterface>();
+		for(CustomKVORow r : rows)
+			ret.put(prefix+SharedUtil.ID_PART_SEPARATOR+r.getKey(),
+					view.getErrorManager(r));
+		
+		return ret;
 	}
 }
