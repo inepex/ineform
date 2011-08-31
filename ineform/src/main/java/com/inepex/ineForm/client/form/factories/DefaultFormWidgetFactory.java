@@ -25,6 +25,7 @@ import com.inepex.ineForm.client.form.widgets.TextAreaFW;
 import com.inepex.ineForm.client.form.widgets.TextBoxFW;
 import com.inepex.ineForm.client.form.widgets.ThreeWayBoolFw;
 import com.inepex.ineForm.client.form.widgets.chooser.ChooserFw;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.datetime.DateTimeFW;
 import com.inepex.ineForm.client.form.widgets.richtextarea.RichTextAreaFW;
 import com.inepex.ineForm.client.form.widgets.upload.FileUploadFw;
@@ -91,7 +92,10 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 
 		else if (widgetType.equals(FWTypes.RELATEDFORM))
 			createdWidget = new RelationFW(formCtx, (RelationFDesc) fieldDesc);
-		 
+		
+		else if (widgetType.equals(FWTypes.CUSTOMKVO))
+			createdWidget= new CustomKVOFW(formCtx, (RelationFDesc) fieldDesc, formCtx.descStore);
+		
 		else if (widgetType.equals(FWTypes.CHECKBOX))
 			createdWidget = new CheckBoxFW(fieldDesc, wrDesc);
 

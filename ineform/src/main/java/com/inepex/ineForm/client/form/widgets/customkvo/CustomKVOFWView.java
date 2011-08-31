@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -16,7 +16,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	private final Map<Integer, DispRow> rowsByInnerId = new TreeMap<Integer, DispRow>();
 	
-	private final HorizontalPanel rowPanel = new HorizontalPanel();
+	private final VerticalPanel rowPanel = new VerticalPanel();
 	private final Button addBtn = new Button(IneFormI18n.ADD());
 	
 	private RemoveCallback removeCallback;

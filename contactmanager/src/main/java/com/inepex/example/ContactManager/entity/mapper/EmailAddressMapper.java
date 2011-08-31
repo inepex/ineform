@@ -6,9 +6,9 @@ import com.inepex.example.ContactManager.entity.kvo.EmailAddressConsts;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory.EmailAddressHandler;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class EmailAddressMapper extends BaseMapper<EmailAddress>{
@@ -22,7 +22,7 @@ public class EmailAddressMapper extends BaseMapper<EmailAddress>{
 		this.handlerFactory=new EmailAddressHandlerFactory(descriptorStore);
 	}
 
-	public EmailAddress kvoToEntity(AssistedObject fromKvo, EmailAddress to, CustomObjectDesc... descs) {
+	public EmailAddress kvoToEntity(AssistedObject fromKvo, EmailAddress to, CustomKVOObjectDesc... descs) {
 		EmailAddressHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)

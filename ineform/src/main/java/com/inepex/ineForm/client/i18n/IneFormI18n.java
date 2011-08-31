@@ -53,6 +53,10 @@ public class IneFormI18n extends I18nModule {
 	public String csvDownload = "Download";
 	public String csvError = "Something went wrong. See server log!";
 	public String csvInvalid = "Invalid request. Try to refresh!";
+	public String custKVOValidateDuplicate = "Duplicated key!";
+	public String custKVOValidateEmpty = "Empty key!";
+	public String custKVOValidateParse = "Value can not be parsed!";
+	public String custKVOValidateSet = "Type must be set!";
 	public String day_friday = "Friday";
 	public String day_monday = "Monday";
 	public String day_saturday = "Saturday";
@@ -368,6 +372,42 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String csvInvalid() {
 		return moduleProvider.get().csvInvalid;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Duplicated key!
+	* <u><i>Magyarul:</i></u> Egy kulcs csak egyszer használható
+	*/
+	public static String custKVOValidateDuplicate() {
+		return moduleProvider.get().custKVOValidateDuplicate;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Empty key!
+	* <u><i>Magyarul:</i></u> A kulcs mezőt ki kell tölteni!
+	*/
+	public static String custKVOValidateEmpty() {
+		return moduleProvider.get().custKVOValidateEmpty;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Value can not be parsed!
+	* <u><i>Magyarul:</i></u> Az érték mező nem megfelelő formázumú!
+	*/
+	public static String custKVOValidateParse() {
+		return moduleProvider.get().custKVOValidateParse;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Type must be set!
+	* <u><i>Magyarul:</i></u> Állítsa be a mező típusát!
+	*/
+	public static String custKVOValidateSet() {
+		return moduleProvider.get().custKVOValidateSet;
 	}
 	
 	/**

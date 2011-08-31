@@ -1,6 +1,8 @@
 package com.inepex.ineForm.client.form;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,6 +22,7 @@ import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.RelationList;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
@@ -28,6 +31,7 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
@@ -151,10 +155,8 @@ public class SaveCancelForm extends IneForm {
 	}
 	
 	public void doSave(){
-		if(validateData!=ValidateMode.NONE){
-			if (!doValidate(kvo).isValid())
-				return;
-		}
+		if (!doValidate(kvo).isValid())
+			return;
 		
 		// Send only the changes to the server 
 		AssistedObject difference = handlerFactory.createHandler(kvo).getDifference(
@@ -167,20 +169,43 @@ public class SaveCancelForm extends IneForm {
 			return;
 		}
 		
-		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback());
+		List<CustomKVOObjectDesc> descs = new ArrayList<CustomKVOObjectDesc>();
+		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
+			for(String s : unit.getFormWidgetKeySet()) {
+				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW))
+					continue;
+				
+				descs.add(((CustomKVOFW)unit.getWidgetByKey(s)).getOdFromRows());
+			}
+		}
+		
+		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback(), 
+				descs.size()>0 ? descs.toArray(new CustomKVOObjectDesc[descs.size()]) : null);
 	}
 	
 	private ValidationResult doValidate(AssistedObject kvo) {
 		ValidationResult vr=null;
+		
+		/**
+		 * it keeps the consistence of CustomKVOFW's
+		 */
+		if(!validateConsistenceOfCustomKVOFWS()) {
+			vr=new ValidationResult();
+			vr.setValid(false);
+			return vr;
+		}
+		
 		switch(validateData) {
 		case ALL:
 			vr = formCtx.validatorManager.validate(kvo);
 			validateRelationLists(vr, null);
+			validateCustKVOs(vr, null);
 			break;
 		case PARTIAL:
 			Collection<String> fields = formRenderDescriptor.getRootNode().getKeysUnderNode();
 			vr = formCtx.validatorManager.validatePartial(kvo, fields);
 			validateRelationLists(vr, fields);
+			validateCustKVOs(vr, fields);
 			break;
 		case NONE:
 			break;
@@ -192,7 +217,51 @@ public class SaveCancelForm extends IneForm {
 	
 	/**
 	 * 
+	 * @param vr
+	 * @param fields null = all field
+	 */
+	private void validateCustKVOs(ValidationResult vr, Collection<String> fields) {
+		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
+			for(String s : unit.getFormWidgetKeySet()) {
+				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW) || (fields!=null && !fields.contains(s)))
+					continue;
+				
+				CustomKVOFW fw = (CustomKVOFW) unit.getWidgetByKey(s);
+				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows());
+				
+				if(!tmpRes.isValid()) {
+					for(String key : tmpRes.getFieldErrors().keySet()) {
+						vr.getFieldErrors().put(s+SharedUtil.ID_PART_SEPARATOR+key, tmpRes.getFieldErrors().get(key));
+					}
+				}
+				
+			}
+		}
+	}
+
+	/**
+	 * @return true = all of CustomKVO are valid, can continue the saving
+	 * 
+	 */
+	private boolean validateConsistenceOfCustomKVOFWS() {
+		boolean valid = true;
+		
+		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
+			for(String s : unit.getFormWidgetKeySet()) {
+				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW))
+					continue;
+				
+				valid=valid && ((CustomKVOFW) unit.getWidgetByKey(s)).validateConsistence();
+			}
+		}
+		
+		return valid;
+	}
+	
+	/**
+	 * 
 	 * @param vr - set invalid if relation list contains error!!!!
+	 * @param fields - null = all
 	 */
 	private void validateRelationLists(ValidationResult vr, Collection<String> fields) {
 		//TODO move to KeyValueObjectValidationManager

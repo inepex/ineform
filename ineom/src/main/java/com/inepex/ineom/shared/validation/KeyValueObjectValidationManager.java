@@ -9,6 +9,7 @@ import java.util.Map;
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -17,7 +18,6 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
-import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.basicvalidators.BeforeAfterValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.EmailValidator;
@@ -121,107 +121,57 @@ public class KeyValueObjectValidationManager {
 	 * 
 	 */
 	public ValidationResult validate(AssistedObject kvo) {
-		ValidationResult result = new ValidationResult();
-
-		if(kvo == null)
-			return result;
-
-		String descName = kvo.getDescriptorName();
-		if (descName == null)
-			return result;
-
-		ObjectDesc objDesc = descStore.getOD(kvo.getDescriptorName());
-		ValidatorDesc valDesc = descStore.getDefaultTypedDesc(kvo.getDescriptorName(), ValidatorDesc.class);
-
-		//validators from objectdescriptor
-		if (objDesc != null)
-			for (FDesc fDesc : objDesc.getFields().values()) {
-				for (String validatorName : fDesc.getValidatorNames()) {
-					KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName());
-					if (validator != null)
-						validator.doValidation(kvo, result);
-					else {
-						//TODO logging bad string usage
-					}
-				}
-			}
+		if(kvo==null)
+			return new ValidationResult();
 		
-		//handmade validators
-		if (valDesc != null && valDesc.getValidatorNames() != null)
-			for (String valName : valDesc.getValidatorNames()) {
-				
-				KeyValueObjectValidator validator = createCustomValidator(valName);
-				if (validator != null)
-					validator.doValidation(kvo, result);
-				else {
-					//TODO logging bad string usage
-				}
-			}
-		
-		//validate relations
-		if (objDesc != null && objDesc.getFields() != null && objDesc.getFields().values() != null)
-			for (FDesc fDesc : objDesc.getFields().values()) {
-				if (fDesc == null)
-					continue;
+		ObjectDesc od = descStore.getOD(kvo.getDescriptorName());
+		return validate(kvo, od);
+	}
+	
+	public ValidationResult validate(AssistedObject kvo, ObjectDesc od) {
+		return validatePartial(kvo, od.getKeys(), od);
+	}
 
-				if (fDesc instanceof RelationFDesc) {
-					AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
-					Relation rel = checker.getRelation(fDesc.getKey());
-					if (rel == null) {
-						//FIXME
-//						rel = new Relation();
-//						RelationFDesc relDescriptor = (RelationFDesc)fDesc;
-//						rel.setKvo(new KeyValueObject(relDescriptor.getRelatedDescriptorName()));
-						
-						continue;
-						
-					}
-					
-					if (rel.getKvo() != null) {
-						ValidationResult vr = validate(rel.getKvo());
-						if (!vr.isValid()) {
-							if (vr.getGeneralErrors() != null)
-								result.getGeneralErrors().addAll(vr.getGeneralErrors());
-							if (vr.getFieldErrors() != null) {
-								Map<String, List<String>> fieldErrors = vr.getFieldErrors();
-								for (String key : fieldErrors.keySet()) {
-									String newKey = fDesc.getKey() + SharedUtil.ID_PART_SEPARATOR + key;
-									for (String error : fieldErrors.get(key)) {
-										result.addFieldError(newKey, error);
-									}
-								}
-							}
-						}
-					}
-				}
-				
-				//TODO relation list
-			}
+	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames) {
+		if(kvo==null)
+			return new ValidationResult();
 		
-		return result;
+		return validatePartial(kvo, fieldNames, descStore.getOD(kvo.getDescriptorName()));
 	}
 	
 	/**
 	 * 
-	 * @param kvo
-	 * @param fieldNames
 	 * @param extravalidators - never will check extravalidators' getUsedFields, just they will be ran 
 	 * @return
 	 */
-	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames) {
+	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames, ObjectDesc od) {
 		ValidationResult result = new ValidationResult();
-		ObjectDesc od = descStore.getOD(kvo.getDescriptorName());
+		
+		if(kvo == null)
+			return result;
+		
 		
 		for(String fieldName : fieldNames) {
 			List<String> nameAsList = listFromDotSeparated(fieldName);
-			AssistedObjectHandler handler = objectHandlerFactory.createHandler(kvo);
-			AssistedObjectChecker actual = handler.getRelatedKVOMultiLevel(nameAsList);
+			AssistedObjectChecker actual;
+			
+			if(nameAsList.size()>1) {
+				AssistedObjectHandler handler = objectHandlerFactory.createHandler(kvo);
+				actual = handler.getRelatedKVOMultiLevel(nameAsList);
+			} else {
+				actual = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), od);
+			}
+			
 			String lastKey = nameAsList.get(nameAsList.size()-1);
 			FDesc fDesc = descStore.getRelatedFieldDescrMultiLevel(od, nameAsList);
 			
 			if(fDesc==null) continue;
 			
 			if(fDesc instanceof RelationFDesc) {
+				if(IFConsts.customDescriptorName.equals(((RelationFDesc) fDesc).getRelatedDescriptorName()))
+					//TODO
+					continue;
+				
 				AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
 				Relation rel = checker.getRelation(fDesc.getKey());
 				if (rel != null && rel.getKvo()!=null) {

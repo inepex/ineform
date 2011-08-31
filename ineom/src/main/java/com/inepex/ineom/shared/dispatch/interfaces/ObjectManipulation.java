@@ -1,6 +1,7 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 
 public interface ObjectManipulation {
@@ -16,4 +17,8 @@ public interface ObjectManipulation {
 	public Long getIdToRefresh();
 	
 	public void setIdToRefresh(Long idToRefresh);
+
+	public CustomKVOObjectDesc[] getCustomObjectDescritors();
+
+	void setCustomOdescs(CustomKVOObjectDesc[] customOdescs);
 }

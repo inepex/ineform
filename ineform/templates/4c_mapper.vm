@@ -20,7 +20,7 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
+import com.inepex.ineForm.shared.customkvo.CustomKVOObjectDesc;
 import com.inepex.ineForm.server.customkvo.CustomKVO;
 import com.inepex.ineForm.server.customkvo.CustomKVOMapperHelper;
 
@@ -35,7 +35,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 		this.handlerFactory=new ${classname}HandlerFactory(descriptorStore);
 	}
 
-	public ${classname} kvoToEntity(AssistedObject fromKvo, ${classname} to, CustomObjectDesc... descs) {
+	public ${classname} kvoToEntity(AssistedObject fromKvo, ${classname} to, CustomKVOObjectDesc... descs) {
 		${classname}Handler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -69,7 +69,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
     			}
     			
     			ObjectDesc od = null;
-    			for(CustomObjectDesc desc : descs) 
+    			for(CustomKVOObjectDesc desc : descs) 
     				if(CompanyConsts.k_${attr.name}.equals(desc.getKey()))
     						od=desc;
     				

@@ -82,9 +82,7 @@ public class MultiLangDescStore implements DescriptorStore {
 
 	@Override
 	public void getCustomOd(Long id, OdFoundCallback callback) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 	}
 }
 

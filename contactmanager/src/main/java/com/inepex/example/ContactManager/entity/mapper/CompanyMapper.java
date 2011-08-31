@@ -14,11 +14,11 @@ import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory.Compan
 import com.inepex.ineForm.server.BaseMapper;
 import com.inepex.ineForm.server.customkvo.CustomKVO;
 import com.inepex.ineForm.server.customkvo.CustomKVOMapperHelper;
-import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
@@ -33,7 +33,7 @@ public class CompanyMapper extends BaseMapper<Company>{
 		this.handlerFactory=new CompanyHandlerFactory(descriptorStore);
 	}
 
-	public Company kvoToEntity(AssistedObject fromKvo, Company to, CustomObjectDesc... descs) {
+	public Company kvoToEntity(AssistedObject fromKvo, Company to, CustomKVOObjectDesc... descs) {
 		CompanyHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -83,7 +83,7 @@ public class CompanyMapper extends BaseMapper<Company>{
     			}
     			
     			ObjectDesc od = null;
-    			for(CustomObjectDesc desc : descs) 
+    			for(CustomKVOObjectDesc desc : descs) 
     				if(CompanyConsts.k_extData.equals(desc.getKey()))
     						od=desc;
     				

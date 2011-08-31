@@ -27,6 +27,7 @@ public class CMI18n extends I18nModule {
 	
 	public String company_contacts = "Contacts";
 	public String company_email = "Email";
+	public String company_extdata = "Ext. data";
 	public String company_id = "Id";
 	public String company_name = "Name";
 	public String company_phone = "Phone";
@@ -91,6 +92,15 @@ public class CMI18n extends I18nModule {
 	*/
 	public static String company_email() {
 		return moduleProvider.get().company_email;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Ext. data
+	* <u><i>Magyarul:</i></u> Egyéb adatok
+	*/
+	public static String company_extdata() {
+		return moduleProvider.get().company_extdata;
 	}
 	
 	/**

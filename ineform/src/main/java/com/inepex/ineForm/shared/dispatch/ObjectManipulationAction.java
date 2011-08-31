@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 
@@ -21,6 +22,7 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	ManipulationTypes manipulationType;
 	AssistedObject object;
 	Long idToRefresh;
+	CustomKVOObjectDesc[] customOdescs;
 	
 	public ObjectManipulationAction() {
 	}
@@ -37,18 +39,22 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 
 	}
 
+	@Override
 	public ManipulationTypes getManipulationType() {
 		return manipulationType;
 	}
 
+	@Override
 	public void setManipulationType(ManipulationTypes manipulationType) {
 		this.manipulationType = manipulationType;
 	}
 
+	@Override
 	public AssistedObject getObject() {
 		return object;
 	}
 
+	@Override
 	public void setObject(AssistedObject object) {
 		this.object = object;
 	}
@@ -69,11 +75,23 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 				+ ", object=" + object + ", idToRefresh=" + idToRefresh + "]";
 	}
 	
+	@Override
 	public Long getIdToRefresh() {
 		return idToRefresh;
 	}
 	
+	@Override
 	public void setIdToRefresh(Long idToRefresh) {
 		this.idToRefresh = idToRefresh;
+	}
+
+	@Override
+	public CustomKVOObjectDesc[] getCustomObjectDescritors() {
+		return customOdescs;
+	}
+	
+	@Override
+	public void setCustomOdescs(CustomKVOObjectDesc[] customOdescs) {
+		this.customOdescs = customOdescs;
 	}
 }

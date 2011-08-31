@@ -10,9 +10,9 @@ import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory.MeetingHandler;
 import com.inepex.example.ContactManager.shared.MeetingType;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class MeetingMapper extends BaseMapper<Meeting>{
@@ -26,7 +26,7 @@ public class MeetingMapper extends BaseMapper<Meeting>{
 		this.handlerFactory=new MeetingHandlerFactory(descriptorStore);
 	}
 
-	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to, CustomObjectDesc... descs) {
+	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to, CustomKVOObjectDesc... descs) {
 		MeetingHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)

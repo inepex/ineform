@@ -48,7 +48,7 @@ public class CompanyAssist extends Assist {
 			, new StringFDesc(CompanyConsts.k_email, /*hc:d4*/CMI18n.company_email()/*hc*/)/*hc:d2_4*//*hc*/
 					.email()
 					.mandatory()
-			, new RelationFDesc(CompanyConsts.k_extData, "", IFConsts.customDescriptorName)
+			, new RelationFDesc(CompanyConsts.k_extData, CMI18n.company_extdata(), IFConsts.customDescriptorName)
 			, new StringFDesc(CompanyConsts.k_webPage, /*hc:d5*/CMI18n.company_webPage()/*hc*/)/*hc:d2_5*//*hc*/
 					.mandatory()
 			, new ListFDesc(CompanyConsts.k_contacts, /*hc:d6*/CMI18n.company_contacts()/*hc*/,ContactConsts.descriptorName)/*hc:d2_6*//*hc*/
@@ -95,6 +95,7 @@ public class CompanyAssist extends Assist {
 			.addChild(CompanyConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.PHONE/*hc*/))
 			.addChild(CompanyConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
 			.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(CompanyConsts.k_extData, new WidgetRDesc(FWTypes.CUSTOMKVO))
 			;
 		return formRDesc;
 	}

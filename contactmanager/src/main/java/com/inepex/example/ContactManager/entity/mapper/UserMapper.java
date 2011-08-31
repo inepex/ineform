@@ -6,9 +6,9 @@ import com.inepex.example.ContactManager.entity.kvo.UserConsts;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory.UserHandler;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class UserMapper extends BaseMapper<User>{
@@ -22,7 +22,7 @@ public class UserMapper extends BaseMapper<User>{
 		this.handlerFactory=new UserHandlerFactory(descriptorStore);
 	}
 
-	public User kvoToEntity(AssistedObject fromKvo, User to, CustomObjectDesc... descs) {
+	public User kvoToEntity(AssistedObject fromKvo, User to, CustomKVOObjectDesc... descs) {
 		UserHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)

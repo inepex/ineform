@@ -13,6 +13,8 @@ import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
@@ -84,11 +86,15 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	
 	@Override
 	public void setRelationValue(Relation value) {
-		if(!IFConsts.customDescriptorName.equals(value.getKvo().getDescriptorName()))
-			throw new IllegalArgumentException();
+		if(value==null)
+			value = new Relation();
 		
-		if(value.getId()==null)
-			throw new IllegalArgumentException();
+		if(value.getKvo()==null) {
+			value.setKvo(new KeyValueObject(IFConsts.customDescriptorName));
+		} else {
+			if(!IFConsts.customDescriptorName.equals(value.getKvo().getDescriptorName()))
+				throw new IllegalArgumentException();
+		}
 		
 		this.relation=value;
 
@@ -101,7 +107,6 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		//TODO do we need ao null ckeck
 		final AssistedObject ao = value.getKvo();
 		
-		//TODO do we need od null check?
 		descStore.getCustomOd(value.getId(), new DescriptorStore.OdFoundCallback() {
 			
 			@Override
@@ -134,8 +139,10 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		return res.isEmpty();
 	}
 	
-	public ObjectDesc getOdFromRows() {
-		return ODAOCustomKVOMappingHelper.getOdFromRows(rows);
+	public CustomKVOObjectDesc getOdFromRows() {
+		CustomKVOObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows);
+		od.setKey(fieldDescriptor.getKey());
+		return od;
 	}
 
 	public Collection<? extends String> getModelKeys(String prefix) {

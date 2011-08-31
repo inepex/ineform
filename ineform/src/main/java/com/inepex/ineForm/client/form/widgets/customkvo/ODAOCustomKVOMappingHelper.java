@@ -7,11 +7,14 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
 import com.inepex.ineForm.shared.customkvo.UncheckedKVO;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
@@ -43,17 +46,18 @@ public class ODAOCustomKVOMappingHelper {
 			String key = r.getKey();
 			
 			if(key.length()==0) {
-				ret.put(r.getInnerId(), "Empty key!"); //TODO
+				ret.put(r.getInnerId(), IneFormI18n.custKVOValidateEmpty());
 				continue;
 			}
 			
 			if(keys.contains(key)) {
-				ret.put(r.getInnerId(), "Duplicated key!"); //TODO
+				ret.put(r.getInnerId(), IneFormI18n.custKVOValidateDuplicate());
 				continue;
 			}
+			keys.add(key);
 			
 			if(r.getType()==null) {
-				ret.put(r.getInnerId(), "Type must be set!"); //TODO
+				ret.put(r.getInnerId(), IneFormI18n.custKVOValidateSet());
 				continue;
 			}
 			
@@ -61,9 +65,10 @@ public class ODAOCustomKVOMappingHelper {
 				try {
 					switch (r.getType().ineT) {
 					case BOOLEAN:
-						String v = r.getValue().toLowerCase();
+						String v = r.getValue().toLowerCase().trim();
 						if(!"true".equals(v) && !"false".equals(v))
 							throw new NumberFormatException();
+						break;
 					case LONG:
 						Long.parseLong(r.getValue());
 						break;
@@ -72,21 +77,19 @@ public class ODAOCustomKVOMappingHelper {
 						break;
 					}
 				} catch (NumberFormatException e) {
-					ret.put(r.getInnerId(), "Value can not be parsed"); //TODO
+					ret.put(r.getInnerId(), IneFormI18n.custKVOValidateParse());
 					continue;
 				}
 			}
-			
 		}
 		
 		return ret;
 	}
 	
-	public static ObjectDesc getOdFromRows(List<CustomKVORow> rows) {
-		//TODO
-		ObjectDesc od = new ObjectDesc(IFConsts.customDescriptorName);
+	public static CustomKVOObjectDesc getOdFromRows(List<CustomKVORow> rows) {
+		CustomKVOObjectDesc od = new CustomKVOObjectDesc(IFConsts.customDescriptorName);
 		for(CustomKVORow r : rows) {
-			//od.addField(fieldDescriptor)
+			od.addField(new CreatedFdesc(r.getKey(), r.getType().ineT, r.getType().validators));
 		}
 		
 		return od;
