@@ -6,6 +6,7 @@ import com.inepex.example.ContactManager.entity.kvo.UserConsts;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory.UserHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -21,7 +22,7 @@ public class UserMapper extends BaseMapper<User>{
 		this.handlerFactory=new UserHandlerFactory(descriptorStore);
 	}
 
-	public User kvoToEntity(AssistedObject fromKvo, User to) {
+	public User kvoToEntity(AssistedObject fromKvo, User to, CustomObjectDesc... descs) {
 		UserHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -48,11 +49,11 @@ public class UserMapper extends BaseMapper<User>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getFirstName() != null && !"".equals(entity.getFirstName())) 
-			handler.setFirstName(entity.getFirstName());  
+			handler.setFirstName(entity.getFirstName());
 		if (entity.getLastName() != null && !"".equals(entity.getLastName())) 
-			handler.setLastName(entity.getLastName());  
+			handler.setLastName(entity.getLastName());
 		if (entity.getEmail() != null && !"".equals(entity.getEmail())) 
-			handler.setEmail(entity.getEmail());  
+			handler.setEmail(entity.getEmail());
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

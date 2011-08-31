@@ -12,6 +12,7 @@ public class CompanyConsts {
 	public static final String k_email = "email";	
 	public static final String k_webPage = "webPage";	
 	public static final String k_contacts = "contacts";	
+	public static final String k_extData = "extData";	
 
 	public static String k_id() {
 		return k_id;
@@ -30,6 +31,9 @@ public class CompanyConsts {
 	}	
 	public static String k_contacts() {
 		return k_contacts;
+	}	
+	public static String k_extData() {
+		return k_extData;
 	}	
 
 	

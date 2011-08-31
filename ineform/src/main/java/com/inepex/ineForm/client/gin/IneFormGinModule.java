@@ -40,8 +40,8 @@ import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
+import com.inepex.ineFrame.shared.ClientDescriptorStore;
 import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class IneFormGinModule extends AbstractGinModule {

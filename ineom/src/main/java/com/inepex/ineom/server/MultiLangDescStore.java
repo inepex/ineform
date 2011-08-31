@@ -7,7 +7,6 @@ import java.util.Map;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
@@ -26,11 +25,7 @@ public class MultiLangDescStore implements DescriptorStore {
 	}
 	
 	public void addStore(String lang, DescriptorStore store) {
-		if (store instanceof ClientDescriptorStore)
-			storeByLang.put(lang, store);
-		else
-			throw new RuntimeException("You are trying to add an unsupported DescriptroStore type (" +
-					store.getClass().getName() + ") to the multi language descriptor store.");
+		storeByLang.put(lang, store);
 	}
 	
 	private DescriptorStore get() {
@@ -83,6 +78,13 @@ public class MultiLangDescStore implements DescriptorStore {
 	@Override
 	public void registerDescriptors(ObjectDesc descriptor, DescriptorBase... defaultDescriptors) {
 		registerDescriptors(descriptor, defaultDescriptors);
+	}
+
+	@Override
+	public void getCustomOd(Long id, OdFoundCallback callback) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 	}
 }
 

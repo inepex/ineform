@@ -281,4 +281,41 @@ public class KeyValueObject extends AssistedObject {
 			target.set(key, str == null ? null : new String(str));
 		}
 	}
+
+	/**
+	 * NOT GENERATED
+	 * FOR TESTING
+	 * 
+	 */
+	@Override
+	public boolean equals(Object obj) { 
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+
+		KeyValueObject other = (KeyValueObject) obj;
+		if (descriptorName == null) {
+			if (other.descriptorName != null)
+				return false;
+		} else if (!descriptorName.equals(other.descriptorName))
+			return false;
+
+		if (!booleanValues.equals(other.booleanValues))
+			return false;
+		if (!doubleValues.equals(other.doubleValues))
+			return false;
+		if (!listValues.equals(other.listValues))
+			return false;
+		if (!longValues.equals(other.longValues))
+			return false;
+		if (!relationValues.equals(other.relationValues))
+			return false;
+		if (!stringValues.equals(other.stringValues))
+			return false;
+
+		return true;
+	}
 }

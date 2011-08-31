@@ -39,7 +39,6 @@ import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
@@ -103,7 +102,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	private void initProperties() {
 
 		if (formRenderDescName == null)
-			formRenderDescName = ClientDescriptorStore.DEFAULT_DESC_KEY;
+			formRenderDescName = DescriptorStore.DEFAULT_DESC_KEY;
 		if (formRenderDescName.equals("default")) {
 			this.formRenderDescriptor = descStore.getDefaultTypedDesc(descriptorName, FormRDesc.class);
 		} else {

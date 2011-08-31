@@ -3,13 +3,14 @@ package com.inepex.ineForm.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 
 public abstract class BaseMapper<E> {
 	
-	public abstract E kvoToEntity(AssistedObject from, E to);
+	public abstract E kvoToEntity(AssistedObject from, E to, CustomObjectDesc... descs);
 	
 	public abstract AssistedObject entityToKvo(E entity);
 	

@@ -12,11 +12,15 @@ import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory.CompanyHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.server.customkvo.CustomKVO;
+import com.inepex.ineForm.server.customkvo.CustomKVOMapperHelper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
 public class CompanyMapper extends BaseMapper<Company>{
 	
@@ -29,7 +33,7 @@ public class CompanyMapper extends BaseMapper<Company>{
 		this.handlerFactory=new CompanyHandlerFactory(descriptorStore);
 	}
 
-	public Company kvoToEntity(AssistedObject fromKvo, Company to) {
+	public Company kvoToEntity(AssistedObject fromKvo, Company to, CustomObjectDesc... descs) {
 		CompanyHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -71,6 +75,20 @@ public class CompanyMapper extends BaseMapper<Company>{
 				}
 			}
 		}
+    	if(fromHandler.containsRelation(CompanyConsts.k_extData)) {
+    			CustomKVO custKvo = to.getExtData();
+    			if(custKvo==null) {
+    				custKvo=new CustomKVO();
+    				to.setExtData(custKvo);
+    			}
+    			
+    			ObjectDesc od = null;
+    			for(CustomObjectDesc desc : descs) 
+    				if(CompanyConsts.k_extData.equals(desc.getKey()))
+    						od=desc;
+    				
+    			CustomKVOMapperHelper.mapIntoCustomKVO(custKvo, fromHandler.getExtData().getKvo(), od);
+    		}
 
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
@@ -85,13 +103,13 @@ public class CompanyMapper extends BaseMapper<Company>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getName() != null && !"".equals(entity.getName())) 
-			handler.setName(entity.getName());  
+			handler.setName(entity.getName());
 		if (entity.getPhone() != null && !"".equals(entity.getPhone())) 
-			handler.setPhone(entity.getPhone());  
+			handler.setPhone(entity.getPhone());
 		if (entity.getEmail() != null && !"".equals(entity.getEmail())) 
-			handler.setEmail(entity.getEmail());  
+			handler.setEmail(entity.getEmail());
 		if (entity.getWebPage() != null && !"".equals(entity.getWebPage())) 
-			handler.setWebPage(entity.getWebPage());  
+			handler.setWebPage(entity.getWebPage());
 		{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();
@@ -104,6 +122,8 @@ public class CompanyMapper extends BaseMapper<Company>{
     			handler.setContacts(ineList);
     		}
 		}
+		if(entity.getExtData() != null)
+			handler.setExtData(new Relation(CustomKVOMapperHelper.getKVOFromCustomKVO(entity.getExtData())));
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

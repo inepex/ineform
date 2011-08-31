@@ -4,11 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.inepex.ineom.shared.IneList;
-import com.inepex.ineom.shared.KeyValueObjectSerializer;
 import com.inepex.ineom.shared.KeyValueObjectSerializer.ListSerializer;
 import com.inepex.ineom.shared.KeyValueObjectSerializer.RelationSerializer;
-import com.inepex.ineom.shared.Relation;
 
 public class KeyValueObjectSerializerTest {
 

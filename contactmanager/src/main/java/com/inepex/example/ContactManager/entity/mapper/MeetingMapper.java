@@ -10,6 +10,7 @@ import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory.MeetingHandler;
 import com.inepex.example.ContactManager.shared.MeetingType;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -25,7 +26,7 @@ public class MeetingMapper extends BaseMapper<Meeting>{
 		this.handlerFactory=new MeetingHandlerFactory(descriptorStore);
 	}
 
-	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to) {
+	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to, CustomObjectDesc... descs) {
 		MeetingHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -84,7 +85,7 @@ public class MeetingMapper extends BaseMapper<Meeting>{
 			handler.setMeetingType(new Long(entity.getMeetingType().ordinal()));
 		}
 		if (entity.getDescription() != null && !"".equals(entity.getDescription())) 
-			handler.setDescription(entity.getDescription());  
+			handler.setDescription(entity.getDescription());
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

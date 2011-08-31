@@ -39,9 +39,9 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
 import com.inepex.ineFrame.server.util.CETDateProviderSrv;
+import com.inepex.ineFrame.shared.ClientDescriptorStore;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineFrame.test.DummyStatusIndicator;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class TestIneFormClientGuiceModule extends AbstractModule {

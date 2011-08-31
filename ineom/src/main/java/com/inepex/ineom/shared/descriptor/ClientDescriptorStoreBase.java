@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.google.inject.Inject;
-
 /**
  * This class is used for storing {@link ObjectDesc}s, {@link FormRDesc}s, {@link ValidatorDesc}s
  * {@link TableRDesc}s by descriptorName
@@ -16,13 +14,7 @@ import com.google.inject.Inject;
  * @author istvan
  *
  */
-public class ClientDescriptorStore implements DescriptorStore {
-
-	public static final String DEFAULT_DESC_KEY = "default";
-	
-	@Inject
-	public ClientDescriptorStore() {
-	}
+public abstract class ClientDescriptorStoreBase implements DescriptorStore {
 
 	protected final Map<String, ObjectDesc>	objectDescriptorMap = new TreeMap<String, ObjectDesc>();
 	
@@ -96,4 +88,5 @@ public class ClientDescriptorStore implements DescriptorStore {
 		}
 		return relObjectDesc.getField(path.get(path.size()-1));
 	}
+	
 }

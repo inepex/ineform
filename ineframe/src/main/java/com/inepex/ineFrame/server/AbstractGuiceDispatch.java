@@ -13,11 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Provider;
+import com.inepex.ineFrame.client.async.IneDispatch;
+import com.inepex.ineFrame.shared.ClientDescriptorStore;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
@@ -28,19 +29,21 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	private static final Logger logger = LoggerFactory
 										 .getLogger(AbstractGuiceDispatch.class);
 	
-	
 	private final I18nStore_Server serverI18n;
 	private final Provider<CurrentLang> currentLangProvider;
 	private final MultiLangDescStore multiLangDescStore;
+	private final IneDispatch ineDispatch;
 	
 	public abstract void doLogAction(Loggable loggable, HttpServletRequest request);
 	
 	public AbstractGuiceDispatch(Dispatch dispatch
 							   , Provider<CurrentLang> currentLangProvider
 							   , I18nStore_Server serverI18n
-							   , DescriptorStore multiLangDescStore) {
+							   , DescriptorStore multiLangDescStore
+							   , IneDispatch ineDispatch) {
 		super(dispatch);
 		this.currentLangProvider = currentLangProvider;
+		this.ineDispatch=ineDispatch;
 		this.serverI18n = serverI18n;
 		this.multiLangDescStore = (MultiLangDescStore)multiLangDescStore;
 	}
@@ -65,13 +68,13 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 
 	private void setupDescriptorStores() {
 		// TODO make this independent from number of languages
-		ClientDescriptorStore engDescStore = new ClientDescriptorStore();
+		ClientDescriptorStore engDescStore = new ClientDescriptorStore(ineDispatch);
 		currentLangProvider.get().setLangOverride("en");
 		registerAssists(engDescStore);
 		multiLangDescStore.addStore("en", engDescStore);
 		
-		ClientDescriptorStore hunDescStore = new ClientDescriptorStore();
-		currentLangProvider.get().setLangOverride("hu");
+		ClientDescriptorStore hunDescStore = new ClientDescriptorStore(ineDispatch);
+		currentLangProvider.get().setLangOverride("hu");	
 		registerAssists(hunDescStore);
 		multiLangDescStore.addStore("hu", hunDescStore);
 		

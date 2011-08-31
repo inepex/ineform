@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface DescriptorStore {
 
+	public static final String DEFAULT_DESC_KEY = "default";
+	
 	/**
 	 * Returns the {@link ObjectDesc} belonging to the given name
 	 * @param name The name of the {@link ObjectDesc}
@@ -28,6 +30,10 @@ public interface DescriptorStore {
 	
 	public FDesc getRelatedFieldDescrMultiLevel(ObjectDesc baseOD, List<String> path);
 
-	public abstract ObjectDesc getCustomOd(Long id);
-
+	
+	public abstract void getCustomOd(Long id, OdFoundCallback callback);
+	
+	public static interface OdFoundCallback{
+		public void onFound(ObjectDesc od);
+	}
 }

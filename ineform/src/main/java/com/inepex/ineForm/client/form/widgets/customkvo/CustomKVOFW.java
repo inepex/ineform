@@ -91,23 +91,28 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 			throw new IllegalArgumentException();
 		
 		this.relation=value;
-		
-		ObjectDesc od = descStore.getCustomOd(value.getId());
-		//TODO do we need od null check?
-		AssistedObject ao = value.getKvo();
-		//TODO do we need ao null ckeck 
-		
+
 		//clearing previous state
 		for(CustomKVORow r : rows) 
 			view.removeRow(r);
 		
 		rows.clear();
 		
-		//adding new rows
-		for(CustomKVORow r : ODAOCustomKVOMappingHelper.getRowsFromAoAndOd(ao, od)) {
-			rows.add(r);
-			view.addRow(r);
-		}
+		//TODO do we need ao null ckeck
+		final AssistedObject ao = value.getKvo();
+		
+		//TODO do we need od null check?
+		descStore.getCustomOd(value.getId(), new DescriptorStore.OdFoundCallback() {
+			
+			@Override
+			public void onFound(ObjectDesc od) {
+				//adding new rows
+				for(CustomKVORow r : ODAOCustomKVOMappingHelper.getRowsFromAoAndOd(ao, od)) {
+					rows.add(r);
+					view.addRow(r);
+				}
+			}
+		});
 	}
 	
 	@Override

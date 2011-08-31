@@ -14,6 +14,7 @@ import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.ContactHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
@@ -31,7 +32,7 @@ public class ContactMapper extends BaseMapper<Contact>{
 		this.handlerFactory=new ContactHandlerFactory(descriptorStore);
 	}
 
-	public Contact kvoToEntity(AssistedObject fromKvo, Contact to) {
+	public Contact kvoToEntity(AssistedObject fromKvo, Contact to, CustomObjectDesc... descs) {
 		ContactHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -115,7 +116,7 @@ public class ContactMapper extends BaseMapper<Contact>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getName() != null && !"".equals(entity.getName())) 
-			handler.setName(entity.getName());  
+			handler.setName(entity.getName());
 		{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();

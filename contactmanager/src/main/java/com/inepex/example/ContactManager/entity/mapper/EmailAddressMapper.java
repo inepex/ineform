@@ -6,6 +6,7 @@ import com.inepex.example.ContactManager.entity.kvo.EmailAddressConsts;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory.EmailAddressHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -21,7 +22,7 @@ public class EmailAddressMapper extends BaseMapper<EmailAddress>{
 		this.handlerFactory=new EmailAddressHandlerFactory(descriptorStore);
 	}
 
-	public EmailAddress kvoToEntity(AssistedObject fromKvo, EmailAddress to) {
+	public EmailAddress kvoToEntity(AssistedObject fromKvo, EmailAddress to, CustomObjectDesc... descs) {
 		EmailAddressHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -44,7 +45,7 @@ public class EmailAddressMapper extends BaseMapper<EmailAddress>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getEmail() != null && !"".equals(entity.getEmail())) 
-			handler.setEmail(entity.getEmail());  
+			handler.setEmail(entity.getEmail());
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

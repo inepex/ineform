@@ -7,6 +7,7 @@ import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory.PhoneNumberHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -22,7 +23,7 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
 		this.handlerFactory=new PhoneNumberHandlerFactory(descriptorStore);
 	}
 
-	public PhoneNumber kvoToEntity(AssistedObject fromKvo, PhoneNumber to) {
+	public PhoneNumber kvoToEntity(AssistedObject fromKvo, PhoneNumber to, CustomObjectDesc... descs) {
 		PhoneNumberHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -52,7 +53,7 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getNumber() != null && !"".equals(entity.getNumber())) 
-			handler.setNumber(entity.getNumber());  
+			handler.setNumber(entity.getNumber());
 		if (entity.getType() != null) 
 			handler.setType(new PhoneNumberTypeMapper(descriptorStore).toRelation(entity.getType(), false));
 

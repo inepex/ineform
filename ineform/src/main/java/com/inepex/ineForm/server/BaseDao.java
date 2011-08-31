@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
@@ -23,7 +22,6 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 	
 	protected ManipulationObjectFactory objectFactory;
 
-	@Inject
 	public BaseDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory, AssistedObjectHandlerFactory handlerFactory) {
 		this.em = em;
 		this.objectFactory = objectFactory;

@@ -6,6 +6,7 @@ import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeConsts;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeHandlerFactory.PhoneNumberTypeHandler;
 import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.customkvo.CustomObjectDesc;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -21,7 +22,7 @@ public class PhoneNumberTypeMapper extends BaseMapper<PhoneNumberType>{
 		this.handlerFactory=new PhoneNumberTypeHandlerFactory(descriptorStore);
 	}
 
-	public PhoneNumberType kvoToEntity(AssistedObject fromKvo, PhoneNumberType to) {
+	public PhoneNumberType kvoToEntity(AssistedObject fromKvo, PhoneNumberType to, CustomObjectDesc... descs) {
 		PhoneNumberTypeHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -44,7 +45,7 @@ public class PhoneNumberTypeMapper extends BaseMapper<PhoneNumberType>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getName() != null && !"".equals(entity.getName())) 
-			handler.setName(entity.getName());  
+			handler.setName(entity.getName());
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
