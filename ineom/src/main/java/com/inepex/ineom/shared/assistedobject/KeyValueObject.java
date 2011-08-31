@@ -28,7 +28,7 @@ public class KeyValueObject extends AssistedObject {
 	 * Default constructor needed for the type to be searilizable, although the
 	 * other constructor that specifies descriptorName should be used
 	 */
-	KeyValueObject() {
+	public KeyValueObject() {
 	}
 
 	/**

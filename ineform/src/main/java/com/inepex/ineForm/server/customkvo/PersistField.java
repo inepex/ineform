@@ -31,7 +31,7 @@ public class PersistField {
 	private CustomKVO parent;
 	
 	@Column(nullable=false)
-	private String key;
+	private String keyField;
 	
 	@Column(nullable=false)
 	private ODFieldType fieldType;
@@ -52,7 +52,7 @@ public class PersistField {
 	public PersistField(Long id, CustomKVO parent, String key, ODFieldType fieldType, Object value) {
 		this.id = id;
 		this.parent = parent;
-		this.key = key;
+		this.keyField = key;
 		this.fieldType = fieldType;
 		
 		if(value!=null) {
@@ -84,11 +84,11 @@ public class PersistField {
 	}
 
 	public String getKey() {
-		return key;
+		return keyField;
 	}
 
 	public void setKey(String key) {
-		this.key = key;
+		this.keyField = key;
 	}
 
 	public ODFieldType getFieldType() {
@@ -141,7 +141,7 @@ public class PersistField {
 
 	@Override
 	public String toString() {
-		return key+" ("+fieldType.toString()+")";
+		return keyField+" ("+fieldType.toString()+")";
 	}
 	
 	/**
@@ -170,10 +170,10 @@ public class PersistField {
 			return false;
 		if (fieldType != other.fieldType)
 			return false;
-		if (key == null) {
-			if (other.key != null)
+		if (keyField == null) {
+			if (other.keyField != null)
 				return false;
-		} else if (!key.equals(other.key))
+		} else if (!keyField.equals(other.keyField))
 			return false;
 		if (longVal == null) {
 			if (other.longVal != null)

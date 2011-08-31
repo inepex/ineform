@@ -8,10 +8,12 @@ import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.LongFDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 
@@ -46,6 +48,7 @@ public class CompanyAssist extends Assist {
 			, new StringFDesc(CompanyConsts.k_email, /*hc:d4*/CMI18n.company_email()/*hc*/)/*hc:d2_4*//*hc*/
 					.email()
 					.mandatory()
+			, new RelationFDesc(CompanyConsts.k_extData, "", IFConsts.customDescriptorName)
 			, new StringFDesc(CompanyConsts.k_webPage, /*hc:d5*/CMI18n.company_webPage()/*hc*/)/*hc:d2_5*//*hc*/
 					.mandatory()
 			, new ListFDesc(CompanyConsts.k_contacts, /*hc:d6*/CMI18n.company_contacts()/*hc*/,ContactConsts.descriptorName)/*hc:d2_6*//*hc*/

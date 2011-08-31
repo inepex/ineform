@@ -22,7 +22,6 @@ import com.inepex.example.ContactManager.server.i18n.ServerCMI18nProvider;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
-import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.server.AbstractGuiceDispatch;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
@@ -39,8 +38,8 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 
 	@Inject
 	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
-			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder, IneDispatch ineDispatch) {
-		super(dispatch, currentLangProvider, serverI18n, descStore, ineDispatch);
+			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder) {
+		super(dispatch, currentLangProvider, serverI18n, descStore);
 		this.daofinder=daoFinder;
 	}
 	

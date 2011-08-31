@@ -3,9 +3,11 @@ package com.inepex.example.ContactManager.server;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import com.inepex.example.ContactManager.server.handler.LoginHandler;
+import com.inepex.ineForm.server.customkvo.ObjectDescHandler;
 import com.inepex.ineFrame.server.auth.GetAuthStatusHandler;
 import com.inepex.ineFrame.server.auth.LogoutHandler;
 import com.inepex.ineFrame.server.di.jpa.PersistInitializer;
+import com.inepex.ineFrame.shared.ObjectDescAction;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
@@ -20,6 +22,8 @@ public class AppGuiceModule extends ActionHandlerModule {
 		bindHandler(GetAuthStatusAction.class, GetAuthStatusHandler.class);
 		bindHandler(LogoutAction.class, LogoutHandler.class);
 		bindHandler(LoginAction.class, LoginHandler.class);
+		
+		bindHandler(ObjectDescAction.class, ObjectDescHandler.class);
 	}
 
 }

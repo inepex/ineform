@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Provider;
-import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.ClientDescriptorStore;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
@@ -32,18 +31,15 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	private final I18nStore_Server serverI18n;
 	private final Provider<CurrentLang> currentLangProvider;
 	private final MultiLangDescStore multiLangDescStore;
-	private final IneDispatch ineDispatch;
 	
 	public abstract void doLogAction(Loggable loggable, HttpServletRequest request);
 	
 	public AbstractGuiceDispatch(Dispatch dispatch
 							   , Provider<CurrentLang> currentLangProvider
 							   , I18nStore_Server serverI18n
-							   , DescriptorStore multiLangDescStore
-							   , IneDispatch ineDispatch) {
+							   , DescriptorStore multiLangDescStore) {
 		super(dispatch);
 		this.currentLangProvider = currentLangProvider;
-		this.ineDispatch=ineDispatch;
 		this.serverI18n = serverI18n;
 		this.multiLangDescStore = (MultiLangDescStore)multiLangDescStore;
 	}
@@ -68,12 +64,12 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 
 	private void setupDescriptorStores() {
 		// TODO make this independent from number of languages
-		ClientDescriptorStore engDescStore = new ClientDescriptorStore(ineDispatch);
+		ClientDescriptorStore engDescStore = new ClientDescriptorStore(null);
 		currentLangProvider.get().setLangOverride("en");
 		registerAssists(engDescStore);
 		multiLangDescStore.addStore("en", engDescStore);
 		
-		ClientDescriptorStore hunDescStore = new ClientDescriptorStore(ineDispatch);
+		ClientDescriptorStore hunDescStore = new ClientDescriptorStore(null);
 		currentLangProvider.get().setLangOverride("hu");	
 		registerAssists(hunDescStore);
 		multiLangDescStore.addStore("hu", hunDescStore);

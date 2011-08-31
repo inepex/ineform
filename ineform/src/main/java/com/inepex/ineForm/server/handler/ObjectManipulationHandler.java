@@ -42,7 +42,7 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 			}
 			
 			// Do default behavior
-			return (ObjectManipulationActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).manipulate(action);
+			return (ObjectManipulationActionResult) daoFinder.getDefaultDaoForDescriptor(descriptorName).manipulate(action);
 
 		} catch (Exception e) {
 			e.printStackTrace();

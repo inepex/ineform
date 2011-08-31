@@ -5,6 +5,13 @@ import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 @SuppressWarnings("serial")
 public class UncheckedKVO extends KeyValueObject {
 
+	/**
+	 * only for serialization
+	 */
+	public UncheckedKVO() {
+		super();
+	}
+	
 	public UncheckedKVO(String descriptorName) {
 		super(descriptorName);
 	}

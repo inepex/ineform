@@ -109,9 +109,8 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 		return count(action, null, true);
 	}
 
-	public
-			Long
-			count(AbstractSearchAction action, SelectorCustomizer<CriteriaSelector<?, ?>> customizer, boolean useDefaultQuery) {
+	public Long count(AbstractSearchAction action,
+			SelectorCustomizer<CriteriaSelector<?, ?>> customizer, boolean useDefaultQuery) {
 		CriteriaSelector<Long, E> selector = getCountSelector();
 
 		if (customizer != null)
