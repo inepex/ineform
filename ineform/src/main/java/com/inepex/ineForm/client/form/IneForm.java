@@ -452,7 +452,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
 				} catch (Exception e) {
 					System.out.println("Descriptor: " + descriptorName
-							+ " Key: " + key + " Exception: " + e.getMessage());
+							+ " Key: " + key);
 					e.printStackTrace();
 				}
 			}

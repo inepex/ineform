@@ -44,8 +44,8 @@ public class KeyValueObjectValidationManager {
 	
 	@Inject
 	protected KeyValueObjectValidationManager(DescriptorStore descStore, AssistedObjectHandlerFactory objectHandlerFactory) {
-		this.descStore = descStore;
 		this.objectHandlerFactory=objectHandlerFactory;
+		this.descStore = descStore;
 	}
 	
 	//TODO create handmade validator for boolean list
@@ -77,38 +77,38 @@ public class KeyValueObjectValidationManager {
 	 * @param validatorName
 	 * @return
 	 */
-	public KeyValueObjectValidator createBaseValidator(IneT type, String fieldName, String validatorName, String fieldDisplayname) {
+	public KeyValueObjectValidator createBaseValidator(IneT type, String fieldName, String validatorName, String fieldDisplayname, ObjectDesc od) {
 		
 		//mandatory
 		if(validatorName.contains(MANDATORY))
-			return new MandatoryValidator(type, fieldName, objectHandlerFactory);
+			return new MandatoryValidator(type, fieldName, od);
 				
 		//relation
 		if(validatorName.contains(LESSTHEN))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSTHEN+":", ""), RelType.lt, fieldDisplayname, objectHandlerFactory);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSTHEN+":", ""), RelType.lt, fieldDisplayname, od);
 		if(validatorName.contains(GREATERTHEN))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATERTHEN+":", ""), RelType.gt, fieldDisplayname, objectHandlerFactory);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATERTHEN+":", ""), RelType.gt, fieldDisplayname, od);
 		if(validatorName.contains(LESSEQUAL))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSEQUAL+":", ""), RelType.le, fieldDisplayname, objectHandlerFactory);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSEQUAL+":", ""), RelType.le, fieldDisplayname, od);
 		if(validatorName.contains(GREATEREQUAL))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATEREQUAL+":", ""), RelType.ge, fieldDisplayname, objectHandlerFactory);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(GREATEREQUAL+":", ""), RelType.ge, fieldDisplayname, od);
 		if(validatorName.contains(EQUAL))
-			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(EQUAL+":", ""), RelType.eq, fieldDisplayname, objectHandlerFactory);
+			return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(EQUAL+":", ""), RelType.eq, fieldDisplayname, od);
 		
 
 		//timeline
 		if(validatorName.contains(BEFORE))
-			return new BeforeAfterValidator(fieldName, validatorName.replaceAll(BEFORE+":", ""), false, fieldDisplayname, objectHandlerFactory);
+			return new BeforeAfterValidator(fieldName, validatorName.replaceAll(BEFORE+":", ""), false, fieldDisplayname, od);
 		if(validatorName.contains(AFTER))
-			return new BeforeAfterValidator(validatorName.replaceAll(AFTER+":", ""), fieldName, true, fieldDisplayname, objectHandlerFactory);
+			return new BeforeAfterValidator(validatorName.replaceAll(AFTER+":", ""), fieldName, true, fieldDisplayname, od);
 		
 		//length of a string
 		if(validatorName.contains(MAXLENGTH))
-			return new LengthValidator(type, fieldName, Integer.parseInt(validatorName.replaceAll(MAXLENGTH+":", "")), objectHandlerFactory);
+			return new LengthValidator(type, fieldName, Integer.parseInt(validatorName.replaceAll(MAXLENGTH+":", "")), od);
 		
 		//e-mail
 		if(validatorName.contains(EMAIL))
-			return new EmailValidator(type, fieldName, objectHandlerFactory);
+			return new EmailValidator(type, fieldName, od);
 		
 		
 		return null;
@@ -195,7 +195,7 @@ public class KeyValueObjectValidationManager {
 			ValidationResult vr = new ValidationResult();
 			
 			for(String validatorName : fDesc.getValidatorNames()) {
-				KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName());
+				KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName(), od);
 				if(validator!=null) validator.doValidation(actual.getAssistedObject(), vr);
 			}
 			

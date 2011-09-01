@@ -1,22 +1,21 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
-import com.inepex.ineom.shared.AssistedObjectHandler;
-import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class MandatoryValidator implements KeyValueObjectValidator {
-	
-	private final AssistedObjectHandlerFactory objectHandlerFactory;
 
 	private final IneT type;
 	private final String fieldName;
+	private final ObjectDesc objectDesc;
 	
-	public MandatoryValidator(IneT type, String fieldName, AssistedObjectHandlerFactory objectHandlerFactory) {
-		this.objectHandlerFactory=objectHandlerFactory;
+	public MandatoryValidator(IneT type, String fieldName, ObjectDesc objectDesc) {
+		this.objectDesc=objectDesc;
 		this.type=type;
 		this.fieldName=fieldName;
 		
@@ -27,7 +26,7 @@ public class MandatoryValidator implements KeyValueObjectValidator {
 	@Override
 	public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
 		String msg=null;
-		AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
+		AssistedObjectChecker checker = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc);
 		
 		switch (type) {
 			case BOOLEAN:

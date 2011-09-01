@@ -12,7 +12,9 @@ public class CreatedFdesc extends FDesc implements Serializable {
 		super();
 	}
 
-	public CreatedFdesc(String key, IneT type, String... properties) {
-		super(key, type, properties);
+	public CreatedFdesc(String key, IneT type, String... validators) {
+		super(key, type);
+		if(validators!=null)
+			addValidators(validators);
 	}
 }

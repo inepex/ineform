@@ -55,8 +55,6 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	
 	public void joinToDataFlow(String key, FormWidget fw) {
 		widgetsByKey.put(key, fw);
-		if(fw instanceof CustomKVOFW)
-			customKvoFwsByKey.put(key, (CustomKVOFW) fw);
 	}
 	
 	public void joinAndAddToMainPanel(String key, FormWidget fw) {
@@ -74,9 +72,6 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	
 	public void joinToDataFlow(String key, FormWidget fw, ErrorMessageManagerInterface errorMessageManager) {
 		widgetsByKey.put(key, fw);
-		
-		if(fw instanceof CustomKVOFW)
-			customKvoFwsByKey.put(key, (CustomKVOFW) fw);
 		
 		errormanagersByKey.put(key, errorMessageManager);
 	}
@@ -102,6 +97,9 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 
 	public void registerWidgetToDataFlow(String key, FormWidget widget) {
 		widgetsByKey.put(key, widget);
+		
+		if(widget instanceof CustomKVOFW)
+			customKvoFwsByKey.put(key, (CustomKVOFW) widget);
 	}
 	
 	public void registerTitle(String key, HTML title) {

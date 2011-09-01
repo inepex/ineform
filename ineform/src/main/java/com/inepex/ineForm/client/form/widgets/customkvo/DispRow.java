@@ -7,13 +7,17 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.general.FlowPanelBasedEMM;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
-import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
+import com.inepex.ineForm.client.resources.ResourceHelper;
+import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
-class DispRow extends HandlerAwareFlowPanel {
+class DispRow extends HandlerAwareComposite{
+	
+	private final HorizontalPanel hp = new HorizontalPanel();
 	
 	private final RemoveCallback removeCallback;
 	private final RowValueChangeCallback rowValueChangeCallback;
@@ -23,22 +27,26 @@ class DispRow extends HandlerAwareFlowPanel {
 	private final OdFieldTypeListBox typeBox = new OdFieldTypeListBox();
 	private final TextBox valueBox = new TextBox();
 	private final Button removeBtn = new Button(IneFormI18n.REMOVE());
-	private final FlowPanelBasedEMM errorManager = FlowPanelBasedEMM.newInstance();
+	private final FlowPanelBasedEMM errorManager = new FlowPanelBasedEMM();
 	
 	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback) {
 		this.row=row;
 		this.removeCallback=removeCallback;
 		this.rowValueChangeCallback=rowValueChangeCallback;
 		
-		add(keyBox);
-		add(typeBox);
-		add(valueBox);
-		add(removeBtn);
-		add(errorManager);
+		hp.add(keyBox);
+		hp.add(typeBox);
+		hp.add(valueBox);
+		hp.add(removeBtn);
+		hp.add(errorManager);
+		
+		keyBox.setStyleName(ResourceHelper.getRes().style().dispRowKey());
 		
 		keyBox.setValue(row.getKey());
 		typeBox.setValue(row.getType());
 		valueBox.setValue(row.getValue());
+		
+		initWidget(hp);
 	}
 	
 	public ErrorMessageManagerInterface getErrorManager() {

@@ -13,6 +13,24 @@
 	display: inline;
 }
 
+.fpb_errorMessageHolder_dontShowError {
+	display: block !important;
+	width: 202px;
+	background-color: #F2F2F2;
+	margin-bottom: 3px;
+	padding: 4px 4px 4px 4px;
+}
+
+.fpb_errorMessageHolder_showError {
+	display: block !important;
+	background-color:#FFF2F2;
+	border:1px solid red;
+	color:black;
+	margin-bottom:3px;
+	padding:4px;
+	width:200px;
+}
+
 .errorMessageHolder_dontShowError {
 	width: 202px;
 	background-color: #F2F2F2;
@@ -94,4 +112,8 @@
 }
 .richTextArea{
 	background: white;	
+}
+
+.dispRowKey{
+	width:  85px;
 }

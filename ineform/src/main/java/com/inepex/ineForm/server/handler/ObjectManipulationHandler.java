@@ -31,7 +31,7 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 			throws DispatchException {
 		String descriptorName = action.getObject().getDescriptorName();
 
-		System.out.printf("Manipulating object type '{}', id '{}'", descriptorName, action.getObject().getId());
+//		System.out.printf("Manipulating object type '{}', id '{}'", descriptorName, action.getObject().getId());
 		
 		try {
 			ObjectManipulationActionResult result;

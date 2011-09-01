@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.form.widgets.customkvo;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -14,7 +14,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOFW.View {
 	
-	private final Map<Integer, DispRow> rowsByInnerId = new TreeMap<Integer, DispRow>();
+	private final Map<Integer, DispRow> rowsByInnerId = new HashMap<Integer, DispRow>();
 	
 	private final VerticalPanel rowPanel = new VerticalPanel();
 	private final Button addBtn = new Button(IneFormI18n.ADD());

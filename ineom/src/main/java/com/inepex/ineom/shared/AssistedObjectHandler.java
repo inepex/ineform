@@ -123,6 +123,13 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 
 		for (String key : objectDescriptor.getFields().keySet()) {
 			FDesc fieldDesc = objectDescriptor.getFields().get(key);
+			
+			if(fieldDesc.getType()==IneT.RELATION &&
+					IFConsts.customDescriptorName.equals(((RelationFDesc) fieldDesc).getRelatedDescriptorName())) {
+				difference.set(fieldDesc.getKey(), getRelation(fieldDesc.getKey()));
+				continue;
+			}
+			
 			switch (fieldDesc.getType()) {
 			case BOOLEAN: {
 				Boolean orig = original.getBoolean(key);

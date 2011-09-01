@@ -1,12 +1,15 @@
 package com.inepex.ineom.shared.descriptor;
 
+import java.io.Serializable;
+
 
 /**
  * 
  * @author SoTi
  *
  */
-public class Prop {
+@SuppressWarnings("serial")
+public class Prop implements Serializable{
 
 	public static final String separator = ":";
 
@@ -25,6 +28,9 @@ public class Prop {
 		return new Prop(parts[0], parts[1]);
 	}
 	
+	/**
+	 * for serialization
+	 */
 	public Prop() {
 	}
 

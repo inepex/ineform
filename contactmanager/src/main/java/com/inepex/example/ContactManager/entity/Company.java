@@ -42,7 +42,6 @@ public class Company {
 	@OneToMany(mappedBy="company", cascade={CascadeType.ALL} )
 	private List<Contact> contacts;
 	
-	
 	@JoinColumn(nullable=false)
 	@OneToOne(cascade={CascadeType.ALL})
 	private CustomKVO extData;

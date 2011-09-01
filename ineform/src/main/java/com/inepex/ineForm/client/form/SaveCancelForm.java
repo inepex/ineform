@@ -2,6 +2,7 @@ package com.inepex.ineForm.client.form;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -230,6 +231,10 @@ public class SaveCancelForm extends IneForm {
 				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows());
 				
 				if(!tmpRes.isValid()) {
+					vr.setValid(false);
+					if(vr.getFieldErrors()==null)
+						vr.setFieldErrors(new HashMap<String, List<String>>());
+					
 					for(String key : tmpRes.getFieldErrors().keySet()) {
 						vr.getFieldErrors().put(s+SharedUtil.ID_PART_SEPARATOR+key, tmpRes.getFieldErrors().get(key));
 					}

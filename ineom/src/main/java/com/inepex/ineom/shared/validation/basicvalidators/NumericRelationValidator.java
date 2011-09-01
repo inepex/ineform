@@ -1,23 +1,22 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
-import com.inepex.ineom.shared.AssistedObjectHandler;
-import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.ineom.shared.util.DoubleUtil;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class NumericRelationValidator implements KeyValueObjectValidator{
-
-	private final AssistedObjectHandlerFactory objectHandlerFactory;
 	
 	private final String firstFieldName;
 	private String secondFieldName;
 	private Double constval;
 	private final IneT type;
 	private final RelType reltype;
+	private final ObjectDesc objectDesc;
 	
 	private final String fieldDisplayname;
 	
@@ -26,8 +25,8 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 	}
 	
 	public NumericRelationValidator(IneT type, String fieldName,
-			String numberOrFieldname, RelType reltype, String fieldDisplayname, AssistedObjectHandlerFactory objectHandlerFactory) {
-		this.objectHandlerFactory=objectHandlerFactory;
+			String numberOrFieldname, RelType reltype, String fieldDisplayname, ObjectDesc objectDesc) {
+		this.objectDesc=objectDesc;
 		this.firstFieldName=fieldName;
 		this.type=type;
 		this.reltype=reltype;
@@ -52,7 +51,7 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 		double secondVal = 0;
 		String constvalAsString ="";
 		
-		AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
+		AssistedObjectChecker checker = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc);
 		
 		switch (type) {
 			case DOUBLE:

@@ -1,33 +1,74 @@
 package com.inepex.ineForm.client.general;
 
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
+import java.util.List;
 
-public class FlowPanelBasedEMM extends SimpleTableErrorMessageManager implements IsWidget {
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.inepex.ineForm.client.resources.ResourceHelper;
+
+public class FlowPanelBasedEMM extends FlowPanel implements ErrorMessageManagerInterface {
 	
-	private final FlowPanel fp;
+	private HTML html_error;
+	
+	boolean shouldRemove = false;
+	boolean shouldHide = false;
+	
+	public FlowPanelBasedEMM() {
+		this.html_error=new HTML("");
+		
+		setStyleName(ResourceHelper.getRes().style().fpb_errorMessageHolder_dontShowError());
+	}
 	
 	/**
-	 * it's private use {@link FlowPanelBasedEMM#newInstance()}
-	 * 
-	 * @param fp
-	 * @param itsElement
+	 * clear and hide error messages
 	 */
-	private FlowPanelBasedEMM(FlowPanel fp, Element itsElement) {
-		super(itsElement);
-		this.fp=fp;
-	}
-	
-	public static FlowPanelBasedEMM newInstance() {
-		FlowPanel fp = new FlowPanel();
-		return new FlowPanelBasedEMM(fp, fp.getElement());
-	}
-	
 	@Override
-	public Widget asWidget() {
-		return fp;
+	public void clearErrorMsg() {
+		setStyleName(ResourceHelper.getRes().style().fpb_errorMessageHolder_dontShowError());
+		html_error.setHTML("");
+		
+		if(shouldRemove) {
+			getElement().removeChild(html_error.getElement());
+			shouldRemove=false;
+		}
+		
+		if (shouldHide){
+			setVisible(false);
+		}
+	}
+	
+	/**
+	 * adding new lines to error messages
+	 */
+	@Override
+	public void addErrorMsg(List<String> errorlist) {
+		if(errorlist!=null && errorlist.size()>0) {
+			setStyleName(ResourceHelper.getRes().style().fpb_errorMessageHolder_showError());
+			StringBuffer sb = new StringBuffer(html_error.getHTML());
+			
+			boolean first=sb.length()==0;
+			for(String s : errorlist) {
+				if(!first) sb.append("<br />");
+				else first=false;
+				
+				sb.append(s);
+			}
+			
+			html_error.setHTML(sb.toString());
+			getElement().appendChild(html_error.getElement());
+			shouldRemove=true;
+			if (shouldHide)
+				setVisible(true);
+		}
+	}
+
+	public boolean isShouldHide() {
+		return shouldHide;
+	}
+
+	public void setShouldHide(boolean shouldHide) {
+		this.shouldHide = shouldHide;
+		setVisible(false);
 	}
 	
 

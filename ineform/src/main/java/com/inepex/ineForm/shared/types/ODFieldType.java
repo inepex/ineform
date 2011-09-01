@@ -29,7 +29,7 @@ public enum ODFieldType {
 		case LONG:
 			return LONG;
 		case STRING:
-			if(fd.hasProp(KeyValueObjectValidationManager.EMAIL))
+			if(fd.hasValidator(KeyValueObjectValidationManager.EMAIL))
 				return EMAIL;
 			else
 				return STRING;

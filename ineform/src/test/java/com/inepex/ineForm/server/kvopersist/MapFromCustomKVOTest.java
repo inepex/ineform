@@ -74,7 +74,7 @@ public class MapFromCustomKVOTest {
 		Assert.assertEquals(IneT.DOUBLE, od.getField(k_double).getType());
 		Assert.assertEquals(IneT.STRING, od.getField(k_str).getType());
 		Assert.assertEquals(IneT.STRING, od.getField(k_str2).getType());
-		Assert.assertEquals(true, od.getField(k_str2).hasProp(KeyValueObjectValidationManager.EMAIL));
+		Assert.assertEquals(true, od.getField(k_str2).hasValidator(KeyValueObjectValidationManager.EMAIL));
 		
 		//check together
 		AssistedObjectChecker checker = new AssistedObjectChecker(ao, IFConsts.customDescriptorName, od) {};
