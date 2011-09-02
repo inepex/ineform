@@ -16,6 +16,7 @@ public class CustomKVOObjectDesc extends ObjectDesc implements Serializable{
 	}
 	
 	public CustomKVOObjectDesc(String customdescriptorname) {
+		super(customdescriptorname);
 	}
 
 	public void setKey(String key) {
