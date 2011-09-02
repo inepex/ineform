@@ -171,22 +171,22 @@ public class KeyValueObject extends AssistedObject {
 	}
 
 	@Override
-	protected void setUnchecked(String key, Long value) {
+	public void setUnchecked(String key, Long value) {
 		longValues.put(key, value);
 	}
 
 	@Override
-	protected void setUnchecked(String key, String value) {
+	public void setUnchecked(String key, String value) {
 		stringValues.put(key, value);
 	}
 
 	@Override
-	protected Long getLongUnchecked(String key) {
+	public Long getLongUnchecked(String key) {
 		return longValues.get(key);
 	}
 
 	@Override
-	protected String getStringUnchecked(String key) {
+	public String getStringUnchecked(String key) {
 		return stringValues.get(key);
 	}
 

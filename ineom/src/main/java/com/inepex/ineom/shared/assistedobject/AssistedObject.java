@@ -43,14 +43,14 @@ public abstract class AssistedObject implements Serializable {
 	protected abstract String getString(String key);
 
 	/******** Unchecked ADD methods ********/
-	protected abstract void setUnchecked(String key, Long value);
+	public abstract void setUnchecked(String key, Long value);
 
-	protected abstract void setUnchecked(String key, String value);
+	public abstract void setUnchecked(String key, String value);
 
 	/******** Unchecked GET methods ********/
-	protected abstract Long getLongUnchecked(String key);
+	public abstract Long getLongUnchecked(String key);
 
-	protected abstract String getStringUnchecked(String key);
+	public abstract String getStringUnchecked(String key);
 
 	/******** CONTAINS methods ********/
 	protected abstract boolean containsString(String key);

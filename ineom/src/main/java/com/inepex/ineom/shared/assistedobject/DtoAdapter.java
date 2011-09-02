@@ -74,22 +74,22 @@ public abstract class DtoAdapter extends AssistedObject {
 	}
 
 	@Override
-	protected void setUnchecked(String key, Long value) {
+	public void setUnchecked(String key, Long value) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected void setUnchecked(String key, String value) {
+	public void setUnchecked(String key, String value) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected Long getLongUnchecked(String key) {
+	public Long getLongUnchecked(String key) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected String getStringUnchecked(String key) {
+	public String getStringUnchecked(String key) {
 		throw new UnsupportedOperationException();
 	}
 
