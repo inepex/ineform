@@ -67,17 +67,17 @@ public class MultiLangDescStore implements DescriptorStore {
 
 	@Override
 	public <D extends DescriptorBase> void addDefaultTypedDesc(String objDescName, D defaultDesc) {
-		addDefaultTypedDesc(objDescName, defaultDesc);
+		get().addDefaultTypedDesc(objDescName, defaultDesc);
 	}
 
 	@Override
 	public <D extends DescriptorBase> void addNamedTypedDesc(String objDescName, String namedDescName, D namedDesc) {
-		addNamedTypedDesc(objDescName, namedDescName, namedDesc);
+		get().addNamedTypedDesc(objDescName, namedDescName, namedDesc);
 	}
 
 	@Override
 	public void registerDescriptors(ObjectDesc descriptor, DescriptorBase... defaultDescriptors) {
-		registerDescriptors(descriptor, defaultDescriptors);
+		get().registerDescriptors(descriptor, defaultDescriptors);
 	}
 
 	@Override
