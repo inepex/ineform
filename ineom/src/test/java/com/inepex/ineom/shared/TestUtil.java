@@ -16,7 +16,6 @@ import com.inepex.ineom.shared.descriptor.StringFDesc;
 public class TestUtil {
 	
 	public static DescriptorStore descriptorStore;
-	public static AssistedObjectHandlerFactory objectHandlerFactory;
 	
 	static {
 		descriptorStore=new ClientDescriptorStoreBase(){
@@ -37,13 +36,12 @@ public class TestUtil {
 		
 		descriptorStore.registerDescriptors(descriptor2);
 		descriptorStore.registerDescriptors(descriptor);
-		
-		objectHandlerFactory = new AssistedObjectHandlerFactory(descriptorStore);
 	}
 	
 	
 
 	public static AssistedObjectChecker getTestKvo(){
+		AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(descriptorStore);
 		AssistedObjectHandler checker = objectHandlerFactory.createHandler(new KeyValueObject("testKvo"));
 		
 		checker.set("stringField", "hello");
@@ -53,6 +51,7 @@ public class TestUtil {
 	}
 	
 	private static AssistedObjectChecker getRelKvo(Long value){
+		AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(descriptorStore);
 		AssistedObjectHandler checker = objectHandlerFactory.createHandler(new KeyValueObject("test2Kvo"));
 		checker.set("longField", value);
 		return checker;
@@ -66,7 +65,8 @@ public class TestUtil {
 		return list;
 	}
 	
-	public static void assertEquals(AssistedObject expected, AssistedObject actual){
+	public static void assertEquals(AssistedObject expected, AssistedObject actual, DescriptorStore ds){
+		AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(ds);
 		Assert.assertEquals(expected.getKeys().size(), actual.getKeys().size());
 		
 		AssistedObjectHandler handlerE = objectHandlerFactory.createHandler(expected);
@@ -76,5 +76,9 @@ public class TestUtil {
 			Assert.assertEquals(true, actual.getKeys().contains(key));
 			Assert.assertEquals(handlerE.getValueAsString(key), handlerA.getValueAsString(key));
 		}
+	}
+
+	public static AssistedObjectHandlerFactory createObjectHandlerFactory() {
+		return new AssistedObjectHandlerFactory(descriptorStore);
 	}
 }

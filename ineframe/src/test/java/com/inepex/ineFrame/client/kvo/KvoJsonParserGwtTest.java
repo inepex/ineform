@@ -19,13 +19,13 @@ public class KvoJsonParserGwtTest {//extends GWTTestCase {
 	public void testDefault(){
 		jsonData = jsonData.replace("'", "\"");
 		AssistedObject kvo = new KvoJsonParser(TestUtil.descriptorStore, JSONParser.parseStrict(jsonData).isObject(), "testKvo").parse();
-		TestUtil.assertEquals(TestUtil.getTestKvo().getAssistedObject(), kvo);
+		TestUtil.assertEquals(TestUtil.getTestKvo().getAssistedObject(), kvo, TestUtil.descriptorStore);
 	}
 
 	public void testNull(){
 		jsonDataNullValue = jsonDataNullValue.replace("'", "\"");
 		AssistedObject kvo = new KvoJsonParser(TestUtil.descriptorStore, JSONParser.parseStrict(jsonDataNullValue).isObject(), "testKvo").parse();
-		AssistedObjectHandler ch = TestUtil.objectHandlerFactory.createHandler(kvo);
+		AssistedObjectHandler ch = TestUtil.createObjectHandlerFactory().createHandler(kvo);
 		
 		Assert.assertTrue(ch.containsString("stringField"));
 		Assert.assertNull(ch.getString("stringField"));

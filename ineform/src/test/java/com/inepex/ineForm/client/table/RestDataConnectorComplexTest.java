@@ -98,7 +98,7 @@ public class RestDataConnectorComplexTest {
 		ArgumentCaptor<ObjectManipulationActionResult> omrCapture = ArgumentCaptor.forClass(ObjectManipulationActionResult.class);
 		verify(callback).onManipulationResult(omrCapture.capture());
 		
-		TestUtil.assertEquals(testKvo, omrCapture.getValue().getObjectsNewState());
+		TestUtil.assertEquals(testKvo, omrCapture.getValue().getObjectsNewState(), TestUtil.descriptorStore);
 		
 
 	}

@@ -29,7 +29,7 @@ public class KeyValueObjectSerializerTest {
 					public String serialize(IneList list) {
 						StringBuffer sb = new StringBuffer();
 						for (Relation rel : list.getRelationList()){
-							AssistedObjectHandler handler = TestUtil.objectHandlerFactory.createHandler(rel.getKvo());
+							AssistedObjectHandler handler = TestUtil.createObjectHandlerFactory().createHandler(rel.getKvo());
 							sb.append(handler.getValueAsString("longField"));
 							sb.append(",");
 						}
@@ -49,7 +49,7 @@ public class KeyValueObjectSerializerTest {
 			
 			@Override
 			public String serialize(Relation relation) {
-				AssistedObjectHandler handler = TestUtil.objectHandlerFactory.createHandler(relation.getKvo());
+				AssistedObjectHandler handler = TestUtil.createObjectHandlerFactory().createHandler(relation.getKvo());
 				return "value in rel is: " + handler.getValueAsString("longField");
 			}
 		})
