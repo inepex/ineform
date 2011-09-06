@@ -1,4 +1,4 @@
-package com.inepex.example.contactmanager;
+package com.inepex.example.ContactManager;
 
 import java.util.ArrayList;
 import java.util.List;

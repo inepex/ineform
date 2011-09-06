@@ -1,4 +1,4 @@
-package com.inepex.example.contactmanager;
+package com.inepex.example.ContactManager;
 
 import static org.eclipse.persistence.config.PersistenceUnitProperties.DDL_DATABASE_GENERATION;
 import static org.eclipse.persistence.config.PersistenceUnitProperties.DDL_GENERATION;

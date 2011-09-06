@@ -75,13 +75,13 @@
 			<version>1.8.5</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
-			<version>${gwtVersion}</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.gwt</groupId> -->
+<!-- 			<artifactId>gwt-dev</artifactId> -->
+<!-- 			<version>${gwtVersion}</version> -->
+<!-- 			<type>jar</type> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
