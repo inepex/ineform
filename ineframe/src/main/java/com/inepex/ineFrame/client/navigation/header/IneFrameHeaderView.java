@@ -23,6 +23,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private Image settingsImg;
 	private SettingsPopup popup;
 	private OnClickedLogic settingsButtonLogic;
+	private OnClickedLogic usernameClickedLogic;
 	
 	@Inject
 	IneFrameHeaderView() {
@@ -65,6 +66,16 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 			public void onClick(ClickEvent event) {
 				if(settingsButtonLogic!=null)
 					settingsButtonLogic.doLogic();
+			}
+		}));
+		
+		registerHandler(userName.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if (usernameClickedLogic != null) {
+					usernameClickedLogic.doLogic();
+				}
 			}
 		}));
 		
@@ -150,5 +161,10 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 				}
 			}));
 		}
+	}
+
+	@Override
+	public void setUserNameClickedLogic(OnClickedLogic logic) {
+		usernameClickedLogic = logic;
 	}
 }

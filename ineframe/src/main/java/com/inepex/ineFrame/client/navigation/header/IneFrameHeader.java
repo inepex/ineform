@@ -32,6 +32,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void showSettingsPopup();
 		public void hideSettingsPopup();
 		public boolean isSettingsPopupShowing();
+		
+		public void setUserNameClickedLogic(OnClickedLogic logic);
 	}
 	
 	private final AuthManager authManager;
@@ -126,5 +128,9 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		
 		view.setSettingsButtonVisible(showSettings);
+	}
+	
+	public void setUserNameClickedLogic(OnClickedLogic logic){
+		view.setUserNameClickedLogic(logic);
 	}
 }
