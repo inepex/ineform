@@ -70,7 +70,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
     			
     			ObjectDesc od = null;
     			for(CustomKVOObjectDesc desc : descs) 
-    				if(CompanyConsts.k_${attr.name}.equals(desc.getKey()))
+    				if(${classname}Consts.k_${attr.name}.equals(desc.getKey()))
     						od=desc;
     				
     			CustomKVOMapperHelper.mapIntoCustomKVO(custKvo, fromHandler.get${attr.nameU1}().getKvo(), od);

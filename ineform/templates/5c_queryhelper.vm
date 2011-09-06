@@ -115,7 +115,9 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 		List<String> idList = Node.idToIdList(orderKey);
 			
 #foreach( $attr in $attrs )			
-#if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic && $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean" && !$attr.enum && !$attr.hasAnnotation("Transient"))
+#if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic
+	&& $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean"
+	&& !$attr.enum && !$attr.hasAnnotation("Transient") && $attr.type!='CustomKVO')
 		if(idList.get(0).equals(${classname}Consts.k_${attr.name})){
 			if(idList.size()==1) {
 				Join<${classname}, ${attr.type}> title = from.join(${classname}_.${attr.name});
