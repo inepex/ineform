@@ -43,6 +43,7 @@ public class I18nModuleConverter {
 	
 	final Class<?> moduleCalss;
 	final String sourceFolder;
+	final String devCsvPath;
 	final String moduleUri;
 	final String moduleName;
 	final ModuleProperties props;
@@ -57,6 +58,7 @@ public class I18nModuleConverter {
 		this.props = new ModuleProperties(getClass().getClassLoader(), moduleName);
 		this.SEP = props.csvSeparator;
 		this.sourceFolder = props.sourceFolder;
+		this.devCsvPath= props.devCsvPath;
 		
 		initVelocityUtilIfNeeded();
 	}
@@ -126,7 +128,10 @@ public class I18nModuleConverter {
 	}
 	
 	private String getDevCsvPath() {
-		return  getModulesPath() + moduleName + ".csv";
+		if(devCsvPath==null || devCsvPath.length()==0)
+			return  getModulesPath() + moduleName + ".csv";
+		else
+			return "./"+ devCsvPath + "/" + moduleUri + "/" + moduleName + ".csv";
 	}
 	
 	

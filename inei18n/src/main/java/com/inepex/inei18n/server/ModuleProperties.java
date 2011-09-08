@@ -11,6 +11,7 @@ public class ModuleProperties {
 	
 	public String[] languages;
 	public String userCsvPath;
+	public String devCsvPath;
 	public String csvSeparator;
 	public String sourceFolder;
 	public String serverPackage;
@@ -29,5 +30,8 @@ public class ModuleProperties {
 		csvSeparator = properties.getProperty("csvSeparator");
 		sourceFolder = properties.getProperty("sourceFolder");
 		serverPackage = properties.getProperty("serverPackage");
+		
+		//property for localization util
+		devCsvPath=properties.getProperty("devCsvPath");
 	}
 }
