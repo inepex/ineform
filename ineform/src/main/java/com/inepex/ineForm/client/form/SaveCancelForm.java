@@ -249,18 +249,19 @@ public class SaveCancelForm extends IneForm {
 	 * 
 	 */
 	private boolean validateConsistenceOfCustomKVOFWS() {
-		boolean valid = true;
+		boolean validsum = true;
 		
 		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
 			for(String s : unit.getFormWidgetKeySet()) {
 				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW))
 					continue;
 				
-				valid=valid && ((CustomKVOFW) unit.getWidgetByKey(s)).validateConsistence();
+				boolean  valid = ((CustomKVOFW) unit.getWidgetByKey(s)).validateConsistence();
+				validsum = validsum && valid;
 			}
 		}
 		
-		return valid;
+		return validsum;
 	}
 	
 	/**

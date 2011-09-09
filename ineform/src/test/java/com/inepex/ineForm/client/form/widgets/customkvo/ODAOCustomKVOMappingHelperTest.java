@@ -179,21 +179,28 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("k2", ODFieldType.STRING, "123"));
 		rows.add(new CustomKVORow("k3", ODFieldType.EMAIL, "alma@korte.er"));
 		
+		rows.add(new CustomKVORow("k4", ODFieldType.DOUBLE, "abc")); //can not parse so it will null
+		rows.add(new CustomKVORow("k5", ODFieldType.LONG, "abc")); //can not parse so it will null
+		
 		ObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows);
 		AssistedObject ao = ODAOCustomKVOMappingHelper.getAoFromRows(rows);
 		AssistedObjectChecker checker = new AssistedObjectChecker(ao, IFConsts.customDescriptorName, od);
 		
 		Assert.assertEquals(IFConsts.customDescriptorName, ao.getDescriptorName());
 		Assert.assertEquals(IFConsts.NEW_ITEM_ID.intValue(), ao.getId().intValue());
-		Assert.assertEquals(3, ao.getKeys().size());
+		Assert.assertEquals(5, ao.getKeys().size());
 		
 		Assert.assertEquals(true, checker.containsDouble("k1"));
 		Assert.assertEquals(true, checker.containsString("k2"));
 		Assert.assertEquals(true, checker.containsString("k3"));
+		Assert.assertEquals(true, checker.containsDouble("k4"));
+		Assert.assertEquals(true, checker.containsLong("k5"));
 		
 		Assert.assertNull(checker.getDouble("k1"));
 		Assert.assertEquals("123", checker.getString("k2"));
 		Assert.assertEquals("alma@korte.er", checker.getString("k3"));
+		Assert.assertNull(checker.getDouble("k4"));
+		Assert.assertNull(checker.getLong("k5"));
 	}
 }
 

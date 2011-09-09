@@ -100,16 +100,31 @@ public class ODAOCustomKVOMappingHelper {
 		for(CustomKVORow r : rows) {
 			switch (r.getType().ineT) {
 			case BOOLEAN:
-				kvo.set(r.getKey(), 
-						r.getValue().length() > 0  ? Boolean.parseBoolean(r.getValue()) : null);
+				try {
+					kvo.set(r.getKey(), 
+							r.getValue().length() > 0  ? Boolean.parseBoolean(r.getValue()) : null);
+				} catch (NumberFormatException e) {
+					kvo.set(r.getKey(), (Boolean)null);
+				}
+				
 				break;
 			case DOUBLE:
-				kvo.set(r.getKey(), 
-						r.getValue().length() > 0  ? Double.parseDouble(r.getValue()) : null);
+				try {
+					kvo.set(r.getKey(), 
+							r.getValue().length() > 0  ? Double.parseDouble(r.getValue()) : null);
+				} catch (NumberFormatException e) {
+					kvo.set(r.getKey(), (Double)null);
+				}
+				
 				break;
 			case LONG:
-				kvo.set(r.getKey(), 
-						r.getValue().length() > 0  ? Long.parseLong(r.getValue()) : null);
+				try {
+					kvo.set(r.getKey(), 
+							r.getValue().length() > 0  ? Long.parseLong(r.getValue()) : null);
+				} catch (NumberFormatException e) {
+					kvo.set(r.getKey(), (Long)null);
+				}
+				
 				break;
 			case STRING:
 				kvo.set(r.getKey(), 

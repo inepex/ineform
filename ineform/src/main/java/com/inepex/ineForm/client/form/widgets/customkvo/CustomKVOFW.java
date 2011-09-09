@@ -123,7 +123,11 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	@Override
 	public Relation getRelationValue(){
 		AssistedObject ao = ODAOCustomKVOMappingHelper.getAoFromRows(rows);
-		ao.setId(relation.getId());
+		if(relation!=null) {
+			ao.setId(relation.getId());
+		} else {
+			relation= new Relation();
+		}
 		relation.setKvo(ao);
 		
 		return relation;
