@@ -64,8 +64,6 @@ import com.inepex.ineom.shared.util.SharedUtil;
  */
 
 public class IneTable extends HandlerAwareComposite {
-	final FlowPanel mainPanel = new FlowPanel();
-	final CellTable<AssistedObject> cellTable;
 	
 	// Constants
 	public final static int DEFAULT_PAGE_SIZE = 10;
@@ -74,6 +72,44 @@ public class IneTable extends HandlerAwareComposite {
 
 	// Class variables
 	private int pageSize = DEFAULT_PAGE_SIZE;
+	
+	/**
+	 * The key provider that provides the unique ID of a AssistedObject.
+	 */
+	public static final ProvidesKey<AssistedObject> KEY_PROVIDER = new ProvidesKey<AssistedObject>() {
+		public Object getKey(AssistedObject item) {
+			return item == null ? null : item.getId();
+		}
+	};
+	
+	public static enum SelectionBehaviour {
+		NO_SELECTION,
+		SINGLE_SELECTION;
+	}
+	
+	public interface IneCellTableResources extends Resources {
+
+        public IneCellTableResources INSTANCE =
+                GWT.create(IneCellTableResources.class);
+
+        /**
+         * The styles used in this widget.
+         */
+        @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
+        CellTable.Style cellTableStyle();
+	}
+	
+	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
+		if(tableRenderDescriptorName==null) {
+			return descriptorStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
+		} else {
+			return descriptorStore.getNamedTypedDesc(objectDescName, tableRenderDescriptorName, TableRDesc.class);
+		}
+	
+	}	
+	
+	final FlowPanel mainPanel = new FlowPanel();
+	final CellTable<AssistedObject> cellTable;
 	
 	private DateTimeFormat defaultDateTimeFormat = DateTimeFormat.getFormat(IneFormProperties.INETABLE_DEFAULT_DATETIMEFORMAT);
 	private DateTimeFormat defaultShortDateTimeFormat = DateTimeFormat.getFormat(IneFormProperties.INETABLE_DEFAULT_SHORT_DATETIMEFORMAT);
@@ -107,50 +143,11 @@ public class IneTable extends HandlerAwareComposite {
 	
 	private boolean batchColumnAddig = false; //faster rendering
 
-	/**
-	 * The key provider that provides the unique ID of a AssistedObject.
-	 */
-	public static final ProvidesKey<AssistedObject> KEY_PROVIDER = new ProvidesKey<AssistedObject>() {
-		public Object getKey(AssistedObject item) {
-			return item == null ? null : item.getId();
-		}
-	};
-	
-	public static enum SelectionBehaviour {
-		NO_SELECTION,
-		SINGLE_SELECTION;
-	}
-	
-	public interface IneCellTableResources extends Resources {
-
-        public IneCellTableResources INSTANCE =
-                GWT.create(IneCellTableResources.class);
-
-        /**
-         * The styles used in this widget.
-         */
-        @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
-        CellTable.Style cellTableStyle();
-	}
-	
 	public IneTable(DescriptorStore descriptorStore, String objectDescName,
-			String tableRenderDescriptorName, ServerSideDataConnector connector) {
+			String tableRenderDescriptorName, IneDataConnector connector) {
 		this(descriptorStore, objectDescName, getTRD(descriptorStore, objectDescName, tableRenderDescriptorName), connector);
 	}
 	
-	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
-		if(tableRenderDescriptorName==null) {
-			return descriptorStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
-		} else {
-			return descriptorStore.getNamedTypedDesc(objectDescName, tableRenderDescriptorName, TableRDesc.class);
-		}
-	
-	}
-	
-	public void setDateProvider(DateProvider dateProvider) {
-		this.dateProvider = dateProvider;
-	}
-
 	/**
 	 * Can not be injected yet. Do we need to make IneTable availale injected by a factory?
 	 * Uses the default {@link TableRDesc}
@@ -160,7 +157,7 @@ public class IneTable extends HandlerAwareComposite {
 	public IneTable(DescriptorStore descStore,
 					String objectDescriptorName,
 					IneDataConnector dataProvider) {
-		this(descStore, objectDescriptorName, null, dataProvider);
+		this(descStore, objectDescriptorName, (String)null, dataProvider);
 	}
 	
 	/**
@@ -201,6 +198,10 @@ public class IneTable extends HandlerAwareComposite {
 		
 		initWidget(mainPanel);
 		mainPanel.add(cellTable);
+	}
+	
+	public void setDateProvider(DateProvider dateProvider) {
+		this.dateProvider = dateProvider;
 	}
 	
 //**** Set behaviour properties ****// 

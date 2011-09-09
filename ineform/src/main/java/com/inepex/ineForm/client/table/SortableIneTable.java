@@ -24,7 +24,7 @@ public class SortableIneTable extends IneTable {
 
 	public SortableIneTable(DescriptorStore descriptorStore,
 			String objectDescName, String tableRenderDescriptor,
-			ServerSideDataConnector connector) {
+			IneDataConnector connector) {
 		super(descriptorStore, objectDescName, tableRenderDescriptor, connector);
 	}
 
