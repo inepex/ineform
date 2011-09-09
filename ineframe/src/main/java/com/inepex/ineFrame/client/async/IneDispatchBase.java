@@ -51,7 +51,12 @@ public class IneDispatchBase {
 		@Override
 		public void onFailure(Throwable caught) {
 			if (caught instanceof AuthorizationException){
-				System.out.println("TODO: authorization exception in IneDispatch"); //maybe a page not found message
+				PlaceRequestEvent pre = new PlaceRequestEvent();
+				pre.setHierarchicalTokensWithParam(NavigationProperties.noRightPlace);
+				eventBus.fireEvent(pre);
+				successCallback.onFailure(caught);
+				statusIndicator.onSuccess("");
+				return;
 			} else if (caught instanceof AuthenticationException) {
 				startSwallowStatuscodeException();
 				Window.Location.reload();
