@@ -87,17 +87,6 @@ public class Relation implements Serializable {
 	public boolean isNew() {
 		return getKvo() != null && getKvo().isNew();
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((displayName == null) ? 0 : displayName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((kvo == null) ? 0 : kvo.hashCode());
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {

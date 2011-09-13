@@ -88,6 +88,8 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	public void setRelationValue(Relation value) {
 		if(value==null)
 			value = new Relation();
+		else
+			value = new Relation(value.getId(), value.getDisplayName(), value.getKvo());
 		
 		if(value.getKvo()==null) {
 			value.setKvo(new KeyValueObject(IFConsts.customDescriptorName));

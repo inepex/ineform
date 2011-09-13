@@ -94,7 +94,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 					continue;
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					${attr.fistGenTypeU1} entity = new ${attr.fistGenTypeU1}(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(rel.getKvo(), entity);
+					mapper.kvoToEntity(rel.getKvo(), entity, descs);
 					##entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
 					to.get${attr.nameU1}().add(entity);
 				} else {
@@ -102,7 +102,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 					if (rel.getKvo() == null) { 			    // delete item
 						to.get${attr.nameU1}().remove(origItem);
 					} else {									// edit item
-						mapper.kvoToEntity(rel.getKvo(), origItem);
+						mapper.kvoToEntity(rel.getKvo(), origItem, descs);
 					}
 				}
 			}
@@ -120,7 +120,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 					relatedEntity = new ${attr.typeU1}(IFConsts.NEW_ITEM_ID);
 				}
 				new ${attr.typeU1}Mapper(descriptorStore)
-					.kvoToEntity(fromHandler.get${attr.nameU1}().getKvo(), relatedEntity);
+					.kvoToEntity(fromHandler.get${attr.nameU1}().getKvo(), relatedEntity, descs);
 				to.set${attr.nameU1}(relatedEntity);
 #end
 			}

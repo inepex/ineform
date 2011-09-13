@@ -98,11 +98,16 @@ public class ODAOCustomKVOMappingHelper {
 	public static AssistedObject getAoFromRows(List<CustomKVORow> rows) {
 		UncheckedKVO kvo = new UncheckedKVO(IFConsts.customDescriptorName);
 		for(CustomKVORow r : rows) {
+			String stringVal =
+				(r.getValue()==null || r.getValue().length()==0)
+				? null
+				: r.getValue();
+			
 			switch (r.getType().ineT) {
 			case BOOLEAN:
 				try {
 					kvo.set(r.getKey(), 
-							r.getValue().length() > 0  ? Boolean.parseBoolean(r.getValue()) : null);
+							stringVal!=null  ? Boolean.parseBoolean(r.getValue()) : null);
 				} catch (NumberFormatException e) {
 					kvo.set(r.getKey(), (Boolean)null);
 				}
@@ -111,7 +116,7 @@ public class ODAOCustomKVOMappingHelper {
 			case DOUBLE:
 				try {
 					kvo.set(r.getKey(), 
-							r.getValue().length() > 0  ? Double.parseDouble(r.getValue()) : null);
+							stringVal!=null  ? Double.parseDouble(r.getValue()) : null);
 				} catch (NumberFormatException e) {
 					kvo.set(r.getKey(), (Double)null);
 				}
@@ -120,7 +125,7 @@ public class ODAOCustomKVOMappingHelper {
 			case LONG:
 				try {
 					kvo.set(r.getKey(), 
-							r.getValue().length() > 0  ? Long.parseLong(r.getValue()) : null);
+							stringVal!=null  ? Long.parseLong(r.getValue()) : null);
 				} catch (NumberFormatException e) {
 					kvo.set(r.getKey(), (Long)null);
 				}
@@ -128,7 +133,7 @@ public class ODAOCustomKVOMappingHelper {
 				break;
 			case STRING:
 				kvo.set(r.getKey(), 
-						r.getValue().length() > 0  ? r.getValue() : null);
+						stringVal!=null  ? r.getValue() : null);
 				break;
 			default:
 				throw new RuntimeException(r.getType().ineT.toString());
