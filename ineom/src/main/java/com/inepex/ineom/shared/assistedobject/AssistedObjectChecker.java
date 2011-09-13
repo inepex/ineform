@@ -192,9 +192,9 @@ public class AssistedObjectChecker {
 
 		switch (objectDescriptor.getField(key).getType()) {
 		case BOOLEAN:
-			o = getBoolean(key) ? IFConsts.TRUE
-					: IFConsts.FALSE;
-			return o == null ? null : o.toString();
+			o = getBoolean(key);
+			return o == null ? null : 
+				((Boolean) o ? IFConsts.TRUE : IFConsts.FALSE);
 
 		case DOUBLE:
 			o = getDouble(key);
