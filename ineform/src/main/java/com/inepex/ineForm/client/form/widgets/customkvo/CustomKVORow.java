@@ -25,7 +25,7 @@ public class CustomKVORow {
 	 */
 	public CustomKVORow() {
 		key = "";
-		type = ODFieldType.values()[0];
+		type = ODFieldType.STRING;
 		value = "";
 	}
 
@@ -55,5 +55,37 @@ public class CustomKVORow {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public void clearDataIfCanNotParse() {
+		if(type==ODFieldType.BOOLEAN) {
+			try {
+				Boolean.parseBoolean(value);
+			} catch (NumberFormatException e) {
+				value="";
+			}
+			
+			return;
+		}
+		
+		if(type==ODFieldType.LONG) {
+			try {
+				Long.parseLong(value);
+			} catch (NumberFormatException e) {
+				value="";
+			}
+			
+			return;
+		}
+		
+		if(type==ODFieldType.DOUBLE) {
+			try {
+				Double.parseDouble(value);
+			} catch (NumberFormatException e) {
+				value="";
+			}
+			
+			return;
+		}
 	}
 }
