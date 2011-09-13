@@ -61,7 +61,7 @@ public class ODAOCustomKVOMappingHelper {
 				continue;
 			}
 			
-			if(r.getValue().length()>0) {
+			if(r.getValue()!=null && r.getValue().length()>0) {
 				try {
 					switch (r.getType().ineT) {
 					case BOOLEAN:
