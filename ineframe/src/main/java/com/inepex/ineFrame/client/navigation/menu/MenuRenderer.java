@@ -45,6 +45,8 @@ public class MenuRenderer {
 			public void setSelected(boolean selected);
 			public void renderToRightSide();
 		}
+		
+		public IsWidget asWidget();
 	}
 	
 	private final PlaceHierarchyProvider hierarchyProvider;
@@ -154,5 +156,9 @@ public class MenuRenderer {
 				}
 			}
 		}
+	}
+	
+	public void showPage(InePage page){
+		view.showPage(page);
 	}
 }

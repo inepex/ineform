@@ -97,7 +97,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		}
 	}
 
-	private class MenuBarWidget extends HandlerAwareComposite implements Tab {
+	public static class MenuBarWidget extends HandlerAwareComposite implements Tab {
 
 		private final ListItemWidget listWidget;
 		private final AnchorWidget a;

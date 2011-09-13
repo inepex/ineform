@@ -1,6 +1,7 @@
 package com.inepex.ineFrame.client.navigation.header;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
@@ -34,6 +35,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public boolean isSettingsPopupShowing();
 		
 		public void setUserNameClickedLogic(OnClickedLogic logic);
+		
+		public IsWidget asWidget();
 	}
 	
 	private final AuthManager authManager;
