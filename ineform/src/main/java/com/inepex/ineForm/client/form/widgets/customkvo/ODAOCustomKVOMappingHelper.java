@@ -9,11 +9,11 @@ import java.util.TreeSet;
 
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
-import com.inepex.ineForm.shared.customkvo.UncheckedKVO;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
+import com.inepex.ineom.shared.assistedobject.UncheckedKVO;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;

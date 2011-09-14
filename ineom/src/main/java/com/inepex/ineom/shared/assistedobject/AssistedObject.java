@@ -2,6 +2,7 @@ package com.inepex.ineom.shared.assistedobject;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
@@ -73,6 +74,12 @@ public abstract class AssistedObject implements Serializable {
 	 * object) keys of AssistedObjects object descriptor
 	 */
 	public abstract List<String> getKeys();
+	public abstract Set<String> getLongKeys();
+	public abstract Set<String> getBooleanKeys();
+	public abstract Set<String> getDoubleKeys();
+	public abstract Set<String> getStringKeys();
+	public abstract Set<String> getListKeys();
+	public abstract Set<String> getRelationKeys();
 
 	public abstract AssistedObject clone();
 

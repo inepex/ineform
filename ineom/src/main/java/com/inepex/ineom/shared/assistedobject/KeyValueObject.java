@@ -2,6 +2,7 @@ package com.inepex.ineom.shared.assistedobject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
@@ -317,5 +318,35 @@ public class KeyValueObject extends AssistedObject {
 			return false;
 
 		return true;
+	}
+
+	@Override
+	public Set<String> getLongKeys() {
+		return longValues.keySet();
+	}
+
+	@Override
+	public Set<String> getBooleanKeys() {
+		return booleanValues.keySet();
+	}
+
+	@Override
+	public Set<String> getDoubleKeys() {
+		return doubleValues.keySet();
+	}
+
+	@Override
+	public Set<String> getStringKeys() {
+		return stringValues.keySet();
+	}
+
+	@Override
+	public Set<String> getListKeys() {
+		return listValues.keySet();
+	}
+
+	@Override
+	public Set<String> getRelationKeys() {
+		return relationValues.keySet();
 	}
 }
