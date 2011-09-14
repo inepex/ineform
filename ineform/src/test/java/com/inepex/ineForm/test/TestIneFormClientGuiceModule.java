@@ -36,6 +36,8 @@ import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.util.GwtRequestBuilderFactory;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
+import com.inepex.ineForm.shared.dispatch.ActionBasedObjectFinder;
+import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
@@ -50,6 +52,7 @@ public class TestIneFormClientGuiceModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(OdFinder.class).to(ActionBasedOdFinder.class);
+		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
 		
 		bind(HistoryProvider.class).in(Singleton.class);
 		bind(IneDispatch.class).in(Singleton.class);

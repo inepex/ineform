@@ -28,9 +28,9 @@ public class ContactDetailsPage extends FlowPanelBasedPage {
 	
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
-		new ObjectFinder(ContactConsts.descriptorName,
-				Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_CONTACT)), formContext.ineDispatch)
-					.executeFind(new ObjectFinder.Callback() {
+		formContext.objectFinder.executeFind(ContactConsts.descriptorName
+				, Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_CONTACT)) 
+				, new ObjectFinder.Callback() {
 
 						@Override
 						public void onObjectFound(AssistedObject foundObject) {

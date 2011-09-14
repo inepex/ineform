@@ -11,20 +11,19 @@ import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProv
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
-import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class CompanyWidgetPlace extends WidgetPlace {
 	
-	private final IneDispatch dispatch;
+	private final ObjectFinder objectFinder;
 	private final CompanyHandlerFactory companyHandlerFactory;
 	
 	private HTML html;
 	
 	@Inject 
-	private CompanyWidgetPlace(IneDispatch dispatch, CompanyHandlerFactory companyHandlerFactory){
-		this.dispatch=dispatch;
+	private CompanyWidgetPlace(ObjectFinder objectFinder, CompanyHandlerFactory companyHandlerFactory){
+		this.objectFinder=objectFinder;
 		this.companyHandlerFactory=companyHandlerFactory;
 		
 		html = new HTML();
@@ -37,7 +36,7 @@ public class CompanyWidgetPlace extends WidgetPlace {
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
 		
-		new ObjectFinder(CompanyConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback() {
+		objectFinder.executeFind(CompanyConsts.descriptorName, id, new ObjectFinder.Callback() {
 
 					@Override
 					public void onObjectFound(AssistedObject foundObject) {

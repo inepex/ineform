@@ -38,9 +38,9 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 	
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
-		new ObjectFinder(CompanyConsts.descriptorName,
-				Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)), formContext.ineDispatch)
-					.executeFind(new ObjectFinder.Callback() {
+		formContext.objectFinder.executeFind(CompanyConsts.descriptorName
+				, Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY))
+				, new ObjectFinder.Callback() {
 
 						@Override
 						public void onObjectFound(AssistedObject foundObject) {

@@ -11,20 +11,19 @@ import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProv
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
-import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class ContactWidgetPlace extends WidgetPlace {
 	
-	private final IneDispatch dispatch;
+	private final ObjectFinder objectFinder;
 	private final ContactHandlerFactory contactHandlerFactory;
 	
 	private HTML html;
 	
 	@Inject 
-	private ContactWidgetPlace(IneDispatch dispatch, ContactHandlerFactory contactHandlerFactory){
-		this.dispatch=dispatch;
+	private ContactWidgetPlace(ObjectFinder objectFinder, ContactHandlerFactory contactHandlerFactory){
+		this.objectFinder=objectFinder;
 		this.contactHandlerFactory=contactHandlerFactory;
 		
 		html = new HTML();
@@ -37,7 +36,7 @@ public class ContactWidgetPlace extends WidgetPlace {
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_CONTACT));
 		
-		new ObjectFinder(ContactConsts.descriptorName, id, dispatch).executeFind(new ObjectFinder.Callback() {
+		objectFinder.executeFind(ContactConsts.descriptorName, id, new ObjectFinder.Callback() {
 
 					@Override
 					public void onObjectFound(AssistedObject foundObject) {

@@ -6,6 +6,8 @@ import com.inepex.example.ContactManager.client.navigation.AppPlaceHandler;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.ineForm.client.form.widgets.customkvo.ActionBasedOdFinder;
 import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
+import com.inepex.ineForm.shared.dispatch.ActionBasedObjectFinder;
+import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.DefaultAuthManager;
 import com.inepex.ineFrame.client.navigation.MasterPage;
@@ -33,6 +35,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(IneFrameHeader.View.class).to(IneFrameHeaderView.class).in(Singleton.class);
 		
 		bind(OdFinder.class).to(ActionBasedOdFinder.class);
+		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
 	}
 
 }
