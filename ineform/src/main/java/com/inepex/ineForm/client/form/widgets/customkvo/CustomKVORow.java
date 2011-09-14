@@ -3,9 +3,9 @@ package com.inepex.ineForm.client.form.widgets.customkvo;
 import com.inepex.ineForm.shared.types.ODFieldType;
 
 public class CustomKVORow {
-	private static int nextId = 0;
+	private static long nextId = 0L;
 
-	private Integer innerId = nextId++;
+	private Long innerId = nextId++;
 
 	private String key;
 	private ODFieldType type;
@@ -29,7 +29,7 @@ public class CustomKVORow {
 		value = "";
 	}
 
-	public Integer getInnerId() {
+	public Long getInnerId() {
 		return innerId;
 	}
 

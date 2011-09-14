@@ -28,10 +28,10 @@ public interface IneFormStyle extends CssResource {
 	String ChooserFw();
 	String richTextArea();
 	String displayInline();
-
-	String dispRowKey();
 	
 	String fpb_errorMessageHolder_dontShowError();
 	String fpb_errorMessageHolder_showError();
+	
+	String customKVOHeader();
 }
 

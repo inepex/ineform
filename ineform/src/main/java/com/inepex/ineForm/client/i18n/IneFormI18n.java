@@ -57,6 +57,9 @@ public class IneFormI18n extends I18nModule {
 	public String custKVOValidateEmpty = "Empty key!";
 	public String custKVOValidateParse = "Value can not be parsed!";
 	public String custKVOValidateSet = "Type must be set!";
+	public String customKVO_key = "key";
+	public String customKVO_type = "type";
+	public String customKVO_value = "value";
 	public String day_friday = "Friday";
 	public String day_monday = "Monday";
 	public String day_saturday = "Saturday";
@@ -408,6 +411,33 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String custKVOValidateSet() {
 		return moduleProvider.get().custKVOValidateSet;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> key
+	* <u><i>Magyarul:</i></u> kulcs
+	*/
+	public static String customKVO_key() {
+		return moduleProvider.get().customKVO_key;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> type
+	* <u><i>Magyarul:</i></u> típus
+	*/
+	public static String customKVO_type() {
+		return moduleProvider.get().customKVO_type;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> value
+	* <u><i>Magyarul:</i></u> érték
+	*/
+	public static String customKVO_value() {
+		return moduleProvider.get().customKVO_value;
 	}
 	
 	/**

@@ -97,7 +97,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("k_dup", ODFieldType.LONG, "123"));
 		rows.add(new CustomKVORow("k4", ODFieldType.BOOLEAN, "true"));
 		
-		Map<Integer, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
+		Map<Long, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
 		Assert.assertEquals(1, res.size());
 		
 		Assert.assertEquals(true, res.keySet().contains(rows.get(2).getInnerId()));
@@ -111,7 +111,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("", ODFieldType.LONG, "123"));
 		rows.add(new CustomKVORow("k4", ODFieldType.BOOLEAN, "true"));
 		
-		Map<Integer, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
+		Map<Long, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
 		Assert.assertEquals(1, res.size());
 		
 		Assert.assertEquals(true, res.keySet().contains(rows.get(2).getInnerId()));
@@ -125,7 +125,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("k3", null, "123"));
 		rows.add(new CustomKVORow("k4", ODFieldType.BOOLEAN, "true"));
 		
-		Map<Integer, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
+		Map<Long, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
 		Assert.assertEquals(1, res.size());
 		
 		Assert.assertEquals(true, res.keySet().contains(rows.get(2).getInnerId()));
@@ -137,7 +137,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("k1", ODFieldType.DOUBLE, "3.34"));
 		rows.add(new CustomKVORow("k2", ODFieldType.BOOLEAN, "truee"));
 		
-		Map<Integer, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
+		Map<Long, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
 		Assert.assertEquals(1, res.size());
 		
 		Assert.assertEquals(true, res.keySet().contains(rows.get(1).getInnerId()));

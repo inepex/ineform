@@ -1,22 +1,27 @@
 package com.inepex.ineForm.client.form.widgets.customkvo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOFW.View {
 	
-	private final Map<Integer, DispRow> rowsByInnerId = new HashMap<Integer, DispRow>();
+	private final Map<Long, DispRow> rowsByInnerId = new HashMap<Long, DispRow>();
+	private List<Long> dispRowinnerIdMirror = new ArrayList<Long>();
 	
-	private final VerticalPanel rowPanel = new VerticalPanel();
+	private final FlexTable rowTable = new FlexTable();
+	
 	private final Button addBtn = new Button(IneFormI18n.ADD());
 	
 	private RemoveCallback removeCallback;
@@ -24,10 +29,22 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	private RowValueChangeCallback rowValueChangeCallback;
 	
 	CustomKVOFWView() {
-		add(rowPanel);
+		add(rowTable);
 		add(addBtn);
+		
+		createHeader();
 	}
 	
+	private void createHeader() {
+		rowTable.setText(0, 0, IneFormI18n.customKVO_key());
+		rowTable.setText(0, 1, IneFormI18n.customKVO_type());
+		rowTable.setText(0, 2, IneFormI18n.customKVO_value());
+		
+		rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.getRes().style().customKVOHeader());
+		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.getRes().style().customKVOHeader());
+		rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.getRes().style().customKVOHeader());
+	}
+
 	@Override
 	public void setRemoveCallback(RemoveCallback removeCallback) {
 		this.removeCallback=removeCallback;
@@ -42,26 +59,6 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	public void setRowValueChangeCallback(
 			RowValueChangeCallback rowValueChangeCallback) {
 		this.rowValueChangeCallback = rowValueChangeCallback;
-	}
-
-	@Override
-	public void clearRows() {
-		rowPanel.clear();
-		rowsByInnerId.clear();
-	}
-	
-	@Override
-	public void addRow(CustomKVORow r) {
-		DispRow dr = new DispRow(r, removeCallback, rowValueChangeCallback);
-		rowPanel.add(dr);
-		rowsByInnerId.put(r.getInnerId(), dr);
-	}
-
-	@Override
-	public void removeRow(CustomKVORow r) {
-		DispRow dr = rowsByInnerId.get(r.getInnerId());
-		dr.removeFromParent();
-		rowsByInnerId.remove(dr);
 	}
 	
 	@Override
@@ -78,11 +75,11 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	}
 
 	@Override
-	public void dealResult(Map<Integer, String> res) {
+	public void dealResult(Map<Long, String> res) {
 		for(DispRow dr : rowsByInnerId.values())
 			dr.getErrorManager().clearErrorMsg();
 		
-		for(Integer i : res.keySet()) {
+		for(Long i : res.keySet()) {
 			rowsByInnerId.get(i).getErrorManager().addErrorMsg(SharedUtil.Li(res.get(i)));
 		}
 	}
@@ -90,5 +87,35 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	@Override
 	public ErrorMessageManagerInterface getErrorManager(CustomKVORow r) {
 		return rowsByInnerId.get(r.getInnerId()).getErrorManager();
+	}
+	
+	@Override
+	public void clearRows() {
+		dispRowinnerIdMirror.clear();
+		rowsByInnerId.clear();
+		
+		//remove all rows except the header
+		for(int i=rowTable.getRowCount()-1; i>0; i--)
+			rowTable.removeRow(i);
+	}
+	
+	@Override
+	public void addRow(CustomKVORow r) {
+		DispRow dr = new DispRow(r, removeCallback, rowValueChangeCallback, rowTable);
+		rowsByInnerId.put(r.getInnerId(), dr);
+		dispRowinnerIdMirror.add(r.getInnerId());
+	}
+
+	@Override
+	public void removeRow(CustomKVORow r) {
+		rowsByInnerId.remove(rowsByInnerId.get(r.getInnerId()));
+		
+		int index = dispRowinnerIdMirror.indexOf(r.getInnerId());
+		
+		//because of header
+		index++; 
+		
+		dispRowinnerIdMirror.remove(index);
+		rowTable.removeRow(index);
 	}
 }

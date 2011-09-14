@@ -38,8 +38,8 @@ public class ODAOCustomKVOMappingHelper {
 	 * type(mandatory)
 	 * value(parsable) 
 	 */
-	public static Map<Integer, String> validateRows(List<CustomKVORow> rows) {
-		Map<Integer, String> ret = new TreeMap<Integer, String>();
+	public static Map<Long, String> validateRows(List<CustomKVORow> rows) {
+		Map<Long, String> ret = new TreeMap<Long, String>();
 		Set<String> keys = new TreeSet<String>();
 		
 		for(CustomKVORow r : rows) {

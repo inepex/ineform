@@ -30,7 +30,7 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		public void addRow(CustomKVORow r);
 		public void removeRow(CustomKVORow r);
 		
-		public void dealResult(Map<Integer, String> res);
+		public void dealResult(Map<Long, String> res);
 		public ErrorMessageManagerInterface getErrorManager(CustomKVORow r);
 	}
 	
@@ -48,7 +48,11 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		if(!IFConsts.customDescriptorName.equals(fieldDescriptor.getRelatedDescriptorName()))
 			throw new IllegalArgumentException();
 		
+		//TODO inject view
+		//TODO inject view
+		//TODO inject view
 		view = new CustomKVOFWView();
+		
 		view.setAddCallback(this);
 		view.setRemoveCallback(this);
 		view.setRowValueChangeCallback(this);
@@ -99,10 +103,8 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		
 		this.relation=value;
 
-		//clearing previous state
-		for(CustomKVORow r : rows) 
-			view.removeRow(r);
-		
+		//clearing previous state 
+		view.clearRows();
 		rows.clear();
 		
 		final AssistedObject ao = value.getKvo();
@@ -137,7 +139,7 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	 * @return false if it's in inconsistent state
 	 */
 	public boolean validateConsistence() {
-		Map<Integer, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
+		Map<Long, String> res = ODAOCustomKVOMappingHelper.validateRows(rows);
 		view.dealResult(res);
 		
 		return res.isEmpty();

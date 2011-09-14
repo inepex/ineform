@@ -114,6 +114,8 @@
 	background: white;	
 }
 
-.dispRowKey{
-	width:  85px;
+.customKVOHeader {
+	background: #c2c2c2;
+	font-weight: bold;	
+	padding: 3px;
 }

@@ -8,52 +8,46 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
-import com.inepex.ineForm.client.general.FlowPanelBasedEMM;
+import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
-import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.types.ODFieldType;
-import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
+import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 
-class DispRow extends HandlerAwareComposite{
+public class DispRow {
 	
-	private final HorizontalPanel hp = new HorizontalPanel();
+	private final FlexTable rowTable;
 	
 	private final RemoveCallback removeCallback;
 	private final RowValueChangeCallback rowValueChangeCallback;
 	private final CustomKVORow row;
 	
+	private final AttachHackKeyWidget attachHackKeyWidget = new AttachHackKeyWidget() ;
 	private final TextBox keyBox = new TextBox();
+	
 	private final OdFieldTypeListBox typeBox = new OdFieldTypeListBox();
+	
+	private final FlowPanel valueBoxes = new FlowPanel();
 	private final TextBox valueBox = new TextBox();
 	private final CheckBox valueBooleanBox = new CheckBox();
 	
 	private final Button removeBtn = new Button(IneFormI18n.REMOVE());
-	private final FlowPanelBasedEMM errorManager = new FlowPanelBasedEMM();
+	private SimpleTableErrorMessageManager emm;
 	
-	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback) {
+	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable) {
+		this.rowTable=rowTable;
 		this.row=row;
 		this.removeCallback=removeCallback;
 		this.rowValueChangeCallback=rowValueChangeCallback;
 		
-		hp.add(keyBox);
-		hp.add(typeBox);
-		
-		hp.add(valueBox);
-		hp.add(valueBooleanBox);
-		
-		hp.add(removeBtn);
-		hp.add(errorManager);
-		
-		keyBox.setStyleName(ResourceHelper.getRes().style().dispRowKey());
+		createRowUI();
 		
 		keyBox.setValue(row.getKey());
 		typeBox.setValue(row.getType());
-		
 		refreshValue();
-		initWidget(hp);
 	}
 	
 	private void refreshValue() {
@@ -83,59 +77,79 @@ class DispRow extends HandlerAwareComposite{
 	}
 	
 	public ErrorMessageManagerInterface getErrorManager() {
-		return errorManager;
+		return emm;
 	}
 	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
+	private void createRowUI() {
+		int currentRow = rowTable.getRowCount();
 		
-		registerHandler(keyBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				row.setKey(keyBox.getValue());
-				rowValueChangeCallback.onRowValueChanged();
-			}
-		}));
+		attachHackKeyWidget.add(keyBox);
+		rowTable.setWidget(currentRow, 0, attachHackKeyWidget);
 		
-		registerHandler(typeBox.addChangeHandler(new ChangeHandler() {
+		rowTable.setWidget(currentRow, 1, typeBox);
+		
+		valueBoxes.add(valueBox);
+		valueBoxes.add(valueBooleanBox);
+		rowTable.setWidget(currentRow, 2, valueBoxes); 
+		
+		rowTable.setWidget(currentRow, 3, removeBtn);
+		
+		rowTable.addCell(currentRow);
+		emm = new SimpleTableErrorMessageManager(rowTable.getCellFormatter().getElement(currentRow, 4));
+	}
+	
+	private class AttachHackKeyWidget extends HandlerAwareFlowPanel {
+		@Override
+		protected void onAttach() {
+			super.onAttach();
 			
-			@Override
-			public void onChange(ChangeEvent event) {
-				row.setType(typeBox.getValue());
-				row.clearDataIfCanNotParse();
-				refreshValue();
+			registerHandler(keyBox.addValueChangeHandler(new ValueChangeHandler<String>() {
 				
-				rowValueChangeCallback.onRowValueChanged();
-			}
-		}));
-		
-		registerHandler(valueBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				row.setValue(valueBox.getValue());
-				rowValueChangeCallback.onRowValueChanged();
-			}
-		}));
-		
-		registerHandler(valueBooleanBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-
-			@Override
-			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				Boolean val = valueBooleanBox.getValue();
-				row.setValue(val==null ? null : val.toString());
-				rowValueChangeCallback.onRowValueChanged();
-			}
-		}));
-		
-		registerHandler(removeBtn.addClickHandler(new ClickHandler() {
+				@Override
+				public void onValueChange(ValueChangeEvent<String> event) {
+					row.setKey(keyBox.getValue());
+					rowValueChangeCallback.onRowValueChanged();
+				}
+			}));
 			
-			@Override
-			public void onClick(ClickEvent event) {
-				removeCallback.onRemove(row);
-			}
-		}));
+			registerHandler(typeBox.addChangeHandler(new ChangeHandler() {
+				
+				@Override
+				public void onChange(ChangeEvent event) {
+					row.setType(typeBox.getValue());
+					row.clearDataIfCanNotParse();
+					refreshValue();
+					
+					rowValueChangeCallback.onRowValueChanged();
+				}
+			}));
+			
+			registerHandler(valueBox.addValueChangeHandler(new ValueChangeHandler<String>() {
+	
+				@Override
+				public void onValueChange(ValueChangeEvent<String> event) {
+					row.setValue(valueBox.getValue());
+					rowValueChangeCallback.onRowValueChanged();
+				}
+			}));
+			
+			registerHandler(valueBooleanBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+	
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					Boolean val = valueBooleanBox.getValue();
+					row.setValue(val==null ? null : val.toString());
+					rowValueChangeCallback.onRowValueChanged();
+				}
+			}));
+			
+			registerHandler(removeBtn.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					removeCallback.onRemove(row);
+				}
+			}));
+		}
 	}
 }
