@@ -14,13 +14,12 @@ import java.util.TreeMap;
  * @author istvan
  *
  */
-public abstract class ClientDescriptorStoreBase implements DescriptorStore {
+public class ClientDescriptorStore implements DescriptorStore {
 
 	protected final Map<String, ObjectDesc>	objectDescriptorMap = new TreeMap<String, ObjectDesc>();
 	
     protected final Map<String, TypedDescriptorMap<? extends DescriptorBase>>
     	typedDescMap = new TreeMap<String, TypedDescriptorMap<? extends DescriptorBase>>();
-		
 	
 	@Override
 	public ObjectDesc getOD(String objectDescriptorName) {

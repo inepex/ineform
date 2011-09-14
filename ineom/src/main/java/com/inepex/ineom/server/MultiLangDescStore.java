@@ -79,10 +79,5 @@ public class MultiLangDescStore implements DescriptorStore {
 	public void registerDescriptors(ObjectDesc descriptor, DescriptorBase... defaultDescriptors) {
 		get().registerDescriptors(descriptor, defaultDescriptors);
 	}
-
-	@Override
-	public void getCustomOd(Long id, OdFoundCallback callback) {
-		throw new UnsupportedOperationException();
-	}
 }
 

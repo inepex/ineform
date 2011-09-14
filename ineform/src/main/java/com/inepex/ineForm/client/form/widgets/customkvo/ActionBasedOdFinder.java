@@ -1,18 +1,19 @@
-package com.inepex.ineFrame.shared;
+package com.inepex.ineForm.client.form.widgets.customkvo;
 
 import com.google.inject.Inject;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase;
+import com.inepex.ineFrame.shared.ObjectDescAction;
+import com.inepex.ineFrame.shared.ObjectDescResult;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStoreBase;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
-public class ClientDescriptorStore extends ClientDescriptorStoreBase{
+public class ActionBasedOdFinder implements OdFinder{
 
 	private final IneDispatch ineDispatch;
 	
 	@Inject
-	public ClientDescriptorStore(IneDispatch ineDispatch) {
+	ActionBasedOdFinder(IneDispatch ineDispatch) {
 		this.ineDispatch=ineDispatch;
 	}
 
@@ -31,5 +32,4 @@ public class ClientDescriptorStore extends ClientDescriptorStoreBase{
 			}
 		});
 	}
-
 }

@@ -50,8 +50,6 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	protected final FormWidgetFactory formWidgetFactory;
 	protected final EventBus eventBus;
 	protected final ValueRangeProvider valueRangeProvider;
-
-	
 	
 	public SimpleTableFormUnit(FormContext formCtx,
 						   String objectDescriptorsName, 
@@ -108,7 +106,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						IFConsts.KEY_ISDELETED.equals(descNode.getNodeId())) {
 				
 						FormWidget createdWidget = formWidgetFactory.createWidget(formCtx, this, fDesc
-								,(WidgetRDesc) nodeElement);
+								,(WidgetRDesc) nodeElement, formCtx.odFinder);
 						
 						if (createdWidget != null) {
 							registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);

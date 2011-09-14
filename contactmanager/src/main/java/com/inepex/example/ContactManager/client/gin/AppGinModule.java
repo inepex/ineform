@@ -4,6 +4,8 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHandler;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
+import com.inepex.ineForm.client.form.widgets.customkvo.ActionBasedOdFinder;
+import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.DefaultAuthManager;
 import com.inepex.ineFrame.client.navigation.MasterPage;
@@ -30,6 +32,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MenuRenderer.View.class).to(MenuRendererView.class).in(Singleton.class);
 		bind(IneFrameHeader.View.class).to(IneFrameHeaderView.class).in(Singleton.class);
 		
+		bind(OdFinder.class).to(ActionBasedOdFinder.class);
 	}
 
 }

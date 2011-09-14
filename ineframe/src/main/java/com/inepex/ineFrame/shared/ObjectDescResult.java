@@ -3,7 +3,7 @@ package com.inepex.ineFrame.shared;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 
-public class ObjectDescResult extends GenericResult {
+public class ObjectDescResult extends GenericResult implements ObjectDescResultInterface {
 	
 	private ObjectDesc od;
 
@@ -14,10 +14,12 @@ public class ObjectDescResult extends GenericResult {
 		this.od=od;
 	}
 
+	@Override
 	public ObjectDesc getOd() {
 		return od;
 	}
 	
+	@Override
 	public void setOd(ObjectDesc od) {
 		this.od = od;
 	}

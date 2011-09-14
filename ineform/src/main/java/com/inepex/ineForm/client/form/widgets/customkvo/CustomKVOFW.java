@@ -15,7 +15,6 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
@@ -35,16 +34,16 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		public ErrorMessageManagerInterface getErrorManager(CustomKVORow r);
 	}
 	
-	private final DescriptorStore descStore;
+	private final OdFinder odFinder;
 	
 	private final View view;
 	private final List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
 	
 	private Relation relation = null;
 	
-	public CustomKVOFW(FormContext formCtx, RelationFDesc fieldDescriptor, DescriptorStore ds) {
+	public CustomKVOFW(FormContext formCtx, RelationFDesc fieldDescriptor, OdFinder odFinder) {
 		super(fieldDescriptor);
-		this.descStore=ds;
+		this.odFinder=odFinder;
 		
 		if(!IFConsts.customDescriptorName.equals(fieldDescriptor.getRelatedDescriptorName()))
 			throw new IllegalArgumentException();
@@ -106,10 +105,9 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		
 		rows.clear();
 		
-		//TODO do we need ao null ckeck
 		final AssistedObject ao = value.getKvo();
 		
-		descStore.getCustomOd(value.getId(), new DescriptorStore.OdFoundCallback() {
+		odFinder.getCustomOd(value.getId(), new OdFinder.OdFoundCallback() {
 			
 			@Override
 			public void onFound(ObjectDesc od) {

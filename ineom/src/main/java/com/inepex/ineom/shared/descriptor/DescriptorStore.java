@@ -29,11 +29,4 @@ public interface DescriptorStore {
 	public abstract void registerObjectDesc(ObjectDesc descriptor);
 	
 	public FDesc getRelatedFieldDescrMultiLevel(ObjectDesc baseOD, List<String> path);
-
-	
-	public abstract void getCustomOd(Long id, OdFoundCallback callback);
-	
-	public static interface OdFoundCallback{
-		public void onFound(ObjectDesc od);
-	}
 }

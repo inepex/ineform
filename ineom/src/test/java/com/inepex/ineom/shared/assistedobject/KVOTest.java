@@ -8,7 +8,7 @@ import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.BooleanFDesc;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStoreBase;
+import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.DoubleFDesc;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
@@ -33,12 +33,7 @@ public class KVOTest {
 	static final String k_list="li";
 	
 	static {
-		descriptorStore=new ClientDescriptorStoreBase(){
-			@Override
-			public void getCustomOd(Long id, OdFoundCallback callback) {
-				callback.onFound(null);
-			}
-		};
+		descriptorStore=new ClientDescriptorStore();
 		
 		ObjectDesc descriptor2 = new ObjectDesc("test2Kvo");
 		descriptor2.addField(new LongFDesc(k_long, "A long"));

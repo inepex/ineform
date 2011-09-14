@@ -29,6 +29,8 @@ import com.inepex.ineForm.client.form.factories.DefaultPanelWidgetFactory;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
+import com.inepex.ineForm.client.form.widgets.customkvo.ActionBasedOdFinder;
+import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
@@ -39,14 +41,16 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
 import com.inepex.ineFrame.server.util.CETDateProviderSrv;
-import com.inepex.ineFrame.shared.ClientDescriptorStore;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineFrame.test.DummyStatusIndicator;
+import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class TestIneFormClientGuiceModule extends AbstractModule {
 	@Override
 	protected void configure() {
+		bind(OdFinder.class).to(ActionBasedOdFinder.class);
+		
 		bind(HistoryProvider.class).in(Singleton.class);
 		bind(IneDispatch.class).in(Singleton.class);
 		bind(PushedEventProvider.class).in(Singleton.class);

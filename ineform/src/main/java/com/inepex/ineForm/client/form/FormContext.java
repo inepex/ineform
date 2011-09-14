@@ -6,6 +6,7 @@ import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
+import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -31,11 +32,13 @@ public class FormContext {
 	public final PanelWidgetFactory panelWidgetFactory;
 	public final KeyValueObjectValidationManager validatorManager;
 	public final DateProvider dateProvider;
+	public final OdFinder odFinder;
 	
 	/**
 	 * ValueRangeProvider can be overridden in a specific context. 
 	 */
 	public ValueRangeProvider valueRangeProvider;
+	
 
 	@Inject
 	public FormContext(DescriptorStore descStore
@@ -46,8 +49,10 @@ public class FormContext {
 			, FormUnitFactory formUnitFactory
 			, PanelWidgetFactory panelWidgetFactory
 			, KeyValueObjectValidationManager validatorManager
-			, DateProvider dateProvider) {
+			, DateProvider dateProvider
+			, OdFinder odFinder) {
 		super();
+		this.odFinder=odFinder;
 		this.descStore = descStore;
 		this.eventBus = eventBus;
 		this.valueRangeProvider = defaultValueRangeProvider;

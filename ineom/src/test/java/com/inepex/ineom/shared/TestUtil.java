@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStoreBase;
+import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.LongFDesc;
@@ -18,12 +18,7 @@ public class TestUtil {
 	public static DescriptorStore descriptorStore;
 	
 	static {
-		descriptorStore=new ClientDescriptorStoreBase(){
-			@Override
-			public void getCustomOd(Long id, OdFoundCallback callback) {
-				callback.onFound(null);
-			}
-		};
+		descriptorStore=new ClientDescriptorStore();
 		
 		ObjectDesc descriptor2 = new ObjectDesc("test2Kvo");
 		descriptor2.addField(new LongFDesc("longField", "A long"));

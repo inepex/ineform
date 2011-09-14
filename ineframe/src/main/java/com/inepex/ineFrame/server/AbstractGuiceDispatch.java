@@ -9,15 +9,12 @@ import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import net.customware.gwt.dispatch.shared.Result;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.inject.Provider;
-import com.inepex.ineFrame.shared.ClientDescriptorStore;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
+import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
@@ -64,12 +61,12 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 
 	private void setupDescriptorStores() {
 		// TODO make this independent from number of languages
-		ClientDescriptorStore engDescStore = new ClientDescriptorStore(null);
+		ClientDescriptorStore engDescStore = new ClientDescriptorStore();
 		currentLangProvider.get().setLangOverride("en");
 		registerAssists(engDescStore);
 		multiLangDescStore.addStore("en", engDescStore);
 		
-		ClientDescriptorStore hunDescStore = new ClientDescriptorStore(null);
+		ClientDescriptorStore hunDescStore = new ClientDescriptorStore();
 		currentLangProvider.get().setLangOverride("hu");	
 		registerAssists(hunDescStore);
 		multiLangDescStore.addStore("hu", hunDescStore);
