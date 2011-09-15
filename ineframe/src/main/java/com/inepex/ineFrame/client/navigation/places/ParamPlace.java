@@ -9,6 +9,11 @@ public abstract class ParamPlace extends InePlace {
 
 	public abstract String getChildToken(); 
 	
+	/**
+	 * 
+	 * @param urlParams
+	 * @return false if params aren't correctly set. In this case associated page will be displayed.
+	 */
 	public abstract boolean notifyParamChangedReturnIsParamSet(Map<String, String> urlParams);
 	
 	/**
