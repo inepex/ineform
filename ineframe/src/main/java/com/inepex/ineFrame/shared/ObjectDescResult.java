@@ -2,6 +2,7 @@ package com.inepex.ineFrame.shared;
 
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectDescResultInterface;
 
 public class ObjectDescResult extends GenericResult implements ObjectDescResultInterface {
 	

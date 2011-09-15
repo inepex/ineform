@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.shared;
+package com.inepex.ineom.shared.dispatch.interfaces;
 
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
