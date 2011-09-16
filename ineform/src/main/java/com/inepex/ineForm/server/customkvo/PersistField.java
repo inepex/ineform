@@ -18,7 +18,7 @@ import com.inepex.ineForm.shared.types.ODFieldType;
  * 
  */
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"parent","key"})}) 
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"parentKvo","keyField"})}) 
 public class PersistField {
 	
 	@Id
@@ -27,7 +27,7 @@ public class PersistField {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(nullable=false)
+	@JoinColumn(nullable=false, name="parentKvo")
 	private CustomKVO parent;
 	
 	@Column(nullable=false)
