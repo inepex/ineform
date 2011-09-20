@@ -2,22 +2,14 @@ package com.inepex.ineForm.shared.types;
 
 import java.io.Serializable;
 
-import com.inepex.ineForm.client.form.widgets.FormWidget;
+import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 
 /**
- * Defines names for different {@link FormWidget} types
- * 
+ * Defines names for different {@link PanelWidget} types
  * 
  * @author istvan
- *
  */
 public class PanelWidgetT implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3542896731206796817L;
-	
-	public final static String p_TitleHtml = "TitleHtml";
 	
 	public final static PanelWidgetT FLOWPANEL = new PanelWidgetT("FLOWPANEL");
 	public final static PanelWidgetT VERTICALPANEL = new PanelWidgetT("VERTICALALPANEL");

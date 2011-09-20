@@ -4,10 +4,11 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
-import com.inepex.ineForm.shared.types.PanelWidgetT;
 
 public class PlaceholderPanelWidget extends PanelWidget {
 
+	public final static String p_TitleHtml = "TitleHtml";
+	
 	private final FlowPanel mainPanel = new FlowPanel();
 	private final FlowPanel placeholder = new FlowPanel();
 	private final FlowPanel formPanel = new FlowPanel();
@@ -19,7 +20,7 @@ public class PlaceholderPanelWidget extends PanelWidget {
 		mainPanel.add(placeholder);
 		mainPanel.add(formPanel);
 		
-		String htmlTitle = paneldesc.getPropValue(PanelWidgetT.p_TitleHtml);
+		String htmlTitle = paneldesc.getPropValue(p_TitleHtml);
 		
 		if (htmlTitle != null){
 			title = new InlineHTML(htmlTitle);
