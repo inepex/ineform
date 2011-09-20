@@ -45,7 +45,7 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 		formContext.valueRangeProvider=new MeetingValueRangeProvider(formContext.ineDispatch);
 		
 		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, MeetingConsts.descriptorName);
-		form= new SaveCancelForm(formContext, MeetingConsts.descriptorName, null, connector);
+		form= new SaveCancelForm(formContext, MeetingConsts.descriptorName, null, connector, null);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());

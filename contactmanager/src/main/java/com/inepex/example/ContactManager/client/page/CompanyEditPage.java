@@ -30,7 +30,7 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 		this.placeHandler=placeHandler;
 		
 		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, CompanyConsts.descriptorName);
-		form= new SaveCancelForm(formContext, CompanyConsts.descriptorName, null, connector);
+		form= new SaveCancelForm(formContext, CompanyConsts.descriptorName, null, connector, null);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());
