@@ -29,8 +29,11 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 
 	private final ${classname}HandlerFactory handlerFactory;
 	
+	private final DescriptorStore descriptorStore;
+	
 	@Inject
 	public ${classname}Query(DescriptorStore descriptorStore) {
+		this.descriptorStore = descriptorStore;
 		this.handlerFactory= new ${classname}HandlerFactory(descriptorStore);
 	}
 	
@@ -79,8 +82,9 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 		if (${attr.name} != null && ${attr.name}.getRelationList().size() > 0){
 			List<Long> relationIds = new ArrayList<Long>();
 			for (Relation r : ${attr.name}.getRelationList()){
-				if (r.getKvo().getRelation(${attr.fistGenType}Consts.s_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}) != null){
-					relationIds.add(r.getKvo().getRelation(${attr.fistGenType}Consts.s_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}).getId());
+				${attr.fistGenType}Handler relKvoHandler = new ${attr.fistGenType}HandlerFactory(descriptorStore).createHandler(r.getKvo());
+				if (relKvoHandler.getRelation(${attr.fistGenType}Consts.s_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}) != null){
+					relationIds.add(relKvoHandler.getRelation(${attr.fistGenType}Consts.s_${attr.annotations.get("Kvo_SearchParam").params.get("secondLevelJoin")}).getId());
 				}
 			}
 			if (relationIds.size()>0){

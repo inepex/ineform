@@ -157,7 +157,7 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	protected void showObjectEditor(AssistedObject selectedValue) {
 		boolean isEditMode = selectedValue != null;
 
-		SaveCancelForm saveCancelForm = formFactory.createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector);
+		SaveCancelForm saveCancelForm = formFactory.createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector, null);
 
 		showForm(saveCancelForm); // this is needed here to make event processing available!
 		

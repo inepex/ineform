@@ -5,12 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -18,6 +15,7 @@ import com.inepex.ineForm.client.form.events.AfterUnsuccessfulSaveEvent;
 import com.inepex.ineForm.client.form.events.BeforeCancelEvent;
 import com.inepex.ineForm.client.form.events.BeforeSaveEvent;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
+import com.inepex.ineForm.client.form.events.DeletedEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
@@ -28,13 +26,13 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
-import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
@@ -53,24 +51,40 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * @author istvanszoboszlai
  *
  */
-public class SaveCancelForm extends IneForm {
+public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delegate {
 	
-	class MainPanel extends HandlerAwareFlowPanel {
+	private class ManipulateCallback implements ManipulateResultCallback {
 		@Override
-		protected void onAttach() {
-			super.onAttach();
-			onMainPanelAttach(this);
+		public void onManipulationResult(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
+			dealValidationResult(result.getValidationResult());
+			if(result.getValidationResult() == null) {
+				if (result.getObjectsNewState() != null) {
+					setInitialData(result.getObjectsNewState());
+				}
+				fireSavedEvent(result);
+			} else {
+				fireAfterUnsuccesfulSaveEvent(result);
+			}
 		}
 	}
 	
-	protected final MainPanel mainPanel = new MainPanel();
-	protected final FlowPanel buttonPanel = new FlowPanel();
+	private class DeleteCallback implements ManipulateResultCallback {
+
+		private Long id;
+
+		public DeleteCallback(Long id) {
+			super();
+			this.id = id;
+		}
+
+		@Override
+		public void onManipulationResult(ObjectManipulationResult result) {
+			fireDeletedEvent(id);
+		}
+		
+	}
 	
-	private String saveButtonText=IneFormI18n.SAVE();
-	private String cancelButtonText=IneFormI18n.CANCEL();
-	
-	protected final Button saveButton = new Button();
-	protected final Button cancelButton = new Button();
+	protected final SimpleEventBus ineformEventbus = new SimpleEventBus();
 	
 	private IneDataConnector ineDataConnector;
 	
@@ -82,6 +96,7 @@ public class SaveCancelForm extends IneForm {
 	}
 	private ValidateMode validateData = ValidateMode.ALL;
 	
+	protected SaveCancelFormView view;
  	
 	/**
 	 * @param ineDataConnector 
@@ -89,61 +104,48 @@ public class SaveCancelForm extends IneForm {
 	 * @param valueRangeProvider
 	 * @param formRenderDescName should be DescriptorStore.DEFAULT_DESC_KEY or null if default descriptor needed
 	 * @param eventBus
+	 * @param view set it to null to use default view
 	 */
 	@Inject
 	public SaveCancelForm(FormContext formCtx,
 						@Assisted("dn") String descriptorName,
 						@Assisted("frdn") String formRDescName,
-						@Assisted IneDataConnector ineDataConnector) {
+						@Assisted IneDataConnector ineDataConnector,
+						@Assisted SaveCancelFormView view) {
 		super(formCtx, descriptorName, formRDescName);
 		this.ineDataConnector = ineDataConnector;
+		if (view == null) 
+			this.view = new DefaultSaveCancelFormView();
+		else this.view = view;
 		
-		saveButton.addStyleName("saveBtn");
-		cancelButton.addStyleName("cancelBtn");
-	}
-	
-	protected void onMainPanelAttach(MainPanel panel) {
-		panel.registerHandler(saveButton.addClickHandler(new SaveClickHandler()));
-		panel.registerHandler(cancelButton.addClickHandler(new CancelClickHandler()));
+		this.view.setDelegate(this);
 	}
 	
 	public void setSaveButtonVisible(boolean visible) {
-		saveButton.setVisible(visible);
+		view.setSaveButtonVisible(visible);
 	}
 	
 	public void setCancelButtonVisible(boolean visible) {
-		cancelButton.setVisible(visible);
+		view.setCancelButtonVisible(visible);
 	}
 	
 	@Override
 	public Widget asWidget() {
-		return mainPanel;
+		return view.asWidget();
 	}
 	
 	@Override
 	public void renderForm() {
-		mainPanel.add(super.asWidget());
-		mainPanel.add(buttonPanel);
-		buttonPanel.add(cancelButton);
-		buttonPanel.add(saveButton);
-		saveButton.setText(saveButtonText);
-		cancelButton.setText(cancelButtonText);
+		view.setFormWidget(super.asWidget());
 		super.renderForm();
 	}
 	
 	public void setSaveButtonText(String saveButtonText) {
-		this.saveButtonText = saveButtonText;
+		view.setSaveButtonText(saveButtonText);
 	}
 
 	public void setCancelButtonText(String cancelButtonText) {
-		this.cancelButtonText = cancelButtonText;
-	}
-	
-	private class SaveClickHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			save();			
-		}		
+		view.setCancelButtonText(cancelButtonText);
 	}
 	
 	public void save(){
@@ -316,51 +318,32 @@ public class SaveCancelForm extends IneForm {
 		}
 	}
 
-	private class ManipulateCallback implements ManipulateResultCallback {
-		@Override
-		public void onManipulationResult(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
-			dealValidationResult(result.getValidationResult());
-			if(result.getValidationResult() == null) {
-				if (result.getObjectsNewState() != null) {
-					setInitialData(result.getObjectsNewState());
-				}
-				fireSavedEvent(result);
-			} else {
-				fireAfterUnsuccesfulSaveEvent(result);
-			}
-		}
-	}
-	
-	private class CancelClickHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			if (!fireBeforeCancelEvent().isCancelled())
-				fireCancelledEvent();
-		}
-	}
-
 	public void setValidateData(ValidateMode validataMode) {
 		this.validateData = validataMode;
 	}
 	
 	public HandlerRegistration addBeforeSaveHandler(BeforeSaveEvent.Handler handler) {
-		return mainPanel.addHandler(handler, BeforeSaveEvent.getType());
+		return ineformEventbus.addHandler(BeforeSaveEvent.getType(), handler);
 	}
 
 	public HandlerRegistration addSavedHandler(SavedEvent.Handler handler) {
-		return mainPanel.addHandler(handler, SavedEvent.getType());
+		return ineformEventbus.addHandler(SavedEvent.getType(), handler);
 	}
 	
 	public HandlerRegistration addBeforeCancelHandler(BeforeCancelEvent.Handler handler) {
-		return mainPanel.addHandler(handler, BeforeCancelEvent.getType());
+		return ineformEventbus.addHandler(BeforeCancelEvent.getType(), handler);
 	}
 	
 	public HandlerRegistration addCancelledHandler(CancelledEvent.Handler handler) {
-		return mainPanel.addHandler(handler, CancelledEvent.getType());
+		return ineformEventbus.addHandler(CancelledEvent.getType(), handler);
 	}
 	
 	public HandlerRegistration addAfterUnsuccesfulSaveHandler(AfterUnsuccessfulSaveEvent.Handler handler) {
-		return mainPanel.addHandler(handler, AfterUnsuccessfulSaveEvent.getType());
+		return ineformEventbus.addHandler(AfterUnsuccessfulSaveEvent.getType(), handler);
+	}
+	
+	public HandlerRegistration addDeletedHandler(DeletedEvent.Handler handler) {
+		return ineformEventbus.addHandler(DeletedEvent.getType(), handler);
 	}
 	
 	public BeforeCancelEvent fireBeforeCancelEvent() {
@@ -383,17 +366,39 @@ public class SaveCancelForm extends IneForm {
 		return doFireEvent(new AfterUnsuccessfulSaveEvent(objectManipulationResult));
 	}
 	
+	public DeletedEvent fireDeletedEvent(Long id) {
+		return doFireEvent(new DeletedEvent(id));
+	}
+	
 	private <T extends EventHandler, E extends FormLifecycleEventBase<T>> E doFireEvent(E event) {
-		mainPanel.fireEvent(event);
+		ineformEventbus.fireEvent(event);
 		return event;
 	}
 
 	public void setSaveBtnStyle(String style){
-		saveButton.setStyleName(style);
+		view.setSaveBtnStyle(style);
 	}
 	
 	public void setCancelBtnStyle(String style){
-		cancelButton.setStyleName(style);
+		view.setCancelBtnStyle(style);
+	}
+
+	@Override
+	public void saveClicked() {
+		save();
+	}
+
+	@Override
+	public void cancelClicked() {
+		if (!fireBeforeCancelEvent().isCancelled())
+			fireCancelledEvent();
+	}
+
+	@Override
+	public void deleteClicked() {
+		AssistedObject data = getInitialOrEmptyData();
+		if (data.getId() == IFConsts.NEW_ITEM_ID) throw new RuntimeException("Delete called for a newly created object");
+		ineDataConnector.objectDeleteRequested(data, new DeleteCallback(data.getId()));
 	}
 	
 	

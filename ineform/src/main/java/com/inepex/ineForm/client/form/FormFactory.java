@@ -10,11 +10,13 @@ public interface FormFactory {
 	
 	@Named("saveCancel") SaveCancelForm createSaveCancel(@Assisted("dn") String descriptorName
 			, @Assisted("frdn") String formRDescName
-			, IneDataConnector ineDataConnector);
+			, IneDataConnector ineDataConnector
+			, @Assisted SaveCancelFormView view);
 
 	@Named("wizard") WizardForm createWizard(@Assisted("dn") String descriptorName
 			, @Assisted("frdn") String formRDescName
-			, IneDataConnector ineDataConnector);
+			, IneDataConnector ineDataConnector
+			, @Assisted SaveCancelFormView view);
 	
 	@Named("search") SearchForm createSearch(@Assisted("dn") String descriptorName
 			, @Assisted("frdn") String formRDescName
