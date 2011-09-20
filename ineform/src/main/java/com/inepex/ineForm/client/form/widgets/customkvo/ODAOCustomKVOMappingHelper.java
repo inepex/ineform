@@ -96,6 +96,9 @@ public class ODAOCustomKVOMappingHelper {
 	}
 	
 	public static AssistedObject getAoFromRows(List<CustomKVORow> rows) {
+		if(rows==null  || rows.size()==0)
+			return null;
+		
 		UncheckedKVO kvo = new UncheckedKVO(IFConsts.customDescriptorName);
 		for(CustomKVORow r : rows) {
 			String stringVal =

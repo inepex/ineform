@@ -62,18 +62,25 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 			to.set${attr.nameU1}(fromHandler.get${attr.nameU1}());
 #elseif($attr.type == "CustomKVO")
     	if(fromHandler.containsRelation(${classname}Consts.k_${attr.name})) {
-    			CustomKVO custKvo = to.get${attr.nameU1}();
-    			if(custKvo==null) {
-    				custKvo=new CustomKVO();
-    				to.set${attr.nameU1}(custKvo);
-    			}
-    			
-    			ObjectDesc od = null;
-    			for(CustomKVOObjectDesc desc : descs) 
-    				if(${classname}Consts.k_${attr.name}.equals(desc.getKey()))
-    						od=desc;
-    				
-    			CustomKVOMapperHelper.mapIntoCustomKVO(custKvo, fromHandler.get${attr.nameU1}().getKvo(), od);
+			    if(fromHandler.get${attr.nameU1}()==null) {
+					to.set${attr.nameU1}(null);
+				} else {
+        			CustomKVO custKvo = to.get${attr.nameU1}();
+        			if(custKvo==null) {
+        				custKvo=new CustomKVO();
+        				to.set${attr.nameU1}(custKvo);
+        			}
+        			
+        			ObjectDesc od = null;
+        			for(CustomKVOObjectDesc desc : descs) { 
+        				if(${classname}Consts.k_${attr.name}.equals(desc.getKey())) {
+        						od=desc;
+    							break;
+    					}
+    				}
+        				
+        			CustomKVOMapperHelper.mapIntoCustomKVO(custKvo, fromHandler.get${attr.nameU1}().getKvo(), od);
+				}
     		}
 #elseif($attr.enum)
  		if (fromHandler.containsLong(${classname}Consts.k_${attr.name})) 

@@ -126,8 +126,15 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 			
 			if(fieldDesc.getType()==IneT.RELATION &&
 					IFConsts.customDescriptorName.equals(((RelationFDesc) fieldDesc).getRelatedDescriptorName())) {
-				difference.set(fieldDesc.getKey(), getRelation(fieldDesc.getKey()));
-				continue;
+				
+				Relation orig = original.getRelation(key);
+				Relation chng = getRelation(fieldDesc.getKey());
+				if (orig == null && chng == null) {
+					continue;
+				} else {
+					difference.set(key, chng);
+					continue;
+				}
 			}
 			
 			switch (fieldDesc.getType()) {

@@ -228,6 +228,10 @@ public class SaveCancelForm extends IneForm {
 					continue;
 				
 				CustomKVOFW fw = (CustomKVOFW) unit.getWidgetByKey(s);
+				
+				if(fw.getRelationValue()==null || fw.getRelationValue().getKvo()==null)
+					continue;
+				
 				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows());
 				
 				if(!tmpRes.isValid()) {

@@ -172,6 +172,11 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		Assert.assertEquals(IneT.STRING, od.getFields().get("k3").getType());
 	}
 	
+	@Test
+	public void getAoFromEmptyRows() {
+		Assert.assertNull(ODAOCustomKVOMappingHelper.getAoFromRows(new ArrayList<CustomKVORow>()));
+	}
+	
 	@Test 
 	public void getAoFromRowsTest() {
 		List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
