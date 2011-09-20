@@ -193,7 +193,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		
 		Assert.assertEquals(IFConsts.customDescriptorName, ao.getDescriptorName());
 		Assert.assertEquals(IFConsts.NEW_ITEM_ID.intValue(), ao.getId().intValue());
-		Assert.assertEquals(5, ao.getKeys().size());
+		Assert.assertEquals(6, ao.getKeys().size());
 		
 		Assert.assertEquals(true, checker.containsDouble("k1"));
 		Assert.assertEquals(true, checker.containsString("k2"));
