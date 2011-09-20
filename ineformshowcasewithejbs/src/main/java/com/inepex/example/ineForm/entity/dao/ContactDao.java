@@ -14,9 +14,9 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
 import com.inepex.ineForm.server.SelectorCustomizer;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
-
-@Singleton
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
@@ -24,24 +24,30 @@ import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
  * forget to call super.persist, super.merge ...)
  * 
  */
+@Singleton
 public class ContactDao extends BaseDao<Contact> {
 
 	public static interface ContactSelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,Contact>> {
 	}
 	
+	private final DescriptorStore descStore;
+	
 	@Inject
-	public ContactDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory){
-		super(em, objectFactory);
+	public ContactDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
+		, AssistedObjectHandlerFactory handlerFactory
+		, DescriptorStore descStore){
+		super(em, objectFactory, handlerFactory);
+		this.descStore=descStore;
 	}
 
 	@Override
 	public BaseQuery<Contact> getQuery() {
-		return new ContactQuery();
+		return new ContactQuery(descStore);
 	}
 
 	@Override
 	public BaseMapper<Contact> getMapper() {
-		return new ContactMapper();
+		return new ContactMapper(descStore);
 	}
 
 	@Override

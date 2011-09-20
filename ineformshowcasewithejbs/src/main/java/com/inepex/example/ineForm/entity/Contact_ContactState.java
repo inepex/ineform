@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.inepex.example.ineForm.enums.ContactState;
+import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
 
 @Entity
@@ -19,6 +20,7 @@ public class Contact_ContactState {
 	@Kvo_Transparent
 	Contact contact;
 
+	@Kvo_SearchParam
 	ContactState state;
 	
 	private Long orderNum;

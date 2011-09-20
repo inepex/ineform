@@ -1,6 +1,5 @@
 package com.inepex.example.ineForm.entity.assist;
-import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
-import com.inepex.example.ineForm.entity.kvo.search.ContactTypeSearchKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactTypeConsts;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -36,17 +35,17 @@ public class ContactTypeAssist extends Assist {
 	
 	@Override
 	public ValidatorDesc getValidatorDesc() {
-		return new ValidatorDesc(ContactTypeKVO.descriptorName, new String[] {/*hc:vd1*/
+		return new ValidatorDesc(ContactTypeConsts.descriptorName, new String[] {/*hc:vd1*/
 			
 		/*hc*/});
 	}
 
 	@Override
 	public ObjectDesc getObjectDesc() {
-		ObjectDesc objDesc = new ObjectDesc(ContactTypeKVO.descriptorName
-			, new LongFDesc(ContactTypeKVO.k_id, /*hc:d1*/"Id"/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(ContactTypeKVO.k_typeName, /*hc:d2*/"TypeName"/*hc*/)/*hc:d2_2*//*hc*/
-			, new StringFDesc(ContactTypeKVO.k_description, /*hc:d3*/"Description"/*hc*/)/*hc:d2_3*//*hc*/
+		ObjectDesc objDesc = new ObjectDesc(ContactTypeConsts.descriptorName
+			, new LongFDesc(ContactTypeConsts.k_id, /*hc:d1*/"Id"/*hc*/)/*hc:d2_1*//*hc*/
+			, new StringFDesc(ContactTypeConsts.k_typeName, /*hc:d2*/"TypeName"/*hc*/)/*hc:d2_2*//*hc*/
+			, new StringFDesc(ContactTypeConsts.k_description, /*hc:d3*/"Description"/*hc*/)/*hc:d2_3*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -55,43 +54,43 @@ public class ContactTypeAssist extends Assist {
 
 	@Override
 	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(ContactTypeKVO.descriptorName);
+		TableRDesc tableRDesc = new TableRDesc(ContactTypeConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(ContactTypeKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(ContactTypeKVO.k_typeName, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(ContactTypeKVO.k_description, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
+			.addChild(ContactTypeConsts.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
+			.addChild(ContactTypeConsts.k_typeName, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
+			.addChild(ContactTypeConsts.k_description, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
 			;
 		return tableRDesc;
 	}
 	
 	@Override
 	public FormRDesc getFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(ContactTypeKVO.descriptorName/*hc:frd_props*/
+		FormRDesc formRDesc = new FormRDesc(ContactTypeConsts.descriptorName/*hc:frd_props*/
 			
 			/*hc*/);
 			
 		formRDesc.getRootNode()
-			.addChild(ContactTypeKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactTypeKVO.k_typeName, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ContactTypeKVO.k_description, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(ContactTypeConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactTypeConsts.k_typeName, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(ContactTypeConsts.k_description, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
 			;
 		return formRDesc;
 	}
 
 	@Override
 	public ObjectDesc getSearchObjectDesc() {			
-		return new ObjectDesc(ContactTypeSearchKVO.descriptorName
-			, new StringFDesc(ContactTypeSearchKVO.k_typeName, /*hc:ds2*/"TypeName"/*hc*/)
+		return new ObjectDesc(ContactTypeConsts.searchDescriptor
+			, new StringFDesc(ContactTypeConsts.s_typeName, /*hc:ds2*/"TypeName"/*hc*/)
 		);
 	}
 	
 	@Override
 	public FormRDesc getSearchFormRDesc() {
-		FormRDesc searchFormRDesc = new FormRDesc(ContactTypeSearchKVO.descriptorName);
+		FormRDesc searchFormRDesc = new FormRDesc(ContactTypeConsts.searchDescriptor);
 			
 		searchFormRDesc.getRootNode().dummy()
-			.addChild(ContactTypeSearchKVO.k_typeName, new WidgetRDesc(/*hc:fs2*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(ContactTypeConsts.s_typeName, new WidgetRDesc(/*hc:fs2*/FWTypes.TEXTBOX/*hc*/))
 			;
 		return searchFormRDesc;
 	}

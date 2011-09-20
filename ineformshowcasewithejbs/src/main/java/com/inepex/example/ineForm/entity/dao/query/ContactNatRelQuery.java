@@ -9,24 +9,36 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.google.inject.Inject;
 import com.inepex.example.ineForm.entity.ContactNatRel;
 import com.inepex.example.ineForm.entity.Nationality;
 import com.inepex.example.ineForm.entity.assist.NationalityAssist;
-import com.inepex.example.ineForm.entity.kvo.ContactNatRelKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactNatRelConsts;
+import com.inepex.example.ineForm.entity.kvo.ContactNatRelHandlerFactory;
+import com.inepex.example.ineForm.entity.kvo.ContactNatRelHandlerFactory.ContactNatRelSearchHandler;
 import com.inepex.example.ineForm.entity.metaentity.ContactNatRel_;
 import com.inepex.ineForm.server.BaseQuery;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactNatRelQuery extends BaseQuery<ContactNatRel>{
 
+	private final ContactNatRelHandlerFactory handlerFactory;
+	
+	@Inject
+	public ContactNatRelQuery(DescriptorStore descriptorStore) {
+		this.handlerFactory= new ContactNatRelHandlerFactory(descriptorStore);
+	}
 	
 	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<ContactNatRel> from
 		, Expression<Boolean> base){
+			
+		ContactNatRelSearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
 	return base;
 	}
 	
@@ -42,12 +54,12 @@ public class ContactNatRelQuery extends BaseQuery<ContactNatRel>{
 			//default default order
 			orderKey = IFConsts.KEY_ID;
 			//default order specified:
-			orderKey = ContactNatRelKVO.k_nationality;		
+			orderKey = ContactNatRelConsts.k_nationality;		
 		}
 		Expression<?> orderExpr = null;
 		List<String> idList = Node.idToIdList(orderKey);
 			
-		if(idList.get(0).equals(ContactNatRelKVO.k_nationality)){
+		if(idList.get(0).equals(ContactNatRelConsts.k_nationality)){
 			if(idList.size()==1) {
 				Join<ContactNatRel, Nationality> title = from.join(ContactNatRel_.nationality);
 				orderExpr = title.get(NationalityAssist.getOrderKey());

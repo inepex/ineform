@@ -8,7 +8,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
-import com.inepex.example.ineForm.entity.kvo.ContactKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactConsts;
 import com.inepex.ineForm.client.form.CustomCode;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.IneForm;
@@ -29,12 +29,12 @@ public class WizardPage extends FlowPanel {
 			) {
 		add(new HTML("<h2>Example wizard for contact editing</h2>"));
 		
-		WizardForm wizardForm = formFactory.createWizard(ContactKVO.descriptorName, "wizard"
-				, dataConnectorFactory.createServerSide(ContactKVO.descriptorName));
+		WizardForm wizardForm = formFactory.createWizard(ContactConsts.descriptorName, "wizard"
+				, dataConnectorFactory.createServerSide(ContactConsts.descriptorName), null);
 		
 		wizardForm.renderForm();
 		
-		((StringListBoxFw)wizardForm.getFormUnitByName("step1").getWidgetByKey(ContactKVO.k_address)).setValueRange(Arrays.asList("egy", "ketto"));
+		((StringListBoxFw)wizardForm.getFormUnitByName("step1").getWidgetByKey(ContactConsts.k_address)).setValueRange(Arrays.asList("egy", "ketto"));
 		
 		wizardForm.setCustomClickHandler(new CustomClickHandler() {
 			

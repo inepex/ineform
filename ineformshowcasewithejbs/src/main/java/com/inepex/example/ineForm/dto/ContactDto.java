@@ -1,11 +1,11 @@
 package com.inepex.example.ineForm.dto;
 
 
-import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailConsts;
 import com.inepex.example.ineForm.enums.SpecialContactType;
 import com.inepex.ineForm.annotations.Kvo_RelationType;
-import com.inepex.ineom.shared.kvo.DtoAdapter;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.DtoAdapter;
 
 public abstract class ContactDto extends DtoAdapter {
 
@@ -16,7 +16,7 @@ public abstract class ContactDto extends DtoAdapter {
 	private String verySecretParameter;
 	private SpecialContactType specCont;
 	
-	@Kvo_RelationType(name=ContactAddresDetailKVO.descriptorName)
+	@Kvo_RelationType(name=ContactAddresDetailConsts.descriptorName)
 	private Relation contactDetails;
 	
 	public String getName() {

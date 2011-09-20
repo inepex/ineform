@@ -5,11 +5,9 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
-import com.inepex.core.module.client.CommandDataConnectorFactory;
-import com.inepex.example.ineForm.entity.kvo.ContactKVO;
-import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
-import com.inepex.example.ineForm.entity.kvo.NationalityKVO;
-import com.inepex.example.ineForm.entity.kvo.search.ContactSearchKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactConsts;
+import com.inepex.example.ineForm.entity.kvo.ContactTypeConsts;
+import com.inepex.example.ineForm.entity.kvo.NationalityConsts;
 import com.inepex.ineForm.client.datamanipulator.DataManipulator;
 import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.form.FormFactory;
@@ -54,23 +52,23 @@ public class CrudPage extends FlowPanel {
 		add(nationalityPanel);
 				
 		// Contact manipulator
-		IneDataConnector contactDataConn = dataConnectorFactory.createServerSide(ContactKVO.descriptorName);
+		IneDataConnector contactDataConn = dataConnectorFactory.createServerSide(ContactConsts.descriptorName);
 //		IneDataConnector contactDataConn = dataConnectorFactory.create(ContactKVO.descriptorName);
 		
-		SearchForm searchForm = formFactory.createSearch(ContactSearchKVO.descriptorName
+		SearchForm searchForm = formFactory.createSearch(ContactConsts.searchDescriptor
 				, null , contactDataConn);
 		
 		Button exportContacts = new Button("Export");
 		exportContacts.addClickHandler(new ExportUtil.ExportClickHandler(
 				dispatcher
-				, new ObjectListAction(ContactKVO.descriptorName)
+				, new ObjectListAction(ContactConsts.descriptorName)
 				, "contacts.csv"
 				, Renderer.CSV
 				, true
 				, true));
 		
 		DataManipulator contactManipulator 
-			= manipulatorFactory.createRowCommand(ContactKVO.descriptorName, contactDataConn, true);
+			= manipulatorFactory.createRowCommand(ContactConsts.descriptorName, contactDataConn, true);
 		
 		searchPanel.add(searchForm.asWidget());		
 		contactPanel.add(contactManipulator);
@@ -80,10 +78,10 @@ public class CrudPage extends FlowPanel {
 		
 		// ContactType manipulator
 		IneDataConnector contactTypeDataConn = 
-			dataConnectorFactory.createServerSide(ContactTypeKVO.descriptorName);
+			dataConnectorFactory.createServerSide(ContactTypeConsts.descriptorName);
 
 		DataManipulator contactTypeManipulator 
-			= manipulatorFactory.createRowCommand(ContactTypeKVO.descriptorName
+			= manipulatorFactory.createRowCommand(ContactTypeConsts.descriptorName
 															, contactTypeDataConn
 															, true);		
 		contactTypePanel.add(contactTypeManipulator);
@@ -92,16 +90,16 @@ public class CrudPage extends FlowPanel {
 		
 		// Nationality manipulator
 		IneDataConnector nationalityDataConn = 
-			dataConnectorFactory.createServerSide(NationalityKVO.descriptorName);
+			dataConnectorFactory.createServerSide(NationalityConsts.descriptorName);
 
 		DataManipulator nationalityManipulator 
-			= manipulatorFactory.createRowCommand(NationalityKVO.descriptorName
+			= manipulatorFactory.createRowCommand(NationalityConsts.descriptorName
 															, nationalityDataConn
 															, true);
 		Button exportNats = new Button("Export");
 		exportNats.addClickHandler(new ExportUtil.ExportClickHandler(
 				dispatcher
-				, new ObjectListAction(NationalityKVO.descriptorName)
+				, new ObjectListAction(NationalityConsts.descriptorName)
 				, "nationalities.html"
 				, Renderer.HTML
 				, true

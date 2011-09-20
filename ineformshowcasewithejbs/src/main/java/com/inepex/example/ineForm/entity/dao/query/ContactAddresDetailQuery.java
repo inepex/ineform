@@ -8,21 +8,33 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.google.inject.Inject;
 import com.inepex.example.ineForm.entity.ContactAddresDetail;
-import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailConsts;
+import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailHandlerFactory;
+import com.inepex.example.ineForm.entity.kvo.ContactAddresDetailHandlerFactory.ContactAddresDetailSearchHandler;
 import com.inepex.ineForm.server.BaseQuery;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactAddresDetailQuery extends BaseQuery<ContactAddresDetail>{
 
+	private final ContactAddresDetailHandlerFactory handlerFactory;
+	
+	@Inject
+	public ContactAddresDetailQuery(DescriptorStore descriptorStore) {
+		this.handlerFactory= new ContactAddresDetailHandlerFactory(descriptorStore);
+	}
 	
 	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<ContactAddresDetail> from
 		, Expression<Boolean> base){
+			
+		ContactAddresDetailSearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
 	return base;
 	}
 	
@@ -38,7 +50,7 @@ public class ContactAddresDetailQuery extends BaseQuery<ContactAddresDetail>{
 			//default default order
 			orderKey = IFConsts.KEY_ID;
 			//default order specified:
-			orderKey = ContactAddresDetailKVO.k_city;		
+			orderKey = ContactAddresDetailConsts.k_city;		
 		}
 		Expression<?> orderExpr = null;
 		List<String> idList = Node.idToIdList(orderKey);

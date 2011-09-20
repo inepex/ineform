@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 
 import com.inepex.ineForm.annotations.Kvo_Fetch;
 import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
+import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_SortDefault;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
 
@@ -25,6 +26,7 @@ public class ContactCTypeRel {
 	@ManyToOne(cascade={CascadeType.REFRESH, CascadeType.DETACH})
 	@Kvo_SortDefault
 	@Kvo_Fetch(mode=Mode.lazy)
+	@Kvo_SearchParam
 	private ContactType contactType;
 	private Long orderNum;
 	

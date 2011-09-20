@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.inepex.example.ineForm.dto.assist.ContactDtoAssist;
 import com.inepex.example.ineForm.entity.assist.ContactAddresDetailAssist;
 import com.inepex.example.ineForm.entity.assist.ContactAssist;
 import com.inepex.example.ineForm.entity.assist.ContactCTypeRelAssist;
@@ -44,7 +43,7 @@ public class Main extends IneFrameEntryPoint {
 		new ContactNatRelAssist(descStore).registerDescriptors();
 		new ContactTypeAssist(descStore).registerDescriptors();
 		new NationalityAssist(descStore).registerDescriptors();
-		new ContactDtoAssist(descStore).registerDescriptors();
+//		new ContactDtoAssist(descStore).registerDescriptors();
 		new Contact_ContactRoleAssist(descStore).registerDescriptors();
 		new Contact_ContactStateAssist(descStore).registerDescriptors();
 		

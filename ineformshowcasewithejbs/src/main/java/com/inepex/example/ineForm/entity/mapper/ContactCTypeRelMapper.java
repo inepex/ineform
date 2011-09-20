@@ -1,29 +1,44 @@
 package com.inepex.example.ineForm.entity.mapper;
 
+import com.google.inject.Inject;
 import com.inepex.example.ineForm.entity.ContactCTypeRel;
 import com.inepex.example.ineForm.entity.ContactType;
-import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelConsts;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelHandlerFactory;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelHandlerFactory.ContactCTypeRelHandler;
 import com.inepex.ineForm.server.BaseMapper;
-import com.inepex.ineom.shared.kvo.AssistedObject;
-import com.inepex.ineom.shared.kvo.Relation;
+import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class ContactCTypeRelMapper extends BaseMapper<ContactCTypeRel>{
+	
+	private final DescriptorStore descriptorStore;
+	private final ContactCTypeRelHandlerFactory handlerFactory;
+	
+	@Inject
+	public ContactCTypeRelMapper(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
+		this.handlerFactory=new ContactCTypeRelHandlerFactory(descriptorStore);
+	}
 
-	public ContactCTypeRel kvoToEntity(AssistedObject fromKvo, ContactCTypeRel to) {
-		ContactCTypeRelKVO from = new ContactCTypeRelKVO(fromKvo);
+	public ContactCTypeRel kvoToEntity(AssistedObject fromKvo, ContactCTypeRel to, CustomKVOObjectDesc... descs) {
+		ContactCTypeRelHandler fromHandler = handlerFactory.createHandler(fromKvo);
+		
 		if (to == null)
 			to = new ContactCTypeRel();
-		if (!from.isNew()) 
-			to.setId(from.getId());
-		if (from.containsRelation(ContactCTypeRelKVO.k_contactType)) {
-			if (from.getContactType() == null){
+		if (!fromHandler.isNew()) 
+			to.setId(fromHandler.getId());
+		if (fromHandler.containsRelation(ContactCTypeRelConsts.k_contactType)) {
+			if (fromHandler.getContactType() == null){
 				to.setContactType(null);
 			} else {
-				to.setContactType(new ContactType(from.getContactType().getId()));
+				to.setContactType(new ContactType(fromHandler.getContactType().getId()));
 			}
 		}
-		if (from.containsLong(ContactCTypeRelKVO.k_orderNum)) 
-			to.setOrderNum(from.getOrderNum());
+		if (fromHandler.containsLong(ContactCTypeRelConsts.k_orderNum)) 
+			to.setOrderNum(fromHandler.getOrderNum());
 
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
@@ -32,20 +47,21 @@ public class ContactCTypeRelMapper extends BaseMapper<ContactCTypeRel>{
 		return to;
 	}
 	
-	public ContactCTypeRelKVO entityToKvo(ContactCTypeRel entity) {
-		ContactCTypeRelKVO kvo = new ContactCTypeRelKVO();
+	public AssistedObject entityToKvo(ContactCTypeRel entity) {
+		ContactCTypeRelHandler handler = handlerFactory.createHandler();
+	
 		if (entity.getId() != null) 
-			kvo.setId(entity.getId());
+			handler.setId(entity.getId());
 		if (entity.getContactType() != null) 
-			kvo.setContactType(new ContactTypeMapper().toRelation(entity.getContactType(), true));
+			handler.setContactType(new ContactTypeMapper(descriptorStore).toRelation(entity.getContactType(), true));
 		if (entity.getOrderNum() != null) 
-			kvo.setOrderNum(entity.getOrderNum());
+			handler.setOrderNum(entity.getOrderNum());
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
 		/*hc*/
 
-		return kvo;
+		return handler.getAssistedObject();
 	}
 	
 	public Relation toRelation(ContactCTypeRel entity, boolean includeKvo){

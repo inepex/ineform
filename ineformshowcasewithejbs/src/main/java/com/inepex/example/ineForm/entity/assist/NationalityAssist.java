@@ -1,6 +1,5 @@
 package com.inepex.example.ineForm.entity.assist;
-import com.inepex.example.ineForm.entity.kvo.NationalityKVO;
-import com.inepex.example.ineForm.entity.kvo.search.NationalitySearchKVO;
+import com.inepex.example.ineForm.entity.kvo.NationalityConsts;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -36,17 +35,17 @@ public class NationalityAssist extends Assist {
 	
 	@Override
 	public ValidatorDesc getValidatorDesc() {
-		return new ValidatorDesc(NationalityKVO.descriptorName, new String[] {/*hc:vd1*/
+		return new ValidatorDesc(NationalityConsts.descriptorName, new String[] {/*hc:vd1*/
 			
 		/*hc*/});
 	}
 
 	@Override
 	public ObjectDesc getObjectDesc() {
-		ObjectDesc objDesc = new ObjectDesc(NationalityKVO.descriptorName
-			, new LongFDesc(NationalityKVO.k_id, /*hc:d1*/I18n.nationality_id/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(NationalityKVO.k_name, /*hc:d2*/I18n.nationality_name/*hc*/)/*hc:d2_2*//*hc*/
-			, new StringFDesc(NationalityKVO.k_description, /*hc:d3*/I18n.nationality_description/*hc*/)/*hc:d2_3*//*hc*/
+		ObjectDesc objDesc = new ObjectDesc(NationalityConsts.descriptorName
+			, new LongFDesc(NationalityConsts.k_id, /*hc:d1*/I18n.nationality_id/*hc*/)/*hc:d2_1*//*hc*/
+			, new StringFDesc(NationalityConsts.k_name, /*hc:d2*/I18n.nationality_name/*hc*/)/*hc:d2_2*//*hc*/
+			, new StringFDesc(NationalityConsts.k_description, /*hc:d3*/I18n.nationality_description/*hc*/)/*hc:d2_3*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -55,39 +54,39 @@ public class NationalityAssist extends Assist {
 
 	@Override
 	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(NationalityKVO.descriptorName);
+		TableRDesc tableRDesc = new TableRDesc(NationalityConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(NationalityKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(NationalityKVO.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*/.prop(ColRDesc.DEFAULTSORT)/*hc*/)
-			.addChild(NationalityKVO.k_description, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
+			.addChild(NationalityConsts.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
+			.addChild(NationalityConsts.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*/.prop(ColRDesc.DEFAULTSORT)/*hc*/)
+			.addChild(NationalityConsts.k_description, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
 			;
 		return tableRDesc;
 	}
 	
 	@Override
 	public FormRDesc getFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(NationalityKVO.descriptorName/*hc:frd_props*/
+		FormRDesc formRDesc = new FormRDesc(NationalityConsts.descriptorName/*hc:frd_props*/
 			
 			/*hc*/);
 			
 		formRDesc.getRootNode()
-			.addChild(NationalityKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(NationalityKVO.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(NationalityKVO.k_description, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(NationalityConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
+			.addChild(NationalityConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(NationalityConsts.k_description, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
 			;
 		return formRDesc;
 	}
 
 	@Override
 	public ObjectDesc getSearchObjectDesc() {			
-		return new ObjectDesc(NationalitySearchKVO.descriptorName
+		return new ObjectDesc(NationalityConsts.searchDescriptor
 		);
 	}
 	
 	@Override
 	public FormRDesc getSearchFormRDesc() {
-		FormRDesc searchFormRDesc = new FormRDesc(NationalitySearchKVO.descriptorName);
+		FormRDesc searchFormRDesc = new FormRDesc(NationalityConsts.searchDescriptor);
 			
 		searchFormRDesc.getRootNode().dummy()
 			;
@@ -97,7 +96,7 @@ public class NationalityAssist extends Assist {
 	public static String getOrderKey(){
 		//displayname field
 		String key = "";
-		key = NationalityKVO.k_name;
+		key = NationalityConsts.k_name;
 		
 		return key;
 	}

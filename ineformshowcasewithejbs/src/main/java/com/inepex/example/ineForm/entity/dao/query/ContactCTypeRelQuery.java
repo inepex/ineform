@@ -9,24 +9,36 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.google.inject.Inject;
 import com.inepex.example.ineForm.entity.ContactCTypeRel;
 import com.inepex.example.ineForm.entity.ContactType;
 import com.inepex.example.ineForm.entity.assist.ContactTypeAssist;
-import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelConsts;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelHandlerFactory;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelHandlerFactory.ContactCTypeRelSearchHandler;
 import com.inepex.example.ineForm.entity.metaentity.ContactCTypeRel_;
 import com.inepex.ineForm.server.BaseQuery;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class ContactCTypeRelQuery extends BaseQuery<ContactCTypeRel>{
 
+	private final ContactCTypeRelHandlerFactory handlerFactory;
+	
+	@Inject
+	public ContactCTypeRelQuery(DescriptorStore descriptorStore) {
+		this.handlerFactory= new ContactCTypeRelHandlerFactory(descriptorStore);
+	}
 	
 	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<ContactCTypeRel> from
 		, Expression<Boolean> base){
+			
+		ContactCTypeRelSearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
 	return base;
 	}
 	
@@ -42,12 +54,12 @@ public class ContactCTypeRelQuery extends BaseQuery<ContactCTypeRel>{
 			//default default order
 			orderKey = IFConsts.KEY_ID;
 			//default order specified:
-			orderKey = ContactCTypeRelKVO.k_contactType;		
+			orderKey = ContactCTypeRelConsts.k_contactType;		
 		}
 		Expression<?> orderExpr = null;
 		List<String> idList = Node.idToIdList(orderKey);
 			
-		if(idList.get(0).equals(ContactCTypeRelKVO.k_contactType)){
+		if(idList.get(0).equals(ContactCTypeRelConsts.k_contactType)){
 			if(idList.size()==1) {
 				Join<ContactCTypeRel, ContactType> title = from.join(ContactCTypeRel_.contactType);
 				orderExpr = title.get(ContactTypeAssist.getOrderKey());

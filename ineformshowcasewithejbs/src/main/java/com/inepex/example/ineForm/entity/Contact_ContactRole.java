@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
 
 @Entity
@@ -19,6 +20,7 @@ public class Contact_ContactRole {
 	@Kvo_Transparent
 	Contact contact;
 
+	@Kvo_SearchParam
 	String role;
 	
 	private Long orderNum;

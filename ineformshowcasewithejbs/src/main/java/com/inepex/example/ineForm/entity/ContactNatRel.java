@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_SortDefault;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
 
@@ -20,6 +21,7 @@ public class ContactNatRel {
 	private Contact contact;
 	@ManyToOne
 	@Kvo_SortDefault
+	@Kvo_SearchParam
 	private Nationality nationality;
 	private Long orderNum;
 	

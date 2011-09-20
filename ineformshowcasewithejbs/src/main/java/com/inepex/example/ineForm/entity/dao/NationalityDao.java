@@ -14,9 +14,9 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
 import com.inepex.ineForm.server.SelectorCustomizer;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
-
-@Singleton
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
@@ -24,24 +24,30 @@ import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
  * forget to call super.persist, super.merge ...)
  * 
  */
+@Singleton
 public class NationalityDao extends BaseDao<Nationality> {
 
 	public static interface NationalitySelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,Nationality>> {
 	}
 	
+	private final DescriptorStore descStore;
+	
 	@Inject
-	public NationalityDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory){
-		super(em, objectFactory);
+	public NationalityDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
+		, AssistedObjectHandlerFactory handlerFactory
+		, DescriptorStore descStore){
+		super(em, objectFactory, handlerFactory);
+		this.descStore=descStore;
 	}
 
 	@Override
 	public BaseQuery<Nationality> getQuery() {
-		return new NationalityQuery();
+		return new NationalityQuery(descStore);
 	}
 
 	@Override
 	public BaseMapper<Nationality> getMapper() {
-		return new NationalityMapper();
+		return new NationalityMapper(descStore);
 	}
 
 	@Override

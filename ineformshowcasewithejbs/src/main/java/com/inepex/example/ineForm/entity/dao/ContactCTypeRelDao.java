@@ -14,9 +14,9 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
 import com.inepex.ineForm.server.SelectorCustomizer;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
-
-@Singleton
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
@@ -24,24 +24,30 @@ import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
  * forget to call super.persist, super.merge ...)
  * 
  */
+@Singleton
 public class ContactCTypeRelDao extends BaseDao<ContactCTypeRel> {
 
 	public static interface ContactCTypeRelSelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,ContactCTypeRel>> {
 	}
 	
+	private final DescriptorStore descStore;
+	
 	@Inject
-	public ContactCTypeRelDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory){
-		super(em, objectFactory);
+	public ContactCTypeRelDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
+		, AssistedObjectHandlerFactory handlerFactory
+		, DescriptorStore descStore){
+		super(em, objectFactory, handlerFactory);
+		this.descStore=descStore;
 	}
 
 	@Override
 	public BaseQuery<ContactCTypeRel> getQuery() {
-		return new ContactCTypeRelQuery();
+		return new ContactCTypeRelQuery(descStore);
 	}
 
 	@Override
 	public BaseMapper<ContactCTypeRel> getMapper() {
-		return new ContactCTypeRelMapper();
+		return new ContactCTypeRelMapper(descStore);
 	}
 
 	@Override

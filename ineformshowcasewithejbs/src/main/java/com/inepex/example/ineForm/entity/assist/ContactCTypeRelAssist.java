@@ -1,7 +1,6 @@
 package com.inepex.example.ineForm.entity.assist;
-import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelKVO;
-import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
-import com.inepex.example.ineForm.entity.kvo.search.ContactCTypeRelSearchKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactCTypeRelConsts;
+import com.inepex.example.ineForm.entity.kvo.ContactTypeConsts;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -37,18 +36,18 @@ public class ContactCTypeRelAssist extends Assist {
 	
 	@Override
 	public ValidatorDesc getValidatorDesc() {
-		return new ValidatorDesc(ContactCTypeRelKVO.descriptorName, new String[] {/*hc:vd1*/
+		return new ValidatorDesc(ContactCTypeRelConsts.descriptorName, new String[] {/*hc:vd1*/
 			
 		/*hc*/});
 	}
 
 	@Override
 	public ObjectDesc getObjectDesc() {
-		ObjectDesc objDesc = new ObjectDesc(ContactCTypeRelKVO.descriptorName
-			, new LongFDesc(ContactCTypeRelKVO.k_id, /*hc:d1*/"Id"/*hc*/)/*hc:d2_1*//*hc*/
-			, new RelationFDesc(ContactCTypeRelKVO.k_contactType, /*hc:d3*/"ContactType"/*hc*/
-										, ContactTypeKVO.descriptorName)/*hc:d2_3*//*hc*/
-			, new LongFDesc(ContactCTypeRelKVO.k_orderNum, /*hc:d4*/"OrderNum"/*hc*/)/*hc:d2_4*//*hc*/
+		ObjectDesc objDesc = new ObjectDesc(ContactCTypeRelConsts.descriptorName
+			, new LongFDesc(ContactCTypeRelConsts.k_id, /*hc:d1*/"Id"/*hc*/)/*hc:d2_1*//*hc*/
+			, new RelationFDesc(ContactCTypeRelConsts.k_contactType, /*hc:d3*/"ContactType"/*hc*/
+										, ContactTypeConsts.descriptorName)/*hc:d2_3*//*hc*/
+			, new LongFDesc(ContactCTypeRelConsts.k_orderNum, /*hc:d4*/"OrderNum"/*hc*/)/*hc:d2_4*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -57,39 +56,39 @@ public class ContactCTypeRelAssist extends Assist {
 
 	@Override
 	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(ContactCTypeRelKVO.descriptorName);
+		TableRDesc tableRDesc = new TableRDesc(ContactCTypeRelConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(ContactCTypeRelKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(ContactCTypeRelKVO.k_contactType, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(ContactCTypeRelKVO.k_orderNum, new ColRDesc(/*hc:tdr1_4*/100, true/*hc*/)/*hc:tdr2_4*//*hc*/)
+			.addChild(ContactCTypeRelConsts.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
+			.addChild(ContactCTypeRelConsts.k_contactType, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
+			.addChild(ContactCTypeRelConsts.k_orderNum, new ColRDesc(/*hc:tdr1_4*/100, true/*hc*/)/*hc:tdr2_4*//*hc*/)
 			;
 		return tableRDesc;
 	}
 	
 	@Override
 	public FormRDesc getFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(ContactCTypeRelKVO.descriptorName/*hc:frd_props*/
+		FormRDesc formRDesc = new FormRDesc(ContactCTypeRelConsts.descriptorName/*hc:frd_props*/
 			
 			/*hc*/);
 			
 		formRDesc.getRootNode()
-			.addChild(ContactCTypeRelKVO.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(ContactCTypeRelKVO.k_contactType, new WidgetRDesc(/*hc:f3*/FWTypes.LISTBOX/*hc*/))
-			.addChild(ContactCTypeRelKVO.k_orderNum, new WidgetRDesc(/*hc:f4*/FWTypes.NUMBERTEXTBOX/*hc*/))
+			.addChild(ContactCTypeRelConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
+			.addChild(ContactCTypeRelConsts.k_contactType, new WidgetRDesc(/*hc:f3*/FWTypes.LISTBOX/*hc*/))
+			.addChild(ContactCTypeRelConsts.k_orderNum, new WidgetRDesc(/*hc:f4*/FWTypes.NUMBERTEXTBOX/*hc*/))
 			;
 		return formRDesc;
 	}
 
 	@Override
 	public ObjectDesc getSearchObjectDesc() {			
-		return new ObjectDesc(ContactCTypeRelSearchKVO.descriptorName
+		return new ObjectDesc(ContactCTypeRelConsts.searchDescriptor
 		);
 	}
 	
 	@Override
 	public FormRDesc getSearchFormRDesc() {
-		FormRDesc searchFormRDesc = new FormRDesc(ContactCTypeRelSearchKVO.descriptorName);
+		FormRDesc searchFormRDesc = new FormRDesc(ContactCTypeRelConsts.searchDescriptor);
 			
 		searchFormRDesc.getRootNode().dummy()
 			;

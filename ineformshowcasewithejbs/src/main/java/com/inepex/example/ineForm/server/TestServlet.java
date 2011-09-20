@@ -11,7 +11,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.example.ineForm.entity.ContactType;
 import com.inepex.example.ineForm.entity.dao.ContactTypeDao;
-import com.inepex.example.ineForm.entity.kvo.ContactTypeKVO;
+import com.inepex.example.ineForm.entity.kvo.ContactTypeHandlerFactory;
+import com.inepex.example.ineForm.entity.kvo.ContactTypeHandlerFactory.ContactTypeHandler;
 import com.inepex.example.ineForm.entity.mapper.ContactTypeMapper;
 
 @Singleton
@@ -21,12 +22,18 @@ public class TestServlet extends HttpServlet {
 	@Inject
 	ContactTypeDao contactTypeDAO;
 	
+	@Inject
+	ContactTypeMapper contactTypeMapper;
+	
+	@Inject
+	ContactTypeHandlerFactory contactTypeHandlerFactory;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ContactTypeKVO kvo = new ContactTypeKVO();
+		ContactTypeHandler kvo = contactTypeHandlerFactory.createHandler();
 		kvo.setTypeName("type2");
 		ContactType entity = new ContactType();
-		contactTypeDAO.persistTrans(new ContactTypeMapper().kvoToEntity(kvo, entity));
+		contactTypeDAO.persistTrans(contactTypeMapper.kvoToEntity(kvo.getAssistedObject(), entity));
 		
 		resp.getWriter().println("Ready");
 	}

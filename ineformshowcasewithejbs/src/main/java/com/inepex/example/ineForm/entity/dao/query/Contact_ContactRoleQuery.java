@@ -8,20 +8,32 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.google.inject.Inject;
 import com.inepex.example.ineForm.entity.Contact_ContactRole;
+import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleHandlerFactory;
+import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleHandlerFactory.Contact_ContactRoleSearchHandler;
 import com.inepex.ineForm.server.BaseQuery;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
-import com.inepex.ineom.shared.kvo.IFConsts;
 
 public class Contact_ContactRoleQuery extends BaseQuery<Contact_ContactRole>{
 
+	private final Contact_ContactRoleHandlerFactory handlerFactory;
+	
+	@Inject
+	public Contact_ContactRoleQuery(DescriptorStore descriptorStore) {
+		this.handlerFactory= new Contact_ContactRoleHandlerFactory(descriptorStore);
+	}
 	
 	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
 		, Root<Contact_ContactRole> from
 		, Expression<Boolean> base){
+			
+		Contact_ContactRoleSearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
 	return base;
 	}
 	
