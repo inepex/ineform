@@ -39,7 +39,6 @@ public class KeyValueObject extends AssistedObject {
 	 */
 	public KeyValueObject(String descriptorName) {
 		this.descriptorName = descriptorName;
-		setId(IFConsts.NEW_ITEM_ID.longValue());
 	}
 
 	/**

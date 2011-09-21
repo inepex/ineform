@@ -84,13 +84,13 @@ public class KVOTest {
 		Assert.assertEquals(false, kvo.containsRelation("a"));
 		Assert.assertEquals(false, kvo.containsString("a"));
 		
-		Assert.assertEquals(1, kvo.getKeys().size());
+		Assert.assertEquals(0, kvo.getKeys().size());
 		
 		KeyValueObject otherKvo = new KeyValueObject("descName");
 		kvo.copyValuesTo(otherKvo);
 		
-		Assert.assertEquals(1, kvo.getKeys().size());
-		Assert.assertEquals(1, otherKvo.getKeys().size());
+		Assert.assertEquals(0, kvo.getKeys().size());
+		Assert.assertEquals(0, otherKvo.getKeys().size());
 		
 		Assert.assertEquals(true, kvo.equals(otherKvo));
 		Assert.assertEquals(true, otherKvo.equals(kvo));
