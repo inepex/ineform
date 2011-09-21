@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.navigation.AbstractMasterPage;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -33,6 +34,11 @@ public class DefaultIneFrameMasterPage extends AbstractMasterPage {
 		header.refresh();
 		menuRenderer.realizeNewPlaceOnMenu(place, urlParams);
 		super.render(place, urlParams);
+	}
+	
+	@Override
+	protected void setUpPageStyle(InePage page) {
+		page.asWidget().addStyleName(ResourceHelper.getRes().style().pageContent());
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.inepex.ineFrame.client.navigation;
 
 import java.util.Map;
 
-import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.page.InePage;
 import com.inepex.ineFrame.client.page.defaults.DummyPage;
@@ -16,6 +15,7 @@ public abstract class AbstractMasterPage implements MasterPage {
 	}
 	
 	protected abstract void showPage(InePage page);
+	protected abstract void setUpPageStyle(InePage page);
 	
 	@Override
 	public void render(final InePlace place, Map<String, String> urlParams) {
@@ -24,7 +24,7 @@ public abstract class AbstractMasterPage implements MasterPage {
 			return;
 		
 		page.setCurrentPlace(place);
-		page.asWidget().addStyleName(ResourceHelper.getRes().style().pageContent());
+		setUpPageStyle(page);
 		
 		try {
 			page.setUrlParameters(urlParams, new InePage.UrlParamsParsedCallback() {
