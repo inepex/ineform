@@ -41,7 +41,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 		rowTable.setText(0, 2, IneFormI18n.customKVO_value());
 		
 		rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.getRes().style().customKVOHeader());
-		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.getRes().style().customKVOHeader());
+		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.getRes().style().customKVOHeaderType());
 		rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.getRes().style().customKVOHeader());
 	}
 
@@ -108,14 +108,15 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 
 	@Override
 	public void removeRow(CustomKVORow r) {
+		//TODO
 		rowsByInnerId.remove(rowsByInnerId.get(r.getInnerId()));
 		
 		int index = dispRowinnerIdMirror.indexOf(r.getInnerId());
 		
+		dispRowinnerIdMirror.remove(index);
+		
 		//because of header
 		index++; 
-		
-		dispRowinnerIdMirror.remove(index);
 		rowTable.removeRow(index);
 	}
 }

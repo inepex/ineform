@@ -118,4 +118,13 @@
 	background: #c2c2c2;
 	font-weight: bold;	
 	padding: 3px;
+	width: 132px;
 }
+
+.customKVOHeaderType {
+	background: #c2c2c2;
+	font-weight: bold;	
+	padding: 3px;
+	width: 90px;	
+}
+	

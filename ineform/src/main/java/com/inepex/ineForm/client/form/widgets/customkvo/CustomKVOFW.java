@@ -13,7 +13,6 @@ import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
@@ -89,23 +88,23 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	
 	@Override
 	public void setRelationValue(Relation value) {
-		if(value==null)
-			value = new Relation();
-		else
-			value = new Relation(value.getId(), value.getDisplayName(), value.getKvo());
-		
-		if(value.getKvo()==null) {
-			value.setKvo(new KeyValueObject(IFConsts.customDescriptorName));
-		} else {
-			if(!IFConsts.customDescriptorName.equals(value.getKvo().getDescriptorName()))
-				throw new IllegalArgumentException();
-		}
-		
-		this.relation=value;
-
 		//clearing previous state 
 		view.clearRows();
 		rows.clear();
+		
+		if(value!=null) {
+			relation = new Relation(value.getId(), value.getDisplayName(), value.getKvo());
+			
+			if(value.getKvo()!=null) {
+				if(!IFConsts.customDescriptorName.equals(value.getKvo().getDescriptorName()))
+					throw new IllegalArgumentException();
+			}
+			
+		} else {
+			relation = null;
+			return;
+		}
+		
 		
 		final AssistedObject ao = value.getKvo();
 		
@@ -131,10 +130,12 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		}
 		
 		if(relation!=null) {
-				ao.setId(relation.getId());
+			ao.setId(relation.getId());
 		} else {
 			relation= new Relation();
+			ao.setId(IFConsts.NEW_ITEM_ID);
 		}
+		
 		relation.setKvo(ao);
 		
 		return relation;

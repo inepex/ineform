@@ -33,5 +33,6 @@ public interface IneFormStyle extends CssResource {
 	String fpb_errorMessageHolder_showError();
 	
 	String customKVOHeader();
+	String customKVOHeaderType();
 }
 
