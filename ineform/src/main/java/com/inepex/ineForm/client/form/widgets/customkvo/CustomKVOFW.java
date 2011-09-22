@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.google.gwt.user.client.ui.IsWidget;
-import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineom.shared.IFConsts;
@@ -40,21 +39,17 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	
 	private Relation relation = null;
 	
-	public CustomKVOFW(FormContext formCtx, RelationFDesc fieldDescriptor, OdFinder odFinder) {
+	public CustomKVOFW(RelationFDesc fieldDescriptor, OdFinder odFinder, View view) {
 		super(fieldDescriptor);
-		this.odFinder=odFinder;
 		
 		if(!IFConsts.customDescriptorName.equals(fieldDescriptor.getRelatedDescriptorName()))
 			throw new IllegalArgumentException();
 		
-		//TODO inject view
-		//TODO inject view
-		//TODO inject view
-		view = new CustomKVOFWView();
-		
-		view.setAddCallback(this);
-		view.setRemoveCallback(this);
-		view.setRowValueChangeCallback(this);
+		this.odFinder=odFinder;
+		this.view = view;
+		this.view.setAddCallback(this);
+		this.view.setRemoveCallback(this);
+		this.view.setRowValueChangeCallback(this);
 		
 		initWidget(view.asWidget());
 	}

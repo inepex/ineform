@@ -106,7 +106,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						IFConsts.KEY_ISDELETED.equals(descNode.getNodeId())) {
 				
 						FormWidget createdWidget = formWidgetFactory.createWidget(formCtx, this, fDesc
-								,(WidgetRDesc) nodeElement, formCtx.odFinder);
+								,(WidgetRDesc) nodeElement, formCtx.odFinder, formCtx.customKvoFwViewProvider);
 						
 						if (createdWidget != null) {
 							registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);

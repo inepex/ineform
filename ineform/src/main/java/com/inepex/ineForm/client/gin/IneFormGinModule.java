@@ -26,6 +26,8 @@ import com.inepex.ineForm.client.form.factories.DefaultPanelWidgetFactory;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFWView;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.RestDataConnector;
@@ -92,6 +94,8 @@ public class IneFormGinModule extends AbstractGinModule {
 	 	.implement(ObjectFinderRest.class, ObjectFinderRest.class)
 		.build(ObjectFinderRestFactory.class));
 		
+		
+		bind(CustomKVOFW.View.class).to(CustomKVOFWView.class);
 	}
 	
 	

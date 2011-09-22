@@ -2,10 +2,12 @@ package com.inepex.ineForm.client.form;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -35,6 +37,7 @@ public class FormContext {
 	public final DateProvider dateProvider;
 	public final OdFinder odFinder;
 	public final ObjectFinder objectFinder;
+	public final Provider<CustomKVOFW.View> customKvoFwViewProvider;
 	
 	/**
 	 * ValueRangeProvider can be overridden in a specific context. 
@@ -53,8 +56,10 @@ public class FormContext {
 			, KeyValueObjectValidationManager validatorManager
 			, DateProvider dateProvider
 			, OdFinder odFinder
-			, ObjectFinder objectFinder) {
+			, ObjectFinder objectFinder
+			, Provider<CustomKVOFW.View> customKvoFwViewProvider) {
 		this.objectFinder=objectFinder;
+		this.customKvoFwViewProvider=customKvoFwViewProvider;
 		this.odFinder=odFinder;
 		this.descStore = descStore;
 		this.eventBus = eventBus;

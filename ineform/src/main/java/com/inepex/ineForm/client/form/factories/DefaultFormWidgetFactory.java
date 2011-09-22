@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.factories;
 
+import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.CheckBoxFW;
@@ -47,7 +48,8 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 								 , AbstractFormUnit form
 								 , FDesc fieldDesc
 								 , WidgetRDesc wrDesc
-								 , OdFinder odFinder) {
+								 , OdFinder odFinder
+								 , Provider<CustomKVOFW.View> customKvoView) {
 		
 		FormWidget createdWidget = null;
 		
@@ -90,7 +92,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new RelationFW(formCtx, (RelationFDesc) fieldDesc);
 		
 		else if (widgetType.equals(FWTypes.CUSTOMKVO))
-			createdWidget= new CustomKVOFW(formCtx, (RelationFDesc) fieldDesc, odFinder);
+			createdWidget= new CustomKVOFW((RelationFDesc) fieldDesc, odFinder,  customKvoView.get());
 		
 		else if (widgetType.equals(FWTypes.CHECKBOX))
 			createdWidget = new CheckBoxFW(fieldDesc, wrDesc);

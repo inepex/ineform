@@ -40,7 +40,7 @@ public abstract class UIBinderFormUnitSkin extends Composite {
 		FDesc fDesc = uiBinderFormUnit.getFieldDesct(descNode);
 	
 		FormWidget createdWidget = formCtx.formWidgetFactory.createWidget(formCtx, uiBinderFormUnit, fDesc
-				,(WidgetRDesc) descNode.getNodeElement(), formCtx.odFinder);
+				,(WidgetRDesc) descNode.getNodeElement(), formCtx.odFinder, formCtx.customKvoFwViewProvider);
 		
 		if (createdWidget != null) {
 			uiBinderFormUnit.registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);
