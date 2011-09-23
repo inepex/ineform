@@ -76,5 +76,9 @@ public class ${classname}Dao extends BaseDao<${classname}> {
 	public ${classname} newInstance() {
 		return new ${classname}();
 	}
+	
+	/*hc:customMethods*/
+	//overrides and custom methods
+	/*hc*/
 		
 }
