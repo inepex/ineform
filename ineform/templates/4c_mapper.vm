@@ -165,6 +165,8 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 			handler.set${attr.nameU1}(new Long(entity.get${attr.nameU1}().ordinal()));
 		}
 #elseif($attr.list == true)
+## you can annotate your inelist with lazy to skip mapping it
+#if (!$attr.hasAnnotation("Kvo_Fetch") || !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")
 		{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();
@@ -177,6 +179,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
     			handler.set${attr.nameU1}(ineList);
     		}
 		}
+#end
 #else
 		if (entity.get${attr.nameU1}() != null) 
 #if (!$attr.hasAnnotation("Kvo_Fetch") || !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")

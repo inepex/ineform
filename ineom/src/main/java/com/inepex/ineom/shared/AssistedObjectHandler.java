@@ -130,11 +130,19 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 				Relation orig = original.getRelation(key);
 				Relation chng = getRelation(fieldDesc.getKey());
 				if (orig == null && chng == null) {
-					continue;
+					//nothing to do
 				} else {
-					difference.set(key, chng);
-					continue;
+					if(orig==null || chng==null) {
+						difference.set(key, chng);
+					} else {
+						if(((KeyValueObject) orig.getKvo()).equals(chng.getKvo())) {
+							//nothing to do
+						} else 
+							difference.set(key, chng);
+					}
 				}
+				
+				continue;
 			}
 			
 			switch (fieldDesc.getType()) {

@@ -289,13 +289,14 @@ public class KeyValueObject extends AssistedObject {
 	 * 
 	 */
 	@Override
-	public boolean equals(Object obj) { 
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if(!(obj instanceof KeyValueObject))
+			throw new IllegalArgumentException();
+		
 
 		KeyValueObject other = (KeyValueObject) obj;
 		if (descriptorName == null) {
