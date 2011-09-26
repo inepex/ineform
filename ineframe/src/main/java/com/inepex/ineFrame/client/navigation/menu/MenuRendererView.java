@@ -41,6 +41,13 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	}
 	
 	@Override
+	public void clearTargetPart() {
+		target.clear();
+		menuUL = null;
+		menuLevel = -1;
+	}
+	
+	@Override
 	public void addWidget(IsWidget w) {
 		Grid grid = new Grid(1, 2);
 		grid.setWidget(0, 0, (Widget) w);

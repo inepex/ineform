@@ -226,4 +226,19 @@ public class PlaceHandlerHelper {
 		
 		return newToken.toString();
 	}
+	
+	public static boolean haveToDisplaySelector(String token, Node<InePlace> placeRoot){
+		token = getPlacePart(token);
+		Node<InePlace> targetPlace = placeRoot.findNodeByHierarchicalId(token);
+
+		while (targetPlace != null) {
+			if(targetPlace.getNodeElement()!=null && targetPlace.getNodeElement() instanceof ParamPlace) {
+				return true;
+			}
+			targetPlace = targetPlace.getParent();
+		}
+		
+		return false;
+
+	}
 }

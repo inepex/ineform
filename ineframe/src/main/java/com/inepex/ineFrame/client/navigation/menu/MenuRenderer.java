@@ -29,7 +29,16 @@ public class MenuRenderer {
 	
 	public static interface View {
 		
+		/**
+		 * clears both page and selector widget
+		 * 
+		 */
 		public void clearView();
+		
+		/**
+		 * clears only page
+		 */
+		public void clearTargetPart();
 
 		public Tab createTab(String menuName, int level);
 		public void appendMenuWidget(Widget widget, int level);
@@ -55,6 +64,11 @@ public class MenuRenderer {
 	
 	private final View view;
 	
+	/**
+	 * used to make sure that selectorplace rendered once
+	 */
+	boolean selectorRendered = false;
+	
 	@Inject
 	public MenuRenderer(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus,
 			View view, AuthManager authManager) {
@@ -75,7 +89,13 @@ public class MenuRenderer {
 	 * 
 	 */
 	public void realizeNewPlaceOnMenu(InePlace place, Map<String, String> urlParams) {
-		view.clearView();
+		if (PlaceHandlerHelper.haveToDisplaySelector(place.getHierarchicalToken(), hierarchyProvider.getPlaceRoot()) 
+				&& selectorRendered) {
+			view.clearTargetPart();
+		} else {
+			view.clearView();
+			selectorRendered = false;
+		}
 		
 		List<String> tokens = new ArrayList<String>(Arrays.asList(
 				PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken())
@@ -151,8 +171,11 @@ public class MenuRenderer {
 			if(selectednode!=null) {
 				if(selectednode.getNodeElement()!=null && selectednode.getNodeElement() instanceof ParamPlace) {
 					ParamPlacePresenter w = ((ParamPlace) selectednode.getNodeElement()).getSelectorPresenter();
-					if(w!=null)
+					if(w!=null && !selectorRendered)
+					{
 						view.addWidget(w.asWidget());
+						selectorRendered = true;
+					}
 				}
 			}
 		}
@@ -161,4 +184,6 @@ public class MenuRenderer {
 	public void showPage(InePage page){
 		view.showPage(page);
 	}
+	
+	
 }
