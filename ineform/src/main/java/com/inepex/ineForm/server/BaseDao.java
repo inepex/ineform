@@ -169,6 +169,8 @@ public abstract class BaseDao<E> extends KVManipulatorDaoBase {
 		else
 			merge(entity);
 
+		em.get().flush();
+		
 		return entity;
 	}
 
