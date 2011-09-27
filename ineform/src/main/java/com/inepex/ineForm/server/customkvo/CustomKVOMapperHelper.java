@@ -112,7 +112,13 @@ public class CustomKVOMapperHelper {
 		}
 		
 		PersistField pf = new PersistField();
-		pf.setParent(new CustomKVO(target.getId()));
+		if(target.getId()!=null)
+			//id object
+			pf.setParent(new CustomKVO(target.getId()));
+		else
+			//target is not persisted yet, so we don't need id object
+			pf.setParent(target);
+		
 		pf.setFieldType(ODFieldType.searchByFDesc(fd));
 		pf.setKey(fd.getKey());
 		target.getFields().add(pf);
