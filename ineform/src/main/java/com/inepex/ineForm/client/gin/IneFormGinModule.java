@@ -48,6 +48,16 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class IneFormGinModule extends AbstractGinModule {
 
+	boolean overrideFormWidgetFactory = false;
+	
+	public IneFormGinModule() {
+	}
+
+	public IneFormGinModule(boolean overrideFormWidgetFactory) {
+		super();
+		this.overrideFormWidgetFactory = overrideFormWidgetFactory;
+	}
+
 	@Override
 	protected void configure() {
 		bind(HistoryProvider.class).in(Singleton.class);
@@ -60,7 +70,9 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		bind(FormContext.class);
 		
-		bind(FormWidgetFactory.class).to(DefaultFormWidgetFactory.class).in(Singleton.class);
+		if (!overrideFormWidgetFactory)
+			bind(FormWidgetFactory.class).to(DefaultFormWidgetFactory.class).in(Singleton.class);
+		
 		bind(FormUnitFactory.class).to(DefaultFormUnitFactory.class).in(Singleton.class);
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
 
