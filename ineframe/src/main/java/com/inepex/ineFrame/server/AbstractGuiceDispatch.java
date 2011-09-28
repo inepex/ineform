@@ -51,8 +51,7 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	public void init() throws ServletException {
 		setupDefaults();
 		// TODO use DI here also!
-		new LocalizationInitializer(serverI18n, this, currentLangProvider)
-			.doInitialize();
+		new LocalizationInitializer(serverI18n, this, currentLangProvider).doInitialize();
 		setupDescriptorStores();
 		
 		super.init();
@@ -60,16 +59,13 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 
 
 	private void setupDescriptorStores() {
-		// TODO make this independent from number of languages
-		ClientDescriptorStore engDescStore = new ClientDescriptorStore();
-		currentLangProvider.get().setLangOverride("en");
-		registerAssists(engDescStore);
-		multiLangDescStore.addStore("en", engDescStore);
 		
-		ClientDescriptorStore hunDescStore = new ClientDescriptorStore();
-		currentLangProvider.get().setLangOverride("hu");	
-		registerAssists(hunDescStore);
-		multiLangDescStore.addStore("hu", hunDescStore);
+		for (String lang : serverI18n.getAllLangs()) {
+			ClientDescriptorStore localizedDescStore = new ClientDescriptorStore();
+			currentLangProvider.get().setLangOverride(lang);
+			registerAssists(localizedDescStore);
+			multiLangDescStore.addStore(lang, localizedDescStore);
+		}
 		
 		currentLangProvider.get().setLangOverride(null);
 	}

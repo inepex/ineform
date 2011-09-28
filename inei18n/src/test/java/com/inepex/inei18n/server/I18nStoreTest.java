@@ -202,10 +202,12 @@ public class I18nStoreTest {
 		LocalizedString foo1 = new LocalizedString("foo1", "Description for foo1");
 		foo1.putString("en", "foo1_EN");
 		foo1.putString("hu", "foo1_HU");
+		foo1.putString("de", "foo1_DE");
 		testData.add(foo1);
 		LocalizedString foo2 = new LocalizedString("foo2", "Description for foo2");
 		foo2.putString("en", "foo2_EN");
 		foo2.putString("hu", "foo2_HU");
+		foo2.putString("de", "foo2_DE");
 		testData.add(foo2);
 		
 		return testData;
@@ -217,10 +219,12 @@ public class I18nStoreTest {
 		LocalizedString bar1 = new LocalizedString("bar1", "Description for bar1");
 		bar1.putString("en", "bar1_EN");
 		bar1.putString("hu", "bar1_HU");
+		bar1.putString("de", "bar1_DE");
 		testData.add(bar1);
 		LocalizedString bar2 = new LocalizedString("bar2", "Description for bar2");
 		bar2.putString("en", "bar2_EN");
 		bar2.putString("hu", "bar2_HU");
+		bar2.putString("de", "bar2_DE");
 		testData.add(bar2);		
 		return testData;
 	}

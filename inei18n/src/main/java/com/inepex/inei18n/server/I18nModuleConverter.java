@@ -63,6 +63,15 @@ public class I18nModuleConverter {
 		initVelocityUtilIfNeeded();
 	}
 	
+	public I18nModuleConverter(Class<?> moduleClass, Map<String, LocalizedString> localizables) {
+		this(moduleClass);
+		this.localizables = localizables;
+	}	
+	
+	public String[] getModuleLanguages() {
+		return props.languages;
+	}
+	
 	private void initVelocityUtilIfNeeded() {
 		if (velocityUtil != null)
 			return;
@@ -70,10 +79,7 @@ public class I18nModuleConverter {
 		velocityUtil = new VelocityUtil(getClass().getClassLoader());
 	}
 	
-	public I18nModuleConverter(Class<?> moduleClass, Map<String, LocalizedString> localizables) {
-		this(moduleClass);
-		this.localizables = localizables;
-	}
+
 	
 	/**
 	 * Only works in development environment!

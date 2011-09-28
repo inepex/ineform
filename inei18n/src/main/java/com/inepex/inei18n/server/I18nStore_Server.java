@@ -1,7 +1,9 @@
 package com.inepex.inei18n.server;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,6 +17,8 @@ public class I18nStore_Server extends I18nStoreBase {
 		
 	HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule 
 		= new HashMap<String, TreeMap<String,LocalizedString>>();
+	
+	private HashSet<String> allLangs = new HashSet<String>();
 	
 	@Inject
 	public I18nStore_Server() {
@@ -36,6 +40,10 @@ public class I18nStore_Server extends I18nStoreBase {
 		}
 		
 		localizablesByKey.put(localizable.getKey(), localizable);
+	}
+	
+	public HashSet<String> getAllLangs() {
+		return allLangs;
 	}
 	
 	private void checkModuleAdded(String module) {
@@ -68,12 +76,15 @@ public class I18nStore_Server extends I18nStoreBase {
 	}
 	
 	public void loadAllModulesDataFormCsv(boolean isDevMode) {
+		
 		for (I18nModule i18nModule : modulesByName.values()) {
 			I18nModuleConverter moduleConv = new I18nModuleConverter(i18nModule.getClass());
 			if (isDevMode)
 				moduleConv.loadDataFromDefaultCsvDev();
 			else
 				moduleConv.loadDataFromDefaultCsvRuntime();
+			
+			allLangs.addAll(Arrays.asList(moduleConv.getModuleLanguages()));
 			
 			addLocalizables(i18nModule.getModuleName(), moduleConv.getLocalizables());
 		}
