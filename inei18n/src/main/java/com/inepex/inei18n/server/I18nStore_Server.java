@@ -8,11 +8,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nStoreBase;
 import com.inepex.inei18n.shared.LocalizedString;
 
-
+@Singleton
 public class I18nStore_Server extends I18nStoreBase {
 		
 	HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule 
