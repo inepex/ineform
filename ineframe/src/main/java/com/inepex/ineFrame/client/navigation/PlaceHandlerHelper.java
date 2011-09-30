@@ -19,32 +19,28 @@ public class PlaceHandlerHelper {
 	public static String appendParam(String hierarchicalToken, String paramToken, String value) {
 		if(hierarchicalToken.length()<1)
 			return "";
-		
-		String lastPart;
-		if(hierarchicalToken.indexOf(Node.ID_SEPARATOR)>0) {
-			String[] parts = hierarchicalToken.split(regExp(Node.ID_SEPARATOR));
-			lastPart = parts[parts.length-1];
-		} else {
-			lastPart=hierarchicalToken;
+
+		String[] parts = hierarchicalToken.split(regExp(Node.ID_SEPARATOR));
+
+		for(String part : parts){
+			if(PlaceHandlerHelper.getUrlParameters(part).containsKey(paramToken)) {
+				StringBuffer editedLastPart = new StringBuffer();
+				int paramIndex = part.indexOf(paramToken,
+						part.indexOf(PlaceHandler.QUESTION_MARK));
+				
+				editedLastPart.append(part.substring(0, paramIndex));
+				editedLastPart.append(paramToken);
+				editedLastPart.append(PlaceHandler.EQUALS_SIGN);
+				editedLastPart.append(value);
+				
+				int at = part.indexOf(PlaceHandler.AND_SIGN, paramIndex);
+				if(at>0)
+					editedLastPart.append(part.substring(at, part.length()));
+				
+				return hierarchicalToken.replace(part, editedLastPart.toString());
+			}
 		}
-		
-		if(PlaceHandlerHelper.getUrlParameters(lastPart).containsKey(paramToken)) {
-			StringBuffer editedLastPart = new StringBuffer();
-			int paramIndex = lastPart.indexOf(paramToken,
-					lastPart.indexOf(PlaceHandler.QUESTION_MARK));
-			
-			editedLastPart.append(lastPart.substring(0, paramIndex));
-			editedLastPart.append(paramToken);
-			editedLastPart.append(PlaceHandler.EQUALS_SIGN);
-			editedLastPart.append(value);
-			
-			int at = lastPart.indexOf(PlaceHandler.AND_SIGN, paramIndex);
-			if(at>0)
-				editedLastPart.append(lastPart.substring(at, lastPart.length()));
-			
-			return hierarchicalToken.replace(lastPart, editedLastPart.toString());
-		}
-			
+		String lastPart = parts[parts.length - 1];
 		if(lastPart.indexOf(PlaceHandler.QUESTION_MARK)>=0)
 			return hierarchicalToken+PlaceHandler.AND_SIGN+paramToken+PlaceHandler.EQUALS_SIGN+value;
 		else
