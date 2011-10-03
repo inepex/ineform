@@ -24,6 +24,7 @@ public abstract class InePlace {
 	
 	private boolean onlyVisibleWhenActive = false;
 	private boolean showChildreWhenActive = false;
+	private boolean withoutMenu = false;
 	
 	public abstract InePage getAssociatedPage();
 	
@@ -104,6 +105,15 @@ public abstract class InePlace {
 		this.onlyVisibleWhenActive = onlyVisibleWhenActive;
 		return this;
 	}
+	/**
+	 * don't render the menu when rendering this place
+	 * @param withoutMenu
+	 * @return
+	 */
+	public InePlace setWithoutMenu(boolean withoutMenu) {
+		this.withoutMenu = withoutMenu;
+		return this;
+	}
 
 	public boolean isOnlyVisibleWhenActive() {
 		return onlyVisibleWhenActive;
@@ -135,6 +145,10 @@ public abstract class InePlace {
 	
 	public boolean isShowChildreWhenActive() {
 		return showChildreWhenActive;
+	}
+
+	public boolean isWithoutMenu() {
+		return withoutMenu;
 	}
 	
 }

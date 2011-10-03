@@ -97,6 +97,10 @@ public class MenuRenderer {
 			selectorRendered = false;
 		}
 		
+		if (place.isWithoutMenu()){
+			return;
+		}
+		
 		List<String> tokens = new ArrayList<String>(Arrays.asList(
 				PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken())
 				.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
