@@ -2,14 +2,14 @@ package com.inepex.ineFrame.test;
 
 import com.google.gwt.junit.GWTMockUtilities;
 import com.google.inject.Provider;
-import com.inepex.ineFrame.server.IneFrameInitializer;
+import com.inepex.ineFrame.server.IneInitializer;
 import com.inepex.ineFrame.server.LocalizationInitializer;
 import com.inepex.ineFrame.server.MockCurrentLang;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 
-public abstract class IneFrameClientSideTestBase implements IneFrameInitializer {
+public abstract class IneFrameClientSideTestBase implements IneInitializer {
 	public class MockCurrentLangProvider implements Provider<CurrentLang> {
 		@Override
 		public CurrentLang get() {

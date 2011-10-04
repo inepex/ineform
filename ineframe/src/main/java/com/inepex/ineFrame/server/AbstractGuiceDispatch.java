@@ -19,7 +19,7 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 											implements UserHasRequiredRoleVerifier
-													 , IneFrameInitializer{
+													 , IneInitializer{
 
 	private static final long serialVersionUID = 1L;	
 //	private static final Logger logger = LoggerFactory

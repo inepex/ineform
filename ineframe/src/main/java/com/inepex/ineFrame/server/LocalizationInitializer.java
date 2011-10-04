@@ -9,10 +9,10 @@ import com.inepex.inei18n.shared.CurrentLang;
 public class LocalizationInitializer {
 
 	private final I18nStore_Server serverI18n;
-	private final IneFrameInitializer ineFrameInitilaizer;
+	private final IneInitializer ineFrameInitilaizer;
 	private final Provider<CurrentLang> currentLangProvider;
 	
-	public LocalizationInitializer(I18nStore_Server serverI18n, IneFrameInitializer ineFrameInitilaizer,
+	public LocalizationInitializer(I18nStore_Server serverI18n, IneInitializer ineFrameInitilaizer,
 			Provider<CurrentLang> currentLangProvider) {
 		this.serverI18n = serverI18n;
 		this.ineFrameInitilaizer = ineFrameInitilaizer;
