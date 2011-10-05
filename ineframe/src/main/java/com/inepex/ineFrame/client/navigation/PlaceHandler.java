@@ -104,6 +104,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				
 				if(authManager.isUserLoggedIn()) {
 					masterPage.renderForbidden(place);
+					return;
 				} else {
 					eventBus.fireEvent(new PlaceRequestEvent(
 							defaultPlace+
