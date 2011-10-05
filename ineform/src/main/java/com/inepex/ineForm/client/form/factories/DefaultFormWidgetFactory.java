@@ -89,7 +89,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new DateTimeFW(formCtx.dateProvider, fieldDesc, wrDesc.getProps());
 
 		else if (widgetType.equals(FWTypes.RELATEDFORM))
-			createdWidget = new RelationFW(formCtx, (RelationFDesc) fieldDesc);
+			createdWidget = new RelationFW(formCtx, (RelationFDesc) fieldDesc, wrDesc.getPropValue(RelationFW.FRD));
 		
 		else if (widgetType.equals(FWTypes.CUSTOMKVO))
 			createdWidget= new CustomKVOFW((RelationFDesc) fieldDesc, odFinder,  customKvoView.get());

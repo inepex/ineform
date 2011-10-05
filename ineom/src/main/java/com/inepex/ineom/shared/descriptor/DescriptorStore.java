@@ -8,6 +8,9 @@ public interface DescriptorStore {
 	
 	/**
 	 * Returns the {@link ObjectDesc} belonging to the given name
+	 * 
+	 * BE CAREFUL! The CustomKVOs' objectdescriptors can not be given by this method 
+	 * 
 	 * @param name The name of the {@link ObjectDesc}
 	 * @return The {@link ObjectDesc} instance if found
 	 */

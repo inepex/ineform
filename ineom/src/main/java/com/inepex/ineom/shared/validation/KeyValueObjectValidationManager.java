@@ -191,11 +191,19 @@ public class KeyValueObjectValidationManager {
 				}			
 			}
 			
+			//findig the suitable od
+			ObjectDesc odOfRelatedKVO = od;
+			if(SharedUtil.isMultilevelKey(fieldName)) {
+				for(int i=0; i<nameAsList.size()-1; i++) {
+					RelationFDesc fd = (RelationFDesc) odOfRelatedKVO.getField(nameAsList.get(i));
+					odOfRelatedKVO=descStore.getOD(fd.getRelatedDescriptorName());
+				}
+			}
 			
+			//validation
 			ValidationResult vr = new ValidationResult();
-			
 			for(String validatorName : fDesc.getValidatorNames()) {
-				KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName(), od);
+				KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName(), odOfRelatedKVO);
 				if(validator!=null) validator.doValidation(actual.getAssistedObject(), vr);
 			}
 			

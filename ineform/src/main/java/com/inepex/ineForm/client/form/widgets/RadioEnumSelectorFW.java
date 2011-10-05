@@ -48,6 +48,8 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 		initWidget(mainPanel);
 		for(RadioButton rb : radioButtons) mainPanel.add(rb);
 		
+		radioButtons.get(0).setValue(true);
+		
 		mainPanel.setStyleName(ResourceHelper.getRes().style().displayInline());
 	}
 	
@@ -94,13 +96,12 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
     @Override
     public void setLongValue(Long value) {
       	if (value == null) {
-      		if(allowsNull) radioButtons.get(0).setValue(true);
-      		else {
-      			for(RadioButton rb : radioButtons) {
-      				rb.setValue(false);
-      			}
-      		}
-      		return;
+  			for(RadioButton rb : radioButtons) {
+  				rb.setValue(false);
+  			}
+  		
+  			radioButtons.get(0).setValue(true);
+  			
       	} else {
       		radioButtons.get(index(value)).setValue(true);
       	}	

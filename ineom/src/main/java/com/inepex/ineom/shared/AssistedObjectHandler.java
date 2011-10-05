@@ -14,7 +14,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 public class AssistedObjectHandler extends AssistedObjectChecker {
 	
 	private final DescriptorStore descriptorStore;
-
+	
 	public AssistedObjectHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
 		super(assistedObject, assistedObject.getDescriptorName(), descriptorStore.getOD(assistedObject.getDescriptorName()));
 		this.descriptorStore=descriptorStore;

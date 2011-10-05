@@ -16,16 +16,18 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public class RelationFW extends DenyingFormWidget {
 	
+	public static final String FRD="frd";
+	
 	private IneForm form = null;
 	private Relation relation = null;
 	final private RelationFDesc fieldDescriptor;
 	
-	public RelationFW(FormContext formCtx, RelationFDesc fieldDescriptor) {
+	public RelationFW(FormContext formCtx, RelationFDesc fieldDescriptor, String frd) {
 		super(fieldDescriptor);
 		this.fieldDescriptor = fieldDescriptor;
 		
 		String relatedDescriptorName = fieldDescriptor.getRelatedDescriptorName();
-		form = new IneForm(formCtx, relatedDescriptorName, null);
+		form = new IneForm(formCtx, relatedDescriptorName, frd);
 		form.renderForm();
 		
 		initWidget(form.asWidget());
