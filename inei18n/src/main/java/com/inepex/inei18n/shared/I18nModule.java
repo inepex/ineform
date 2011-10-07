@@ -19,6 +19,10 @@ public abstract class I18nModule implements Serializable {
 		return moduleName;
 	}
 	
+	public static String upperFirst(String s){
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
+	}
+	
 	public abstract I18nModuleProvider<?> getI18nProvider();
 	
 }
