@@ -39,11 +39,24 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public IsWidget asWidget();
 	}
 	
+	private class DefaultSettingOnClicked implements OnClickedLogic {
+		@Override
+		public void doLogic() {
+			if(view.isSettingsPopupShowing()) {
+				view.hideSettingsPopup();
+			} else {
+				view.showSettingsPopup();
+			}
+		}
+	}
+	
 	private final AuthManager authManager;
 	private final PlaceHierarchyProvider placeHierarchyProvider;
 	private final EventBus eventBus;
 	
 	private final View view;
+	
+	private OnClickedLogic settingsClickLogic;
 	
 	@Inject
 	public IneFrameHeader(AuthManager authManager,
@@ -55,23 +68,12 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		this.view = view;
 		this.eventBus=eventBus;
 		
-		init();
+		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
 	}
 	
-	private void init() {
-		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
-		
-		view.setSettingsButtonLogic(new OnClickedLogic() {
-			
-			@Override
-			public void doLogic() {
-				if(view.isSettingsPopupShowing()) {
-					view.hideSettingsPopup();
-				} else {
-					view.showSettingsPopup();
-				}
-			}
-		});
+	public IneFrameHeader setSettingsClickLogic(OnClickedLogic settingsClickLogic) {
+		this.settingsClickLogic = settingsClickLogic;
+		return this;
 	}
 
 	@Override
@@ -80,6 +82,9 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	}
 
 	public void refresh() {
+		if (settingsClickLogic == null) settingsClickLogic = new DefaultSettingOnClicked();
+		view.setSettingsButtonLogic(settingsClickLogic);
+		
 		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
 			view.setUserName(authManager.getLastAuthStatusResult().getDisplayName());
 		} else {
