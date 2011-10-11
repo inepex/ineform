@@ -64,6 +64,8 @@ public class MenuRenderer {
 	
 	private final View view;
 	
+	private String lastTokenPlacePart = null;
+	
 	/**
 	 * used to make sure that selectorplace rendered once
 	 */
@@ -89,6 +91,11 @@ public class MenuRenderer {
 	 * 
 	 */
 	public void realizeNewPlaceOnMenu(InePlace place, Map<String, String> urlParams) {
+		String newTokenPlacePart = PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken());
+		
+		if (newTokenPlacePart.equals(lastTokenPlacePart))
+			return;
+		
 		if (PlaceHandlerHelper.haveToDisplaySelector(place.getHierarchicalToken(), hierarchyProvider.getPlaceRoot()) 
 				&& selectorRendered) {
 			view.clearTargetPart();
@@ -101,9 +108,10 @@ public class MenuRenderer {
 			return;
 		}
 		
-		List<String> tokens = new ArrayList<String>(Arrays.asList(
-				PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken())
-				.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
+		lastTokenPlacePart = newTokenPlacePart;
+		
+		List<String> tokens = new ArrayList<String>(Arrays.asList(lastTokenPlacePart.
+				split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
 		
 		//TODO sebi check it!
 //		if(tokens.size()<2)
