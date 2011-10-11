@@ -33,6 +33,7 @@ public class App extends IneFrameEntryPoint {
 		NavigationProperties.logoutToken=AppPlaceHierarchyProvider.LOGIN;
 		NavigationProperties.noRightPlace=AppPlaceHierarchyProvider.LOGIN;
 		NavigationProperties.wrongTokenPlace=AppPlaceHierarchyProvider.LOGIN;
+		NavigationProperties.loginPlace = AppPlaceHierarchyProvider.LOGIN;
 		
 		registerDescriptors();
 		

@@ -1,7 +1,7 @@
 package com.inepex.ineFrame.client.navigation;
 
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.defaultPlace;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.loginPlace;
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
 
 import java.util.List;
@@ -107,10 +107,10 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 					return;
 				} else {
 					eventBus.fireEvent(new PlaceRequestEvent(
-							defaultPlace+
-							QUESTION_MARK+
-							REDIRECT+
-							EQUALS_SIGN+
+							loginPlace +
+							QUESTION_MARK +
+							REDIRECT +
+							EQUALS_SIGN +
 							currentFullTokenWithoutRedirect));
 					return;
 				}
