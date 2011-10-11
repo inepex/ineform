@@ -37,6 +37,7 @@
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<SVNConnBase>scm:svn:http://ineform.googlecode.com/svn/trunk</SVNConnBase>
 	</properties>
 
 	<repositories>
