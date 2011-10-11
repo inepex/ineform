@@ -116,6 +116,10 @@
 			<resource>
 				<directory>${basedir}/src/main/java</directory>
 			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -149,15 +153,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>${mavenJarVersion}</version>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<version>${project.version}</version>
-							<SVN-branch>${scmBranch}</SVN-branch>
-							<SVN-rev-number>${buildNumber}</SVN-rev-number>
-						</manifestEntries>
-					</archive>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>
