@@ -24,12 +24,15 @@ public class PlaceToken {
 		return PlaceHandlerHelper.getUrlParameters(token);
 	}
 	
-	public String createParentLevelMenuToken(){
-		return PlaceHandlerHelper.createParentLevelMenuToken(token);
+	public PlaceToken createParentLevelMenuToken(){
+		token =  PlaceHandlerHelper.createParentLevelMenuToken(token);
+		return this;
 	}
 	
-	public String createSameLevelMenuToken(String... subMenuTokens) {
-		return PlaceHandlerHelper.createSameLevelMenuToken(token, subMenuTokens);
+	public PlaceToken createSameLevelMenuToken(String... subMenuTokens) {
+		token = PlaceHandlerHelper.createSameLevelMenuToken(token, subMenuTokens);
+		return this;
+		
 	}
 	
 	public String getPlacePart(String currentFullToken) {
