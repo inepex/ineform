@@ -223,9 +223,43 @@ public class DateHelper {
 	}
 	
 	@SuppressWarnings("deprecation")
+	public static Date getThisWeekStartDate(Date from){
+		Date date = resetHoursMinsSecsMillis(from);
+		while (date.getDay() != 1){
+			date = addDaysSafe(date, -1);
+		}
+		return date;		
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static Date getPrevWeekStartDate(Date from){
+		Date date = resetHoursMinsSecsMillis(from);
+		date = addDaysSafe(date, -7);
+		while (date.getDay() != 1){
+			date = addDaysSafe(date, -1);
+		}
+		return date;		
+	}
+	
+	@SuppressWarnings("deprecation")
 	public static Date getNextMonthStartDate(Date from){
 		Date date = resetHoursMinsSecsMillis(from);
 		date.setMonth(date.getMonth() + 1);
+		date.setDate(1);
+		return date;		
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static Date getThisMonthStartDate(Date from){
+		Date date = resetHoursMinsSecsMillis(from);
+		date.setDate(1);
+		return date;		
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static Date getPrevMonthStartDate(Date from){
+		Date date = resetHoursMinsSecsMillis(from);
+		date.setMonth(date.getMonth() - 1);
 		date.setDate(1);
 		return date;		
 	}
