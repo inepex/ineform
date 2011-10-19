@@ -15,7 +15,7 @@ public class EmailValidator implements KeyValueObjectValidator {
 	/**
 	 * from IneFormBuilder: com.inepex.formbuilder.validator.EmailValidator revision:1840
 	 */
-	private final String regExpr = "^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,6}$";
+	public final static String regExpr = "^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,6}$";
 	private final String fieldName;
 
 	public EmailValidator(IneT type, String fieldName, ObjectDesc objectDesc) {
