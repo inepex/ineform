@@ -28,11 +28,10 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	private AddCallback addCallback;
 	private RowValueChangeCallback rowValueChangeCallback;
 	
+	private final CustomKVOFWReadOnlyView readOnlyView = new CustomKVOFWReadOnlyView();
+	
 	CustomKVOFWView() {
-		add(rowTable);
-		add(addBtn);
-		
-		createHeader();
+
 	}
 	
 	private void createHeader() {
@@ -118,5 +117,23 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 		//because of header
 		index++; 
 		rowTable.removeRow(index);
+	}
+
+	@Override
+	public void showReadOnly(List<CustomKVORow> rows) {
+		clear();
+		add(readOnlyView);
+		readOnlyView.init(rows, true, true);
+		readOnlyView.show();
+		
+	}
+
+	@Override
+	public void showEditable() {
+		clear();
+		add(rowTable);
+		add(addBtn);
+		
+		createHeader();
 	}
 }

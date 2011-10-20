@@ -45,6 +45,7 @@ public class FWTypes implements Serializable{
 	public static final FWTypes SUGGESTBOX = new FWTypes("SUGGESTBOX");
 	public static final FWTypes TABLE = new FWTypes("TABLE");
 	public static final FWTypes CUSTOMKVO = new FWTypes("CUSTOMKVO");
+	public static final FWTypes CUSTOMKVOREADONLY = new FWTypes("CUSTOMKVOREADONLY");
 	
 	private String typeName = "";
 

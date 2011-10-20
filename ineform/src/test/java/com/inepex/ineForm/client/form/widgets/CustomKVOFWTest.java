@@ -19,6 +19,8 @@ import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVORow;
 import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder.OdFoundCallback;
 import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineForm.shared.types.FWTypes;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
@@ -91,6 +93,7 @@ public class CustomKVOFWTest extends DefaultIneFormClientSideTestBase {
 		
 		fw = new CustomKVOFW(
 				new RelationFDesc("keyOfField", "disp name of field", IFConsts.customDescriptorName),
+				new WidgetRDesc(FWTypes.CUSTOMKVO),
 				finder,
 				view);
 	}

@@ -7,17 +7,16 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.google.gwt.user.client.ui.IsWidget;
-import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
 
-public class CustomKVOFW extends DenyingFormWidget implements AddCallback, RemoveCallback, RowValueChangeCallback {
+public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveCallback, RowValueChangeCallback {
 	
 	public static interface View extends IsWidget {
 		public void setRemoveCallback(RemoveCallback removeCallback);
@@ -30,28 +29,48 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		
 		public void dealResult(Map<Long, String> res);
 		public ErrorMessageManagerInterface getErrorManager(CustomKVORow r);
+		
+		public void showReadOnly(List<CustomKVORow> rows);
+		public void showEditable();
 	}
 	
-	private final OdFinder odFinder;
-	
 	private final View view;
-	private final List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
 	
-	private Relation relation = null;
+	private boolean enabled = true;
 	
-	public CustomKVOFW(RelationFDesc fieldDescriptor, OdFinder odFinder, View view) {
-		super(fieldDescriptor);
+	public CustomKVOFW(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, OdFinder odFinder, View view) {
+		super(fieldDescriptor, widgetRDesc, odFinder);
 		
 		if(!IFConsts.customDescriptorName.equals(fieldDescriptor.getRelatedDescriptorName()))
 			throw new IllegalArgumentException();
 		
-		this.odFinder=odFinder;
 		this.view = view;
 		this.view.setAddCallback(this);
 		this.view.setRemoveCallback(this);
 		this.view.setRowValueChangeCallback(this);
 		
 		initWidget(view.asWidget());
+	}
+	
+	@Override
+	protected void beforeRelationParsed() {
+		view.clearRows();
+	}
+
+	@Override
+	protected void onRelationParsed() {
+		for(CustomKVORow r : rows) {
+			view.addRow(r);
+		}
+		if (!enabled) view.showReadOnly(rows);
+		else view.showEditable();
+		
+	}
+	
+	@Override
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		view.showReadOnly(rows);
 	}
 
 	@Override
@@ -77,46 +96,6 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 	}
 	
 	@Override
-	public boolean handlesRelation() {
-		return true;
-	}
-	
-	@Override
-	public void setRelationValue(Relation value) {
-		//clearing previous state 
-		view.clearRows();
-		rows.clear();
-		
-		if(value!=null) {
-			relation = new Relation(value.getId(), value.getDisplayName(), value.getKvo());
-			
-			if(value.getKvo()!=null) {
-				if(!IFConsts.customDescriptorName.equals(value.getKvo().getDescriptorName()))
-					throw new IllegalArgumentException();
-			}
-			
-		} else {
-			relation = null;
-			return;
-		}
-		
-		
-		final AssistedObject ao = value.getKvo();
-		
-		odFinder.getCustomOd(value.getId(), new OdFinder.OdFoundCallback() {
-			
-			@Override
-			public void onFound(ObjectDesc od) {
-				//adding new rows
-				for(CustomKVORow r : ODAOCustomKVOMappingHelper.getRowsFromAoAndOd(ao, od)) {
-					rows.add(r);
-					view.addRow(r);
-				}
-			}
-		});
-	}
-	
-	@Override
 	public Relation getRelationValue(){
 		AssistedObject ao = ODAOCustomKVOMappingHelper.getAoFromRows(rows);
 		if(ao==null) {
@@ -135,7 +114,7 @@ public class CustomKVOFW extends DenyingFormWidget implements AddCallback, Remov
 		
 		return relation;
 	}
-	
+
 	/**
 	 * @return false if it's in inconsistent state
 	 */

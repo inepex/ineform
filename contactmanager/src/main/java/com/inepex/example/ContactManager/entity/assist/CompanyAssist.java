@@ -80,6 +80,7 @@ public class CompanyAssist extends Assist {
 				.addChild(CompanyConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.LABEL/*hc*/))
 				.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.LABEL/*hc*/))
 				.addChild(CompanyConsts.k_contacts, new WidgetRDesc(/*hc:f6*/FWTypes.LABEL/*hc*/))
+				.addChild(CompanyConsts.k_extData, new WidgetRDesc(FWTypes.CUSTOMKVOREADONLY, "showHeader:false"))
 			;
 		return formRDesc;
 	}
