@@ -44,6 +44,8 @@ public abstract class AbstractMasterPage implements MasterPage {
 
 	@Override
 	public void renderForbidden(InePlace place) {
-		showPage(new DummyPage("<h2>access denied</h2>"));
+		InePage forbiddenPage = new DummyPage("<h2>access denied</h2>");
+		forbiddenPage.onShow();
+		showPage(forbiddenPage);
 	}
 }

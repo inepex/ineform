@@ -95,27 +95,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		InePlace place = placeNode.getNodeElement();
 
-		if (place.isAuthenticationNeeded()) {
-			
-			List<String> allowedRolesForPlace = place.getRolesAllowed();
-
-			if (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0
-					|| !authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
-				
-				if(authManager.isUserLoggedIn()) {
-					masterPage.renderForbidden(place);
-					return;
-				} else {
-					eventBus.fireEvent(new PlaceRequestEvent(
-							loginPlace +
-							QUESTION_MARK +
-							REDIRECT +
-							EQUALS_SIGN +
-							currentFullTokenWithoutRedirect));
-					return;
-				}
-			}
-		}
+		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect)) return;
 		
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
@@ -193,6 +173,28 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		t.schedule(500);
 	}
 	
+	
+	private boolean checkPermissionsAndRedirectIfNeeded(InePlace place, String currentFullTokenWithoutRedirect){
+		if (place.isAuthenticationNeeded()) {
+			List<String> allowedRolesForPlace = place.getRolesAllowed();
+			if (!authManager.isUserLoggedIn()){
+				eventBus.fireEvent(new PlaceRequestEvent(
+						loginPlace +
+						QUESTION_MARK +
+						REDIRECT +
+						EQUALS_SIGN +
+						currentFullTokenWithoutRedirect));
+				return false;
+			}else if (authManager.isUserLoggedIn() && (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0)) {
+				return true;
+			} else if (authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))){
+				return true;				
+			} else {
+				masterPage.renderForbidden(place);
+				return false;
+			}
+		} else return true;
+	}
 	
 //------- ------------------------------
 //        navigation helper methods
