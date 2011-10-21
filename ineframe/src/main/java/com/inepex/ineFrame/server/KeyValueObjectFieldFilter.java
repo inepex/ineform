@@ -39,19 +39,24 @@ public class KeyValueObjectFieldFilter {
 			if(fDesc!=null) {
 				switch(fDesc.getType()) {
 				case BOOLEAN:
-					ret.set(key, kvoChecker.getBoolean(key));
+					if(kvoChecker.containsBoolean(key))
+						ret.set(key, kvoChecker.getBoolean(key));
 					break;
 				case DOUBLE:
-					ret.set(key, kvoChecker.getDouble(key));
+					if(kvoChecker.containsDouble(key))
+						ret.set(key, kvoChecker.getDouble(key));
 					break;
 				case LIST:
-					ret.set(key, kvoChecker.getList(key));
+					if(kvoChecker.containsList(key))
+						ret.set(key, kvoChecker.getList(key));
 					break;
 				case LONG:
-					ret.set(key, kvoChecker.getLong(key));
+					if(kvoChecker.containsLong(key))
+						ret.set(key, kvoChecker.getLong(key));
 					break;
 				case STRING:
-					ret.set(key, kvoChecker.getString(key));
+					if(kvoChecker.containsString(key))
+						ret.set(key, kvoChecker.getString(key));
 					break;
 				case RELATION:
 					//TODO implements
