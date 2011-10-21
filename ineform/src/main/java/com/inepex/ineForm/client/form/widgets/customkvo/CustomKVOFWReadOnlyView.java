@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets.customkvo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.Grid;
@@ -13,9 +14,9 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 
 	private Grid grid = new Grid();
 	
-	List<CustomKVORow> rows;
-	boolean showHeader;
-	boolean showType;
+	List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
+	boolean showHeader = true;
+	boolean showType = false;
 	
 	boolean rendered = false;
 	
@@ -28,6 +29,11 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 	protected void onLoad() {
 		super.onLoad();
 		show();
+	}
+	
+	public void clear(){
+		grid.clear(true);
+		grid.resize(0, 0);
 	}
 	
 	public void init(List<CustomKVORow> rows, boolean showHeader, boolean showType){

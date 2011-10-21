@@ -50,6 +50,7 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 		this.view.setRowValueChangeCallback(this);
 		
 		initWidget(view.asWidget());
+		view.showEditable();
 	}
 	
 	@Override

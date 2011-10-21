@@ -15,6 +15,7 @@ public class CustomKVOReadOnlyFW extends CustomKVOFWBase {
 
 	@Override
 	protected void beforeRelationParsed() {
+		readOnlyView.clear();
 	}
 
 	@Override
