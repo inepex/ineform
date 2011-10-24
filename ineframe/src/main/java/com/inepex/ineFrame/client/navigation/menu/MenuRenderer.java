@@ -93,8 +93,10 @@ public class MenuRenderer {
 	public void realizeNewPlaceOnMenu(InePlace place, Map<String, String> urlParams) {
 		String newTokenPlacePart = PlaceHandlerHelper.getPlacePart(place.getHierarchicalToken());
 		
-		if (newTokenPlacePart.equals(lastTokenPlacePart))
+		if (newTokenPlacePart.equals(lastTokenPlacePart)){
 			return;
+		}
+		lastTokenPlacePart = newTokenPlacePart;
 		
 		if (PlaceHandlerHelper.haveToDisplaySelector(place.getHierarchicalToken(), hierarchyProvider.getPlaceRoot()) 
 				&& selectorRendered) {
@@ -107,8 +109,6 @@ public class MenuRenderer {
 		if (place.isWithoutMenu()){
 			return;
 		}
-		
-		lastTokenPlacePart = newTokenPlacePart;
 		
 		List<String> tokens = new ArrayList<String>(Arrays.asList(lastTokenPlacePart.
 				split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
