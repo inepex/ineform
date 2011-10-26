@@ -102,7 +102,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					${attr.fistGenTypeU1} entity = new ${attr.fistGenTypeU1}(IFConsts.NEW_ITEM_ID);
 					mapper.kvoToEntity(rel.getKvo(), entity, descs);
-					##entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
+					entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
 					to.get${attr.nameU1}().add(entity);
 				} else {
 					${attr.fistGenTypeU1} origItem = origItems.get(rel.getId());
