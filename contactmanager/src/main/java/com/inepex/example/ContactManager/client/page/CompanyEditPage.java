@@ -33,7 +33,6 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 		form= new SaveCancelForm(formContext, CompanyConsts.descriptorName, null, connector, null);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
-		form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(CompanyConsts.k_extData()).setEnabled(false);
 		mainPanel.add(form.asWidget());
 	}
 	
