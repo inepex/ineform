@@ -71,7 +71,10 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-		view.showReadOnly(rows);
+		if(enabled)
+			view.showEditable();
+		else
+			view.showReadOnly(rows);
 	}
 
 	@Override
