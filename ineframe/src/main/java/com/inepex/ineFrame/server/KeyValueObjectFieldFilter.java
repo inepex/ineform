@@ -17,7 +17,7 @@ public class KeyValueObjectFieldFilter {
 	
 	/**
 	 * copy id and enabled keys into an another kvo
-	 *  !!!!!!!!! logic for RELATED fields and RELATION are not implemented yet !!!!!!
+	 *  !!!!!!!!! logic for RELATED fields is not implemented yet !!!!!!
 	 *  
 	 */
 	public static AssistedObject filterKvo(DescriptorStore descStore, Collection<String> enabledKeys,
