@@ -59,7 +59,8 @@ public class KeyValueObjectFieldFilter {
 						ret.set(key, kvoChecker.getString(key));
 					break;
 				case RELATION:
-					//TODO implements
+					if(kvoChecker.containsRelation(key))
+						ret.set(key, kvoChecker.getRelation(key));
 				}
 			}
 		}
