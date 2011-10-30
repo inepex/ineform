@@ -18,6 +18,7 @@
 		<gwtVersion>2.3.0</gwtVersion>
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.8.5</mockitoVersion>
+		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
 		<ginVersion>1.5</ginVersion>
 		<guiceVersion>3.0</guiceVersion>
 		<gwtDndVersion>3.1.1</gwtDndVersion>
