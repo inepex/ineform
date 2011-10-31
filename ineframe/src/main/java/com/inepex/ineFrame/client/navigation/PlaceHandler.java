@@ -130,14 +130,14 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			pointer=pointer.getParent();
 		}
 
+		// change the browsers token if does not mach current token
+		if (!historyProvider.getToken().equals(currentFullToken))
+			historyProvider.newItem(currentFullToken);
+		
 		if (specificAdjustPlaceShouldReturn(place))
 			return;
 		
 		masterPage.render(place, urlParams);
-		
-		// change the browsers token if does not mach current token
-		if (!historyProvider.getToken().equals(currentFullToken))
-			historyProvider.newItem(currentFullToken);
 
 	}
 

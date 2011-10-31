@@ -2,6 +2,7 @@ package com.inepex.ineFrame.client.navigation;
 
 import java.util.Map;
 
+import com.google.gwt.user.client.ui.IsWidget;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.page.InePage;
 import com.inepex.ineFrame.client.page.defaults.DummyPage;
@@ -9,9 +10,11 @@ import com.inepex.ineFrame.client.page.defaults.DummyPage;
 public abstract class AbstractMasterPage implements MasterPage {
 	
 	protected final AsyncStatusIndicator statusIndicator;
+	protected final MasterPage.View view;
 	
-	public AbstractMasterPage(AsyncStatusIndicator statusIndicator) {
+	public AbstractMasterPage(AsyncStatusIndicator statusIndicator, MasterPage.View view) {
 		this.statusIndicator=statusIndicator;
+		this.view = view;
 	}
 	
 	protected abstract void showPage(InePage page);
@@ -47,5 +50,9 @@ public abstract class AbstractMasterPage implements MasterPage {
 		InePage forbiddenPage = new DummyPage("<h2>access denied</h2>");
 		forbiddenPage.onShow();
 		showPage(forbiddenPage);
+	}
+	
+	public IsWidget getView(){
+		return view.asWidget();
 	}
 }

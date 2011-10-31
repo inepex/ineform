@@ -8,23 +8,22 @@ import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.navigation.AbstractMasterPage;
 import com.inepex.ineFrame.client.navigation.InePlace;
+import com.inepex.ineFrame.client.navigation.MasterPage;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.page.InePage;
 
 @Singleton
 public class DefaultIneFrameMasterPage extends AbstractMasterPage {
-
-	public static interface View {
-	}
 	
 	private final MenuRenderer menuRenderer;
 	private final IneFrameHeader header;
+
 	
 	@Inject
 	public DefaultIneFrameMasterPage(AsyncStatusIndicator statusIndicator, MenuRenderer menuRenderer,
-			IneFrameHeader header) {
-		super(statusIndicator);
+			IneFrameHeader header, MasterPage.View view) {
+		super(statusIndicator, view);
 		this.menuRenderer=menuRenderer;
 		this.header=header;
 	}
