@@ -5,7 +5,7 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 public interface AuthManager {
 	public abstract void checkAuthStatus(final AuthActionCallback callback);
-	public abstract void doLogin(String userName, String password, AuthActionCallback callback);
+	public abstract void doLogin(String userName, String password, String captchaAnswer, AuthActionCallback callback);
 	public abstract AuthStatusResultBase getLastAuthStatusResult();
 	public abstract void doLogout(AuthActionCallback callback);
 	public abstract boolean isUserLoggedIn();

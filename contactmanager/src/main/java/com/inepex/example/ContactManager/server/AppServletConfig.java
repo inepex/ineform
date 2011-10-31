@@ -13,7 +13,7 @@ public class AppServletConfig  extends GuiceServletContextListener {
 
 	@Override
 	protected Injector getInjector() {
-		return Guice.createInjector(new AppPersistenceModule()
+		return Guice.createInjector(new AppServletModule()
 									, new IneFrameBaseServletModule("ContactManager", AppDispatchServlet.class)
 									, new IneFrameBaseActionHanlderModule()
 									, new IneFrameBaseModule()

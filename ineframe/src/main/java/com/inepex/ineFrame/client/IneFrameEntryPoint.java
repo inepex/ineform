@@ -12,6 +12,7 @@ import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
+import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAction;
@@ -76,7 +77,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
 	private class AuthStatusCallback implements AuthActionCallback {
 		@Override
-		public void onAuthCheckDone() {
+		public void onAuthCheckDone(AuthStatusResultBase result) {
 			authStatusQueried = true;
 			proceedLoadIfAllDone();
 		}

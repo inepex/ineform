@@ -16,7 +16,7 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 public abstract class AbstractAuthManager implements AuthManager {
 
 	public static interface AuthActionCallback {
-		void onAuthCheckDone();
+		void onAuthCheckDone(AuthStatusResultBase result);
 	}
 
 	AuthStatusResultBase lastAuthStatusResult = null;
@@ -34,8 +34,8 @@ public abstract class AbstractAuthManager implements AuthManager {
 	}
 	
 	@Override
-	public void doLogin(String userName, String password, AuthActionCallback callback) {
-		LoginAction action = new LoginAction(userName, password);
+	public void doLogin(String userName, String password, String captchaAnswer, AuthActionCallback callback) {
+		LoginAction action = new LoginAction(userName, password, captchaAnswer);
 		dispatcher.getDispatcher().execute(action, new AuthStatusResultCallback(callback));
 	}
 	
@@ -54,14 +54,14 @@ public abstract class AbstractAuthManager implements AuthManager {
 			}
 			
 			lastAuthStatusResult = null;
-			callback.onAuthCheckDone();
+			callback.onAuthCheckDone(null);
 		}
 
 		@Override
 		public void onSuccess(AuthStatusResultBase result) {
 			lastAuthStatusResult = result;
 			
-			callback.onAuthCheckDone();
+			callback.onAuthCheckDone(result);
 		}
 	}
 
@@ -88,13 +88,13 @@ public abstract class AbstractAuthManager implements AuthManager {
 			}
 			
 			lastAuthStatusResult = null;
-			callback.onAuthCheckDone();
+			callback.onAuthCheckDone(null);
 		}
 		
 		@Override
 		public void onSuccess(GenericResult arg0) {
 			lastAuthStatusResult = null;
-			callback.onAuthCheckDone();
+			callback.onAuthCheckDone(null);
 		}	
 	}
 

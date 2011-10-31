@@ -14,6 +14,7 @@ import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.PlaceRequestHandler;
+import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineom.shared.descriptor.Node;
 
 @Singleton
@@ -127,7 +128,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 					authManager.doLogout(new AuthActionCallback() {
 						
 						@Override
-						public void onAuthCheckDone() {
+						public void onAuthCheckDone(AuthStatusResultBase result) {
 							eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
 						}
 					});

@@ -4,21 +4,17 @@ import net.customware.gwt.dispatch.shared.Action;
 
 public class LoginAction implements Action<AuthStatusResultBase> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	String userName;
-	String password;
+	private String userName;
+	private String password;
+	private String captchaAnswer;
 
 	public LoginAction() {
 	}
 
-	public LoginAction(String userName, String password) {
-		super();
+	public LoginAction(String userName, String password, String captchaAnswer) {
 		this.userName = userName;
 		this.password = password;
+		this.captchaAnswer=captchaAnswer;
 	}
 
 	public String getUserName() {
@@ -37,4 +33,11 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 		this.password = password;
 	}
 
+	public String getCaptchaAnswer() {
+		return captchaAnswer;
+	}
+	
+	public void setCaptchaAnswer(String captchaAnswer) {
+		this.captchaAnswer = captchaAnswer;
+	}
 }

@@ -11,12 +11,6 @@ public class NoAuthManager implements AuthManager {
 	}
 
 	@Override
-	public void doLogin(String userName, String password,
-			AuthActionCallback callback) {
-		throw new RuntimeException();
-	}
-
-	@Override
 	public AuthStatusResultBase getLastAuthStatusResult() {
 		throw new RuntimeException();
 	}
@@ -33,6 +27,11 @@ public class NoAuthManager implements AuthManager {
 
 	@Override
 	public boolean doUserHaveAnyOfRoles(String... roles) {
+		throw new RuntimeException();
+	}
+
+	@Override
+	public void doLogin(String userName, String password, String captchaAnswer, AuthActionCallback callback) {
 		throw new RuntimeException();
 	}
 

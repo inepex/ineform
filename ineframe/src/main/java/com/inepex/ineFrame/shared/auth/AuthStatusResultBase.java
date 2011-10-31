@@ -6,21 +6,28 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class AuthStatusResultBase extends GenericResult {
 
+	//if login was unsuccessful
+	private boolean needCaptcha;
+	
+	//if login is succesful
 	private String displayName;
 	private Long userId = null;
 	private Set<String> roles = null;
 
 	public AuthStatusResultBase() {
-		super();
+	}
+	
+	public AuthStatusResultBase(boolean needCaptcha) {
+		setSuccess(false);
+		this.needCaptcha=needCaptcha;
 	}
 
 	public AuthStatusResultBase(String displayName, Long userId, Set<String> roles) {
-		super();
+		setSuccess(true);
 		this.displayName = displayName;
 		this.userId = userId;
 		this.roles = roles;
 	}
-
 
 	public String getDisplayName() {
 		return displayName;
@@ -44,5 +51,13 @@ public class AuthStatusResultBase extends GenericResult {
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+	
+	public boolean isNeedCaptcha() {
+		return needCaptcha;
+	}
+	
+	public void setNeedCaptcha(boolean needCaptcha) {
+		this.needCaptcha = needCaptcha;
 	}
 }

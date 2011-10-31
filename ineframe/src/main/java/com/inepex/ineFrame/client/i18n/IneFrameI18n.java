@@ -25,6 +25,7 @@ public class IneFrameI18n extends I18nModule {
 		return moduleProvider;
 	}
 	
+	public String CAPTCHA = "Captcha:";
 	public String LOGIN = "Log in!";
 	public String LOGOUT = "Log out";
 	public String OK = "Ok";
@@ -42,6 +43,15 @@ public class IneFrameI18n extends I18nModule {
 	public String saveUnknownError = "Unknown error occurred during save!";
 	public String savingInProgress = "Saving of {savedThing} in progress";
 
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Captcha:
+	* <u><i>Magyarul:</i></u> Captcha:
+	*/
+	public static String CAPTCHA() {
+		return moduleProvider.get().CAPTCHA;
+	}
 	
 	/**
 	* <u><i>Description:</i></u>  <br />

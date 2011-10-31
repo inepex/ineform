@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.inepex.ineFrame.client.async.IneDispatch;
+import com.inepex.ineFrame.client.async.IneDispatchBase;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
@@ -19,36 +21,48 @@ import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineFrame.client.widgets.CaptchaWidget;
+import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
+import com.inepex.ineFrame.shared.auth.CaptchaInfoAction;
+import com.inepex.ineFrame.shared.auth.CaptchaInfoResult;
 
 public abstract class LoginBox extends HandlerAwareComposite {
 
 	protected final VerticalPanel vp; 
 	protected final TextBox userName;
 	protected final PasswordTextBox password;
+	protected final Label captchaLabel;
+	protected final CaptchaWidget captchaWidget;
 	protected final Button loginButton;
 
 	protected final AuthManager authManager;
 	protected final HistoryProvider historyProvider;
 	protected final EventBus eventBus;
+	protected final IneDispatch ineDispatch;
 	
-	protected LoginBox(AuthManager authManager, HistoryProvider historyProvider, EventBus eventBus) {
+	protected LoginBox(AuthManager authManager, HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
 		this.authManager = authManager;
 		this.historyProvider=historyProvider;
 		this.eventBus=eventBus;
+		this.ineDispatch=ineDispatch;
 	
 		vp= new VerticalPanel();
-		
 		vp.add(new Label(IneFrameI18n.USERNAME()));
 		userName= new TextBox();
 		vp.add(userName);
 		vp.add(new Label(IneFrameI18n.PASSWORD()));
 		password= new PasswordTextBox();
 		vp.add(password);
+		captchaLabel=new Label(IneFrameI18n.CAPTCHA());
+		vp.add(captchaLabel);
+		captchaWidget=new CaptchaWidget();
+		vp.add(captchaWidget);
 		loginButton= new Button(IneFrameI18n.LOGIN());
 		vp.add(loginButton);
 		
-		initWidget(vp);
+		initWidget(vp);		
 	}
+	
 
 	@Override
 	protected void onAttach() {
@@ -56,6 +70,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		
 		registerHandler(userName.addKeyPressHandler(new PassEnterPressHandler()));
 		registerHandler(password.addKeyPressHandler(new PassEnterPressHandler()));
+		registerHandler(captchaWidget.addKeyPressHandler(new PassEnterPressHandler()));
 		registerHandler(loginButton.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -63,6 +78,23 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				doLogin();
 			}
 		}));
+		
+		setVisible(false);
+		ineDispatch.execute(new CaptchaInfoAction(), new IneDispatchBase.SuccessCallback<CaptchaInfoResult>() {
+
+			@Override
+			public void onSuccess(CaptchaInfoResult result) {
+				if(result.isNeedCaptcha()) {
+					captchaLabel.setVisible(true);
+					captchaWidget.setVisible(true);
+				} else {
+					captchaLabel.setVisible(false);
+					captchaWidget.setVisible(false);
+				}
+				
+				setVisible(true);
+			}
+		});
 	}
 	
 	/**
@@ -90,7 +122,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 //	}
 	
 	private void doLogin(){
-		authManager.doLogin(userName.getText(), password.getText(),
+		authManager.doLogin(userName.getText(), password.getText(), captchaWidget.getCaptchaText(),
 				new LoginCallback());
 	}
 	
@@ -98,8 +130,8 @@ public abstract class LoginBox extends HandlerAwareComposite {
 
 	class LoginCallback implements AuthActionCallback {
 		@Override
-		public void onAuthCheckDone() {
-			if(authManager.isUserLoggedIn()) {
+		public void onAuthCheckDone(AuthStatusResultBase result) {
+			if(result.isSuccess()) {
 				if(historyProvider.getToken().contains((NavigationProperties.REDIRECT))) {
 					PlaceRequestEvent pre = new PlaceRequestEvent();
 					pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
@@ -114,11 +146,25 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				
 				userName.setValue("");
 				password.setValue("");
+				captchaWidget.reloadCaptcha();
+				captchaLabel.setVisible(false);
+				captchaWidget.setVisible(false);
 				
 			} else {
 				password.setValue("");
+				captchaWidget.reloadCaptcha();
+				
+				if(result.isNeedCaptcha()) {
+					captchaLabel.setVisible(true);
+					captchaWidget.setVisible(true);
+				} else {
+					captchaLabel.setVisible(false);
+					captchaWidget.setVisible(false);
+				}
+				
 				//TODO validate message
-				Window.alert("Invalid user or password!");
+				//TODO captcha case
+				Window.alert("Invalid user or password (or captcha)!");
 			}
 		}
 	}

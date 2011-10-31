@@ -5,6 +5,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
+import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.LoginBox;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
@@ -15,9 +16,9 @@ import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 public class LoginPage extends FlowPanelBasedPage {
 
 	@Inject
-	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus) {
+	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
 		
-		mainPanel.add(new CMLoginBox(authManager, historyProvider, eventBus));
+		mainPanel.add(new CMLoginBox(authManager, historyProvider, eventBus, ineDispatch));
 		mainPanel.add(new HTML("<h2>To log in select one user:</h2>"));
 		mainPanel.add(new HTML("<b>john.black@inepex.com</b><br /><i>pass123</i><br /><br />"));
 		mainPanel.add(new HTML("<b>barbara.green@inepex.com</b><br /><i>pass123</i><br /><br />"));
@@ -31,8 +32,8 @@ public class LoginPage extends FlowPanelBasedPage {
 	private class CMLoginBox extends LoginBox {
 
 		protected CMLoginBox(AuthManager authManager,
-				HistoryProvider historyProvider, EventBus eventBus) {
-			super(authManager, historyProvider, eventBus);
+				HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
+			super(authManager, historyProvider, eventBus, ineDispatch);
 			getElement().getStyle().setFloat(Float.RIGHT);
 		}
 
