@@ -3,6 +3,7 @@ package com.inepex.ineForm.client.form.factories;
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
+import com.inepex.ineForm.client.form.widgets.CaptchaFW;
 import com.inepex.ineForm.client.form.widgets.CheckBoxFW;
 import com.inepex.ineForm.client.form.widgets.DummyFW;
 import com.inepex.ineForm.client.form.widgets.EnumLabelFW;
@@ -11,6 +12,7 @@ import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.IneTableFW;
 import com.inepex.ineForm.client.form.widgets.LabelBoolFW;
 import com.inepex.ineForm.client.form.widgets.LabelFW;
+import com.inepex.ineForm.client.form.widgets.LabelledFW;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.NumberTextBoxFW;
 import com.inepex.ineForm.client.form.widgets.PasswordTextBoxFW;
@@ -61,6 +63,9 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 		
 		else if (widgetType.equals(FWTypes.TEXTBOX))
 			createdWidget = new TextBoxFW(fieldDesc);
+		
+		else if (widgetType.equals(FWTypes.CAPTCHA))
+			createdWidget = new CaptchaFW(fieldDesc);
 
 		else if (widgetType.equals(FWTypes.PASSWORDTEXTBOX))
 			createdWidget = new PasswordTextBoxFW(fieldDesc);
@@ -156,6 +161,11 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new StringListBoxFw(fieldDesc, wrDesc);
 		} else  if(wrDesc.getFormWidgetType().equals(FWTypes.SUGGESTBOX)) {
 			createdWidget = new SuggestBoxFw(formCtx, fieldDesc);
+		}
+		
+		//setting label or html after fw
+		if(createdWidget!=null && wrDesc.hasProp(FWTypes.p_label)) {
+			return new LabelledFW(createdWidget, wrDesc.getPropValue(FWTypes.p_label));
 		}
 		
 		return createdWidget;

@@ -90,6 +90,10 @@ public class CaptchaWidget extends Composite {
 		setPixelSize(150, 80);
 	}
 	
+	public TextBox getTextBox() {
+		return tb_captcha;
+	}
+	
 	public String getCaptchaText(){
 		return tb_captcha.getText();
 	}

@@ -17,10 +17,12 @@ public class FWTypes implements Serializable{
 	 */
 	private static final long serialVersionUID = -3542896731206796817L;
 	
+	public final static String p_label="label";
 	public final static String p_asDate = "asDate";
 	
 	public final static FWTypes DONTRENDER = new FWTypes("DONTRENDER");
 	public final static FWTypes TEXTBOX = new FWTypes("TEXTBOX");
+	public final static FWTypes CAPTCHA = new FWTypes("CAPTCHA");
 	public final static FWTypes PASSWORDTEXTBOX = new FWTypes("PASSWORDTEXTBOX");
 	public final static FWTypes CHECKBOX = new FWTypes("CHECKBOX");
 	public final static FWTypes TEXTAREA = new FWTypes("TEXTAREA");
