@@ -24,6 +24,9 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		this.captchaInfoProvider=captchaInfoProvider;
 		this.sesionProvider=sesionProvider;
 	}
+	
+	protected void onLogin(U user){
+	}
 
 	@Override
 	protected AuthStatusResultBase doExecute(LoginAction action, ExecutionContext context) throws AuthenticationException,
@@ -64,6 +67,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		result.setUserId(user.getUserId());
 		
 		mapAdditional(user, result);
+		onLogin(user);
 		
 		SessionScopedAuthStat authStat = authStatProvider.get();
 		synchronized (authStat) {
