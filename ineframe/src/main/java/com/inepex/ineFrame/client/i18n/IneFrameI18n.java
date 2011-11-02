@@ -32,16 +32,20 @@ public class IneFrameI18n extends I18nModule {
 	public String PASSWORD = "Password:";
 	public String USERNAME = "User name:";
 	public String confirmDialogTitle = "Question";
+	public String dayShort = "d";
 	public String dialogCancelButton = "Cancel";
 	public String dialogOkButton = "Ok";
 	public String dummyPageText = "not implemented yet...";
 	public String errorDialogTitle = "Error";
 	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
+	public String hourShort = "h";
 	public String loading = "Loading data...";
+	public String minShort = "m";
 	public String saveError = "Error occurred during save: <br /> {error}";
 	public String saveSuccessful = "Save successful.";
 	public String saveUnknownError = "Unknown error occurred during save!";
 	public String savingInProgress = "Saving of {savedThing} in progress";
+	public String secShort = "s";
 
 	
 	/**
@@ -109,6 +113,15 @@ public class IneFrameI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> d
+	* <u><i>Magyarul:</i></u> n
+	*/
+	public static String dayShort() {
+		return moduleProvider.get().dayShort;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Cancel
 	* <u><i>Magyarul:</i></u> Mégse
 	*/
@@ -154,11 +167,29 @@ public class IneFrameI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> h
+	* <u><i>Magyarul:</i></u> ó
+	*/
+	public static String hourShort() {
+		return moduleProvider.get().hourShort;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Loading data...
 	* <u><i>Magyarul:</i></u> Adatok betöltése...
 	*/
 	public static String loading() {
 		return moduleProvider.get().loading;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> m
+	* <u><i>Magyarul:</i></u> p
+	*/
+	public static String minShort() {
+		return moduleProvider.get().minShort;
 	}
 	
 	/**
@@ -195,5 +226,14 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String savingInProgress(String savedThing) {
 		return moduleProvider.get().savingInProgress.replace("{savedThing}", savedThing);
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> s
+	* <u><i>Magyarul:</i></u> mp
+	*/
+	public static String secShort() {
+		return moduleProvider.get().secShort;
 	}
 }

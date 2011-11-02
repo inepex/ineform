@@ -2,6 +2,8 @@ package com.inepex.ineFrame.shared.util;
 
 import java.util.Date;
 
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
+
 public class DateHelper {
 	
 	public static final long secondInMs = 1000;
@@ -351,6 +353,54 @@ public class DateHelper {
 
 	public static Long nowLong() {
 		return new Date().getTime();
+	}
+	
+	/**
+	 * 
+	 * @param duration
+	 * @return formatted duration, like 3h 34m
+	 */
+	public static String formatDuration(long duration, boolean showSec){
+		int second = 1000;
+		int minute = second * 60;
+		int hour = minute * 60;
+		int day = hour * 24;
+		int days = 0;
+		int hours = 0;
+		int minutes = 0;
+		int seconds = 0;
+		days = (int) (duration / day);
+		duration -= days * day;
+		hours = (int) (duration / hour);
+		duration -= hours * hour;
+		minutes = (int) (duration / minute);
+		duration -= minutes * minute;
+		seconds = (int) (duration / second);
+		
+		StringBuffer sb = new StringBuffer();
+		
+		if (days > 0) {
+			sb.append(days);
+			sb.append(IneFrameI18n.dayShort());
+			sb.append(" ");
+		}
+		if (hours > 0 || days > 0) {
+			sb.append(hours);
+			sb.append(IneFrameI18n.hourShort());
+			sb.append(" ");
+		}
+		
+		sb.append(minutes);
+		sb.append(IneFrameI18n.minShort());
+		
+		if (showSec) {
+			sb.append(" ");
+			sb.append(seconds);
+			sb.append(IneFrameI18n.secShort());
+		}
+		
+		return sb.toString();
+		
 	}
 
 }
