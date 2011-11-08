@@ -38,6 +38,9 @@ public class SearchForm extends IneForm {
 			@Assisted IneDataConnector ineDataConnector) {
 		super(formCtx, descriptorName, formRDescName);
 		
+		searchForm = this;
+		dataConnector = ineDataConnector;
+		
 		renderForm();
 		
 		mainPanel.add(super.asWidget());

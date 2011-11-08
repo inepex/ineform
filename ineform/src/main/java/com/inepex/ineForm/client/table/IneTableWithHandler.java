@@ -26,8 +26,9 @@ public class IneTableWithHandler extends IneTable {
 	public IneTableWithHandler(DescriptorStore descStore,
 			EventBus eventBus,
 			String objectDescriptorName,
-			TableRDesc tableRenderDescriptor) {
-		super(descStore, objectDescriptorName, tableRenderDescriptor, null);
+			TableRDesc tableRenderDescriptor,
+			IneDataConnector dataConnector) {
+		super(descStore, objectDescriptorName, tableRenderDescriptor, dataConnector);
 		this.eventBus = eventBus;
 	}
 	

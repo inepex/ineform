@@ -16,7 +16,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
-public abstract class BaseDao<E> extends KVManipulatorDaoBase {
+public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	protected final Provider<EntityManager> em;
