@@ -12,6 +12,11 @@ import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ChangeLanguageAction;
 import com.inepex.inei18n.shared.SimpleResult;
 
+/**
+ * 
+ * An Anchor based widget to select between Hungarian and English language
+ * 
+ */
 public class LanguageChangeWidget extends HandlerAwareComposite {
 
 	final Anchor currentLangLabel = new Anchor();
@@ -26,6 +31,10 @@ public class LanguageChangeWidget extends HandlerAwareComposite {
 	}
 	
 	public void setLabelPropsForCurrentLang() {
+		
+		/**
+		 * We use un-internationalized strings purposely!!!
+		 */
 		if ("en".equals(I18nStore_Client.currentLanguage))
 			currentLangLabel.setText("Magyar");
 		else
@@ -48,6 +57,10 @@ public class LanguageChangeWidget extends HandlerAwareComposite {
 	}
 	
 	private class LangChgCallback extends SuccessCallback<SimpleResult> {
+		
+		/**
+		 *  you should reload the window to affect the language changes and let widgets, assists, ... to use the new lang 
+		 */
 		@Override
 		public void onSuccess(SimpleResult result) {
 			Window.Location.reload();

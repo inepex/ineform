@@ -19,6 +19,7 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 	
 	private String hierarchicalTokensWithParam;
 	boolean openInNewWindow = false;
+	boolean needWindowReload = false;
 	
 	public PlaceRequestEvent() {
 		super();
@@ -52,6 +53,14 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 
 	public String getHierarchicalTokensWithParam() {
 		return hierarchicalTokensWithParam;
+	}
+	
+	public void setNeedWindowReload(boolean needWindowReload) {
+		this.needWindowReload = needWindowReload;
+	}
+	
+	public boolean isNeedWindowReload() {
+		return needWindowReload;
 	}
 	
 	public void setHierarchicalTokensWithParam(

@@ -11,6 +11,7 @@ import com.inepex.ineFrame.client.auth.LoginBox;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 
 public class LoginPage extends FlowPanelBasedPage {
@@ -38,7 +39,7 @@ public class LoginPage extends FlowPanelBasedPage {
 		}
 
 		@Override
-		protected void doLoggedinLogic() {
+		protected void doLoggedinLogic(AuthStatusResultBase base) {
 			eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));
 		}
 		

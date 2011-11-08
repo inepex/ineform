@@ -36,6 +36,7 @@ public class ServerCurrentLang implements CurrentLang {
 		}
 	}
 	
+	@Override
 	public void setSessionLang(String lang) {
 		try {
 			sessionLangProvider.get().lang = lang;

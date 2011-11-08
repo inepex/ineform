@@ -67,14 +67,15 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	@Override
 	public void onPlaceRequest(PlaceRequestEvent e) {
 		currentFullToken =  e.getHierarchicalTokensWithParam();
+		
 		if (e.isOpenInNewWindow()){
 			openInNewWindow("#" + currentFullToken);
 		} else {
-			realizePlaceChange();
+			realizePlaceChange(e.isNeedWindowReload());
 		}
 	}
 
-	private void realizePlaceChange() {
+	private void realizePlaceChange(boolean needWindowReload) {
 		String currentFullTokenWithoutRedirect;
 		if(currentFullToken.contains(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT))
 			currentFullTokenWithoutRedirect=currentFullToken.substring(0,
@@ -95,11 +96,13 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		InePlace place = placeNode.getNodeElement();
 
-		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect)) return;
+		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect, needWindowReload)) return;
 		
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			eventBus.fireEvent(new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken())));
+			PlaceRequestEvent pre = new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken()));
+			pre.setNeedWindowReload(needWindowReload);
+			eventBus.fireEvent(pre);
 			return;
 		}
 		
@@ -109,7 +112,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 					.getFirstIncorrectParamPlace(currentFullTokenWithoutRedirect, placeHierarchyProvider.getPlaceRoot());
 		
 		if(firstIncorrecParamPlaceFullToken!=null && !firstIncorrecParamPlaceFullToken.equals(currentFullToken)) {
-			eventBus.fireEvent(new PlaceRequestEvent(firstIncorrecParamPlaceFullToken));
+			PlaceRequestEvent pre = new PlaceRequestEvent(firstIncorrecParamPlaceFullToken);
+			pre.setNeedWindowReload(needWindowReload);
+			eventBus.fireEvent(pre);
 			return;
 		}
 			
@@ -134,10 +139,16 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (!historyProvider.getToken().equals(currentFullToken))
 			historyProvider.newItem(currentFullToken);
 		
-		if (specificAdjustPlaceShouldReturn(place))
-			return;
-		
-		masterPage.render(place, urlParams);
+		if(needWindowReload) {
+			Window.Location.reload();
+			
+		} else {
+			
+			if (specificAdjustPlaceShouldReturn(place))
+				return;
+			
+			masterPage.render(place, urlParams);
+		}
 
 	}
 
@@ -147,9 +158,10 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		historyProvider.back();
 	}
 	
+	
 	private void openInNewWindow(String url) {
 		final String realURL;
-			
+		
 		if (Window.Navigator.getUserAgent().contains("MSIE")){
 			realURL = "../" + url;
 		} else {
@@ -174,16 +186,18 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 	
 	
-	private boolean checkPermissionsAndRedirectIfNeeded(InePlace place, String currentFullTokenWithoutRedirect){
+	private boolean checkPermissionsAndRedirectIfNeeded(InePlace place, String currentFullTokenWithoutRedirect, boolean needWindowReload){
 		if (place.isAuthenticationNeeded()) {
 			List<String> allowedRolesForPlace = place.getRolesAllowed();
 			if (!authManager.isUserLoggedIn()){
-				eventBus.fireEvent(new PlaceRequestEvent(
-						loginPlace +
-						QUESTION_MARK +
-						REDIRECT +
-						EQUALS_SIGN +
-						currentFullTokenWithoutRedirect));
+				PlaceRequestEvent pre = new PlaceRequestEvent(loginPlace +
+								QUESTION_MARK +
+								REDIRECT +
+								EQUALS_SIGN +
+								currentFullTokenWithoutRedirect);
+				pre.setNeedWindowReload(needWindowReload);
+				eventBus.fireEvent(pre);
+				
 				return false;
 			}else if (authManager.isUserLoggedIn() && (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0)) {
 				return true;

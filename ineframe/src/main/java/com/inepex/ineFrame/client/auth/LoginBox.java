@@ -126,22 +126,30 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				new LoginCallback());
 	}
 	
-	protected abstract void doLoggedinLogic();
+	protected abstract void doLoggedinLogic(AuthStatusResultBase result);
+	
+	protected void doRedirectLogic(AuthStatusResultBase result) {
+		PlaceRequestEvent pre = new PlaceRequestEvent();
+		pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
+				historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
+					+NavigationProperties.REDIRECT.length()
+					+PlaceHandler.EQUALS_SIGN.length()
+				, historyProvider.getToken().length()));
+		modifiyRedirectPlaceRequestEvent(result, pre);
+		eventBus.fireEvent(pre);
+	}
+
+	protected void modifiyRedirectPlaceRequestEvent(AuthStatusResultBase result, PlaceRequestEvent pre) {
+	}
 
 	class LoginCallback implements AuthActionCallback {
 		@Override
 		public void onAuthCheckDone(AuthStatusResultBase result) {
 			if(result.isSuccess()) {
 				if(historyProvider.getToken().contains((NavigationProperties.REDIRECT))) {
-					PlaceRequestEvent pre = new PlaceRequestEvent();
-					pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
-							historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
-								+NavigationProperties.REDIRECT.length()
-								+PlaceHandler.EQUALS_SIGN.length()
-							, historyProvider.getToken().length()));
-					eventBus.fireEvent(pre);
+					doRedirectLogic(result);
 				} else {
-					doLoggedinLogic();
+					doLoggedinLogic(result);
 				}
 				
 				userName.setValue("");

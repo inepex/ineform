@@ -20,5 +20,10 @@ public class MockCurrentLang implements CurrentLang {
 	@Override
 	public void resetLangOverride() {
 		overriddenLang = null;
+	}
+
+	@Override
+	public void setSessionLang(String lang) {
+		throw new RuntimeException("Unimplemented yet");
 	}		
 }

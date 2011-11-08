@@ -244,6 +244,9 @@ public class I18nStoreTest {
 				public void resetLangOverride() {
 					
 				}
+				@Override
+				public void setSessionLang(String lang) {
+				}
 			};
 		}		
 	}

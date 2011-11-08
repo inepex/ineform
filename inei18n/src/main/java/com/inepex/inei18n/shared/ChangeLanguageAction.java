@@ -1,7 +1,21 @@
 package com.inepex.inei18n.shared;
 
+import com.inepex.inei18n.client.I18nStore_Client;
+
 import net.customware.gwt.dispatch.shared.Action;
 
+/**
+ * 
+ * this action can be replaced with these client side code lines:
+ * {@code 
+ * 
+ * Cookies.setCookie(I18nStore_Client.COOKIE_ID, newLangString, new Date(Long.MAX_VALUE));				
+ * Window.Location.reload();
+ *
+ * }
+ * 
+ * see {@link I18nStore_Client}
+ */
 public class ChangeLanguageAction implements Action<SimpleResult> {
 	public String requestedLanguage;
 

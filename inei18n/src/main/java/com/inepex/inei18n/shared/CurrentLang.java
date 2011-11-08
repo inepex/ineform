@@ -10,4 +10,5 @@ public interface CurrentLang {
 	String getCurrentLang();
 	void setLangOverride(String langOverride);
 	void resetLangOverride();
+	void setSessionLang(String lang);
 }

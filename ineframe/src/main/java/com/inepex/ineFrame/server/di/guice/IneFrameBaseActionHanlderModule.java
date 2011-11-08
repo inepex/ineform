@@ -5,9 +5,9 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import net.customware.gwt.dispatch.shared.BatchAction;
 
 import com.inepex.inei18n.server.ChangeLanguageHandler;
-import com.inepex.inei18n.server.GetI18nModulesHandler;
+import com.inepex.inei18n.server.GetI18nModulesAndSetCurrentLangFromCookieHandler;
 import com.inepex.inei18n.shared.ChangeLanguageAction;
-import com.inepex.inei18n.shared.GetI18nModulesAction;
+import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
 
 public class IneFrameBaseActionHanlderModule extends ActionHandlerModule {
 
@@ -15,7 +15,7 @@ public class IneFrameBaseActionHanlderModule extends ActionHandlerModule {
 	protected void configureHandlers() {
 		bindHandler(BatchAction.class, BatchActionHandler.class);
 		bindHandler(ChangeLanguageAction.class, ChangeLanguageHandler.class);
-		bindHandler(GetI18nModulesAction.class, GetI18nModulesHandler.class);
+		bindHandler(GetI18nModulesAndSetCurrentLangFromCookieAction.class, GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
 
 	}
 }

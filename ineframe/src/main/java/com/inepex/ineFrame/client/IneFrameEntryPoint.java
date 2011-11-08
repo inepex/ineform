@@ -15,8 +15,8 @@ import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
-import com.inepex.inei18n.shared.GetI18nModulesAction;
-import com.inepex.inei18n.shared.GetI18nModulesResult;
+import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
+import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieResult;
 
 /**
  * Base EntryPoint class for IneFrame or IneForm based projects. In IneForm it
@@ -27,8 +27,6 @@ import com.inepex.inei18n.shared.GetI18nModulesResult;
  */
 public abstract class IneFrameEntryPoint implements EntryPoint {
 
-	protected I18nStore_Client clientI18nStore = new I18nStore_Client();
-
 	protected abstract void registerAdditionalI18nModules();
 
 	public abstract void onIneModuleLoad();
@@ -37,9 +35,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
 	protected final DispatchAsync dispatchAsync;
 	protected final EventBus eventBus;
-
-	private boolean i18nQueried = false;
-	private boolean authStatusQueried = false;
+	protected final I18nStore_Client clientI18nStore = new I18nStore_Client();
 
 	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager) {
 		this.dispatchAsync = dispatchAsync;
@@ -54,38 +50,36 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		clientI18nStore.registerModule(new IneFrameI18n(new ClientI18nProvider<IneFrameI18n>()));
 		registerAdditionalI18nModules();
 
-		// query i18n
-		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus);
-		GetI18nModulesAction i18nAction = clientI18nStore.getModuleQueryAction();
-		dispatch.execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
-
 		// query auth status
 		if (!(authManager instanceof NoAuthManager))
 			authManager.checkAuthStatus(new AuthStatusCallback());
-		else
-			authStatusQueried = true;
+		else {
+			queryI18nAndInvokeOnIneModuleLoad(true);
+		}
+	}
+	
+	private void queryI18nAndInvokeOnIneModuleLoad(boolean loadLangFromCookie) {
+		// query i18n
+		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus);
+		GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction = clientI18nStore.getModuleQueryAction(loadLangFromCookie);
+		dispatch.execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
 	}
 
-	private class I18nCallback extends SuccessCallback<GetI18nModulesResult> {
+	private class I18nCallback extends SuccessCallback<GetI18nModulesAndSetCurrentLangFromCookieResult> {
 		@Override
-		public void onSuccess(GetI18nModulesResult result) {
+		public void onSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
 			clientI18nStore.onModulesQueriedSuccess(result);
-			i18nQueried = true;
-			proceedLoadIfAllDone();
+			
+			onIneModuleLoad();
 		}
 	}
 
 	private class AuthStatusCallback implements AuthActionCallback {
 		@Override
 		public void onAuthCheckDone(AuthStatusResultBase result) {
-			authStatusQueried = true;
-			proceedLoadIfAllDone();
+			//the loggedin user's language management is not from cookie
+			queryI18nAndInvokeOnIneModuleLoad(result==null || !result.isSuccess());
 		}
-	}
-
-	private void proceedLoadIfAllDone() {
-		if (i18nQueried && authStatusQueried)
-			onIneModuleLoad();
 	}
 
 	class InitialStatusIndicator extends SimpleFailureStatusIndicator {
