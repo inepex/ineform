@@ -8,7 +8,8 @@ package com.inepex.inei18n.shared;
  */
 public interface CurrentLang {
 	String getCurrentLang();
+	void setSessionLang(String lang);
+	
 	void setLangOverride(String langOverride);
 	void resetLangOverride();
-	void setSessionLang(String lang);
 }

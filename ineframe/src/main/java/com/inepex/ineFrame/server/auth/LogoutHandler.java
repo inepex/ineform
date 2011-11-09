@@ -1,5 +1,7 @@
 package com.inepex.ineFrame.server.auth;
 
+import javax.servlet.http.HttpSession;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -14,11 +16,11 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 @Singleton
 public class LogoutHandler extends AbstractIneHandler<LogoutAction, GenericResult> {
 
-	private final Provider<SessionScopedAuthStat> authStatProvider;
+	private final Provider<HttpSession> sessionProvider;
 	
 	@Inject
-	LogoutHandler(Provider<SessionScopedAuthStat> authStat) {
-		this.authStatProvider=authStat;
+	LogoutHandler(Provider<HttpSession> sessionProvider) {
+		this.sessionProvider=sessionProvider;
 	}
 
 	@Override
@@ -30,10 +32,7 @@ public class LogoutHandler extends AbstractIneHandler<LogoutAction, GenericResul
 	protected GenericResult doExecute(LogoutAction action, ExecutionContext context) throws AuthenticationException,
 			DispatchException {
 		
-		SessionScopedAuthStat authStat = authStatProvider.get();
-		synchronized (authStat) {
-			authStat.clearState();
-		}
+		sessionProvider.get().invalidate();
 		
 		return new GenericResult("", true);
 	}
