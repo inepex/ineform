@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
+import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;

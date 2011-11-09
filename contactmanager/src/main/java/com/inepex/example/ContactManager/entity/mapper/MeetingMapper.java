@@ -9,7 +9,7 @@ import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.MeetingHandlerFactory.MeetingHandler;
 import com.inepex.example.ContactManager.shared.MeetingType;
-import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;

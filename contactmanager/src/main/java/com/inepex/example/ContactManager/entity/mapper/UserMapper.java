@@ -5,7 +5,7 @@ import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.kvo.UserConsts;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory.UserHandler;
-import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;

@@ -5,7 +5,7 @@ import com.inepex.example.ContactManager.entity.EmailAddress;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressConsts;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory.EmailAddressHandler;
-import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;

@@ -13,7 +13,7 @@ import com.inepex.example.ContactManager.entity.PhoneNumber;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.ContactHandler;
-import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;

@@ -23,6 +23,7 @@ import ${package}.dao.*;
 import ${package}.daoext.*;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineForm.shared.BaseMapper;
 
 /**
  * Just generated once, don't need to regenerate after modifying attributes!

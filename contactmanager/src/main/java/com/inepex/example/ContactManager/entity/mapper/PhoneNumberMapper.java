@@ -6,7 +6,7 @@ import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberHandlerFactory.PhoneNumberHandler;
-import com.inepex.ineForm.server.BaseMapper;
+import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
