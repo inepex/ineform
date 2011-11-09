@@ -41,8 +41,6 @@ import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
-import com.inepex.ineFrame.client.util.CETDateProviderCln;
-import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -63,7 +61,6 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(HistoryProvider.class).in(Singleton.class);
 		bind(IneDispatch.class).in(Singleton.class);
 		bind(PushedEventProvider.class).in(Singleton.class);
-		bind(DateProvider.class).to(CETDateProviderCln.class).in(Singleton.class);
 		
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 		bind(DescriptorStore.class).to(ClientDescriptorStore.class).in(Singleton.class);

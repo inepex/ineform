@@ -19,6 +19,8 @@ import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeaderView;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRendererView;
+import com.inepex.ineFrame.client.util.CETDateProviderCln;
+import com.inepex.ineFrame.shared.util.DateProvider;
 
 public class AppGinModule extends AbstractGinModule {
 
@@ -36,6 +38,8 @@ public class AppGinModule extends AbstractGinModule {
 		
 		bind(OdFinder.class).to(ActionBasedOdFinder.class);
 		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
+		
+		bind(DateProvider.class).to(CETDateProviderCln.class).in(Singleton.class);
 	}
 
 }
