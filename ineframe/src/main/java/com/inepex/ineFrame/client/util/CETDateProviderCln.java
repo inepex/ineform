@@ -1,4 +1,4 @@
-package com.inepex.ineForm.client.util;
+package com.inepex.ineFrame.client.util;
 
 import java.util.Date;
 
