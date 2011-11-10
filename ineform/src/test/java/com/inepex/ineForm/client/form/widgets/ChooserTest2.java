@@ -5,28 +5,44 @@ import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 
+import org.jukito.JukitoModule;
+import org.jukito.JukitoRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.chooser.ChooserFw;
 import com.inepex.ineForm.client.form.widgets.chooser.RelationChooser;
-import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
+import com.inepex.ineForm.server.util.JavaDateFormatter;
+import com.inepex.ineForm.server.util.NumberUtilSrv;
+import com.inepex.ineForm.test.TestIneFormClientGuiceModule;
+import com.inepex.ineFrame.shared.util.DateFormatter;
+import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
-public class ChooserTest2 extends DefaultIneFormClientSideTestBase {
+@RunWith(JukitoRunner.class)
+public class ChooserTest2 extends DefaultIneFrameClientSideTestBase {
+	
+	public static class Module extends JukitoModule {
+		protected void configureTest() {
+			install(new TestIneFormClientGuiceModule());
+			bind(DateFormatter.class).to(JavaDateFormatter.class);
+			bind(NumberUtil.class).to(NumberUtilSrv.class);
+		}
+	}
 
 	RelationTestData data;
 	RelationChooser chooser;
 	
 	
 	@Before
-	public void before(){
-		data = new RelationTestData(getDefaultInjector().getInstance(DescriptorStore.class));
+	public void before(DescriptorStore descriptorStore, FormContext formCtx){
+		data = new RelationTestData(descriptorStore);
 		
 		ChooserFw chooserFw = mock(ChooserFw.class);
-		FormContext formCtx = getDefaultInjector().getInstance(FormContext.class);
 		formCtx.valueRangeProvider = RelationTestData.valueRangeProvider;
 		
 		chooser = new RelationChooser(formCtx, chooserFw, data.fieldDesc

@@ -5,20 +5,36 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.jukito.JukitoModule;
+import org.jukito.JukitoRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
+import com.inepex.ineForm.server.util.JavaDateFormatter;
+import com.inepex.ineForm.server.util.NumberUtilSrv;
 import com.inepex.ineFrame.server.KeyValueObjectFieldFilter;
+import com.inepex.ineFrame.shared.util.DateFormatter;
+import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
 
+@RunWith(JukitoRunner.class)
+public class KeyValueObjectHidingUtilTest extends DefaultIneFrameClientSideTestBase {
 
-public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBase {
-
+	public static class Module extends JukitoModule {
+		protected void configureTest() {
+			install(new TestIneFormClientGuiceModule());
+			bind(DateFormatter.class).to(JavaDateFormatter.class);
+			bind(NumberUtil.class).to(NumberUtilSrv.class);
+		}
+	}
+	
 	final Long id = 100L; 
 	final String name = "asfasdfasfdasdf12323";
 	
@@ -26,8 +42,8 @@ public class KeyValueObjectHidingUtilTest extends DefaultIneFormClientSideTestBa
 	AssistedObjectHandlerFactory handlerFactory;
 	
 	@Before
-	public void init() {
-		descStore = getDefaultInjector().getInstance(DescriptorStore.class);
+	public void init(DescriptorStore descriptorStore) {
+		descStore = descriptorStore;
 		handlerFactory = new AssistedObjectHandlerFactory(descStore);
 	}
 	
