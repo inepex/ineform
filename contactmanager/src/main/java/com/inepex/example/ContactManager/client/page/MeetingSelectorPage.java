@@ -15,7 +15,7 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.util.CETDateProviderCln;
+import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -29,7 +29,7 @@ public class MeetingSelectorPage extends ConnectorPage {
 	
 	@Inject
 	MeetingSelectorPage(IneDispatch dispatcher, EventBus eventBus,
-			DescriptorStore descriptorStore, CETDateProviderCln dateProvider, AuthManager authManager) {
+			DescriptorStore descriptorStore, DateProvider dateProvider, AuthManager authManager) {
 		this.eventBus=eventBus;
 		this.authManager = authManager;
 		

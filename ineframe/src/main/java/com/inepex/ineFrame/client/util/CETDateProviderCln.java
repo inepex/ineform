@@ -12,6 +12,9 @@ public class CETDateProviderCln implements DateProvider {
 	private final static TimeZoneConstants tsc = GWT.create(TimeZoneConstants.class);
 	private final static TimeZone tz = TimeZone.createTimeZone(tsc.europeBudapest());
 
+	public CETDateProviderCln() {
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public Date getDate(Long dateInUTC) {

@@ -6,17 +6,12 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import org.junit.Assert;
-import org.junit.Test;
 
-import com.inepex.ineFrame.server.util.CETDateProviderSrv;
 import com.inepex.ineFrame.shared.util.DateProvider;
 
-public class CETDateProviderSrvTest {
+public class CETDateTestCases {
 	
-	DateProvider dateProvider = new CETDateProviderSrv();
-	
-	@Test
-	public void cetTimeEquality() {
+	static void cetTimeEquality(DateProvider dateProvider) {
 		TimeZone cetTimeZone = TimeZone.getTimeZone("CET");
 		Assert.assertNotNull(cetTimeZone);
 		Assert.assertEquals("CET", cetTimeZone.getID());
@@ -34,8 +29,7 @@ public class CETDateProviderSrvTest {
 				dateProvider.whatMeansTyped(d.getTime()).getTime());
 	}
 	
-	@Test
-	public void cetSummerEquality() {
+	static void cetSummerEquality(DateProvider dateProvider) {
 		
 		TimeZone cetTimeZone = TimeZone.getTimeZone("CET");
 		Assert.assertNotNull(cetTimeZone);
@@ -54,8 +48,7 @@ public class CETDateProviderSrvTest {
 				dateProvider.whatMeansTyped(sd.getTime()).getTime());
 	}
 	
-	@Test
-	public void gmtPlus2TimeCompenzation() {
+	static void gmtPlus2TimeCompenzation(DateProvider dateProvider) {
 		TimeZone gmtP2TimeZone = TimeZone.getTimeZone("Etc/GMT+2");
 		Assert.assertNotNull(gmtP2TimeZone);
 		Assert.assertEquals("Etc/GMT+2", gmtP2TimeZone.getID());
@@ -87,8 +80,7 @@ public class CETDateProviderSrvTest {
 				cetFormat.format(dateProvider.whatMeansTyped(c.getTime().getTime())));
 	}
 	
-	@Test
-	public void gmtPlus2SummerCompenzation() {
+	static void gmtPlus2SummerCompenzation(DateProvider dateProvider) {
 		TimeZone gmtP2TimeZone = TimeZone.getTimeZone("Etc/GMT+2");
 		Assert.assertNotNull(gmtP2TimeZone);
 		Assert.assertEquals("Etc/GMT+2", gmtP2TimeZone.getID());

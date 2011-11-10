@@ -17,8 +17,8 @@ public class TimeZoneTest {
 		}
 		
 		for(TimeZoneEnum tz : TimeZoneEnum.values()) {
-			if(!availableIds.contains(tz.timeZoneId)) {
-				Assert.fail("Invalid timezone: "+tz.timeZoneId);
+			if(!availableIds.contains(tz.tzId)) {
+				Assert.fail("Invalid timezone: "+tz.tzId);
 			}
 		}
 	}

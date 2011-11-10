@@ -21,7 +21,7 @@ public class EnumBasedDateProviderSrv implements DateProvider {
 	
 	public void setTimeZoneEnumAndTimeZone(TimeZoneEnum timeZoneEnum) {
 		this.timeZoneEnum = timeZoneEnum;
-		tz=TimeZone.getTimeZone(timeZoneEnum.timeZoneId);
+		tz=TimeZone.getTimeZone(timeZoneEnum.tzId);
 	}
 	
 	public TimeZoneEnum getTimeZoneEnum() {

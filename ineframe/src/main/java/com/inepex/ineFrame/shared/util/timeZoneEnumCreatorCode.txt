@@ -1,0 +1,14 @@
+#tz.properties is a copy of com/google/gwt/i18n/client/constants/TimeZoneConstants.properties 
+
+cat tz.properties |
+	sed "s/[a-zA-Z]* = //" |
+	sed "s/^.*$/&#&/" |
+	sed "s/[^#$]*\"id\": \"//" |
+	sed "s/\".*#/#/" |
+	sed "s/\"/\\\\\"/g" |
+	sed "s/.*#/&&/" |
+	sed "s/\//_/" |
+	sed "s/#/(\"/" |
+	sed "s/#/\",\"/" |
+	sed "s/$/\"),/" |
+	sort  > result.txt
