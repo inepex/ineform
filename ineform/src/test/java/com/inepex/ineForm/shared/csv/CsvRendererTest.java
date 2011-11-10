@@ -5,8 +5,11 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.jukito.JukitoModule;
+import org.jukito.JukitoRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
@@ -14,18 +17,30 @@ import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
 import com.inepex.ineForm.server.util.NumberUtilSrv;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer;
-import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
-import com.inepex.ineFrame.server.util.CETDateProviderSrv;
+import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
+import com.inepex.ineForm.test.TestIneFormClientGuiceModule;
+import com.inepex.ineFrame.shared.util.DateFormatter;
+import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
-public class CsvRendererTest extends DefaultIneFormClientSideTestBase {
+@RunWith(JukitoRunner.class)
+public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
+
+	public static class Module extends JukitoModule {
+		protected void configureTest() {
+			install(new TestIneFormClientGuiceModule());
+			bind(DateFormatter.class).to(JavaDateFormatter.class);
+			bind(NumberUtil.class).to(NumberUtilSrv.class);
+		}
+	}
 
 	List<AssistedObject> kvos;
 	
 	@Before
-	public void init(){
-		NationalityAssist.registerDescriptors(getDefaultInjector().getInstance(DescriptorStore.class));
+	public void init(DescriptorStore descriptorStore){
+		NationalityAssist.registerDescriptors(descriptorStore);
 		IneFormProperties.showIds = true;
 
 		kvos = new ArrayList<AssistedObject>();
@@ -41,29 +56,18 @@ public class CsvRendererTest extends DefaultIneFormClientSideTestBase {
 	
 	
 	@Test
-	public void renderTest(){
-		CsvRenderer csvRenderer = new CsvRenderer(
-				getDefaultInjector().getInstance(DescriptorStore.class)
-				, NationalityKVO.descriptorName
-				, null
-				, new JavaDateFormatter()
-				, new NumberUtilSrv()
-				, new CETDateProviderSrv());
-		
+	public void renderTest(CsvRendererFactory csvRendererFactory){
+		CsvRenderer csvRenderer = csvRendererFactory.create(NationalityKVO.descriptorName, (String)null); 
+	
 		String csvString = csvRenderer.render(kvos);
 		
 		Assert.assertEquals("1,Nat1\n2,Nat2\n", csvString);
 	}
 	
 	@Test
-	public void renderWithHeaderTest(){
-		CsvRenderer csvRenderer = new CsvRenderer(
-				getDefaultInjector().getInstance(DescriptorStore.class)
-				, NationalityKVO.descriptorName
-				, null
-				, new JavaDateFormatter()
-				, new NumberUtilSrv()
-				, new CETDateProviderSrv());
+	public void renderWithHeaderTest(CsvRendererFactory csvRendererFactory){
+		CsvRenderer csvRenderer = csvRendererFactory.create(NationalityKVO.descriptorName, (String)null);
+		
 		csvRenderer.setRenderHeader(true);
 		
 		String csvString = csvRenderer.render(kvos);

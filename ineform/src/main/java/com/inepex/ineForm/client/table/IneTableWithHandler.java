@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 /**
@@ -27,8 +28,9 @@ public class IneTableWithHandler extends IneTable {
 			EventBus eventBus,
 			String objectDescriptorName,
 			TableRDesc tableRenderDescriptor,
-			IneDataConnector dataConnector) {
-		super(descStore, objectDescriptorName, tableRenderDescriptor, dataConnector);
+			IneDataConnector dataConnector,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
+		super(descStore, objectDescriptorName, tableRenderDescriptor, dataConnector, fieldRenderer);
 		this.eventBus = eventBus;
 	}
 	

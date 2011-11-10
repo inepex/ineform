@@ -110,6 +110,12 @@
 			<artifactId>servlet-api</artifactId>
 			<version>${javaxServletVersion}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jukito</groupId>
+			<artifactId>jukito</artifactId>
+			<version>${jukitoVersion}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

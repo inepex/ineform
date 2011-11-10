@@ -7,9 +7,8 @@ import com.inepex.ineForm.client.form.widgets.EnumListFW;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
-import com.inepex.ineFrame.shared.util.DateFormatter;
-import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
@@ -22,50 +21,44 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public abstract class TableRenderer {
 
-	DescriptorStore descStore;
+	protected DescriptorStore descStore;
 	
 	protected ObjectDesc objectDesc;
 	protected TableRDesc tableRDesc;
 	protected StringBuffer sb;
-	protected final DateFormatter dateFormatter;
-	protected final NumberUtil numberUtil;
 	
-	
-	boolean renderHeader = false;
-	boolean renderLastFieldEnd = false;
-	DateProvider dateProvider;
+	protected boolean renderHeader = false;
+	protected boolean renderLastFieldEnd = false;
+
+	protected final AssistedObjectTableFieldRenderer fieldRenderer;
 
 	public TableRenderer(DescriptorStore descStore
 			, String objectDescName
 			, String tableRDescName
-			, DateFormatter dateFormatter
-			, NumberUtil numberUtil
-			, DateProvider dateProvider) {
-		this.dateFormatter = dateFormatter;
-		this.numberUtil=numberUtil;
+			, AssistedObjectTableFieldRenderer assistedObjectTableFieldRenderer) {
 		this.descStore = descStore;
-		this.dateProvider = dateProvider;
+		this.fieldRenderer = assistedObjectTableFieldRenderer;
 		
 		objectDesc = descStore.getOD(objectDescName);
 		if (tableRDescName == null)
 			tableRDesc = descStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
-		else tableRDesc = descStore.getNamedTypedDesc(objectDescName, tableRDescName, TableRDesc.class);	
-		
+		else tableRDesc = descStore.getNamedTypedDesc(objectDescName, tableRDescName, TableRDesc.class);		
 	}
 	
 	public TableRenderer(DescriptorStore descStore
 			, ObjectDesc objectDesc
 			, TableRDesc tableRDesc
-			, DateFormatter dateFormatter
-			, NumberUtil numberUtil) {
+			, AssistedObjectTableFieldRenderer assistedObjectTableFieldRenderer) {
 		super();
-		this.numberUtil=numberUtil;
 		this.objectDesc = objectDesc;
 		this.tableRDesc = tableRDesc;
-		this.dateFormatter = dateFormatter;
 		this.descStore = descStore;
+		this.fieldRenderer = assistedObjectTableFieldRenderer;
 	}
 
+	public void addCellContentDisplayer(String columnId, CustomCellContentDisplayer cellContentDisplayer) {
+		fieldRenderer.setCustomFieldRenderer(columnId, cellContentDisplayer);
+	}
 
 
 	public String render(List<AssistedObject> kvos){
@@ -139,54 +132,8 @@ public abstract class TableRenderer {
 	
 	
 	protected String renderField(FDesc fieldDesc, ColRDesc colRdesc, AssistedObjectHandler rowValue){
-		try {	
-	
-			String deepestKey = SharedUtil.deepestKey(fieldDesc.getKey());
-			String result = null;
-
-			//default cell display
-			if (colRdesc.getPropValue(ColRDesc.AS_DATE) != null) {
-				Long date = rowValue.getLong(deepestKey);
-				if (date != null)
-					result = dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_DATETIMEFORMAT, dateProvider.getDate(date));
-			} else if (colRdesc.getPropValue(ColRDesc.AS_SHORTDATE) != null) {
-				Long date = rowValue.getLong(deepestKey);
-				if (date != null)
-					result = dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_SHORT_DATETIMEFORMAT, dateProvider.getDate(date));
-			} else if (colRdesc.getPropValue(ColRDesc.AS_DATE_WITHSEC) != null) {
-				Long date = rowValue.getLong(deepestKey);
-				if (date != null)
-					result = dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT, dateProvider.getDate(date));
-			} else if (colRdesc.getPropValue(EnumListFW.enumValues) != null) {
-				String[] enumValues = colRdesc.getPropValue(
-						EnumListFW.enumValues).split(IFConsts.enumValueSplitChar);
-				if (null!=rowValue.getLong(deepestKey))
-					result = enumValues[rowValue.getLong(deepestKey).intValue()];
-			} else if (colRdesc.getPropValue(ColRDesc.AS_GROUPTHOUSANDS) != null) {
-				Long val = rowValue.getLong(deepestKey);
-				if (val != null)
-					result = numberUtil.formatNumberGroupThousands(val);
-			} else if (colRdesc.getPropValue(ColRDesc.AS_FORMATTEDDOUBLE)!=null) {
-				Double val = rowValue.getDouble(deepestKey);
-				if (val != null)
-					result = numberUtil.csvNumberToMin2Fractial(val);	
-			} else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
-				Double val = rowValue.getDouble(deepestKey);
-				if (val != null) {
-					result = numberUtil.csvFormatNumberToFractial(val, Integer.parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
-				}
-			} else
-				result = rowValue.getValueAsString(deepestKey);
-
-			if (result == null)
-				result = "";
-
-			return result;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		}
+		fieldRenderer.setObjectAndDescriptor(rowValue.getAssistedObject(), tableRDesc);
+		return fieldRenderer.getField(fieldDesc.getKey());
 	}
 	
 	protected FDesc getFieldDescForColumn(Node<TableRDescBase> columnNode){

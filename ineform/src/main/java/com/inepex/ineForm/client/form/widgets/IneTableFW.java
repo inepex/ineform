@@ -7,6 +7,8 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.table.DummyDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -27,7 +29,10 @@ public class IneTableFW extends DenyingFormWidget {
 		super(fielddescriptor);
 		
 		connector = new DummyDataConnector(context.eventBus, objectDescriptorName);
-		ineTable = new IneTable(context.descStore, objectDescriptorName, connector);
+		AssistedObjectTableFieldRenderer fieldRenderer = new AssistedObjectTableFieldRenderer(
+				new AssistedObjectHandlerFactory(context.descStore),
+				context.dateFormatter, context.numberUtil);
+		ineTable = new IneTable(context.descStore, objectDescriptorName, connector, fieldRenderer);
 		ineTable.setShowPager(false);
 		if(singleselect)
 			ineTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);

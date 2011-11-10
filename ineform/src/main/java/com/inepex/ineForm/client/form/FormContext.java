@@ -11,7 +11,9 @@ import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
+import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
@@ -38,6 +40,8 @@ public class FormContext {
 	public final OdFinder odFinder;
 	public final ObjectFinder objectFinder;
 	public final Provider<CustomKVOFW.View> customKvoFwViewProvider;
+	public final DateFormatter dateFormatter;
+	public final NumberUtil numberUtil;
 	
 	/**
 	 * ValueRangeProvider can be overridden in a specific context. 
@@ -57,7 +61,9 @@ public class FormContext {
 			, DateProvider dateProvider
 			, OdFinder odFinder
 			, ObjectFinder objectFinder
-			, Provider<CustomKVOFW.View> customKvoFwViewProvider) {
+			, Provider<CustomKVOFW.View> customKvoFwViewProvider
+			, DateFormatter dateFormatter
+			, NumberUtil numberUtil) {
 		this.objectFinder=objectFinder;
 		this.customKvoFwViewProvider=customKvoFwViewProvider;
 		this.odFinder=odFinder;
@@ -70,6 +76,8 @@ public class FormContext {
 		this.panelWidgetFactory = panelWidgetFactory;
 		this.validatorManager = validatorManager;
 		this.dateProvider = dateProvider;
+		this.dateFormatter = dateFormatter;
+		this.numberUtil = numberUtil;
 	}	
 	
 }

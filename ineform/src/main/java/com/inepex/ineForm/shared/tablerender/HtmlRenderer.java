@@ -1,19 +1,24 @@
 package com.inepex.ineForm.shared.tablerender;
 
-import com.inepex.ineFrame.shared.util.DateFormatter;
-import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class HtmlRenderer extends TableRenderer{
 
+	public static interface HtmlRendererFactory {
+		public HtmlRenderer create(@Assisted("od") String objectDescName,
+				@Assisted("td") @Nullable String tableRDescName);
+	}	
+	
+	@Inject
 	public HtmlRenderer(DescriptorStore descStore
-			, String objectDescName
-			, String tableRDescName
-			, DateFormatter dateFormatter
-			, NumberUtil numberUtil
-			, DateProvider dateProvider) {
-		super(descStore, objectDescName, tableRDescName, dateFormatter, numberUtil, dateProvider);
+			, @Assisted("od") String objectDescName
+			, @Assisted("td") @Nullable String tableRDescName
+			, AssistedObjectTableFieldRenderer fieldRenderer) {
+		super(descStore, objectDescName, tableRDescName, fieldRenderer);
 		setRenderLastFieldEnd(true);
 	}
 

@@ -40,6 +40,12 @@ import com.inepex.ineForm.client.util.GwtRequestBuilderFactory;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ActionBasedObjectFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
+import com.inepex.ineForm.shared.tablerender.CsvRenderer;
+import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
+import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
+import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
+import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
+import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
@@ -91,6 +97,18 @@ public class TestIneFormClientGuiceModule extends AbstractModule {
 					.build(ManipulatorFactory.class));
 		
 		bind(CustomKVOFW.View.class).to(CustomKVOFWView.class);
+		
+		install(new FactoryModuleBuilder()
+	 	.implement(CsvRenderer.class, CsvRenderer.class)
+		.build(CsvRendererFactory.class));
+		
+		install(new FactoryModuleBuilder()
+	 	.implement(TrtdRenderer.class, TrtdRenderer.class)
+		.build(TrtdRendererFactory.class));
+		
+		install(new FactoryModuleBuilder()
+	 	.implement(HtmlRenderer.class, HtmlRenderer.class)
+		.build(HtmlRendererFactory.class));
 	}
 	
 	@Provides

@@ -1,7 +1,6 @@
 package com.inepex.ineForm.client.table;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,7 +15,6 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -33,15 +31,14 @@ import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.inepex.ineForm.client.IneFormProperties;
-import com.inepex.ineForm.client.form.widgets.EnumListFW;
 import com.inepex.ineForm.client.resources.ResourceHelper;
-import com.inepex.ineForm.client.util.NumberUtilCln;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -49,7 +46,6 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.util.SharedUtil;
 
 /**
  * A CellTable that automatically renders itself according to the given ObjectRenderDescriptor
@@ -68,7 +64,6 @@ public class IneTable extends HandlerAwareComposite {
 	// Constants
 	public final static int DEFAULT_PAGE_SIZE = 10;
 	public final static int DEFAULT_PAGE_SIZE_WITHOUT_PAGER = 1000;
-	public final static int CROPSTRINGLENGTH = 30;
 
 	// Class variables
 	private int pageSize = DEFAULT_PAGE_SIZE;
@@ -111,14 +106,9 @@ public class IneTable extends HandlerAwareComposite {
 	final FlowPanel mainPanel = new FlowPanel();
 	final CellTable<AssistedObject> cellTable;
 	
-	private DateTimeFormat defaultDateTimeFormat = DateTimeFormat.getFormat(IneFormProperties.INETABLE_DEFAULT_DATETIMEFORMAT);
-	private DateTimeFormat defaultShortDateTimeFormat = DateTimeFormat.getFormat(IneFormProperties.INETABLE_DEFAULT_SHORT_DATETIMEFORMAT);
-	private DateTimeFormat defaultSecDateTimeFormat = DateTimeFormat.getFormat(IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT);
-	
 	protected String commandsTitle = "";
 	protected List<UserCommand> commands = new ArrayList<IneTable.UserCommand>();
 	protected RowStylesProvider rowStylesProvider = null; 
-	protected Map<String, CustomCellContentDisplayer> cellContentDisplayers = null;
 	
 	// Properties
 	protected final String objectDescriptorName;
@@ -139,13 +129,16 @@ public class IneTable extends HandlerAwareComposite {
 	
 	protected Map<String, Header<String>> headers = new TreeMap<String, Header<String>>();
 	
-	DateProvider dateProvider;
 	
 	private boolean batchColumnAddig = false; //faster rendering
+	
+	protected final AssistedObjectTableFieldRenderer fieldRenderer;
 
 	public IneTable(DescriptorStore descriptorStore, String objectDescName,
-			String tableRenderDescriptorName, IneDataConnector connector) {
-		this(descriptorStore, objectDescName, getTRD(descriptorStore, objectDescName, tableRenderDescriptorName), connector);
+			String tableRenderDescriptorName, IneDataConnector connector,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
+		this(descriptorStore, objectDescName, getTRD(descriptorStore, objectDescName, tableRenderDescriptorName), connector, fieldRenderer);
+		
 	}
 	
 	/**
@@ -156,8 +149,9 @@ public class IneTable extends HandlerAwareComposite {
 	 */
 	public IneTable(DescriptorStore descStore,
 					String objectDescriptorName,
-					IneDataConnector dataProvider) {
-		this(descStore, objectDescriptorName, (String)null, dataProvider);
+					IneDataConnector dataProvider,
+					AssistedObjectTableFieldRenderer fieldRenderer) {
+		this(descStore, objectDescriptorName, (String)null, dataProvider, fieldRenderer);
 	}
 	
 	/**
@@ -169,7 +163,10 @@ public class IneTable extends HandlerAwareComposite {
 	public IneTable(DescriptorStore descStore,
 			String objectDescriptorName,
 			TableRDesc tableRenderDescriptor,
-			IneDataConnector dataProvider) {
+			IneDataConnector dataProvider,
+			AssistedObjectTableFieldRenderer fieldRenderer
+			) {
+		this.fieldRenderer = fieldRenderer;
 		this.descStore = descStore;
 		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
@@ -200,10 +197,6 @@ public class IneTable extends HandlerAwareComposite {
 		mainPanel.add(cellTable);
 	}
 	
-	public void setDateProvider(DateProvider dateProvider) {
-		this.dateProvider = dateProvider;
-	}
-	
 //**** Set behaviour properties ****// 
 
 	protected void onRowDataChanged() {
@@ -232,9 +225,7 @@ public class IneTable extends HandlerAwareComposite {
 	}
 
 	public void addCellContentDisplayer(String columnId, CustomCellContentDisplayer cellContentDisplayer) {
-		if(cellContentDisplayers==null) 
-			cellContentDisplayers=new HashMap<String, CustomCellContentDisplayer>();
-		cellContentDisplayers.put(columnId, cellContentDisplayer);
+		fieldRenderer.setCustomFieldRenderer(columnId, cellContentDisplayer);
 	}
 	
 	/**Also sets pagesize to DEFAULT_PAGE_SIZE, or DEFAULT_PAGE_SIZE_WITHOUT_PAGER 
@@ -323,8 +314,8 @@ public class IneTable extends HandlerAwareComposite {
 			}
 			
 			IneTableColumn column = new IneTableColumn(new TextCell(), 
-										columnNode.getNodeId(),
-										(ColRDesc)columnNode.getNodeElement());
+										columnNode.getNodeId()
+										);
 			
 			String headerText = colRenderDesc.getDisplayName() != null ? colRenderDesc.getDisplayName() : null;
 			if (headerText == null) {
@@ -404,93 +395,17 @@ public class IneTable extends HandlerAwareComposite {
 	private class IneTableColumn extends Column<AssistedObject, String>{
 		
 		private final String key;
-		private final ColRDesc colRdesc;
-		private final String deepestKey;
-		private final CustomCellContentDisplayer customCellContentDisplayer;
 
-		public IneTableColumn(Cell<String> cell, String key, ColRDesc colRdesc) {
+		public IneTableColumn(Cell<String> cell, String key) {
 			super(cell);
 			this.key=key;
-			this.colRdesc=colRdesc;
-			this.deepestKey = SharedUtil.deepestKey(key);
-			if(cellContentDisplayers!=null)
-				this.customCellContentDisplayer=cellContentDisplayers.get(key);
-			else
-				customCellContentDisplayer=null;
-		}
-		
-		
+		}		
 		
 		@Override
 		public void render(Context context, AssistedObject rowValue,
 				 SafeHtmlBuilder sb) {
-			AssistedObjectHandler rowHandler = handlerFactory.createHandler(rowValue);
-			//custom cell display
-			if(customCellContentDisplayer!=null) {
-				String customHtmlContent = customCellContentDisplayer.getCustomCellContent(rowHandler, key, colRdesc);
-					if(customHtmlContent!=null) {
-						sb.appendHtmlConstant(customHtmlContent);
-					}
-			} else {
-				try {	
-					if (customCellContentDisplayer!=null)
-						return;
-					
-					String result = null;
-		
-					if(SharedUtil.isMultilevelKey(key))
-						rowHandler = rowHandler.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
-					
-					//default cell display
-					if (colRdesc.getPropValue(ColRDesc.AS_DATE) != null) {
-						Long date = rowHandler.getLong(deepestKey);
-						if (date != null)
-							result = defaultDateTimeFormat.format(dateProvider.getDate(date));
-					} else if (colRdesc.getPropValue(ColRDesc.AS_SHORTDATE) != null) {
-						Long date = rowHandler.getLong(deepestKey);
-						if (date != null)
-							result = defaultShortDateTimeFormat.format(dateProvider.getDate(date));
-					} else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
-						Double val = rowHandler.getDouble(deepestKey);
-						if (val != null) {
-							result = new NumberUtilCln().formatNumberToFractial(val, Integer.parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
-						}
-					} else if (colRdesc.getPropValue(ColRDesc.AS_DATE_WITHSEC) != null) {
-						Long date = rowHandler.getLong(deepestKey);
-						if (date != null)
-							result = defaultSecDateTimeFormat.format(dateProvider.getDate(date));
-					} else if (colRdesc.getPropValue(EnumListFW.enumValues) != null) {
-						String[] enumValues = colRdesc.getPropValue(
-								EnumListFW.enumValues).split(IFConsts.enumValueSplitChar);
-						if (null!=rowHandler.getLong(deepestKey))
-							result = enumValues[rowHandler.getLong(deepestKey).intValue()];
-					} else if (colRdesc.getPropValue(ColRDesc.AS_GROUPTHOUSANDS) != null) {
-						Long val = rowHandler.getLong(deepestKey);
-						if (val != null)
-							result = new NumberUtilCln().formatNumberGroupThousands(val);
-					} else if (colRdesc.getPropValue(ColRDesc.AS_FORMATTEDDOUBLE)!=null) {
-						Double val = rowHandler.getDouble(deepestKey);
-						if (val != null)
-							result = new NumberUtilCln().formatNumberToFractial(val);	
-					} else
-						result = rowHandler.getValueAsString(deepestKey);
-		
-					if (result == null)
-						result = "";
-		
-					// Crop result
-					int usingCorpsLeng = (colRdesc.getCustomCorpsWidth()!=null) ? 
-							colRdesc.getCustomCorpsWidth() : CROPSTRINGLENGTH;
-							
-					result = result.length() > usingCorpsLeng ? result.substring(
-							0, usingCorpsLeng) + "..." : result;
-		
-					sb.appendHtmlConstant(result);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			fieldRenderer.setObjectAndDescriptor(rowValue, tableRenderDescriptor);
+			sb.appendHtmlConstant(fieldRenderer.getField(key));
 		}
 
 		@Override
@@ -518,15 +433,7 @@ public class IneTable extends HandlerAwareComposite {
 	}
 	
 	public static interface RowStylesProvider extends RowStyles<AssistedObject> {
-	}
-	
-	public static interface CustomCellContentDisplayer {
-		/**
-		 * @return the html (or string) value of the pointed column's
-		 */
-		public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc);
-	}
-	
+	}	
 	
 	public static interface UserCommand {
 		public String getCommandCellText();

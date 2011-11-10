@@ -19,6 +19,7 @@ import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineFrame.client.dialog.ConfirmDialogBox;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
@@ -62,7 +63,9 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 			, FormFactory formFactory
 			, String objectDescriptorName
 			, IneDataConnector ineDataConnector
-			, boolean sortable) {
+			, boolean sortable,
+			AssistedObjectTableFieldRenderer fieldRenderer
+			) {
 		
 		this.objectDescriptorName = objectDescriptorName;
 		this.ineDataConnector = ineDataConnector;
@@ -75,9 +78,9 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 		addTopPlaceholder();
 		
 		if(sortable)
-			this.ineTable = new SortableIneTable(formCtx.descStore, objectDescriptorName, ineDataConnector);
+			this.ineTable = new SortableIneTable(formCtx.descStore, objectDescriptorName, ineDataConnector, fieldRenderer);
 		else 
-			this.ineTable = new IneTable(formCtx.descStore, objectDescriptorName, ineDataConnector);
+			this.ineTable = new IneTable(formCtx.descStore, objectDescriptorName, ineDataConnector, fieldRenderer);
 	}
 	
 	public void render() {

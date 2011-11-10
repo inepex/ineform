@@ -1,8 +1,9 @@
 package com.inepex.ineForm.shared.tablerender;
 
-import com.inepex.ineFrame.shared.util.DateFormatter;
-import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 
@@ -12,13 +13,17 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
  */
 public class TrtdRenderer extends TableRenderer{
 
-	public TrtdRenderer(DescriptorStore descStore
-			, String objectDescName
-			, String tableRDescName
-			, DateFormatter dateFormatter
-			, NumberUtil numberUtil
-			, DateProvider dateProvider) {
-		super(descStore, objectDescName, tableRDescName, dateFormatter, numberUtil, dateProvider);
+	public static interface TrtdRendererFactory {
+		public TrtdRenderer create(@Assisted("od") String objectDescName,
+				@Assisted("td") @Nullable String tableRDescName);
+	}
+	
+	@Inject
+	public TrtdRenderer(DescriptorStore descStore,
+			@Assisted("od") String objectDescName,
+			@Assisted("td") @Nullable String tableRDescName,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
+		super(descStore, objectDescName, tableRDescName, fieldRenderer);
 		setRenderLastFieldEnd(true);
 	}
 

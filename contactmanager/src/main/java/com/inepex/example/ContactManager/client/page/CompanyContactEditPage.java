@@ -21,6 +21,7 @@ import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable.UserCommand;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
@@ -32,7 +33,8 @@ public class CompanyContactEditPage extends ConnectorPage {
 	private Long compId;
 	
 	@Inject
-	CompanyContactEditPage(FormContext formCtx, FormFactory formFactory, ContactHandlerFactory contactHandlerFactory) {
+	CompanyContactEditPage(FormContext formCtx, FormFactory formFactory, ContactHandlerFactory contactHandlerFactory,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
 		this.contactHandlerFactory=contactHandlerFactory;
 		
 		searchKVO = contactHandlerFactory.createSearchHandler();
@@ -40,7 +42,8 @@ public class CompanyContactEditPage extends ConnectorPage {
 		ServerSideDataConnector connector = createConnector(formCtx.ineDispatch, formCtx.eventBus, ContactConsts.descriptorName);
 		connector.setSearchParametersAndUpdate(searchKVO.getAssistedObject());
 		
-		DataManipulator dm = new CompanyDataManipulator(formCtx, formFactory, ContactConsts.descriptorName,connector, true);
+		DataManipulator dm = new CompanyDataManipulator(formCtx, formFactory, 
+				ContactConsts.descriptorName,connector, true, fieldRenderer);
 		dm.render();
 		
 		mainPanel.add(dm);
@@ -62,8 +65,8 @@ public class CompanyContactEditPage extends ConnectorPage {
 
 		public CompanyDataManipulator(FormContext formCtx,
 				FormFactory formFactory, String objectDescriptorName,
-				IneDataConnector ineDataConnector, boolean sortable) {
-			super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable);
+				IneDataConnector ineDataConnector, boolean sortable, AssistedObjectTableFieldRenderer fieldRenderer) {
+			super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
 		}
 		
 		@Override

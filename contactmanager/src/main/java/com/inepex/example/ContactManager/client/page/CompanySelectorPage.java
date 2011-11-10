@@ -9,6 +9,7 @@ import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
@@ -22,12 +23,15 @@ public class CompanySelectorPage extends ConnectorPage {
 	private final EventBus eventBus;
 	
 	@Inject
-	CompanySelectorPage(IneDispatch dispatcher, EventBus eventBus, DescriptorStore descriptorStore) {
+	CompanySelectorPage(IneDispatch dispatcher, EventBus eventBus, DescriptorStore descriptorStore,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
 		this.eventBus=eventBus;
 		
 		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, CompanyConsts.descriptorName);
 		
-		sortableIneTable = new SortableIneTable(descriptorStore, CompanyConsts.descriptorName, connector);
+		sortableIneTable = new SortableIneTable(descriptorStore, CompanyConsts.descriptorName, connector,
+				fieldRenderer
+				);
 		
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		

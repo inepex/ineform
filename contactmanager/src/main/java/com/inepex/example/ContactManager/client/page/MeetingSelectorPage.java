@@ -6,16 +6,16 @@ import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
-import com.inepex.ineForm.client.table.IneTable.CustomCellContentDisplayer;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -29,14 +29,15 @@ public class MeetingSelectorPage extends ConnectorPage {
 	
 	@Inject
 	MeetingSelectorPage(IneDispatch dispatcher, EventBus eventBus,
-			DescriptorStore descriptorStore, DateProvider dateProvider, AuthManager authManager) {
+			DescriptorStore descriptorStore, AuthManager authManager,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
 		this.eventBus=eventBus;
 		this.authManager = authManager;
 		
 		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, MeetingConsts.descriptorName);
 		
-		sortableIneTable = new SortableIneTable(descriptorStore, MeetingConsts.descriptorName, connector);
-		sortableIneTable.setDateProvider(dateProvider);
+		sortableIneTable = new SortableIneTable(descriptorStore, MeetingConsts.descriptorName, connector,
+				fieldRenderer);
 		sortableIneTable.addCellContentDisplayer(MeetingConsts.k_user, new Highlighter());
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		

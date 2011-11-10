@@ -2,7 +2,7 @@ package com.inepex.ineForm.client.table;
 
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.user.cellview.client.Header;
-import com.inepex.ineForm.shared.descriptorext.TableRDesc;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class SortableIneTable extends IneTable {
@@ -12,21 +12,11 @@ public class SortableIneTable extends IneTable {
 
 	public SortableIneTable(DescriptorStore descStore,
 			String objectDescriptorName,
-			IneDataConnector dataProvider) {
-		super(descStore, objectDescriptorName, dataProvider);
+			IneDataConnector dataProvider,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
+		super(descStore, objectDescriptorName, dataProvider, fieldRenderer);
 	}
 
-	public SortableIneTable(DescriptorStore descStore,
-			String objectDescriptorName,
-			TableRDesc tableRenderDescriptor, IneDataConnector dataProvider) {
-		super(descStore, objectDescriptorName, tableRenderDescriptor, dataProvider);
-	}
-
-	public SortableIneTable(DescriptorStore descriptorStore,
-			String objectDescName, String tableRenderDescriptor,
-			IneDataConnector connector) {
-		super(descriptorStore, objectDescName, tableRenderDescriptor, connector);
-	}
 
 	@Override
 	protected Header<String> createHeader(

@@ -36,6 +36,7 @@
 		<slf4jVersion>1.6.1</slf4jVersion>
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
+		<jukitoVersion>1.1</jukitoVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<SVNConnBase>scm:svn:http://ineform.googlecode.com/svn/trunk</SVNConnBase>

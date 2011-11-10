@@ -1,32 +1,27 @@
 package com.inepex.ineForm.shared.tablerender;
 
-import com.inepex.ineForm.shared.descriptorext.TableRDesc;
-import com.inepex.ineFrame.shared.util.DateFormatter;
-import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineFrame.shared.util.NumberUtil;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
 public class CsvRenderer extends TableRenderer{
 
 	String separator = ",";
 	
-	public CsvRenderer(DescriptorStore descStore
-			, String objectDescName
-			, String tableRDescName
-			, DateFormatter dateFormatter
-			, NumberUtil numberUtil
-			, DateProvider dateProvider) {
-		super(descStore, objectDescName, tableRDescName, dateFormatter, numberUtil, dateProvider);
-		setRenderLastFieldEnd(false);
+	public static interface CsvRendererFactory {
+		public CsvRenderer create(@Assisted("od") String objectDescName,
+				@Assisted("td") @Nullable String tableRDescName);
 	}
 	
-	public CsvRenderer(DescriptorStore descStore
-			, ObjectDesc objectDesc
-			, TableRDesc tableRDesc
-			, DateFormatter dateFormatter
-			, NumberUtil numberUtil) {
-		super(descStore, objectDesc, tableRDesc, dateFormatter, numberUtil);
+	@Inject
+	public CsvRenderer(DescriptorStore descStore,
+			@Assisted("od") String objectDescName,
+			@Assisted("td") @Nullable String tableRDescName,
+			AssistedObjectTableFieldRenderer fieldRenderer
+			) {
+		super(descStore, objectDescName, tableRDescName, fieldRenderer);
 		setRenderLastFieldEnd(false);
 	}
 	

@@ -32,15 +32,27 @@ import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.RestDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.client.util.GwtDateFormatter;
 import com.inepex.ineForm.client.util.GwtRequestBuilderFactory;
+import com.inepex.ineForm.client.util.NumberUtilCln;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinderRest;
 import com.inepex.ineForm.shared.dispatch.ObjectFinderRestFactory;
+import com.inepex.ineForm.shared.tablerender.CsvRenderer;
+import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
+import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
+import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
+import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
+import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
+import com.inepex.ineFrame.shared.util.DateFormatter;
+import com.inepex.ineFrame.shared.util.GwtNumberFormatter;
+import com.inepex.ineFrame.shared.util.NumberFormatter;
+import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -61,6 +73,9 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(HistoryProvider.class).in(Singleton.class);
 		bind(IneDispatch.class).in(Singleton.class);
 		bind(PushedEventProvider.class).in(Singleton.class);
+		bind(DateFormatter.class).to(GwtDateFormatter.class);
+		bind(NumberFormatter.class).to(GwtNumberFormatter.class);
+		bind(NumberUtil.class).to(NumberUtilCln.class);
 		
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 		bind(DescriptorStore.class).to(ClientDescriptorStore.class).in(Singleton.class);
@@ -105,6 +120,19 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		
 		bind(CustomKVOFW.View.class).to(CustomKVOFWView.class);
+
+		install(new GinFactoryModuleBuilder()
+	 	.implement(CsvRenderer.class, CsvRenderer.class)
+		.build(CsvRendererFactory.class));
+		
+		install(new GinFactoryModuleBuilder()
+	 	.implement(TrtdRenderer.class, TrtdRenderer.class)
+		.build(TrtdRendererFactory.class));
+		
+		install(new GinFactoryModuleBuilder()
+	 	.implement(HtmlRenderer.class, HtmlRenderer.class)
+		.build(HtmlRendererFactory.class));
+		
 	}
 	
 	

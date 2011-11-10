@@ -17,15 +17,13 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
-import com.inepex.ineForm.server.util.JavaDateFormatter;
-import com.inepex.ineForm.server.util.NumberUtilSrv;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Renderer;
-import com.inepex.ineForm.shared.tablerender.CsvRenderer;
-import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
+import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
+import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
-import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
+import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -39,13 +37,23 @@ public class ExportServlet extends HttpServlet{
 	final Provider<CurrentLang> currLangProvider;
 	final Dispatch dispatcher;
 	final DateProvider dateProvider;
+	private final TrtdRendererFactory trtdRendererFactory;
+	private final HtmlRendererFactory htmlRendererFactory;
+	private final CsvRendererFactory csvRendererFactory;
+	
 	@Inject
 	public ExportServlet(Provider<DescriptorStore> descStoreProvider, Provider<CurrentLang> currLangProvider
-						, Dispatch dispatcher, DateProvider dateProvider) {
+						, Dispatch dispatcher, DateProvider dateProvider,
+						TrtdRendererFactory trtdRendererFactory, 
+						HtmlRendererFactory htmlRendererFactory,
+						CsvRendererFactory csvRendererFactory) {
 		this.descStoreProvider = descStoreProvider;
 		this.currLangProvider = currLangProvider;
 		this.dispatcher = dispatcher;
 		this.dateProvider = dateProvider;
+		this.trtdRendererFactory = trtdRendererFactory;
+		this.htmlRendererFactory = htmlRendererFactory;
+		this.csvRendererFactory = csvRendererFactory;
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -90,31 +98,16 @@ public class ExportServlet extends HttpServlet{
 			TableRenderer renderer = null;
 			switch (rendererType) {
 			case CSV:
-				renderer = new CsvRenderer(descStoreProvider.get()
-						, action.getDescriptorName()
-						, tableRDescName
-						, new JavaDateFormatter()
-						, new NumberUtilSrv()
-						, dateProvider);
+				renderer = csvRendererFactory.create(action.getDescriptorName(), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				break;
 			case HTML:
-				renderer = new HtmlRenderer(descStoreProvider.get()
-						, action.getDescriptorName()
-						, tableRDescName
-						, new JavaDateFormatter()
-						, new NumberUtilSrv()
-						, dateProvider);
+				renderer = htmlRendererFactory.create(action.getDescriptorName(), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				break;
 				
 			case TRTD:
-				renderer = new TrtdRenderer(descStoreProvider.get()
-						, action.getDescriptorName()
-						, tableRDescName
-						, new JavaDateFormatter()
-						, new NumberUtilSrv()
-						, dateProvider);
+				renderer = trtdRendererFactory.create(action.getDescriptorName(), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				break;
 			}
