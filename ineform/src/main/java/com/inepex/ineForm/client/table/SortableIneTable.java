@@ -16,6 +16,13 @@ public class SortableIneTable extends IneTable {
 			AssistedObjectTableFieldRenderer fieldRenderer) {
 		super(descStore, objectDescriptorName, dataProvider, fieldRenderer);
 	}
+	
+	public SortableIneTable(DescriptorStore descriptorStore,
+			String objectDescName, String tableRenderDescriptor,
+			IneDataConnector connector, 
+			AssistedObjectTableFieldRenderer fieldRenderer) {
+		super(descriptorStore, objectDescName, tableRenderDescriptor, connector, fieldRenderer);
+	}
 
 
 	@Override
