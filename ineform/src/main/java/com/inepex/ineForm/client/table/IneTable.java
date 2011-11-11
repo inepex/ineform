@@ -553,4 +553,8 @@ public class IneTable extends HandlerAwareComposite {
 	public HasData<AssistedObject> getDataDisplay() {
 		return cellTable;
 	}
+
+	public AssistedObjectTableFieldRenderer getFieldRenderer() {
+		return fieldRenderer;
+	}
 }
