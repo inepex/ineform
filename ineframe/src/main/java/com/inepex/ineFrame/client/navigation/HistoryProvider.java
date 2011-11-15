@@ -5,7 +5,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
 
 public class HistoryProvider {
-
+	
 	public HandlerRegistration addHandler(ValueChangeHandler<String> handler) {
 		return History.addValueChangeHandler(handler);
 	}

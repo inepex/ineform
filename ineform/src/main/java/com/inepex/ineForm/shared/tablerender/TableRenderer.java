@@ -3,7 +3,6 @@ package com.inepex.ineForm.shared.tablerender;
 import java.util.List;
 
 import com.inepex.ineForm.client.IneFormProperties;
-import com.inepex.ineForm.client.form.widgets.EnumListFW;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;

@@ -31,7 +31,10 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	protected HistoryProvider historyProvider;
 	protected EventBus eventBus;
 
+	private String previousToken = null;
 	private String currentFullToken = null;
+	
+	private boolean lastRequestWasARedirect = false;
 
 	public PlaceHandler(PlaceHierarchyProvider placeHierarchyProvider, MasterPage masterPage, AuthManager authManager,
 			HistoryProvider historyProvider, EventBus eventBus) {
@@ -66,8 +69,14 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 	@Override
 	public void onPlaceRequest(PlaceRequestEvent e) {
-		currentFullToken =  e.getHierarchicalTokensWithParam();
+		if (lastRequestWasARedirect){
+			lastRequestWasARedirect = false;
+		} else {
+			previousToken = currentFullToken;
+		}		
 		
+		currentFullToken =  e.getHierarchicalTokensWithParam();		
+	
 		if (e.isOpenInNewWindow()){
 			openInNewWindow("#" + currentFullToken);
 		} else {
@@ -102,6 +111,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
 			PlaceRequestEvent pre = new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken()));
 			pre.setNeedWindowReload(needWindowReload);
+			lastRequestWasARedirect = true;
 			eventBus.fireEvent(pre);
 			return;
 		}
@@ -243,4 +253,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	public String getCurrentFullToken(){
 		return currentFullToken;
 	}
+
+	public String getPreviousToken() {
+		return previousToken;
+	}
+
 }
