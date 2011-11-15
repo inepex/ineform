@@ -22,7 +22,7 @@ import com.inepex.ineFrame.shared.util.DateProvider;
 @Singleton
 public class EnumBasedDateProviderCln implements DateProvider {
 	
-	public static final String TIMEZONE_COOKIE_ID="EnumBasedDateProviderCln_last_used_timezone";
+	public static final String TIMEZONE_COOKIE_ID="EnumBasedDateProviderCln_timezoneJson";
 	private TimeZone tz = null; 
 
 	@Inject
