@@ -1,4 +1,7 @@
-package com.inepex.ineFrame.shared.util;
+package com.inepex.ineFrame.server.util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.inepex.ineom.shared.IFConsts;
 
@@ -412,6 +415,17 @@ public enum TimeZoneEnum {
 	}
 	
 	
+	private static List<String> valueRangeCache = null;
+	public static List<String> getValueRange() {
+		if(valueRangeCache==null) {
+			valueRangeCache=new ArrayList<String>(values().length);
+			for(TimeZoneEnum item : values()) {
+				valueRangeCache.add(item.toString());
+			}
+		}
+		return valueRangeCache;
+	}
+	
 	private static String valueCache=null;
 	public static String getValuesAsString(){
 		if(valueCache==null)  {
@@ -430,5 +444,17 @@ public enum TimeZoneEnum {
 	@Override
 	public String toString() {
 		return tzId.replaceAll("_", " ");
+	}
+	
+	/**
+	 * 
+	 * this is the reverse toString() method
+	 * 
+	 */
+	public static TimeZoneEnum valueOfDisplayable(String displayable) {
+		if(displayable==null || displayable.length()<1)
+			return null;
+		
+		return valueOf(displayable.replace(' ', '_').replace('/', '_'));
 	}
 }

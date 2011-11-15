@@ -6,7 +6,6 @@ import java.util.TimeZone;
 import com.google.inject.servlet.SessionScoped;
 import com.inepex.ineFrame.shared.util.DateHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineFrame.shared.util.TimeZoneEnum;
 
 /**
  * WARNING! set the time zone with setTimeZoneEnumAndTimeZone(TimeZoneEnum timeZoneEnum) method!!!

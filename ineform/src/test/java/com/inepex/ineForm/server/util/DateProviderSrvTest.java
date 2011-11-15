@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import com.inepex.ineFrame.server.util.CETDateProviderSrv;
 import com.inepex.ineFrame.server.util.EnumBasedDateProviderSrv;
-import com.inepex.ineFrame.shared.util.TimeZoneEnum;
+import com.inepex.ineFrame.server.util.TimeZoneEnum;
 
 public class DateProviderSrvTest {
 

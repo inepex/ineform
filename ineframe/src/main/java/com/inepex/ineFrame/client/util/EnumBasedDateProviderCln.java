@@ -3,50 +3,44 @@ package com.inepex.ineFrame.client.util;
 import java.util.Date;
 
 import com.google.gwt.i18n.client.TimeZone;
+import com.google.gwt.i18n.client.constants.TimeZoneConstants;
 import com.google.gwt.user.client.Cookies;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.server.util.TimeZoneEnum;
 import com.inepex.ineFrame.shared.util.DateHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineFrame.shared.util.TimeZoneEnum;
 
 
 /**
  * 
- * WARNING! set the time zone setting will be stored in cookie
+ * WARNING! the the time zone was set will be stored in cookie
+ * 
+ * Based on {@link TimeZoneEnum}'s tzJson field or GWT's {@link TimeZoneConstants}
  * 
  */
 @Singleton
 public class EnumBasedDateProviderCln implements DateProvider {
 	
 	public static final String TIMEZONE_COOKIE_ID="EnumBasedDateProviderCln_last_used_timezone";
-	
-	private TimeZoneEnum timeZoneEnum;
 	private TimeZone tz = null; 
 
 	@Inject
 	EnumBasedDateProviderCln(){
-		try {
-			String tzFromCookie = Cookies.getCookie(TIMEZONE_COOKIE_ID);
-			if(tzFromCookie!=null)
-				setTimeZoneEnumAndTimeZone(TimeZoneEnum.valueOf(tzFromCookie));
-				
-		} catch (IllegalArgumentException e) {
-			//cookie is invalid?
-			Cookies.removeCookie(TIMEZONE_COOKIE_ID);
-		}
+		String tzJson = Cookies.getCookie(TIMEZONE_COOKIE_ID);
+		if(tzJson!=null)
+			setTimeZoneEnumAndTimeZone(tzJson);
 	}
-	
-	public void setTimeZoneEnumAndTimeZone(TimeZoneEnum timeZoneEnum) {
-		this.timeZoneEnum = timeZoneEnum;
-		this.tz=TimeZone.createTimeZone(timeZoneEnum.tzJson);
+
+	/**
+	 * 
+	 * @param tzJson - one of {@link TimeZoneEnum}'s tzJson field or GWT's {@link TimeZoneConstants}
+	 */
+	public void setTimeZoneEnumAndTimeZone(String tzJson) {
+		this.tz=TimeZone.createTimeZone(tzJson);
 		
 		Cookies.setCookie(TIMEZONE_COOKIE_ID,
-				timeZoneEnum.name(), DateHelper.addDaysSafe(new Date(), 50));
-	}
-	
-	public TimeZoneEnum getTimeZoneEnum() {
-		return timeZoneEnum;
+				tzJson, DateHelper.addDaysSafe(new Date(), 50));
 	}
 	
 	@Override
