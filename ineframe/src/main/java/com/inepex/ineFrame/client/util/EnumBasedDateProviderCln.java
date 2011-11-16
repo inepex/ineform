@@ -28,8 +28,14 @@ public class EnumBasedDateProviderCln implements DateProvider {
 	@Inject
 	EnumBasedDateProviderCln(){
 		String tzJson = Cookies.getCookie(TIMEZONE_COOKIE_ID);
-		if(tzJson!=null)
-			setTimeZoneEnumAndTimeZone(tzJson);
+		if(tzJson!=null) {
+			try {
+				setTimeZoneEnumAndTimeZone(tzJson);
+			} catch (Exception e) {
+				//illegal cookie
+				Cookies.removeCookie(TIMEZONE_COOKIE_ID);
+			}
+		}
 	}
 
 	/**
