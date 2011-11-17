@@ -156,7 +156,7 @@ public class IneTable extends HandlerAwareComposite {
 		this.descStore = descStore;
 		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
-		cellTable = new CellTable<AssistedObject>(DEFAULT_PAGE_SIZE, ResourceHelper.getCellTableResources(), KEY_PROVIDER) {
+		cellTable = new CellTable<AssistedObject>(DEFAULT_PAGE_SIZE, ResourceHelper.cellTableResources(), KEY_PROVIDER) {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
 				super.setRowData(start, values);
@@ -229,7 +229,7 @@ public class IneTable extends HandlerAwareComposite {
 	
 	public void renderTable() {
 		if (!rendered) {
-			cellTable.addStyleName(ResourceHelper.getRes().style().ineTable());
+			cellTable.addStyleName(ResourceHelper.ineformRes().style().ineTable());
 			
 			batchColumnAddig=true;
 			initTableColumns();
@@ -412,7 +412,7 @@ public class IneTable extends HandlerAwareComposite {
 			}
 			
 			return 
-				((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? ResourceHelper.getRes().style().clickable() : "" ) +  
+				((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? ResourceHelper.ineformRes().style().clickable() : "" ) +  
 				((extraStyle == null) ? ("") : (" "+extraStyle));
 		}
 		

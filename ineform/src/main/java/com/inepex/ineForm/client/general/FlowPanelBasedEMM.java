@@ -16,7 +16,7 @@ public class FlowPanelBasedEMM extends FlowPanel implements ErrorMessageManagerI
 	public FlowPanelBasedEMM() {
 		this.html_error=new HTML("");
 		
-		setStyleName(ResourceHelper.getRes().style().fpb_errorMessageHolder_dontShowError());
+		setStyleName(ResourceHelper.ineformRes().style().fpb_errorMessageHolder_dontShowError());
 	}
 	
 	/**
@@ -24,7 +24,7 @@ public class FlowPanelBasedEMM extends FlowPanel implements ErrorMessageManagerI
 	 */
 	@Override
 	public void clearErrorMsg() {
-		setStyleName(ResourceHelper.getRes().style().fpb_errorMessageHolder_dontShowError());
+		setStyleName(ResourceHelper.ineformRes().style().fpb_errorMessageHolder_dontShowError());
 		html_error.setHTML("");
 		
 		if(shouldRemove) {
@@ -43,7 +43,7 @@ public class FlowPanelBasedEMM extends FlowPanel implements ErrorMessageManagerI
 	@Override
 	public void addErrorMsg(List<String> errorlist) {
 		if(errorlist!=null && errorlist.size()>0) {
-			setStyleName(ResourceHelper.getRes().style().fpb_errorMessageHolder_showError());
+			setStyleName(ResourceHelper.ineformRes().style().fpb_errorMessageHolder_showError());
 			StringBuffer sb = new StringBuffer(html_error.getHTML());
 			
 			boolean first=sb.length()==0;

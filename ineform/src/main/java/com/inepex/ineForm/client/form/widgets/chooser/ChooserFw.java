@@ -165,7 +165,7 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 		valueRange.setVisibleItemCount(listSize);
 		selected.setVisibleItemCount(listSize);
 		
-		addStyleName(ResourceHelper.getRes().style().ChooserFw());
+		addStyleName(ResourceHelper.ineformRes().style().ChooserFw());
 		
 		selected.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
 		valueRange.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);

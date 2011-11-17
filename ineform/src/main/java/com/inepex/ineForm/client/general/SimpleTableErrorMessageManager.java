@@ -17,7 +17,7 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 	public SimpleTableErrorMessageManager(Element holder) {
 		this.html_error=new HTML("");
 		this.holder=holder;
-		holder.setClassName(ResourceHelper.getRes().style().errorMessageHolder_dontShowError());
+		holder.setClassName(ResourceHelper.ineformRes().style().errorMessageHolder_dontShowError());
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 	 */
 	@Override
 	public void clearErrorMsg() {
-		holder.setClassName(ResourceHelper.getRes().style().errorMessageHolder_dontShowError());
+		holder.setClassName(ResourceHelper.ineformRes().style().errorMessageHolder_dontShowError());
 		html_error.setHTML("");
 		
 		if(shouldRemove) {
@@ -44,7 +44,7 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 	@Override
 	public void addErrorMsg(List<String> errorlist) {
 		if(errorlist!=null && errorlist.size()>0) {
-			holder.setClassName(ResourceHelper.getRes().style().errorMessageHolder_showError());
+			holder.setClassName(ResourceHelper.ineformRes().style().errorMessageHolder_showError());
 			StringBuffer sb = new StringBuffer(html_error.getHTML());
 			
 			boolean first=sb.length()==0;

@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
-import com.inepex.ineForm.client.resources.IneResources;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
@@ -138,15 +137,15 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 		
 		if(showstepbuttons) {
 			if(enabled) {
-				img_step_bck.setResource(IneResources.INSTANCE.arrowLeft());
-				img_step_fwd.setResource(IneResources.INSTANCE.arrowRight());
-				img_step_bck.addStyleName(ResourceHelper.getRes().style().clickable());
-				img_step_fwd.addStyleName(ResourceHelper.getRes().style().clickable());
+				img_step_bck.setResource(ResourceHelper.imageResources().arrowLeft());
+				img_step_fwd.setResource(ResourceHelper.imageResources().arrowRight());
+				img_step_bck.addStyleName(ResourceHelper.ineformRes().style().clickable());
+				img_step_fwd.addStyleName(ResourceHelper.ineformRes().style().clickable());
 			} else {
-				img_step_bck.setResource(IneResources.INSTANCE.arrowLeft_disabled());
-				img_step_fwd.setResource(IneResources.INSTANCE.arrowRight_disabled());
-				img_step_bck.removeStyleName(ResourceHelper.getRes().style().clickable());
-				img_step_fwd.removeStyleName(ResourceHelper.getRes().style().clickable());
+				img_step_bck.setResource(ResourceHelper.imageResources().arrowLeft_disabled());
+				img_step_fwd.setResource(ResourceHelper.imageResources().arrowRight_disabled());
+				img_step_bck.removeStyleName(ResourceHelper.ineformRes().style().clickable());
+				img_step_fwd.removeStyleName(ResourceHelper.ineformRes().style().clickable());
 			}
 		}
 

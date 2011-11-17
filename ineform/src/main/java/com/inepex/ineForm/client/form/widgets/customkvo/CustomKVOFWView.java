@@ -39,9 +39,9 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 		rowTable.setText(0, 1, IneFormI18n.customKVO_type());
 		rowTable.setText(0, 2, IneFormI18n.customKVO_value());
 		
-		rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.getRes().style().customKVOHeader());
-		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.getRes().style().customKVOHeaderType());
-		rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.getRes().style().customKVOHeader());
+		rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeader());
+		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
+		rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeader());
 	}
 
 	@Override

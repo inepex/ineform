@@ -24,7 +24,7 @@ public class RichTextAreaFW extends StringFormWidget {
 	    grid.setWidget(0, 0, toolbar);
 	    grid.setWidget(1, 0, textArea);
 	    
-	    textArea.addStyleName(ResourceHelper.getRes().style().richTextArea());
+	    textArea.addStyleName(ResourceHelper.ineformRes().style().richTextArea());
 	    
 		if (renderDesc.hasProp(textBoxWidth)){
 			textArea.setWidth(renderDesc.getPropValue(textBoxWidth));

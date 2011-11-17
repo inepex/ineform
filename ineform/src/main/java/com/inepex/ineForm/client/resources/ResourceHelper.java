@@ -7,7 +7,8 @@ import com.google.gwt.user.cellview.client.CellTable.Resources;
 import com.google.gwt.user.client.ui.Image;
 
 public class ResourceHelper {
-	
+
+	private static IneResources imageResources = null;
 	private static IneFormResources ifResources = null;
 	private static Resources cellTableResources = null;
 	
@@ -19,7 +20,7 @@ public class ResourceHelper {
 	}
 	
 	//ineform resources
-	public static IneFormResources getRes() {
+	public static IneFormResources ineformRes() {
 		if (ifResources == null) {
 			ifResources = GWT.create(IneFormResources.class);
 			ifResources.style().ensureInjected();
@@ -33,10 +34,10 @@ public class ResourceHelper {
 	
 	
 	//celltable resources
-	public static Resources getCellTableResources() {
-		if(cellTableResources==null) {
+	public static Resources cellTableResources() {
+		if(cellTableResources==null)
 			cellTableResources = GWT.create(IneCellTableResources.class);
-		}
+		
 		return cellTableResources;
 	}
 	
@@ -50,5 +51,17 @@ public class ResourceHelper {
          */
         @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
         CellTable.Style cellTableStyle();
+	}
+	
+	//image resources
+	public static void setImageResources(IneResources imageResources) {
+		ResourceHelper.imageResources = imageResources;
+	}
+	
+	public static IneResources imageResources() {
+		if(imageResources==null)
+			imageResources=GWT.create(IneResources.class);
+		
+		return imageResources;
 	}
 }

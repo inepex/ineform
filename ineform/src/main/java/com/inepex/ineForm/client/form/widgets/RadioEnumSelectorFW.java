@@ -50,7 +50,7 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 		
 		radioButtons.get(0).setValue(true);
 		
-		mainPanel.setStyleName(ResourceHelper.getRes().style().displayInline());
+		mainPanel.setStyleName(ResourceHelper.ineformRes().style().displayInline());
 	}
 	
 	@Override

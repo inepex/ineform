@@ -11,7 +11,6 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
-import com.inepex.ineForm.client.resources.IneResources;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
 
@@ -63,11 +62,11 @@ class YMD_OOField extends AbstractField {
 		super.setEnabled(enabled);
 		if(showcalendar)
 			if(enabled) {
-				img_calendar.setResource(IneResources.INSTANCE.calendar());
-				img_calendar.addStyleName(ResourceHelper.getRes().style().clickable());
+				img_calendar.setResource(ResourceHelper.imageResources().calendar());
+				img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
 			} else {
-				img_calendar.setResource(IneResources.INSTANCE.calendar_disabled());
-				img_calendar.removeStyleName(ResourceHelper.getRes().style().clickable());
+				img_calendar.setResource(ResourceHelper.imageResources().calendar_disabled());
+				img_calendar.removeStyleName(ResourceHelper.ineformRes().style().clickable());
 			}
 	}
 	

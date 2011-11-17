@@ -32,9 +32,9 @@ public class FlashingErrorMessageManager implements ErrorMessageManagerInterface
 					}
 						
 					if(i%2==0) {
-						widget.addStyleName(ResourceHelper.getRes().style().flashingBorder());
+						widget.addStyleName(ResourceHelper.ineformRes().style().flashingBorder());
 					} else {
-						widget.removeStyleName(ResourceHelper.getRes().style().flashingBorder());
+						widget.removeStyleName(ResourceHelper.ineformRes().style().flashingBorder());
 					}
 					i++;
 				}

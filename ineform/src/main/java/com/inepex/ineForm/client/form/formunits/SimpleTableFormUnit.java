@@ -63,7 +63,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		insert(mainTable,0);
 		
 		//style
-		mainTable.setStyleName(ResourceHelper.getRes().style().simpleTableFormUnit());
+		mainTable.setStyleName(ResourceHelper.ineformRes().style().simpleTableFormUnit());
 		mainTable.setCellPadding(5);
 		mainTable.setCellSpacing(0);
 		
@@ -73,7 +73,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	}
 
 	private String getRowStyleName(boolean even) {
-		return even ? ResourceHelper.getRes().style().evenCellContent() : ResourceHelper.getRes().style().cellContent();
+		return even ? ResourceHelper.ineformRes().style().evenCellContent() : ResourceHelper.ineformRes().style().cellContent();
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 			if((nodeElement instanceof DescriptorBase) && !((DescriptorBase) nodeElement).hasProp(putNextWidgetIntoThisLineToo)) {
 				
 				if(widgetsInThisLine.size()>0) {
-					cf.setStyleName(row, 0, ResourceHelper.getRes().style().cellTitle());
+					cf.setStyleName(row, 0, ResourceHelper.ineformRes().style().cellTitle());
 					String titleText = nodeElement.getDisplayName();
 					if (titleText == null)
 						titleText = titleOfLine==null ? "" : titleOfLine;
@@ -151,10 +151,10 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 					registerTitle(modelNameKeySet.get(0), titleWidget);
 					mainTable.setWidget(row, 0, titleWidget);
 				
-					cf.setStyleName(row, 1, ResourceHelper.getRes().style().mandatorySign());
+					cf.setStyleName(row, 1, ResourceHelper.ineformRes().style().mandatorySign());
 					if(mandatory) mainTable.setText(row, 1, "*");
 				
-					cf.setStyleName(row, 2, ResourceHelper.getRes().style().cellContent());
+					cf.setStyleName(row, 2, ResourceHelper.ineformRes().style().cellContent());
 					cf.addStyleName(row, 2, getRowStyleName(even));
 					
 					if(widgetsInThisLine.size()==1) {

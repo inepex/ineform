@@ -27,6 +27,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.inepex.ineForm.client.resources.IneResources;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 
 /**
  * A {@link Header} subclass that maintains sorting state and displays an icon
@@ -48,8 +49,8 @@ public class SortableHeader extends Header<String> {
   private static Template template;
 
   private static final int IMAGE_WIDTH = 16;
-  private static final SafeHtml DOWN_ARROW = makeImage(IneResources.INSTANCE.downArrow());
-  private static final SafeHtml UP_ARROW = makeImage(IneResources.INSTANCE.upArrow());
+  private static final SafeHtml DOWN_ARROW = makeImage(ResourceHelper.imageResources().downArrow());
+  private static final SafeHtml UP_ARROW = makeImage(ResourceHelper.imageResources().upArrow());
 
   private static SafeHtml makeImage(ImageResource resource) {
     AbstractImagePrototype proto = AbstractImagePrototype.create(resource);
