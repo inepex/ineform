@@ -1,6 +1,8 @@
-package com.inepex.ineFrame.shared.util;
+package com.inepex.ineFrame.server.util;
 
 import java.text.DecimalFormat;
+
+import com.inepex.ineFrame.shared.util.NumberFormatter;
 
 public class JavaNumberFormatter implements NumberFormatter {
 

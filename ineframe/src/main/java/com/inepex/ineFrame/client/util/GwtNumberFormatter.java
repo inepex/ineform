@@ -1,6 +1,7 @@
-package com.inepex.ineFrame.shared.util;
+package com.inepex.ineFrame.client.util;
 
 import com.google.gwt.i18n.client.NumberFormat;
+import com.inepex.ineFrame.shared.util.NumberFormatter;
 
 public class GwtNumberFormatter implements NumberFormatter {
 
