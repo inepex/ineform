@@ -17,6 +17,7 @@ public class NationalityAssist {
 	private static FormRDesc formRDesc = null;
 	private static FormRDesc searchFormRDesc = null;	
 	private static TableRDesc tableRDesc = null;
+	private static TableRDesc customTableRDesc = null;
 	private static ObjectDesc objectDesc = null;
 	private static ObjectDesc searchObjectDesc = null;
 	private static ValidatorDesc validatorDesc = null;
@@ -24,6 +25,7 @@ public class NationalityAssist {
 	public static void registerDescriptors(DescriptorStore descStore) {
 		descStore.registerDescriptors(getObjectDesc(), getTableRDesc(), getFormRDesc(), getValidatorDesc());
 		descStore.registerDescriptors(getSearchObjectDesc(), null, getSearchFormRDesc(), null);
+		descStore.addNamedTypedDesc(NationalityKVO.descriptorName, "custom", getCustomTableRDesc());
 		
 		/*hc:extraDescriptors*/
 		/*hc*/
@@ -62,6 +64,19 @@ public class NationalityAssist {
 				;
 		}
 		return tableRDesc;
+	}
+	
+	public static TableRDesc getCustomTableRDesc() {
+		if (customTableRDesc == null){
+			customTableRDesc = new TableRDesc(NationalityKVO.descriptorName);
+			
+			customTableRDesc.getRootNode()
+				.addChild(NationalityKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
+				.addChild(NationalityKVO.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
+				.addChild("customfield", new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
+				;
+		}
+		return customTableRDesc;
 	}
 	
 	public static FormRDesc getFormRDesc() {

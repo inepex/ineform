@@ -79,7 +79,7 @@ public abstract class TableRenderer {
 				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
-				sb.append(renderField(fieldDesc, colRenderDesc, kvoOrRelatedKvoChecker));
+				sb.append(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker));
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
 					renderFieldEnd();
@@ -130,9 +130,9 @@ public abstract class TableRenderer {
 	protected abstract void renderHeaderFieldEnd();
 	
 	
-	protected String renderField(FDesc fieldDesc, ColRDesc colRdesc, AssistedObjectHandler rowValue){
+	protected String renderField(String key, ColRDesc colRdesc, AssistedObjectHandler rowValue){
 		fieldRenderer.setObjectAndDescriptor(rowValue.getAssistedObject(), tableRDesc);
-		return fieldRenderer.getField(fieldDesc.getKey());
+		return fieldRenderer.getField(key);
 	}
 	
 	protected FDesc getFieldDescForColumn(Node<TableRDescBase> columnNode){

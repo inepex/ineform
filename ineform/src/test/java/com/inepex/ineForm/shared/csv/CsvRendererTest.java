@@ -16,12 +16,15 @@ import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
 import com.inepex.ineForm.server.util.NumberUtilSrv;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
 import com.inepex.ineForm.test.TestIneFormClientGuiceModule;
 import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
+import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -73,6 +76,32 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 		String csvString = csvRenderer.render(kvos);
 		
 		Assert.assertEquals("Id,Name\n1,Nat1\n2,Nat2\n", csvString);
+	}
+	
+	@Test
+	public void renderWithCustomDescTest(CsvRendererFactory csvRendererFactory){
+		CsvRenderer csvRenderer = csvRendererFactory.create(NationalityKVO.descriptorName, "custom"); 
+	
+		String csvString = csvRenderer.render(kvos);
+		
+		Assert.assertEquals("1,Nat1,\n2,Nat2,\n", csvString);
+	}
+	
+	@Test
+	public void renderWithCustomDescTestAndCustomDisplayer(CsvRendererFactory csvRendererFactory){
+		CsvRenderer csvRenderer = csvRendererFactory.create(NationalityKVO.descriptorName, "custom"); 
+		csvRenderer.addCellContentDisplayer("customfield", new CustomCellContentDisplayer() {
+			
+			@Override
+			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
+				return "a";
+			}
+		});
+		
+		
+		String csvString = csvRenderer.render(kvos);
+		
+		Assert.assertEquals("1,Nat1,a\n2,Nat2,a\n", csvString);
 	}
 
 	

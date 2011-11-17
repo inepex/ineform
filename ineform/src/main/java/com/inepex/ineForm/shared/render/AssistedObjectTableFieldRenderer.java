@@ -128,7 +128,7 @@ public class AssistedObjectTableFieldRenderer {
 				return result;
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("Value or custom displayer not found for key: " + key + ". Defaulted to \"\"");
 				return "";
 			}
 		}
