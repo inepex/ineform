@@ -2,9 +2,11 @@ package com.inepex.ineForm.client.form.widgets.listbox;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
@@ -13,6 +15,8 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 		public static String notSelectedText = "notSelectedText";
 	}
 	
+	//there is an extra div around the listbox for styling
+	protected final FlowPanel listBoxPanel = new FlowPanel();
 	protected final ListBox listBox = new ListBox();
 	
 	public final static String DEFAULT_notSelectedText = "--";
@@ -28,7 +32,11 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 		super(fieldDesc);
 		this.fieldDescriptor = fieldDesc;
 		this.wrDesc = wrDesc;
-		initWidget(listBox);
+		
+		listBoxPanel.add(listBox);
+		listBoxPanel.addStyleName(ResourceHelper.ineformRes().style().listBoxExtraDiv());
+		initWidget(listBoxPanel);
+		
 		setAllowsNull(fieldDesc.isNullable());
 		listBox.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
 		if (wrDesc.hasProp(Params.notSelectedText)){

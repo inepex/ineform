@@ -34,5 +34,6 @@ public interface IneFormStyle extends CssResource {
 	
 	String customKVOHeader();
 	String customKVOHeaderType();
+	String listBoxExtraDiv();
 }
 
