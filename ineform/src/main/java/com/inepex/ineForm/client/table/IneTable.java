@@ -18,7 +18,6 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.CellTable.Resources;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
@@ -38,7 +37,6 @@ import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
-import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -80,18 +78,6 @@ public class IneTable extends HandlerAwareComposite {
 	public static enum SelectionBehaviour {
 		NO_SELECTION,
 		SINGLE_SELECTION;
-	}
-	
-	public interface IneCellTableResources extends Resources {
-
-        public IneCellTableResources INSTANCE =
-                GWT.create(IneCellTableResources.class);
-
-        /**
-         * The styles used in this widget.
-         */
-        @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
-        CellTable.Style cellTableStyle();
 	}
 	
 	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
@@ -170,7 +156,7 @@ public class IneTable extends HandlerAwareComposite {
 		this.descStore = descStore;
 		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
 		
-		cellTable = new CellTable<AssistedObject>(DEFAULT_PAGE_SIZE, IneCellTableResources.INSTANCE, KEY_PROVIDER) {
+		cellTable = new CellTable<AssistedObject>(DEFAULT_PAGE_SIZE, ResourceHelper.getCellTableResources(), KEY_PROVIDER) {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
 				super.setRowData(start, values);

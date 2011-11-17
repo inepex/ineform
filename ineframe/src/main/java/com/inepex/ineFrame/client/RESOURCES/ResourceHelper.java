@@ -6,14 +6,17 @@ import com.google.gwt.user.client.ui.Image;
 
 public class ResourceHelper {
 	
-	static IneFrameResources ifResources = null;
+	private static IneFrameResources ifResources = null;
 	
+	
+	//image
 	public static String getImageAsString(ImageResource resource) {
 		Image img = new Image();
 		img.setResource(resource);
 		return img.getElement().getString();
 	}
 	
+	//ineframe resources
 	public static IneFrameResources getRes() {
 		if (ifResources == null) {
 			ifResources = GWT.create(IneFrameResources.class);
@@ -21,4 +24,9 @@ public class ResourceHelper {
 		}
 		return  ifResources;
 	}
+	
+	public static void setIfResources(IneFrameResources ifResources) {
+		ResourceHelper.ifResources = ifResources;
+	}
+	
 }
