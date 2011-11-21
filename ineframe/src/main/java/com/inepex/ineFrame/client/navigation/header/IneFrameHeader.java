@@ -42,6 +42,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void beforeUserNameClickEffect();
 		
 		public void afterUserNameClickEffect();
+		
+		public void getUserNameClickEffectXPosition();
 	}
 	
 	private class DefaultSettingOnClicked implements OnClickedLogic {

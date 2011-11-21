@@ -130,4 +130,10 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void getUserNameClickEffectXPosition() {
+		// TODO Auto-generated method stub
+		
+	}
 }
