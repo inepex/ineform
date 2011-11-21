@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
+import com.inepex.ineForm.server.guice.IneFormExportGuiceModule;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
 import com.inepex.ineForm.server.util.NumberUtilSrv;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
@@ -34,6 +35,7 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 	public static class Module extends JukitoModule {
 		protected void configureTest() {
 			install(new TestIneFormClientGuiceModule());
+			install(new IneFormExportGuiceModule());
 			bind(DateFormatter.class).to(JavaDateFormatter.class);
 			bind(NumberUtil.class).to(NumberUtilSrv.class);
 		}

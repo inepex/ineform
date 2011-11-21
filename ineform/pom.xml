@@ -116,6 +116,17 @@
 			<version>${jukitoVersion}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.8-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.1.3</version>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

@@ -79,7 +79,8 @@ public abstract class TableRenderer {
 				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
-				sb.append(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker));
+				renderField(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker));
+			
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
 					renderFieldEnd();
@@ -98,6 +99,14 @@ public abstract class TableRenderer {
 	protected abstract void renderFieldStart();
 	protected abstract void renderFieldEnd();
 	
+	/**
+	 * ovveride when you need the content in descendant
+	 * @param content
+	 */
+	protected void renderField(String content){
+		sb.append(content);
+	}
+	
 	protected void renderHeader() {
 		renderHeaderStart();
 		for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
@@ -115,8 +124,8 @@ public abstract class TableRenderer {
 				else
 					headerText = "";
 			}
+			renderHeaderField(headerText);
 			
-			sb.append(headerText);
 			if (renderLastFieldEnd 
 					|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
 				renderHeaderFieldEnd();
@@ -128,6 +137,9 @@ public abstract class TableRenderer {
 	protected abstract void renderHeaderEnd();
 	protected abstract void renderHeaderFieldStart();
 	protected abstract void renderHeaderFieldEnd();
+	protected void renderHeaderField(String content){
+		sb.append(content);
+	}
 	
 	
 	protected String renderField(String key, ColRDesc colRdesc, AssistedObjectHandler rowValue){

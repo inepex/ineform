@@ -98,17 +98,6 @@ public class TestIneFormClientGuiceModule extends AbstractModule {
 		
 		bind(CustomKVOFW.View.class).to(CustomKVOFWView.class);
 		
-		install(new FactoryModuleBuilder()
-	 	.implement(CsvRenderer.class, CsvRenderer.class)
-		.build(CsvRendererFactory.class));
-		
-		install(new FactoryModuleBuilder()
-	 	.implement(TrtdRenderer.class, TrtdRenderer.class)
-		.build(TrtdRendererFactory.class));
-		
-		install(new FactoryModuleBuilder()
-	 	.implement(HtmlRenderer.class, HtmlRenderer.class)
-		.build(HtmlRendererFactory.class));
 	}
 	
 	@Provides
