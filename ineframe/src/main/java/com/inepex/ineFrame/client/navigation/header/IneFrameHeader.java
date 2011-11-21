@@ -43,7 +43,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		
 		public void afterUserNameClickEffect();
 		
-		public void getUserNameClickEffectXPosition();
+		public int getUserNameClickEffectXPosition();
 	}
 	
 	private class DefaultSettingOnClicked implements OnClickedLogic {
