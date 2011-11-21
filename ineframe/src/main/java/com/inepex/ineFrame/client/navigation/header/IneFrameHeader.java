@@ -38,6 +38,10 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void setUserNameClickedLogic(OnClickedLogic logic);
 		
 		public IsWidget asWidget();
+		
+		public void beforeUserNameClickEffect();
+		
+		public void afterUserNameClickEffect();
 	}
 	
 	private class DefaultSettingOnClicked implements OnClickedLogic {

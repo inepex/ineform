@@ -118,4 +118,16 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	public void setUserNameClickedLogic(OnClickedLogic logic) {
 		usernameClickedLogic = logic;
 	}
+
+	@Override
+	public void beforeUserNameClickEffect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void afterUserNameClickEffect() {
+		// TODO Auto-generated method stub
+		
+	}
 }
