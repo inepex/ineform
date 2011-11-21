@@ -170,5 +170,8 @@ public abstract class TableRenderer {
 		this.renderLastFieldEnd = renderLastFieldEnd;
 	}
 	
+	public AssistedObjectTableFieldRenderer getFieldRenderer(){
+		return fieldRenderer;
+	}
 	
 }
