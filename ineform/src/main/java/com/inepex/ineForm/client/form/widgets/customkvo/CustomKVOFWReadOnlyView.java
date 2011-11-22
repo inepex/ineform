@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
@@ -63,12 +64,12 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 	}
 	
 	private void createHeader(boolean showType) {
-		grid.setText(0, 0, IneFormI18n.customKVO_key());
+		grid.setWidget(0, 0, new Label(IneFormI18n.customKVO_key()));
 		if (showType){
-			grid.setText(0, 1, IneFormI18n.customKVO_type());
-			grid.setText(0, 2, IneFormI18n.customKVO_value());
+			grid.setWidget(0, 1, new Label(IneFormI18n.customKVO_type()));
+			grid.setWidget(0, 2, new Label(IneFormI18n.customKVO_value()));
 		} else {
-			grid.setText(0, 1, IneFormI18n.customKVO_value());	
+			grid.setWidget(0, 1, new Label(IneFormI18n.customKVO_value()));	
 		}
 		
 		grid.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeaderRO());
