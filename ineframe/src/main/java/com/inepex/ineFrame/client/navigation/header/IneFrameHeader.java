@@ -150,4 +150,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	public void setUserNameClickedLogic(OnClickedLogic logic){
 		view.setUserNameClickedLogic(logic);
 	}
+	public void setLogoNameClickedLogic(OnClickedLogic logic) {
+		view.setLogoNameClickedLogic(logic);
+		
+	}
 }
