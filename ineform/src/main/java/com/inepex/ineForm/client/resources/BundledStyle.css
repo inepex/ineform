@@ -115,14 +115,16 @@
 	background: white;	
 }
 
-.customKVOHeader {
+.customKVOHeader,
+.customKVOHeaderRO {
 	background: #c2c2c2;
 	font-weight: bold;	
 	padding: 3px;
 	width: 132px;
 }
 
-.customKVOHeaderType {
+.customKVOHeaderType,
+.customKVOHeaderTypeRO {
 	background: #c2c2c2;
 	font-weight: bold;	
 	padding: 3px;

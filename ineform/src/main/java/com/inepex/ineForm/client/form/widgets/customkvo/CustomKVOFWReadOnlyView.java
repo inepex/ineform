@@ -71,12 +71,12 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 			grid.setText(0, 1, IneFormI18n.customKVO_value());	
 		}
 		
-		grid.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeader());
+		grid.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeaderRO());
 		if (showType){
-			grid.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
-			grid.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeader());
+			grid.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderTypeRO());
+			grid.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeaderRO());
 		} else {
-			grid.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeader());	
+			grid.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderRO());	
 		}
 	}
 	private void showRow(int rowNr, CustomKVORow row, boolean showType){
