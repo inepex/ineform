@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
@@ -35,9 +36,9 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	}
 	
 	private void createHeader() {
-		rowTable.setText(0, 0, IneFormI18n.customKVO_key());
-		rowTable.setText(0, 1, IneFormI18n.customKVO_type());
-		rowTable.setText(0, 2, IneFormI18n.customKVO_value());
+		rowTable.setWidget(0, 0, new Label(IneFormI18n.customKVO_key()));
+		rowTable.setWidget(0, 1, new Label(IneFormI18n.customKVO_type()));
+		rowTable.setWidget(0, 2, new Label(IneFormI18n.customKVO_value()));
 		
 		rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeader());
 		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
