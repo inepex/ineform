@@ -141,4 +141,10 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
 		logoClickedLogic = logic;
 	}
+
+	@Override
+	public void setLanguageSelectorVisible(boolean visible) {
+		
+		
+	}
 }

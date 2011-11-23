@@ -29,6 +29,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void setSettingsButtonVisible(boolean visible);
 		public void setSettingsButtonLogic(OnClickedLogic logic);
 		
+		public void setLanguageSelectorVisible(boolean visible);
+		
 		public void clearSettingsPopup();
 		public void addToSettingsPopup(String name, OnClickedLogic logic);
 		public void showSettingsPopup();
@@ -100,7 +102,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 			view.setUserName(null);
 		}
 		
-		boolean showSettings=false;
+		boolean showSettings = false;
+		boolean showLangSelector = true;
 		view.clearSettingsPopup();
 		
 		if(placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS)!=null) {
@@ -126,7 +129,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		
 		if((!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn())) {
-			showSettings=true;
+			showSettings = true;
+			showLangSelector = false;
 			
 			//TODO get from i18n
 			view.addToSettingsPopup(IneFrameI18n.LOGOUT(), new OnClickedLogic() {
@@ -143,7 +147,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 				}
 			});
 		}
-		
+		view.setLanguageSelectorVisible(showLangSelector);
 		view.setSettingsButtonVisible(showSettings);
 	}
 	
