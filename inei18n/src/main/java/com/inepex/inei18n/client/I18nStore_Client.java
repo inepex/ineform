@@ -14,9 +14,9 @@ import com.inepex.inei18n.shared.I18nStoreBase;
 @Singleton
 public class I18nStore_Client extends I18nStoreBase {
 	
-	public static final String LANG_COOKIE_ID="I18nStore_Client_last_used_lang";
-	public static String currentLanguage = "";
-	
+	public final static String LANG_COOKIE_ID="I18nStore_Client_last_used_lang";
+	private String currentLanguage = "";
+
 	/**
 	 *  loads last used lang from cookie, creates a GetI18nModulesAndSetCurrentLangFromCookieAction from registered modules 
 	 */
@@ -42,5 +42,8 @@ public class I18nStore_Client extends I18nStoreBase {
 				= (ClientI18nProvider<?>) i18nModule.getI18nProvider();
 			clientProvider.setCurrentModule(result.i18nModulesByName.get(i18nModule.getModuleName()));
 		}
+	}
+	public String getCurrentLanguage() {
+		return currentLanguage;
 	}
 }
