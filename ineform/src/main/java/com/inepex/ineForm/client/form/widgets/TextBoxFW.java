@@ -1,15 +1,15 @@
 package com.inepex.ineForm.client.form.widgets;
 
 import com.google.gwt.user.client.ui.TextBox;
-import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class TextBoxFW extends TextBoxFWBase {
 
-	public TextBoxFW(FDesc fielddescriptor) {
-		super(fielddescriptor);
+	public TextBoxFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
+		super(fielddescriptor, wrDesc);
 		textBox= new TextBox();
-		textBox.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+		updateWidth(wrDesc);
 		initWidget(textBox);
 	}
 }

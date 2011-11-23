@@ -62,13 +62,13 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new DummyFW();
 		
 		else if (widgetType.equals(FWTypes.TEXTBOX))
-			createdWidget = new TextBoxFW(fieldDesc);
+			createdWidget = new TextBoxFW(fieldDesc, wrDesc);
 		
 		else if (widgetType.equals(FWTypes.CAPTCHA))
 			createdWidget = new CaptchaFW(fieldDesc);
 
 		else if (widgetType.equals(FWTypes.PASSWORDTEXTBOX))
-			createdWidget = new PasswordTextBoxFW(fieldDesc);
+			createdWidget = new PasswordTextBoxFW(fieldDesc, wrDesc);
 		
 		else if (widgetType.equals(FWTypes.TEXTAREA))
 			createdWidget = new TextAreaFW(fieldDesc, wrDesc);
