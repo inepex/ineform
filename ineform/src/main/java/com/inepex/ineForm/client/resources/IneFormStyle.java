@@ -25,6 +25,7 @@ public interface IneFormStyle extends CssResource {
 	String flashingBorder(); 
 
 	//form widgets
+	String formWidgetError();
 	String ChooserFw();
 	String richTextArea();
 	String displayInline();

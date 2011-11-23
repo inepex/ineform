@@ -27,6 +27,7 @@ import com.inepex.ineForm.client.form.panelwidgets.DisplayedFormUnitChangeHandle
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.FormUnitRDesc;
@@ -340,6 +341,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 			for (String modelKey : unit.getErrorManagerKeySet()) {
 				unit.getErrormanagersByKey().get(modelKey).clearErrorMsg();
 			}
+			for(String modelKey : unit.getFormWidgetKeySet()) {
+				unit.getWidgetByKey(modelKey).removeStyleName(ResourceHelper.ineformRes().style().formWidgetError());
+			}
 		}
 
 		// deal new error msgs
@@ -348,6 +352,10 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 				for (String modelKey : unit.getErrorManagerKeySet()) {
 					unit.getErrormanagersByKey().get(modelKey)
 							.addErrorMsg(vr.getFieldErrors().get(modelKey));
+				}
+				for(String modelKey : unit.getFormWidgetKeySet()) {
+					if(vr.getFieldErrors().containsKey(modelKey))
+						unit.getWidgetByKey(modelKey).addStyleName(ResourceHelper.ineformRes().style().formWidgetError());
 				}
 			}
 		}

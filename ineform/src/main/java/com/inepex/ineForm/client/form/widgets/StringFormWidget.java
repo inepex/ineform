@@ -1,5 +1,7 @@
 package com.inepex.ineForm.client.form.widgets;
 
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.util.NumberUtilCln;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
@@ -16,6 +18,14 @@ public abstract class StringFormWidget extends FormWidget {
 	
 	public StringFormWidget(FDesc fielddescriptor) {
 		super(fielddescriptor);
+	}
+	
+	@Override
+	protected void initWidget(Widget widget) {
+		//adding div around the widget to styling
+		FlowPanel fp = new FlowPanel();
+		fp.add(widget);
+		super.initWidget(fp);;
 	}
 	
 
