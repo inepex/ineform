@@ -22,10 +22,12 @@ public class LanguageChangeWidget extends HandlerAwareComposite {
 	final Anchor currentLangLabel = new Anchor();
 	
 	IneDispatch ineDispatch;
+	private final I18nStore_Client i18nStore_Client;
 	
 	@Inject
-	public LanguageChangeWidget(IneDispatch ineDispatch) {
+	public LanguageChangeWidget(IneDispatch ineDispatch, I18nStore_Client i18nStore_Client) {
 		this.ineDispatch = ineDispatch;
+		this.i18nStore_Client = i18nStore_Client;
 		setLabelPropsForCurrentLang();
 		initWidget(currentLangLabel);
 	}
@@ -35,7 +37,7 @@ public class LanguageChangeWidget extends HandlerAwareComposite {
 		/**
 		 * We use un-internationalized strings purposely!!!
 		 */
-		if ("en".equals(I18nStore_Client.currentLanguage))
+		if ("en".equals(i18nStore_Client.getCurrentLanguage()))
 			currentLangLabel.setText("Magyar");
 		else
 			currentLangLabel.setText("English");
@@ -50,7 +52,7 @@ public class LanguageChangeWidget extends HandlerAwareComposite {
 	private class LangChangeClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			String requestedLang = "en".equals(I18nStore_Client.currentLanguage) ? "hu" : "en";
+			String requestedLang = "en".equals(i18nStore_Client.getCurrentLanguage()) ? "hu" : "en";
 			ChangeLanguageAction action = new ChangeLanguageAction(requestedLang);
 			ineDispatch.execute(action, new LangChgCallback());
 		}
