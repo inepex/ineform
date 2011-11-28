@@ -66,7 +66,7 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 	
 		String csvString = csvRenderer.render(kvos);
 		
-		Assert.assertEquals("1,Nat1\n2,Nat2\n", csvString);
+		Assert.assertEquals("\"1\",\"Nat1\"\n\"2\",\"Nat2\"\n", csvString);
 	}
 	
 	@Test
@@ -77,7 +77,7 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 		
 		String csvString = csvRenderer.render(kvos);
 		
-		Assert.assertEquals("Id,Name\n1,Nat1\n2,Nat2\n", csvString);
+		Assert.assertEquals("\"Id\",\"Name\"\n\"1\",\"Nat1\"\n\"2\",\"Nat2\"\n", csvString);
 	}
 	
 	@Test
@@ -86,7 +86,7 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 	
 		String csvString = csvRenderer.render(kvos);
 		
-		Assert.assertEquals("1,Nat1,\n2,Nat2,\n", csvString);
+		Assert.assertEquals("\"1\",\"Nat1\",\"\"\n\"2\",\"Nat2\",\"\"\n", csvString);
 	}
 	
 	@Test
@@ -103,7 +103,7 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 		
 		String csvString = csvRenderer.render(kvos);
 		
-		Assert.assertEquals("1,Nat1,a\n2,Nat2,a\n", csvString);
+		Assert.assertEquals("\"1\",\"Nat1\",\"a\"\n\"2\",\"Nat2\",\"a\"\n", csvString);
 	}
 
 	

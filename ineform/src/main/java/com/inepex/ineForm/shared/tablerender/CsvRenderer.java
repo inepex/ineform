@@ -82,6 +82,14 @@ public class CsvRenderer extends TableRenderer{
 		sb.append(separator);
 		
 	}
+	@Override
+	protected void renderField(String content){
+		sb.append("\"" + content + "\"");
+	}
+	@Override
+	protected void renderHeaderField(String content){
+		sb.append("\"" + content + "\"");
+	}
 	
 	
 	
