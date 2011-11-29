@@ -29,11 +29,11 @@ import com.inepex.ineFrame.shared.auth.CaptchaInfoResult;
 public abstract class LoginBox extends HandlerAwareComposite {
 
 	protected final VerticalPanel vp; 
-	protected final TextBox userName;
-	protected final PasswordTextBox password;
-	protected final Label captchaLabel;
-	protected final CaptchaWidget captchaWidget;
-	protected final Button loginButton;
+	protected TextBox userName;
+	protected PasswordTextBox password;
+	protected Label captchaLabel;
+	protected CaptchaWidget captchaWidget;
+	protected Button loginButton;
 
 	protected final AuthManager authManager;
 	protected final HistoryProvider historyProvider;
@@ -47,6 +47,14 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		this.ineDispatch=ineDispatch;
 	
 		vp= new VerticalPanel();
+		createUI();
+		initWidget(vp);		
+	}
+	
+	/**
+	 * this method initializes the protected fields: labels and button 
+	 */
+	protected void createUI() {
 		vp.add(new Label(IneFrameI18n.USERNAME()));
 		userName= new TextBox();
 		vp.add(userName);
@@ -59,8 +67,6 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		vp.add(captchaWidget);
 		loginButton= new Button(IneFrameI18n.LOGIN());
 		vp.add(loginButton);
-		
-		initWidget(vp);		
 	}
 	
 
@@ -141,6 +147,14 @@ public abstract class LoginBox extends HandlerAwareComposite {
 
 	protected void modifiyRedirectPlaceRequestEvent(AuthStatusResultBase result, PlaceRequestEvent pre) {
 	}
+	
+	/**
+	 * override to display more sophisticated errors
+	 * 
+	 */
+	protected void onInvalidLogin() {
+		Window.alert("Invalid user or password (or captcha)!");
+	}
 
 	class LoginCallback implements AuthActionCallback {
 		@Override
@@ -170,9 +184,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 					captchaWidget.setVisible(false);
 				}
 				
-				//TODO validate message
-				//TODO captcha case
-				Window.alert("Invalid user or password (or captcha)!");
+				onInvalidLogin();
 			}
 		}
 	}
