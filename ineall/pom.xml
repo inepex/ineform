@@ -3,7 +3,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inepex</groupId>
-	<version>1.0.16</version>
+	<version>1.0.17</version>
 	<artifactId>ineall</artifactId>
 	<packaging>pom</packaging>
 
@@ -32,7 +32,7 @@
 		<mavenCompilerTargetVersion>1.6</mavenCompilerTargetVersion>
 		<mavenJarVersion>2.2</mavenJarVersion>
 		<mavenSureFireVersion>2.8</mavenSureFireVersion>
-		<eclipselinkVersion>2.3.0-RC4</eclipselinkVersion>
+		<eclipselinkVersion>2.3.0</eclipselinkVersion>
 		<slf4jVersion>1.6.1</slf4jVersion>
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
