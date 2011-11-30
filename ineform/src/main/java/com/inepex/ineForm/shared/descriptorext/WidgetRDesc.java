@@ -6,13 +6,13 @@ import com.inepex.ineom.shared.descriptor.Prop;
 
 public class WidgetRDesc extends FormRDescBase {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = -8017885749027661786L;
 	
-	private final FWTypes formWidgetType;
+	private FWTypes formWidgetType;
 
+	public WidgetRDesc() {
+	}
+	
 	public WidgetRDesc(FWTypes formWidgetType) {
 		this.formWidgetType = formWidgetType;
 	}

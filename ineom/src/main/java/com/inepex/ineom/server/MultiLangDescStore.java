@@ -79,5 +79,9 @@ public class MultiLangDescStore implements DescriptorStore {
 	public void registerDescriptors(ObjectDesc descriptor, DescriptorBase... defaultDescriptors) {
 		get().registerDescriptors(descriptor, defaultDescriptors);
 	}
+	
+	public DescriptorStore getCurrentLanguageDescriptorStore(){
+		return get();
+	}
 }
 

@@ -3,6 +3,8 @@ package com.inepex.ineom.shared.descriptor;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * Helper class for string Typed Descriptors. This class is used in {@link ClientDescriptorStore}.
  * {@link ClientDescriptorStore} creates a new {@link TypedDescriptorMap} for each {@link DescriptorBase} type, that is
@@ -12,10 +14,10 @@ import java.util.TreeMap;
  *
  * @param <D> must be subclass of {@link DescriptorBase}
  */
-public class TypedDescriptorMap<D extends DescriptorBase> {
+public class TypedDescriptorMap<D extends DescriptorBase> implements IsSerializable {
 	
-	final Map<String, D> defaultDescriptors = new TreeMap<String, D>();
-	final Map<String, Map<String, D>> namedDescriptorsForObject = new TreeMap<String, Map<String,D>>();
+	Map<String, D> defaultDescriptors = new TreeMap<String, D>();
+	Map<String, Map<String, D>> namedDescriptorsForObject = new TreeMap<String, Map<String,D>>();
 	
 	public void addDefaultDescriptor(String objDescName, D descriptor) {
 		defaultDescriptors.put(objDescName, descriptor);
@@ -46,5 +48,11 @@ public class TypedDescriptorMap<D extends DescriptorBase> {
 		}
 	}
 	
+	public Map<String, D> getDefaultDescriptors(){
+		return defaultDescriptors;
+	}	
 	
+	public Map<String, Map<String, D>> getNamedDescriptors(){
+		return namedDescriptorsForObject;
+	}
 }

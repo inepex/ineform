@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.server;
+package com.inepex.ineFrame.server.handler;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;

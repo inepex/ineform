@@ -20,9 +20,9 @@ public class Node<T> implements Serializable {
 	
 	private static final long serialVersionUID = 7055245403110164008L;
 
-	public static final String ID_PART_SEPARATOR = SharedUtil.ID_PART_SEPARATOR;
+	public static String ID_PART_SEPARATOR = SharedUtil.ID_PART_SEPARATOR;
 	
-	public static final String ID_SEPARATOR = "/";
+	public static String ID_SEPARATOR = "/";
 
 	private boolean isRootNode = false;
 	private Node<T> parent;
@@ -45,6 +45,9 @@ public class Node<T> implements Serializable {
 	 */
 	public static <H, T extends H> Node<H> createRootNode(T nodeElement, Class<H> baseClass){
 		return new Node<H>(true, nodeElement);
+	}
+	
+	protected Node(){
 	}
 	
 	protected Node(boolean isRootNode, T nodeElement){

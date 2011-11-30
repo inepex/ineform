@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.inject.Singleton;
-
 import nl.captcha.Captcha;
 import nl.captcha.backgrounds.FlatColorBackgroundProducer;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
 import nl.captcha.gimpy.DropShadowGimpyRenderer;
 import nl.captcha.servlet.CaptchaServletUtil;
 import nl.captcha.servlet.SimpleCaptchaServlet;
+
+import com.google.inject.Singleton;
 
 @Singleton
 public class CaptchaServlet extends SimpleCaptchaServlet {

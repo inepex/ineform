@@ -88,4 +88,17 @@ public class ClientDescriptorStore implements DescriptorStore {
 		return relObjectDesc.getField(path.get(path.size()-1));
 	}
 	
+	public Map<String, ObjectDesc> getDescriptorsMap(){
+		return objectDescriptorMap;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <D extends DescriptorBase> TypedDescriptorMap<D> getTypedDescriptorMap(Class<D> clazz){
+		ensureDescriptorForClass(clazz);
+		return (TypedDescriptorMap<D>) typedDescMap.get(clazz.getName()); 
+	}
+
+	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getAllTypedDescriptorMap() {
+		return typedDescMap;
+	}
 }

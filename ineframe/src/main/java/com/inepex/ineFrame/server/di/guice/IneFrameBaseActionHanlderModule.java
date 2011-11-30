@@ -4,7 +4,9 @@ import net.customware.gwt.dispatch.server.BatchActionHandler;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import net.customware.gwt.dispatch.shared.BatchAction;
 
-import com.inepex.ineFrame.server.GetTimeZoneNamesHandler;
+import com.inepex.ineFrame.server.handler.GetDescriptorStoreHandler;
+import com.inepex.ineFrame.server.handler.GetTimeZoneNamesHandler;
+import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetTimeZoneNamesAction;
 import com.inepex.inei18n.server.ChangeLanguageHandler;
 import com.inepex.inei18n.server.GetI18nModulesAndSetCurrentLangFromCookieHandler;
@@ -19,5 +21,6 @@ public class IneFrameBaseActionHanlderModule extends ActionHandlerModule {
 		bindHandler(ChangeLanguageAction.class, ChangeLanguageHandler.class);
 		bindHandler(GetI18nModulesAndSetCurrentLangFromCookieAction.class, GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
 		bindHandler(GetTimeZoneNamesAction.class, GetTimeZoneNamesHandler.class);
+		bindHandler(GetDescStore.class, GetDescriptorStoreHandler.class);
 	}
 }

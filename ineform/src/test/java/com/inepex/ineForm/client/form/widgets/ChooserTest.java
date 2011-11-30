@@ -19,7 +19,6 @@ import com.inepex.ineForm.client.form.widgets.chooser.RelationChooser;
 import com.inepex.ineForm.client.form.widgets.kvo.ContactNatRelKVO;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
 import com.inepex.ineForm.server.util.NumberUtilSrv;
-import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
 import com.inepex.ineForm.test.TestIneFormClientGuiceModule;
 import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.NumberUtil;
