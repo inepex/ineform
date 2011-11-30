@@ -44,8 +44,6 @@ import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
-import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
-import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
@@ -87,8 +85,6 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		bind(FormUnitFactory.class).to(DefaultFormUnitFactory.class).in(Singleton.class);
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
-
-		bind(AsyncStatusIndicator.class).to(FullscreenStatusIndicator.class).in(Singleton.class);
 		
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
 		
