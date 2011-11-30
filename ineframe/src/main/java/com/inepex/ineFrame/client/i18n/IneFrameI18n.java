@@ -26,6 +26,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	public String CAPTCHA = "Captcha:";
+	public String LOGGINGIN = "Loggin in...";
 	public String LOGIN = "Log in!";
 	public String LOGOUT = "Log out";
 	public String OK = "Ok";
@@ -55,6 +56,15 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String CAPTCHA() {
 		return moduleProvider.get().CAPTCHA;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Loggin in...
+	* <u><i>Magyarul:</i></u> Belépés...
+	*/
+	public static String LOGGINGIN() {
+		return moduleProvider.get().LOGGINGIN;
 	}
 	
 	/**

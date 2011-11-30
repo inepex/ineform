@@ -1,5 +1,6 @@
 package com.inepex.ineFrame.client.auth;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -128,6 +129,8 @@ public abstract class LoginBox extends HandlerAwareComposite {
 //	}
 	
 	private void doLogin(){
+		loginButton.setEnabled(false);
+		loginButton.setText(IneFrameI18n.LOGGINGIN());
 		authManager.doLogin(userName.getText(), password.getText(), captchaWidget.getCaptchaText(),
 				new LoginCallback());
 	}
@@ -166,11 +169,19 @@ public abstract class LoginBox extends HandlerAwareComposite {
 					doLoggedinLogic(result);
 				}
 				
-				userName.setValue("");
-				password.setValue("");
-				captchaWidget.reloadCaptcha();
-				captchaLabel.setVisible(false);
-				captchaWidget.setVisible(false);
+				Scheduler.get().scheduleFinally(new Scheduler.ScheduledCommand() {
+					
+					@Override
+					public void execute() {
+						userName.setValue("");
+						password.setValue("");
+						captchaWidget.reloadCaptcha();
+						captchaLabel.setVisible(false);
+						captchaWidget.setVisible(false);
+						loginButton.setEnabled(true);
+						loginButton.setText(IneFrameI18n.LOGIN());
+					}
+				});
 				
 			} else {
 				password.setValue("");
@@ -183,6 +194,9 @@ public abstract class LoginBox extends HandlerAwareComposite {
 					captchaLabel.setVisible(false);
 					captchaWidget.setVisible(false);
 				}
+				
+				loginButton.setEnabled(true);
+				loginButton.setText(IneFrameI18n.LOGIN());
 				
 				onInvalidLogin();
 			}
