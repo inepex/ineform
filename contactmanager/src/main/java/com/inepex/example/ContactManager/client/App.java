@@ -24,7 +24,7 @@ public class App extends IneFrameEntryPoint {
 	public static AppGinjector INJECTOR = GWT.create(AppGinjector.class);
 	
 	public App() {
-		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager());
+		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager(), INJECTOR.getDescriptorStore());
 	}
 	
 	@Override
@@ -42,15 +42,6 @@ public class App extends IneFrameEntryPoint {
 	}
 	
 	private void registerDescriptors() {
-		DescriptorStore descStore= INJECTOR.getDescriptorStore();
-			
-		new MeetingAssist(descStore).registerDescriptors();
-		new CompanyAssist(descStore).registerDescriptors();
-		new ContactAssist(descStore).registerDescriptors();
-		new EmailAddressAssist(descStore).registerDescriptors();
-		new PhoneNumberAssist(descStore).registerDescriptors();
-		new PhoneNumberTypeAssist(descStore).registerDescriptors();
-		new UserAssist(descStore).registerDescriptors();
 	}
 
 	@Override
