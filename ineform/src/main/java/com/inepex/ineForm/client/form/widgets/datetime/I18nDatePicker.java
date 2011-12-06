@@ -4,6 +4,7 @@ import com.google.gwt.user.datepicker.client.CalendarModel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.datepicker.client.DefaultCalendarView;
 import com.google.gwt.user.datepicker.client.DefaultMonthSelector;
+import com.google.gwt.user.datepicker.client.MonthSelector;
 import com.inepex.ineForm.client.i18n.DateI18nHelper;
 
 public class I18nDatePicker extends DatePicker {
@@ -12,7 +13,11 @@ public class I18nDatePicker extends DatePicker {
 		super(new DefaultMonthSelector(), new DefaultCalendarView(), new CustomFormatCalendarModel());
 	}
 	
-	private static class CustomFormatCalendarModel extends CalendarModel {
+	public MonthSelector getMonthSelectorPublic(){
+		return getMonthSelector();
+	}
+	
+	public static class CustomFormatCalendarModel extends CalendarModel {
 		
 		@Override
 		public String formatDayOfWeek(int dayInWeek) {
