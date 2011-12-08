@@ -24,6 +24,7 @@ import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
@@ -385,6 +386,7 @@ public class IneTable extends HandlerAwareComposite {
 		public IneTableColumn(Cell<String> cell, String key) {
 			super(cell);
 			this.key=key;
+			setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		}		
 		
 		@Override
@@ -543,4 +545,14 @@ public class IneTable extends HandlerAwareComposite {
 	public AssistedObjectTableFieldRenderer getFieldRenderer() {
 		return fieldRenderer;
 	}
+	
+	public void addColumnStyle(int col, String style){
+		cellTable.addColumnStyleName(col, style);
+	}
+		
+	public CellTable<AssistedObject> getCellTable() {
+		return cellTable;
+	}
+	
+	
 }
