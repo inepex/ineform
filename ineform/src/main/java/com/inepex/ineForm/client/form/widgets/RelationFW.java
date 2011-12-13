@@ -83,4 +83,7 @@ public class RelationFW extends DenyingFormWidget {
 		
 		return keys;
 	}
+	public IneForm getRelatedForm(){
+		return form;
+	}
 }
