@@ -38,4 +38,7 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 			list.addAll(elementList);
 		}
 	}
+	public void addEmptyListById(T id){
+		put(id, new ArrayList<K>());
+	}
 }
