@@ -12,8 +12,14 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 	public List<K> getListById(T id){
 		return get(id);
 	}
-	public boolean isListEmptyById(T id){
+	public boolean isListEmptyOrNullById(T id){
 		return ((get(id) == null) || (get(id).size() == 0));
+	}
+	public boolean isListEmptyById(T id){
+		return (get(id).size() == 0);
+	}
+	public boolean isListNullById(T id){
+		return (get(id) == null);
 	}
 	public void addToListById(T id, K element){
 		List<K> list = get(id);
