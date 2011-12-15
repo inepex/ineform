@@ -34,8 +34,8 @@ public class IneDispatchBase {
 
 	protected class IneAsyncCallback<R> implements AsyncCallback<R > {
 		
-		private final SuccessCallback<R> successCallback;
-		private final  AsyncStatusIndicator statusIndicator;
+		protected final SuccessCallback<R> successCallback;
+		protected final  AsyncStatusIndicator statusIndicator;
 		
 		public IneAsyncCallback(SuccessCallback<R> successCallback) {
 			this.successCallback = successCallback;
