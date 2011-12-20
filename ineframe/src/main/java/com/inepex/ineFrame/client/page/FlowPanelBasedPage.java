@@ -46,5 +46,8 @@ public abstract class FlowPanelBasedPage extends HandlerAwareComposite implement
 	public void setCurrentPlace(InePlace place) {
 		currentPlace = place;
 	}
-	
+
+	public InePlace getCurrentPlace() {
+		return currentPlace;
+	}	
 }
