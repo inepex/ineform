@@ -8,6 +8,10 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.inepex.ineFrame.client.async.ConnectionEvent;
+import com.inepex.ineFrame.client.async.DefaultFailedHandler;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.async.SimpleFailureStatusIndicator;
@@ -18,6 +22,7 @@ import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetDescStoreResult;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
+import com.inepex.ineFrame.shared.util.DateHelper;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
@@ -81,7 +86,8 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		queryCounter.incQueries();
 		
 		//query server side descriptor store
-		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus);
+		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
+				new DefaultFailedHandler());
 		GetDescStore getDescriptorStore = new GetDescStore();
 		dispatch.execute(getDescriptorStore, new GetDescriptorStoreCallback());
 	}
@@ -90,7 +96,8 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		queryCounter.incQueries();
 		
 		// query i18n
-		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus);
+		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
+				new DefaultFailedHandler());
 		GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction = clientI18nStore.getModuleQueryAction(loadLangFromCookie);
 		dispatch.execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
 	}

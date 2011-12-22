@@ -5,18 +5,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.inepex.example.ContactManager.client.gin.AppGinjector;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.example.ContactManager.entity.assist.CompanyAssist;
-import com.inepex.example.ContactManager.entity.assist.ContactAssist;
-import com.inepex.example.ContactManager.entity.assist.EmailAddressAssist;
-import com.inepex.example.ContactManager.entity.assist.MeetingAssist;
-import com.inepex.example.ContactManager.entity.assist.PhoneNumberAssist;
-import com.inepex.example.ContactManager.entity.assist.PhoneNumberTypeAssist;
-import com.inepex.example.ContactManager.entity.assist.UserAssist;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.IneFrameEntryPoint;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.inei18n.shared.ClientI18nProvider;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 public class App extends IneFrameEntryPoint {

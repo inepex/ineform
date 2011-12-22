@@ -1,5 +1,10 @@
 package com.inepex.ineFrame.client.async;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.Result;
 
@@ -7,45 +12,27 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
+import com.inepex.ineFrame.client.async.ConnectionEvent.ConnectionEventHandler;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineFrame.shared.exceptions.AuthorizationException;
 import com.inepex.ineFrame.shared.exceptions.PageNotFoundException;
 
-public class IneDispatchBase {
-
-	protected AsyncStatusIndicator defaultStatusIndicator;
-	protected EventBus eventBus;
-	
-	protected boolean swallowStatusCodeException = false;
-	
-	public void startSwallowStatuscodeException() {
-		swallowStatusCodeException = true;
-	}
-	
-	public void setStatusIndicator(AsyncStatusIndicator statusIndicator){
-		defaultStatusIndicator = statusIndicator;
-	}
-
-	public AsyncStatusIndicator getDefaultStatusIndicator() {
-		return defaultStatusIndicator;
-	}
+public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 
 	protected class IneAsyncCallback<R> implements AsyncCallback<R > {
 		
 		protected final SuccessCallback<R> successCallback;
 		protected final  AsyncStatusIndicator statusIndicator;
-		
-		public IneAsyncCallback(SuccessCallback<R> successCallback) {
-			this.successCallback = successCallback;
-			this.statusIndicator = defaultStatusIndicator;
-		}
+		protected CommandExecution<A> execution;
 		
 		public IneAsyncCallback(SuccessCallback<R> successCallback,
-				AsyncStatusIndicator statusIndicator) {
+				AsyncStatusIndicator statusIndicator, 
+				CommandExecution<A> execution) {
 			this.successCallback = successCallback;
 			this.statusIndicator = statusIndicator;
+			this.execution = execution;
 		}
 
 		@Override
@@ -69,17 +56,16 @@ public class IneDispatchBase {
 				statusIndicator.onSuccess("");
 				return;
 			} else if( caught instanceof StatusCodeException) {
-				//if server is down refresh page, to get a browser 404 error page
-				if(((StatusCodeException) caught).getStatusCode()==0) {
-					Window.Location.reload();
+				if (swallowStatusCodeException) {
 					return;
+				} else if(((StatusCodeException) caught).getStatusCode()==0) {
+					if (connectionFailedHandler.startRecover()) {
+						return;
+					}
 				}
 			}
 			
-			if (swallowStatusCodeException && caught instanceof StatusCodeException) {
-				return;
-			}
-			
+			pendingExecutions.remove(execution);
 			successCallback.onFailure(caught);
 			statusIndicator.onGeneralFailure(caught.getMessage());
 			caught.printStackTrace();
@@ -87,8 +73,21 @@ public class IneDispatchBase {
 
 		@Override
 		public void onSuccess(R result) {
+			pendingExecutions.remove(execution);
 			statusIndicator.onSuccess("");
 			successCallback.onSuccess(result);
+		}
+
+		public SuccessCallback<R> getSuccessCallback() {
+			return successCallback;
+		}
+
+		public AsyncStatusIndicator getStatusIndicator() {
+			return statusIndicator;
+		}
+
+		public CommandExecution<A> getExecution() {
+			return execution;
 		}
 	}
 	
@@ -126,4 +125,78 @@ public class IneDispatchBase {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
+	protected class CommandExecution<A> {		
+		A command;
+		SuccessCallback callback;
+		AsyncStatusIndicator statusIndicator;
+		public CommandExecution(A command, SuccessCallback callback, AsyncStatusIndicator statusIndicator) {
+			super();
+			this.command = command;
+			this.callback = callback;
+			this.statusIndicator = statusIndicator;
+		}
+	}
+	
+	protected AsyncStatusIndicator defaultStatusIndicator;
+	protected EventBus eventBus;	
+	protected boolean swallowStatusCodeException = false;	
+	protected ConnectionFailedHandler connectionFailedHandler;
+	protected Set<CommandExecution<A>> pendingExecutions = new HashSet<CommandExecution<A>>();
+	
+	public IneDispatchBase(ConnectionFailedHandler connectionFailedHandler,
+			EventBus eventBus) {
+		this.connectionFailedHandler = connectionFailedHandler;
+		eventBus.addHandler(ConnectionEvent.TYPE, this);
+	}
+	
+	public void startSwallowStatuscodeException() {
+		swallowStatusCodeException = true;
+	}
+	
+	public void setStatusIndicator(AsyncStatusIndicator statusIndicator){
+		defaultStatusIndicator = statusIndicator;
+	}
+
+	public AsyncStatusIndicator getDefaultStatusIndicator() {
+		return defaultStatusIndicator;
+	}
+
+	public void onEvent(ConnectionEvent e){
+		if (!e.isFailure()) reconnected();
+	}
+	
+	public <R> void execute(A action, SuccessCallback<R> callback){
+		this.execute(action, callback, defaultStatusIndicator);
+	}
+	
+	public <R> void execute(A action
+			, SuccessCallback<R> callback 
+			, AsyncStatusIndicator statusIndicator) {
+		if (statusIndicator == null) statusIndicator = defaultStatusIndicator;
+		CommandExecution<A> execution = new CommandExecution<A>(action, callback, statusIndicator);
+		pendingExecutions.add(execution);
+		executeInternal(execution);
+	}
+	
+	protected <R> void executeInternal(CommandExecution<A> execution){
+		IneAsyncCallback<R> asyncCallback = new IneAsyncCallback<R>(execution.callback, 
+				execution.statusIndicator, execution);
+		doExecute(execution.command, asyncCallback);
+		execution.statusIndicator.onAsyncRequestStarted("");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void reconnected() {
+		if (pendingExecutions.size() != 0){
+			List<CommandExecution<A>> tmpList = new ArrayList<CommandExecution<A>>(pendingExecutions);
+			for (CommandExecution<A> execution : tmpList){
+				execution.statusIndicator.onSuccess("");
+				executeInternal(execution);
+			}
+		}
+	}
+	
+	protected abstract void doExecute(A action, IneAsyncCallback callback);
+
 }

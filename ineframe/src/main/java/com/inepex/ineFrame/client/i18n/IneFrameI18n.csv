@@ -15,6 +15,8 @@
 "hourShort";"";"h";"ó"
 "loading";"";"Loading data...";"Adatok betöltése..."
 "minShort";"";"m";"p"
+"reconnected";"";"Connected";"Csatlakozva"
+"reconnection";"";"No network connection. Reconnect in {delay}.";"Nincs kapcsolat. Újracsatlakozás {delay} múlva."
 "saveError";"";"Error occurred during save: <br /> {error}";"A mentés során az alábbi hiba történt: <br /> {error}"
 "saveSuccessful";"";"Save successful.";"Sikeresen elmentve"
 "saveUnknownError";"";"Unknown error occurred during save!";"A mentés során ismeretlen hiba történt."

@@ -9,7 +9,12 @@ import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineForm.shared.dispatch.ActionBasedObjectFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
+import com.inepex.ineFrame.client.async.DefaultFailedHandler;
+import com.inepex.ineFrame.client.async.ExponentialBackoffHandler;
 import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
+import com.inepex.ineFrame.client.async.IneDispatch;
+import com.inepex.ineFrame.client.async.IneDispatchBase;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.DefaultAuthManager;
 import com.inepex.ineFrame.client.navigation.MasterPage;
@@ -44,6 +49,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(DateProvider.class).to(CETDateProviderCln.class).in(Singleton.class);
 		
 		bind(AsyncStatusIndicator.class).to(FullscreenStatusIndicator.class).in(Singleton.class);
+		bind(ConnectionFailedHandler.class).to(ExponentialBackoffHandler.class).in(Singleton.class);
 	}
 
 }

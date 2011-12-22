@@ -42,6 +42,8 @@ public class IneFrameI18n extends I18nModule {
 	public String hourShort = "h";
 	public String loading = "Loading data...";
 	public String minShort = "m";
+	public String reconnected = "Connected";
+	public String reconnection = "No network connection. Reconnect in {delay}.";
 	public String saveError = "Error occurred during save: <br /> {error}";
 	public String saveSuccessful = "Save successful.";
 	public String saveUnknownError = "Unknown error occurred during save!";
@@ -200,6 +202,24 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String minShort() {
 		return moduleProvider.get().minShort;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Connected
+	* <u><i>Magyarul:</i></u> Csatlakozva
+	*/
+	public static String reconnected() {
+		return moduleProvider.get().reconnected;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> No network connection. Reconnect in {delay}.
+	* <u><i>Magyarul:</i></u> Nincs kapcsolat. Újracsatlakozás {delay} múlva.
+	*/
+	public static String reconnection(String delay) {
+		return moduleProvider.get().reconnection.replace("{delay}", delay);
 	}
 	
 	/**

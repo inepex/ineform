@@ -20,6 +20,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
+import com.inepex.ineFrame.client.async.DefaultFailedHandler;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.SilentStatusIndicator;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseActionHanlderModule;
@@ -154,7 +155,8 @@ public class DispatchMock {
 	public class IneDispatchMock extends IneDispatch {
 
 		private IneDispatchMock() {
-			super(new DispatchAsyncMock(), new SilentStatusIndicator(), new SimpleEventBus());
+			super(new DispatchAsyncMock(), new SilentStatusIndicator(), new SimpleEventBus(), 
+					new DefaultFailedHandler());
 		}
 	}
 	

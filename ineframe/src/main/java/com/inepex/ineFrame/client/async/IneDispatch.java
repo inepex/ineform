@@ -7,12 +7,15 @@ import net.customware.gwt.dispatch.shared.Result;
 import com.google.gwt.event.shared.EventBus;
 import com.google.inject.Inject;
 
-public class IneDispatch extends IneDispatchBase {
+public class IneDispatch extends IneDispatchBase<Action<? extends Result>> {
 
 	private DispatchAsync dispatcher;
-
+	
+	
 	@Inject
-	public IneDispatch(DispatchAsync dispatcher, AsyncStatusIndicator defaultStatusIndicator, EventBus eventBus) {
+	public IneDispatch(DispatchAsync dispatcher, AsyncStatusIndicator defaultStatusIndicator,
+			EventBus eventBus, ConnectionFailedHandler connectionFailedHandler) {
+		super(connectionFailedHandler, eventBus);
 		this.dispatcher = dispatcher;
 		this.defaultStatusIndicator = defaultStatusIndicator;
 		this.eventBus = eventBus;
@@ -22,18 +25,13 @@ public class IneDispatch extends IneDispatchBase {
 		return dispatcher;
 	}
 
-	public <A extends Action<R>, R extends Result> void execute(A action
-			, SuccessCallback<R> callback) {	
-		dispatcher.execute(action, new IneAsyncCallback<R>(callback));	
-		defaultStatusIndicator.onAsyncRequestStarted("");
-	}
-
-	public <A extends Action<R>, R extends Result> void execute(A action
-			, SuccessCallback<R> callback 
-			, AsyncStatusIndicator statusIndicator) {		
-		statusIndicator = statusIndicator == null ? defaultStatusIndicator : statusIndicator;
-		dispatcher.execute(action, new IneAsyncCallback<R>(callback, statusIndicator));
-		statusIndicator.onAsyncRequestStarted("");
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	protected void doExecute(
+			Action action,
+			IneAsyncCallback callback) {
+		dispatcher.execute(action, callback);
+		
 	}
 	
 }
