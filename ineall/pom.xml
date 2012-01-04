@@ -19,7 +19,7 @@
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.8.5</mockitoVersion>
 		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
-		<ginVersion>1.5</ginVersion>
+		<ginVersion>1.5.0</ginVersion>
 		<guiceVersion>3.0</guiceVersion>
 		<gwtDndVersion>3.1.1</gwtDndVersion>
 		<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
@@ -46,7 +46,7 @@
 		<repository>
 			<id>eclipselink</id>
 			<name>eclipselink</name>
-			<url>http://mirror.udlchina.org/ftp.neu.edu.cn/mirrors/eclipse/rt/eclipselink/maven.repo</url>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
 		</repository>
 		<repository>
 			<id>maven.springframework.org.external</id>
