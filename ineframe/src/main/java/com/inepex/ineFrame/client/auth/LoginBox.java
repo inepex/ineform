@@ -1,16 +1,21 @@
 package com.inepex.ineFrame.client.auth;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.dom.client.ButtonElement;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.http.client.RequestBuilder.Method;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -29,7 +34,9 @@ import com.inepex.ineFrame.shared.auth.CaptchaInfoResult;
 
 public abstract class LoginBox extends HandlerAwareComposite {
 
-	protected final VerticalPanel vp; 
+	protected final VerticalPanel vp = new VerticalPanel();
+	protected FormPanel formPanel;
+	protected final VerticalPanel formContent = new VerticalPanel();
 	protected TextBox userName;
 	protected PasswordTextBox password;
 	protected Label captchaLabel;
@@ -47,7 +54,6 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		this.eventBus=eventBus;
 		this.ineDispatch=ineDispatch;
 	
-		vp= new VerticalPanel();
 		createUI();
 		initWidget(vp);		
 	}
@@ -56,18 +62,30 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	 * this method initializes the protected fields: labels and button 
 	 */
 	protected void createUI() {
-		vp.add(new Label(IneFrameI18n.USERNAME()));
-		userName= new TextBox();
-		vp.add(userName);
-		vp.add(new Label(IneFrameI18n.PASSWORD()));
-		password= new PasswordTextBox();
-		vp.add(password);
+		Element usernameEl = DOM.getElementById("username");
+		Element passwordEl = DOM.getElementById("password");
+		ButtonElement submitEl = (ButtonElement) Document.get().getElementById("loginSubmit");
+		Element formEl = DOM.getElementById("loginform"); 
+		
+		userName = (usernameEl == null ? new TextBox() : TextBox.wrap(usernameEl));
+		password = (passwordEl == null ? new PasswordTextBox() : PasswordTextBox.wrap(passwordEl));
+		loginButton = (submitEl == null ? new SubmitButton() : Button.wrap(submitEl));
+		loginButton.setText(IneFrameI18n.LOGIN());
+		
+		formContent.add(new Label(IneFrameI18n.USERNAME()));
+		formContent.add(userName);
+		formContent.add(new Label(IneFrameI18n.PASSWORD()));
+		formContent.add(password);
 		captchaLabel=new Label(IneFrameI18n.CAPTCHA());
-		vp.add(captchaLabel);
+		formContent.add(captchaLabel);
 		captchaWidget=new CaptchaWidget();
-		vp.add(captchaWidget);
-		loginButton= new Button(IneFrameI18n.LOGIN());
-		vp.add(loginButton);
+		formContent.add(captchaWidget);
+		formContent.add(loginButton);
+		
+		formPanel = (formEl == null ? new FormPanel() : FormPanel.wrap(formEl));
+		formEl.getStyle().setDisplay(Display.BLOCK);
+		formPanel.add(formContent);
+		vp.add(formPanel);
 	}
 	
 
@@ -75,13 +93,10 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected void onAttach() {
 		super.onAttach();
 		
-		registerHandler(userName.addKeyPressHandler(new PassEnterPressHandler()));
-		registerHandler(password.addKeyPressHandler(new PassEnterPressHandler()));
-		registerHandler(captchaWidget.addKeyPressHandler(new PassEnterPressHandler()));
-		registerHandler(loginButton.addClickHandler(new ClickHandler() {
+		registerHandler(formPanel.addSubmitHandler(new SubmitHandler() {
 			
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onSubmit(SubmitEvent event) {
 				doLogin();
 			}
 		}));
@@ -103,30 +118,6 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			}
 		});
 	}
-	
-	/**
-	 * event.getCharCode() does not work
-	 * If there is any problem with keypress, the KeyUp implementation bellow should be used
-	 */
-	class PassEnterPressHandler implements KeyPressHandler {
-		@Override
-		public void onKeyPress(KeyPressEvent event) {
-			if (KeyCodes.KEY_ENTER == event.getNativeEvent().getKeyCode()) {
-				doLogin();
-			}			
-		}
-	}
-	
-// If keyPres does not work, 
-//	class PassKeyUpHandler implements KeyUpHandler {
-//		@Override
-//		public void onKeyUp(KeyUpEvent event) {
-//			System.out.println((int)event.getNativeKeyCode());
-//			if (KeyCodes.KEY_ENTER == event.getNativeKeyCode()) {
-//				doLogin();
-//			}			
-//		}
-//	}
 	
 	private void doLogin(){
 		loginButton.setEnabled(false);
