@@ -69,7 +69,6 @@ public class IneFormGinModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		bind(HistoryProvider.class).in(Singleton.class);
-		bind(IneDispatch.class).in(Singleton.class);
 		bind(PushedEventProvider.class).in(Singleton.class);
 		bind(DateFormatter.class).to(GwtDateFormatter.class);
 		bind(NumberFormatter.class).to(GwtNumberFormatter.class);
