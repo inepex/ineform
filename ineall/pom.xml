@@ -15,7 +15,7 @@
 	</modules>
 
 	<properties>
-		<gwtVersion>2.3.0</gwtVersion>
+		<gwtVersion>2.4.0</gwtVersion>
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.8.5</mockitoVersion>
 		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>

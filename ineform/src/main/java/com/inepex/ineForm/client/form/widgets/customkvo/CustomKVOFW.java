@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -49,7 +50,10 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 		this.view.setRemoveCallback(this);
 		this.view.setRowValueChangeCallback(this);
 		
-		initWidget(view.asWidget());
+		//for pure java junit tests
+		if(GWT.isClient())
+			initWidget(view.asWidget());
+		
 		view.showEditable();
 	}
 	

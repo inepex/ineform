@@ -16,7 +16,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com.google.gwt.junit.GWTMockUtilities;
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVORow;
 import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
@@ -59,9 +59,9 @@ public class CustomKVOFWTest extends DefaultIneFormClientSideTestBase {
 	
 	@Before
 	public void setUpVariables() {
-		FlowPanel fp = mock(FlowPanel.class);
+		Widget w = mock(Widget.class);
 		view = mock(CustomKVOFW.View.class);
-		when(view.asWidget()).thenReturn(fp);
+		when(view.asWidget()).thenReturn(w);
 		doAnswer(new Answer<Void>() {
 
 			@Override

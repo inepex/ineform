@@ -9,7 +9,7 @@
 	<version>0.1</version>
 	<packaging>war</packaging>
 	<properties>
-		<gwtVersion>2.3.0</gwtVersion>
+		<gwtVersion>2.4.0</gwtVersion>
 		<slf4j.version>1.6.1</slf4j.version>
 		<ineformVersion>1.0.17</ineformVersion>
 		<draftCompile>true</draftCompile>

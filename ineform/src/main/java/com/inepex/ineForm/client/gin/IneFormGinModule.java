@@ -44,7 +44,6 @@ import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
-import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
 import com.inepex.ineFrame.client.util.GwtNumberFormatter;
