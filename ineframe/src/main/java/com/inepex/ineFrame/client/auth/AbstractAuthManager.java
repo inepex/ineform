@@ -4,6 +4,7 @@ import java.util.Set;
 
 import net.customware.gwt.dispatch.shared.UnsupportedActionException;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -22,9 +23,11 @@ public abstract class AbstractAuthManager implements AuthManager {
 	AuthStatusResultBase lastAuthStatusResult = null;
 
 	final IneDispatch dispatcher;
+	protected final EventBus eventBus;
 	
-	public AbstractAuthManager(IneDispatch dispatcher) {
+	public AbstractAuthManager(IneDispatch dispatcher, EventBus eventBus) {
 		this.dispatcher = dispatcher;
+		this.eventBus = eventBus;
 	}
 
 	@Override
@@ -95,6 +98,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		public void onSuccess(GenericResult arg0) {
 			lastAuthStatusResult = null;
 			callback.onAuthCheckDone(null);
+			eventBus.fireEvent(new UserLoggedOutEvent());
 		}	
 	}
 
