@@ -20,7 +20,7 @@ II. Setting version
 		-check out ineall too
 		-open console, go to ineall's folder, and type:
 		
-	ineall$ mvn versions:set -DnewVersion=1.0.18 	#setting parent's and children's version
+	ineall$ mvn versions:set -DnewVersion=1.0.19 	#setting parent's and children's version
 	 
 	ineall$ mvn versions:commit 					#deleting backup files
 		
