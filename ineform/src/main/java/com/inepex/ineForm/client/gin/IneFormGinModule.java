@@ -1,5 +1,7 @@
 package com.inepex.ineForm.client.gin;
 
+import net.customware.gwt.dispatch.client.gin.StandardDispatchModule;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -44,10 +46,16 @@ import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
+import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
+import com.inepex.ineFrame.client.async.DefaultFailedHandler;
+import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
+import com.inepex.ineFrame.client.util.CETDateProviderCln;
 import com.inepex.ineFrame.client.util.GwtNumberFormatter;
 import com.inepex.ineFrame.shared.util.DateFormatter;
+import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineFrame.shared.util.NumberFormatter;
 import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
@@ -55,18 +63,38 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class IneFormGinModule extends AbstractGinModule {
 
-	boolean overrideFormWidgetFactory = false;
+	private Class<? extends AsyncStatusIndicator> asyncStatusIndicator = FullscreenStatusIndicator.class;
+	private Class<? extends ConnectionFailedHandler> connectionFailedHandler = DefaultFailedHandler.class;
+	private Class<? extends FormWidgetFactory> formWidgetFactory = DefaultFormWidgetFactory.class;
+	private Class<? extends DateProvider> dateProvider = CETDateProviderCln.class;
 	
 	public IneFormGinModule() {
 	}
 
-	public IneFormGinModule(boolean overrideFormWidgetFactory) {
-		super();
-		this.overrideFormWidgetFactory = overrideFormWidgetFactory;
+	public IneFormGinModule setAsyncStatusIndicator(Class<? extends AsyncStatusIndicator> asyncStatusIndicator) {
+		this.asyncStatusIndicator = asyncStatusIndicator;
+		return this;
+	}
+
+	public IneFormGinModule setConnectionFailedHandler(Class<? extends ConnectionFailedHandler> connectionFailedHandler) {
+		this.connectionFailedHandler = connectionFailedHandler;
+		return this;
+	}
+
+	public IneFormGinModule setFormWidgetFactory(Class<? extends FormWidgetFactory> formWidgetFactory) {
+		this.formWidgetFactory = formWidgetFactory;
+		return this;
+	}
+	
+	public IneFormGinModule setDateProvider(Class<? extends DateProvider> dateProvider) {
+		this.dateProvider = dateProvider;
+		return this;
 	}
 
 	@Override
 	protected void configure() {
+		install(new StandardDispatchModule());
+		
 		bind(HistoryProvider.class).in(Singleton.class);
 		bind(PushedEventProvider.class).in(Singleton.class);
 		bind(DateFormatter.class).to(GwtDateFormatter.class);
@@ -78,13 +106,13 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		bind(FormContext.class);
 		
-		if (!overrideFormWidgetFactory)
-			bind(FormWidgetFactory.class).to(DefaultFormWidgetFactory.class).in(Singleton.class);
+		bind(FormWidgetFactory.class).to(formWidgetFactory).in(Singleton.class);
 		
 		bind(FormUnitFactory.class).to(DefaultFormUnitFactory.class).in(Singleton.class);
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
 		
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
+		bind(DateProvider.class).to(dateProvider).in(Singleton.class);
 		
 		install(new GinFactoryModuleBuilder()
 					.implement(IneForm.class, Names.named("simple"), IneForm.class)
@@ -127,6 +155,9 @@ public class IneFormGinModule extends AbstractGinModule {
 	 	.implement(HtmlRenderer.class, HtmlRenderer.class)
 		.build(HtmlRendererFactory.class));
 		
+		
+		bind(AsyncStatusIndicator.class).to(asyncStatusIndicator).in(Singleton.class);
+		bind(ConnectionFailedHandler.class).to(connectionFailedHandler).in(Singleton.class);
 	}
 	
 	

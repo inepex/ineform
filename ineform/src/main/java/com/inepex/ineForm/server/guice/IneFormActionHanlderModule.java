@@ -6,6 +6,8 @@ import com.inepex.ineForm.server.handler.ObjectListHandler;
 import com.inepex.ineForm.server.handler.ObjectManipulationHandler;
 import com.inepex.ineForm.server.handler.RelationListHandler;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
+import com.inepex.ineForm.shared.dispatch.ActionObjectFactory;
+import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
@@ -19,5 +21,6 @@ public class IneFormActionHanlderModule extends ActionHandlerModule {
 		bindHandler(ObjectManipulationAction.class, ObjectManipulationHandler.class);
 		bindHandler(RelationListAction.class, RelationListHandler.class);
 		bindHandler(SetActionForExportServletAction.class, SetActionForExportServletHandler.class);
+		bind(ManipulationObjectFactory.class).to(ActionObjectFactory.class);
 	}
 }

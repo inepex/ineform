@@ -4,8 +4,12 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.ServerSideValueRangeProvider;
+import com.inepex.ineForm.client.form.widgets.customkvo.ActionBasedOdFinder;
+import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
+import com.inepex.ineForm.shared.dispatch.ActionBasedObjectFinder;
 import com.inepex.ineForm.shared.dispatch.ActionObjectFactory;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
+import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 
 public class IneFormDispatcherGinModule extends AbstractGinModule {
@@ -15,6 +19,8 @@ public class IneFormDispatcherGinModule extends AbstractGinModule {
 		bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
 		bind(ManipulationObjectFactory.class).to(ActionObjectFactory.class);
 		bind(IneDispatch.class).in(Singleton.class);
+		bind(OdFinder.class).to(ActionBasedOdFinder.class);
+		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
 	}
 
 }

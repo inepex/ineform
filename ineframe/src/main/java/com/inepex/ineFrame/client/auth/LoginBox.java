@@ -98,6 +98,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			@Override
 			public void onSubmit(SubmitEvent event) {
 				doLogin();
+				event.cancel();
 			}
 		}));
 		
