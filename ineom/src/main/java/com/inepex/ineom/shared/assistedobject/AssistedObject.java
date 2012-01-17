@@ -67,7 +67,8 @@ public abstract class AssistedObject implements Serializable {
 	protected abstract boolean containsRelation(String key);
 
 	/******** HELPER methods ********/
-	public abstract  String getDescriptorName();
+	public abstract String getDescriptorName();
+	public abstract void setDescriptorName(String descriptorName);
 
 	/**
 	 * list of used (one of set(String key, *) was invoked on the selected

@@ -58,9 +58,15 @@ public class KeyValueObject extends AssistedObject {
 	}
 
 	@Override
+	public void setDescriptorName(String descriptorName) {
+		this.descriptorName = descriptorName;
+	}
+	
+	@Override
 	public String getDescriptorName() {
 		return descriptorName;
 	}
+	
 
 	@Override
 	public Long getId() {
@@ -350,4 +356,5 @@ public class KeyValueObject extends AssistedObject {
 	public Set<String> getRelationKeys() {
 		return relationValues.keySet();
 	}
+
 }

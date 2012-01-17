@@ -13,6 +13,7 @@ public class FormRDesc extends FormRDescBase implements Serializable{
 	private Node<FormRDescBase> rootNode;
 	
 	public FormRDesc() {
+		rootNode=Node.createRootNode(this, FormRDescBase.class);
 	}
 	
 	public FormRDesc(String objectDescriptorName, String... props) {
@@ -23,6 +24,10 @@ public class FormRDesc extends FormRDescBase implements Serializable{
 
 	public String getObjectDescriptorName() {
 		return objectDescriptorName;
+	}
+	
+	public void setObjectDescriptorName(String objectDescriptorName) {
+		this.objectDescriptorName = objectDescriptorName;
 	}
 
 	public Node<FormRDescBase> getRootNode() {
