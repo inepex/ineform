@@ -43,7 +43,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 			
 			if(captchaInfo.needCaptcha()) {
 				//incorrect request
-				if(action.getCaptchaAnswer()==null || 
+				if(action.getCaptchaAnswer()==null || sesionProvider.get().getAttribute(Captcha.NAME)==null ||
 						!action.getCaptchaAnswer().equals(((Captcha)sesionProvider.get().getAttribute(Captcha.NAME)).getAnswer())) {
 					captchaInfo.registerIncorrectAnswer();
 					return new AuthStatusResultBase(captchaInfo.needCaptcha());
