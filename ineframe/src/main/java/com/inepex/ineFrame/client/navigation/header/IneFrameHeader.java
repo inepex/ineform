@@ -80,6 +80,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		this.eventBus=eventBus;
 		
 		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
+		
 	}
 	
 	public IneFrameHeader setSettingsClickLogic(OnClickedLogic settingsClickLogic) {
