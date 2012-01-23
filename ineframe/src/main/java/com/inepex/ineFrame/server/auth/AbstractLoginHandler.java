@@ -16,13 +16,13 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 
 	private final Provider<SessionScopedAuthStat> authStatProvider;
 	private final Provider<SessionScopedCaptchaInfo> captchaInfoProvider;
-	private final Provider<HttpSession> sesionProvider;
+	private final Provider<HttpSession> sessionProvider;
 	
 	protected AbstractLoginHandler(Provider<SessionScopedAuthStat> authStat,
 			Provider<HttpSession> sesionProvider, Provider<SessionScopedCaptchaInfo> captchaInfoProvider) {
 		this.authStatProvider = authStat;
 		this.captchaInfoProvider=captchaInfoProvider;
-		this.sesionProvider=sesionProvider;
+		this.sessionProvider=sesionProvider;
 	}
 	
 	protected void onLogin(U user){
@@ -43,8 +43,8 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 			
 			if(captchaInfo.needCaptcha()) {
 				//incorrect request
-				if(action.getCaptchaAnswer()==null || sesionProvider.get().getAttribute(Captcha.NAME)==null ||
-						!action.getCaptchaAnswer().equals(((Captcha)sesionProvider.get().getAttribute(Captcha.NAME)).getAnswer())) {
+				if(action.getCaptchaAnswer()==null || sessionProvider.get().getAttribute(Captcha.NAME)==null ||
+						!action.getCaptchaAnswer().equals(((Captcha)sessionProvider.get().getAttribute(Captcha.NAME)).getAnswer())) {
 					captchaInfo.registerIncorrectAnswer();
 					return new AuthStatusResultBase(captchaInfo.needCaptcha());
 				}
@@ -61,6 +61,12 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		}
 		
 		R result = createResultBase();
+		setUserToSession(user, result);
+		
+		return result;
+	}
+
+	public void setUserToSession(U user, R result) {
 		result.setSuccess(true);
 		result.setDisplayName(user.getDisplayName());
 		result.setRoles(user.getAllowedRoles());
@@ -75,8 +81,6 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 			authStat.setUserId(user.getUserId());
 			authStat.setAuthStatusResultBase(result);
 		}
-		
-		return result;
 	}
 	
 	protected abstract void mapAdditional(U user, R result);

@@ -17,7 +17,7 @@ public class GetAuthStatusHandler extends AbstractIneHandler<GetAuthStatusAction
 	private final Provider<SessionScopedAuthStat> authStatProvider;
 	
 	@Inject
-	GetAuthStatusHandler(Provider<SessionScopedAuthStat> authStat) {
+	protected GetAuthStatusHandler(Provider<SessionScopedAuthStat> authStat) {
 		this.authStatProvider=authStat;
 	}
 

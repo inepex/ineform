@@ -22,15 +22,21 @@ import com.inepex.inei18n.server.GetI18nModulesAndSetCurrentLangFromCookieHandle
 import com.inepex.inei18n.shared.ChangeLanguageAction;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
 
-public class IneFrameBaseActionHanlderModule extends ActionHandlerModule {
+public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
 
 	private Class<? extends ActionHandler<LoginAction, AuthStatusResultBase>> loginHandler;
+	private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
 		
-	public IneFrameBaseActionHanlderModule(Class<? extends ActionHandler<LoginAction, AuthStatusResultBase>> loginHandler) {
+	public IneFrameBaseActionHandlerModule(Class<? extends ActionHandler<LoginAction, AuthStatusResultBase>> loginHandler) {
 		super();
 		this.loginHandler = loginHandler;
 	}
 
+	public IneFrameBaseActionHandlerModule setGetAuthStatusHandler(Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler){
+		this.getAuthStatusHandler = getAuthStatusHandler;
+		return this;
+	}
+	
 	@Override
 	protected void configureHandlers() {
 		bindHandler(BatchAction.class, BatchActionHandler.class);
@@ -40,7 +46,7 @@ public class IneFrameBaseActionHanlderModule extends ActionHandlerModule {
 		bindHandler(GetDescStore.class, GetDescriptorStoreHandler.class);
 		
 		//authentication
-		bindHandler(GetAuthStatusAction.class, GetAuthStatusHandler.class);
+		bindHandler(GetAuthStatusAction.class, getAuthStatusHandler);
 		bindHandler(LogoutAction.class, LogoutHandler.class);
 		bindHandler(CaptchaInfoAction.class, CaptchaInfoHandler.class);
 		if (loginHandler != null) bindHandler(LoginAction.class, loginHandler);

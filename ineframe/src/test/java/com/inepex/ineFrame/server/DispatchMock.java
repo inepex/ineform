@@ -23,7 +23,7 @@ import com.google.inject.Provider;
 import com.inepex.ineFrame.client.async.DefaultFailedHandler;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.SilentStatusIndicator;
-import com.inepex.ineFrame.server.di.guice.IneFrameBaseActionHanlderModule;
+import com.inepex.ineFrame.server.di.guice.IneFrameBaseActionHandlerModule;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseServletModule;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
@@ -36,7 +36,7 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class DispatchMock {
 
-	protected Injector injector = Guice.createInjector(new IneFrameBaseActionHanlderModule(null),
+	protected Injector injector = Guice.createInjector(new IneFrameBaseActionHandlerModule(null),
 			new IneFrameBaseServletModule("test", TestDispatchServlet.class),
 			new AbstractModule() {
 				@Override
