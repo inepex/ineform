@@ -13,6 +13,9 @@ public class AuthStatusResultBase extends GenericResult {
 	private String displayName;
 	private Long userId = null;
 	private Set<String> roles = null;
+	// these two variables are for the stay signed in functionality
+	private String userEmail = null;
+	private String userUUID = null;
 
 	public AuthStatusResultBase() {
 	}
@@ -29,6 +32,15 @@ public class AuthStatusResultBase extends GenericResult {
 		this.roles = roles;
 	}
 
+	public AuthStatusResultBase(String displayName, Long userId, Set<String> roles, String userEmail, String userUUID) {
+		setSuccess(true);
+		this.displayName = displayName;
+		this.userId = userId;
+		this.roles = roles;
+		this.userEmail=userEmail;
+		this.userId=userId;
+	}
+	
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -59,5 +71,21 @@ public class AuthStatusResultBase extends GenericResult {
 	
 	public void setNeedCaptcha(boolean needCaptcha) {
 		this.needCaptcha = needCaptcha;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserUUID() {
+		return userUUID;
+	}
+
+	public void setUserUUID(String userUUID) {
+		this.userUUID = userUUID;
 	}
 }

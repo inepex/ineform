@@ -7,6 +7,7 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 	private String userName;
 	private String password;
 	private String captchaAnswer;
+	private boolean needStaySignedIn;
 
 	public LoginAction() {
 	}
@@ -15,6 +16,13 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 		this.userName = userName;
 		this.password = password;
 		this.captchaAnswer=captchaAnswer;
+	}
+	
+	public LoginAction(String userName, String password, String captchaAnswer, boolean needStaySignedIn) {
+		this.userName = userName;
+		this.password = password;
+		this.captchaAnswer=captchaAnswer;
+		this.needStaySignedIn=needStaySignedIn;
 	}
 
 	public String getUserName() {
@@ -39,5 +47,13 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 	
 	public void setCaptchaAnswer(String captchaAnswer) {
 		this.captchaAnswer = captchaAnswer;
+	}
+
+	public boolean isNeedStaySignedIn() {
+		return needStaySignedIn;
+	}
+
+	public void setNeedStaySignedIn(boolean needStaySignedIn) {
+		this.needStaySignedIn = needStaySignedIn;
 	}
 }

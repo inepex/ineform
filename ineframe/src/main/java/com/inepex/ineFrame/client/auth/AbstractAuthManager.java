@@ -1,10 +1,12 @@
 package com.inepex.ineFrame.client.auth;
 
+import java.util.Date;
 import java.util.Set;
 
 import net.customware.gwt.dispatch.shared.UnsupportedActionException;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -12,6 +14,8 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
+import com.inepex.ineFrame.shared.util.DateHelper;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public abstract class AbstractAuthManager implements AuthManager {
@@ -32,13 +36,26 @@ public abstract class AbstractAuthManager implements AuthManager {
 
 	@Override
 	public void checkAuthStatus(final AuthActionCallback callback) {
-		GetAuthStatusAction action = new GetAuthStatusAction();
+		GetAuthStatusAction action;
+		String userEmail = Cookies.getCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME);
+		String userUUID = Cookies.getCookie(IFConsts.COOKIE_STAYSIGNEDINUUID);
+		if(userEmail != null && userUUID != null){
+			action = new GetAuthStatusAction(userEmail, userUUID);
+		}else{
+			action = new GetAuthStatusAction();
+		}
 		dispatcher.getDispatcher().execute(action, new AuthStatusResultCallback(callback));
 	}
 	
 	@Override
 	public void doLogin(String userName, String password, String captchaAnswer, AuthActionCallback callback) {
-		LoginAction action = new LoginAction(userName, password, captchaAnswer);
+		LoginAction action;
+		boolean needStaySignedIn = Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
+		if(needStaySignedIn){
+			action = new LoginAction(userName, password, captchaAnswer, true);
+		}else{
+			action = new LoginAction(userName, password, captchaAnswer);
+		}
 		dispatcher.getDispatcher().execute(action, new AuthStatusResultCallback(callback));
 	}
 	
@@ -63,6 +80,12 @@ public abstract class AbstractAuthManager implements AuthManager {
 		@Override
 		public void onSuccess(AuthStatusResultBase result) {
 			lastAuthStatusResult = result;
+			
+			// here we set the cookies for the stay signed in functionality (if set in the result)
+			if(result!=null && result.getUserUUID()!=null && result.getUserEmail()!=null){
+				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUUID, result.getUserUUID(), DateHelper.addDaysSafe(new Date(), 30));
+				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME, result.getUserEmail(), DateHelper.addDaysSafe(new Date(), 30));
+			}
 			
 			callback.onAuthCheckDone(result);
 		}

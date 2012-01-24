@@ -28,4 +28,13 @@ public class IFConsts {
 	public static String USEORIGINALFILENAME = "useoriginalfilename";
 	public static String USEEXTENSION = "useextension";
 	public static String RESIZEIMAGES = "resizeimages";		
+	
+	//These variables belong to the stay signed in functionality
+	public static final String COOKIE_NEEDSTAYSIGNEDIN = "usrstsin_";
+	public static final String COOKIE_STAYSIGNEDINUSERNAME= "ursmnfneui_";
+	public static final String COOKIE_STAYSIGNEDINUUID= "tsstsui_";
+	public static final String COOKIE_TRUE= "true";
+	public static final String COOKIE_FALSE= "false";
+	
+	
 }
