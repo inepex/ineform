@@ -70,7 +70,10 @@ public class SimpleTableErrorMessageManager implements ErrorMessageManagerInterf
 		this.shouldHide = shouldHide;
 		holder.getStyle().setVisibility(Visibility.HIDDEN);
 	}
-	
+
+	@Override
+	public void setVisible(boolean visible) {
+	}
 	
 }
 

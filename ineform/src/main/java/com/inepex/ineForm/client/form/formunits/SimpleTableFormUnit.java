@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.user.client.Element;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -18,6 +19,7 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.RelationFW;
+import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
@@ -167,7 +169,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						}
 					}
 			
-					SimpleTableErrorMessageManager emm = new SimpleTableErrorMessageManager(cf.getElement(row, 3));
+					ErrorMessageManagerInterface emm = createEMMI(cf.getElement(row, 3));
 					for(String modelName : modelNameKeySet) {
 						registerErrorMessegeManager(modelName, emm);
 						rowsByKeys.put(modelName, row);
@@ -189,6 +191,10 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		//correct size
 		mainTable.resizeRows(row);
 	}
+	
+	protected ErrorMessageManagerInterface createEMMI(Element holder) {
+		return new SimpleTableErrorMessageManager(holder);
+	}
 
 	public void addStyleName(String key, int column, String additionalStyleName) {
 		cf.addStyleName(rowsByKeys.get(key), column, additionalStyleName);
@@ -206,6 +212,8 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		cf.setVisible(row, 0, visible);
 		cf.setVisible(row, 1, visible);
 		cf.setVisible(row, 2, visible);
+		
 		cf.setVisible(row, 3, visible);
+		errormanagersByKey.get(key).setVisible(visible);
 	}
 }

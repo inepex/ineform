@@ -67,6 +67,7 @@ public class IneFormGinModule extends AbstractGinModule {
 	private Class<? extends ConnectionFailedHandler> connectionFailedHandler = DefaultFailedHandler.class;
 	private Class<? extends FormWidgetFactory> formWidgetFactory = DefaultFormWidgetFactory.class;
 	private Class<? extends DateProvider> dateProvider = CETDateProviderCln.class;
+	private Class<? extends FormUnitFactory> formUnitFactory = DefaultFormUnitFactory.class;
 	
 	public IneFormGinModule() {
 	}
@@ -90,6 +91,12 @@ public class IneFormGinModule extends AbstractGinModule {
 		this.dateProvider = dateProvider;
 		return this;
 	}
+	
+	public IneFormGinModule setFormUnitFactory(
+			Class<? extends FormUnitFactory> formUnitFactory) {
+		this.formUnitFactory = formUnitFactory;
+		return this;
+	}
 
 	@Override
 	protected void configure() {
@@ -108,7 +115,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		bind(FormWidgetFactory.class).to(formWidgetFactory).in(Singleton.class);
 		
-		bind(FormUnitFactory.class).to(DefaultFormUnitFactory.class).in(Singleton.class);
+		bind(FormUnitFactory.class).to(formUnitFactory).in(Singleton.class);
 		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
 		
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);

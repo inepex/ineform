@@ -44,4 +44,8 @@ public class FlashingErrorMessageManager implements ErrorMessageManagerInterface
 		}
 	}
 
+	@Override
+	public void setVisible(boolean visible) {
+	}
+
 }
