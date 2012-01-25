@@ -8,12 +8,13 @@ import com.google.inject.Singleton;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.dao.UserDao;
 import com.inepex.ineFrame.server.auth.AbstractLoginHandler;
+import com.inepex.ineFrame.server.auth.AuthUser;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.auth.SessionScopedCaptchaInfo;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 @Singleton
-public class LoginHandler extends AbstractLoginHandler<User, AuthStatusResultBase>{
+public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>{
 
 	private final UserDao userDao;
 	
@@ -37,13 +38,28 @@ public class LoginHandler extends AbstractLoginHandler<User, AuthStatusResultBas
 	}
 
 	@Override
-	protected void mapAdditional(User user, AuthStatusResultBase result) {
+	protected void mapAdditional(AuthUser user, AuthStatusResultBase result) {
 		//nothing to do
 	}
 	
 	@Override
 	protected AuthStatusResultBase createResultBase() {
 		return new AuthStatusResultBase();
+	}
+
+
+	@Override
+	protected void setUserStaySignedInUUID(String userName, String UUIDString) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public AuthUser checkSignedInUUIDForUser(String userEmail, String userUUID,
+			AuthStatusResultBase result) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

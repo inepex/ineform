@@ -1,18 +1,26 @@
 package com.inepex.ineFrame.client.auth;
 
+import java.util.Date;
+
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.http.client.RequestBuilder.Method;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.SubmitButton;
@@ -31,6 +39,8 @@ import com.inepex.ineFrame.client.widgets.CaptchaWidget;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoAction;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoResult;
+import com.inepex.ineFrame.shared.util.DateHelper;
+import com.inepex.ineom.shared.IFConsts;
 
 public abstract class LoginBox extends HandlerAwareComposite {
 
@@ -55,7 +65,9 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		this.ineDispatch=ineDispatch;
 	
 		createUI();
-		initWidget(vp);		
+		initWidget(vp);	
+		if(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN).equals(IFConsts.COOKIE_TRUE))
+			getCheckBox().setValue(true);	
 	}
 	
 	/**
@@ -99,6 +111,18 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			public void onSubmit(SubmitEvent event) {
 				doLogin();
 				event.cancel();
+			}
+		}));
+		
+		registerHandler(getCheckBox().addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+			
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				if(event.getValue()){
+					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_TRUE, DateHelper.addDaysSafe(new Date(), 30));
+				}else{
+					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_FALSE, DateHelper.addDaysSafe(new Date(), 30));
+				}
 			}
 		}));
 		
@@ -194,4 +218,8 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			}
 		}
 	}
+	
+	// these helper methods are used for assigning functionality to the checkbox in the derived class
+	protected abstract HasValue<Boolean> getCheckBox();
+	protected abstract IsWidget getCheckBoxAsWidget();
 }

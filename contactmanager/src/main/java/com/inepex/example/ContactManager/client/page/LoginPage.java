@@ -2,7 +2,10 @@ package com.inepex.example.ContactManager.client.page;
 
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -32,6 +35,9 @@ public class LoginPage extends FlowPanelBasedPage {
 
 	private class CMLoginBox extends LoginBox {
 
+		// TODO: stay signed in functionality not fully implemented yet!
+		private CheckBox staySignedIn = new CheckBox("Stay signed in");
+		
 		protected CMLoginBox(AuthManager authManager,
 				HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
 			super(authManager, historyProvider, eventBus, ineDispatch);
@@ -41,6 +47,16 @@ public class LoginPage extends FlowPanelBasedPage {
 		@Override
 		protected void doLoggedinLogic(AuthStatusResultBase base) {
 			eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));
+		}
+
+		@Override
+		protected HasValue<Boolean> getCheckBox() {
+			return staySignedIn;
+		}
+
+		@Override
+		protected IsWidget getCheckBoxAsWidget() {
+			return staySignedIn;
 		}
 		
 	}

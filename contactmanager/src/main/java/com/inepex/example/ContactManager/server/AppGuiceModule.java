@@ -15,7 +15,7 @@ public class AppGuiceModule extends ActionHandlerModule {
 	@Override
 	protected void configureHandlers() {
 		install(new IneFrameBaseServletModule("ContactManager", AppDispatchServlet.class));
-		install(new IneFrameBaseModule(LoginHandler.class, true));
+		install(new IneFrameBaseModule(true).setLoginHandler(LoginHandler.class));
 		install(new IneFormActionHanlderModule());
 		
 		bindHandler(ObjectDescAction.class, ObjectDescHandler.class);

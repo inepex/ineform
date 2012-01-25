@@ -36,7 +36,7 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class DispatchMock {
 
-	protected Injector injector = Guice.createInjector(new IneFrameBaseActionHandlerModule(null),
+	protected Injector injector = Guice.createInjector(new IneFrameBaseActionHandlerModule(),
 			new IneFrameBaseServletModule("test", TestDispatchServlet.class),
 			new AbstractModule() {
 				@Override

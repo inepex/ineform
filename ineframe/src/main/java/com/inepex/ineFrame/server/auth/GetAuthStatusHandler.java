@@ -15,10 +15,12 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 public class GetAuthStatusHandler extends AbstractIneHandler<GetAuthStatusAction, AuthStatusResultBase>{
 
 	private final Provider<SessionScopedAuthStat> authStatProvider;
+	private final AbstractLoginHandler<? extends AuthUser, AuthStatusResultBase> loginHandler;
 	
 	@Inject
-	protected GetAuthStatusHandler(Provider<SessionScopedAuthStat> authStat) {
+	protected GetAuthStatusHandler(Provider<SessionScopedAuthStat> authStat, AbstractLoginHandler<AuthUser, AuthStatusResultBase> loginHandler) {
 		this.authStatProvider=authStat;
+		this.loginHandler=loginHandler;
 	}
 
 	@Override
@@ -31,8 +33,23 @@ public class GetAuthStatusHandler extends AbstractIneHandler<GetAuthStatusAction
 			DispatchException {
 		
 		SessionScopedAuthStat authStat = authStatProvider.get();
+		AuthStatusResultBase result;
+		
 		synchronized (authStat) {
-			return authStat.getAuthStatusResultBase();
+			result = authStat.getAuthStatusResultBase();
 		}
+		
+		// if the user is already logged in, we don't need to do anything more
+		if(result!=null && result.getUserId()!=null && result.getDisplayName()!=null && result.getRoles()!=null)
+			return result;
+		
+		String userEmail = action.getUserEmail();
+		String userUUID = action.getUserUUID();
+		if(result== null && userEmail!=null && userUUID!=null){
+			result=loginHandler.createResultBase();
+			loginHandler.checkSignedInUUIDForUser(userEmail, userUUID, result);
+		}
+	
+		return result;
 	}
 }

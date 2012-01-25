@@ -5,7 +5,12 @@ import net.customware.gwt.dispatch.server.BatchActionHandler;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import net.customware.gwt.dispatch.shared.BatchAction;
 
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
+import com.inepex.ineFrame.server.auth.AbstractLoginHandler;
+import com.inepex.ineFrame.server.auth.AuthUser;
 import com.inepex.ineFrame.server.auth.CaptchaInfoHandler;
+import com.inepex.ineFrame.server.auth.DefaultLoginHandler;
 import com.inepex.ineFrame.server.auth.GetAuthStatusHandler;
 import com.inepex.ineFrame.server.auth.LogoutHandler;
 import com.inepex.ineFrame.server.handler.GetDescriptorStoreHandler;
@@ -24,14 +29,18 @@ import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction
 
 public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
 
-	private Class<? extends ActionHandler<LoginAction, AuthStatusResultBase>> loginHandler;
+	private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler = DefaultLoginHandler.class;
 	private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
 		
-	public IneFrameBaseActionHandlerModule(Class<? extends ActionHandler<LoginAction, AuthStatusResultBase>> loginHandler) {
+	public IneFrameBaseActionHandlerModule() {
 		super();
-		this.loginHandler = loginHandler;
 	}
 
+	public IneFrameBaseActionHandlerModule setLoginHandler(Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler){
+		this.loginHandler=loginHandler;
+		return this;
+	}
+	
 	public IneFrameBaseActionHandlerModule setGetAuthStatusHandler(Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler){
 		this.getAuthStatusHandler = getAuthStatusHandler;
 		return this;
@@ -49,7 +58,8 @@ public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
 		bindHandler(GetAuthStatusAction.class, getAuthStatusHandler);
 		bindHandler(LogoutAction.class, LogoutHandler.class);
 		bindHandler(CaptchaInfoAction.class, CaptchaInfoHandler.class);
-		if (loginHandler != null) bindHandler(LoginAction.class, loginHandler);
+		bind(new TypeLiteral<AbstractLoginHandler<AuthUser,AuthStatusResultBase>>(){}).to(loginHandler).in(Singleton.class);
+		bindHandler(LoginAction.class, loginHandler);
 		
 		
 	}

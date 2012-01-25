@@ -1,5 +1,7 @@
 package com.inepex.ineFrame.server.auth;
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -62,7 +64,15 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		
 		R result = createResultBase();
 		setUserToSession(user, result);
-		
+
+		// if the login was successful and the user wants to stay signed in
+		if(result.isSuccess() && action.isNeedStaySignedIn()){
+			String UUIDString = UUID.randomUUID().toString();
+			result.setUserEmail(action.getUserName());
+			result.setUserUUID(UUIDString);
+			// set the UUID for the user
+			setUserStaySignedInUUID(action.getUserName(), UUIDString);
+		}
 		return result;
 	}
 
@@ -100,4 +110,9 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 	public Class<LoginAction> getActionType() {
 		return LoginAction.class;
 	}
+	
+	// methods for the stay signed in logic
+	// needs to be implemented in the derived classes, because of the user handling
+	protected abstract void setUserStaySignedInUUID(String userName, String UUIDString);
+	public abstract AuthUser checkSignedInUUIDForUser(String userEmail, String userUUID, AuthStatusResultBase result);
 }
