@@ -66,7 +66,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	
 		createUI();
 		initWidget(vp);	
-		if(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN).equals(IFConsts.COOKIE_TRUE))
+		if(IFConsts.COOKIE_TRUE.equals(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN)))
 			getCheckBox().setValue(true);	
 	}
 	
