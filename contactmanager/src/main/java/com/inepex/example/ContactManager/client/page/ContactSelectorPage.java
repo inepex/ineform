@@ -7,14 +7,13 @@ import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProv
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
+import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class ContactSelectorPage extends ConnectorPage {
 	
@@ -23,14 +22,12 @@ public class ContactSelectorPage extends ConnectorPage {
 	private final EventBus eventBus;
 	
 	@Inject
-	ContactSelectorPage(IneDispatch dispatcher, EventBus eventBus, DescriptorStore descriptorStore, 
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+	ContactSelectorPage(IneDispatch dispatcher, EventBus eventBus, IneTableFactory ineTableFactory) {
 		this.eventBus=eventBus;
 		
 		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, ContactConsts.descriptorName);
-		
-		sortableIneTable = new SortableIneTable(descriptorStore, ContactConsts.descriptorName, connector,
-				fieldRenderer);
+
+		sortableIneTable = ineTableFactory.createSortable(ContactConsts.descriptorName, connector);
 		
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		

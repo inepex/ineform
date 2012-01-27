@@ -2,6 +2,9 @@ package com.inepex.ineForm.client.table;
 
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.user.cellview.client.Header;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
@@ -10,16 +13,18 @@ public class SortableIneTable extends IneTable {
 	private String orderKey;
 	private boolean descending = false;
 
+	@AssistedInject
 	public SortableIneTable(DescriptorStore descStore,
-			String objectDescriptorName,
-			IneDataConnector dataProvider,
+			@Assisted String objectDescriptorName,
+			@Assisted IneDataConnector dataProvider,
 			AssistedObjectTableFieldRenderer fieldRenderer) {
 		super(descStore, objectDescriptorName, dataProvider, fieldRenderer);
 	}
 	
+	@AssistedInject
 	public SortableIneTable(DescriptorStore descriptorStore,
-			String objectDescName, String tableRenderDescriptor,
-			IneDataConnector connector, 
+			@Assisted("od") String objectDescName, @Assisted("trd") String tableRenderDescriptor,
+			@Assisted IneDataConnector connector, 
 			AssistedObjectTableFieldRenderer fieldRenderer) {
 		super(descriptorStore, objectDescName, tableRenderDescriptor, connector, fieldRenderer);
 	}

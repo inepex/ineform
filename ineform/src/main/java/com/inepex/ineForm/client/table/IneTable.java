@@ -30,6 +30,9 @@ import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
@@ -121,22 +124,25 @@ public class IneTable extends HandlerAwareComposite {
 	
 	protected final AssistedObjectTableFieldRenderer fieldRenderer;
 
-	public IneTable(DescriptorStore descriptorStore, String objectDescName,
-			String tableRenderDescriptorName, IneDataConnector connector,
+	@AssistedInject
+	public IneTable(DescriptorStore descriptorStore, 
+			@Assisted("od") String objectDescName,
+			@Assisted("trd") String tableRenderDescriptorName, 
+			@Assisted IneDataConnector connector,
 			AssistedObjectTableFieldRenderer fieldRenderer) {
 		this(descriptorStore, objectDescName, getTRD(descriptorStore, objectDescName, tableRenderDescriptorName), connector, fieldRenderer);
 		
 	}
 	
 	/**
-	 * Can not be injected yet. Do we need to make IneTable availale injected by a factory?
 	 * Uses the default {@link TableRDesc}
 	 * @param objectDescriptorName
 	 * @param dataProvider
 	 */
+	@AssistedInject
 	public IneTable(DescriptorStore descStore,
-					String objectDescriptorName,
-					IneDataConnector dataProvider,
+					@Assisted String objectDescriptorName,
+					@Assisted IneDataConnector dataProvider,
 					AssistedObjectTableFieldRenderer fieldRenderer) {
 		this(descStore, objectDescriptorName, (String)null, dataProvider, fieldRenderer);
 	}
@@ -147,7 +153,7 @@ public class IneTable extends HandlerAwareComposite {
 	 * @param tableRenderDescriptor - add null to default value by DescriptorStore.get().getDefaultTRD(objectDescriptorName)
 	 * @param dataProvider
 	 */
-	public IneTable(DescriptorStore descStore,
+	protected IneTable(DescriptorStore descStore,
 			String objectDescriptorName,
 			TableRDesc tableRenderDescriptor,
 			IneDataConnector dataProvider,

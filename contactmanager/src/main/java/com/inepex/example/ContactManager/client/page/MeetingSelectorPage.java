@@ -7,10 +7,10 @@ import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProv
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
+import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
@@ -18,7 +18,6 @@ import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class MeetingSelectorPage extends ConnectorPage {
 	
@@ -29,15 +28,14 @@ public class MeetingSelectorPage extends ConnectorPage {
 	
 	@Inject
 	MeetingSelectorPage(IneDispatch dispatcher, EventBus eventBus,
-			DescriptorStore descriptorStore, AuthManager authManager,
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+			AuthManager authManager,
+			IneTableFactory ineTableFactory) {
 		this.eventBus=eventBus;
 		this.authManager = authManager;
 		
 		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, MeetingConsts.descriptorName);
 		
-		sortableIneTable = new SortableIneTable(descriptorStore, MeetingConsts.descriptorName, connector,
-				fieldRenderer);
+		sortableIneTable = ineTableFactory.createSortable(MeetingConsts.descriptorName, connector);
 		sortableIneTable.addCellContentDisplayer(MeetingConsts.k_user, new Highlighter());
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		

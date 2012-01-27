@@ -32,8 +32,11 @@ import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFWView;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
+import com.inepex.ineForm.client.table.IneTable;
+import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.RestDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.client.table.SortableIneTable;
 import com.inepex.ineForm.client.util.GwtDateFormatter;
 import com.inepex.ineForm.client.util.GwtRequestBuilderFactory;
 import com.inepex.ineForm.client.util.NumberUtilCln;
@@ -161,6 +164,13 @@ public class IneFormGinModule extends AbstractGinModule {
 		install(new GinFactoryModuleBuilder()
 	 	.implement(HtmlRenderer.class, HtmlRenderer.class)
 		.build(HtmlRendererFactory.class));
+		
+		install(new GinFactoryModuleBuilder()
+	 	.implement(IneTable.class, Names.named("simple"), IneTable.class)
+	 	.implement(IneTable.class, Names.named("simple2"), IneTable.class)
+	 	.implement(IneTable.class, Names.named("sortable"), SortableIneTable.class)
+	 	.implement(IneTable.class, Names.named("sortable2"), SortableIneTable.class)
+		.build(IneTableFactory.class));
 		
 		
 		bind(AsyncStatusIndicator.class).to(asyncStatusIndicator).in(Singleton.class);
