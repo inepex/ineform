@@ -1,8 +1,6 @@
 package com.inepex.ineForm.client.form;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import com.google.gwt.event.shared.EventHandler;
@@ -19,21 +17,15 @@ import com.inepex.ineForm.client.form.events.DeletedEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
-import com.inepex.ineForm.client.form.widgets.RelationList;
-import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
-import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
-import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 /**
@@ -94,7 +86,6 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	public enum ValidateMode {
 		ALL, PARTIAL, NONE;
 	}
-	private ValidateMode validateData = ValidateMode.ALL;
 	
 	protected SaveCancelFormView view;
  	
@@ -184,142 +175,6 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		
 		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback(), 
 				descs.size()>0 ? descs.toArray(new CustomKVOObjectDesc[descs.size()]) : null);
-	}
-	
-	private ValidationResult doValidate(AssistedObject kvo) {
-		ValidationResult vr=null;
-		
-		/**
-		 * it keeps the consistence of CustomKVOFW's
-		 */
-		if(!validateConsistenceOfCustomKVOFWS()) {
-			vr=new ValidationResult();
-			vr.setValid(false);
-			return vr;
-		}
-		
-		switch(validateData) {
-		case ALL:
-			vr = formCtx.validatorManager.validate(kvo);
-			validateRelationLists(vr, null);
-			validateCustKVOs(vr, null);
-			break;
-		case PARTIAL:
-			Collection<String> fields = formRenderDescriptor.getRootNode().getKeysUnderNode();
-			vr = formCtx.validatorManager.validatePartial(kvo, fields);
-			validateRelationLists(vr, fields);
-			validateCustKVOs(vr, fields);
-			break;
-		case NONE:
-			break;
-		}
-		
-		dealValidationResult(vr);
-		return vr;
-	}
-	
-	/**
-	 * 
-	 * @param vr
-	 * @param fields null = all field
-	 */
-	private void validateCustKVOs(ValidationResult vr, Collection<String> fields) {
-		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
-			for(String s : unit.getFormWidgetKeySet()) {
-				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW) || (fields!=null && !fields.contains(s)))
-					continue;
-				
-				CustomKVOFW fw = (CustomKVOFW) unit.getWidgetByKey(s);
-				
-				if(fw.getRelationValue()==null || fw.getRelationValue().getKvo()==null)
-					continue;
-				
-				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows());
-				
-				if(!tmpRes.isValid()) {
-					vr.setValid(false);
-					if(vr.getFieldErrors()==null)
-						vr.setFieldErrors(new HashMap<String, List<String>>());
-					
-					for(String key : tmpRes.getFieldErrors().keySet()) {
-						vr.getFieldErrors().put(s+SharedUtil.ID_PART_SEPARATOR+key, tmpRes.getFieldErrors().get(key));
-					}
-				}
-				
-			}
-		}
-	}
-
-	/**
-	 * @return true = all of CustomKVO are valid, can continue the saving
-	 * 
-	 */
-	private boolean validateConsistenceOfCustomKVOFWS() {
-		boolean validsum = true;
-		
-		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
-			for(String s : unit.getFormWidgetKeySet()) {
-				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW))
-					continue;
-				
-				boolean  valid = ((CustomKVOFW) unit.getWidgetByKey(s)).validateConsistence();
-				validsum = validsum && valid;
-			}
-		}
-		
-		return validsum;
-	}
-	
-	/**
-	 * 
-	 * @param vr - set invalid if relation list contains error!!!!
-	 * @param fields - null = all
-	 */
-	private void validateRelationLists(ValidationResult vr, Collection<String> fields) {
-		//TODO move to KeyValueObjectValidationManager
-		
-		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
-			for(String s : unit.getFormWidgetKeySet()) {
-				if(!(unit.getWidgetByKey(s) instanceof RelationListFW) || (fields!=null && !fields.contains(s)))
-					continue;
-				
-				RelationList relList =  ((RelationListFW)unit.getWidgetByKey(s)).getRelationList();
-				
-				if(relList.getRelations()!=null && relList.getRelations().size()>0) {
-					for(int i=0; i<relList.getRelations().size(); i++) {
-						AssistedObject relKVO = relList.getRelations().get(i).getKvo();
-						if(relKVO==null)
-							relKVO=new KeyValueObject(((ListFDesc)formCtx.descStore
-									.getRelatedFieldDescrMultiLevel(objectDescriptor, SharedUtil.listFromDotSeparated(s))).getRelatedDescriptorType());
-						
-						ValidationResult related_vr=null;
-						switch (validateData) {
-						case PARTIAL:
-							related_vr=
-								formCtx.validatorManager.validatePartial(relKVO,
-										formCtx.descStore.getDefaultTypedDesc(relKVO.getDescriptorName(), FormRDesc.class).getRootNode().getKeysUnderNode());
-							break;
-						case ALL:
-							related_vr=formCtx.validatorManager.validate(relKVO);
-							break;
-							
-						default:
-							related_vr=new ValidationResult();
-						}
-						
-						if(!related_vr.isValid()) {
-							vr.setValid(false);
-						}
-						
-						((RelationListFW)unit.getWidgetByKey(s)).dealValidationResult(i, related_vr);
-					}
-				}
-			}
-		}
-	}
-
-	public void setValidateData(ValidateMode validataMode) {
-		this.validateData = validataMode;
 	}
 	
 	public HandlerRegistration addBeforeSaveHandler(BeforeSaveEvent.Handler handler) {
