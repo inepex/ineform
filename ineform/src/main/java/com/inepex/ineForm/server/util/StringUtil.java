@@ -152,4 +152,24 @@ public class StringUtil {
 		return hex.toString();
 	}
 
+	/**
+	 * example: 
+	 * splitToCharBlocks("0123456789", 3, "-") returns "012-345-678-9"
+	 * 
+	 * @param string
+	 * @param blockSize
+	 * @param separator
+	 * @return
+	 */
+	public static String splitToCharBlocks(String string, int blockSize, String separator){
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i<string.length(); i++){
+			sb.append(string.charAt(i));
+			if ((i+1) % blockSize == 0){
+				sb.append(separator);
+			}
+		}
+		return sb.toString();
+	}
+
 }
