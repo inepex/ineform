@@ -6,6 +6,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
@@ -18,8 +19,8 @@ public abstract class TextBoxFWBase extends StringFormWidget {
 	}
 	
 	protected void updateWidth(WidgetRDesc wrDesc){
-		if (wrDesc.hasProp(TextAreaFW.textBoxWidth)){
-			textBox.setWidth(wrDesc.getPropValue(TextAreaFW.textBoxWidth));
+		if (wrDesc.hasProp(SimpleTableFormUnit.WIDTH)){
+			textBox.setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
 		} else {
 			textBox.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
 		}

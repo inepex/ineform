@@ -6,11 +6,16 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.TextArea;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class TextAreaFW extends StringFormWidget {
-	public static final String textBoxWidth = "textBoxWidth";
+	/**
+	 * @Deprecated use {@link SimpleTableFormUnit#WIDTH} and {@link WidgetRDesc#width(int)} instead 
+	 */
+	public static final String textBoxWidth = SimpleTableFormUnit.WIDTH;
+	
 	public static final String textBoxHeight = "textBoxHeight";
 
 	final TextArea textArea = new TextArea();
@@ -18,8 +23,8 @@ public class TextAreaFW extends StringFormWidget {
 	public TextAreaFW(FDesc fielddescriptor, WidgetRDesc renderDesc) {
 		super(fielddescriptor);
 		initWidget(textArea);
-		if (renderDesc.hasProp(textBoxWidth)){
-			textArea.setWidth(renderDesc.getPropValue(textBoxWidth));
+		if (renderDesc.hasProp(SimpleTableFormUnit.WIDTH)){
+			textArea.setWidth(renderDesc.getPropValue(SimpleTableFormUnit.WIDTH));
 		} else {
 			textArea.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
 		}

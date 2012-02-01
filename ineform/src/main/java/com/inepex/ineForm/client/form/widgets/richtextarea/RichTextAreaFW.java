@@ -5,13 +5,19 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.client.form.widgets.StringFormWidget;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class RichTextAreaFW extends StringFormWidget {
-	public static final String textBoxWidth = "textBoxWidth";
+	
+	/**
+	 * @Deprecated use {@link SimpleTableFormUnit#WIDTH} and {@link WidgetRDesc#width(int)} instead 
+	 */
+	public static final String textBoxWidth = SimpleTableFormUnit.WIDTH;
+	
 	public static final String textBoxHeight = "textBoxHeight";
 
 	Grid grid = new Grid(2, 1);
@@ -26,8 +32,8 @@ public class RichTextAreaFW extends StringFormWidget {
 	    
 	    textArea.addStyleName(ResourceHelper.ineformRes().style().richTextArea());
 	    
-		if (renderDesc.hasProp(textBoxWidth)){
-			textArea.setWidth(renderDesc.getPropValue(textBoxWidth));
+		if (renderDesc.hasProp(SimpleTableFormUnit.WIDTH)){
+			textArea.setWidth(renderDesc.getPropValue(SimpleTableFormUnit.WIDTH));
 		} else {
 			textArea.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
 		}

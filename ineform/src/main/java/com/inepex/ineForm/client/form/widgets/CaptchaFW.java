@@ -5,17 +5,35 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineFrame.client.widgets.CaptchaWidget;
+import com.inepex.ineFrame.client.widgets.CaptchaWidget.Rendering;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class CaptchaFW extends StringFormWidget {
 
+	public static final String PROP_RENDERING="rendering";
+	public static final String HORIZONTAL="horizontal";
+	
 	private CaptchaWidget captchaWidget;
 	
-	public CaptchaFW(FDesc fielddescriptor) {
+	public CaptchaFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
 		super(fielddescriptor);
-		captchaWidget = new CaptchaWidget();
-		captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+		if(wrDesc.hasProp(PROP_RENDERING) && HORIZONTAL.equals(wrDesc.getPropValue(PROP_RENDERING))) {
+			captchaWidget = new CaptchaWidget(Rendering.HORIZONTAL);
+			if(!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
+				captchaWidget.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+			else
+				captchaWidget.setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
+			
+		} else {
+			captchaWidget = new CaptchaWidget(Rendering.VERTICAL);
+			if(!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
+				captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+			else
+				captchaWidget.getTextBox().setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
+		}
 		initWidget(captchaWidget);
 	}
 	
