@@ -82,6 +82,10 @@ public class CaptchaWidget extends Composite {
 			g.setWidget(0, 0, tb);
 			g.setWidget(0, 1, img);
 			initWidget(g);
+			
+			g.setCellSpacing(0);
+			g.setCellPadding(0);
+			g.setBorderWidth(0);
 			break;
 		case VERTICAL:
 		default:
