@@ -120,10 +120,6 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 							// if the widget should not be rendered, move on
 							if (createdWidget.isShouldRender()) {
 								registerRenderedWidget(createdWidget);
-								
-								if(((WidgetRDesc) nodeElement).getPropValue(SimpleTableFormUnit.WIDTH)!=null) {
-									createdWidget.setWidth(((WidgetRDesc) nodeElement).getPropValue(SimpleTableFormUnit.WIDTH));
-								}
 							}
 						}
 						
