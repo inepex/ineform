@@ -26,7 +26,7 @@ public class PanelWidgetT implements Serializable{
 		
 	}
 
-	protected PanelWidgetT(String typeName){
+	public PanelWidgetT(String typeName){
 		this.typeName = typeName;
 	}
 	

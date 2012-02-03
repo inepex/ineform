@@ -14,8 +14,8 @@ public class ValidationResult implements Serializable {
 	
 	private boolean isValid = true;
 	
-	List<String> generalErrors;
-	Map<String, List<String>> fieldErrors;
+	List<String> generalErrors = new ArrayList<String>();
+	Map<String, List<String>> fieldErrors  = new HashMap<String, List<String>>();
 	
 
 	public ValidationResult() {
@@ -23,15 +23,11 @@ public class ValidationResult implements Serializable {
 
 	public void addGeneralError(String error) {
 		isValid = false;
-		if (generalErrors == null)
-			generalErrors = new ArrayList<String>();
 		generalErrors.add(error);
 	}
 
 	public void addFieldError(String fieldKey, String error) {
 		isValid = false;
-		if (fieldErrors == null)
-			fieldErrors = new HashMap<String, List<String>>();
 		
 		List<String> fieldErrorList = fieldErrors.get(fieldKey);
 		if (fieldErrorList == null) {			

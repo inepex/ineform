@@ -55,7 +55,7 @@ public class FWTypes implements Serializable{
 		
 	}
 
-	protected FWTypes(String typeName){
+	public FWTypes(String typeName){
 		this.typeName = typeName;
 	}
 	

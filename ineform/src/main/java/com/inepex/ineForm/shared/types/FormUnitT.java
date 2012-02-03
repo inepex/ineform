@@ -2,8 +2,6 @@ package com.inepex.ineForm.shared.types;
 
 import java.io.Serializable;
 
-import com.inepex.ineForm.client.form.widgets.FormWidget;
-
 /**
  * Defines names for different {@link FormWidget} types
  * 
@@ -26,7 +24,7 @@ public class FormUnitT implements Serializable{
 		
 	}
 
-	protected FormUnitT(String typeName){
+	public FormUnitT(String typeName){
 		this.typeName = typeName;
 	}
 	
