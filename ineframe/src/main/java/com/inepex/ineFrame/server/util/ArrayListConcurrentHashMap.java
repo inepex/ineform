@@ -31,11 +31,7 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 	}
 	
 	public void addToListById(T id, K element){
-		List<K> list = get(id);
-		if(list == null){
-			list = new ArrayList<K>();
-			put(id, list);
-		}
+		List<K> list = ensureListById(id);
 		list.add(element);
 	}
 	
