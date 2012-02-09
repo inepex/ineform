@@ -110,9 +110,10 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						FormWidget createdWidget = formWidgetFactory.createWidget(formCtx, this, fDesc
 								,(WidgetRDesc) nodeElement, formCtx.odFinder, formCtx.customKvoFwViewProvider);
 						
+						modelNameKeySet.add(descNode.getNodeId());
+						
 						if (createdWidget != null) {
-							registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);
-							modelNameKeySet.add(descNode.getNodeId());
+							registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);							
 							
 							if(createdWidget instanceof RelationFW)
 								modelNameKeySet.addAll(((RelationFW) createdWidget).getErrorManagerKeySet(descNode.getNodeId()));
