@@ -31,7 +31,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	private final CustomKVOFWReadOnlyView readOnlyView = new CustomKVOFWReadOnlyView();
 	
-	CustomKVOFWView() {
+	protected CustomKVOFWView() {
 
 	}
 	
@@ -101,14 +101,17 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	@Override
 	public void addRow(CustomKVORow r) {
-		DispRow dr = new DispRow(r, removeCallback, rowValueChangeCallback, rowTable);
+		DispRow dr = createDispRow(r, removeCallback, rowValueChangeCallback, rowTable);
 		rowsByInnerId.put(r.getInnerId(), dr);
 		dispRowinnerIdMirror.add(r.getInnerId());
+	}
+	
+	protected DispRow createDispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable) {
+		return new DispRow(row, removeCallback, rowValueChangeCallback, rowTable);
 	}
 
 	@Override
 	public void removeRow(CustomKVORow r) {
-		//TODO
 		rowsByInnerId.remove(rowsByInnerId.get(r.getInnerId()));
 		
 		int index = dispRowinnerIdMirror.indexOf(r.getInnerId());

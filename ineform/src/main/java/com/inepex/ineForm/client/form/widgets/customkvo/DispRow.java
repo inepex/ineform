@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -35,7 +36,7 @@ public class DispRow {
 	private final CheckBox valueBooleanBox = new CheckBox();
 	
 	private final Button removeBtn = new Button(IneFormI18n.REMOVE());
-	private SimpleTableErrorMessageManager emm;
+	private ErrorMessageManagerInterface emm;
 	
 	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable) {
 		this.rowTable=rowTable;
@@ -95,7 +96,11 @@ public class DispRow {
 		rowTable.setWidget(currentRow, 3, removeBtn);
 		
 		rowTable.addCell(currentRow);
-		emm = new SimpleTableErrorMessageManager(rowTable.getCellFormatter().getElement(currentRow, 4));
+		emm = createEMM(rowTable.getCellFormatter().getElement(currentRow, 4));
+	}
+	
+	protected ErrorMessageManagerInterface createEMM(Element target) {
+		return new SimpleTableErrorMessageManager(target);
 	}
 	
 	private class AttachHackKeyWidget extends HandlerAwareFlowPanel {
