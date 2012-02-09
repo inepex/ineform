@@ -112,7 +112,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
 		if (formRenderDescName == null)
 			formRenderDescName = DescriptorStore.DEFAULT_DESC_KEY;
-		if (formRenderDescName.equals("default")) {
+		if (DescriptorStore.DEFAULT_DESC_KEY.equals(formRenderDescName)) {
 			this.formRenderDescriptor = descStore.getDefaultTypedDesc(descriptorName, FormRDesc.class);
 		} else {
 			this.formRenderDescriptor = descStore.getNamedTypedDesc(descriptorName, formRenderDescName, FormRDesc.class);
