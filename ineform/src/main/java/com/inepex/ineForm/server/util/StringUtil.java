@@ -165,7 +165,7 @@ public class StringUtil {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i<string.length(); i++){
 			sb.append(string.charAt(i));
-			if ((i+1) % blockSize == 0){
+			if ((i+1) % blockSize == 0 && i != string.length()-1){
 				sb.append(separator);
 			}
 		}
