@@ -2,8 +2,7 @@ package com.inepex.ineForm.client.form.widgets;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineHTML;
-import com.inepex.ineForm.client.form.widgets.FormWidget;
-import com.inepex.ineForm.client.form.widgets.FormWidgetWrapperFormWidget;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 
 public class LabelledFW extends FormWidgetWrapperFormWidget{
 
@@ -19,6 +18,7 @@ public class LabelledFW extends FormWidgetWrapperFormWidget{
 			afterFormLabel.setText(defLbl);
 			afterFormLabel.setHTML("&nbsp;" + afterFormLabel.getText());
 		}
+		afterFormLabel.setStyleName(ResourceHelper.ineformRes().style().labelledFWLabel());
 	}
 	
 	@Override

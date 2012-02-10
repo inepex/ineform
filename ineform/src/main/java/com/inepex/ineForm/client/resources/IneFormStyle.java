@@ -40,5 +40,7 @@ public interface IneFormStyle extends CssResource {
 	String listBoxExtraDiv();
 	String OdFieldTypeListBoxWrapper();
 	String placeHolderTitlePanel();
+
+	String labelledFWLabel();
 }
 
