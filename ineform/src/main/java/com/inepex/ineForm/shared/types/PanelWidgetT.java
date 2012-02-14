@@ -9,6 +9,7 @@ import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
  * 
  * @author istvan
  */
+@SuppressWarnings("serial")
 public class PanelWidgetT implements Serializable{
 	
 	public final static PanelWidgetT FLOWPANEL = new PanelWidgetT("FLOWPANEL");

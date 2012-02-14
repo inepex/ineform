@@ -71,12 +71,19 @@ public class IneFormGinModule extends AbstractGinModule {
 	private Class<? extends FormWidgetFactory> formWidgetFactory = DefaultFormWidgetFactory.class;
 	private Class<? extends DateProvider> dateProvider = CETDateProviderCln.class;
 	private Class<? extends FormUnitFactory> formUnitFactory = DefaultFormUnitFactory.class;
+	private Class<? extends PanelWidgetFactory> panelWidgetFactory = DefaultPanelWidgetFactory.class;
 	
 	public IneFormGinModule() {
 	}
 
 	public IneFormGinModule setAsyncStatusIndicator(Class<? extends AsyncStatusIndicator> asyncStatusIndicator) {
 		this.asyncStatusIndicator = asyncStatusIndicator;
+		return this;
+	}
+	
+	public IneFormGinModule setPanelWidgetFactory(
+			Class<? extends PanelWidgetFactory> panelWidgetFactory) {
+		this.panelWidgetFactory = panelWidgetFactory;
 		return this;
 	}
 
@@ -119,7 +126,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(FormWidgetFactory.class).to(formWidgetFactory).in(Singleton.class);
 		
 		bind(FormUnitFactory.class).to(formUnitFactory).in(Singleton.class);
-		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
+		bind(PanelWidgetFactory.class).to(panelWidgetFactory).in(Singleton.class);
 		
 		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
 		bind(DateProvider.class).to(dateProvider).in(Singleton.class);
