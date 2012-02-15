@@ -51,7 +51,7 @@ public class GetI18nModulesAndSetCurrentLangFromCookieHandler implements ActionH
 					serverI18nStore.getI18nModuleByNameForCurrentLang(moduleName));
 		}
 		
-		logger.info("Requested lang: "+action.getRequestedLang()+", after action, current lang is: "+currentLang.getCurrentLang());
+		logger.info("Requested lang: {}, after action, current lang is: {}", action.getRequestedLang(), currentLang.getCurrentLang());
 		
 		return new GetI18nModulesAndSetCurrentLangFromCookieResult(currentLang.getCurrentLang()
 				, requestedModulesInCurrentLang);

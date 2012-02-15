@@ -44,8 +44,8 @@ public class OnDemandProperties implements Serializable {
 				properties.load(s);
 				s.close();
 			} catch (Exception e) {
-				logger.warn("Could not read context specific configuration file: "
-						+ contextSpecificPropfile);
+				logger.warn("Could not read context specific configuration file: {}"
+						, contextSpecificPropfile);
 			}
 		}
 	

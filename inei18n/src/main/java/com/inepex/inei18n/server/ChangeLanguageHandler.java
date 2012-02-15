@@ -36,10 +36,10 @@ public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction
 	public SimpleResult execute(ChangeLanguageAction action, net.customware.gwt.dispatch.server.ExecutionContext arg1)
 			throws DispatchException {
 		
-		logger.info("current: "+currentLang.getCurrentLang());
-		logger.info("action: "+action.requestedLanguage);
+		logger.info("current: {}", currentLang.getCurrentLang());
+		logger.info("action: {}", action.requestedLanguage);
 		currentLang.setSessionLang(action.requestedLanguage);
-		logger.info("after action: "+currentLang.getCurrentLang());
+		logger.info("after action: {}", currentLang.getCurrentLang());
 		
 		return new SimpleResult();
 	}

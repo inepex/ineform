@@ -102,7 +102,7 @@ public class I18nModuleConverter {
 			defaultOut = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nameWithPath),"UTF8"));
 			defaultOut.write(csvContent);
 			defaultOut.close();
-			logger.info("Csv file saved to '" + nameWithPath + "'");
+			logger.info("Csv file saved to '{}'", nameWithPath);
 		} catch (IOException e) {
 			logger.error("ERROR while saving file '" + nameWithPath + "'", e);
 			throw e;
@@ -210,10 +210,10 @@ public class I18nModuleConverter {
 				}
 			}
 			
-			logger.info("Loading of I18n module '" + moduleName + "' finished succesfully");
+			logger.info("Loading of I18n module '{}' finished succesfully", moduleName);
 			
 			if (!duplicates.equals("")) {
-				logger.info("Duplicated keys: \n" + duplicates);
+				logger.info("Duplicated keys: \n{}", duplicates);
 			}
 
 		} catch (IOException e) {
@@ -288,7 +288,7 @@ public class I18nModuleConverter {
 			
 			writer.flush();
 			writer.close();
-			logger.info(fileName + " generated successfully!");
+			logger.info("{} generated successfully!", fileName);
 		} catch (Exception e) {
 			logger.error("Error while generating " + fileName, e);
 		}		
