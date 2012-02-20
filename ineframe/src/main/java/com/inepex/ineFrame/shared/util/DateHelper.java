@@ -172,7 +172,7 @@ public class DateHelper {
 	 * 2010.11.17-2010.11.18		2 days
 	 */
 	public static Long diffDaysInclusive(Date startDate, Date endDate) {
-		Long diffMillis = diffMillis(startDate, endDate);
+		Long diffMillis = diffMillis(resetHourMinuteSecond(startDate), resetHourMinuteSecond(endDate));
 		if (diffMillis == null)
 			return null;
 		return Math.round((double)diffMillis / dayInMs) + 1;
@@ -185,10 +185,7 @@ public class DateHelper {
 	 * 2010.11.17-2010.11.12		2 days
 	 */
 	public static Long diffDaysInclusive(Long startDateLong, Long endDateLong) {
-		Long diffMillis = diffMillis(startDateLong, endDateLong);
-		if (diffMillis == null)
-			return null;
-		return Math.round((double)diffMillis / dayInMs) + 1;
+		return diffDaysInclusive(new Date(startDateLong), new Date(endDateLong));
 	}
 
 	@SuppressWarnings("deprecation")
