@@ -21,7 +21,7 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 		return get(id);
 	}
 	
-	public boolean isListEmptyOrNullById(T id){
+	public boolean isListEmptyOrNullById(T id) {
 		List<K> list = get(id);
 		return (list == null) || (list.size() == 0);
 	}
@@ -36,7 +36,7 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 	}
 	
 	/**
-	 * Ensures that a list be created for the given id. The list retoruned by this method
+	 * Ensures that a list be created for the given id. The list returned by this method
 	 * can be a parameter of a synchronized block.
 	 * 
 	 * @param id
