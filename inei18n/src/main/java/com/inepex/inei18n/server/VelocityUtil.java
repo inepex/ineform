@@ -11,8 +11,14 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
 import org.apache.velocity.runtime.resource.util.StringResourceRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VelocityUtil {
+	
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(VelocityUtil.class);
 	
 	private VelocityEngine ve = null;
 	private StringResourceRepository stringTemplateRepo = null;
@@ -39,7 +45,7 @@ public class VelocityUtil {
 			
 			return sw.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.error(e.getMessage(), e);
 			return null;
 		}
 	}

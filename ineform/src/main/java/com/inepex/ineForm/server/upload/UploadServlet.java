@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +18,10 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
-import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineFrame.server.util.OnDemandProperties;
 import com.inepex.ineom.shared.IFConsts;
 
@@ -32,7 +32,9 @@ public class UploadServlet extends HttpServlet {
 
 	private OnDemandProperties props;
 	private UploadProcessor uploadProc;
-	private Logger logger;
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(UploadServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,9 +44,8 @@ public class UploadServlet extends HttpServlet {
 	}
 
 	public void init() throws ServletException {
-		logger = Logger.getLogger("com.inepex.image");
 		props = new OnDemandProperties(PROPNAME);
-		uploadProc = new UploadProcessor(props, logger);
+		uploadProc = new UploadProcessor(props);
 
 	}
 
@@ -82,7 +83,7 @@ public class UploadServlet extends HttpServlet {
 					String name = fileItem.getFieldName();
 
 					if (!fileItem.isFormField()) {
-						logger.fine("File field " + name + " with file name "
+						_logger.info("File field {} with file name "
 								+ fileItem.getName() + " detected.");
 
 						InputStream inStream = fileItem.getInputStream();
@@ -99,7 +100,7 @@ public class UploadServlet extends HttpServlet {
 						}
 
 						if (!allowed) {
-							logger.info("Extension not allowed");
+							_logger.info("Extension not allowed");
 							PrintWriter out = resp.getWriter();
 							out.print("-1");
 						} else {
@@ -114,11 +115,11 @@ public class UploadServlet extends HttpServlet {
 					}
 				}
 			} catch (Exception e) {
-				logger.info(StringUtil.logStackTrace(e));
+				_logger.info(e.getMessage(), e);
 			}
 
 		} else {
-			logger.info("isMultipartContent = false");
+			_logger.info("isMultipartContent = false");
 		}
 	}
 

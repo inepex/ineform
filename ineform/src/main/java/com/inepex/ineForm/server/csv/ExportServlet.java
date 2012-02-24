@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.customware.gwt.dispatch.server.Dispatch;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -30,6 +33,10 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 @Singleton
 public class ExportServlet extends HttpServlet{
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(ExportServlet.class);
+
 
 	private static final long serialVersionUID = 9213396221597526509L;
 	
@@ -133,7 +140,7 @@ public class ExportServlet extends HttpServlet{
 			resp.getWriter().write(csvString);
 			resp.getWriter().close();
 		} catch (DispatchException e) {
-			System.out.print("CsvServlet exception: " + e.getMessage());
+			_logger.warn(e.getMessage(), e);
 			resp.getWriter().write(IneFormI18n.csvError());
 			resp.getWriter().close();
 		}

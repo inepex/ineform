@@ -7,13 +7,18 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nStoreBase;
 import com.inepex.inei18n.shared.LocalizedString;
 
 public class I18nStore_Server extends I18nStoreBase {
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(I18nStore_Server.class);
 		
 	HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule 
 		= new HashMap<String, TreeMap<String,LocalizedString>>();
@@ -35,7 +40,7 @@ public class I18nStore_Server extends I18nStoreBase {
 		}
 		
 		if (localizablesByKey.containsKey(localizable.getKey())) {
-			System.out.println("List of localizables already contains key: " + localizable.getKey());
+			_logger.info("List of localizables already contains key: {}", localizable.getKey());
 			return;
 		}
 		

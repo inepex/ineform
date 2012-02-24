@@ -59,9 +59,8 @@ public class ColRDesc extends TableRDescBase {
 			Prop p_prop = Prop.fromString(prop);
 			return prop(p_prop);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		return this;
 	}
 
 	public boolean isSortable() {

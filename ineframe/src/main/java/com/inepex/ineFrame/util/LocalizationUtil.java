@@ -38,7 +38,7 @@ public class LocalizationUtil {
 			srvI18nConverter.generateServerModuleProviderFile();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 }

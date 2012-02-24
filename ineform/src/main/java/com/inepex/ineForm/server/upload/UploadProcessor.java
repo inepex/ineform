@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineFrame.server.util.OnDemandProperties;
@@ -26,11 +27,12 @@ public class UploadProcessor {
 	private final String DOT = ".";
 	
 	private OnDemandProperties props;
-	private Logger logger;
 	
-	public UploadProcessor(OnDemandProperties props, Logger logger) {
+	private static final Logger _logger = LoggerFactory.getLogger(UploadProcessor.class);
+
+	
+	public UploadProcessor(OnDemandProperties props) {
 		this.props = props;
-		this.logger = logger;
 	}
 	
 	public String storeImage(InputStream inStream
@@ -79,7 +81,7 @@ public class UploadProcessor {
 
 		/* Use IOUtils to copy uploaded file */
 		File uploadedFile = new File(outPathAndName);
-		logger.fine("uploadedFile.getAbsolutePath() = "	+ uploadedFile.getAbsolutePath());
+		_logger.info("uploadedFile.getAbsolutePath() = {}", uploadedFile.getAbsolutePath());
 		uploadedFile.createNewFile();
 		OutputStream outStream = new FileOutputStream(outPathAndName);
 		IOUtils.copyLarge(inStream, outStream);

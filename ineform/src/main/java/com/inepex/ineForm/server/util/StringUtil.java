@@ -1,7 +1,5 @@
 package com.inepex.ineForm.server.util;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -129,12 +127,6 @@ public class StringUtil {
 			hexString.append(text);
 		}
 		return hexString.toString();
-	}
-
-	public static String logStackTrace(Exception e) {
-		StringWriter sw = new StringWriter();
-		e.printStackTrace(new PrintWriter(sw));
-		return sw.toString();
 	}
 
 	public static boolean isNullOrEmpty(String str) {

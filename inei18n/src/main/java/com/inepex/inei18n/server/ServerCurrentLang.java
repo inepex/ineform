@@ -32,6 +32,7 @@ public class ServerCurrentLang implements CurrentLang {
 		try {
 			return sessionLangProvider.get().lang;
 		} catch (Exception e) {
+			logger.debug(e.getMessage(), e);
 			return DEFAULT_LANG;
 		}
 	}

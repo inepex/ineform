@@ -1,5 +1,8 @@
 package com.inepex.ineForm.server.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
@@ -13,6 +16,9 @@ import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 
 @Singleton
 public class ObjectManipulationHandler implements ActionHandler<ObjectManipulationAction, ObjectManipulationActionResult> {
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(ObjectManipulationHandler.class);
 	
 	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
@@ -45,7 +51,7 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 			return (ObjectManipulationActionResult) daoFinder.getDefaultDaoForDescriptor(descriptorName).manipulate(action);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.warn(e.getMessage(), e);
 			throw new ActionException("Problem while performing manipulate action: " + e.getMessage());
 		}
 	}

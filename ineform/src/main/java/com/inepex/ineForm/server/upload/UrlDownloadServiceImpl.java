@@ -2,7 +2,6 @@ package com.inepex.ineForm.server.upload;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
@@ -18,12 +17,10 @@ public class UrlDownloadServiceImpl extends RemoteServiceServlet implements UrlD
 	private static final long serialVersionUID = 7537449572086698368L;
 	private OnDemandProperties props;
 	private UploadProcessor uploadProc;
-	private Logger logger;
 	
 	public void init() throws ServletException {
-		logger = Logger.getLogger("com.inepex.image");
 		props = new OnDemandProperties(UploadServlet.PROPNAME);
-		uploadProc = new UploadProcessor(props, logger);
+		uploadProc = new UploadProcessor(props);
 
 	}
 	

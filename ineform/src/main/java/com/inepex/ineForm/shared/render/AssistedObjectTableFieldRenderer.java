@@ -128,10 +128,20 @@ public class AssistedObjectTableFieldRenderer {
 				return result;
 				
 			} catch (Exception e) {
-				System.out.println("Value or custom displayer not found for key: " + key + ". Defaulted to \"\"");
+				logException(e, key);
 				return "";
 			}
 		}
+	}
+	
+	private void logException(Exception e, String key) {
+		//TODO log it on the server side
+//		if(GWT.isClient()) {
+			System.out.println("Value or custom displayer not found for key: " + key + ". Defaulted to \"\"");
+//		} else {
+//			org.slf4j.LoggerFactory.getLogger(TableRenderer.class)
+//				.warn("Value or custom displayer not found for key: {}. Defaulted to \"\"", key);
+//		}
 	}
 	
 

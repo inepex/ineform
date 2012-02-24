@@ -22,8 +22,6 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 													 , IneInitializer{
 
 	private static final long serialVersionUID = 1L;	
-//	private static final Logger logger = LoggerFactory
-//										 .getLogger(AbstractGuiceDispatch.class);
 	
 	private final I18nStore_Server serverI18n;
 	private final Provider<CurrentLang> currentLangProvider;
@@ -43,7 +41,6 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	
 	@Override
 	public Result execute(Action<?> action) throws DispatchException {
-//		logger.debug("Executing action {}", action);
 		return super.execute(action);
 	}
 	

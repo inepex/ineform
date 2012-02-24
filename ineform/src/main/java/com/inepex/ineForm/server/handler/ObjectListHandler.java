@@ -1,5 +1,8 @@
 package com.inepex.ineForm.server.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.DispatchException;
@@ -14,6 +17,10 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 @Singleton
 public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListActionResult> {
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(ObjectListHandler.class);
+
 
 	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
@@ -42,7 +49,7 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 			return (ObjectListActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).search(action);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.warn(e.getMessage(), e);
 			throw new ActionException("Problem while performing search action: " + e.getMessage());
 		}
 	}

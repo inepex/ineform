@@ -1,5 +1,8 @@
 package com.inepex.ineForm.server.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
@@ -11,6 +14,10 @@ import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 
 public class RelationListHandler implements ActionHandler<RelationListAction, RelationListActionResult> {
+
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(RelationListHandler.class);
 
 	private final DaoFinder daoFinder;
 	
@@ -25,7 +32,7 @@ public class RelationListHandler implements ActionHandler<RelationListAction, Re
 		try {
 			return (RelationListActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).searchAsRelation(action);
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.warn(e.getMessage(), e);
 			throw new ActionException("Problem while performing search action: " + e.getMessage());
 		}
 	}

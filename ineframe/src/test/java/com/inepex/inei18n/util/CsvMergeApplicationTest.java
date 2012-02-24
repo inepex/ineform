@@ -17,24 +17,28 @@ public class CsvMergeApplicationTest {
 			CsvMerge.parseCsv(new ArrayList<String>(), ";");
 			Assert.fail("List length must be checked");
 		} catch (IllegalArgumentException ex) {
+			//check passed
 		}
 		
 		try {
 			CsvMerge.parseCsv(SharedUtil.Li("line1"), "");
 			Assert.fail("Separator must be checked");
 		} catch (IllegalArgumentException ex) {
+			//check passed
 		}
 		
 		try {
 			CsvMerge.parseCsv(SharedUtil.Li("line1;desc;", "line2;desc;", "line1;again;"), ";");
 			Assert.fail("Key duplication must be checked");
 		} catch (RuntimeException ex) {
+			//check passed
 		}
 		
 		try {
 			CsvMerge.parseCsv(SharedUtil.Li("line1;desc;", "it's;a;long;line"), ";");
 			Assert.fail("Inconsistent column count must be checked");
 		} catch (RuntimeException ex) {
+			//check passed
 		}
 		
 		ParsedCsv parsedCsv = CsvMerge.parseCsv(SharedUtil.Li(
@@ -81,6 +85,7 @@ public class CsvMergeApplicationTest {
 							"dummy");
 			Assert.fail("Patch column must exist");
 		} catch (IllegalArgumentException e) {
+			//check passed
 		}
 		
 		MergeResult res1 = CsvMerge.merge(

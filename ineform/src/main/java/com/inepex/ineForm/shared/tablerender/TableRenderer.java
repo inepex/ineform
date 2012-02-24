@@ -2,6 +2,7 @@ package com.inepex.ineForm.shared.tablerender;
 
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
@@ -74,8 +75,6 @@ public abstract class TableRenderer {
 				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 					continue;
-				
-				FDesc fieldDesc = getFieldDescForColumn(columnNode);
 				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
@@ -158,13 +157,23 @@ public abstract class TableRenderer {
 				fieldDesc = descStore.getRelatedFieldDescrMultiLevel(objectDesc, nodeIdAsList);
 			} catch (Exception e) {
 				fieldDesc = objectDesc.getField(nodeIdAsList.get(0));
-				System.out.println("You set complex id for a field, which is not a relation. "
-								+ "(" + nodeIdAsList.get(0) + ")");
+				logException(e, nodeIdAsList.get(0));
 			}
 		}
 		return fieldDesc;
 	}
 	
+	private void logException(Exception e, String nodeId) {
+		
+		//TODO log it on the server side
+//		if(GWT.isClient()) {
+			System.out.println("You set complex id for a field, which is not a relation. "
+					+ "(" + nodeId + ")");
+//		} else {
+//			org.slf4j.LoggerFactory.getLogger(TableRenderer.class)
+//				.error("You set complex id for a field, which is not a relation. ({})", nodeId);
+//		}
+	}
 
 	public boolean isRenderHeader() {
 		return renderHeader;

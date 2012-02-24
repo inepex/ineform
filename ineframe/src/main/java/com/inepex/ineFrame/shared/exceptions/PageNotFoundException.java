@@ -10,7 +10,6 @@ public class PageNotFoundException extends ActionException {
 	private static final long serialVersionUID = -3014732719413596056L;
 
 	public PageNotFoundException() {
-//		printStackTrace();
 	}
 	
 }
