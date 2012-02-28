@@ -76,6 +76,10 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		
 	}
 	
+	// this flag indicates whether we want to display an error message 
+	// when the save button is clicked, but there were no modifications
+	private boolean displayNothingToSaveMsg = true;
+	
 	protected final SimpleEventBus ineformEventbus = new SimpleEventBus();
 	
 	private IneDataConnector ineDataConnector;
@@ -157,9 +161,14 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 				handlerFactory.createHandler(originalData)).getAssistedObject();
 		if (difference.getKeys().size() == 0 
 				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID)) {
-			ValidationResult vr = new ValidationResult();
-			vr.addGeneralError(IneFormI18n.validationNothingToSave());
-			dealValidationResult(vr);
+			
+			if(displayNothingToSaveMsg){
+				ValidationResult vr = new ValidationResult();
+				vr.addGeneralError(IneFormI18n.validationNothingToSave());
+				dealValidationResult(vr);
+			}else
+				cancelClicked();
+				
 			return;
 		}
 		
@@ -236,6 +245,20 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	
 	public void setCancelBtnStyle(String style){
 		view.setCancelBtnStyle(style);
+	}
+
+	public boolean isDisplayNothingToSaveMsg() {
+		return displayNothingToSaveMsg;
+	}
+
+	/**
+	 * This flag indicates whether we want to display an error message 
+	 * when the save button is clicked, but there were no modifications
+	 * 
+	 * @param display
+	 */
+	public void displayNothingToSaveMsg(boolean display) {
+		this.displayNothingToSaveMsg = display;
 	}
 
 	@Override
