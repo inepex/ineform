@@ -49,6 +49,7 @@ public class IneFormI18n extends I18nModule {
 	public String SELECT = "Select";
 	public String SELECTALL = "Select all";
 	public String UP = "Up";
+	public String change = "Change";
 	public String csvComment = "Click here to download:";
 	public String csvDownload = "Download";
 	public String csvError = "Something went wrong. See server log!";
@@ -339,6 +340,15 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String UP() {
 		return moduleProvider.get().UP;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Change
+	* <u><i>Magyarul:</i></u> Megváltoztat
+	*/
+	public static String change() {
+		return moduleProvider.get().change;
 	}
 	
 	/**

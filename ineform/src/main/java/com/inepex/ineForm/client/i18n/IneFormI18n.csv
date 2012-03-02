@@ -22,6 +22,7 @@
 "SELECT";"";"Select";"Kiválaszt"
 "SELECTALL";"";"Select all";"Mindet kiválaszt"
 "UP";"";"Up";"Fel"
+"change";"";"Change";"Megváltoztat"
 "csvComment";"";"Click here to download:";"Az adatok letölthetőek: "
 "csvDownload";"";"Download";"Letöltés"
 "csvError";"";"Something went wrong. See server log!";"Hiba történt, "

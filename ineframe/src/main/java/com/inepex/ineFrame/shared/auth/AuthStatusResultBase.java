@@ -88,4 +88,11 @@ public class AuthStatusResultBase extends GenericResult {
 	public void setUserUUID(String userUUID) {
 		this.userUUID = userUUID;
 	}
+
+	@Override
+	public String toString() {
+		return "AuthStatusResultBase [displayName=" + displayName + ", userId="
+				+ userId + ", userEmail=" + userEmail + ", userUUID="
+				+ userUUID + "]";
+	}
 }

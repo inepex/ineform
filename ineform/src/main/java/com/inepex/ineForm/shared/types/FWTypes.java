@@ -48,6 +48,7 @@ public class FWTypes implements Serializable{
 	public static final FWTypes TABLE = new FWTypes("TABLE");
 	public static final FWTypes CUSTOMKVO = new FWTypes("CUSTOMKVO");
 	public static final FWTypes CUSTOMKVOREADONLY = new FWTypes("CUSTOMKVOREADONLY");
+	public static final FWTypes LABELBUTTON = new FWTypes("LABELBUTTON");
 	
 	private String typeName = "";
 

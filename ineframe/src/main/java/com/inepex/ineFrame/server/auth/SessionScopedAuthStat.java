@@ -48,4 +48,10 @@ public class SessionScopedAuthStat {
 	public AuthStatusResultBase getAuthStatusResultBase() {
 		return authStatusResultBase;
 	}
+
+	@Override
+	public String toString() {
+		return "SessionScopedAuthStat [userId=" + userId
+				+ ", authStatusResultBase=" + authStatusResultBase + "]";
+	}
 }

@@ -8,6 +8,9 @@ import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import nl.captcha.Captcha;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Provider;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
@@ -16,6 +19,10 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthStatusResultBase> extends AbstractIneHandler<LoginAction, AuthStatusResultBase>{
 
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(AbstractLoginHandler.class);
+	
 	private final Provider<SessionScopedAuthStat> authStatProvider;
 	private final Provider<SessionScopedCaptchaInfo> captchaInfoProvider;
 	private final Provider<HttpSession> sessionProvider;
@@ -73,6 +80,8 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 			// set the UUID for the user
 			setUserStaySignedInUUID(action.getUserName(), UUIDString);
 		}
+		
+		_logger.debug("Login successful: {}", authStatProvider.get());
 		return result;
 	}
 
@@ -114,5 +123,5 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 	// methods for the stay signed in logic
 	// needs to be implemented in the derived classes, because of the user handling
 	protected abstract void setUserStaySignedInUUID(String userName, String UUIDString);
-	public abstract AuthUser checkSignedInUUIDForUser(String userEmail, String userUUID, AuthStatusResultBase result);
+	public abstract AuthUser checkSignedInUUIDForUserAndLogUserIntoIfCorrect(String userEmail, String userUUID, AuthStatusResultBase result);
 }

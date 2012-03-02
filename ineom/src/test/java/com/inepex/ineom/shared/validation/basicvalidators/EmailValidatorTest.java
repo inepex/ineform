@@ -16,6 +16,7 @@ public class EmailValidatorTest {
 		Assert.assertEquals(true, testMatch(EmailValidator.regExpr, "firstname.lastname@sg-domain.com"));
 		Assert.assertEquals(true, testMatch(EmailValidator.regExpr, "al-ma@korte.er"));
 		Assert.assertEquals(true, testMatch(EmailValidator.regExpr, "al.ma@korte.er"));
+		Assert.assertEquals(true, testMatch(EmailValidator.regExpr, "alma1341@alma.hu"));
 		
 		Assert.assertEquals(false, testMatch(EmailValidator.regExpr, "alma@korte..er"));
 		Assert.assertEquals(false, testMatch(EmailValidator.regExpr, "alma.@korte.er"));
