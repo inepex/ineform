@@ -54,10 +54,9 @@ public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResul
 		
 	}
 
-
 	@Override
-	public AuthUser checkSignedInUUIDForUser(String userEmail, String userUUID,
-			AuthStatusResultBase result) {
+	public AuthUser checkSignedInUUIDForUserAndLogUserIntoIfCorrect(
+			String userEmail, String userUUID, AuthStatusResultBase result) {
 		// TODO Auto-generated method stub
 		return null;
 	}
