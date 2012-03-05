@@ -102,10 +102,10 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 			if(nodeElement instanceof WidgetRDesc) {
 				FDesc fDesc = getFieldDesct(descNode);
 				
-				if (!(fDesc == null  || !IneFormProperties.showIds && (
-						IFConsts.KEY_ID.equals(descNode.getNodeId()))||
-						IFConsts.KEY_ORDERNUM.equals(descNode.getNodeId())) ||
-						IFConsts.KEY_ISDELETED.equals(descNode.getNodeId())) {
+				if (!(fDesc == null  || 
+						(!IneFormProperties.showIds && IFConsts.KEY_ID.equals(descNode.getNodeId())) ||
+						IFConsts.KEY_ORDERNUM.equals(descNode.getNodeId()) ||
+						IFConsts.KEY_ISDELETED.equals(descNode.getNodeId()))) {
 				
 						FormWidget createdWidget = formWidgetFactory.createWidget(formCtx, this, fDesc
 								,(WidgetRDesc) nodeElement, formCtx.odFinder, formCtx.customKvoFwViewProvider);
@@ -171,16 +171,14 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						registerErrorMessegeManager(modelName, emm);
 						rowsByKeys.put(modelName, row);
 					}
-				
+					
+					widgetsInThisLine.clear();
+					modelNameKeySet.clear();
+					titleOfLine=null;
+					mandatory=false;
+					row++;
+					even = !even;
 				}
-				
-				widgetsInThisLine.clear();
-				modelNameKeySet.clear();
-				titleOfLine=null;
-				mandatory=false;
-				row++;
-				even = !even;
-				continue;
 			}
 		}
 		
