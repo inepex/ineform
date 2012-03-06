@@ -91,6 +91,10 @@ public class ValidationResult implements Serializable {
 		this.fieldErrors = fieldErrors;
 	}
 	
+	public List<String> getFieldErrorsForAKey(String key) {
+		return fieldErrors.get(key);
+	}
+	
 	public String getFieldErrorString(String key){
 		StringBuilder sB = new StringBuilder();
 		if (fieldErrors != null && fieldErrors.get(key) != null)
