@@ -18,6 +18,7 @@ import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.NumberTextBoxFW;
 import com.inepex.ineForm.client.form.widgets.PasswordTextBoxFW;
 import com.inepex.ineForm.client.form.widgets.PhoneFW;
+import com.inepex.ineForm.client.form.widgets.PlaceForSomethingFW;
 import com.inepex.ineForm.client.form.widgets.RadioBoolFW;
 import com.inepex.ineForm.client.form.widgets.RadioEnumSelectorFW;
 import com.inepex.ineForm.client.form.widgets.RelationFW;
@@ -61,6 +62,9 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 
 		if (widgetType.equals(FWTypes.DONTRENDER))
 			createdWidget = new DummyFW();
+		
+		else if (widgetType.equals(FWTypes.PLACEFORSOMETHING))
+			createdWidget = new PlaceForSomethingFW();
 		
 		else if (widgetType.equals(FWTypes.TEXTBOX))
 			createdWidget = new TextBoxFW(fieldDesc, wrDesc);

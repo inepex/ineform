@@ -21,6 +21,7 @@ public class FWTypes implements Serializable{
 	public final static String p_asDate = "asDate";
 	
 	public final static FWTypes DONTRENDER = new FWTypes("DONTRENDER");
+	public final static FWTypes PLACEFORSOMETHING = new FWTypes("PLACEFORSOMETHING");
 	public final static FWTypes TEXTBOX = new FWTypes("TEXTBOX");
 	public final static FWTypes CAPTCHA = new FWTypes("CAPTCHA");
 	public final static FWTypes PASSWORDTEXTBOX = new FWTypes("PASSWORDTEXTBOX");
