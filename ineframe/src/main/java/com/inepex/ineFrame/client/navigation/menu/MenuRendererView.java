@@ -1,5 +1,8 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
@@ -23,86 +26,151 @@ import com.inepex.ineFrame.client.widgets.UnorderedListWidget;
 @Singleton
 public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	
-	private FlowPanel target = this;
-	private UnorderedListWidget menuUL=null;
-	private int menuLevel=-1;
+	private class OneLevel extends FlowPanel {
+		private FlowPanel target = new FlowPanel();
+		private FlowPanel menu = new FlowPanel();
+		private UnorderedListWidget menuUL;
+		private int level;
+		private boolean selectorRendered = false;
+		private boolean selectorPageRendered = false;
+		private FlowPanel parent;
+		
+		public OneLevel(FlowPanel parent, int level) {
+			this.level = level;
+			this.parent = parent;
+			parent.add(this);
+			
+			switch (level) {
+			case 0:
+				menu.addStyleName(ResourceHelper.getRes().style().menu());
+				break;
+			case 1:
+				menu.addStyleName(ResourceHelper.getRes().style().submenu());
+				break;
+				
+			default:
+				menu.addStyleName(ResourceHelper.getRes().style().menu3());
+				break;
+			}
+			init();
+		}
+
+		public void init(){
+			selectorPageRendered = false;
+			selectorRendered = false;
+			clear();
+			target.clear();
+			menu.clear();
+			if (menuUL != null){
+				menuUL.clear();
+				menu.add(menuUL);
+			}
+			add(menu);
+			add(target);
+		}
+		
+		public FlowPanel getTarget() {
+			return target;
+		}
+
+		public UnorderedListWidget getMenu() {
+			if (menuUL == null) {
+				menuUL = new UnorderedListWidget();
+				menu.add(menuUL);
+			}
+			return menuUL;
+		}
+		
+		public void setSelector(IsWidget selector){
+			Grid grid = new Grid(1, 2);
+			grid.setWidget(0, 0, selector.asWidget());
+			clear();
+			add(menu);
+			add(grid);
+			grid.setWidget(0, 1, target);
+			grid.addStyleName(ResourceHelper.getRes().style().menuRendererWidgetContainer());
+			grid.getCellFormatter().getElement(0, 0).getStyle().setWidth(1, Unit.PX);
+			grid.getRowFormatter().getElement(0).getStyle().setVerticalAlign(VerticalAlign.TOP);
+			selectorRendered = true;
+		}
+
+		public boolean isSelectorRendered() {
+			return selectorRendered;
+		}
+
+		public void setSelectorRendered(boolean selectorRendered) {
+			this.selectorRendered = selectorRendered;
+		}
+		
+		public void removeFromParent(){
+			parent.remove(this);
+		}
+
+		public boolean isSelectorPageRendered() {
+			return selectorPageRendered;
+		}
+
+		public void setSelectorPageRendered(boolean selectorPageRendered) {
+			this.selectorPageRendered = selectorPageRendered;
+		}
+		
+	}
 	
+	private List<OneLevel> levels = new ArrayList<OneLevel>(); 
 	
 	@Inject
 	public MenuRendererView() {
+		levels.add(new OneLevel(this, 0));
 	}
 
 	@Override
-	public void clearView() {
-		clear();
-		target= this;
-		menuUL=null;
-		menuLevel=-1;
-	}
-	
-	@Override
-	public void clearTargetPart() {
-		target.clear();
-		menuUL = null;
-		menuLevel = -1;
-	}
-	
-	@Override
-	public void addWidget(IsWidget w) {
-		Grid grid = new Grid(1, 2);
-		grid.setWidget(0, 0, (Widget) w);
-		FlowPanel fp = new FlowPanel();
-		grid.setWidget(0, 1, fp);
-		target.add(grid);
-		target=fp;
+	public void clearLevel(int level) {
+		OneLevel lastLevel = levels.get(levels.size() - 1);
+		if (!lastLevel.isSelectorRendered()){
+			lastLevel.getTarget().clear();
+		}
 		
-		grid.addStyleName(ResourceHelper.getRes().style().menuRendererWidgetContainer());
-		grid.getCellFormatter().getElement(0, 0).getStyle().setWidth(1, Unit.PX);
-		grid.getRowFormatter().getElement(0).getStyle().setVerticalAlign(VerticalAlign.TOP);
+		if (level == 0){
+			levels.get(level).init();	
+		} 
+		for (int i = level; i < levels.size(); i++){
+			if (i != 0){
+				levels.get(i).removeFromParent();
+				levels.remove(i);
+			}
+		}
+			
+	}
+	
+	private OneLevel getOneLevel(int level){
+		if (levels.size() <= level){
+			levels.add(new OneLevel(getOneLevel(level - 1).getTarget(), level));
+		}
+		return levels.get(level);
+	}
+	
+	@Override
+	public void showSelector(IsWidget w, int level, boolean asPage) {
+		if (asPage){
+			getOneLevel(level).getTarget().add(w);
+			getOneLevel(level).setSelectorPageRendered(true);
+		} else {
+			getOneLevel(level).setSelector(w);
+		}
 	}
 
 	@Override
 	public Tab createTab(String menuName, int level) {
-		upToMenuLevel(level);
-		
 		MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
-		menuUL.add(barWidget);
+		getOneLevel(level).getMenu().add(barWidget);
 		return barWidget;
 	}	
 	
 	@Override
 	public void appendMenuWidget(Widget widget, int level) {
-		upToMenuLevel(level);
-		menuUL.add(new ListItemWidget(widget));
+		getOneLevel(level).getMenu().add(new ListItemWidget(widget));
 	}
 	
-	private void upToMenuLevel(int level) {
-		if(level>menuLevel) {
-			menuLevel=level;
-			
-			FlowPanel newMenuDiv = new FlowPanel();
-			switch (level) {
-			case 0:
-				newMenuDiv.addStyleName(ResourceHelper.getRes().style().menu());
-				break;
-			case 1:
-				newMenuDiv.addStyleName(ResourceHelper.getRes().style().submenu());
-				break;
-				
-			default:
-				newMenuDiv.addStyleName(ResourceHelper.getRes().style().menu3());
-				break;
-			}
-			
-			menuUL=new UnorderedListWidget();
-			newMenuDiv.add(menuUL);
-			target.add(newMenuDiv);
-			
-			FlowPanel newTarget = new FlowPanel();
-			target.add(newTarget);
-			target=newTarget;
-		}
-	}
 
 	public static class MenuBarWidget extends HandlerAwareComposite implements Tab {
 
@@ -180,7 +248,8 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 
 	@Override
 	public void showPage(InePage page) {
-		target.add(page.asWidget());
+		OneLevel oneLevel = levels.get(levels.size() - 1);
+		oneLevel.getTarget().add(page.asWidget());
 	}
 
 }

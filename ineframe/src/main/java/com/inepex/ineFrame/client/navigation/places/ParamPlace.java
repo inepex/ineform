@@ -2,26 +2,36 @@ package com.inepex.ineFrame.client.navigation.places;
 
 import java.util.Map;
 
-import com.google.gwt.user.client.ui.IsWidget;
 import com.inepex.ineFrame.client.navigation.InePlace;
+import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
 
+/**
+ * Extend ParamPlace to get a dynamic variable in the placetoken hierarchy.
+ * 
+ * Use getAssociatedPage() to provide a selector widget (and return null in getSelectorPresenter).
+ * 
+ * Set isSelectorPage to true to show the selector on the leftside, set it to false to show it as a page.
+ * 
+ * Handle param change in processParams().
+ * 
+ * @author SoTi
+ */
 public abstract class ParamPlace extends InePlace {
-
-	public abstract String getChildToken(); 
 	
-	/**
-	 * 
-	 * @param urlParams
-	 * @return false if params aren't correctly set. In this case associated page will be displayed.
-	 */
-	public abstract boolean notifyParamChangedReturnIsParamSet(Map<String, String> urlParams);
-	
-	/**
-	 * @return - null or a ParamPlaceWidget
-	 */
-	public abstract ParamPlacePresenter getSelectorPresenter();
-	
-	public static interface ParamPlacePresenter extends IsWidget{
-		public void realizeUrlParams(Map<String, String> params);
+	protected boolean isSelectorPage = false;
+		
+	public ParamPlace(boolean isSelectorPage) {
+		super();
+		this.isSelectorPage = isSelectorPage;
 	}
+
+	/**
+	 * Parse urlParams and decide which place to redirect.  
+	 */
+	public abstract void processParams(String requestedToken, Map<String, String> urlParams, UrlParamsParsedCallback callback);
+
+	public boolean isSelectorPage() {
+		return isSelectorPage;
+	}
+	
 }

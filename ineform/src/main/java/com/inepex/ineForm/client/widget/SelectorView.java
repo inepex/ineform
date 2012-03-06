@@ -11,11 +11,11 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.inepex.ineForm.client.places.SelectorPresenter;
+import com.inepex.ineForm.client.places.DefaultOneParamPresenter;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 
 
-public class SelectorView extends FlowPanel implements SelectorPresenter.View{
+public class SelectorView extends FlowPanel implements DefaultOneParamPresenter.View{
 	
 
 	private class InnerClickHandler implements ClickHandler{

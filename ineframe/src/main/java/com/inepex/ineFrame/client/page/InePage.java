@@ -13,5 +13,10 @@ public interface InePage {
 	
 	public interface UrlParamsParsedCallback {
 		void onUrlParamsParsed();
+		
+		/**
+		 * @param redirectToToken only works with ParamPlace
+		 */
+		void onUrlParamsParsed(String redirectToToken);
 	}
 }

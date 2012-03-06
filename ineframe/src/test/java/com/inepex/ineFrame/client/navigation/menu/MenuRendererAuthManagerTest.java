@@ -57,14 +57,14 @@ public class MenuRendererAuthManagerTest {
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
 		
-		verify(view, times(1)).clearView();
+		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
 		verify(view, times(tabCount)).createTab(anyString(), eq(0));
 		
 		//place1
-		verify(tabs[0], times(1)).setClickable(false);
-		verify(tabs[0], never()).setClickable(true);
+		verify(tabs[0], times(1)).setClickable(true);
+		verify(tabs[0], never()).setClickable(false);
 		verify(tabs[0], times(1)).setEnabled(true);
 		verify(tabs[0], never()).setEnabled(false);
 		verify(tabs[0], times(1)).setItemVisible(true);
@@ -147,14 +147,14 @@ public class MenuRendererAuthManagerTest {
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
 		
-		verify(view, times(1)).clearView();
+		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
 		verify(view, times(tabCount)).createTab(anyString(), eq(0));
 		
 		//place1
-		verify(tabs[0], times(1)).setClickable(false);
-		verify(tabs[0], never()).setClickable(true);
+		verify(tabs[0], times(1)).setClickable(true);
+		verify(tabs[0], never()).setClickable(false);
 		verify(tabs[0], times(1)).setEnabled(true);
 		verify(tabs[0], never()).setEnabled(false);
 		verify(tabs[0], times(1)).setItemVisible(true);
@@ -218,7 +218,7 @@ public class MenuRendererAuthManagerTest {
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
 		
-		verify(view, times(1)).clearView();
+		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
 		verify(view, times(tabCount)).createTab(anyString(), eq(0));

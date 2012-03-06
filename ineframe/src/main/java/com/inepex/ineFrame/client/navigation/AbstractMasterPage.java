@@ -17,7 +17,7 @@ public abstract class AbstractMasterPage implements MasterPage {
 		this.view = view;
 	}
 	
-	protected abstract void showPage(InePage page);
+	protected abstract void showPage(InePlace place, InePage page);
 	protected abstract void setUpPageStyle(InePage page);
 	
 	@Override
@@ -34,9 +34,13 @@ public abstract class AbstractMasterPage implements MasterPage {
 				
 				@Override
 				public void onUrlParamsParsed() {
-					showPage(page);
+					onUrlParamsParsed(null);					
+				}
+
+				@Override
+				public void onUrlParamsParsed(String redirectToToken) {
+					showPage(place, page);
 					page.onShow();
-					
 				}
 			});
 		} catch (Exception e) {
@@ -49,7 +53,7 @@ public abstract class AbstractMasterPage implements MasterPage {
 	public void renderForbidden(InePlace place) {
 		InePage forbiddenPage = new DummyPage("<h2>access denied</h2>");
 		forbiddenPage.onShow();
-		showPage(forbiddenPage);
+		showPage(place, forbiddenPage);
 	}
 	
 	public IsWidget getView(){

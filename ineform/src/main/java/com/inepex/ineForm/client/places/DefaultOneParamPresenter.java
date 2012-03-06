@@ -4,8 +4,11 @@ import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
 import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEventHandler;
 import com.inepex.ineForm.client.form.FormContext;
@@ -14,12 +17,16 @@ import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.navigation.InePlace;
-import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlacePresenter;
+import com.inepex.ineFrame.client.navigation.places.OneParamPlace;
+import com.inepex.ineFrame.client.navigation.places.OneParamPlace.OneParamPresenter;
 import com.inepex.ineom.shared.Relation;
 
-public class SelectorPresenter  implements ParamPlacePresenter{
+public class DefaultOneParamPresenter implements OneParamPresenter {
+	
+	public static interface SelectorPresenterFactory {
+		public DefaultOneParamPresenter create(@Assisted String descriptorName);
+	}
 	
 	public interface View extends IsWidget{
 		
@@ -40,52 +47,33 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 		void clear();
 	}
 
-	private final View selectorView;
+	protected final View selectorView;
+
+	protected RelationListAction listAction;
+	protected RelationListActionResult lastListResult;
+	protected final FormContext formContext;
+	protected Long selectedId=null;
+	protected boolean updatingNOW=false;	
+	protected OneParamPlace oneParamPlace;	
+	protected AsyncCallback<String> callback;
 	
-	private final String paramToken;
-	private final RelationListAction listAction;
-	private RelationListActionResult lastListResult;
-	private final String childToken;
-	private final InePlace place;
-	private final FormContext formContext;
-	
-	private Long selectedId=null;
-	private boolean updatingNOW=false;
-	
-	/**
-	 * @param newToken - can be null... newToken should be in the same level
-	 * 
-	 * @param listAction - can be null
-	 */
-	SelectorPresenter(String paramToken, String descriptorName,
-			String childToken, InePlace place, FormContext formContext, RelationListAction listAction) {
-	
-		this.childToken=childToken;
-		this.formContext=formContext;
-		this.place=place;
-		this.paramToken=paramToken;
-			
-		if(listAction==null)
-			this.listAction= new RelationListAction(descriptorName, null, 0, 1000, false);
-		else
-			this.listAction=listAction;
+	@Inject
+	public DefaultOneParamPresenter(FormContext formContext) {	
+		this.formContext=formContext;		
 		
 		selectorView = new SelectorView();
 		bindView();
-		
-	}
-
-	@Override
-	public void realizeUrlParams(Map<String, String> params) {
-		String val = params.get(paramToken);
-		if(val==null)
-			selectedId=null;
-		else 
-			selectedId=Long.parseLong(val);
-		
-		updateList();
 	}
 	
+	public DefaultOneParamPresenter setListAction(RelationListAction listAction) {
+		this.listAction = listAction;
+		return this;
+	}
+	
+	public void setOneParamPlace(OneParamPlace oneParamPlace) {
+		this.oneParamPlace = oneParamPlace;
+	}
+
 	private void bindView(){
 		formContext.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new KeyValueObjectListModifiedEventHandler() {
 			
@@ -110,20 +98,12 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 						}
 					}
 				}
-					
+				String selectedString = null;
+				if (selectedId != null){
+					selectedString = selectedId.toString();
+				}
+				formContext.eventBus.fireEvent(new PlaceRequestEvent(oneParamPlace.getChildPlaceToken(selectedString)));
 				
-				String newHierarchicalToken;
-				if(selectedId==null) {
-					newHierarchicalToken=place.getHierarchicalToken();
-				} else {
-					newHierarchicalToken=
-						PlaceHandlerHelper.appendChild(
-							PlaceHandlerHelper.appendParam(
-									place.getHierarchicalToken(), paramToken, selectedId.toString()),
-							childToken);
-				}				
-				
-				formContext.eventBus.fireEvent(new PlaceRequestEvent(newHierarchicalToken));
 			}
 		});
 				
@@ -139,8 +119,7 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 		
 		selectorView.clear();
 		
-		
-		formContext.ineDispatch.execute(listAction, new IneDispatch.SuccessCallback<RelationListActionResult>() {
+		formContext.ineDispatch.execute(getListAction(), new IneDispatch.SuccessCallback<RelationListActionResult>() {
 
 			@Override
 			public void onSuccess(RelationListActionResult result) {
@@ -162,14 +141,51 @@ public class SelectorPresenter  implements ParamPlacePresenter{
 				}
 						
 				updatingNOW=false;
+				if (callback != null){
+					callback.onSuccess(null);
+				}
 			}
 		});
 	}
 
-	@Override
 	public Widget asWidget() {
 		return selectorView.asWidget();
 	}
+
+	@Override
+	public void getDefaultSelection(AsyncCallback<String> callback) {
+		if (lastListResult != null) callback.onSuccess(null); 
+		else {
+			this.callback = callback;
+		}
+	}
+
+	@Override
+	public void setSelection(String selected) {
+		if(selected==null)
+			selectedId=null;
+		else 
+			selectedId=Long.parseLong(selected);
+	}
 	
+	@Override
+	public void onShow() {
+		if (lastListResult == null && !updatingNOW)
+			updateList();
+	}
 	
+	private RelationListAction getListAction(){
+		if(listAction==null)
+			this.listAction= new RelationListAction(oneParamPlace.getDescriptorName(), null, 0, 1000, false);
+		return listAction;
+	}
+
+	@Override
+	public void setCurrentPlace(InePlace place) {
+	}
+
+	@Override
+	public void setUrlParameters(Map<String, String> urlParams, UrlParamsParsedCallback callback) throws Exception {
+	}
+
 }

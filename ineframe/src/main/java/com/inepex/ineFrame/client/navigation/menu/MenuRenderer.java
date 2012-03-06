@@ -19,7 +19,6 @@ import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
-import com.inepex.ineFrame.client.navigation.places.ParamPlace.ParamPlacePresenter;
 import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
 import com.inepex.ineFrame.client.page.InePage;
 import com.inepex.ineom.shared.descriptor.Node;
@@ -30,20 +29,15 @@ public class MenuRenderer {
 	public static interface View {
 		
 		/**
-		 * clears both page and selector widget
+		 * level = 0 -> clears the whole panel
 		 * 
 		 */
-		public void clearView();
-		
-		/**
-		 * clears only page
-		 */
-		public void clearTargetPart();
+		public void clearLevel(int level);
 
 		public Tab createTab(String menuName, int level);
 		public void appendMenuWidget(Widget widget, int level);
 		
-		public void addWidget(IsWidget w);
+		public void showSelector(IsWidget w, int level, boolean asPage);
 		public void showPage(InePage page);
 		
 		static interface Tab {
@@ -66,10 +60,7 @@ public class MenuRenderer {
 	
 	private String lastTokenPlacePart = null;
 	
-	/**
-	 * used to make sure that selectorplace rendered once
-	 */
-	boolean selectorRendered = false;
+	private List<String> lastTokenPartsFromMenuRoot = null;
 	
 	@Inject
 	public MenuRenderer(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus,
@@ -96,27 +87,63 @@ public class MenuRenderer {
 		if (newTokenPlacePart.equals(lastTokenPlacePart)){
 			return;
 		}
+		List<String> tokens = new ArrayList<String>(Arrays.asList(newTokenPlacePart.
+				split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR)))); 
+		Node<InePlace> pointer = getRootNode(tokens); //also removes unneeded parts of tokens list
+		int levelOfChange = PlaceHandlerHelper.levelOfChange(lastTokenPartsFromMenuRoot, tokens);
+				
+		view.clearLevel(levelOfChange);
 		lastTokenPlacePart = newTokenPlacePart;
-		
-		if (PlaceHandlerHelper.haveToDisplaySelector(place.getHierarchicalToken(), hierarchyProvider.getPlaceRoot()) 
-				&& selectorRendered) {
-			view.clearTargetPart();
-		} else {
-			view.clearView();
-			selectorRendered = false;
-		}
-		
+		lastTokenPartsFromMenuRoot = tokens;
 		if (place.isWithoutMenu()){
 			return;
 		}
 		
-		List<String> tokens = new ArrayList<String>(Arrays.asList(lastTokenPlacePart.
-				split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
+		pointer = getFirstChangedNode(pointer, levelOfChange, tokens);
 		
-		//TODO sebi check it!
-//		if(tokens.size()<2)
-//			return;
+		//iterate through the children of pointer node, then the children of  
+		//selected node of the first level and so on.
+		int level = 0;
+		for(int i = levelOfChange; i<tokens.size()
+				|| pointer!=null && pointer.getNodeElement()!=null 
+				&& pointer.getNodeElement().isShowChildreWhenActive() 
+				&& i==tokens.size(); 
+				i++) {
+			level = i;
+			Node<InePlace> selectednode=null;
+			
+			if(pointer.hasChildren()) {
+				for(Node<InePlace> node : pointer.getChildren()) {
+					if(userHasNoRight(node))
+						continue;
+					
+					if (handleWidgetPlace(node, urlParams, i)) 
+						continue;					
+					
+					boolean selected = isSelected(i, tokens, node);
+					boolean visible = isVisible(node, selected);
+					
+					createTab(node, tokens, selected, visible, i);
+					
+					if(selected) {
+						selectednode=node;
+					}
+				}
+			}
+			
+			pointer=selectednode;
+			
+			if(pointer != null) {
+				renderSelectorWidget(pointer, level);
+			}
+		}
 		
+		if(pointer != null) {
+			renderSelectorWidget(pointer, level);
+		}
+	}
+
+	private Node<InePlace> getRootNode(List<String> tokens){
 		Node<InePlace> pointer = hierarchyProvider.getPlaceRoot();
 		if(hierarchyProvider.getCurrentMenuRoot()!=null) {
 			for(String s : hierarchyProvider.getCurrentMenuRoot()) {
@@ -129,72 +156,93 @@ public class MenuRenderer {
 					throw new RuntimeException(token+" != "+ s);
 			}
 		}
-		
-		for(int i=0; i<tokens.size()
-				|| pointer!=null && pointer.getNodeElement()!=null && pointer.getNodeElement().isShowChildreWhenActive() && i==tokens.size(); i++) {
-			Node<InePlace> selectednode=null;
-			
-			if(pointer.hasChildren()) {
-				for(final Node<InePlace> node : pointer.getChildren()) {
-					if(!(authManager instanceof NoAuthManager) &&
-							!authManager.doUserHaveAnyOfRoles(node.getNodeElement().getRolesAllowedInArray()))
-						continue;
-					
-					if(node.getNodeElement() instanceof WidgetPlace) {
-						WidgetPlace wp = (WidgetPlace) node.getNodeElement();
-						if(wp.isWidget(urlParams))
-							view.appendMenuWidget(wp.getWidget(urlParams), i);
-						
-						continue;
-					}
-					
-					boolean selected = i<tokens.size() && node.getNodeId().equals(tokens.get(i));
-					boolean visible = !
-							(node.getNodeElement().isOnlyVisibleWhenActive() && !selected
-							|| node.getNodeElement().getMenuName()==null
-							|| node.getNodeElement().getMenuName().length()<1);
-					
-					Tab tab = view.createTab(node.getNodeElement().getMenuName(), i);
-					
-					tab.setClickable((!selected || i!=tokens.size()-1) && visible);
-					tab.setSelected(selected);
-					tab.setEnabled(true); //TODO implement enabled-disabled logic
-					tab.setItemVisible(visible);
-					if(node.getNodeElement().isRenderOnRightSide())
-						tab.renderToRightSide();
-					
-					tab.setOnClickedLogic(new OnClickedLogic() {
-						
-						@Override
-						public void doLogic() {
-							PlaceRequestEvent pre = new PlaceRequestEvent(node.getNodeElement().getHierarchicalToken());
-							eventBus.fireEvent(pre);
-						}
-					});
-					
-					if(selected) {
-						selectednode=node;
-					}
+		return pointer;
+	}
+	
+	private Node<InePlace> getFirstChangedNode(Node<InePlace> pointer, int levelOfChange, List<String> tokens) {
+		for (int i = 0; i < levelOfChange; i++){
+			boolean foundSelected = false;
+			for (Node<InePlace> child : pointer.getChildren()){
+				if (isSelected(i, tokens, child)) {
+					pointer = child;
+					foundSelected = true;
 				}
 			}
-			
-			pointer=selectednode;
-			
-			if(selectednode!=null) {
-				if(selectednode.getNodeElement()!=null && selectednode.getNodeElement() instanceof ParamPlace) {
-					ParamPlacePresenter w = ((ParamPlace) selectednode.getNodeElement()).getSelectorPresenter();
-					if(w!=null && !selectorRendered)
-					{
-						view.addWidget(w.asWidget());
-						selectorRendered = true;
-					}
-				}
+			if (!foundSelected){
+				throw new RuntimeException("Node not found for nodeId: " + tokens.get(i));
+			}
+		}
+		
+		for (int i = 0; i < levelOfChange - 1 ; i++){
+			tokens.remove(0);
+		}
+		return pointer;
+	}
+	
+	private void renderSelectorWidget(Node<InePlace> selectednode, int level){
+		if(selectednode.getNodeElement()!=null && selectednode.getNodeElement() instanceof ParamPlace) {
+			ParamPlace place = ((ParamPlace) selectednode.getNodeElement());
+			if (place.isSelectorPage()){
+				view.showSelector(place.getAssociatedPage().asWidget(), level, false);
+			} else {
+				view.showSelector(place.getAssociatedPage().asWidget(), level, true);
 			}
 		}
 	}
 	
-	public void showPage(InePage page){
-		view.showPage(page);
+	private boolean userHasNoRight(Node<InePlace> node){
+		return !(authManager instanceof NoAuthManager) &&
+				!authManager.doUserHaveAnyOfRoles(node.getNodeElement().getRolesAllowedInArray());
+	}
+	
+	private boolean handleWidgetPlace(Node<InePlace> node, Map<String, String> urlParams, int level){
+		if(node.getNodeElement() instanceof WidgetPlace) {
+			WidgetPlace wp = (WidgetPlace) node.getNodeElement();
+			if(wp.isWidget(urlParams))
+				view.appendMenuWidget(wp.getWidget(urlParams), level);
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isSelected(int i, List<String> tokens, Node<InePlace> node){
+		return i<tokens.size() && node.getNodeId().equals(tokens.get(i));
+	}
+	
+	private boolean isVisible(Node<InePlace> node, boolean selected){
+		return !
+		(node.getNodeElement().isOnlyVisibleWhenActive() && !selected
+		|| node.getNodeElement().getMenuName()==null
+		|| node.getNodeElement().getMenuName().length()<1);
+	}
+	
+	private void createTab(final Node<InePlace> node, List<String> tokens, boolean selected, boolean visible, int level){
+		Tab tab = view.createTab(node.getNodeElement().getMenuName(), level);
+		
+//		tab.setClickable((!selected || level!=tokens.size()-1) && visible);
+		tab.setClickable(visible);
+		tab.setSelected(selected);
+		tab.setEnabled(true); //TODO implement enabled-disabled logic
+		tab.setItemVisible(visible);
+		if(node.getNodeElement().isRenderOnRightSide())
+			tab.renderToRightSide();
+		
+		tab.setOnClickedLogic(new OnClickedLogic() {
+			
+			@Override
+			public void doLogic() {
+				PlaceRequestEvent pre = new PlaceRequestEvent(node.getNodeElement().getHierarchicalToken());
+				eventBus.fireEvent(pre);
+			}
+		});
+	}
+	
+	public void showPage(InePlace place, InePage page){
+		boolean isParamPlace = place instanceof ParamPlace;
+//		boolean isSelectorPage = ((ParamPlace)place).isSelectorPage(); 
+		if (!isParamPlace){
+			view.showPage(page);
+		}
 	}
 	
 	

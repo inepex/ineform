@@ -4,6 +4,7 @@ import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIREC
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.loginPlace;
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +18,74 @@ import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
+import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceRequestHandler {
 
+	private interface AfterRedirectionLogic {
+		public void afterRedirectionHandled(String token);
+	}
+	
+	private class ParamPlaceRedirectionCallbackHandler {
+		
+		private int waitingCounter = 0;
+		private List<String> redirections = new ArrayList<String>();
+		private AfterRedirectionLogic afterRedirectionLogic;
+		private boolean canFinish = false;
+		private final String requestedToken;
+		
+		public ParamPlaceRedirectionCallbackHandler(String requestedToken, Node<InePlace> pointer, Map<String, String> urlParams
+				, AfterRedirectionLogic afterRedirectionLogic) {
+			this.afterRedirectionLogic = afterRedirectionLogic;
+			this.requestedToken = requestedToken;
+			while(pointer!=null) {
+				InePlace pointerPlace = pointer.getNodeElement();
+				if(pointerPlace instanceof ParamPlace) {
+					waitCallback(urlParams, ((ParamPlace) pointerPlace));
+				}			
+				pointer=pointer.getParent();
+			}
+			setCanFinish();
+		}
+		
+		public void waitCallback(Map<String, String> urlParams, ParamPlace paramPlace){
+			waitingCounter++;
+			paramPlace.processParams(requestedToken, urlParams, new UrlParamsParsedCallback() {
+				
+				@Override
+				public void onUrlParamsParsed(String redirection) {
+					waitingCounter--;
+					redirections.add(redirection);
+					finish();
+				}
+
+				@Override
+				public void onUrlParamsParsed() {
+					onUrlParamsParsed(null);
+				}
+			});
+		}
+		
+		private void finish(){
+			if (canFinish && waitingCounter == 0 && afterRedirectionLogic != null){
+				afterRedirectionLogic.afterRedirectionHandled(getFirstRedirection());
+			}	
+		}
+		
+		private String getFirstRedirection(){
+			if (redirections.size() > 0)
+				return redirections.get(0);
+			else return null;
+		}
+
+		public void setCanFinish() {
+			this.canFinish = true;
+			finish();
+		}
+		
+	}
+	
 	public static final String QUESTION_MARK = "?";
 	public static final String AND_SIGN = "&";
 	public static final String EQUALS_SIGN = "=";
@@ -84,7 +149,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		}
 	}
 
-	private void realizePlaceChange(boolean needWindowReload) {
+	private void realizePlaceChange(final boolean needWindowReload) {
 		String currentFullTokenWithoutRedirect;
 		if(currentFullToken.contains(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT))
 			currentFullTokenWithoutRedirect=currentFullToken.substring(0,
@@ -103,7 +168,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		
 		PlaceHandlerHelper.updateHierarchicalTokens(currentFullTokenWithoutRedirect, placeHierarchyProvider.getPlaceRoot());
 
-		InePlace place = placeNode.getNodeElement();
+		final InePlace place = placeNode.getNodeElement();
 
 		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect, needWindowReload)) return;
 		
@@ -116,49 +181,35 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			return;
 		}
 		
-		//param place checking
-		Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullTokenWithoutRedirect);
-		String firstIncorrecParamPlaceFullToken = PlaceHandlerHelper
-					.getFirstIncorrectParamPlace(currentFullTokenWithoutRedirect, placeHierarchyProvider.getPlaceRoot());
-		
-		if(firstIncorrecParamPlaceFullToken!=null && !firstIncorrecParamPlaceFullToken.equals(currentFullToken)) {
-			PlaceRequestEvent pre = new PlaceRequestEvent(firstIncorrecParamPlaceFullToken);
-			pre.setNeedWindowReload(needWindowReload);
-			eventBus.fireEvent(pre);
-			return;
-		}
-			
-		//param place redirect
-		if(place instanceof ParamPlace && firstIncorrecParamPlaceFullToken==null) {
-			eventBus.fireEvent(generateSubMenuEvent(((ParamPlace) place).getChildToken()));
-			return;
-		}
-		
 		//selector widget update
-		Node<InePlace> pointer= placeNode;
-		while(pointer!=null) {
-			InePlace pointerPlace = pointer.getNodeElement();
-			if(pointerPlace instanceof ParamPlace && ((ParamPlace) pointerPlace).getSelectorPresenter()!=null) {
-				((ParamPlace) pointerPlace).getSelectorPresenter().realizeUrlParams(urlParams);
-			}
-			
-			pointer=pointer.getParent();
-		}
-
-		// change the browsers token if does not mach current token
-		if (!historyProvider.getToken().equals(currentFullToken))
-			historyProvider.newItem(currentFullToken);
+		final Map<String, String> urlParams = PlaceHandlerHelper.getUrlParameters(currentFullTokenWithoutRedirect);
+		Node<InePlace> pointer = placeNode;
 		
-		if(needWindowReload) {
-			Window.Location.reload();
+		new ParamPlaceRedirectionCallbackHandler(currentFullTokenWithoutRedirect, pointer, urlParams, new AfterRedirectionLogic() {
 			
-		} else {
-			
-			if (specificAdjustPlaceShouldReturn(place))
-				return;
-			
-			masterPage.render(place, urlParams);
-		}
+			@Override
+			public void afterRedirectionHandled(String token) {
+				if (token != null && !token.equals(currentFullToken)){
+					PlaceRequestEvent pre = new PlaceRequestEvent(token);
+					pre.setNeedWindowReload(needWindowReload);
+					eventBus.fireEvent(pre);
+					return;
+				}
+				
+				// change the browsers token if does not mach current token
+				if (!historyProvider.getToken().equals(currentFullToken))
+					historyProvider.newItem(currentFullToken);
+				
+				if(needWindowReload) {
+					Window.Location.reload();			
+				} else {			
+					if (specificAdjustPlaceShouldReturn(place))
+						return;
+										
+					masterPage.render(place, urlParams);
+				}
+			}
+		});
 
 	}
 

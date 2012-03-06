@@ -30,6 +30,8 @@ import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFWView;
+import com.inepex.ineForm.client.places.DefaultOneParamPresenter;
+import com.inepex.ineForm.client.places.DefaultOneParamPresenter.SelectorPresenterFactory;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
@@ -179,6 +181,9 @@ public class IneFormGinModule extends AbstractGinModule {
 	 	.implement(IneTable.class, Names.named("sortable2"), SortableIneTable.class)
 		.build(IneTableFactory.class));
 		
+		install(new GinFactoryModuleBuilder()
+	 		.implement(DefaultOneParamPresenter.class, DefaultOneParamPresenter.class)
+		.build(SelectorPresenterFactory.class));
 		
 		bind(AsyncStatusIndicator.class).to(asyncStatusIndicator).in(Singleton.class);
 		bind(ConnectionFailedHandler.class).to(connectionFailedHandler).in(Singleton.class);

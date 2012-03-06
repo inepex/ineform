@@ -3,6 +3,7 @@ package com.inepex.ineFrame.client.navigation;
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -106,37 +107,37 @@ public class PlaceHandlerHelper {
 		return urlParams;
 	}
 	
-	/**
-	 * @return first paramplace which parameters are not filled correctly
-	 */
-	public static String getFirstIncorrectParamPlace(String currentFullToken, Node<InePlace> root) {
-		if(currentFullToken==null || currentFullToken.length()<1)
-			return null;
-		
-		StringBuffer sbPlace = new StringBuffer();
-		StringBuffer sbFull = new StringBuffer();
-		Map<String, String> params = new TreeMap<String, String>();
-		
-		for(String fullPart : currentFullToken.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))) {
-			if(sbPlace.length()>0)
-				sbPlace.append(Node.ID_SEPARATOR);
-			sbPlace.append(PlaceHandlerHelper.getPlacePart(fullPart));
-			
-			if(sbFull.length()>0)
-				sbFull.append(Node.ID_SEPARATOR);
-			sbFull.append(fullPart);
-			
-			params.putAll(PlaceHandlerHelper.getUrlParameters(fullPart));
-			
-			Node<InePlace> n = root.findNodeByHierarchicalId(sbPlace.toString());
-			if(n.getNodeElement()!=null && n.getNodeElement() instanceof ParamPlace) {
-				if(!((ParamPlace)n.getNodeElement()).notifyParamChangedReturnIsParamSet(params))
-					return sbFull.toString();
-			}
-		}
-		
-		return null;
-	}
+//	/**
+//	 * @return first paramplace which parameters are not filled correctly
+//	 */
+//	public static String getFirstIncorrectParamPlace(String currentFullToken, Node<InePlace> root) {
+//		if(currentFullToken==null || currentFullToken.length()<1)
+//			return null;
+//		
+//		StringBuffer sbPlace = new StringBuffer();
+//		StringBuffer sbFull = new StringBuffer();
+//		Map<String, String> params = new TreeMap<String, String>();
+//		
+//		for(String fullPart : currentFullToken.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))) {
+//			if(sbPlace.length()>0)
+//				sbPlace.append(Node.ID_SEPARATOR);
+//			sbPlace.append(PlaceHandlerHelper.getPlacePart(fullPart));
+//			
+//			if(sbFull.length()>0)
+//				sbFull.append(Node.ID_SEPARATOR);
+//			sbFull.append(fullPart);
+//			
+//			params.putAll(PlaceHandlerHelper.getUrlParameters(fullPart));
+//			
+//			Node<InePlace> n = root.findNodeByHierarchicalId(sbPlace.toString());
+//			if(n.getNodeElement()!=null && n.getNodeElement() instanceof ParamPlace) {
+//				if(!((ParamPlace)n.getNodeElement()).notifyParamChangedReturnIsParamSet(params))
+//					return sbFull.toString();
+//			}
+//		}
+//		
+//		return null;
+//	}
 	
 	public static void updateHierarchicalTokens(String currentFullToken, Node<InePlace> placeRoot) {
 		if(currentFullToken==null || currentFullToken.length()<1)
@@ -223,18 +224,32 @@ public class PlaceHandlerHelper {
 		return newToken.toString();
 	}
 	
-	public static boolean haveToDisplaySelector(String token, Node<InePlace> placeRoot){
-		token = getPlacePart(token);
-		Node<InePlace> targetPlace = placeRoot.findNodeByHierarchicalId(token);
-
-		while (targetPlace != null) {
-			if(targetPlace.getNodeElement()!=null && targetPlace.getNodeElement() instanceof ParamPlace) {
-				return true;
-			}
-			targetPlace = targetPlace.getParent();
-		}
+	public static int levelOfChange(List<String> lastTokenParts, List<String> newTokenParts){
+		if (lastTokenParts == null) return 0;
+		if (newTokenParts == null) return 0;
 		
-		return false;
-
+		
+		int minLength = Math.min(lastTokenParts.size(), newTokenParts.size());
+		for (int i = 0; i < minLength ; i++){
+			if (!lastTokenParts.get(i).equals(newTokenParts.get(i))) {
+				return i;
+			}
+		}
+		if (lastTokenParts.size() == newTokenParts.size()) return -1;
+		else return minLength;
+		
+//		boolean match = true;
+//		int level = 0;
+//		for (int i = 0; i<lastTokenParts.size(); i++){
+//			if (newTokenParts.size() > i && lastTokenParts.get(i).equals(newTokenParts.get(i))){
+//				level++;
+//			} else {
+//				match = false;
+//				break;
+//			}
+//		}
+//		
+//		if (match) return -1;
+//		else return level;
 	}
 }

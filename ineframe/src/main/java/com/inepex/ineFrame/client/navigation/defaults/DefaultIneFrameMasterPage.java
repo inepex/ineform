@@ -41,8 +41,8 @@ public class DefaultIneFrameMasterPage extends AbstractMasterPage {
 	}
 
 	@Override
-	protected void showPage(InePage page) {
-		menuRenderer.showPage(page);
+	protected void showPage(InePlace place, InePage page) {
+		menuRenderer.showPage(place, page);
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.inepex.example.ContactManager.client.page;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.inject.Inject;
-import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
@@ -14,17 +14,19 @@ import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
-import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineFrame.client.navigation.places.OneParamPlace;
+import com.inepex.ineFrame.client.navigation.places.OneParamPlace.OneParamPresenter;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
-public class MeetingSelectorPage extends ConnectorPage {
+public class MeetingSelectorPage extends ConnectorPage implements OneParamPresenter {
 	
 	private SortableIneTable sortableIneTable;
 	
 	private final EventBus eventBus;
 	private final AuthManager authManager;
+	private OneParamPlace oneParamPlace;
 	
 	@Inject
 	MeetingSelectorPage(IneDispatch dispatcher, EventBus eventBus,
@@ -56,11 +58,7 @@ public class MeetingSelectorPage extends ConnectorPage {
 					sortableIneTable.getSelectionModel().setSelected(selected, false);
 					
 					eventBus.fireEvent(
-							new PlaceRequestEvent(
-								PlaceHandlerHelper.appendParam(
-										currentPlace.getHierarchicalToken(),
-										AppPlaceHierarchyProvider.PARAM_MEETING,
-										selected.getId().toString())));
+							new PlaceRequestEvent(oneParamPlace.getChildPlaceToken(selected.getId().toString())));
 				}
 			}
 		}));
@@ -77,5 +75,19 @@ public class MeetingSelectorPage extends ConnectorPage {
 				return rowKvo.getRelation(MeetingConsts.k_user).getDisplayName();
 		}
 		
+	}
+
+	@Override
+	public void getDefaultSelection(AsyncCallback<String> callback) {
+		callback.onSuccess(null);
+	}
+
+	@Override
+	public void setSelection(String selected) {
+	}
+
+	@Override
+	public void setOneParamPlace(OneParamPlace oneParamPlace) {
+		this.oneParamPlace = oneParamPlace;		
 	}
 }

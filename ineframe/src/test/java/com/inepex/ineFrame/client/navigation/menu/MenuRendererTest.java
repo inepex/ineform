@@ -44,7 +44,7 @@ public class MenuRendererTest {
 		phProvider.parentPlace.setHierarchicalToken("MenuParent");
 		renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
 		
-		verify(view, times(1)).clearView();
+		verify(view, times(1)).clearLevel(anyInt());
 		verify(view, never()).createTab(anyString(), anyInt());
 	}
 	
@@ -77,7 +77,7 @@ public class MenuRendererTest {
 		phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
 		
-		verify(view, times(1)).clearView();
+		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
 		verify(view, times(4)).createTab(anyString(), anyInt());
@@ -154,7 +154,7 @@ public class MenuRendererTest {
 		phProvider.onlyVisibleWhenActiveAndHasName.setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
 		renderer.realizeNewPlaceOnMenu(phProvider.onlyVisibleWhenActiveAndHasName, null);
 		
-		verify(view, times(1)).clearView();
+		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
 		verify(view, times(4)).createTab(anyString(), anyInt());
@@ -191,8 +191,8 @@ public class MenuRendererTest {
 		verify(tabs[2], never()).setSelected(true);
 		
 		//only visible when... and has names
-		verify(tabs[3], times(1)).setClickable(false);
-		verify(tabs[3], never()).setClickable(true);
+		verify(tabs[3], times(1)).setClickable(true);
+		verify(tabs[3], never()).setClickable(false);
 		verify(tabs[3], times(1)).setEnabled(true);
 		verify(tabs[3], never()).setEnabled(false);
 		verify(tabs[3], times(1)).setItemVisible(true);

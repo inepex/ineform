@@ -1,6 +1,7 @@
 package com.inepex.ineFrame.client.navigation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
@@ -125,5 +126,16 @@ public class PlaceHandlerHelperTest {
 	public void testCreateParentLevelToken(){
 		Assert.assertEquals("a/b?id=0", PlaceHandlerHelper.createParentLevelMenuToken("a/b?id=0/c"));
 		Assert.assertEquals("", PlaceHandlerHelper.createParentLevelMenuToken("a"));
+	}
+	
+	@Test
+	public void levelOfChangeTest(){
+		Assert.assertEquals(-1, PlaceHandlerHelper.levelOfChange(Arrays.asList("a"), Arrays.asList("a")));
+		Assert.assertEquals(0, PlaceHandlerHelper.levelOfChange(Arrays.asList("a"), Arrays.asList("b")));
+		Assert.assertEquals(1, PlaceHandlerHelper.levelOfChange(Arrays.asList("a", "b"), Arrays.asList("a")));
+		Assert.assertEquals(1, PlaceHandlerHelper.levelOfChange(Arrays.asList("a"), Arrays.asList("a", "b")));
+		Assert.assertEquals(2, PlaceHandlerHelper.levelOfChange(Arrays.asList("a", "b", "c"), Arrays.asList("a", "b")));
+		Assert.assertEquals(0, PlaceHandlerHelper.levelOfChange(Arrays.asList("a", "b", "c"), Arrays.asList("b")));
+		
 	}
 }
