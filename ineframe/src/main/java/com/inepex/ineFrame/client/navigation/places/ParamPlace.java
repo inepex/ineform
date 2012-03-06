@@ -8,11 +8,11 @@ import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
 /**
  * Extend ParamPlace to get a dynamic variable in the placetoken hierarchy.
  * 
- * Use getAssociatedPage() to provide a selector widget (and return null in getSelectorPresenter).
+ * Use {@link ParamPlace#getAssociatedPage()} to provide a selector widget.
  * 
  * Set isSelectorPage to true to show the selector on the leftside, set it to false to show it as a page.
  * 
- * Handle param change in processParams().
+ * Handle param change in {@link ParamPlace#processParams(String, Map, UrlParamsParsedCallback)}.
  * 
  * @author SoTi
  */
