@@ -128,8 +128,15 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	public void onValueChange(ValueChangeEvent<String> event) {
 		if (event.getValue().equals(currentFullToken))
 			return;
-		else
-			eventBus.fireEvent(new PlaceRequestEvent(event.getValue()));
+		else {
+			if (event.getValue().equals("")){
+				eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));	
+			} else {
+				eventBus.fireEvent(new PlaceRequestEvent(event.getValue()));
+			}
+			
+		}
+			
 	}
 
 	@Override
