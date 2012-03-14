@@ -32,8 +32,7 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 
 	@Override
 	public Widget asWidget() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	public InePlace getCurrentPlace() {
