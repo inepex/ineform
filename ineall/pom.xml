@@ -7,6 +7,10 @@
 	<artifactId>ineall</artifactId>
 	<packaging>pom</packaging>
 
+	<scm>
+		<connection>scm:svn:https://dummy</connection>
+	</scm>
+	
 	<modules>
 		<module>../inei18n</module>
 		<module>../ineom</module>
@@ -46,7 +50,7 @@
 		<repository>
 			<id>eclipselink</id>
 			<name>eclipselink</name>
-			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+			<url>http://linorg.usp.br/eclipse/rt/eclipselink/maven.repo/</url>
 		</repository>
 		<repository>
 			<id>maven.springframework.org.external</id>

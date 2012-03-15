@@ -55,6 +55,11 @@
 			<name>inepex</name>
 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
+		<repository>
+			<id>eclipselink</id>
+			<name>eclipselink</name>
+			<url>http://linorg.usp.br/eclipse/rt/eclipselink/maven.repo/</url>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -202,7 +207,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.8</version>
+				<version>2.9</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
