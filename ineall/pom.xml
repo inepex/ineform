@@ -57,11 +57,11 @@
 			<url>http://maven.springframework.org/external</url>
 			<name>SpringSource Maven Repository - External Releases</name>
 		</repository>
-		<repository>
+<!--		<repository>
 			<id>inerepo</id>
 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
 			<name>inerepo</name>
-		</repository>
+		</repository>-->
 
 
 	</repositories>
