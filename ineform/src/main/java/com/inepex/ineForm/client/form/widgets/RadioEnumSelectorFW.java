@@ -16,12 +16,14 @@ import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class RadioEnumSelectorFW extends DenyingFormWidget {
 	
+	private final static String rGroupNameBase="RadioEnumSelectorFW";
+	private static int counter = 0;
+	
 	public final static String enumValues = EnumListFW.enumValues;
 	protected final static String DEFAULT_notSelectedText = AbstractListBoxFW.DEFAULT_notSelectedText;
 	protected final boolean allowsNull;
 	public final static String VERTICAL = "vertical";
 	
-	private static int counter = 0;
 	protected ComplexPanel mainPanel = new FlowPanel();
 	protected List<RadioButtonBase> radioButtons = new ArrayList<RadioButtonBase>();
 	
@@ -48,7 +50,7 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 			labels=valuesAsArray;
 		}
 		
-		radioButtons=createRadioButton("RadioEnumChooserFW"+counter++, labels);
+		radioButtons=createGroup(labels);
 		
 		if (renderDescriptor.hasProp(VERTICAL)) mainPanel = new VerticalPanel();
 		
@@ -61,10 +63,11 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 		mainPanel.setStyleName(ResourceHelper.ineformRes().style().displayInline());
 	}
 	
-	protected List<RadioButtonBase> createRadioButton(String group, String... labels) {
+	protected List<RadioButtonBase> createGroup(String... labels) {
+		String name = rGroupNameBase+counter++;
 		List<RadioButtonBase> ret = new ArrayList<RadioButtonBase>(labels.length);
 		for(String label: labels)
-			ret.add(new IneFormRadioButton(group, label));
+			ret.add(new IneFormRadioButton(name, label));
 				
 		return ret;
 	}

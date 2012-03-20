@@ -24,7 +24,7 @@ public class RadioBoolFW extends DenyingFormWidget {
 		if (vertical) mainPanel = new VerticalPanel();
 		initWidget(mainPanel);
 		
-		List<RadioButtonBase> radios =createRadioButton("RadioBoolFW"+radioGruop++, trueString, falseString);
+		List<RadioButtonBase> radios =createGroup(trueString, falseString);
 		rbTrue=radios.get(0);
 		rbFalse=radios.get(1);
 		
@@ -32,10 +32,10 @@ public class RadioBoolFW extends DenyingFormWidget {
 		mainPanel.add(rbFalse);
 	}
 	
-	protected List<RadioButtonBase> createRadioButton(String group, String label1, String label2) {
+	protected List<RadioButtonBase> createGroup(String label1, String label2) {
 		return Arrays.asList(
-				(RadioButtonBase)new IneFormRadioButton(group, label1),
-				(RadioButtonBase)new IneFormRadioButton(group, label2));
+				(RadioButtonBase)new IneFormRadioButton("RadioBoolFW"+radioGruop, label1),
+				(RadioButtonBase)new IneFormRadioButton("RadioBoolFW"+radioGruop++, label2));
 	}
 	
 	@Override
