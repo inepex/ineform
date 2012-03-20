@@ -5,9 +5,7 @@ import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIREC
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
-import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public class PlaceHandlerHelper {
