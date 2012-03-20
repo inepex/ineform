@@ -24,8 +24,13 @@ public class PlaceHandlerHelper {
 		for(String part : parts){
 			if(PlaceHandlerHelper.getUrlParameters(part).containsKey(paramToken)) {
 				StringBuffer editedLastPart = new StringBuffer();
-				int paramIndex = part.indexOf(paramToken,
-						part.indexOf(PlaceHandler.QUESTION_MARK));
+				int paramIndex = 
+						part.indexOf(PlaceHandler.QUESTION_MARK+paramToken+PlaceHandler.EQUALS_SIGN);
+				if(paramIndex<0)
+					paramIndex=part.indexOf(PlaceHandler.AND_SIGN+paramToken+PlaceHandler.EQUALS_SIGN);
+				
+				//because of & or ?
+				paramIndex++;
 				
 				editedLastPart.append(part.substring(0, paramIndex));
 				editedLastPart.append(paramToken);

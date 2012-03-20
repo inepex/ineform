@@ -53,11 +53,17 @@ public class PlaceHandlerHelperTest {
 		//when param is already set
 		Assert.assertEquals("token?p=12", PlaceHandlerHelper.appendParam("token?p=10", "p", "12"));
 		Assert.assertEquals("token?p=12&a=anyValue", PlaceHandlerHelper.appendParam("token?p=10&a=anyValue", "p", "12"));
-		
 		Assert.assertEquals("token?param=12", PlaceHandlerHelper.appendParam("token?param=10", "param", "12"));
 		Assert.assertEquals("token?param=12&a=anyValue", PlaceHandlerHelper.appendParam("token?param=10&a=anyValue", "param", "12"));
-		
 		Assert.assertEquals("token?a=1&param=12&b=2", PlaceHandlerHelper.appendParam("token?a=1&param=10&b=2", "param", "12"));
+		
+		//when name of param is part of other param's name (pre-, post-, infix)
+		Assert.assertEquals("token?xxxparam=300&xxx=10", PlaceHandlerHelper.appendParam("token?xxxparam=300", "xxx", "10"));
+		Assert.assertEquals("token?paramxxx=300&xxx=10", PlaceHandlerHelper.appendParam("token?paramxxx=300", "xxx", "10"));
+		Assert.assertEquals("token?pxxxaram=300&xxx=10", PlaceHandlerHelper.appendParam("token?pxxxaram=300", "xxx", "10"));
+		Assert.assertEquals("token?xyx=300&y=10", PlaceHandlerHelper.appendParam("token?xyx=300&y=12", "y", "10"));
+		Assert.assertEquals("token?yx=300&y=10", PlaceHandlerHelper.appendParam("token?yx=300&y=12", "y", "10"));
+		Assert.assertEquals("token?xy=300&y=10", PlaceHandlerHelper.appendParam("token?xy=300&y=12", "y", "10"));
 	}
 
 	@Test
