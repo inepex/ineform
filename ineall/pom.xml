@@ -48,19 +48,14 @@
 
 	<repositories>
 		<repository>
-			<id>eclipselink</id>
-			<name>eclipselink</name>
-			<url>http://linorg.usp.br/eclipse/rt/eclipselink/maven.repo/</url>
-		</repository>
-		<repository>
 			<id>maven.springframework.org.external</id>
 			<url>http://maven.springframework.org/external</url>
 			<name>SpringSource Maven Repository - External Releases</name>
 		</repository>
 		<repository>
-			<id>inerepo</id>
-			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
-			<name>inerepo</name>
+			<id>inepex</id>
+			<url>http://maven.inepex.com/content/repositories/public/</url>
+			<name>inepex</name>
 		</repository>
 
 
@@ -70,7 +65,7 @@
 		<repository>
 			<id>inepex</id>
 			<name>Inepex Repository</name>
-			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+			<url>http://maven.inepex.com/content/repositories/thirdparty</url>
 		</repository>
 	</distributionManagement>
 

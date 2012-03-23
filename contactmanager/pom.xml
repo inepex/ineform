@@ -53,12 +53,7 @@
 		<repository>
 			<id>inepex</id>
 			<name>inepex</name>
-			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<repository>
-			<id>eclipselink</id>
-			<name>eclipselink</name>
-			<url>http://linorg.usp.br/eclipse/rt/eclipselink/maven.repo/</url>
+			<url>http://maven.inepex.com/content/repositories/public/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -269,7 +264,7 @@
 		<repository>
 			<id>inepex</id>
 			<name>Inepex Repository</name>
-			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+			<url>http://maven.inepex.com/content/repositories/thirdparty</url>
 		</repository>
 	</distributionManagement>
 </project>
