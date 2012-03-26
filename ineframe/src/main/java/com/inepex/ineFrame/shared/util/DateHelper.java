@@ -399,5 +399,11 @@ public class DateHelper {
 		return sb.toString();
 		
 	}
+	public static Date getDayEndDate(Date date){
+		date = resetHoursMinsSecsMillis(date);
+		date = addDaysSafe(date, 1);
+		date.setTime(date.getTime() - 1);
+		return date;
+	}
 
 }
