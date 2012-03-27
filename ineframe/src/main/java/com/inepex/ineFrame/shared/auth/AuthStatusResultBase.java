@@ -7,15 +7,15 @@ import com.inepex.ineom.shared.dispatch.GenericResult;
 public class AuthStatusResultBase extends GenericResult {
 
 	//if login was unsuccessful
-	private boolean needCaptcha;
+	protected boolean needCaptcha;
 	
 	//if login is succesful
-	private String displayName;
-	private Long userId = null;
-	private Set<String> roles = null;
+	protected String displayName;
+	protected Long userId = null;
+	protected Set<String> roles = null;
 	// these two variables are for the stay signed in functionality
-	private String userEmail = null;
-	private String userUUID = null;
+	protected String userEmail = null;
+	protected String userUUID = null;
 
 	public AuthStatusResultBase() {
 	}
