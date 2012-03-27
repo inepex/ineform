@@ -172,10 +172,6 @@ public class MenuRenderer {
 				throw new RuntimeException("Node not found for nodeId: " + tokens.get(i));
 			}
 		}
-		
-		for (int i = 0; i < levelOfChange - 1 ; i++){
-			tokens.remove(0);
-		}
 		return pointer;
 	}
 	
