@@ -1,12 +1,18 @@
 package com.inepex.ineForm.server;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import com.inepex.ineForm.shared.BaseMapper;
+import com.inepex.ineForm.shared.ObjectManipulationException;
+import com.inepex.ineForm.shared.ObjectManipulationException.Reason;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -134,15 +140,30 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return o;
 	}
 
+	/**
+	 * 
+	 * Throws {@link ObjectManipulationException} when create or edit request failed by constrain violation!
+	 * 
+	 */
 	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
 		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
 		switch (action.getManipulationType()) {
 		case CREATE_OR_EDIT_REQUEST:
-			E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
-			AssistedObject kvo = getMapper().entityToKvo(newState);
-			result.setObjectsNewState(kvo);
-			break;
+			try {
+				E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
+				AssistedObject kvo = getMapper().entityToKvo(newState);
+				result.setObjectsNewState(kvo);
+				break;
+			} catch (PersistenceException e) {
+				if(e.getCause()!=null 
+					&& e.getCause() instanceof DatabaseException 
+					&& e.getCause().getCause()!=null && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+						//device can not be manipulated because devicetype and nativeid is not unique
+						throw new ObjectManipulationException(Reason.ConstraintViolationFailed); 
+				} else
+					throw e;
+			}
 		case DELETE:
 			remove(action.getObject().getId());
 			break;
