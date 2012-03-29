@@ -168,13 +168,20 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			remove(action.getObject().getId());
 			break;
 		case REFRESH:
-			result.setObjectsNewState(findKvoById(action.getObject().getId()));
+			result.setObjectsNewState(findKvoById(getIdFromAction(action)));
 			break;
 		default:
 			throw new Exception("Invalid manipulation type");
 		}
 
 		return result;
+	}
+
+	private Long getIdFromAction(ObjectManipulation action) {
+		if(action.getIdToRefresh()!=null)
+			return action.getIdToRefresh();
+		
+		return action.getObject().getId();
 	}
 
 	public E doCreateOrEdit(AssistedObject kvo, CustomKVOObjectDesc... custOds) {
