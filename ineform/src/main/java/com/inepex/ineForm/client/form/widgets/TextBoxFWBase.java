@@ -12,7 +12,7 @@ import com.inepex.ineom.shared.descriptor.FDesc;
 
 public abstract class TextBoxFWBase extends StringFormWidget {
 
-	TextBox textBox; 
+	protected TextBox textBox; 
 
 	public TextBoxFWBase(FDesc fielddescriptor, WidgetRDesc wrDesc) {
 		super(fielddescriptor);		
