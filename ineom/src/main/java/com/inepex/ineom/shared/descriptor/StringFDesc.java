@@ -19,6 +19,10 @@ public class StringFDesc extends FDesc implements Serializable {
 	public StringFDesc() {
 		type = IneT.STRING;
 	}
+	
+	public StringFDesc(String key, String defaultDisplayName, String... props) {
+		super(key, IneT.STRING, defaultDisplayName, props);
+	}
 
 	public StringFDesc(String key, String defaultDisplayName) {
 		super(key, IneT.STRING, defaultDisplayName);
