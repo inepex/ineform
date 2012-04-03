@@ -345,6 +345,10 @@ public class DateHelper {
 			return date;
 		Date tmpDate = new Date(date.getTime());
 		tmpDate.setMonth(date.getMonth()+ months);
+		
+		while (tmpDate.getMonth() != date.getMonth() + months){
+			tmpDate.setDate(tmpDate.getDate() - 1);
+		}
 		return tmpDate;
 	}
 
