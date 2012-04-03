@@ -22,7 +22,7 @@ import com.inepex.ineForm.client.IneFormProperties;
  * showing, parsing with browsers time zone settings
  * 
  */
-class IneDateGWT {
+public class IneDateGWT {
 
 	/**
 	 * The precision of the used date.
