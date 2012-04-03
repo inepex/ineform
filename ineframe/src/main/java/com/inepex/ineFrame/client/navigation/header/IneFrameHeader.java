@@ -48,6 +48,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void afterUserNameClickEffect();
 		
 		public int getUserNameClickEffectXPosition();
+		
+		public void updateForNewPlace(String token);
 	}
 	
 	private class DefaultSettingOnClicked implements OnClickedLogic {
@@ -93,7 +95,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		view.hideSettingsPopup();
 	}
 
-	public void refresh() {
+	public void refresh(InePlace place) {
 		if (settingsClickLogic == null) settingsClickLogic = new DefaultSettingOnClicked();
 		view.setSettingsButtonLogic(settingsClickLogic);
 		
@@ -107,8 +109,11 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		boolean showLangSelector = true;
 		view.clearSettingsPopup();
 		
-		if(placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS)!=null) {
-			for(Node<InePlace> placeNode : placeHierarchyProvider.getPlaceRoot().findNodeById(NavigationProperties.SETTINGS).getChildren()) {
+		Node<InePlace> settingsPlaceRoot = placeHierarchyProvider.getPlaceRoot()
+										   .findNodeById(NavigationProperties.SETTINGS);
+		
+		if(settingsPlaceRoot != null) {
+			for(Node<InePlace> placeNode : settingsPlaceRoot.getChildren()) {
 				
 				if(placeNode.getNodeElement().getMenuName()==null || placeNode.getNodeElement().isOnlyVisibleWhenActive())
 					continue;
@@ -133,13 +138,11 @@ public class IneFrameHeader implements PlaceRequestHandler {
 			showSettings = true;
 			showLangSelector = false;
 			
-			//TODO get from i18n
 			view.addToSettingsPopup(IneFrameI18n.LOGOUT(), new OnClickedLogic() {
 				
 				@Override
 				public void doLogic() {
 					authManager.doLogout(new AuthActionCallback() {
-						
 						@Override
 						public void onAuthCheckDone(AuthStatusResultBase result) {
 							eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
@@ -150,6 +153,10 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		view.setLanguageSelectorVisible(showLangSelector);
 		view.setSettingsButtonVisible(showSettings);
+		
+		
+		if (place == null)
+			return; // 
 	}
 	
 	public void setUserNameClickedLogic(OnClickedLogic logic){

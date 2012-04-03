@@ -144,7 +144,9 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	@Override
 	public void setLanguageSelectorVisible(boolean visible) {
-		
-		
+	}
+
+	@Override
+	public void updateForNewPlace(String token) {
 	}
 }
