@@ -143,6 +143,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	}
 	
 	private void doLogin(){
+		setTextBoxesEnabled(false);
 		loginButton.setEnabled(false);
 		loginButton.setText(IneFrameI18n.LOGGINGIN());
 		authManager.doLogin(userName.getText(), password.getText(), captchaWidget.getCaptchaText(),
@@ -194,6 +195,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 						captchaWidget.setVisible(false);
 						loginButton.setEnabled(true);
 						loginButton.setText(IneFrameI18n.LOGIN());
+						setTextBoxesEnabled(true);
 					}
 				});
 				
@@ -211,10 +213,16 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				
 				loginButton.setEnabled(true);
 				loginButton.setText(IneFrameI18n.LOGIN());
-				
+				setTextBoxesEnabled(true);
 				onInvalidLogin();
 			}
 		}
+	}
+	
+	private void setTextBoxesEnabled(boolean enabled){
+		userName.setEnabled(enabled);
+		password.setEnabled(enabled);
+		captchaWidget.getTextBox().setEnabled(enabled);
 	}
 	
 	// these helper methods are used for assigning functionality to the checkbox in the derived class
