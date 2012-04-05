@@ -102,6 +102,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
+		setTextBoxesEnabled(true);
 		
 		registerHandler(formPanel.addSubmitHandler(new SubmitHandler() {
 			
