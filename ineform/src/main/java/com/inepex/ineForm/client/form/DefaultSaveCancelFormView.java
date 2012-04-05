@@ -283,6 +283,16 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	public StepperPanelWidget getRootStepper() {
 		return rootStepper;
 	}
+
+	@Override
+	public void addSaveBtnStyle(String style) {
+		saveButton.addStyleName(style);
+	}
+
+	@Override
+	public void addCancelBtnStyle(String style) {
+		cancelButton.addStyleName(style);
+	}
 	
 	
 }

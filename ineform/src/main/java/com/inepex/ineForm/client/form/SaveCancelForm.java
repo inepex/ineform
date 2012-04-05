@@ -243,10 +243,18 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		view.setSaveBtnStyle(style);
 	}
 	
+	public void addSaveBtnStyle(String style){
+		view.addSaveBtnStyle(style);
+	}
+	
 	public void setCancelBtnStyle(String style){
 		view.setCancelBtnStyle(style);
 	}
 
+	public void addCancelBtnStyle(String style){
+		view.addCancelBtnStyle(style);
+	}
+	
 	public boolean isDisplayNothingToSaveMsg() {
 		return displayNothingToSaveMsg;
 	}

@@ -26,10 +26,12 @@ public interface SaveCancelFormView extends IsWidget{
 	 * to override default value
 	 */
 	public void setSaveBtnStyle(String style);
+	public void addSaveBtnStyle(String style);
 	/**
 	 * to override default value
 	 */
 	public void setCancelBtnStyle(String style);
+	public void addCancelBtnStyle(String style);
 	public void setSaveButtonVisible(boolean visible);
 	public void setCancelButtonVisible(boolean visible);
 }
