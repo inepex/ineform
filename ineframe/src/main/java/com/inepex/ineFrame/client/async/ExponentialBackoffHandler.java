@@ -34,10 +34,8 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	};
 	
 	private final DispatchAsync dispatcher;
-	private int failCount = 0;
-	private int baseDelay = 3000;
-	private int factor = 2;
-	private int maxDelay = 1000*60*5;
+	private int failCount = 0;	
+	private int[] delays = {1000*5, 1000*10, 1000*60, 1000*60*5};
 	
 	private Timer timer = new WaitTimer();
 	
@@ -69,7 +67,8 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	private void onFail() {
 		timer.cancel();
 		if (!shuttedDown) {
-			int delay = Math.min(maxDelay, baseDelay * new Double(Math.pow(factor, failCount)).intValue());
+			int delay = delays[delays.length-1];
+			if (failCount < delays.length) delay = delays[failCount];
 			eventBus.fireEvent(new ConnectionEvent(true, delay));
 			failCount++;
 			timer.schedule(delay);
