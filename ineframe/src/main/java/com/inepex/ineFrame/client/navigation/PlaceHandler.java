@@ -15,6 +15,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
@@ -95,6 +96,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	protected AuthManager authManager;
 	protected HistoryProvider historyProvider;
 	protected EventBus eventBus;
+	protected ConnectionFailedHandler connectionFailedHandler;
 
 	private String previousToken = null;
 	private String currentFullToken = null;
@@ -102,12 +104,13 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	private boolean lastRequestWasARedirect = false;
 
 	public PlaceHandler(PlaceHierarchyProvider placeHierarchyProvider, MasterPage masterPage, AuthManager authManager,
-			HistoryProvider historyProvider, EventBus eventBus) {
+			HistoryProvider historyProvider, EventBus eventBus, ConnectionFailedHandler connectionFailedHandler) {
 		this.placeHierarchyProvider = placeHierarchyProvider;
 		this.masterPage = masterPage;
 		this.authManager = authManager;
 		this.historyProvider = historyProvider;
 		this.eventBus = eventBus;
+		this.connectionFailedHandler = connectionFailedHandler;
 
 		historyProvider.addHandler(this);
 		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
@@ -208,6 +211,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 					historyProvider.newItem(currentFullToken);
 				
 				if(needWindowReload) {
+					connectionFailedHandler.shutdown();
 					Window.Location.reload();			
 				} else {			
 					if (specificAdjustPlaceShouldReturn(place))

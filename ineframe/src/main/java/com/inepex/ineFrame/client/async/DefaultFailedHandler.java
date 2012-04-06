@@ -14,4 +14,8 @@ public class DefaultFailedHandler implements ConnectionFailedHandler {
 		Window.Location.reload();
 		return true;
 	}
+
+	@Override
+	public void shutdown() {
+	}
 }

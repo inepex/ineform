@@ -8,4 +8,6 @@ public interface ConnectionFailedHandler {
 	public boolean startRecover();
 
 	public boolean isOnline();
+	
+	public void shutdown();
 }

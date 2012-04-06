@@ -46,6 +46,7 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 				return;
 			} else if (caught instanceof AuthenticationException) {
 				startSwallowStatuscodeException();
+				connectionFailedHandler.shutdown();
 				Window.Location.reload();
 				return;
 			} else if (caught instanceof PageNotFoundException){
@@ -186,7 +187,6 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 		execution.statusIndicator.onAsyncRequestStarted("");
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void reconnected() {
 		if (pendingExecutions.size() != 0){
 			List<CommandExecution<A>> tmpList = new ArrayList<CommandExecution<A>>(pendingExecutions);

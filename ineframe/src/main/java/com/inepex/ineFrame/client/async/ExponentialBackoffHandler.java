@@ -45,6 +45,8 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	
 	private boolean recoverInProgress = false;
 	
+	private boolean shuttedDown = false;
+	
 	@Inject
 	public ExponentialBackoffHandler(EventBus eventBus,
 			DispatchAsync dispatcher) {
@@ -54,7 +56,7 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 
 	@Override
 	public boolean startRecover() {
-		if (!recoverInProgress){
+		if (!shuttedDown && !recoverInProgress){
 			recoverInProgress = true;
 			failCount = 0;
 			onFail();
@@ -66,10 +68,12 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	
 	private void onFail() {
 		timer.cancel();
-		int delay = Math.min(maxDelay, baseDelay * new Double(Math.pow(factor, failCount)).intValue());
-		eventBus.fireEvent(new ConnectionEvent(true, delay));
-		failCount++;
-		timer.schedule(delay);
+		if (!shuttedDown) {
+			int delay = Math.min(maxDelay, baseDelay * new Double(Math.pow(factor, failCount)).intValue());
+			eventBus.fireEvent(new ConnectionEvent(true, delay));
+			failCount++;
+			timer.schedule(delay);
+		}
 	}
 
 	private void onSuccess() {
@@ -88,6 +92,12 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	
 	private void doConnectionCheck(){
 		dispatcher.execute(new GetDescStore(), callback);
+	}
+
+	@Override
+	public void shutdown() {
+		timer.cancel();
+		shuttedDown = true;
 	}
 
 }

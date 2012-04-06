@@ -35,7 +35,7 @@ public class PushedEventProviderTest extends DefaultIneFrameClientSideTestBase {
 	public void init() {
 		action1CallbackCallTimes = 0;
 		GWTMockUtilities.disarm();
-		pep = new PushedEventProvider(DispatchMock.getIneDispatchMock());
+		pep = new PushedEventProvider(DispatchMock.getIneDispatchMock(), null);
 		pep.eventQueryTimer = mock(Timer.class);		
 
 		// NOTE: Adding the first action calls the queryEvent() function

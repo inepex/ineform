@@ -3,6 +3,7 @@ package com.inepex.example.ContactManager.client.navigation;
 import com.google.gwt.event.shared.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -18,8 +19,10 @@ public class AppPlaceHandler extends PlaceHandler{
 			MasterPage masterPage,
 			HistoryProvider historyProvider,
 			EventBus eventBus,
-			AuthManager authManager) {
-		super(placeHierarchyProvider, masterPage, authManager, historyProvider, eventBus);
+			AuthManager authManager,
+			ConnectionFailedHandler connectionFailedHandler) {
+		super(placeHierarchyProvider, masterPage, authManager, historyProvider, eventBus,
+				connectionFailedHandler);
 	}
 	
 	@Override

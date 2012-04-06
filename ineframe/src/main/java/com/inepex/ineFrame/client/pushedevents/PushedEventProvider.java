@@ -15,6 +15,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
+import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.PushedActionContext;
@@ -42,12 +43,14 @@ public class PushedEventProvider {
 
 	final SilentStatusIndicator silentStatusIndicator = new SilentStatusIndicator();
 	final IneDispatch dispatch;
+	final ConnectionFailedHandler connectionFailedHandler;
 	
 	BatchSuccess currentSuccessCallback = null;
 	
 	@Inject
-	public PushedEventProvider(IneDispatch dispatch) {
+	public PushedEventProvider(IneDispatch dispatch, ConnectionFailedHandler connectionFailedHandler) {
 		this.dispatch = dispatch;
+		this.connectionFailedHandler = connectionFailedHandler;
 		eventQueryTimer = new RefreshTimer();
 	}
 	
@@ -154,6 +157,7 @@ public class PushedEventProvider {
 				Throwable ex = result.getException(i);
 				if (ex != null) {
 					if (ex instanceof AuthenticationException) {
+						connectionFailedHandler.shutdown();
 						Window.Location.reload();
 						return;
 					}
