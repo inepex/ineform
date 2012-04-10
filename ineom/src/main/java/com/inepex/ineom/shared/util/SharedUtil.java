@@ -70,4 +70,45 @@ public class SharedUtil {
 		
 		return set;
 	}
+	
+	public static String escapeHtmlSpaces(String input) {
+		if(input==null)
+			return null;
+		
+		if(input.length()==0)
+			return input;
+		
+		StringBuffer sb = new StringBuffer();
+		boolean inTag=false;
+		
+		for(int i=0; i<input.length(); i++) {
+			char c=input.charAt(i);
+			switch(c) {
+			case '<':
+				inTag=true;
+				sb.append(c);
+				break;
+			case '>':
+				inTag=false;
+				sb.append(c);
+				break;
+			case '-':
+				if(inTag)
+					sb.append(c);
+				else
+					sb.append("&#8209;");
+				break;
+			case ' ':
+				if(inTag)
+					sb.append(c);
+				else
+					sb.append("&nbsp;");
+				break;
+			default:
+				sb.append(c);
+			}
+		}
+		
+		return sb.toString();
+	}
 }
