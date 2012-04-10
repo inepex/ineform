@@ -226,6 +226,11 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		captchaWidget.getTextBox().setEnabled(enabled);
 	}
 	
+	public void init(){
+		userName.setText("");
+		password.setText("");
+	}
+	
 	// these helper methods are used for assigning functionality to the checkbox in the derived class
 	protected abstract HasValue<Boolean> getCheckBox();
 	protected abstract IsWidget getCheckBoxAsWidget();
