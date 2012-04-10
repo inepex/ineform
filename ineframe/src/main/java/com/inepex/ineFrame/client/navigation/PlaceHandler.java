@@ -172,7 +172,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));
 		
 		if (placeNode == null) {
-			historyProvider.newItem(wrongTokenPlace);
+			onPlaceRequest(new PlaceRequestEvent(wrongTokenPlace));
 			return;
 		}
 		
