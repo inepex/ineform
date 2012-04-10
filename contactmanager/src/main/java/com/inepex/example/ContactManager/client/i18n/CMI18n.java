@@ -63,6 +63,7 @@ public class CMI18n extends I18nModule {
 	public String menu_MEETINGDETAILS = "Meeting details";
 	public String menu_MEETINGNEW = "New meeting";
 	public String menu_MEETINGS = "Meetings";
+	public String pageNotFound = "Page not found";
 	public String phoneNumberType_id = "Id";
 	public String phoneNumberType_name = "Name";
 	public String phoneNumber_contact = "Contact";
@@ -416,6 +417,15 @@ public class CMI18n extends I18nModule {
 	*/
 	public static String menu_MEETINGS() {
 		return moduleProvider.get().menu_MEETINGS;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Page not found
+	* <u><i>Magyarul:</i></u> Az oldal nem található
+	*/
+	public static String pageNotFound() {
+		return moduleProvider.get().pageNotFound;
 	}
 	
 	/**

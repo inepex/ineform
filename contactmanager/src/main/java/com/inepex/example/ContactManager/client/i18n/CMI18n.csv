@@ -36,6 +36,7 @@
 "menu_MEETINGDETAILS";"";"Meeting details";"Találkozó részletei"
 "menu_MEETINGNEW";"";"New meeting";"Új találkozó"
 "menu_MEETINGS";"";"Meetings";"Találkozók"
+"pageNotFound";"";"Page not found";"Az oldal nem található"
 "phoneNumberType_id";"";"Id";"Id"
 "phoneNumberType_name";"";"Name";"Név"
 "phoneNumber_contact";"";"Contact";"Kapcsolattartó"

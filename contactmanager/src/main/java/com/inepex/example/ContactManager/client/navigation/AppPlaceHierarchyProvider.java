@@ -20,6 +20,7 @@ import com.inepex.example.ContactManager.client.page.MeetingSelectorPage;
 import com.inepex.example.ContactManager.client.page.MeetingWidgetPlace;
 import com.inepex.example.ContactManager.client.page.NewCompanyPage;
 import com.inepex.example.ContactManager.client.page.NewMeetingPage;
+import com.inepex.example.ContactManager.client.page.PageNotFoundPage;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
@@ -56,6 +57,8 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	
 	public static final String CONTACTS = "contacts";
 	public static final String CONTACTDETAILS = "contactDetails";
+	
+	public static final String PAGENOTFOUND = "notfound";
 
 	@Inject AuthManager authManager;
 	
@@ -78,12 +81,14 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	
 	@Inject ContactWidgetPlace contactWidgetPlace;
 	@Inject Provider<ContactDetailsPage> contactDetailsProvider;
+	@Inject Provider<PageNotFoundPage> pageNotFoundProvider;
 	
 	@Override
 	public void createPlaceHierarchy() {
 		
 		placeRoot.addChild(LOGIN, new SimpleCachingPlace(loginProvider))
 				 .addChildGC(LOGGEDIN, usr(new ChildRedirectPlace(COMPANIES)))
+				 	.addChild(PAGENOTFOUND, new SimpleCachingPlace(pageNotFoundProvider))
 					.addChildGC(COMPANIES, usr(new OneParamPlace(COMPANIES, CompanyConsts.descriptorName, PARAM_COMPANY, 
 							COMPDETAILS, true, oneParamPresenter)
 						.setMenuName(CMI18n.menu_COMPANIES())))

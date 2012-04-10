@@ -207,7 +207,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				}
 				
 				// change the browsers token if does not mach current token
-				if (!historyProvider.getToken().equals(currentFullToken))
+				if (needToRefreshToken())
 					historyProvider.newItem(currentFullToken);
 				
 				if(needWindowReload) {
@@ -222,6 +222,15 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			}
 		});
 
+	}
+	
+	private boolean needToRefreshToken(){
+		return (!historyProvider.getToken().equals(currentFullToken) 
+				&& (isWrongTokenPlaceSet() && !currentFullToken.equals(NavigationProperties.wrongTokenPlace)));
+	}
+	
+	private boolean isWrongTokenPlaceSet(){
+		return (!NavigationProperties.wrongTokenPlace.equals(NavigationProperties.defaultPlace));
 	}
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);
