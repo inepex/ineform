@@ -54,7 +54,8 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
 	private final QueryCounter queryCounter = new QueryCounter();
 	
-	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager, DescriptorStore descStore) {
+	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager, 
+			DescriptorStore descStore) {
 		this.dispatchAsync = dispatchAsync;
 		this.eventBus = eventBus;
 		this.authManager = authManager;

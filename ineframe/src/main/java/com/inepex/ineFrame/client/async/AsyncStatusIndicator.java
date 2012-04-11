@@ -6,5 +6,8 @@ public interface AsyncStatusIndicator {
 	void onGeneralFailure(String errorMessage);
 	void onForbidden(String forbiddenMessage);
 	void onUnAuthenticated();
+	/**
+	 * @param successMessage set it to null if you doesn't want to show message
+	 */
 	void onSuccess(String successMessage);
 }

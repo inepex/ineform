@@ -12,8 +12,10 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
+import com.google.inject.Provider;
 import com.inepex.ineFrame.client.async.ConnectionEvent.ConnectionEventHandler;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
+import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineFrame.shared.exceptions.AuthorizationException;
@@ -37,6 +39,11 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 
 		@Override
 		public void onFailure(Throwable caught) {
+			if (isInvalid()){
+				pendingExecutions.remove(execution);
+				statusIndicator.onSuccess(null);
+				return;
+			}
 			if (caught instanceof AuthorizationException){
 				PlaceRequestEvent pre = new PlaceRequestEvent();
 				pre.setHierarchicalTokensWithParam(NavigationProperties.noRightPlace);
@@ -76,9 +83,17 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 		public void onSuccess(R result) {
 			pendingExecutions.remove(execution);
 			statusIndicator.onSuccess("");
+			if (isInvalid()){
+				return;
+			}
+
 			successCallback.onSuccess(result);
 		}
 
+		private boolean isInvalid(){
+			return (placeHandler != null && execution.placeToken != null && !placeHandler.get().getCurrentFullToken().equals(execution.placeToken));
+		}
+		
 		public SuccessCallback<R> getSuccessCallback() {
 			return successCallback;
 		}
@@ -131,16 +146,23 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 		A command;
 		SuccessCallback callback;
 		AsyncStatusIndicator statusIndicator;
+		String placeToken;
+		
 		public CommandExecution(A command, SuccessCallback callback, AsyncStatusIndicator statusIndicator) {
 			super();
 			this.command = command;
 			this.callback = callback;
 			this.statusIndicator = statusIndicator;
 		}
+		
+		public void setPlaceToken(String token){
+			this.placeToken = token;
+		}
 	}
 	
 	protected AsyncStatusIndicator defaultStatusIndicator;
 	protected EventBus eventBus;	
+	protected Provider<PlaceHandler> placeHandler;
 	protected boolean swallowStatusCodeException = false;	
 	protected ConnectionFailedHandler connectionFailedHandler;
 	protected Set<CommandExecution<A>> pendingExecutions = new HashSet<CommandExecution<A>>();
@@ -168,14 +190,24 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 	}
 	
 	public <R> void execute(A action, SuccessCallback<R> callback){
-		this.execute(action, callback, defaultStatusIndicator);
+		execute(action, callback, false);
+	}
+	
+	public <R> void execute(A action, SuccessCallback<R> callback, boolean bindToPlace){
+		this.execute(action, callback, defaultStatusIndicator, bindToPlace);
+	}
+	
+	public <R> void execute(A action, SuccessCallback<R> callback, AsyncStatusIndicator statusIndicator){
+		execute(action, callback, statusIndicator, false);
 	}
 	
 	public <R> void execute(A action
 			, SuccessCallback<R> callback 
-			, AsyncStatusIndicator statusIndicator) {
+			, AsyncStatusIndicator statusIndicator
+			, boolean bindToPlace) {
 		if (statusIndicator == null) statusIndicator = defaultStatusIndicator;
 		CommandExecution<A> execution = new CommandExecution<A>(action, callback, statusIndicator);
+		if (placeHandler != null && bindToPlace) execution.setPlaceToken(placeHandler.get().getCurrentFullToken());
 		pendingExecutions.add(execution);
 		executeInternal(execution);
 	}
@@ -195,8 +227,12 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 				executeInternal(execution);
 			}
 		}
-	}
+	}	
 	
+	public void setPlaceHandler(Provider<PlaceHandler> placeHandler) {
+		this.placeHandler = placeHandler;
+	}
+
 	protected abstract void doExecute(A action, IneAsyncCallback callback);
 
 }
