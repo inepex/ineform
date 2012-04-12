@@ -226,7 +226,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	
 	private boolean needToRefreshToken(){
 		return (!historyProvider.getToken().equals(currentFullToken) 
-				&& (isWrongTokenPlaceSet() && !currentFullToken.equals(NavigationProperties.wrongTokenPlace)));
+				&& (!isWrongTokenPlaceSet() 
+						|| (isWrongTokenPlaceSet() && !currentFullToken.equals(NavigationProperties.wrongTokenPlace))));
 	}
 	
 	private boolean isWrongTokenPlaceSet(){
