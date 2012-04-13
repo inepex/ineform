@@ -33,6 +33,7 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 		
 		public void showReadOnly(List<CustomKVORow> rows);
 		public void showEditable();
+		public void add(IsWidget widget);
 	}
 	
 	private final View view;
@@ -154,5 +155,9 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 					view.getErrorManager(r));
 		
 		return ret;
+	}
+
+	public View getView() {
+		return view;
 	}
 }
