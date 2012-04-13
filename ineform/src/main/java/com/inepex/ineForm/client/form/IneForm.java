@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -50,6 +52,7 @@ import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
+import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class IneForm implements DisplayedFormUnitChangeHandler {
@@ -84,6 +87,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	private CustomCode custCode = null;
 	
 	private ValidateMode validateData = ValidateMode.ALL;
+	
+	private Multimap<String, KeyValueObjectValidator> customValidators = 
+			ArrayListMultimap.create();
 
 	/**
 	 * Uses default modelKeyPrefix, default formRenderDescriptor
@@ -744,13 +750,13 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		
 		switch(validateData) {
 		case ALL:
-			vr = formCtx.validatorManager.validate(kvo);
+			vr = formCtx.validatorManager.validate(kvo, customValidators);
 			validateRelationLists(vr, null);
 			validateCustKVOs(vr, null);
 			break;
 		case PARTIAL:
 			Collection<String> fields = formRenderDescriptor.getRootNode().getKeysUnderNode();
-			vr = formCtx.validatorManager.validatePartial(kvo, fields);
+			vr = formCtx.validatorManager.validatePartial(kvo, fields, customValidators);
 			validateRelationLists(vr, fields);
 			validateCustKVOs(vr, fields);
 			break;
@@ -778,7 +784,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 				if(fw.getRelationValue()==null || fw.getRelationValue().getKvo()==null)
 					continue;
 				
-				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows());
+				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows(), customValidators);
 				
 				if(!tmpRes.isValid()) {
 					vr.setValid(false);
@@ -841,7 +847,8 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 						case PARTIAL:
 							related_vr=
 								formCtx.validatorManager.validatePartial(relKVO,
-										formCtx.descStore.getDefaultTypedDesc(relKVO.getDescriptorName(), FormRDesc.class).getRootNode().getKeysUnderNode());
+										formCtx.descStore.getDefaultTypedDesc(relKVO.getDescriptorName(), FormRDesc.class).getRootNode().getKeysUnderNode(),
+										customValidators);
 							break;
 						case ALL:
 							related_vr=formCtx.validatorManager.validate(relKVO);
@@ -865,4 +872,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	public void setValidateData(ValidateMode validataMode) {
 		this.validateData = validataMode;
 	}
+
+	public Multimap<String, KeyValueObjectValidator> getCustomValidators() {
+		return customValidators;
+	}
+	
 }

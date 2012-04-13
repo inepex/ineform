@@ -3,9 +3,11 @@
 <module>
 	<inherits name="com.inepex.inei18n.ineI18n" />
 	<inherits name="com.google.gwt.user.User" />
-	<source path="client"/>
-	<source path="shared"/>
-	
+	<inherits name="javax.annotation.Annotation" />
 	<inherits name="net.customware.gwt.dispatch.Dispatch" />
 	<inherits name="com.google.gwt.inject.Inject"/>
+	<inherits name='com.google.common.collect.Collect'/>
+	
+	<source path="client"/>
+	<source path="shared"/>
 </module>

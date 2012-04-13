@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -40,7 +42,7 @@ public class KeyValueObjectValidationManager {
 	public final static String EMAIL = "email";
 	
 	private final DescriptorStore descStore;
-	private final AssistedObjectHandlerFactory objectHandlerFactory;
+	private final AssistedObjectHandlerFactory objectHandlerFactory; 
 	
 	@Inject
 	protected KeyValueObjectValidationManager(DescriptorStore descStore, AssistedObjectHandlerFactory objectHandlerFactory) {
@@ -116,27 +118,40 @@ public class KeyValueObjectValidationManager {
 	
 //------------------------------PROCESSING
 	
+	public ValidationResult validate(AssistedObject kvo) {
+		return validate(kvo, ArrayListMultimap.<String, KeyValueObjectValidator>create());
+	}
+	
 	/**
 	 * validate all the KVO with its relations
 	 * 
 	 */
-	public ValidationResult validate(AssistedObject kvo) {
+	public ValidationResult validate(AssistedObject kvo, Multimap<String, KeyValueObjectValidator> customValidators) {
 		if(kvo==null)
 			return new ValidationResult();
 		
 		ObjectDesc od = descStore.getOD(kvo.getDescriptorName());
-		return validate(kvo, od);
+		return validate(kvo, od, customValidators);
 	}
 	
-	public ValidationResult validate(AssistedObject kvo, ObjectDesc od) {
-		return validatePartial(kvo, od.getKeys(), od);
+	public ValidationResult validate(AssistedObject kvo, ObjectDesc od){
+		return validate(kvo, od,  ArrayListMultimap.<String, KeyValueObjectValidator>create());
+	}
+	
+	public ValidationResult validate(AssistedObject kvo, ObjectDesc od, Multimap<String, KeyValueObjectValidator> customValidators) {
+		return validatePartial(kvo, od.getKeys(), od, customValidators);
 	}
 
-	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames) {
+	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames){
+		return validatePartial(kvo, fieldNames, ArrayListMultimap.<String, KeyValueObjectValidator>create());
+	}
+	
+	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames,
+			Multimap<String, KeyValueObjectValidator> customValidators) {
 		if(kvo==null)
 			return new ValidationResult();
 		
-		return validatePartial(kvo, fieldNames, descStore.getOD(kvo.getDescriptorName()));
+		return validatePartial(kvo, fieldNames, descStore.getOD(kvo.getDescriptorName()), customValidators);
 	}
 	
 	/**
@@ -144,7 +159,8 @@ public class KeyValueObjectValidationManager {
 	 * @param extravalidators - never will check extravalidators' getUsedFields, just they will be ran 
 	 * @return
 	 */
-	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames, ObjectDesc od) {
+	public ValidationResult validatePartial(AssistedObject kvo, Collection<String> fieldNames, ObjectDesc od,
+			Multimap<String, KeyValueObjectValidator> customValidators) {
 		ValidationResult result = new ValidationResult();
 		
 		if(kvo == null)
@@ -205,6 +221,10 @@ public class KeyValueObjectValidationManager {
 			for(String validatorName : fDesc.getValidatorNames()) {
 				KeyValueObjectValidator validator = createBaseValidator(fDesc.getType(), fDesc.getKey(), validatorName, fDesc.getDefaultDisplayName(), odOfRelatedKVO);
 				if(validator!=null) validator.doValidation(actual.getAssistedObject(), vr);
+			}
+			
+			for (KeyValueObjectValidator validator : customValidators.get(fieldName)){
+				validator.doValidation(actual.getAssistedObject(), vr);
 			}
 			
 			if(!vr.isValid()) {
