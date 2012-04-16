@@ -10,18 +10,25 @@ import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class LengthValidator implements KeyValueObjectValidator {
 	
+	public enum Type {
+		MAXLENGTH,
+		MINLENGTH
+	}
+	
 	private final ObjectDesc objectDesc;
 
 	private final String fieldName;
-	private final int maxLength;
+	private final int limit;
+	private final Type type;
 
-	public LengthValidator(IneT type, String fieldName, int maxLength, ObjectDesc objectDesc) {
+	public LengthValidator(IneT fieldType, String fieldName, Type type, int limit, ObjectDesc objectDesc) {
 		this.objectDesc=objectDesc;
-		this.maxLength=maxLength;
+		this.limit=limit;
 		this.fieldName=fieldName;
+		this.type = type;
 		
-		if(type!=IneT.STRING) 
-			throw new RuntimeException("LengthValidator doesn't defined on type "+type.toString() + " defined on "+fieldName);
+		if(fieldType!=IneT.STRING) 
+			throw new RuntimeException("LengthValidator doesn't defined on type "+fieldType.toString() + " defined on "+fieldName);
 	}
 
 	@Override
@@ -29,8 +36,13 @@ public class LengthValidator implements KeyValueObjectValidator {
 			ValidationResult validationResult) {
 		
 		String val = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc).getString(fieldName);
-		if(val!=null && val.length()>maxLength) {
-			validationResult.addFieldError(fieldName, IneOmI18n.validatorLength(Integer.toString(maxLength)));
+		if (val != null){
+			if (type == Type.MAXLENGTH && val.length() > limit){
+				validationResult.addFieldError(fieldName, IneOmI18n.validatorMaxLength(Integer.toString(limit)));
+			}
+			else if (type == Type.MINLENGTH && val.length() < limit){
+				validationResult.addFieldError(fieldName, IneOmI18n.validatorMinLength(Integer.toString(limit)));
+			}
 		}
 	}
 	

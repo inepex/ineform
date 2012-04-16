@@ -24,6 +24,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.basicvalidators.BeforeAfterValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.EmailValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.LengthValidator;
+import com.inepex.ineom.shared.validation.basicvalidators.LengthValidator.Type;
 import com.inepex.ineom.shared.validation.basicvalidators.MandatoryValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.NumericRelationValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.NumericRelationValidator.RelType;
@@ -39,6 +40,7 @@ public class KeyValueObjectValidationManager {
 	public final static String BEFORE = "before";
 	public final static String AFTER = "after";
 	public final static String MAXLENGTH = "maxlength";
+	public final static String MINLENGTH = "minlength";
 	public final static String EMAIL = "email";
 	
 	private final DescriptorStore descStore;
@@ -106,7 +108,10 @@ public class KeyValueObjectValidationManager {
 		
 		//length of a string
 		if(validatorName.contains(MAXLENGTH))
-			return new LengthValidator(type, fieldName, Integer.parseInt(validatorName.replaceAll(MAXLENGTH+":", "")), od);
+			return new LengthValidator(type, fieldName, Type.MAXLENGTH, Integer.parseInt(validatorName.replaceAll(MAXLENGTH+":", "")), od);
+		
+		if(validatorName.contains(MINLENGTH))
+			return new LengthValidator(type, fieldName, Type.MINLENGTH, Integer.parseInt(validatorName.replaceAll(MINLENGTH+":", "")), od);
 		
 		//e-mail
 		if(validatorName.contains(EMAIL))

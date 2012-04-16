@@ -33,7 +33,8 @@ public class IneOmI18n extends I18nModule {
 	public String validatorGT = "The number entered into field {fieldName} must be greater then {constvalAsString}!";
 	public String validatorLE = "The number entered into field {fieldName} must be less then or equal to {constvalAsString}!";
 	public String validatorLT = "he number entered into field {fieldName} must be less then {constvalAsString}!";
-	public String validatorLength = "Maximum {maxLength} characters can be entered!";
+	public String validatorMaxLength = "Maximum {limit} characters can be entered!";
+	public String validatorMinLength = "At least {limit} characters have to be entered!";
 	public String validatorShouldAfter = "This date should be after {otherFieldsName}!";
 	public String validatorShouldBefore = "This date should be before {otherFieldsName}!";
 	public String validatorUniqueRelList = "The {i}th and the {j}th items are equal.";
@@ -114,11 +115,20 @@ public class IneOmI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Maximum {maxLength} characters can be entered!
-	* <u><i>Magyarul:</i></u> Legfeljebb {maxLength} karaktert lehet írni a mezőbe!
+	* <u><i>In English:</i></u> Maximum {limit} characters can be entered!
+	* <u><i>Magyarul:</i></u> Legfeljebb {limit} karaktert lehet írni a mezőbe!
 	*/
-	public static String validatorLength(String maxLength) {
-		return moduleProvider.get().validatorLength.replace("{maxLength}", maxLength);
+	public static String validatorMaxLength(String limit) {
+		return moduleProvider.get().validatorMaxLength.replace("{limit}", limit);
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> At least {limit} characters have to be entered!
+	* <u><i>Magyarul:</i></u> Legalább {limit} karaktert kell írni a mezőbe!
+	*/
+	public static String validatorMinLength(String limit) {
+		return moduleProvider.get().validatorMinLength.replace("{limit}", limit);
 	}
 	
 	/**
