@@ -78,7 +78,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 			result.setUserEmail(action.getUserName());
 			result.setUserUUID(UUIDString);
 			// set the UUID for the user
-			setUserStaySignedInUUID(action.getUserName(), UUIDString);
+			setUserStaySignedInUUID(result.getUserId(), UUIDString);
 		}
 		
 		_logger.debug("Login successful: {}", authStatProvider.get());
@@ -122,6 +122,6 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 	
 	// methods for the stay signed in logic
 	// needs to be implemented in the derived classes, because of the user handling
-	protected abstract void setUserStaySignedInUUID(String userName, String UUIDString);
+	protected abstract void setUserStaySignedInUUID(Long userId, String UUIDString);
 	public abstract AuthUser checkSignedInUUIDForUserAndLogUserIntoIfCorrect(String userEmail, String userUUID, AuthStatusResultBase result);
 }

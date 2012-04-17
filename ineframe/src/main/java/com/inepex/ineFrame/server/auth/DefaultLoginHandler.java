@@ -36,7 +36,7 @@ public class DefaultLoginHandler extends AbstractLoginHandler<AuthUser,AuthStatu
 	}
 
 	@Override
-	protected void setUserStaySignedInUUID(String userName, String UUIDString) {
+	protected void setUserStaySignedInUUID(Long userId, String UUIDString) {
 		// TODO Auto-generated method stub
 		
 	}

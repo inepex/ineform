@@ -49,7 +49,7 @@ public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResul
 
 
 	@Override
-	protected void setUserStaySignedInUUID(String userName, String UUIDString) {
+	protected void setUserStaySignedInUUID(Long userId, String UUIDString) {
 		// TODO Auto-generated method stub
 		
 	}
