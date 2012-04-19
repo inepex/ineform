@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
@@ -18,6 +19,8 @@ public class LabelButtonFW extends FormWidgetWrapperFormWidget {
 		mainPanel.add(getWrappedFW());
 		mainPanel.add(button);
 		initWidget(mainPanel);
+		
+		button.getElement().getStyle().setMarginLeft(8, Unit.PX);
 	}
 	
 	public Button getButton() {
