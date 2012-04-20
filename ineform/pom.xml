@@ -39,6 +39,11 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty</artifactId>
+				<version>${nettyVersion}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.inepex</groupId>
 			<artifactId>ineframe</artifactId>
 			<version>${project.version}</version>

@@ -1,9 +1,9 @@
-package com.inepex.ineForm.shared.util;
+package com.inepex.ineom.shared.util;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.inepex.ineFrame.shared.util.DoubleUtil;
+import com.inepex.ineom.shared.util.DoubleUtil;
 
 public class DoubleUtilTest {
 	
