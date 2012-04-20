@@ -30,6 +30,7 @@
 		<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
 		<commonsIoVersion>2.0.1</commonsIoVersion>
 		<javaxServletVersion>2.5</javaxServletVersion>
+		<nettyVersion>3.3.1.Final</nettyVersion>
 		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
 		<mavenCompilerVersion>2.1</mavenCompilerVersion>
 		<mavenCompilerSourceVersion>1.6</mavenCompilerSourceVersion>
