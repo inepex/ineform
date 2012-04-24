@@ -417,7 +417,7 @@ public class IneFormI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Type must be set!
-	* <u><i>Magyarul:</i></u> Állítsa be a mező típusát!
+	* <u><i>Magyarul:</i></u> A mező típusát be kell állítani!
 	*/
 	public static String custKVOValidateSet() {
 		return moduleProvider.get().custKVOValidateSet;
@@ -894,7 +894,7 @@ public class IneFormI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>   <br />
 	* <u><i>In English:</i></u> This is not valid e-mail address!
-	* <u><i>Magyarul:</i></u> Meg megfelelő e-mail címed adott meg!
+	* <u><i>Magyarul:</i></u> Nem megfelelő az e-mail cím!
 	*/
 	public static String validationEmail() {
 		return moduleProvider.get().validationEmail;

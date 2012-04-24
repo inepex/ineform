@@ -8,6 +8,8 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
+import com.inepex.ineForm.client.resources.IneFormResources;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Prop;
@@ -89,7 +91,7 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 	
 	private void init() {
 		initWidget(panel_main);
-		panel_main.addStyleName("datetimeFW");
+		panel_main.addStyleName(ResourceHelper.ineformRes().style().datetimeFW());
 		
 		if(props.containsKey("now")) {
 			inedate.setToNow();

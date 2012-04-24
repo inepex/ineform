@@ -42,5 +42,7 @@ public interface IneFormStyle extends CssResource {
 	String placeHolderTitlePanel();
 
 	String labelledFWLabel();
+
+	String datetimeFW();
 }
 
