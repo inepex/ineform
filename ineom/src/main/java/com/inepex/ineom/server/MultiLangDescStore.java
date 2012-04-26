@@ -83,5 +83,20 @@ public class MultiLangDescStore implements DescriptorStore {
 	public DescriptorStore getCurrentLanguageDescriptorStore(){
 		return get();
 	}
+
+	@Override
+	public String getOdNames() {
+		StringBuilder sb = new StringBuilder();
+		for(String lang : storeByLang.keySet()) {
+			if(sb.length()>0)
+				sb.append("\n");
+			sb.append(lang);
+			sb.append(": (");
+			sb.append(storeByLang.get(lang).getOdNames());
+			sb.append(")");
+		}
+		
+		return sb.toString();
+	}
 }
 

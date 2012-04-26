@@ -15,7 +15,13 @@ public interface DescriptorStore {
 	 * @return The {@link ObjectDesc} instance if found
 	 */
 	public abstract ObjectDesc getOD(String objectDescriptorName);
-
+	
+	/**
+	 * For debug and logging.
+	 * @return the names of registered {@link ObjectDesc}s
+	 */
+	public abstract String getOdNames();
+	
 	public <D extends DescriptorBase> D getDefaultTypedDesc(String objDescName, Class<D> clazz);
 
 	public <D extends DescriptorBase> D getNamedTypedDesc(String objDescName, String namedDescName, Class<D> clazz);

@@ -101,4 +101,16 @@ public class ClientDescriptorStore implements DescriptorStore {
 	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getAllTypedDescriptorMap() {
 		return typedDescMap;
 	}
+
+	@Override
+	public String getOdNames() {
+		StringBuilder sb = new StringBuilder();
+		for(String key : objectDescriptorMap.keySet()) {
+			if(sb.length()>0)
+				sb.append(", ");
+			sb.append(key);
+		}
+		
+		return sb.toString();
+	}
 }
