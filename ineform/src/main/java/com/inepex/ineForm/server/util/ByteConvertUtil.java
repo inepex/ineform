@@ -104,6 +104,14 @@ public class ByteConvertUtil {
 	public static String base64EncodeEatChannelBuffer(ChannelBuffer buf) {
 		return Base64.encode(buf, false).toString(ASCII);
 	}
+	
+	public static byte[] base64ToByteArray(String base64Msg) {
+		ChannelBuffer buffer = Base64.decode(ChannelBuffers.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
+		byte[] msg = new byte[buffer.readableBytes()];
+		buffer.readBytes(msg);
+		
+		return msg;
+	}
 
 	/**
 	 * Lazy evaluation for logging.
