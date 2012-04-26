@@ -1,5 +1,6 @@
 package com.inepex.ineFrame.client;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.async.DefaultFailedHandler;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -22,6 +24,7 @@ import com.inepex.ineFrame.client.misc.WindowResizeEvent;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetDescStoreResult;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
+import com.inepex.ineFrame.shared.util.DateHelper;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
@@ -127,6 +130,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		@Override
 		public void onSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
 			clientI18nStore.onModulesQueriedSuccess(result);
+			Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.currentLang, DateHelper.addDaysSafe(new Date(), 50));
 			
 			queryCounter.decQueries();
 			

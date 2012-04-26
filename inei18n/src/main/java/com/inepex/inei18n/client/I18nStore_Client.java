@@ -2,6 +2,7 @@ package com.inepex.inei18n.client;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import com.google.gwt.user.client.Cookies;
 import com.google.inject.Singleton;
