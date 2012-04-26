@@ -49,7 +49,11 @@ public class FWTypes implements Serializable{
 	public static final FWTypes TABLE = new FWTypes("TABLE");
 	public static final FWTypes CUSTOMKVO = new FWTypes("CUSTOMKVO");
 	public static final FWTypes CUSTOMKVOREADONLY = new FWTypes("CUSTOMKVOREADONLY");
-	public static final FWTypes LABELBUTTON = new FWTypes("LABELBUTTON");
+	
+	/**
+	 * A label that holds the value and a clickable label after it.
+	 */
+	public static final FWTypes LABELCLICKABLE = new FWTypes("LABELBUTTON");
 	
 	private String typeName = "";
 

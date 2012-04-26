@@ -44,5 +44,7 @@ public interface IneFormStyle extends CssResource {
 	String labelledFWLabel();
 
 	String datetimeFW();
+
+	String labelClickableFW();
 }
 

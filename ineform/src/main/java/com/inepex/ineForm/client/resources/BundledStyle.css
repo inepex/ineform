@@ -148,3 +148,13 @@
 .datetimeFW div{
 	padding-right: 10px;
 }
+
+.labelClickableFW{
+	margin-left: 8px;
+	text-decoration: underline;
+}
+
+.labelClickableFW:hover{
+	text-decoration: none;
+	cursor: hover;
+}

@@ -11,7 +11,7 @@ import com.inepex.ineForm.client.form.widgets.EnumListFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.IneTableFW;
 import com.inepex.ineForm.client.form.widgets.LabelBoolFW;
-import com.inepex.ineForm.client.form.widgets.LabelButtonFW;
+import com.inepex.ineForm.client.form.widgets.LabelClickableFW;
 import com.inepex.ineForm.client.form.widgets.LabelFW;
 import com.inepex.ineForm.client.form.widgets.LabelledFW;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
@@ -81,8 +81,8 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 		else if (widgetType.equals(FWTypes.LABEL))
 			createdWidget = new LabelFW(fieldDesc, wrDesc.hasProp(FWTypes.p_asDate), wrDesc.getPropValue(LabelFW.NULLALTERTEXT), formCtx.dateProvider);
 		
-		else if (widgetType.equals(FWTypes.LABELBUTTON))
-			createdWidget = new LabelButtonFW(fieldDesc, wrDesc.hasProp(FWTypes.p_asDate), wrDesc.getPropValue(LabelFW.NULLALTERTEXT), formCtx.dateProvider);
+		else if (widgetType.equals(FWTypes.LABELCLICKABLE))
+			createdWidget = new LabelClickableFW(fieldDesc, wrDesc.hasProp(FWTypes.p_asDate), wrDesc.getPropValue(LabelFW.NULLALTERTEXT), formCtx.dateProvider);
 		
 		else if (widgetType.equals(FWTypes.ENUMLABEL)) {
 			if (wrDesc.getPropValue(EnumLabelFW.enumValues) == null){
