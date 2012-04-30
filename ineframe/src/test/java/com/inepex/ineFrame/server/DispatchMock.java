@@ -1,7 +1,5 @@
 package com.inepex.ineFrame.server;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -115,11 +113,6 @@ public class DispatchMock {
 		}
 
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean userHasAnyOfListedRoles(Set<String> allowedRoles) {
-			return true;
-		}
 
 		@Override
 		public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {

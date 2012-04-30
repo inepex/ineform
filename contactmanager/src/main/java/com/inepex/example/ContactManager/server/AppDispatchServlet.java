@@ -1,7 +1,5 @@
 package com.inepex.example.ContactManager.server;
 
-import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,11 +45,6 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 	public void init() throws ServletException {
 		daofinder.addPackageByName("com.inepex.example.ContactManager.entity.dao");
 		super.init();
-	}
-
-	@Override
-	public boolean userHasAnyOfListedRoles(Set<String> allowedRoles) {
-		return true;
 	}
 
 	@Override
