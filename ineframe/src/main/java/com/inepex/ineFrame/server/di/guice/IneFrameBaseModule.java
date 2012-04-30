@@ -11,7 +11,6 @@ import com.inepex.ineFrame.server.auth.GetAuthStatusHandler;
 import com.inepex.ineFrame.server.di.jpa.PersistInitializer;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
-import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.server.ServerCurrentLang;
 import com.inepex.inei18n.shared.CurrentLang;
