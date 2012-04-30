@@ -2,8 +2,6 @@ package com.inepex.ineFrame.shared.util;
 
 import java.util.Date;
 
-import javax.xml.crypto.Data;
-
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 public class DateHelper {
