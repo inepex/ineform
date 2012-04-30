@@ -2,6 +2,8 @@ package com.inepex.ineFrame.shared.util;
 
 import java.util.Date;
 
+import javax.xml.crypto.Data;
+
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 
 public class DateHelper {
@@ -346,7 +348,8 @@ public class DateHelper {
 		Date tmpDate = new Date(date.getTime());
 		tmpDate.setMonth(date.getMonth()+ months);
 		
-		while (tmpDate.getMonth() != date.getMonth() + months){
+		int monthsOfYearDiff = (tmpDate.getYear() - date.getYear()) * 12;
+		while ((tmpDate.getMonth() + monthsOfYearDiff) != date.getMonth() + months){
 			tmpDate.setDate(tmpDate.getDate() - 1);
 		}
 		return tmpDate;

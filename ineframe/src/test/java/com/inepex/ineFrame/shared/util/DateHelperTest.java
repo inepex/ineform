@@ -37,4 +37,23 @@ public class DateHelperTest {
 		Assert.assertEquals(6, result.getMonth());
 	}
 	
+	/**
+	 * test year change
+	 */
+	@Test
+	public void addMonthTestYearChange(){
+		Date date = new Date(2012-1900, 0, 1);
+		Date result = DateHelper.addMonth(date, -1);
+		Assert.assertEquals(11, result.getMonth());
+	}
+	
+	/**
+	 * test year change 2
+	 */
+	@Test
+	public void addMonthTestYearChange2(){
+		Date date = new Date(2012-1900, 0, 1);
+		Date result = DateHelper.addMonth(date, -13);
+		Assert.assertEquals(11, result.getMonth());
+	}
 }
