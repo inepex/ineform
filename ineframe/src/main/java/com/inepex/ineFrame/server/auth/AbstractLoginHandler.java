@@ -70,7 +70,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		}
 		
 		R result = createResultBase();
-		setUserToSession(user, result);
+		setUserToSession(user, result, action.getUserName());
 
 		// if the login was successful and the user wants to stay signed in
 		if(result.isSuccess() && action.isNeedStaySignedIn()){
@@ -85,11 +85,12 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		return result;
 	}
 
-	public void setUserToSession(U user, R result) {
+	public void setUserToSession(U user, R result, String email) {
 		result.setSuccess(true);
 		result.setDisplayName(user.getDisplayName());
 		result.setRoles(user.getAllowedRoles());
 		result.setUserId(user.getUserId());
+		result.setUserEmail(email);
 		
 		mapAdditional(user, result);
 		onLogin(user);
