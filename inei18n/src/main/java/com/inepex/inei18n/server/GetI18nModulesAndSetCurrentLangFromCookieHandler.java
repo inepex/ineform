@@ -1,7 +1,6 @@
 package com.inepex.inei18n.server;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.shared.DispatchException;
@@ -44,7 +43,7 @@ public class GetI18nModulesAndSetCurrentLangFromCookieHandler implements ActionH
 		if(action.getRequestedLang()!=null)
 			changeLanguageHandler.execute(new ChangeLanguageAction(action.getRequestedLang()), arg1);		
 		
-		Map<String, I18nModule> requestedModulesInCurrentLang  = new HashMap<String, I18nModule>(action.getModuleNames().size());
+		HashMap<String, I18nModule> requestedModulesInCurrentLang  = new HashMap<String, I18nModule>(action.getModuleNames().size());
 	
 		for (String moduleName : action.getModuleNames()) {
 			requestedModulesInCurrentLang.put(moduleName, 
