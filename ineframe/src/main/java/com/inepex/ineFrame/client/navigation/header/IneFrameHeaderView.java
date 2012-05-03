@@ -121,23 +121,6 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	}
 
 	@Override
-	public void beforeUserNameClickEffect() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void afterUserNameClickEffect() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getUserNameClickEffectXPosition() {
-		return -1;
-		
-	}
-	@Override
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
 		logoClickedLogic = logic;
 	}

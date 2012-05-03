@@ -43,15 +43,9 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		
 		public IsWidget asWidget();
 		
-		public void beforeUserNameClickEffect();
-		
-		public void afterUserNameClickEffect();
-		
-		public int getUserNameClickEffectXPosition();
-		
 		public void updateForNewPlace(String token);
 	}
-	
+
 	private class DefaultSettingOnClicked implements OnClickedLogic {
 		@Override
 		public void doLogic() {
@@ -98,6 +92,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	public void refresh(InePlace place) {
 		if (settingsClickLogic == null) settingsClickLogic = new DefaultSettingOnClicked();
 		view.setSettingsButtonLogic(settingsClickLogic);
+		view.setUserNameClickedLogic(settingsClickLogic);
 		
 		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
 			view.setUserName(authManager.getLastAuthStatusResult().getDisplayName());
@@ -159,9 +154,6 @@ public class IneFrameHeader implements PlaceRequestHandler {
 			return; // 
 	}
 	
-	public void setUserNameClickedLogic(OnClickedLogic logic){
-		view.setUserNameClickedLogic(logic);
-	}
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
 		view.setLogoNameClickedLogic(logic);
 		
