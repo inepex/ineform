@@ -36,6 +36,10 @@ public class CustomDaoCriteriaSelector<ResultType, RootType> {
 		return getTypedQuery().getResultList();
 	}
 
+	public ResultType executeSingleResult() {
+		return getTypedQuery().getSingleResult();
+	}
+	
 	public List<ResultType> executeRangeSelect(int firstResult, int numMaxResult) {
 		return getTypedQuery().setFirstResult(firstResult)
 							  .setMaxResults(numMaxResult)
