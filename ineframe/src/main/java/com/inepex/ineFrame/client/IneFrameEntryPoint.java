@@ -153,7 +153,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	class InitialStatusIndicator extends SimpleFailureStatusIndicator {
 		@Override
 		protected void onAnyFailure(String message) {
-			Window.alert("IneFormEntryPoin:InitialStatusIndicator:"+message);
+			Window.alert("IneFormEntryPoint:InitialStatusIndicator:"+message);
 		}
 	}
 
