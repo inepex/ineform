@@ -9,6 +9,7 @@ import com.inepex.ineom.shared.descriptor.FDesc;
 public class CheckBoxFW extends DenyingFormWidget {
 
 	public static final String CHECKBOXTEXT = "checkBoxText";
+	public static final String CHECKBOXHTML = "checkBoxHTML";
 	
 	private CheckBox checkBox = new CheckBox();
 	
@@ -18,6 +19,8 @@ public class CheckBoxFW extends DenyingFormWidget {
 		
 		if(wrDesc.getPropValue(CHECKBOXTEXT)!=null) {
 			checkBox.setText(wrDesc.getPropValue(CHECKBOXTEXT));
+		}else if(wrDesc.getPropValue(CHECKBOXHTML) != null){
+			checkBox.setHTML(wrDesc.getPropValue(CHECKBOXHTML));
 		}
 	}
 	
