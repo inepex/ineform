@@ -6,10 +6,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 
 public interface AuthRuleProvider {
 
-	public boolean authorize(ObjectList objectList, AuthRuleSet authRuleSet);
+	public boolean authorize(Long userId, ObjectList objectList, AuthRuleSet authRuleSet);
 	
-	public boolean authorize(ObjectManipulation objectManipulation, AuthRuleSet authRuleSet);
+	public boolean authorize(Long userId, ObjectManipulation objectManipulation, AuthRuleSet authRuleSet);
 	
-	public boolean authorize(RelationList relationList, AuthRuleSet authRuleSet);
+	public boolean authorize(Long userId, RelationList relationList, AuthRuleSet authRuleSet);
 
 }
