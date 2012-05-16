@@ -1,6 +1,7 @@
 package com.inepex.ineForm.shared.dispatch;
 
 import com.google.inject.Inject;
+import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
@@ -14,13 +15,18 @@ public class ActionBasedObjectFinder implements ObjectFinder {
 	public ActionBasedObjectFinder(IneDispatch dispatcher) {
 		this.dispatcher = dispatcher;
 	}
-	
+
 	@Override
 	public void executeFind(String descriptorName, Long id, Callback callback) {
+		executeFind(descriptorName, id, callback, null);
+	}
+	
+	@Override
+	public void executeFind(String descriptorName, Long id, Callback callback, AsyncStatusIndicator customStatusIndicator) {
 		KeyValueObject idObject = new KeyValueObject(descriptorName);
 		idObject.setId(id);
 		ObjectManipulationAction action = new ObjectManipulationAction(ManipulationTypes.REFRESH, idObject);
-		dispatcher.execute(action, new ObjectRefreshCallback(callback));
+		dispatcher.execute(action, new ObjectRefreshCallback(callback), customStatusIndicator);
 	}
 	
 	private class ObjectRefreshCallback extends SuccessCallback<ObjectManipulationActionResult> {
