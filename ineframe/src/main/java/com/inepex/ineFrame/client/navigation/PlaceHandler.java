@@ -180,6 +180,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		final InePlace place = placeNode.getNodeElement();
 
+		if (checkIfLoginPageAndLoggedIn(place, currentFullTokenWithoutRedirect, needWindowReload)) return;
+		
 		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect, needWindowReload)) return;
 		
 		if (place instanceof ChildRedirectPlace) {
@@ -330,4 +332,15 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		return previousToken;
 	}
 
+	private boolean checkIfLoginPageAndLoggedIn(InePlace place, String currentFullTokenWithoutRedirect, boolean needWindowReload){
+		if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.loginPlace) 
+				&& authManager.isUserLoggedIn()) {
+			PlaceRequestEvent pre = new PlaceRequestEvent(NavigationProperties.defaultPlace);
+			pre.setNeedWindowReload(needWindowReload);
+			eventBus.fireEvent(pre);
+			return true;
+		}
+		else return false;
+	}
+	
 }
