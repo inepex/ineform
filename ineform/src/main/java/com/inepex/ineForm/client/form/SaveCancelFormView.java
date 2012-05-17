@@ -1,7 +1,10 @@
 package com.inepex.ineForm.client.form;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import com.inepex.ineForm.client.form.events.AfterUnsuccessfulSaveEvent;
+import com.inepex.ineForm.client.form.events.SavedEvent;
 
 public interface SaveCancelFormView extends IsWidget{
 
@@ -9,6 +12,8 @@ public interface SaveCancelFormView extends IsWidget{
 		void saveClicked();
 		void cancelClicked();
 		void deleteClicked();
+		HandlerRegistration addFormSavedHandlerFromView(SavedEvent.Handler handler);
+		HandlerRegistration addFormAfterUnsuccesfulSaveHandlerFromView(AfterUnsuccessfulSaveEvent.Handler handler);
 	}
 	
 	public void setDelegate(SaveCancelFormView.Delegate delegate);
@@ -34,4 +39,6 @@ public interface SaveCancelFormView extends IsWidget{
 	public void addCancelBtnStyle(String style);
 	public void setSaveButtonVisible(boolean visible);
 	public void setCancelButtonVisible(boolean visible);
+	
+	public void setFormValidationSuccess(boolean isSuccess);
 }

@@ -16,6 +16,7 @@ import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.DeletedEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.SavedEvent;
+import com.inepex.ineForm.client.form.events.SavedEvent.Handler;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
@@ -153,9 +154,11 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	}
 	
 	public void doSave(){
-		if (!doValidate(kvo).isValid())
+		boolean isFormValid = doValidate(kvo).isValid();
+		view.setFormValidationSuccess(isFormValid);
+		if (!isFormValid){
 			return;
-		
+		}
 		// Send only the changes to the server 
 		AssistedObject difference = handlerFactory.createHandler(kvo).getDifference(
 				handlerFactory.createHandler(originalData)).getAssistedObject();
@@ -286,7 +289,15 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		if (data.getId() == IFConsts.NEW_ITEM_ID) throw new RuntimeException("Delete called for a newly created object");
 		ineDataConnector.objectDeleteRequested(data, new DeleteCallback(data.getId()));
 	}
-	
-	
-	
+
+	@Override
+	public HandlerRegistration addFormSavedHandlerFromView(SavedEvent.Handler handler) {
+		return addSavedHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addFormAfterUnsuccesfulSaveHandlerFromView(
+			AfterUnsuccessfulSaveEvent.Handler handler) {
+		return addAfterUnsuccesfulSaveHandler(handler);
+	}
 }

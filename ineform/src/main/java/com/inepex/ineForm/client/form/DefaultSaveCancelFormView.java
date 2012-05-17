@@ -293,6 +293,12 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	public void addCancelBtnStyle(String style) {
 		cancelButton.addStyleName(style);
 	}
+
+	@Override
+	public void setFormValidationSuccess(boolean isSuccess) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
