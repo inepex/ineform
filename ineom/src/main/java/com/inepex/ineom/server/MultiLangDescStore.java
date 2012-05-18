@@ -4,15 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
 public class MultiLangDescStore implements DescriptorStore {
+	
+	private static final Logger _logger = LoggerFactory.getLogger(MultiLangDescStore.class);
 
 	private final String DEFAULT_LANG = "en"; 
 	
@@ -34,6 +40,11 @@ public class MultiLangDescStore implements DescriptorStore {
 			lang = DEFAULT_LANG;
 		else
 			lang = currLangProvider.get().getCurrentLang();
+		if (!storeByLang.containsKey(lang)){
+			_logger.warn("MultiLangDescStore hasn't been initialized");
+			ClientDescriptorStore localizedDescStore = new ClientDescriptorStore();
+			storeByLang.put(lang, localizedDescStore);			
+		}
 		return storeByLang.get(lang);
 	}
 
