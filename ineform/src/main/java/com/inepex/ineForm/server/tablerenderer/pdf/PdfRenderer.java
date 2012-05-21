@@ -3,9 +3,11 @@ package com.inepex.ineForm.server.tablerenderer.pdf;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.FDesc;
 import com.itextpdf.text.pdf.PdfPTable;
 
 public class PdfRenderer extends TableRenderer {
@@ -80,7 +82,7 @@ public class PdfRenderer extends TableRenderer {
 	}
 
 	@Override
-	protected void renderHeaderFieldStart() {
+	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
 		// TODO Auto-generated method stub
 		
 	}
