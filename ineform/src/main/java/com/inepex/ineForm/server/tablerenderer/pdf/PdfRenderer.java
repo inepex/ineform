@@ -15,7 +15,7 @@ public class PdfRenderer extends TableRenderer {
 				@Assisted("td") @Nullable String tableRDescName);
 	}
 	
-	private PdfPTable table;
+	protected PdfPTable table;
 	
 	@Inject
 	public PdfRenderer(DescriptorStore descStore,
@@ -30,6 +30,7 @@ public class PdfRenderer extends TableRenderer {
 	@Override
 	protected void renderStart() {
 		table = new PdfPTable(tableRDesc.getRootNode().getChildren().size());
+		tableRDesc.getProps();
 	}
 
 	@Override
