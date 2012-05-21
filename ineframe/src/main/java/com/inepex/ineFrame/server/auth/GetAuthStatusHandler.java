@@ -21,8 +21,8 @@ public class GetAuthStatusHandler extends
 	private static final Logger _logger = LoggerFactory
 			.getLogger(GetAuthStatusHandler.class);
 
-	private final Provider<SessionScopedAuthStat> authStatProvider;
-	private final AbstractLoginHandler<? extends AuthUser, AuthStatusResultBase> loginHandler;
+	protected final Provider<SessionScopedAuthStat> authStatProvider;
+	protected final AbstractLoginHandler<? extends AuthUser, AuthStatusResultBase> loginHandler;
 
 	@Inject
 	protected GetAuthStatusHandler(Provider<SessionScopedAuthStat> authStat,
