@@ -3,8 +3,10 @@ package com.inepex.ineForm.shared.tablerender;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class CsvRenderer extends TableRenderer{
 
@@ -73,9 +75,6 @@ public class CsvRenderer extends TableRenderer{
 		sb.append("\n");
 	}
 
-	@Override
-	protected void renderHeaderFieldStart() {
-	}
 
 	@Override
 	protected void renderHeaderFieldEnd() {
@@ -89,6 +88,12 @@ public class CsvRenderer extends TableRenderer{
 	@Override
 	protected void renderHeaderField(String content){
 		sb.append("\"" + content + "\"");
+	}
+
+	@Override
+	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

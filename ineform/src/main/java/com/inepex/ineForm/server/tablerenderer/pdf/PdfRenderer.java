@@ -80,12 +80,6 @@ public class PdfRenderer extends TableRenderer {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	protected void renderHeaderField(String content){
 		renderField(content);
@@ -99,6 +93,12 @@ public class PdfRenderer extends TableRenderer {
 
 	public PdfPTable getTable() {
 		return table;
+	}
+
+	@Override
+	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

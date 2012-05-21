@@ -7,9 +7,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.FDesc;
 
 public class ExcelRenderer extends TableRenderer{
 
@@ -88,11 +90,6 @@ public class ExcelRenderer extends TableRenderer{
 	protected void renderHeaderEnd() {
 		renderLineEnd();
 	}
-
-	@Override
-	protected void renderHeaderFieldStart() {
-		renderFieldStart();
-	}
 	
 	protected void renderHeaderField(String content){
 		renderField(content);
@@ -105,6 +102,11 @@ public class ExcelRenderer extends TableRenderer{
 
 	public int getActualRowNr() {
 		return actualRowNr;
+	}
+
+	@Override
+	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
+		renderFieldStart();
 	}
 	
 }

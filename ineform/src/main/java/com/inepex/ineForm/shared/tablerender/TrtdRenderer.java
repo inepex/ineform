@@ -3,8 +3,10 @@ package com.inepex.ineForm.shared.tablerender;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.FDesc;
 
 
 /**
@@ -68,15 +70,15 @@ public class TrtdRenderer extends TableRenderer{
 	protected void renderHeaderEnd() {
 		sb.append("</tr>\n");		
 	}
-
-	@Override
-	protected void renderHeaderFieldStart() {
-		sb.append("<th>");
-	}
-
+	
 	@Override
 	protected void renderHeaderFieldEnd() {
 		sb.append("</th>");
+	}
+
+	@Override
+	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
+		sb.append("<th>");
 	}
 
 }
