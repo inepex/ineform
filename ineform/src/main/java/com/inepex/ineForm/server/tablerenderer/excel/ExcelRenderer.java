@@ -18,12 +18,12 @@ public class ExcelRenderer extends TableRenderer{
 				@Assisted("td") @Nullable String tableRDescName, @Assisted Sheet sheet);
 	}
 	
-	private final Sheet sheet;
-	private int startRowNr;
-	private int actualRowNr;
-	private Row actualRow;
-	private int actualCellNr;
-	private Cell actualCell;
+	protected final Sheet sheet;
+	protected int startRowNr;
+	protected int actualRowNr;
+	protected Row actualRow;
+	protected int actualCellNr;
+	protected Cell actualCell;
 	
 	@Inject
 	public ExcelRenderer(DescriptorStore descStore,
