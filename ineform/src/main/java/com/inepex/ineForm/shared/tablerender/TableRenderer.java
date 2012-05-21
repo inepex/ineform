@@ -2,7 +2,6 @@ package com.inepex.ineForm.shared.tablerender;
 
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
@@ -79,7 +78,7 @@ public abstract class TableRenderer {
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
 				renderField(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker));
-			
+				
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
 					renderFieldEnd();
@@ -110,12 +109,12 @@ public abstract class TableRenderer {
 		renderHeaderStart();
 		for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
 				.getChildren()) {
-			renderHeaderFieldStart();
+			
 			if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 				continue;
 			ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 			FDesc fieldDesc = getFieldDescForColumn(columnNode);
-			
+			renderHeaderFieldStart(colRenderDesc, fieldDesc);
 			String headerText = colRenderDesc.getDisplayName() != null ? colRenderDesc.getDisplayName() : null;
 			if (headerText == null) {
 				if (fieldDesc != null)
@@ -134,7 +133,7 @@ public abstract class TableRenderer {
 	
 	protected abstract void renderHeaderStart();
 	protected abstract void renderHeaderEnd();
-	protected abstract void renderHeaderFieldStart();
+	protected abstract void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc);
 	protected abstract void renderHeaderFieldEnd();
 	protected void renderHeaderField(String content){
 		sb.append(content);
