@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
@@ -218,7 +219,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				} else {			
 					if (specificAdjustPlaceShouldReturn(place))
 						return;
-										
+					Document.get().setTitle(NavigationProperties.defaultWindowTitle);					
 					masterPage.render(place, urlParams);
 				}
 			}
