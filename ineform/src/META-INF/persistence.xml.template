@@ -6,6 +6,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
+			<property name="eclipselink.logging.logger" value="com.inepex.ineFrame.server.di.jpa.EclipseLinkSLF4jLogger" />
 			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.exclude-eclipselink-orm" value="false"/>
 		</properties>
