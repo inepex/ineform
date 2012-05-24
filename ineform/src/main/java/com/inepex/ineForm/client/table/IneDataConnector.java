@@ -34,7 +34,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 		@Override
 		public void onSuccess(ObjectManipulationResult result) {
-			if (result.isSuccess()) {
+			if (result!=null && result.isSuccess()) {
 				if (isCreateRequest)
 					updateRowCount(lastRowCount + 1, true);
 				if (objectManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0)

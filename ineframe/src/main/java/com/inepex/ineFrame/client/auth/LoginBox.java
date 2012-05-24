@@ -178,7 +178,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	class LoginCallback implements AuthActionCallback {
 		@Override
 		public void onAuthCheckDone(AuthStatusResultBase result) {
-			if(result.isSuccess()) {
+			if(result!=null && result.isSuccess()) {
 				if(historyProvider.getToken().contains((NavigationProperties.REDIRECT))) {
 					doRedirectLogic(result);
 				} else {
@@ -204,7 +204,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				password.setValue("");
 				captchaWidget.reloadCaptcha();
 				
-				if(result.isNeedCaptcha()) {
+				if(result!=null && result.isNeedCaptcha()) {
 					captchaLabel.setVisible(true);
 					captchaWidget.setVisible(true);
 				} else {
