@@ -25,7 +25,7 @@ public class PdfFontLoader {
 	public void init(String baseUrl){
 		if (!isDefault) return;
 		
-		String fontUrl = baseUrl + "/fonts/ARIALUNI.TTF";
+		String fontUrl = baseUrl + "/fonts/FreeSans.ttf";
 		try {	
 			baseFont = BaseFont.createFont(fontUrl, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			isDefault = false;
