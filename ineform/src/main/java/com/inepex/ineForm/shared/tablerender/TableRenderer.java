@@ -30,7 +30,7 @@ public abstract class TableRenderer {
 	protected boolean renderLastFieldEnd = false;
 
 	protected final AssistedObjectTableFieldRenderer fieldRenderer;
-
+	
 	public TableRenderer(DescriptorStore descStore
 			, String objectDescName
 			, String tableRDescName
@@ -193,5 +193,5 @@ public abstract class TableRenderer {
 	public AssistedObjectTableFieldRenderer getFieldRenderer(){
 		return fieldRenderer;
 	}
-	
+
 }

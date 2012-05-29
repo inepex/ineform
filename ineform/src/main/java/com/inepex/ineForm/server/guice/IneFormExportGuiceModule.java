@@ -1,9 +1,11 @@
 package com.inepex.ineForm.server.guice;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;
+import com.inepex.ineForm.server.tablerenderer.pdf.PdfFontLoader;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer.PdfRendererFactory;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer;
@@ -37,6 +39,7 @@ public class IneFormExportGuiceModule extends AbstractModule {
 	 	.implement(PdfRenderer.class, PdfRenderer.class)
 		.build(PdfRendererFactory.class));
 		
+		bind(PdfFontLoader.class).in(Singleton.class);
 	}
 
 }
