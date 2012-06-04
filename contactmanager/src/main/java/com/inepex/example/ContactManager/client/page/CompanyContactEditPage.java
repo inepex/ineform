@@ -1,7 +1,5 @@
 package com.inepex.example.ContactManager.client.page;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -67,6 +65,10 @@ public class CompanyContactEditPage extends ConnectorPage {
 				FormFactory formFactory, String objectDescriptorName,
 				IneDataConnector ineDataConnector, boolean sortable, AssistedObjectTableFieldRenderer fieldRenderer) {
 			super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
+			userCommands.clear();
+			userCommands.add(new DetailsCommand());
+			userCommands.add(new ComEditCommand());
+			userCommands.add(new DeleteCommand());
 		}
 		
 		@Override
@@ -90,14 +92,6 @@ public class CompanyContactEditPage extends ConnectorPage {
 				return null;
 			else
 				return ContactAssist.roFRD;
-		}
-		
-		@Override
-		protected List<UserCommand> commands() {
-			return Arrays.asList(new UserCommand[]{
-					new DetailsCommand()
-					, new ComEditCommand()
-					, new DeleteCommand()});
 		}
 		
 		@Override

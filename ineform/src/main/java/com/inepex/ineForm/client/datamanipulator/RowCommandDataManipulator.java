@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.datamanipulator;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,6 +25,8 @@ public class RowCommandDataManipulator extends DataManipulator {
 	private String editText = IneFormI18n.EDIT();
 	private String deleteText = IneFormI18n.DELETE();
 	
+	protected List<UserCommand> userCommands = new ArrayList<UserCommand>();
+	
 	@Inject
 	public RowCommandDataManipulator(FormContext formCtx
 			, FormFactory formFactory
@@ -34,14 +36,16 @@ public class RowCommandDataManipulator extends DataManipulator {
 			, AssistedObjectTableFieldRenderer fieldRenderer) {
 		super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
 		
+		userCommands.add(new EditCommand());
+		userCommands.add(new DeleteCommand());
 	}
 
 	@Override
 	protected void initilaizeIneTableAndBuildCustom() {
 		ineTable.setSelectionBehaviour(SelectionBehaviour.NO_SELECTION);
 		
-		if(commands()!=null) {
-			for (UserCommand command : commands()) {
+		if(userCommands!=null) {
+			for (UserCommand command : userCommands) {
 				ineTable.addCommand(command);		
 			}
 		}
@@ -50,16 +54,6 @@ public class RowCommandDataManipulator extends DataManipulator {
 		rightSideButtonsPanel.getCenterPanel().add(ineTable);
 		setTopPanelWidget(newButton);
 		newButton.addStyleName("newBtn");
-	}
-	
-	/**
-	 * Override this to set custom commands
-	 */
-	protected List<UserCommand> commands(){
-		UserCommand[] commands = {new EditCommand()
-		   , new DeleteCommand()};
-		return Arrays.asList(commands);
-
 	}
 	
 	@Override
@@ -75,7 +69,7 @@ public class RowCommandDataManipulator extends DataManipulator {
 		}
 	}
 
-	protected class EditCommand implements UserCommand {
+	public class EditCommand implements UserCommand {
 		public EditCommand() {
 		}
 
@@ -95,7 +89,7 @@ public class RowCommandDataManipulator extends DataManipulator {
 		}
 	}
 
-	protected class DeleteCommand implements UserCommand {
+	public class DeleteCommand implements UserCommand {
 		public DeleteCommand() {
 		}
 		
@@ -132,6 +126,15 @@ public class RowCommandDataManipulator extends DataManipulator {
 	
 	public void setNewBtnStyle(String styleName){
 		newButton.setStyleName(styleName);
+	}
+
+	/**
+	 * edit userCommands list before call render()
+	 * by default it contains edit and delete
+	 * @return
+	 */
+	public List<UserCommand> getUserCommands() {
+		return userCommands;
 	}
 
 	
