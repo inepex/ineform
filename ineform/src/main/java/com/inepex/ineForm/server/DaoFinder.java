@@ -1,6 +1,7 @@
 package com.inepex.ineForm.server;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,10 +13,12 @@ import com.google.inject.Singleton;
 public class DaoFinder {
 	
 	private final Injector injector;
+	private CustomDaoStore customDaoStore;
 	
 	@Inject
-	DaoFinder(Injector injector) {
+	DaoFinder(Injector injector, CustomDaoStore customDaoStore) {
 		this.injector=injector;
+		this.customDaoStore = customDaoStore;
 	}
 	
 	private final Set<String> packageNamePrefixes = new TreeSet<String>();
@@ -35,7 +38,17 @@ public class DaoFinder {
 	public KVManipulatorDaoBase getDefaultDaoForDescriptor(String descriptor) {
 		checkInitialized();
 		String daoJndiName = getDaoNameFormDescriptorName(descriptor);
-		return (KVManipulatorDaoBase) lookupObject(daoJndiName);
+		
+		Object o = lookupObject(daoJndiName);
+		if (o == null){
+			o = customDaoStore.getProvidersByDescriptor().get(descriptor);
+		}
+		
+		if (o == null){
+			throw new RuntimeException("Can not be found class definition for: "+daoJndiName+", you may forgot adding package name of class!");
+		}
+		
+		return (KVManipulatorDaoBase) o;
 	}
 	
 	public Object lookupObject(String objectName) {
@@ -63,9 +76,8 @@ public class DaoFinder {
 		}
 		
 		if(objectClass==null) 
-			throw new RuntimeException("Can not be found class definition for: "+objectName+", you may forgot adding package name of class!");
-		
-		return injector.getInstance(objectClass);
+			return null;
+		else return injector.getInstance(objectClass);
 	}
 	
 	private void checkInitialized() throws RuntimeException {
