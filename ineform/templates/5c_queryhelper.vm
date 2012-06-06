@@ -64,7 +64,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif($attr.type == "Boolean")
 		Boolean ${attr.name} = handler.getBoolean(${classname}Consts.s_${attr.name});
-		if (Boolean.TRUE.equals(${attr.name}))
+		if (${attr.name} != null)
 			base = addAndExpression(cb, base, cb.equal(from.get(${classname}_.${attr.name}), ${attr.name}));
 #elseif(${attr.hasAnnotation("Kvo_OneToOne")})
 		String ${attr.name} = handler.getString(${classname}Consts.s_${attr.name});
