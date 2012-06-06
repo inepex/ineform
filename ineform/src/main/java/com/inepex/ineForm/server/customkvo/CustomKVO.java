@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.eclipse.persistence.annotations.JoinFetch;
+import org.eclipse.persistence.annotations.JoinFetchType;
+
 @Entity
 public class CustomKVO {
 	
@@ -19,6 +22,7 @@ public class CustomKVO {
 	private Long id;
 	
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL, orphanRemoval=true)
+	@JoinFetch(JoinFetchType.INNER)
 	private List<PersistField> fields;
 
 	public CustomKVO(){
