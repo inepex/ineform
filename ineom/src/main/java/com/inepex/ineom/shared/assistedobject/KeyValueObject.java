@@ -16,7 +16,7 @@ import com.inepex.ineom.shared.Relation;
 @SuppressWarnings("serial")
 public class KeyValueObject extends AssistedObject {
 
-	private String descriptorName = null;
+	protected String descriptorName = null;
 
 	protected NullableHashMap<String, Boolean> booleanValues = new NullableHashMap<String, Boolean>();
 	protected NullableHashMap<String, Double> doubleValues = new NullableHashMap<String, Double>();
