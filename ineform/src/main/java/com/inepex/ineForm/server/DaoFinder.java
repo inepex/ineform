@@ -81,7 +81,8 @@ public class DaoFinder {
 	}
 	
 	private void checkInitialized() throws RuntimeException {
-		if (packageNamePrefixes.size() == 0) {
+		if (packageNamePrefixes.size() == 0 && 
+			customDaoStore.getProvidersByDescriptor().size() == 0) {
 			throw new RuntimeException("DaoInstancefinder not initialized." +
 					" Please call for your dao packages the following: daoInstanceFinder.addPackageByName(\"com.inepex.example.daopackage\")");
 		}
