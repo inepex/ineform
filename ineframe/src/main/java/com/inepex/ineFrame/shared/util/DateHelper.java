@@ -180,9 +180,9 @@ public class DateHelper {
 
 	/**
 	 * example:
-	 * 
-	 * 2010.11.17-2010.11.17		1 day
-	 * 2010.11.17-2010.11.12		2 days
+	 * <br/>
+	 * 2010.11.17-2010.11.17		1 day <br/>
+	 * 2010.11.17-2010.11.18		2 days <br/>
 	 */
 	public static Long diffDaysInclusive(Long startDateLong, Long endDateLong) {
 		return diffDaysInclusive(new Date(startDateLong), new Date(endDateLong));
