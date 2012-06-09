@@ -92,7 +92,10 @@ public class ObjectDesc implements Serializable {
 	public void setDefaultOrderKey(String defaultOrderKey) {
 		this.defaultOrderKey = defaultOrderKey;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "ObjectDesc [name=" + name + "]";
+	}
 	
 }

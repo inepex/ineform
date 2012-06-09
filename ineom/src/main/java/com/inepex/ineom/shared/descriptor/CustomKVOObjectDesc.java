@@ -26,4 +26,9 @@ public class CustomKVOObjectDesc extends ObjectDesc implements Serializable{
 	public String getKey() {
 		return key;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomKVOObjectDesc [key=" + key + ", getName()=" + getName() + "]";
+	}
 }
