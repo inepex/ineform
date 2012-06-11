@@ -177,7 +177,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return result;
 	}
 
-	private Long getIdFromAction(ObjectManipulation action) {
+	protected Long getIdFromAction(ObjectManipulation action) {
 		if(action.getIdToRefresh()!=null)
 			return action.getIdToRefresh();
 		
