@@ -182,7 +182,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 #end
 #else
 		if (entity.get${attr.nameU1}() != null) 
-#if (!$attr.hasAnnotation("Kvo_Fetch") || !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")
+#if (!$attr.hasAnnotation("Kvo_Fetch") || $attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")
 			handler.set${attr.nameU1}(new ${attr.typeU1}Mapper(descriptorStore).toRelation(entity.get${attr.nameU1}(), false));
 #elseif ($attr.hasAnnotation("Kvo_Fetch") && !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.relation")
 			// TODO: use findRelationById
