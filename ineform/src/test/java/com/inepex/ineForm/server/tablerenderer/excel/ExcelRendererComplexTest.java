@@ -63,7 +63,7 @@ public class ExcelRendererComplexTest extends DefaultIneFrameClientSideTestBase 
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = wb.createSheet("new sheet");
 
-		ExcelRenderer renderer = rendererFactory.create(NationalityKVO.descriptorName, (String) null, sheet);
+		ExcelRenderer renderer = rendererFactory.create(NationalityKVO.descriptorName, (String) null, sheet, false);
 		renderer.render(kvos);
 		
 		FileOutputStream fileOut = new FileOutputStream("workbook.xls");
