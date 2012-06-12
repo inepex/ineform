@@ -78,7 +78,7 @@ public abstract class TableRenderer {
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
 				renderField(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker));
-				
+								
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
 					renderFieldEnd();

@@ -54,6 +54,17 @@ public class AssistedObjectTableFieldRenderer {
 		
 	}
 	
+	public boolean containsCustomizer(String key){
+		return customizers.get(key)!=null;
+	}
+	
+	public String getFieldByCustomizer(String key){
+		ColRDesc colRdesc = (ColRDesc)tableRDesc.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
+		AssistedObjectHandler rowHandler = handlerFactory.createHandler(object);
+		String customHtmlContent = customizers.get(key).getCustomCellContent(rowHandler, key, colRdesc);
+		return customHtmlContent;
+	}
+	
 	public String getField(String key){
 		ColRDesc colRdesc = (ColRDesc)tableRDesc.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
 		String deepestKey = SharedUtil.deepestKey(key);

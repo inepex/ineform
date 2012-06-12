@@ -1,49 +1,65 @@
 package com.inepex.ineForm.server.tablerenderer.excel;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
+import com.inepex.ineom.shared.AssistedObjectHandler;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class ExcelRenderer extends TableRenderer{
 
 	public static interface ExcelRendererFactory {
 		public ExcelRenderer create(@Assisted("od") String objectDescName,
-				@Assisted("td") @Nullable String tableRDescName, @Assisted Sheet sheet);
+				@Assisted("td") @Nullable String tableRDescName, @Assisted Sheet shee, @Assisted boolean setCellTypest);
 	}
-	
+
 	protected final Sheet sheet;
 	protected int startRowNr;
 	protected int actualRowNr;
 	protected Row actualRow;
 	protected int actualCellNr;
 	protected Cell actualCell;
-	
+	protected boolean setCellTypes;
+
 	@Inject
 	public ExcelRenderer(DescriptorStore descStore,
 			@Assisted("od") String objectDescName,
 			@Assisted("td") @Nullable String tableRDescName,
 			@Assisted Sheet sheet,
-			AssistedObjectTableFieldRenderer fieldRenderer
+			AssistedObjectTableFieldRenderer fieldRenderer,
+			@Assisted boolean setCellTypes
 			) {
 		super(descStore, objectDescName, tableRDescName, fieldRenderer);
 		this.sheet = sheet;
 		startRowNr = 0;
 		setRenderLastFieldEnd(true);
+		this.setCellTypes = setCellTypes;
 	}
-	
+
 	public void setStartRowNr(int rowNr){
 		this.startRowNr = rowNr;
 	}
-	
+
 	@Override
 	protected void renderStart() {
 		actualRowNr = startRowNr;		
@@ -52,7 +68,7 @@ public class ExcelRenderer extends TableRenderer{
 	@Override
 	protected void renderEnd() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -69,10 +85,13 @@ public class ExcelRenderer extends TableRenderer{
 	@Override
 	protected void renderFieldStart() {
 		actualCell = actualRow.createCell(actualCellNr);
-		
+
 	}
-	
+
 	protected void renderField(String content){
+		//		if(setCellTypes){
+		//			return;			
+		//		}
 		actualCell.setCellValue(content);
 	}
 
@@ -90,7 +109,7 @@ public class ExcelRenderer extends TableRenderer{
 	protected void renderHeaderEnd() {
 		renderLineEnd();
 	}
-	
+
 	protected void renderHeaderField(String content){
 		renderField(content);
 	}
@@ -108,5 +127,80 @@ public class ExcelRenderer extends TableRenderer{
 	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
 		renderFieldStart();
 	}
+
+
+	@Override
+	public String render(List<AssistedObject> kvos){
+		if(!setCellTypes){
+			return super.render(kvos);		
+		}
+		AssistedObjectHandlerFactory factory = new AssistedObjectHandlerFactory(descStore);
+		sb = new StringBuffer();
+		renderStart();
+		if (renderHeader) renderHeader();
+
+		for (AssistedObject kvo : kvos){
+			renderLineStart();
+			for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
+					.getChildren()) {
+				renderFieldStart();
+				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
+				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
+					continue;
+
+				String key = columnNode.getNodeId();
+				
+				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
+						SharedUtil.listFromDotSeparated(key));
+				
+				fieldRenderer.setObjectAndDescriptor(kvoOrRelatedKvoChecker.getAssistedObject(), tableRDesc);
+				
+				if(fieldRenderer.containsCustomizer(key)){
+					actualCell.setCellValue(fieldRenderer.getFieldByCustomizer(key));
+				}
+				else{ 
+					String deepestKey = SharedUtil.deepestKey(key);
+					if(SharedUtil.isMultilevelKey(key)){
+						kvoOrRelatedKvoChecker = kvoOrRelatedKvoChecker.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
+					}
+					
+					if (colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT) != null) {
+						Double num = kvoOrRelatedKvoChecker.getDouble(deepestKey);
+						if(num != null){
+							actualCell.setCellValue(num);
+						}
+						setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT));
+						
+					}
+					else if (colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT) != null) {
+						Long date = kvoOrRelatedKvoChecker.getLong(deepestKey);
+						if(date != null){
+							actualCell.setCellValue(new Date(date));
+						}
+						setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT));
+					}
+					
+				}
+				cellValueSet(key);
+				
+				if (renderLastFieldEnd 
+						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
+					renderFieldEnd();
+
+			}
+			renderLineEnd();
+		}
+		renderEnd();
+		return sb.toString();
+	}
 	
+	protected void setDataFormatForActualCell(String format){
+		CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
+		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(format));
+		actualCell.setCellStyle(cellStyle);
+	}
+	
+	protected void cellValueSet(String key){}
+
 }
