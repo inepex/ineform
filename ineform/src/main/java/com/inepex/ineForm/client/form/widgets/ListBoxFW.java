@@ -103,7 +103,7 @@ public class ListBoxFW extends AbstractListBoxFW {
 		this.value = value;
 		
 		if (value == null) {
-			if (allowsNull) {
+			if (!allowsNull) {
 				listBox.setSelectedIndex(0);
 			}
 		} else {
