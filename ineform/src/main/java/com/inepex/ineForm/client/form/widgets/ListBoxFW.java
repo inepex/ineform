@@ -24,8 +24,11 @@ public class ListBoxFW extends AbstractListBoxFW {
 	
 	private Relation value;
 	
+	protected FormContext formCtx;
+	
 	public ListBoxFW(FormContext formCtx, FDesc fieldDescriptor, WidgetRDesc wrDesc) {
 		super(fieldDescriptor, wrDesc);
+		this.formCtx = formCtx;
 		this.valueRangeProvider = formCtx.valueRangeProvider;
 		relationFDesc = (RelationFDesc) fieldDescriptor;
 
