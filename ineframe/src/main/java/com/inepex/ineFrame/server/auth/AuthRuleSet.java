@@ -7,16 +7,6 @@ import com.google.common.collect.ListMultimap;
 
 public class AuthRuleSet {
 	
-	public static class AuthObject {
-		public static String device = "device";
-		public static String user = "user";
-	}
-	
-	public static class Permissions {
-		public static String view = "view";
-		public static String modify = "modify";		
-	}
-	
 	/**
 	 * AuthRules by objectName
 	 */
