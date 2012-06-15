@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
 import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.cell.client.TextCell;
@@ -17,6 +18,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
@@ -25,12 +27,13 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
-import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.inepex.ineForm.client.IneFormProperties;
@@ -64,7 +67,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 public class IneTable extends HandlerAwareComposite {
 	
 	// Constants
-	public final static int DEFAULT_PAGE_SIZE = 10;
+	public final static int DEFAULT_PAGE_SIZE = 20;
 	public final static int DEFAULT_PAGE_SIZE_WITHOUT_PAGER = 1000;
 
 	// Class variables
@@ -81,7 +84,8 @@ public class IneTable extends HandlerAwareComposite {
 	
 	public static enum SelectionBehaviour {
 		NO_SELECTION,
-		SINGLE_SELECTION;
+		SINGLE_SELECTION,
+		MULTIPLE_SELECTION;
 	}
 	
 	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
@@ -110,6 +114,8 @@ public class IneTable extends HandlerAwareComposite {
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	
 	private SingleSelectionModel<AssistedObject> singleSelectionModel = null;
+	private MultiSelectionModel<AssistedObject> multiSelectionModel = null;
+	
 	protected SimplePager pager = null;
 	private boolean showPager = true;
 	
@@ -239,8 +245,9 @@ public class IneTable extends HandlerAwareComposite {
 			cellTable.addStyleName(ResourceHelper.ineformRes().style().ineTable());
 			
 			batchColumnAddig=true;
-			initTableColumns();
 			initTable();
+			initTableColumns();
+			
 			batchColumnAddig=false;
 			cellTable.redraw();
 			
@@ -270,6 +277,11 @@ public class IneTable extends HandlerAwareComposite {
 			
 		} else if (selectionBehaviour == SelectionBehaviour.NO_SELECTION) {
 			cellTable.setSelectionModel(new NoSelectionModel<AssistedObject>());
+		} else if(selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION){
+			multiSelectionModel = new MultiSelectionModel<AssistedObject>(KEY_PROVIDER);
+			cellTable.setSelectionModel(multiSelectionModel, 
+										DefaultSelectionEventManager
+											.<AssistedObject> createCheckboxManager());
 		}
 		
 		// Add the CellList to the adapter in the database.
@@ -282,6 +294,18 @@ public class IneTable extends HandlerAwareComposite {
 
 		ObjectDesc objectDesc = descStore.getOD(
 		objectDescriptorName);
+		
+		if(selectionBehaviour != null && 
+		   selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION){
+			Column<AssistedObject, Boolean> checkColumn = new Column<AssistedObject, Boolean>(
+			        new CheckboxCell(true, true)) {
+			      @Override
+			      public Boolean getValue(AssistedObject object) {
+			    	  return multiSelectionModel.isSelected(object);
+			      }
+			};
+			cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
+		}
 
 		for (Node<TableRDescBase> columnNode : tableRenderDescriptor.getRootNode()
 				.getChildren()) {
