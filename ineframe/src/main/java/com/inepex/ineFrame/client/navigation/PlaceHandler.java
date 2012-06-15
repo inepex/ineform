@@ -18,6 +18,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
 import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
@@ -334,6 +335,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private boolean checkIfLoginPageAndLoggedIn(InePlace place, String currentFullTokenWithoutRedirect, boolean needWindowReload){
+		if (authManager instanceof NoAuthManager) return false; 
 		if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.loginPlace) 
 				&& authManager.isUserLoggedIn()) {
 			PlaceRequestEvent pre = new PlaceRequestEvent(NavigationProperties.defaultPlace);
