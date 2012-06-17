@@ -1,6 +1,5 @@
 package com.inepex.ineFrame.client.async;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.Result;
 

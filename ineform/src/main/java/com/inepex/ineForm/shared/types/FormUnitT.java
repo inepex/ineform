@@ -2,6 +2,8 @@ package com.inepex.ineForm.shared.types;
 
 import java.io.Serializable;
 
+import com.inepex.ineForm.client.form.widgets.FormWidget;
+
 /**
  * Defines names for different {@link FormWidget} types
  * 

@@ -16,7 +16,6 @@ import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.DeletedEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.SavedEvent;
-import com.inepex.ineForm.client.form.events.SavedEvent.Handler;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;

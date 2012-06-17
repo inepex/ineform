@@ -1,11 +1,5 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.List;
 
 import org.junit.Before;

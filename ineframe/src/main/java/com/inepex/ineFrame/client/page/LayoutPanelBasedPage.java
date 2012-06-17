@@ -3,7 +3,6 @@ package com.inepex.ineFrame.client.page;
 import java.util.Map;
 
 import com.google.gwt.user.client.ui.Widget;
-
 import com.inepex.ineFrame.client.misc.HandlerAwareLayoutPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 

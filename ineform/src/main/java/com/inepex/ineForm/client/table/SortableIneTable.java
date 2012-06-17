@@ -2,7 +2,6 @@ package com.inepex.ineForm.client.table;
 
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.user.cellview.client.Header;
-import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;

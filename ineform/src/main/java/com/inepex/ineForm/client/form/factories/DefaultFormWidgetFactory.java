@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.factories;
 
+import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
@@ -44,6 +45,10 @@ import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 
 public class DefaultFormWidgetFactory implements FormWidgetFactory {
+	
+	@Inject
+	public DefaultFormWidgetFactory() {
+	}
 
 	/**
 	 * create a widget using fieldDesc's and wrDesc's meta informations

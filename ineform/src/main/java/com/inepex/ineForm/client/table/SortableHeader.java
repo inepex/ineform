@@ -26,7 +26,6 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.inepex.ineForm.client.resources.IneResources;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 
 /**

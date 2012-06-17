@@ -1,8 +1,8 @@
 package com.inepex.inei18n.shared;
 
-import com.inepex.inei18n.client.I18nStore_Client;
-
 import net.customware.gwt.dispatch.shared.Action;
+
+import com.inepex.inei18n.client.I18nStore_Client;
 
 /**
  * 
