@@ -57,7 +57,15 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 #elseif($attr.type == "String")
 		String ${attr.name} = handler.getString(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
-			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(${classname}_.${attr.name})), ${attr.name}.toUpperCase() + "%"));
+			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(${classname}_.${attr.name})),
+	#if($attr.getAnnotationParamValue("Kvo_SearchParam","type")=="FilterType.OPENEND")
+    	${attr.name}.toUpperCase() + "%"));
+    #elseif($attr.getAnnotationParamValue("Kvo_SearchParam","type")=="FilterType.OPENSTART")
+    	"%" + ${attr.name}.toUpperCase()));
+    #elseif($attr.getAnnotationParamValue("Kvo_SearchParam","type")=="FilterType.OPENBOTH"))
+    	"%" + ${attr.name}.toUpperCase() + "%"));
+    #else ${attr.name}.toUpperCase()));#end
+			
 #elseif($attr.type == "Double")
 		Double ${attr.name} = handler.getDouble(${classname}Consts.s_${attr.name});
 		if (${attr.name}!=null)
