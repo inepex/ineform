@@ -14,45 +14,31 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  *
  * @param <D> must be subclass of {@link DescriptorBase}
  */
-public class TypedDescriptorMap<D extends DescriptorBase> implements IsSerializable {
+public class TypedDescriptorMap<D> implements IsSerializable {
 	
-	Map<String, D> defaultDescriptors = new TreeMap<String, D>();
-	Map<String, Map<String, D>> namedDescriptorsForObject = new TreeMap<String, Map<String,D>>();
+	private final Map<String, Map<String, D>> namedDescriptorsByOdName = new TreeMap<String, Map<String,D>>();
 	
-	public void addDefaultDescriptor(String objDescName, D descriptor) {
-		defaultDescriptors.put(objDescName, descriptor);
-	}
-	
-	public D getDefaultDescriptor(String objDescName) {
-		return defaultDescriptors.get(objDescName);
-	}
-	
-	public void addNamedDescriptor(String objDescName, String descName, D descriptor){
+	public void addNamedDescriptor(String odName, String descName, D descriptor){
 		
-		Map<String, D> descriptors = namedDescriptorsForObject.get(objDescName);
+		Map<String, D> descriptors = namedDescriptorsByOdName.get(odName);
 		
 		if (descriptors == null) {
 			descriptors =  new TreeMap<String, D>();
-			namedDescriptorsForObject.put(objDescName, descriptors);
+			namedDescriptorsByOdName.put(odName, descriptors);
 		}
 		
 		descriptors.put(descName, descriptor);
-		
 	}
 	
-	public D getNamedDescriptor(String objDescName, String descName) {
-		try {
-			return namedDescriptorsForObject.get(objDescName).get(descName);
-		} catch (NullPointerException e) {
+	public D getNamedDescriptor(String odName, String descName) {
+		Map<String, D> namedDescriptors = namedDescriptorsByOdName.get(odName);
+		if(namedDescriptors==null)
 			return null;
-		}
+		else
+			return namedDescriptors.get(descName);
 	}
-	
-	public Map<String, D> getDefaultDescriptors(){
-		return defaultDescriptors;
-	}	
 	
 	public Map<String, Map<String, D>> getNamedDescriptors(){
-		return namedDescriptorsForObject;
+		return namedDescriptorsByOdName;
 	}
 }

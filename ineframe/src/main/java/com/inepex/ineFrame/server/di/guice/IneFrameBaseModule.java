@@ -12,7 +12,7 @@ import com.inepex.ineFrame.server.di.jpa.PersistInitializer;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.inei18n.server.I18nStore_Server;
-import com.inepex.inei18n.server.ServerCurrentLang;
+import com.inepex.inei18n.server.WebServerCurrentLang;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
@@ -41,7 +41,7 @@ public class IneFrameBaseModule extends AbstractModule {
 	protected void configure() {
 		install(new IneFrameBaseActionHandlerModule().setLoginHandler(loginHandler).setGetAuthStatusHandler(getAuthStatusHandler));
 		bind(I18nStore_Server.class).in(Singleton.class);
-		bind(CurrentLang.class).to(ServerCurrentLang.class).in(Singleton.class);
+		bind(CurrentLang.class).to(WebServerCurrentLang.class).in(Singleton.class);
 		bind(DescriptorStore.class).to(MultiLangDescStore.class).in(Singleton.class);
 		if (jpa) bind(PersistInitializer.class).asEagerSingleton();
 	}

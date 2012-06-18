@@ -14,7 +14,7 @@ import java.util.TreeMap;
  * @author istvan
  *
  */
-public class ClientDescriptorStore implements DescriptorStore {
+public class ClientDescriptorStore extends DescriptorStore {
 
 	protected final Map<String, ObjectDesc>	objectDescriptorMap = new TreeMap<String, ObjectDesc>();
 	
@@ -27,24 +27,9 @@ public class ClientDescriptorStore implements DescriptorStore {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public <D extends DescriptorBase> D getDefaultTypedDesc(String objDescName, Class<D> clazz) {
-		ensureDescriptorForClass(clazz);
-		return (D) typedDescMap.get(clazz.getName()).getDefaultDescriptor(objDescName);
-	}
-
-	@SuppressWarnings("unchecked")
 	public <D extends DescriptorBase> D getNamedTypedDesc(String objDescName, String namedDescName, Class<D> clazz) {
 		ensureDescriptorForClass(clazz);
 		return (D) typedDescMap.get(clazz.getName()).getNamedDescriptor(objDescName, namedDescName);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <D extends DescriptorBase> void addDefaultTypedDesc(String objDescName, D defaultDesc) {
-		ensureDescriptorForClass(defaultDesc.getClass());
-		((TypedDescriptorMap<D>) typedDescMap.get(defaultDesc.getClass().getName()))
-			.addDefaultDescriptor(objDescName, defaultDesc);
 	}
 
 	@Override
@@ -88,14 +73,8 @@ public class ClientDescriptorStore implements DescriptorStore {
 		return relObjectDesc.getField(path.get(path.size()-1));
 	}
 	
-	public Map<String, ObjectDesc> getDescriptorsMap(){
+	public Map<String, ObjectDesc> getOjectDescriptorMap(){
 		return objectDescriptorMap;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <D extends DescriptorBase> TypedDescriptorMap<D> getTypedDescriptorMap(Class<D> clazz){
-		ensureDescriptorForClass(clazz);
-		return (TypedDescriptorMap<D>) typedDescMap.get(clazz.getName()); 
 	}
 
 	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getAllTypedDescriptorMap() {
@@ -103,7 +82,7 @@ public class ClientDescriptorStore implements DescriptorStore {
 	}
 
 	@Override
-	public String getOdNames() {
+	public String getOdNames(Separator separator) {
 		StringBuilder sb = new StringBuilder();
 		for(String key : objectDescriptorMap.keySet()) {
 			if(sb.length()>0)

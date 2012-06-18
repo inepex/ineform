@@ -9,17 +9,15 @@ import com.google.inject.Singleton;
 import com.inepex.inei18n.shared.CurrentLang;
 
 @Singleton
-public class ServerCurrentLang implements CurrentLang {
+public class WebServerCurrentLang implements CurrentLang {
 	
-	final static Logger logger = LoggerFactory.getLogger(ServerCurrentLang.class);
-	
-	public static final String DEFAULT_LANG = "en";
+	final static Logger logger = LoggerFactory.getLogger(WebServerCurrentLang.class);
 	
 	private ThreadLocal<String> threadLangOverride = new ThreadLocal<String>();
 	private final Provider<SessionScopedLang> sessionLangProvider;
 	
 	@Inject
-	public ServerCurrentLang(Provider<SessionScopedLang> sessionLangProvider) {
+	public WebServerCurrentLang(Provider<SessionScopedLang> sessionLangProvider) {
 		this.sessionLangProvider = sessionLangProvider;
 	}	
 

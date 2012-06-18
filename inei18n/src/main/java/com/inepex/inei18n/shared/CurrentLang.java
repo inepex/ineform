@@ -7,6 +7,9 @@ package com.inepex.inei18n.shared;
  *
  */
 public interface CurrentLang {
+	
+	public static final String DEFAULT_LANG = "en";
+	
 	String getCurrentLang();
 	void setSessionLang(String lang);
 	

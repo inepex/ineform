@@ -46,7 +46,7 @@ public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, 
 		ClientDescriptorStore clientDescStore = (ClientDescriptorStore)multiLangDescStore.getCurrentLanguageDescriptorStore();
 		
 		//set untyped descriptors
-		result.setObjectDescriptorMap( clientDescStore.getDescriptorsMap() );
+		result.setObjectDescriptorMap( clientDescStore.getOjectDescriptorMap() );
 		
 		//set typed descriptors
 		result.setAllTypedDescriptorMap( clientDescStore.getAllTypedDescriptorMap() );

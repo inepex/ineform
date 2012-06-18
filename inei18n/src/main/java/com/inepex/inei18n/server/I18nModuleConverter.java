@@ -25,6 +25,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.LocalizedString;
 
 public class I18nModuleConverter {
@@ -33,7 +34,6 @@ public class I18nModuleConverter {
 	
 	public final static String MODULE_VM = "vm/i18n/Module.vm";
 	public final static String SERVER_MODULE_PROVIDER_VM = "vm/i18n/ServerModuleProvider.vm";
-	public final static String DEFAULT_LANGUAGE = "en";
 	final Pattern BRACETED_STIRNG_FINDER = Pattern.compile("\\{([^}]+)\\}");
 	
 	final static Logger logger = LoggerFactory.getLogger(I18nModuleConverter.class);
@@ -241,7 +241,7 @@ public class I18nModuleConverter {
 		Map<String, Set<String>> map_paramstmp = new LinkedHashMap<String, Set<String>>();
 		for (String key : localizables.keySet()){
 			Set<String> params = new HashSet<String>();
-			String description = localizables.get(key).getLocalizedMap().get(DEFAULT_LANGUAGE);
+			String description = localizables.get(key).getLocalizedMap().get(CurrentLang.DEFAULT_LANG);
 			if (description == null)
 				continue;
 			Matcher m = BRACETED_STIRNG_FINDER.matcher(description);

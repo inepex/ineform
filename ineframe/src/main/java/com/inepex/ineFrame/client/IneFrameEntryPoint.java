@@ -170,7 +170,6 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		
 		while(allTypedDescIt.hasNext()){
 			TypedDescriptorMap<? extends DescriptorBase> typedDesc = allTypedDescMap.get( allTypedDescIt.next() );
-			registerDefaultDescs(typedDesc.getDefaultDescriptors());
 			registerNamedDescs(typedDesc.getNamedDescriptors());
 		}
 		
@@ -180,15 +179,6 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		Iterator<String> odIt = objectDescs.keySet().iterator();
 		while(odIt.hasNext())
 			descStore.registerObjectDesc(objectDescs.get(odIt.next()));
-	}
-	
-	private <D extends DescriptorBase> void registerDefaultDescs(Map<String, D> descs){
-		Iterator<String> descIt = descs.keySet().iterator();
-		while(descIt.hasNext()){
-			String descName = descIt.next();
-			D desc = descs.get(descName);
-			descStore.addDefaultTypedDesc(descName, desc);
-		}
 	}
 	
 	private <D extends DescriptorBase> void registerNamedDescs(Map<String, Map<String, D>> namedDescs){
