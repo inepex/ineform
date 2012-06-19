@@ -16,7 +16,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class TypedDescriptorMap<D> implements IsSerializable {
 	
-	private final Map<String, Map<String, D>> namedDescriptorsByOdName = new TreeMap<String, Map<String,D>>();
+	private Map<String, Map<String, D>> namedDescriptorsByOdName = new TreeMap<String, Map<String,D>>();
 	
 	public void addNamedDescriptor(String odName, String descName, D descriptor){
 		
