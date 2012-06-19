@@ -298,7 +298,7 @@ public class IneTable extends HandlerAwareComposite {
 		if(selectionBehaviour != null && 
 		   selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION){
 			Column<AssistedObject, Boolean> checkColumn = new Column<AssistedObject, Boolean>(
-			        new CheckboxCell(true, true)) {
+			        new CheckboxCell(true, false)) {
 			      @Override
 			      public Boolean getValue(AssistedObject object) {
 			    	  return multiSelectionModel.isSelected(object);
@@ -582,6 +582,9 @@ public class IneTable extends HandlerAwareComposite {
 		
 	public CellTable<AssistedObject> getCellTable() {
 		return cellTable;
+	}
+	public MultiSelectionModel<AssistedObject> getMultiSelectionModel() {
+		return multiSelectionModel;
 	}
 	
 	
