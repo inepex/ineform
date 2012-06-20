@@ -93,8 +93,8 @@ public class IneFormI18n extends I18nModule {
 	public String month_december = "December";
 	public String month_february = "Februar";
 	public String month_january = "Januar";
-	public String month_july = "June";
-	public String month_june = "July";
+	public String month_july = "July";
+	public String month_june = "June";
 	public String month_march = "March";
 	public String month_may = "May";
 	public String month_november = "November";
@@ -740,7 +740,7 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> June
+	* <u><i>In English:</i></u> July
 	* <u><i>Magyarul:</i></u> Július
 	*/
 	public static String month_july() {
@@ -749,7 +749,7 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> July
+	* <u><i>In English:</i></u> June
 	* <u><i>Magyarul:</i></u> Június
 	*/
 	public static String month_june() {
