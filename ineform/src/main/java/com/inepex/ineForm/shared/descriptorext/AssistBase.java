@@ -4,12 +4,12 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 
-public abstract class ObjectListingAssistBase extends Assist {
+public abstract class AssistBase extends Assist {
 
 	private String descriptorName;
 	private String searchDescriptorName;
 	
-	public ObjectListingAssistBase(String descriptorName, String searchDescriptorName, 
+	public AssistBase(String descriptorName, String searchDescriptorName, 
 			DescriptorStore descStore) {
 		super(descStore);
 		this.descriptorName =  descriptorName;
