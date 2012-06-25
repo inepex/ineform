@@ -23,6 +23,8 @@ public class IneFrameBaseModule extends AbstractModule {
 	private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
 	private boolean jpa = true;
 	
+	public Class<? extends DescriptorStore> descStoreClass = MultiLangDescStore.class;
+	
 	public IneFrameBaseModule(boolean jpa) {
 		this.jpa = jpa;
 	}
@@ -42,8 +44,13 @@ public class IneFrameBaseModule extends AbstractModule {
 		install(new IneFrameBaseActionHandlerModule().setLoginHandler(loginHandler).setGetAuthStatusHandler(getAuthStatusHandler));
 		bind(I18nStore_Server.class).in(Singleton.class);
 		bind(CurrentLang.class).to(WebServerCurrentLang.class).in(Singleton.class);
-		bind(DescriptorStore.class).to(MultiLangDescStore.class).in(Singleton.class);
+		bind(DescriptorStore.class).to(descStoreClass).in(Singleton.class);
 		if (jpa) bind(PersistInitializer.class).asEagerSingleton();
+	}
+	
+	public IneFrameBaseModule setDescStoreClass(Class<? extends DescriptorStore> descStoreClass) {
+		this.descStoreClass = descStoreClass;
+		return this;
 	}
 
 }

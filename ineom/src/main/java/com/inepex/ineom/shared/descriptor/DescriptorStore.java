@@ -9,6 +9,10 @@ public abstract class DescriptorStore {
 		javaNewLine, htmlBR;
 	}
 	
+	public static String typeToKey(Class<?> clazz) {
+		return clazz.getName();
+	}
+	
 	public final <D extends DescriptorBase> D getDefaultTypedDesc(String objDescName, Class<D> clazz) {
 		return getNamedTypedDesc(objDescName, DEFAULT_DESC_KEY, clazz);
 	}

@@ -13,10 +13,8 @@ import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, GetDescStoreResult> {
-	private DescriptorStore descStore;
 	
-	public GetDescriptorStoreHandler() {
-	}
+	private final DescriptorStore descStore;
 	
 	@Inject
 	public GetDescriptorStoreHandler(DescriptorStore descStore) {
@@ -32,18 +30,18 @@ public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, 
 	protected GetDescStoreResult doExecute(GetDescStore action,	ExecutionContext context) throws AuthenticationException,
 			DispatchException {
 		
-		GetDescStoreResult result = new GetDescStoreResult();
-		
 		if(descStore instanceof MultiLangDescStore){
-			handleMultiLangDescStore(descStore, result);			
+			GetDescStoreResult result = new GetDescStoreResult();
+			handleMultiLangDescStore(descStore, result);
+			return result;
 		}
 		
-		return result;
+		throw new UnsupportedOperationException("unsupported DescStore! implement it for: "+descStore.getClass().getName());
 	}
 
 	private void handleMultiLangDescStore(DescriptorStore descStore, GetDescStoreResult result) {
 		MultiLangDescStore multiLangDescStore = (MultiLangDescStore) descStore;
-		ClientDescriptorStore clientDescStore = (ClientDescriptorStore)multiLangDescStore.getCurrentLanguageDescriptorStore();
+		ClientDescriptorStore clientDescStore = (ClientDescriptorStore) multiLangDescStore.getCurrentDescriptorStore();
 		
 		//set untyped descriptors
 		result.setObjectDescriptorMap( clientDescStore.getOjectDescriptorMap() );

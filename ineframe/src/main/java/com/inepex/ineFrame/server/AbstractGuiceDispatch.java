@@ -14,7 +14,6 @@ import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
@@ -56,11 +55,10 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 
 	private void setupDescriptorStores() {
 		
-		for (String lang : serverI18n.getAllLangs()) {
-			ClientDescriptorStore localizedDescStore = new ClientDescriptorStore();
+		for (String lang : serverI18n.getAllLangs()) {			
 			currentLangProvider.get().setLangOverride(lang);
+			DescriptorStore localizedDescStore = multiLangDescStore.getCurrentDescriptorStore();
 			registerAssists(localizedDescStore);
-			multiLangDescStore.addStore(lang, localizedDescStore);
 		}
 		
 		currentLangProvider.get().setLangOverride(null);

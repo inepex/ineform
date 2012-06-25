@@ -29,7 +29,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 	@SuppressWarnings("unchecked")
 	public <D extends DescriptorBase> D getNamedTypedDesc(String objDescName, String namedDescName, Class<D> clazz) {
 		ensureDescriptorForClass(clazz);
-		return (D) typedDescMap.get(clazz.getName()).getNamedDescriptor(objDescName, namedDescName);
+		return (D) typedDescMap.get(typeToKey(clazz)).getNamedDescriptor(objDescName, namedDescName);
 	}
 
 	@Override
@@ -37,13 +37,13 @@ public class ClientDescriptorStore extends DescriptorStore {
 	public <D extends DescriptorBase> void addNamedTypedDesc(String objDescName, String namedDescName, D namedDesc) {
 		ensureDescriptorForClass(namedDesc.getClass());
 		
-		((TypedDescriptorMap<D>) typedDescMap.get(namedDesc.getClass().getName()))
+		((TypedDescriptorMap<D>) typedDescMap.get(typeToKey(namedDesc.getClass())))
 			.addNamedDescriptor(objDescName, namedDescName, namedDesc);
 	}
 	
 	private <D extends DescriptorBase> void ensureDescriptorForClass(Class<D> clazz) {
-		if (!typedDescMap.containsKey(clazz.getName()))
-			typedDescMap.put(clazz.getName(), new TypedDescriptorMap<D>());
+		if (!typedDescMap.containsKey(typeToKey(clazz)))
+			typedDescMap.put(typeToKey(clazz), new TypedDescriptorMap<D>());
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 		for (int i = 0; i < path.size()-1; i++){
 			RelationFDesc relFieldDescr = 
 				(RelationFDesc)relObjectDesc.getField(path.get(i));
-			relObjectDesc = this.getOD(relFieldDescr.getRelatedDescriptorName());
+			relObjectDesc = getOD(relFieldDescr.getRelatedDescriptorName());
 		}
 		return relObjectDesc.getField(path.get(path.size()-1));
 	}
@@ -91,5 +91,9 @@ public class ClientDescriptorStore extends DescriptorStore {
 		}
 		
 		return sb.toString();
+	}
+	
+	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getTypedDescMap() {
+		return typedDescMap;
 	}
 }
