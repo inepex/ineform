@@ -22,6 +22,8 @@ import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.WindowResizeEvent;
+import com.inepex.ineFrame.client.navigation.HistoryProvider;
+import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetDescStoreResult;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
@@ -30,6 +32,7 @@ import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieResult;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
@@ -59,12 +62,15 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
 	private final QueryCounter queryCounter = new QueryCounter();
 	
+	private final HistoryProvider historyProvider;
+	
 	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager, 
-			DescriptorStore descStore) {
+			DescriptorStore descStore, HistoryProvider historyProvider) {
 		this.dispatchAsync = dispatchAsync;
 		this.eventBus = eventBus;
 		this.authManager = authManager;
 		this.descStore = descStore;
+		this.historyProvider = historyProvider;
 	}
 
 	@Override
@@ -111,7 +117,9 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		// query i18n
 		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
 				new DefaultFailedHandler());
-		GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction = clientI18nStore.getModuleQueryAction(loadLangFromCookie);
+		
+		String langFromUrl = PlaceHandlerHelper.getUrlParameters(historyProvider.getToken()).get(IFConsts.LANG);
+		GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction = clientI18nStore.getModuleQueryAction(loadLangFromCookie, langFromUrl);
 		dispatch.execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
 	}
 	

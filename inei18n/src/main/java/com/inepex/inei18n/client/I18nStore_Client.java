@@ -17,10 +17,15 @@ public class I18nStore_Client extends I18nStoreBase {
 	public final static String LANG_COOKIE_ID="I18nStore_Client_last_used_lang";
 	private String currentLanguage = "";
 
-	/**
-	 *  loads last used lang from cookie, creates a GetI18nModulesAndSetCurrentLangFromCookieAction from registered modules 
-	 */
 	public GetI18nModulesAndSetCurrentLangFromCookieAction getModuleQueryAction(boolean loadLangFromCookie) {
+		return getModuleQueryAction(loadLangFromCookie, null);
+	}
+	
+	/**
+	 *  loads last used lang from cookie, creates a GetI18nModulesAndSetCurrentLangFromCookieAction from registered modules
+	 *  use forcedLanguage to override cookie lang. If forcedLang is null, lang from cookie is used 
+	 */
+	public GetI18nModulesAndSetCurrentLangFromCookieAction getModuleQueryAction(boolean loadLangFromCookie, String forcedLanguage) {
 		Collection<String> moduleNames = new ArrayList<String>();
 		for (String string : this.modulesByName.keySet()) {
 			moduleNames.add(string);
@@ -29,6 +34,9 @@ public class I18nStore_Client extends I18nStoreBase {
 		String lastLang=null;
 		if(loadLangFromCookie) {
 			lastLang = Cookies.getCookie(LANG_COOKIE_ID);
+		}
+		if (forcedLanguage != null){
+			lastLang = forcedLanguage;
 		}
 		
 		return new GetI18nModulesAndSetCurrentLangFromCookieAction(lastLang, moduleNames);

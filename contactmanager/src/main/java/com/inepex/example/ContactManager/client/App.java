@@ -16,7 +16,8 @@ public class App extends IneFrameEntryPoint {
 	public static AppGinjector INJECTOR = GWT.create(AppGinjector.class);
 	
 	public App() {
-		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager(), INJECTOR.getDescriptorStore());
+		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager(), INJECTOR.getDescriptorStore(),
+				INJECTOR.getHistoryProvider());
 	}
 	
 	@Override

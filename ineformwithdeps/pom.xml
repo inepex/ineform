@@ -25,7 +25,7 @@
  		</repository> 
  		<repository>
 			<id>inerepo</id>
- 			<url>http://maven.inepex.com:8081/nexus/content/repositories/releases/</url> 
+ 			<url>http://maven.inepex.com/content/repositories/releases/</url> 
  			<name>inerepo</name>
  		</repository> 	
 		<repository>
@@ -89,7 +89,7 @@
     <repository>
       <id>inepex</id>
       <name>Inepex Repository</name>
-      <url>http://maven.inepex.com:8081/nexus/content/repositories/releases</url>
+      <url>http://maven.inepex.com/content/repositories/thirdparty</url>
     </repository>
   </distributionManagement>
 </project>

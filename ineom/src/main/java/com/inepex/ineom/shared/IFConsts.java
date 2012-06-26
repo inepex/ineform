@@ -36,5 +36,7 @@ public class IFConsts {
 	public static final String COOKIE_TRUE= "true";
 	public static final String COOKIE_FALSE= "false";
 	
+	public static final String LANG = "lang";
+	
 	
 }

@@ -6,6 +6,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
@@ -21,5 +22,6 @@ public interface AppGinjector extends Ginjector {
 	public AuthManager getAuthManager();
 	public PlaceHierarchyProvider gePlaceHierarchyProvider();
 	public PlaceHandler gePlaceHandler();
+	public HistoryProvider getHistoryProvider();
 	
 }
