@@ -1,5 +1,7 @@
 package com.inepex.ineFrame.server.handler;
 
+import java.util.ArrayList;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
@@ -11,6 +13,8 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.ODescMarkerPair;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
 public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, GetDescStoreResult> {
 	
@@ -44,9 +48,15 @@ public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, 
 		ClientDescriptorStore clientDescStore = (ClientDescriptorStore) multiLangDescStore.getCurrentDescriptorStore();
 		
 		//set untyped descriptors
-		result.setObjectDescriptorMap( clientDescStore.getOjectDescriptorMap() );
+		if(clientDescStore.getOjectDescriptorMap()!=null && clientDescStore.getOjectDescriptorMap().size()>0) {
+			ArrayList<ObjectDesc> odList = new ArrayList<ObjectDesc>(clientDescStore.getOjectDescriptorMap().size());
+			for(ODescMarkerPair p : clientDescStore.getOjectDescriptorMap().values()) 
+				odList.add(p.getObjectDesc());
+			
+			result.setObjectDescs(odList);
+		}
 		
 		//set typed descriptors
-		result.setAllTypedDescriptorMap( clientDescStore.getAllTypedDescriptorMap() );
+		result.setAllTypedDescriptorMap(clientDescStore.getAllTypedDescriptorMap() );
 	}
 }

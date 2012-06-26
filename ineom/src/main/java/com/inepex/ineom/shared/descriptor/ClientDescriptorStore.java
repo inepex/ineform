@@ -2,6 +2,7 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 /**
@@ -16,14 +17,18 @@ import java.util.TreeMap;
  */
 public class ClientDescriptorStore extends DescriptorStore {
 
-	protected final Map<String, ObjectDesc>	objectDescriptorMap = new TreeMap<String, ObjectDesc>();
+	protected final Map<String, ODescMarkerPair> objectDescriptorMap = new TreeMap<String, ODescMarkerPair>();
 	
     protected final Map<String, TypedDescriptorMap<? extends DescriptorBase>>
     	typedDescMap = new TreeMap<String, TypedDescriptorMap<? extends DescriptorBase>>();
 	
 	@Override
 	public ObjectDesc getOD(String objectDescriptorName) {
-		return objectDescriptorMap.get(objectDescriptorName);
+		ODescMarkerPair pair = objectDescriptorMap.get(objectDescriptorName);
+		if(pair==null)
+			return null;
+		else
+			return pair.getObjectDesc();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -34,11 +39,11 @@ public class ClientDescriptorStore extends DescriptorStore {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <D extends DescriptorBase> void addNamedTypedDesc(String objDescName, String namedDescName, D namedDesc) {
+	public <D extends DescriptorBase> void addNamedTypedDesc(Marker marker, String objDescName, String namedDescName, D namedDesc) {
 		ensureDescriptorForClass(namedDesc.getClass());
 		
 		((TypedDescriptorMap<D>) typedDescMap.get(typeToKey(namedDesc.getClass())))
-			.addNamedDescriptor(objDescName, namedDescName, namedDesc);
+			.addNamedDescriptor(marker, objDescName, namedDescName, namedDesc);
 	}
 	
 	private <D extends DescriptorBase> void ensureDescriptorForClass(Class<D> clazz) {
@@ -47,20 +52,20 @@ public class ClientDescriptorStore extends DescriptorStore {
 	}
 	
 	@Override
-	public void registerDescriptors(ObjectDesc objDesc, DescriptorBase... defaultDescriptors) {
-		registerObjectDesc(objDesc);
+	public void registerDescriptors(Marker marker, ObjectDesc objDesc, DescriptorBase... defaultDescriptors) {
+		registerObjectDesc(marker, objDesc);
 
 		for (DescriptorBase descriptorBase : defaultDescriptors) {
 			if (descriptorBase == null)
 				continue;
-			addDefaultTypedDesc(objDesc.getName(), descriptorBase);
+			addDefaultTypedDesc(marker, objDesc.getName(), descriptorBase);
 		}
 	}
 
 	@Override
-	public void registerObjectDesc(ObjectDesc objDesc){
+	public void registerObjectDesc(Marker marker, ObjectDesc objDesc){
 		String oDName = objDesc.getName();
-		objectDescriptorMap.put(oDName, objDesc);
+		objectDescriptorMap.put(oDName, new ODescMarkerPair(objDesc, marker));
 	}
 	
 	public FDesc getRelatedFieldDescrMultiLevel(ObjectDesc baseOD, List<String> path) {
@@ -73,7 +78,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 		return relObjectDesc.getField(path.get(path.size()-1));
 	}
 	
-	public Map<String, ObjectDesc> getOjectDescriptorMap(){
+	public Map<String, ODescMarkerPair> getOjectDescriptorMap(){
 		return objectDescriptorMap;
 	}
 
@@ -82,17 +87,41 @@ public class ClientDescriptorStore extends DescriptorStore {
 	}
 
 	@Override
-	public String getOdNames(Separator separator) {
+	public String getOdNames(Decoration decorator) {
 		StringBuilder sb = new StringBuilder();
-		for(String key : objectDescriptorMap.keySet()) {
+		for(Entry<String, ODescMarkerPair> entry : objectDescriptorMap.entrySet()) {
 			if(sb.length()>0)
 				sb.append(", ");
-			sb.append(key);
+			
+			sb.append(beforeKey(decorator, entry.getValue().getMarker()));
+			sb.append(entry.getKey());
+			sb.append(afterKey(decorator, entry.getValue().getMarker()));
 		}
 		
 		return sb.toString();
 	}
 	
+	private Object afterKey(Decoration decorator, Marker marker) {
+		switch(decorator) {
+		case html:
+			return "</font>";
+		case javaNewLine:
+			return "("+marker.shortName+")";
+		default:
+			return "";
+		}
+	}
+
+	private String beforeKey(Decoration decorator, Marker marker) {
+		switch(decorator) {
+		case html:
+			return "<font style='color: "+marker.color+"'>";
+		case javaNewLine:
+		default:
+			return "";
+		}
+	}
+
 	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getTypedDescMap() {
 		return typedDescMap;
 	}

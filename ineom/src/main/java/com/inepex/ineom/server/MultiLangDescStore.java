@@ -59,8 +59,8 @@ public class MultiLangDescStore extends DescriptorStore {
 
 
 	@Override
-	public void registerObjectDesc(ObjectDesc descriptor) {
-		getCurrentDescriptorStore().registerObjectDesc(descriptor);
+	public void registerObjectDesc(Marker marker, ObjectDesc descriptor) {
+		getCurrentDescriptorStore().registerObjectDesc(marker, descriptor);
 	}
 
 	@Override
@@ -74,13 +74,13 @@ public class MultiLangDescStore extends DescriptorStore {
 	}
 
 	@Override
-	public <D extends DescriptorBase> void addNamedTypedDesc(String objDescName, String namedDescName, D namedDesc) {
-		getCurrentDescriptorStore().addNamedTypedDesc(objDescName, namedDescName, namedDesc);
+	public <D extends DescriptorBase> void addNamedTypedDesc(Marker marker, String objDescName, String namedDescName, D namedDesc) {
+		getCurrentDescriptorStore().addNamedTypedDesc(marker, objDescName, namedDescName, namedDesc);
 	}
 
 	@Override
-	public void registerDescriptors(ObjectDesc descriptor, DescriptorBase... defaultDescriptors) {
-		getCurrentDescriptorStore().registerDescriptors(descriptor, defaultDescriptors);
+	public void registerDescriptors(Marker marker, ObjectDesc descriptor, DescriptorBase... defaultDescriptors) {
+		getCurrentDescriptorStore().registerDescriptors(marker, descriptor, defaultDescriptors);
 	}
 	
 	public DescriptorStore getCurrentDescriptorStore(){
@@ -88,12 +88,12 @@ public class MultiLangDescStore extends DescriptorStore {
 	}
 
 	@Override
-	public String getOdNames(Separator separator) {
+	public String getOdNames(Decoration decorator) {
 		StringBuilder sb = new StringBuilder();
 		for(String lang : storeByLang.keySet()) {
 			if(sb.length()>0) {
-				switch (separator) {
-				case htmlBR:
+				switch (decorator) {
+				case html:
 					sb.append("<br /><br />");
 					break;
 				case javaNewLine:
@@ -104,7 +104,7 @@ public class MultiLangDescStore extends DescriptorStore {
 			}
 			sb.append(lang);
 			sb.append(": (");
-			sb.append(storeByLang.get(lang).getOdNames(separator));
+			sb.append(storeByLang.get(lang).getOdNames(decorator));
 			sb.append(")");
 		}
 		

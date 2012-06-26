@@ -12,6 +12,7 @@ import com.inepex.ineom.shared.descriptor.LongFDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 public class TestUtil {
 	
@@ -29,8 +30,8 @@ public class TestUtil {
 			.addField(new RelationFDesc("relField", "A relation", "test2Kvo"))
 			.addField(new ListFDesc("listField", "A list", "test2Kvo"));
 		
-		descriptorStore.registerDescriptors(descriptor2);
-		descriptorStore.registerDescriptors(descriptor);
+		descriptorStore.registerDescriptors(Marker.registered, descriptor2);
+		descriptorStore.registerDescriptors(Marker.registered, descriptor);
 	}
 	
 	

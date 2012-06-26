@@ -2,6 +2,7 @@ package com.inepex.ineFrame.client;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -31,6 +32,7 @@ import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieResult;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.TypedDescriptorMap;
 
@@ -116,7 +118,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	private class GetDescriptorStoreCallback extends SuccessCallback<GetDescStoreResult>{
 		@Override
 		public void onSuccess(GetDescStoreResult result) {
-			registerDescriptors(result.getObjectDescs()
+			registerDescriptors(Marker.precached, result.getObjectDescs()
 							  , result.getAllTypedDescMap());
 			
 			queryCounter.decQueries();
@@ -158,30 +160,28 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	}
 
 	private void registerDescriptors(
-			Map<String, ObjectDesc> objectDescs,
+			Marker marker,List<ObjectDesc> objectDescs,
 			Map<String, TypedDescriptorMap<? extends DescriptorBase>> allTypedDescMap) {
-		registerObjectDescs(objectDescs);
-		registerTypedDescs(allTypedDescMap);
+		if(objectDescs!=null) {
+			for(ObjectDesc od : objectDescs)
+				descStore.registerObjectDesc(marker, od);
+			
+		}
+		registerTypedDescs(marker, allTypedDescMap);
 	}
 	
-	private void registerTypedDescs(Map<String, TypedDescriptorMap<? extends DescriptorBase>> allTypedDescMap) {
+	private void registerTypedDescs(Marker marker, Map<String, TypedDescriptorMap<? extends DescriptorBase>> allTypedDescMap) {
 		
 		Iterator<String> allTypedDescIt = allTypedDescMap.keySet().iterator();
 		
 		while(allTypedDescIt.hasNext()){
 			TypedDescriptorMap<? extends DescriptorBase> typedDesc = allTypedDescMap.get( allTypedDescIt.next() );
-			registerNamedDescs(typedDesc.getNamedDescriptors());
+			registerNamedDescs(marker, typedDesc.getNamedDescriptors());
 		}
 		
 	}
-
-	private void registerObjectDescs(Map<String, ObjectDesc> objectDescs){
-		Iterator<String> odIt = objectDescs.keySet().iterator();
-		while(odIt.hasNext())
-			descStore.registerObjectDesc(objectDescs.get(odIt.next()));
-	}
 	
-	private <D extends DescriptorBase> void registerNamedDescs(Map<String, Map<String, D>> namedDescs){
+	private <D extends DescriptorBase> void registerNamedDescs(Marker marker, Map<String, Map<String, D>> namedDescs){
 		Iterator<String> nDescIt = namedDescs.keySet().iterator();
 		while(nDescIt.hasNext()){
 			String objDescName = nDescIt.next();
@@ -193,7 +193,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 				String namedDescName = nRDescsIt.next();
 				D namedDesc = nRDescs.get(namedDescName);
 				
-				descStore.addNamedTypedDesc(objDescName, namedDescName, namedDesc);
+				descStore.addNamedTypedDesc(marker, objDescName, namedDescName, namedDesc);
 			}
 			
 		}

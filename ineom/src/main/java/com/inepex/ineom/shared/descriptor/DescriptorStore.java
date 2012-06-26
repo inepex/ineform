@@ -1,14 +1,51 @@
 package com.inepex.ineom.shared.descriptor;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class DescriptorStore {
 
 	public static final String DEFAULT_DESC_KEY = "default";
-	public static enum Separator {
-		javaNewLine, htmlBR;
+	
+	/**
+	 * Helps in {@link DescriptorStore#getOdNames(Decoration)} method to define string format.
+	 */
+	public static enum Decoration {
+		javaNewLine, html;
 	}
 	
+	/**
+	 * Describes what program phase added the descriptor.
+	 */
+	public static enum Marker {
+		/**
+		 * on the start of program
+		 */
+		registered("black", "reg"), 
+		
+		/**
+		 * loaded from other module for further usage
+		 */
+		precached("blue", "pre"), 
+		
+		/**
+		 * by auto download
+		 */
+		ondemand("red", "od"),
+		otherWay("gray", "other");
+		
+		public final String color;
+		public final String shortName;
+		
+		private Marker(String color, String shortName) {
+			this.color=color;
+			this.shortName=shortName;
+		}
+	}
+	
+	/**
+	 * Some store implementations use {@link Map} and it's the key maker method for {@link DescriptorBase} types.
+	 */
 	public static String typeToKey(Class<?> clazz) {
 		return clazz.getName();
 	}
@@ -17,8 +54,8 @@ public abstract class DescriptorStore {
 		return getNamedTypedDesc(objDescName, DEFAULT_DESC_KEY, clazz);
 	}
 
-	public final <D extends DescriptorBase> void addDefaultTypedDesc(String objDescName, D defaultDesc){
-		addNamedTypedDesc(objDescName, DEFAULT_DESC_KEY, defaultDesc);
+	public final <D extends DescriptorBase> void addDefaultTypedDesc(Marker marker, String objDescName, D defaultDesc){
+		addNamedTypedDesc(marker, objDescName, DEFAULT_DESC_KEY, defaultDesc);
 	}
 	
 	/**
@@ -33,21 +70,21 @@ public abstract class DescriptorStore {
 	
 	/**
 	 * For debug and logging.
-	 * @param separator when returned string contains more than one line, can be separated pending on {@link Separator}
+	 * @param decor returned string can be decorated pending on {@link Decoration}
 	 * @return the names of registered {@link ObjectDesc}s
 	 */
-	public abstract String getOdNames(Separator separator);
+	public abstract String getOdNames(Decoration decor);
 	
 	public abstract <D extends DescriptorBase> D getNamedTypedDesc(String objDescName, String namedDescName, Class<D> clazz);
 	
-	public abstract <D extends DescriptorBase> void addNamedTypedDesc(String objDescName, String namedDescName, D namedDesc);
+	public abstract <D extends DescriptorBase> void addNamedTypedDesc(Marker marker, String objDescName, String namedDescName, D namedDesc);
 	
 	/**
 	 * Registers the ObjectDescriptor with any number of related descriptors.
 	 */
-	public abstract void registerDescriptors(ObjectDesc descriptor, DescriptorBase... defaultDescriptors);
+	public abstract void registerDescriptors(Marker marker, ObjectDesc descriptor, DescriptorBase... defaultDescriptors);
 
-	public abstract void registerObjectDesc(ObjectDesc descriptor);
+	public abstract void registerObjectDesc(Marker marker, ObjectDesc descriptor);
 	
 	public abstract FDesc getRelatedFieldDescrMultiLevel(ObjectDesc baseOD, List<String> path);
 }

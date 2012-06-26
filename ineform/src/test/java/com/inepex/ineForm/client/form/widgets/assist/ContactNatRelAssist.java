@@ -12,6 +12,7 @@ import com.inepex.ineom.shared.descriptor.LongFDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 public class ContactNatRelAssist {
 
@@ -23,8 +24,8 @@ public class ContactNatRelAssist {
 	private static ValidatorDesc validatorDesc = null;
 	
 	public static void registerDescriptors(DescriptorStore descStore) {
-		descStore.registerDescriptors(getObjectDesc(), getTableRDesc(), getFormRDesc(), getValidatorDesc());
-		descStore.registerDescriptors(getSearchObjectDesc(), null, getSearchFormRDesc(), null);
+		descStore.registerDescriptors(Marker.registered, getObjectDesc(), getTableRDesc(), getFormRDesc(), getValidatorDesc());
+		descStore.registerDescriptors(Marker.registered, getSearchObjectDesc(), null, getSearchFormRDesc(), null);
 		
 		/*hc:extraDescriptors*/
 		/*hc*/

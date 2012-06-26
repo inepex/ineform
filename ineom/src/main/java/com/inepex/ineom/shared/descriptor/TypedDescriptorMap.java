@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 /**
  * Helper class for string Typed Descriptors. This class is used in {@link ClientDescriptorStore}.
@@ -18,7 +19,7 @@ public class TypedDescriptorMap<D> implements IsSerializable {
 	
 	private Map<String, Map<String, D>> namedDescriptorsByOdName = new TreeMap<String, Map<String,D>>();
 	
-	public void addNamedDescriptor(String odName, String descName, D descriptor){
+	public void addNamedDescriptor(Marker marker, String odName, String descName, D descriptor){
 		
 		Map<String, D> descriptors = namedDescriptorsByOdName.get(odName);
 		

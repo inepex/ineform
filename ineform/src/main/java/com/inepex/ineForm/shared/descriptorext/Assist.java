@@ -3,6 +3,7 @@ package com.inepex.ineForm.shared.descriptorext;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 
 public abstract class Assist {
@@ -14,10 +15,10 @@ public abstract class Assist {
 	}
 	
 	public final void registerDescriptors() {
-		descStore.registerDescriptors(getObjectDesc(), getTableRDesc(), getFormRDesc(), getValidatorDesc());
+		descStore.registerDescriptors(Marker.registered, getObjectDesc(), getTableRDesc(), getFormRDesc(), getValidatorDesc());
 		ObjectDesc searchObjectDesc = getSearchObjectDesc();
 		if (searchObjectDesc != null)
-			descStore.registerDescriptors(searchObjectDesc, null, getSearchFormRDesc(), null);
+			descStore.registerDescriptors(Marker.registered, searchObjectDesc, null, getSearchFormRDesc(), null);
 		
 		registerExtraDescriptors();
 	}
