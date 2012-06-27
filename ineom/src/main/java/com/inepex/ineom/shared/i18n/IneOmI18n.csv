@@ -1,4 +1,4 @@
-"validationEmail";" ";"This is not valid e-mail address!";"Meg megfelelő e-mail címed adott meg!"
+"validationEmail";" ";"This is not valid e-mail address!";"Nem megfelelő e-mail címed adott meg!"
 "validationFieldError";"";"Field error";"Hibás mező - "
 "validationGeneralError";"";"Error:";"Hiba: "
 "validatorEQ";"";"The number entered into field {fieldName} must be equal to {constvalAsString}!";"A {fieldName} mezőbe beírt szám értéke {constvalAsString} kell, hogy legyen!"
