@@ -83,14 +83,10 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		// query auth status
 		if (!(authManager instanceof NoAuthManager)){
 			queryCounter.incQueries();
-			
 			authManager.checkAuthStatus(new AuthStatusCallback());
 		} else {
 			queryI18nAndInvokeOnIneModuleLoad(true);
 		}
-		
-		//query descriptor store
-		queryDescriptorStore();
 		
 		Window.addResizeHandler(new ResizeHandler() {
 			
@@ -143,6 +139,9 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 			Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.currentLang, DateHelper.addDaysSafe(new Date(), 50));
 			
 			queryCounter.decQueries();
+			
+			//query descriptor store
+			queryDescriptorStore();
 			
 			if(queryCounter.isAllQueriesResponseArrived())
 				onIneModuleLoad();
