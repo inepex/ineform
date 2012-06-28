@@ -523,6 +523,7 @@ public class IneTable extends HandlerAwareComposite {
 	}
 	
 	public void setPageSize(int pageSize) {
+		this.pageSize=pageSize;
 		cellTable.setPageSize(pageSize);
 	}
 	
