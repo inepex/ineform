@@ -16,6 +16,8 @@ public class EmailValidator implements KeyValueObjectValidator {
 			"^" +
 			"([a-zA-Z0-9]){2,40}" +									//firstname
 			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//.lastname
+			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//.lastlastname
+			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//.lastlastlastname
 			"@" + 													//@
 			"([a-zA-Z0-9]){2,40}" +									//sg
 			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//-domain
