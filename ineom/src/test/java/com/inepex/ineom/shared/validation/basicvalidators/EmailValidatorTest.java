@@ -21,6 +21,7 @@ public class EmailValidatorTest {
 		Assert.assertEquals(true, testMatch(EmailValidator.regExpr, "istvan.kis-laszlo.gel@korte.er"));
 		Assert.assertEquals(true, testMatch(EmailValidator.regExpr, "alma1341@alma.hu"));
 		
+		Assert.assertEquals(false, testMatch(EmailValidator.regExpr, "alméa@korte.er")); //specical char é
 		Assert.assertEquals(false, testMatch(EmailValidator.regExpr, "alma@korte..er"));
 		Assert.assertEquals(false, testMatch(EmailValidator.regExpr, "alma.@korte.er"));
 		Assert.assertEquals(false, testMatch(EmailValidator.regExpr, "al..ma@korte.er"));
