@@ -44,7 +44,7 @@ public class IneOmI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>   <br />
 	* <u><i>In English:</i></u> This is not valid e-mail address!
-	* <u><i>Magyarul:</i></u> Meg megfelelő e-mail címed adott meg!
+	* <u><i>Magyarul:</i></u> Nem megfelelő e-mail cím!
 	*/
 	public static String validationEmail() {
 		return moduleProvider.get().validationEmail;
