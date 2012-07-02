@@ -410,5 +410,12 @@ public class DateHelper {
 		date.setTime(date.getTime() - 1);
 		return date;
 	}
+	
+	public static Date getToday(DateProvider dateProvider){
+		Date today = dateProvider.whatMeansTyped(new Date().getTime());
+		today.setHours(12);
+		today.setMinutes(1);
+		return today;
+	}
 
 }
