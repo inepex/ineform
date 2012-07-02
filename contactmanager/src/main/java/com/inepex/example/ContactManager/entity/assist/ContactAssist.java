@@ -17,6 +17,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 public class ContactAssist extends Assist {
 	
@@ -28,7 +29,7 @@ public class ContactAssist extends Assist {
 	
 	@Override
 	protected void registerExtraDescriptors() {
-		descStore.addNamedTypedDesc(ContactConsts.descriptorName, roFRD, getROFormRDesc());
+		descStore.addNamedTypedDesc(Marker.registered, ContactConsts.descriptorName, roFRD, getROFormRDesc());
 	}
 	
 	@Override

@@ -18,6 +18,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 public class MeetingAssist extends Assist {
 	
@@ -29,7 +30,7 @@ public class MeetingAssist extends Assist {
 	
 	@Override
 	protected void registerExtraDescriptors() {
-		descStore.addNamedTypedDesc(MeetingConsts.descriptorName, roFRD, getROFormRDesc());
+		descStore.addNamedTypedDesc(Marker.registered, MeetingConsts.descriptorName, roFRD, getROFormRDesc());
 	}
 	
 	@Override

@@ -16,6 +16,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 public class CompanyAssist extends Assist {
 	
@@ -27,7 +28,7 @@ public class CompanyAssist extends Assist {
 	
 	@Override
 	protected void registerExtraDescriptors() {
-		descStore.addNamedTypedDesc(CompanyConsts.descriptorName, roFRD, getROFormRDesc());
+		descStore.addNamedTypedDesc(Marker.registered, CompanyConsts.descriptorName, roFRD, getROFormRDesc());
 	}
 	
 	@Override
