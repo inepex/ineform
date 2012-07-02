@@ -74,10 +74,16 @@ public class IneFormGinModule extends AbstractGinModule {
 	private Class<? extends DateProvider> dateProvider = CETDateProviderCln.class;
 	private Class<? extends FormUnitFactory> formUnitFactory = DefaultFormUnitFactory.class;
 	private Class<? extends PanelWidgetFactory> panelWidgetFactory = DefaultPanelWidgetFactory.class;
+	private Class<? extends DescriptorStore> descStore = ClientDescriptorStore.class;
 	
 	public IneFormGinModule() {
 	}
 
+	public IneFormGinModule setDescStore(Class<? extends DescriptorStore> descStore) {
+		this.descStore = descStore;
+		return this;
+	}
+	
 	public IneFormGinModule setAsyncStatusIndicator(Class<? extends AsyncStatusIndicator> asyncStatusIndicator) {
 		this.asyncStatusIndicator = asyncStatusIndicator;
 		return this;
@@ -121,7 +127,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(NumberUtil.class).to(NumberUtilCln.class);
 		
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
-		bind(DescriptorStore.class).to(ClientDescriptorStore.class).in(Singleton.class);
+		bind(DescriptorStore.class).to(descStore).in(Singleton.class);
 		
 		bind(FormContext.class);
 		
