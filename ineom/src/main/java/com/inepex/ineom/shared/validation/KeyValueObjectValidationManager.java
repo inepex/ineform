@@ -5,6 +5,7 @@ import static com.inepex.ineom.shared.util.SharedUtil.listFromDotSeparated;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -52,19 +53,8 @@ public class KeyValueObjectValidationManager {
 		this.descStore = descStore;
 	}
 	
-	//TODO create handmade validator for boolean list
-//	public static void validateBoolean(String errorMsg, ValidationResult vr, AssistedObject kvo, String... fields) {
-//		for(String field : fields) {
-//			Boolean b = kvo.getBoolean(field);
-//			if(b!=null && b) return;
-//		}
-//		
-//		vr.addFieldError(fields[0], errorMsg);
-//	}
-	
 	
 //------------------------------ GETTING VALIDATORS
-	
 	/**
 	 * override it for manage handmade validators 
 	 * 
@@ -183,7 +173,6 @@ public class KeyValueObjectValidationManager {
 				actual = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), od);
 			}
 			
-			String lastKey = nameAsList.get(nameAsList.size()-1);
 			FDesc fDesc = descStore.getRelatedFieldDescrMultiLevel(od, nameAsList);
 			
 			if(fDesc==null) continue;
@@ -234,8 +223,8 @@ public class KeyValueObjectValidationManager {
 			
 			if(!vr.isValid()) {
 				if(vr.getGeneralErrors()!=null) result.getGeneralErrors().addAll(vr.getGeneralErrors());
-				if(vr.getFieldErrors().get(lastKey)!=null) {
-					for(String error : vr.getFieldErrors().get(lastKey)) {
+				for(Entry<String, List<String>> entry : vr.getFieldErrors().entrySet()) {
+					for(String error : entry.getValue()) {
 						result.addFieldError(fieldName, error);
 					}
 				}
@@ -244,7 +233,6 @@ public class KeyValueObjectValidationManager {
 			//TODO relation list: there is some rel list validation in SaveCancelForm
 		}
 		
-		//TODO handling handmade validators
 		return result;
 	}
 	

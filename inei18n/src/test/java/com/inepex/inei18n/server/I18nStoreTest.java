@@ -42,10 +42,10 @@ public class I18nStoreTest {
 		serverStore = new I18nStore_Server();
 
 		fooClientI18nProvider = new ClientI18nProvider<FooI18n>();
-		fooServerI18nProvider = new ServerFooI18nProvider(new TestUsersCurrentLangProvider());
+		fooServerI18nProvider = new ServerFooI18nProvider(new TestCurrentLangProvider());
 
 		barClientI18nProvider = new ClientI18nProvider<BarI18n>();
-		barServerI18nProvider = new ServerBarI18nProvider(new TestUsersCurrentLangProvider());
+		barServerI18nProvider = new ServerBarI18nProvider(new TestCurrentLangProvider());
 
 		
 		/**
@@ -229,7 +229,7 @@ public class I18nStoreTest {
 		return testData;
 	}
 	
-	private class TestUsersCurrentLangProvider implements Provider<CurrentLang> {
+	private class TestCurrentLangProvider implements Provider<CurrentLang> {
 		@Override
 		public CurrentLang get() {
 			return new CurrentLang() {
