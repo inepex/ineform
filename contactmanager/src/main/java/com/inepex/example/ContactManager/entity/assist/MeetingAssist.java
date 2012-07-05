@@ -73,7 +73,7 @@ public class MeetingAssist extends Assist {
 			.addChild(MeetingConsts.k_user, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
 			.addChild(MeetingConsts.k_company, new ColRDesc(/*hc:tdr1_4*/100, true/*hc*/)/*hc:tdr2_4*//*hc*/)
 			.addChild(MeetingConsts.k_contact, new ColRDesc(/*hc:tdr1_5*/100, true/*hc*/)/*hc:tdr2_5*//*hc*/)
-			.addChild(MeetingConsts.k_meetingType, new ColRDesc(/*hc:tdr1_6*/100, true/*hc*/)/*hc:tdr2_6*//*hc*/.prop(EnumListFW.enumValues + ":" + MeetingType.getValuesAsString()))
+			.addChild(MeetingConsts.k_meetingType, new ColRDesc(/*hc:tdr1_6*/100, true/*hc*/)/*hc:tdr2_6*//*hc*/.addProp(EnumListFW.enumValues, MeetingType.getValuesAsString()))
 			.addChild(MeetingConsts.k_description, new ColRDesc(/*hc:tdr1_7*/100, true/*hc*/)/*hc:tdr2_7*//*hc*/)
 			;
 		return tableRDesc;

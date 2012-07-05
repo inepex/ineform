@@ -4,43 +4,50 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
+@SuppressWarnings("serial")
 public class DescriptorBase implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4902725042402080029L;
-	protected Map<String, Prop> props = new TreeMap<String,Prop>();
-
+	
+	public static final String separator = ":";
+	
+	protected Map<String, String> props = new TreeMap<String, String>();
 	private String displayName = null;
 	
-	public void addProps(Map<String, Prop> props) {
+	public void addProps(String... props) {
+		if(props!=null) {
+			for(String prop : props)
+				addProp(prop);
+		}
+		
+	}
+	
+	public void addProps(Map<String, String> props) {
 		props.putAll(props);
 	}
 	
-	public void addProps(String... propList) {
-		for (String propString : propList){
-			addProp(propString);
-		}
+	public DescriptorBase addProp(String prop) {
+		String[] parts = parseProp(prop);
+		addProp(parts[0], parts[1]);
+		return this;
 	}
 	
-	public void addProp(Prop p) {
-		props.put(p.getName(), p);
+	public static String[] parseProp(String prop) {
+		String[] parts = prop.split("[" + separator + "]");
+		
+		if (parts.length == 1 && !parts[0].isEmpty())
+			return new String[]{parts[0], ""};
+
+		if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty())
+			throw new RuntimeException("Invalid property format: \"" + prop + "\"");
+
+		return parts;
 	}
 	
-	public void addProp(String prop) {
-		try {
-			Prop p =Prop.fromString(prop);
-			props.put(p.getName(), p);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-	}
-	
-	public void addProp(String name, String value) {
-		addProp(new Prop(name, value));
+	public DescriptorBase addProp(String name, String value) {
+		props.put(name, value);
+		return this;
 	}	
 	
-	public Map<String, Prop> getProps() {
+	public Map<String, String> getProps() {
 		return props;
 	}
 	
@@ -49,9 +56,7 @@ public class DescriptorBase implements Serializable {
 	}
 	
 	public String getPropValue(String name){
-		if (props.get(name) != null)
-			return props.get(name).getValue();
-		else return null;
+		return props.get(name);
 	}
 
 	public String getDisplayName() {
@@ -63,6 +68,4 @@ public class DescriptorBase implements Serializable {
 		this.displayName = displayName;
 		return (T) this;
 	}
-	
-	
 }

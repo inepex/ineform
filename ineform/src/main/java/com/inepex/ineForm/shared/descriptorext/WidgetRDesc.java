@@ -2,7 +2,6 @@ package com.inepex.ineForm.shared.descriptorext;
 
 import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.shared.types.FWTypes;
-import com.inepex.ineom.shared.descriptor.Prop;
 
 public class WidgetRDesc extends FormRDescBase {
 
@@ -21,14 +20,6 @@ public class WidgetRDesc extends FormRDescBase {
 		this(formWidgetType);
 		addProps(propList);
 	}
-	
-	public WidgetRDesc(FWTypes formWidgetType, Prop... propList) {
-		this(formWidgetType);
-		for (Prop prop : propList){
-			props.put(prop.getName(), prop);
-		}
-	}
-
 
 	public FWTypes getFormWidgetType() {
 		return formWidgetType;

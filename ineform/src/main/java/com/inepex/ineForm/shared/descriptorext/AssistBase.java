@@ -18,8 +18,6 @@ public abstract class AssistBase extends Assist {
 	
 	@Override
 	protected void registerExtraDescriptors() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override

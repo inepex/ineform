@@ -5,8 +5,7 @@ import java.io.Serializable;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 
 
+@SuppressWarnings("serial")
 public class TableRDescBase extends DescriptorBase implements Serializable{
-
-	private static final long serialVersionUID = 1L;
 
 }

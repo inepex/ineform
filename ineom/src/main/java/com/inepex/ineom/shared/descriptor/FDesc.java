@@ -5,12 +5,8 @@ import java.util.TreeSet;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
+@SuppressWarnings("serial")
 public abstract class FDesc extends DescriptorBase {
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -6754736044439157370L;
 
 	private String key;
 
@@ -26,7 +22,6 @@ public abstract class FDesc extends DescriptorBase {
 	private boolean nullable = true;
 
 	public FDesc() {
-
 	}
 
 	public FDesc(String key, IneT type) {

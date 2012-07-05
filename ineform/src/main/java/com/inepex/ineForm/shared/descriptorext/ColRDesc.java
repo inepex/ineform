@@ -1,13 +1,9 @@
 package com.inepex.ineForm.shared.descriptorext;
 
-import com.inepex.ineom.shared.descriptor.Prop;
+import com.inepex.ineom.shared.descriptor.DescriptorBase;
 
+@SuppressWarnings("serial")
 public class ColRDesc extends TableRDescBase {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5327126872180935006L;
 
 	public static final String AS_DATE = "AS_DATE";
 	public static final String AS_DATE_WITHSEC = "AS_DATE_WITHSEC";
@@ -35,9 +31,20 @@ public class ColRDesc extends TableRDescBase {
 	}
 		
 	public ColRDesc(int columnWidth, boolean sortable) {
-		super();
 		this.columnWidth = columnWidth;
 		this.sortable = sortable;
+	}
+	
+	@Override
+	public ColRDesc addProp(String name, String value) {
+		super.addProp(name, value);
+		return this;
+	}
+	
+	@Override
+	public ColRDesc addProp(String prop) {
+		super.addProp(prop);
+		return this;
 	}
 
 	public int getColumnWidth() {
@@ -50,20 +57,6 @@ public class ColRDesc extends TableRDescBase {
 	
 	public void setColumnWidth(int columnWidth) {
 		this.columnWidth = columnWidth;
-	}
-	
-	public ColRDesc prop(Prop prop) {
-		props.put(prop.getName(), prop);
-		return this;
-	}
-	
-	public ColRDesc prop(String prop) {
-		try {
-			Prop p_prop = Prop.fromString(prop);
-			return prop(p_prop);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public boolean isSortable() {
@@ -82,23 +75,27 @@ public class ColRDesc extends TableRDescBase {
 	}
 	
 	public ColRDesc asDate(){
-		return this.prop(AS_DATE);
+		addProp(AS_DATE);
+		return this;
 	}
 	
 	public ColRDesc setMaxDisplayedFractialDigits(int digitCount){
-		return this.prop(AS_FRACTIALDIGITCOUNT+":"+digitCount);
+		addProp(AS_FRACTIALDIGITCOUNT, ""+digitCount);
+		return this;
 	}
 	
 	public ColRDesc asShortDate(){
-		return this.prop(AS_SHORTDATE);
+		addProp(AS_SHORTDATE);
+		return this;
 	}
 	
 	public ColRDesc setDisplayName(String name) {
-		return this.setDisplayName(name, ColRDesc.class);
+		return setDisplayName(name, ColRDesc.class);
 	}
 	
 	public ColRDesc asDateWithSec() {
-		return this.prop(AS_DATE_WITHSEC);
+		addProp(AS_DATE_WITHSEC);
+		return this;
 	}
 
 	public Integer getCustomCorpsWidth() {

@@ -10,8 +10,8 @@ import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.descriptor.Prop;
 
 /**
  * available properties:
@@ -45,7 +45,7 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 	private final FlowPanel panel_main = new FlowPanel();
 	private final IneDateGWT inedate = new IneDateGWT();
 	private final List<DateTimeFieldInterface> fields = new ArrayList<DateTimeFieldInterface>();
-	private final Map<String, Prop> props;
+	private final Map<String, String> props;
 
 	/**
 	 * standalone constructor...
@@ -58,22 +58,16 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 	public DateTimeFW(DateProvider dateProv, String... stringprops) {
 		super(null);
 		this.dateProv=dateProv;
+		props=new HashMap<String, String>();
 		
-		try {
-			Map<String, Prop> props = new HashMap<String, Prop>();
-			
-			for(String s : stringprops) {
-				Prop p = Prop.fromString(s);
-				props.put(p.getName(), p);
+		if(stringprops!=null) {
+			for(String prop : stringprops) {
+				String[] parts = DescriptorBase.parseProp(prop);
+				props.put(parts[0], parts[1]);
 			}
-			
-			this.props=props;
-			
-			init();
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		}
+			
+		init();
 	}
 	
 	/**
@@ -81,7 +75,7 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 	 * 
 	 * @param props
 	 */
-	public DateTimeFW(DateProvider dateProv, FDesc fielddescriptor, Map<String, Prop> props) {
+	public DateTimeFW(DateProvider dateProv, FDesc fielddescriptor, Map<String, String> props) {
 		super(fielddescriptor);
 		this.props=props;
 		this.dateProv=dateProv;
@@ -97,23 +91,23 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 		}
 		
 		if(props.containsKey("nowroundtosec")) {
-			int rt=Integer.parseInt(props.get("nowroundtosec").getValue());
+			int rt=Integer.parseInt(props.get("nowroundtosec"));
 			inedate.setToNowRoundToSec(rt);
 		}
 		
 		if(props.containsKey("nowroundtomin")) {
-			int rt=Integer.parseInt(props.get("nowroundtomin").getValue());
+			int rt=Integer.parseInt(props.get("nowroundtomin"));
 			inedate.setToNowRoundToSec(rt*60);
 		}
 		
 		//define fields
 		if(props.containsKey("year")) {
-			String val = props.get("year").getValue();
+			String val = props.get("year");
 			fields.add(new YOO_OOField(inedate, val.contains("s"), getStep(val),val.contains("t"), this, val.contains("m")));
 		}
 		
 		if(props.containsKey("yearmonth")) {
-			String val = props.get("yearmonth").getValue();
+			String val = props.get("yearmonth");
 			fields.add(new YMO_OOField(inedate, val.contains("s"), getStep(val), val.contains("t"), this, val.contains("m")));
 		}
 		
@@ -122,22 +116,22 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 		}
 		
 		if(props.containsKey("date")) {
-			String val = props.get("date").getValue();
+			String val = props.get("date");
 			fields.add(new YMD_OOField(dateProv, inedate, val.contains("s"), getStep(val),val.contains("c"), val.contains("t"), this, val.contains("m")));
 		}
 		
 		if(props.containsKey("datehourmin")) {
-			String val = props.get("datehourmin").getValue();
+			String val = props.get("datehourmin");
 			fields.add(new YMD_HMField(inedate, val.contains("s"), getStep(val), val.contains("t"), this, val.contains("m"))); 
 		}
 		
 		if(props.containsKey("hourminsec")) {
-			String val = props.get("hourminsec").getValue();
+			String val = props.get("hourminsec");
 			fields.add(new OOO_HMSField(inedate, val.contains("s"), getStep(val), val.contains("t"), this, val.contains("m")));
 		}
 		
 		if(props.containsKey("hourmin")) {
-			String val = props.get("hourmin").getValue();
+			String val = props.get("hourmin");
 			fields.add(new OOO_HMField(inedate, val.contains("s"), getStep(val), val.contains("t"), this, val.contains("m"))); 
 		}
 		
@@ -196,11 +190,11 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 				inedate.setToNow();
 				childValueChanged(false, true);
 			} else if(props.containsKey("nowroundtosec")) {
-				int rt=Integer.parseInt(props.get("nowroundtosec").getValue());
+				int rt=Integer.parseInt(props.get("nowroundtosec"));
 				inedate.setToNowRoundToSec(rt);
 				childValueChanged(false, true);
 			} else if(props.containsKey("nowroundtomin")) {
-				int rt=Integer.parseInt(props.get("nowroundtomin").getValue());
+				int rt=Integer.parseInt(props.get("nowroundtomin"));
 				inedate.setToNowRoundToSec(rt*60);
 				childValueChanged(false, true);
 			} else {
