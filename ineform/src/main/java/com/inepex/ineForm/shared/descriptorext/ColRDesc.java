@@ -1,10 +1,10 @@
 package com.inepex.ineForm.shared.descriptorext;
 
-import com.inepex.ineom.shared.descriptor.DescriptorBase;
 
 @SuppressWarnings("serial")
 public class ColRDesc extends TableRDescBase {
 
+	public static final int DEF_CORPS_WITH=30;
 	public static final String AS_DATE = "AS_DATE";
 	public static final String AS_DATE_WITHSEC = "AS_DATE_WITHSEC";
 	public static final String AS_SHORTDATE = "AS_SHORTDATE";
@@ -18,10 +18,8 @@ public class ColRDesc extends TableRDescBase {
 	public static final String EXCEL_NUMBERFORMAT = "EXCEL_NUMBERFORMAT";
 	
 	private int columnWidth = 100;
-	
 	private boolean sortable = false;
-
-	private Integer customCorpsWidth;
+	private int corpsWidth=DEF_CORPS_WITH;
 	
 	public ColRDesc() {
 	}
@@ -98,12 +96,12 @@ public class ColRDesc extends TableRDescBase {
 		return this;
 	}
 
-	public Integer getCustomCorpsWidth() {
-		return customCorpsWidth;
+	public int getCorpsWidth() {
+		return corpsWidth;
 	}
 	
-	public ColRDesc customCorpsWidth(Integer customCorpsWidth) {
-		this.customCorpsWidth = customCorpsWidth;
+	public ColRDesc corpsWidth(int customCorpsWidth) {
+		this.corpsWidth = customCorpsWidth;
 		return this;
 	}
 	

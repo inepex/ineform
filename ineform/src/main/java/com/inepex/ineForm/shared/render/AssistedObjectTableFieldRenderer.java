@@ -19,8 +19,6 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public class AssistedObjectTableFieldRenderer {
 	
-	public final static int CROPSTRINGLENGTH = 30;
-	
 	public static interface CustomCellContentDisplayer {
 		/**
 		 * @return the html (or string) value of the pointed column's
@@ -130,8 +128,7 @@ public class AssistedObjectTableFieldRenderer {
 					result = "";
 	
 				// Crop result
-				int usingCorpsLeng = (colRdesc.getCustomCorpsWidth()!=null) ? 
-						colRdesc.getCustomCorpsWidth() : CROPSTRINGLENGTH;
+				int usingCorpsLeng = colRdesc.getCorpsWidth();
 						
 				result = result.length() > usingCorpsLeng ? result.substring(
 						0, usingCorpsLeng) + "..." : result;
