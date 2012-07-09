@@ -128,10 +128,10 @@ public class AssistedObjectTableFieldRenderer {
 					result = "";
 	
 				// Crop result
-				int usingCorpsLeng = colRdesc.getCorpsWidth();
+				int usingCropsLeng = colRdesc.getCropWidth();
 						
-				result = result.length() > usingCorpsLeng ? result.substring(
-						0, usingCorpsLeng) + "..." : result;
+				result = result.length() > usingCropsLeng ? result.substring(
+						0, usingCropsLeng) + "..." : result;
 	
 				return result;
 				

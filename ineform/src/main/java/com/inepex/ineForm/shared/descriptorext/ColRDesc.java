@@ -4,7 +4,7 @@ package com.inepex.ineForm.shared.descriptorext;
 @SuppressWarnings("serial")
 public class ColRDesc extends TableRDescBase {
 
-	public static final int DEF_CORPS_WITH=30;
+	public static final int DEF_CROP_WITH=30;
 	public static final String AS_DATE = "AS_DATE";
 	public static final String AS_DATE_WITHSEC = "AS_DATE_WITHSEC";
 	public static final String AS_SHORTDATE = "AS_SHORTDATE";
@@ -19,7 +19,7 @@ public class ColRDesc extends TableRDescBase {
 	
 	private int columnWidth = 100;
 	private boolean sortable = false;
-	private int corpsWidth=DEF_CORPS_WITH;
+	private int cropWidth=DEF_CROP_WITH;
 	
 	public ColRDesc() {
 	}
@@ -96,12 +96,12 @@ public class ColRDesc extends TableRDescBase {
 		return this;
 	}
 
-	public int getCorpsWidth() {
-		return corpsWidth;
+	public int getCropWidth() {
+		return cropWidth;
 	}
 	
-	public ColRDesc corpsWidth(int customCorpsWidth) {
-		this.corpsWidth = customCorpsWidth;
+	public ColRDesc cropWidth(int customCorpsWidth) {
+		this.cropWidth = customCorpsWidth;
 		return this;
 	}
 	

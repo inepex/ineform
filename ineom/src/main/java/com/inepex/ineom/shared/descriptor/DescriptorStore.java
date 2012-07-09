@@ -46,7 +46,7 @@ public abstract class DescriptorStore {
 	/**
 	 * Some store implementations use {@link Map} and it's the key maker method for {@link DescriptorBase} types.
 	 */
-	public static String typeToKey(Class<?> clazz) {
+	public static <B  extends DescriptorBase> String typeToKey(Class<B> clazz) {
 		return clazz.getName();
 	}
 	
