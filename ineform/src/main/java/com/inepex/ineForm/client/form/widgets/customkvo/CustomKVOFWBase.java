@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.View;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
@@ -51,6 +52,7 @@ public abstract class CustomKVOFWBase extends DenyingFormWidget{
 			
 		} else {
 			relation = null;
+			onRelationParsed();
 			return;
 		}
 		

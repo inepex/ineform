@@ -31,9 +31,12 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 		public void dealResult(Map<Long, String> res);
 		public ErrorMessageManagerInterface getErrorManager(CustomKVORow r);
 		
+		public void disableAddBtn();
 		public void showReadOnly(List<CustomKVORow> rows);
 		public void showEditable();
 		public void add(IsWidget widget);
+		
+		
 	}
 	
 	private final View view;
@@ -61,6 +64,7 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 	@Override
 	protected void beforeRelationParsed() {
 		view.clearRows();
+		view.disableAddBtn();
 	}
 
 	@Override

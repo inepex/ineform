@@ -32,7 +32,6 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	private final CustomKVOFWReadOnlyView readOnlyView = new CustomKVOFWReadOnlyView();
 	
 	protected CustomKVOFWView() {
-
 	}
 	
 	private void createHeader() {
@@ -134,10 +133,16 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 
 	@Override
 	public void showEditable() {
+		addBtn.setEnabled(true);
 		clear();
 		add(rowTable);
 		add(addBtn);
 		
 		createHeader();
+	}
+
+	@Override
+	public void disableAddBtn() {
+		addBtn.setEnabled(false);
 	}
 }
