@@ -144,4 +144,20 @@ public class PlaceHandlerHelperTest {
 		Assert.assertEquals(0, PlaceHandlerHelper.levelOfChange(Arrays.asList("a", "b", "c"), Arrays.asList("b")));
 		
 	}
+	
+	@Test
+	public void findActualLevelWithParamsTest(){
+		Assert.assertEquals("home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000", 
+				PlaceHandlerHelper.findActualLevelWithParams(
+						"home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000/general", 
+						"home/devices/device?deviceId=100000"));
+	}
+	
+	@Test
+	public void findActualLevelWithParamsTest2(){
+		Assert.assertEquals("home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000", 
+				PlaceHandlerHelper.findActualLevelWithParams(
+						"home/devices?deviceGroups=1&chart=false&details=true/route?deviceId=100000&when=rt", 
+						"home/devices/device?deviceId=100000"));
+	}
 }

@@ -110,38 +110,6 @@ public class PlaceHandlerHelper {
 		return urlParams;
 	}
 	
-//	/**
-//	 * @return first paramplace which parameters are not filled correctly
-//	 */
-//	public static String getFirstIncorrectParamPlace(String currentFullToken, Node<InePlace> root) {
-//		if(currentFullToken==null || currentFullToken.length()<1)
-//			return null;
-//		
-//		StringBuffer sbPlace = new StringBuffer();
-//		StringBuffer sbFull = new StringBuffer();
-//		Map<String, String> params = new TreeMap<String, String>();
-//		
-//		for(String fullPart : currentFullToken.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))) {
-//			if(sbPlace.length()>0)
-//				sbPlace.append(Node.ID_SEPARATOR);
-//			sbPlace.append(PlaceHandlerHelper.getPlacePart(fullPart));
-//			
-//			if(sbFull.length()>0)
-//				sbFull.append(Node.ID_SEPARATOR);
-//			sbFull.append(fullPart);
-//			
-//			params.putAll(PlaceHandlerHelper.getUrlParameters(fullPart));
-//			
-//			Node<InePlace> n = root.findNodeByHierarchicalId(sbPlace.toString());
-//			if(n.getNodeElement()!=null && n.getNodeElement() instanceof ParamPlace) {
-//				if(!((ParamPlace)n.getNodeElement()).notifyParamChangedReturnIsParamSet(params))
-//					return sbFull.toString();
-//			}
-//		}
-//		
-//		return null;
-//	}
-	
 	public static void updateHierarchicalTokens(String currentFullToken, Node<InePlace> placeRoot) {
 		if(currentFullToken==null || currentFullToken.length()<1)
 			return;
@@ -241,18 +209,33 @@ public class PlaceHandlerHelper {
 		if (lastTokenParts.size() == newTokenParts.size()) return -1;
 		else return minLength;
 		
-//		boolean match = true;
-//		int level = 0;
-//		for (int i = 0; i<lastTokenParts.size(); i++){
-//			if (newTokenParts.size() > i && lastTokenParts.get(i).equals(newTokenParts.get(i))){
-//				level++;
-//			} else {
-//				match = false;
-//				break;
-//			}
-//		}
-//		
-//		if (match) return -1;
-//		else return level;
+	}
+	
+	/**
+	 * Example
+	 * currentToken: home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000/general
+	 * target: home/devices/device
+	 * returns: home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000
+	 * 
+	 */
+	public static String findActualLevelWithParams(String currentToken, String target){
+		String[] currentTokenParts = currentToken.split(Node.ID_SEPARATOR);
+		String[] targetTokenParts = target.split(Node.ID_SEPARATOR);
+		
+		String splittedToken = "";
+		
+		for (int i = 0; i < targetTokenParts.length; i++){
+			if (currentTokenParts.length < i){
+				splittedToken += targetTokenParts[i] + Node.ID_SEPARATOR;
+			} else if (currentTokenParts[i].startsWith(targetTokenParts[i])){
+				splittedToken += currentTokenParts[i] + Node.ID_SEPARATOR;
+			} else {
+				splittedToken += targetTokenParts[i] + Node.ID_SEPARATOR;
+			}			
+		}
+		if (splittedToken.length() > 0) splittedToken = splittedToken.substring(0, splittedToken.length()-1);
+		
+		return splittedToken;
+		
 	}
 }

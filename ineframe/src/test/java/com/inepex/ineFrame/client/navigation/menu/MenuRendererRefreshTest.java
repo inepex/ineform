@@ -5,7 +5,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
@@ -29,11 +28,7 @@ public class MenuRendererRefreshTest extends MenuRendererTestBase {
 	 */
 	@Test
 	public void testChangeOnSameLevel(){
-		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
-		phProvider.createPlaceHierarchy();
-		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
-		
+				
 		phProvider._111.setHierarchicalToken("0/1/11/111");
 		renderer.realizeNewPlaceOnMenu(phProvider._111, null);
 		
@@ -62,6 +57,21 @@ public class MenuRendererRefreshTest extends MenuRendererTestBase {
 		//112
 		verifyTab(tabs[1], true, true, true);
 
+	}
+	
+	@Test
+	public void testOpenChild(){
+		phProvider._11.setHierarchicalToken("0/1/11");
+		renderer.realizeNewPlaceOnMenu(phProvider._11, null);
+		
+		verifyTab(tabs[0], true, true, true);
+		
+		phProvider._111.setHierarchicalToken("0/1/11/111");
+		renderer.realizeNewPlaceOnMenu(phProvider._111, null);
+		
+		verifyTab(tabs[0], true, true, true);
+		verifyTab(tabs[1], true, true, true);
+		
 	}
 	
 	private class PlainPlaceHierarchyProv extends DefaultPlaceHierarchyProvider {
