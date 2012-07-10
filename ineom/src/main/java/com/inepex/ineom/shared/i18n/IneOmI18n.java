@@ -32,7 +32,7 @@ public class IneOmI18n extends I18nModule {
 	public String validatorGE = "The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!";
 	public String validatorGT = "The number entered into field {fieldName} must be greater then {constvalAsString}!";
 	public String validatorLE = "The number entered into field {fieldName} must be less then or equal to {constvalAsString}!";
-	public String validatorLT = "he number entered into field {fieldName} must be less then {constvalAsString}!";
+	public String validatorLT = "The number entered into field {fieldName} must be less then {constvalAsString}!";
 	public String validatorMaxLength = "Maximum {limit} characters can be entered!";
 	public String validatorMinLength = "At least {limit} characters have to be entered!";
 	public String validatorShouldAfter = "This date should be after {otherFieldsName}!";
@@ -106,7 +106,7 @@ public class IneOmI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> he number entered into field {fieldName} must be less then {constvalAsString}!
+	* <u><i>In English:</i></u> The number entered into field {fieldName} must be less then {constvalAsString}!
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak kisebbnek kell lennie, mint {constvalAsString}!
 	*/
 	public static String validatorLT(String constvalAsString, String fieldName) {

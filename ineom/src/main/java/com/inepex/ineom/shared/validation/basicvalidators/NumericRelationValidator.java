@@ -88,19 +88,19 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 		
 		switch (reltype) {
 			case eq:
-				if(firstVal!=secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorEQ(fieldDisplayname, constvalAsString));
+				if(firstVal!=secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorEQ(constvalAsString, fieldDisplayname));
 				return;
 			case gt:
-				if(firstVal<=secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorGT(fieldDisplayname, constvalAsString));
+				if(firstVal<=secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorGT(constvalAsString, fieldDisplayname));
 				return;
 			case lt:
-				if(firstVal>=secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorLT(fieldDisplayname, constvalAsString));
+				if(firstVal>=secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorLT(constvalAsString, fieldDisplayname));
 				return;
 			case ge:
-				if(firstVal<secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorGE(fieldDisplayname, constvalAsString));
+				if(firstVal<secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorGE(constvalAsString, fieldDisplayname));
 				return;
 			case le:
-				if(firstVal>secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorLE(fieldDisplayname, constvalAsString));
+				if(firstVal>secondVal) validationResult.addFieldError(firstFieldName, IneOmI18n.validatorLE(constvalAsString, fieldDisplayname));
 				return;
 		
 		}
