@@ -33,10 +33,8 @@ public class ListBoxFW extends AbstractListBoxFW {
 		relationFDesc = (RelationFDesc) fieldDescriptor;
 
 		loadDataFromValueRangeProvider();
-		
-		registerHandler(formCtx.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new ListModifyHandler()));		
 	}
-	
+
 	private class ListModifyHandler implements KeyValueObjectListModifiedEventHandler {
 		@Override
 		public void onObjectListModified(
@@ -44,6 +42,11 @@ public class ListBoxFW extends AbstractListBoxFW {
 			if (event.getListType().equals(relationFDesc.getRelatedDescriptorName()))
 				loadDataFromValueRangeProvider();
 		}
+	}
+	@Override
+	protected void onAttach() {
+		registerHandler(formCtx.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new ListModifyHandler()));
+		super.onAttach();
 	}
 	
 	@Override
@@ -118,6 +121,7 @@ public class ListBoxFW extends AbstractListBoxFW {
 	}
 
 	private void loadDataFromValueRangeProvider(){
+		System.out.println("--------------------------------------------");
 		if (valueRangeProvider != null) {
 			listBox.setEnabled(false);
 			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
