@@ -49,6 +49,7 @@ public class IneFormI18n extends I18nModule {
 	public String SELECT = "Select";
 	public String SELECTALL = "Select all";
 	public String UP = "Up";
+	public String cantDisplay = "can't display";
 	public String change = "Change";
 	public String csvComment = "Click here to download:";
 	public String csvDownload = "Download";
@@ -70,6 +71,7 @@ public class IneFormI18n extends I18nModule {
 	public String day_wednesday = "Wednesday";
 	public String dialogEditTitle = "Edit entry";
 	public String dialogNewTitle = "New entry";
+	public String falseText = "false";
 	public String hours = "hours";
 	public String imagefinderChoosefromgoogle = "Choose images from Google image search";
 	public String imagefinderDowloading = "Downloading...";
@@ -110,6 +112,7 @@ public class IneFormI18n extends I18nModule {
 	public String shortday_thursday = "Th";
 	public String shortday_tuesday = "Tu";
 	public String shortday_wednesday = "W";
+	public String trueText = "true";
 	public String validationEmail = "This is not valid e-mail address!";
 	public String validationFieldError = "Field error";
 	public String validationGeneralError = "Error:";
@@ -344,6 +347,15 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> can't display
+	* <u><i>Magyarul:</i></u> nem megjeleníthető
+	*/
+	public static String cantDisplay() {
+		return moduleProvider.get().cantDisplay;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Change
 	* <u><i>Magyarul:</i></u> Megváltoztat
 	*/
@@ -529,6 +541,15 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String dialogNewTitle() {
 		return moduleProvider.get().dialogNewTitle;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> false
+	* <u><i>Magyarul:</i></u> nem
+	*/
+	public static String falseText() {
+		return moduleProvider.get().falseText;
 	}
 	
 	/**
@@ -804,7 +825,7 @@ public class IneFormI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Do you really want to delete the selected element?
-	* <u><i>Magyarul:</i></u> Biztosn törölni kívánja a kiválaszott sort?
+	* <u><i>Magyarul:</i></u> Biztosan törölni kívánja a kiválaszott sort?
 	*/
 	public static String reallyWantToDelete() {
 		return moduleProvider.get().reallyWantToDelete;
@@ -889,6 +910,15 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String shortday_wednesday() {
 		return moduleProvider.get().shortday_wednesday;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> true
+	* <u><i>Magyarul:</i></u> igen
+	*/
+	public static String trueText() {
+		return moduleProvider.get().trueText;
 	}
 	
 	/**

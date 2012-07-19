@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
@@ -43,7 +44,7 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 	
 	private boolean enabled = true;
 	
-	public CustomKVOFW(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, OdFinder odFinder, View view) {
+	public CustomKVOFW(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, CustomOdFinder odFinder, View view) {
 		super(fieldDescriptor, widgetRDesc, odFinder);
 		
 		if(!IFConsts.customDescriptorName.equals(fieldDescriptor.getRelatedDescriptorName()))

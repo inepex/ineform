@@ -4,6 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.inepex.ineFrame.server.NumberUtilSrv;
+
 public class NumberUtilTest {
 
 	

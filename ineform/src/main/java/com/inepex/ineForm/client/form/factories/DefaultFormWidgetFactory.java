@@ -33,10 +33,10 @@ import com.inepex.ineForm.client.form.widgets.ThreeWayBoolFw;
 import com.inepex.ineForm.client.form.widgets.chooser.ChooserFw;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOReadOnlyFW;
-import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
 import com.inepex.ineForm.client.form.widgets.datetime.DateTimeFW;
 import com.inepex.ineForm.client.form.widgets.richtextarea.RichTextAreaFW;
 import com.inepex.ineForm.client.form.widgets.upload.FileUploadFw;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
 import com.inepex.ineom.shared.IneT;
@@ -58,7 +58,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 								 , AbstractFormUnit form
 								 , FDesc fieldDesc
 								 , WidgetRDesc wrDesc
-								 , OdFinder odFinder
+								 , CustomOdFinder odFinder
 								 , Provider<CustomKVOFW.View> customKvoView) {
 		
 		FormWidget createdWidget = null;

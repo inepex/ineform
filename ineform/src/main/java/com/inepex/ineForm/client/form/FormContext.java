@@ -8,7 +8,7 @@ import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
-import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.util.DateFormatter;
@@ -37,7 +37,7 @@ public class FormContext {
 	public final PanelWidgetFactory panelWidgetFactory;
 	public final KeyValueObjectValidationManager validatorManager;
 	public final DateProvider dateProvider;
-	public final OdFinder odFinder;
+	public final CustomOdFinder odFinder;
 	public final ObjectFinder objectFinder;
 	public final Provider<CustomKVOFW.View> customKvoFwViewProvider;
 	public final DateFormatter dateFormatter;
@@ -59,7 +59,7 @@ public class FormContext {
 			, PanelWidgetFactory panelWidgetFactory
 			, KeyValueObjectValidationManager validatorManager
 			, DateProvider dateProvider
-			, OdFinder odFinder
+			, CustomOdFinder odFinder
 			, ObjectFinder objectFinder
 			, Provider<CustomKVOFW.View> customKvoFwViewProvider
 			, DateFormatter dateFormatter

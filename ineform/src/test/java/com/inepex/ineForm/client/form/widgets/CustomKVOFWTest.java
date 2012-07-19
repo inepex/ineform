@@ -19,9 +19,9 @@ import com.google.gwt.junit.GWTMockUtilities;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVORow;
-import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
-import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder.OdFoundCallback;
 import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder.OdFoundCallback;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
@@ -51,7 +51,7 @@ public class CustomKVOFWTest extends DefaultIneFormClientSideTestBase {
 	}
 	
 	private CustomKVOFW fw;
-	private OdFinder finder;
+	private CustomOdFinder finder;
 	private CustomKVOFW.View view;
 	
 	private CustomKVORow longRow;
@@ -78,7 +78,7 @@ public class CustomKVOFWTest extends DefaultIneFormClientSideTestBase {
 			}
 		}).when(view).addRow(any(CustomKVORow.class));
 		
-		finder = mock(OdFinder.class);
+		finder = mock(CustomOdFinder.class);
 		doAnswer(new Answer<Void>() {
 
 			@Override

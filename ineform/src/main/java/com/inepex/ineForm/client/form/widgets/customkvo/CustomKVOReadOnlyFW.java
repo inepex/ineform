@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets.customkvo;
 
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 
@@ -8,7 +9,7 @@ public class CustomKVOReadOnlyFW extends CustomKVOFWBase {
 
 	private final CustomKVOFWReadOnlyView readOnlyView = new CustomKVOFWReadOnlyView();
 	
-	public CustomKVOReadOnlyFW(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, OdFinder odFinder) {
+	public CustomKVOReadOnlyFW(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, CustomOdFinder odFinder) {
 		super(fieldDescriptor, widgetRDesc, odFinder);
 		initWidget(readOnlyView);
 	}

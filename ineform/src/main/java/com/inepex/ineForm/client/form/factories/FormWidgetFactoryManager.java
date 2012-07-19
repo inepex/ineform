@@ -5,7 +5,7 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.View;
-import com.inepex.ineForm.client.form.widgets.customkvo.OdFinder;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.FDesc;
 
@@ -28,7 +28,7 @@ public class FormWidgetFactoryManager implements FormWidgetFactory {
 			AbstractFormUnit form,
 			FDesc fieldDesc,
 			WidgetRDesc wrDesc,
-			OdFinder odFinder,
+			CustomOdFinder odFinder,
 			Provider<View> customKvoView) {
 		
 		FormWidget createdWidget = null;

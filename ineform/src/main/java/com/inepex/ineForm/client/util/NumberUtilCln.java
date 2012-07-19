@@ -4,6 +4,7 @@ import com.google.gwt.i18n.client.NumberFormat;
 import com.inepex.ineFrame.shared.util.NumberUtil;
 
 
+
 public class NumberUtilCln implements NumberUtil {
 	
 	public static String groupThousandsFormat = "#,###";

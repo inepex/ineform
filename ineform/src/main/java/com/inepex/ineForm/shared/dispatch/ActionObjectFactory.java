@@ -1,7 +1,7 @@
 package com.inepex.ineForm.shared.dispatch;
 
-import com.inepex.ineFrame.shared.ObjectDescResult;
-import com.inepex.ineom.shared.dispatch.interfaces.ObjectDescResultInterface;
+import com.inepex.ineFrame.shared.CustomObjectDescResult;
+import com.inepex.ineom.shared.dispatch.interfaces.CustomObjectDescResultInterface;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
@@ -24,7 +24,7 @@ public class ActionObjectFactory implements ManipulationObjectFactory {
 	}
 
 	@Override
-	public ObjectDescResultInterface getNewObjectDescResult() {
-		return new ObjectDescResult();
+	public CustomObjectDescResultInterface getNewObjectDescResult() {
+		return new CustomObjectDescResult();
 	}
 }

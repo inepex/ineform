@@ -1,4 +1,4 @@
-package com.inepex.ineForm.server.util;
+package com.inepex.ineFrame.server;
 
 import java.text.DecimalFormat;
 

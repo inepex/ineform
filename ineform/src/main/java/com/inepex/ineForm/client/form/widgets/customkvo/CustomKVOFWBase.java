@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.View;
+import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
@@ -18,13 +18,13 @@ public abstract class CustomKVOFWBase extends DenyingFormWidget{
 	public static String showType = "showType";
 
 	protected Relation relation = null;
-	private final OdFinder odFinder;
+	private final CustomOdFinder odFinder;
 	protected final List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
 	
 	protected boolean isShowHeader = true;
 	protected boolean isShowType = false;
 	
-	public CustomKVOFWBase(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, OdFinder odFinder) {
+	public CustomKVOFWBase(RelationFDesc fieldDescriptor, WidgetRDesc widgetRDesc, CustomOdFinder odFinder) {
 		super(fieldDescriptor);
 		this.odFinder = odFinder;
 		
@@ -59,7 +59,7 @@ public abstract class CustomKVOFWBase extends DenyingFormWidget{
 		
 		final AssistedObject ao = value.getKvo();
 		
-		odFinder.getCustomOd(value.getId(), new OdFinder.OdFoundCallback() {
+		odFinder.getCustomOd(value.getId(), new CustomOdFinder.OdFoundCallback() {
 			
 			@Override
 			public void onFound(ObjectDesc od) {
