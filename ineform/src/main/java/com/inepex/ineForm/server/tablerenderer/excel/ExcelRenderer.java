@@ -135,7 +135,6 @@ public class ExcelRenderer extends TableRenderer{
 			return super.render(kvos);		
 		}
 		AssistedObjectHandlerFactory factory = new AssistedObjectHandlerFactory(descStore);
-		sb = new StringBuffer();
 		renderStart();
 		if (renderHeader) renderHeader();
 
@@ -190,8 +189,9 @@ public class ExcelRenderer extends TableRenderer{
 			}
 			renderLineEnd();
 		}
+		
 		renderEnd();
-		return sb.toString();
+		return "";
 	}
 	
 	protected void setDataFormatForActualCell(String format){
