@@ -3,7 +3,6 @@ package com.inepex.ineFrame.server.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inepex.ineFrame.shared.util.SimpleTimeZoneEnumTest;
 import com.inepex.ineom.shared.IFConsts;
 
 /**
@@ -14,7 +13,7 @@ import com.inepex.ineom.shared.IFConsts;
  *  More simple version of {@link TimeZoneEnum}.
  *  
  *  
- *  Tested with {@link SimpleTimeZoneEnumTest}.
+ *  Tested with {SimpleTimeZoneEnumTest}.
  */
 public enum SimpleTimeZoneEnum {
 	

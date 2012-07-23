@@ -3,13 +3,12 @@ package com.inepex.ineFrame.server.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inepex.ineFrame.shared.util.TimeZoneTest;
 import com.inepex.ineom.shared.IFConsts;
 
 /**
  *  GWT's time zone ids dropping into an enum ( based on com/google/gwt/i18n/client/constants/TimeZoneConstants.properties)
  *  
- *  Tested({@link TimeZoneTest}) with Java time zone for consistance! This enum can be used both client and server side!
+ *  Tested(TimeZoneTest) with Java time zone for consistance! This enum can be used both client and server side!
  */
 public enum TimeZoneEnum {
 	
