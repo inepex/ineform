@@ -63,9 +63,8 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 			, FormFactory formFactory
 			, String objectDescriptorName
 			, IneDataConnector ineDataConnector
-			, boolean sortable,
-			AssistedObjectTableFieldRenderer fieldRenderer
-			) {
+			, boolean sortable
+			, AssistedObjectTableFieldRenderer fieldRenderer) {
 		
 		this.objectDescriptorName = objectDescriptorName;
 		this.ineDataConnector = ineDataConnector;
