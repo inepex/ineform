@@ -357,4 +357,28 @@ public class KeyValueObject extends AssistedObject {
 		return relationValues.keySet();
 	}
 
+	public NullableHashMap<String, Boolean> getBooleanValues() {
+		return booleanValues;
+	}
+
+	public NullableHashMap<String, Double> getDoubleValues() {
+		return doubleValues;
+	}
+
+	public NullableHashMap<String, IneList> getListValues() {
+		return listValues;
+	}
+
+	public NullableHashMap<String, Long> getLongValues() {
+		return longValues;
+	}
+
+	public NullableHashMap<String, Relation> getRelationValues() {
+		return relationValues;
+	}
+
+	public NullableHashMap<String, String> getStringValues() {
+		return stringValues;
+	}
+
 }
