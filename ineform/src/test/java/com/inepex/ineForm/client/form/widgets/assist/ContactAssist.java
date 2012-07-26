@@ -59,8 +59,8 @@ public class ContactAssist {
 			tableRDesc = new TableRDesc(ContactKVO.descriptorName);
 			
 			tableRDesc.getRootNode()
-				.addChild(ContactKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-				.addChild(ContactKVO.k_nationalities, new ColRDesc(/*hc:tdr1_2*/100/*hc*/)/*hc:tdr2_2*//*hc*/)				
+				.addChild(ContactKVO.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
+				.addChild(ContactKVO.k_nationalities, new ColRDesc(/*hc:tdr1_2*//*hc*/)/*hc:tdr2_2*//*hc*/)				
 				;
 		}
 		return tableRDesc;

@@ -60,8 +60,8 @@ public class NationalityAssist {
 			tableRDesc = new TableRDesc(NationalityKVO.descriptorName);
 			
 			tableRDesc.getRootNode()
-				.addChild(NationalityKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-				.addChild(NationalityKVO.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
+				.addChild(NationalityKVO.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
+				.addChild(NationalityKVO.k_name, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
 				;
 		}
 		return tableRDesc;
@@ -72,9 +72,9 @@ public class NationalityAssist {
 			customTableRDesc = new TableRDesc(NationalityKVO.descriptorName);
 			
 			customTableRDesc.getRootNode()
-				.addChild(NationalityKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-				.addChild(NationalityKVO.k_name, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
-				.addChild("customfield", new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
+				.addChild(NationalityKVO.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
+				.addChild(NationalityKVO.k_name, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
+				.addChild("customfield", new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
 				;
 		}
 		return customTableRDesc;

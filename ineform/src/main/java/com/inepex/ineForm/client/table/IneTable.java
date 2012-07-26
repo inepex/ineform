@@ -310,7 +310,7 @@ public class IneTable extends HandlerAwareComposite {
 		for (Node<TableRDescBase> columnNode : tableRenderDescriptor.getRootNode()
 				.getChildren()) {
 			
-			TableRDescBase colRenderDesc = columnNode.getNodeElement();
+			ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 
 			if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 				continue;
@@ -343,17 +343,15 @@ public class IneTable extends HandlerAwareComposite {
 			}
 			
 			Header<String> header = createHeader(
-					((ColRDesc)columnNode.getNodeElement()).isSortable()
+					colRenderDesc.isSortable()
 					, headerText
 					, columnNode.getNodeId()
 					, colRenderDesc.hasProp(ColRDesc.DEFAULTSORT)
 					, colRenderDesc.hasProp(ColRDesc.DEFAULTSORTREVERSE));
 			headers.put(columnNode.getNodeId(), header);
 			cellTable.addColumn(column, header);
-
-			//TODO setting width from colRenderDesc
-//			String columnWidth = ((ColRDesc)columnNode.getNodeElement()).getColumnWidthAsString();
-			
+			if(colRenderDesc.hasColumnWidth())
+				cellTable.setColumnWidth(column, colRenderDesc.getColumnWidthAsString());
 		}
 		
 		if(commands!=null) {

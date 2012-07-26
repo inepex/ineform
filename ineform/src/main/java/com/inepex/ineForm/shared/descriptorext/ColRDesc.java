@@ -17,19 +17,14 @@ public class ColRDesc extends TableRDescBase {
 	public static final String EXCEL_DATETIMEFORMAT = "EXCEL_DATETIMEFORMAT";
 	public static final String EXCEL_NUMBERFORMAT = "EXCEL_NUMBERFORMAT";
 	
-	private int columnWidth = 100;
+	private int columnWidth = -1;
 	private boolean sortable = false;
 	private int cropWidth=DEF_CROP_WITH;
 	
 	public ColRDesc() {
 	}
-	
-	public ColRDesc(int columnWidth) {
-		this.columnWidth = columnWidth;
-	}
 		
-	public ColRDesc(int columnWidth, boolean sortable) {
-		this.columnWidth = columnWidth;
+	public ColRDesc(boolean sortable) {
 		this.sortable = sortable;
 	}
 	
@@ -45,16 +40,17 @@ public class ColRDesc extends TableRDescBase {
 		return this;
 	}
 
-	public int getColumnWidth() {
-		return columnWidth;
+	public boolean hasColumnWidth() {
+		return columnWidth!=-1;
 	}
 	
 	public String getColumnWidthAsString() {
 		return columnWidth+"px";
 	}
 	
-	public void setColumnWidth(int columnWidth) {
+	public ColRDesc setColumnWidth(int columnWidth) {
 		this.columnWidth = columnWidth;
+		return this;
 	}
 
 	public boolean isSortable() {
@@ -98,6 +94,10 @@ public class ColRDesc extends TableRDescBase {
 
 	public int getCropWidth() {
 		return cropWidth;
+	}
+	
+	public int getColumnWidth() {
+		return columnWidth;
 	}
 	
 	public ColRDesc cropWidth(int customCorpsWidth) {

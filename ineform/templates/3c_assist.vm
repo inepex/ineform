@@ -93,13 +93,13 @@ public class ${classname}Assist extends Assist {
 #foreach( $attr in $attrs )
 #if ( $attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")} && $attr.type != "CustomKVO")
 #if ( $attr.type == "Date" )
-			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/100, true/*hc*/)/*hc:tdr2_${velocityCount}*/.addProp(ColRDesc.AS_DATE)#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/true/*hc*/)/*hc:tdr2_${velocityCount}*/.addProp(ColRDesc.AS_DATE)#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)
 #elseif ($attr.enum)
-			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/100, true/*hc*/)/*hc:tdr2_${velocityCount}*//*hc*/.addProp(EnumListFW.enumValues + ":" + ${attr.type}.getValuesAsString())#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end)
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/true/*hc*/)/*hc:tdr2_${velocityCount}*//*hc*/.addProp(EnumListFW.enumValues + ":" + ${attr.type}.getValuesAsString())#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end)
 #elseif (!$attr.generic)
-			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/100, true/*hc*/)/*hc:tdr2_${velocityCount}*/#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/true/*hc*/)/*hc:tdr2_${velocityCount}*/#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)
 #else
-			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/100/*hc*/)/*hc:tdr2_${velocityCount}*/#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)				
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*//*hc*/)/*hc:tdr2_${velocityCount}*/#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)				
 #end 
 #end 
 #end

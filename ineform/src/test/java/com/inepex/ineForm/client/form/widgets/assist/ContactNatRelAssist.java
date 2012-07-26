@@ -61,9 +61,9 @@ public class ContactNatRelAssist {
 			tableRDesc = new TableRDesc(ContactNatRelKVO.descriptorName);
 			
 			tableRDesc.getRootNode()
-				.addChild(ContactNatRelKVO.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-				.addChild(ContactNatRelKVO.k_nationality, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
-				.addChild(ContactNatRelKVO.k_orderNum, new ColRDesc(/*hc:tdr1_4*/100, true/*hc*/)/*hc:tdr2_4*//*hc*/)
+				.addChild(ContactNatRelKVO.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
+				.addChild(ContactNatRelKVO.k_nationality, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
+				.addChild(ContactNatRelKVO.k_orderNum, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
 				;
 		}
 		return tableRDesc;
