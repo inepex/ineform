@@ -191,6 +191,12 @@ public class KeyValueObject extends AssistedObject {
 	public Long getLongUnchecked(String key) {
 		return longValues.get(key);
 	}
+	
+
+	@Override
+	public Boolean getBooleanUnchecked(String key) {
+		return booleanValues.get(key);
+	}
 
 	@Override
 	public String getStringUnchecked(String key) {
@@ -356,7 +362,6 @@ public class KeyValueObject extends AssistedObject {
 	public Set<String> getRelationKeys() {
 		return relationValues.keySet();
 	}
-
 	public NullableHashMap<String, Boolean> getBooleanValues() {
 		return booleanValues;
 	}

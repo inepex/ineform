@@ -51,6 +51,8 @@ public abstract class AssistedObject implements Serializable {
 	/******** Unchecked GET methods ********/
 	public abstract Long getLongUnchecked(String key);
 
+	public abstract Boolean getBooleanUnchecked(String key);
+
 	public abstract String getStringUnchecked(String key);
 
 	/******** CONTAINS methods ********/
