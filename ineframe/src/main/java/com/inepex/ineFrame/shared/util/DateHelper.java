@@ -358,29 +358,31 @@ public class DateHelper {
 	}
 	
 	/**
-	 * 
-	 * @param duration
+	 * @param duration in milliseconds
+	 * @param showSec if true seconds is showed, if false the value of seconds will be rounded into minutes (0&lt;=seconds&lt;30 +0min, 30&lt;=seconds&lt;60 +1min)
 	 * @return formatted duration, like 3h 34m
 	 */
 	public static String formatDuration(long duration, boolean showSec){
-		int second = 1000;
-		int minute = second * 60;
-		int hour = minute * 60;
-		int day = hour * 24;
-		int days = 0;
-		int hours = 0;
-		int minutes = 0;
-		int seconds = 0;
-		days = (int) (duration / day);
-		duration -= days * day;
-		hours = (int) (duration / hour);
-		duration -= hours * hour;
-		minutes = (int) (duration / minute);
-		duration -= minutes * minute;
-		seconds = (int) (duration / second);
+		if(!showSec) {
+			long secAndMs = duration%minuteInMs;
+			if(secAndMs >= 30*secondInMs) {
+				duration=duration-secAndMs+minuteInMs;
+			}
+		}
+			
+		
+		int days = (int) (duration / dayInMs);
+		duration -= days * dayInMs;
+		
+		int hours = (int) (duration / hourInMs);
+		duration -= hours * hourInMs;
+		
+		int minutes = (int) (duration / minuteInMs);
+		duration -= minutes * minuteInMs;
+		
+		int seconds = (int) (duration / secondInMs);
 		
 		StringBuffer sb = new StringBuffer();
-		
 		if (days > 0) {
 			sb.append(days);
 			sb.append(IneFrameI18n.dayShort());

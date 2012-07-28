@@ -14,18 +14,31 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 
 public class DummyDataConnector extends IneDataConnector{
 
+	private List<AssistedObject> items  = new ArrayList<AssistedObject>();
+	
 	public DummyDataConnector(EventBus eventBus, String descriptorName) {
 		super(eventBus, descriptorName);
 	}
 
 	public void setDisplayedItems(List<AssistedObject> items) {
-		if(items==null) items = new ArrayList<AssistedObject>();
+		if(items==null) 
+			this.items  = new ArrayList<AssistedObject>();
+		else
+			this.items = items;
 		
-		updateRowCount(items.size(), true);
-		
-		for(HasData<AssistedObject> d : getDataDisplays()) {
-			updateRowData(d, d.getVisibleRange().getStart(), items);
+		update(true);
+	}
+	
+	@Override
+	public void update(boolean updateDisplays) {
+		if(updateDisplays) {
+			updateRowCount(items.size(), true);
+			
+			for(HasData<AssistedObject> d : getDataDisplays()) {
+				updateRowData(d, d.getVisibleRange().getStart(), items);
+			}
 		}
+			
 	}
 
 	@Override
