@@ -38,5 +38,16 @@ public class IFConsts {
 	
 	public static final String LANG = "lang";
 	
+	public static String buildEnumList(String ... items){
+		StringBuilder sb = new StringBuilder();
+		for (String item : items){
+			sb.append(item)
+			  .append(IFConsts.enumValueSplitChar);
+		}
+		if (sb.length() > 0)
+			sb.deleteCharAt(sb.length()-1);
+		return sb.toString();
+	}
+	
 	
 }

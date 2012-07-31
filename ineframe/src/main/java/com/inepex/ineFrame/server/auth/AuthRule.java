@@ -5,9 +5,16 @@ import java.util.List;
 
 public class AuthRule {
 	
+	public static AuthRule createPermission(String permission){
+		AuthRule rule = new AuthRule();
+		rule.setPermission(permission);
+		return rule;
+	}
+	
 	public static AuthRule createObjectPermission(Long objectId, String permission){
 		AuthRule rule = new AuthRule();
-		rule.getObjectIds().add(objectId);
+		if (objectId != null)
+			rule.getObjectIds().add(objectId);
 		rule.setPermission(permission);
 		return rule;
 	}

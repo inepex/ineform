@@ -7,12 +7,19 @@ import com.google.common.collect.ListMultimap;
 
 public class AuthRuleSet {
 	
+	public static String globalPermObject = "globalPermObject";
+	
 	/**
 	 * AuthRules by objectName
 	 */
 	private ListMultimap<String, AuthRule> rules = ArrayListMultimap.create();
 	
 	public AuthRuleSet() {
+	}
+	
+	public AuthRuleSet ADD(String permission){
+		rules.put(globalPermObject, AuthRule.createPermission(permission));		
+		return this;
 	}
 	
 	public AuthRuleSet ADD(String objectName, Long objectId, String permission){
