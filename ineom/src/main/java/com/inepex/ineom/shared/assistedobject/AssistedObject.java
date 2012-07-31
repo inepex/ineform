@@ -54,6 +54,8 @@ public abstract class AssistedObject implements Serializable {
 	public abstract Boolean getBooleanUnchecked(String key);
 
 	public abstract String getStringUnchecked(String key);
+	
+	public abstract Relation getRelationUnchecked(String key);
 
 	/******** CONTAINS methods ********/
 	protected abstract boolean containsString(String key);

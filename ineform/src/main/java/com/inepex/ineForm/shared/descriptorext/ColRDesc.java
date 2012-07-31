@@ -1,10 +1,10 @@
 package com.inepex.ineForm.shared.descriptorext;
 
-
 @SuppressWarnings("serial")
 public class ColRDesc extends TableRDescBase {
 
 	public static final int DEF_CROP_WITH=30;
+	public static final String HALIGN = "HALIGN";
 	public static final String AS_DATE = "AS_DATE";
 	public static final String AS_DATE_WITHSEC = "AS_DATE_WITHSEC";
 	public static final String AS_SHORTDATE = "AS_SHORTDATE";
@@ -105,4 +105,17 @@ public class ColRDesc extends TableRDescBase {
 		return this;
 	}
 	
+	public boolean hasHAlign() {
+		return hasProp(HALIGN);
+	}
+	
+	public ColRDesc hAlign(ColRDescHAlign hAlign) {
+		addProp(HALIGN, hAlign.toString());
+		return this;
+	}
+	
+	public ColRDescHAlign getHAlign() {
+		return ColRDescHAlign.valueOf(getPropValue(HALIGN));
+	}
 }
+

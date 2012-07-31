@@ -27,6 +27,7 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
@@ -350,8 +351,29 @@ public class IneTable extends HandlerAwareComposite {
 					, colRenderDesc.hasProp(ColRDesc.DEFAULTSORTREVERSE));
 			headers.put(columnNode.getNodeId(), header);
 			cellTable.addColumn(column, header);
+			
 			if(colRenderDesc.hasColumnWidth())
 				cellTable.setColumnWidth(column, colRenderDesc.getColumnWidthAsString());
+			
+			if(colRenderDesc.hasHAlign()) {
+				HorizontalAlignmentConstant hAl=null;
+				switch (colRenderDesc.getHAlign()) {
+				
+				case RIGHT:
+					hAl=HasHorizontalAlignment.ALIGN_RIGHT;
+					break;
+					
+				case LEFT:
+					hAl=HasHorizontalAlignment.ALIGN_LEFT;
+					break;
+					
+				case CENTER:
+				default:
+					hAl=HasHorizontalAlignment.ALIGN_CENTER;
+					break;
+				}
+				cellTable.getColumn(cellTable.getColumnCount()-1).setHorizontalAlignment(hAl);
+			}
 		}
 		
 		if(commands!=null) {
