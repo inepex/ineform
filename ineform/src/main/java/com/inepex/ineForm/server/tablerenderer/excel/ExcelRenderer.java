@@ -1,7 +1,8 @@
 package com.inepex.ineForm.server.tablerenderer.excel;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -174,13 +175,13 @@ public class ExcelRenderer extends TableRenderer{
 					else if (colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT) != null) {
 						Long date = kvoOrRelatedKvoChecker.getLong(deepestKey);
 						if(date != null){
-							actualCell.setCellValue(new Date(date));
+							actualCell.setCellValue(getGMTCalendar(date));
 						}
 						setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT));
 					}
 					
 				}
-				cellValueSet(key);
+				cellValueSet(key, kvoOrRelatedKvoChecker);
 				
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
@@ -194,6 +195,13 @@ public class ExcelRenderer extends TableRenderer{
 		return "";
 	}
 	
+	protected Calendar getGMTCalendar(long timeInMillis){
+		Calendar c =  Calendar.getInstance();
+		c.setTimeInMillis(timeInMillis);
+		c.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return c;
+	}
+	
 	protected void setDataFormatForActualCell(String format){
 		CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
 		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
@@ -201,6 +209,6 @@ public class ExcelRenderer extends TableRenderer{
 		actualCell.setCellStyle(cellStyle);
 	}
 	
-	protected void cellValueSet(String key){}
+	protected void cellValueSet(String key, AssistedObjectHandler rowKvo){}
 
 }
