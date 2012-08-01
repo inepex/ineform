@@ -116,6 +116,10 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		this.view.setDelegate(this);
 	}
 	
+	public IneDataConnector getIneDataConnector() {
+		return ineDataConnector;
+	}
+
 	public void setSaveButtonVisible(boolean visible) {
 		view.setSaveButtonVisible(visible);
 	}
