@@ -198,7 +198,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 		if (widget == null)
 			return;
 		
-		if (widget.handlesRelation())
+		if (widget.handlesDouble())
 			widget.setDoubleValue(value);
 	}
 	
