@@ -156,12 +156,17 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		doSave();
 	}
 	
+	@Override
+	public void dealValidationResult(ValidationResult vr) {
+		view.setFormValidationSuccess(vr==null || vr.isValid());
+		
+		super.dealValidationResult(vr);
+	}
+	
 	public void doSave(){
-		boolean isFormValid = doValidate(kvo).isValid();
-		view.setFormValidationSuccess(isFormValid);
-		if (!isFormValid){
+		if (doValidate(kvo).isValid())
 			return;
-		}
+		
 		// Send only the changes to the server 
 		AssistedObject difference = handlerFactory.createHandler(kvo).getDifference(
 				handlerFactory.createHandler(originalData)).getAssistedObject();
