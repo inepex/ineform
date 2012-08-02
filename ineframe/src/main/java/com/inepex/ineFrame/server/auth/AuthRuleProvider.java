@@ -12,6 +12,4 @@ public interface AuthRuleProvider {
 	
 	public boolean authorize(Long userId, RelationList relationList, AuthRuleSet authRuleSet);
 	
-	
-
 }
