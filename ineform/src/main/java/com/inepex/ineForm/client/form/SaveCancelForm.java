@@ -164,7 +164,7 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	}
 	
 	public void doSave(){
-		if (doValidate(kvo).isValid())
+		if (!doValidate(kvo).isValid())
 			return;
 		
 		// Send only the changes to the server 
