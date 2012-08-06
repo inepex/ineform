@@ -37,6 +37,7 @@ public class ExcelRenderer extends TableRenderer{
 	protected int startRowNr;
 	protected int actualRowNr;
 	protected Row actualRow;
+	protected int startCellNr;
 	protected int actualCellNr;
 	protected Cell actualCell;
 	protected boolean setCellTypes;
@@ -51,13 +52,17 @@ public class ExcelRenderer extends TableRenderer{
 			) {
 		super(descStore, objectDescName, tableRDescName, fieldRenderer);
 		this.sheet = sheet;
-		startRowNr = 0;
+		startRowNr = startCellNr = 0;
 		setRenderLastFieldEnd(true);
 		this.setCellTypes = setCellTypes;
 	}
 
 	public void setStartRowNr(int rowNr){
 		this.startRowNr = rowNr;
+	}
+	
+	public void setStartCellNr(int cellNr){
+		this.startCellNr = cellNr;
 	}
 
 	@Override
@@ -67,7 +72,7 @@ public class ExcelRenderer extends TableRenderer{
 
 	@Override
 	protected void renderEnd() {
-		for(int i= 0; i <= actualCellNr; i++){
+		for(int i = startCellNr; i <= actualCellNr; i++){
 			sheet.autoSizeColumn(i);
 		}
 	}
@@ -75,7 +80,7 @@ public class ExcelRenderer extends TableRenderer{
 	@Override
 	protected void renderLineStart() {
 		actualRow = sheet.createRow((short)actualRowNr);
-		actualCellNr = 0;
+		actualCellNr = startCellNr;
 	}
 
 	@Override
