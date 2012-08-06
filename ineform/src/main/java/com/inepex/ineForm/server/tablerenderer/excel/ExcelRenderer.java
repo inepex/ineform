@@ -2,7 +2,6 @@ package com.inepex.ineForm.server.tablerenderer.excel;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -68,8 +67,9 @@ public class ExcelRenderer extends TableRenderer{
 
 	@Override
 	protected void renderEnd() {
-		// TODO Auto-generated method stub
-
+		for(int i= 0; i <= actualCellNr; i++){
+			sheet.autoSizeColumn(i);
+		}
 	}
 
 	@Override
@@ -175,6 +175,9 @@ public class ExcelRenderer extends TableRenderer{
 							actualCell.setCellValue(getGMTCalendar(date));
 						}
 						setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT));
+					}
+					else{
+						actualCell.setCellValue(fieldRenderer.getField(deepestKey));
 					}
 					
 				}
