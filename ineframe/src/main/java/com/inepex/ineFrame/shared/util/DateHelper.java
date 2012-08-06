@@ -358,29 +358,29 @@ public class DateHelper {
 	}
 	
 	/**
-	 * @param duration in milliseconds
+	 * @param durationInMs in milliseconds
 	 * @param showSec if true seconds is showed, if false the value of seconds will be rounded into minutes (0&lt;=seconds&lt;30 +0min, 30&lt;=seconds&lt;60 +1min)
 	 * @return formatted duration, like 3h 34m
 	 */
-	public static String formatDuration(long duration, boolean showSec){
+	public static String formatDuration(long durationInMs, boolean showSec){
 		if(!showSec) {
-			long secAndMs = duration%minuteInMs;
+			long secAndMs = durationInMs%minuteInMs;
 			if(secAndMs >= 30*secondInMs) {
-				duration=duration-secAndMs+minuteInMs;
+				durationInMs=durationInMs-secAndMs+minuteInMs;
 			}
 		}
 			
 		
-		int days = (int) (duration / dayInMs);
-		duration -= days * dayInMs;
+		int days = (int) (durationInMs / dayInMs);
+		durationInMs -= days * dayInMs;
 		
-		int hours = (int) (duration / hourInMs);
-		duration -= hours * hourInMs;
+		int hours = (int) (durationInMs / hourInMs);
+		durationInMs -= hours * hourInMs;
 		
-		int minutes = (int) (duration / minuteInMs);
-		duration -= minutes * minuteInMs;
+		int minutes = (int) (durationInMs / minuteInMs);
+		durationInMs -= minutes * minuteInMs;
 		
-		int seconds = (int) (duration / secondInMs);
+		int seconds = (int) (durationInMs / secondInMs);
 		
 		StringBuffer sb = new StringBuffer();
 		if (days > 0) {
@@ -406,6 +406,43 @@ public class DateHelper {
 		return sb.toString();
 		
 	}
+	
+	/**
+	 * 
+	 * @param durationInMs in milliseconds
+	 * @param showTilde if true the returned string begins with '~'
+	 * 
+	 * @return on the current language: '10 sec' .. '30sec', '1 min' .. '5 min', '10 min'... '50 min', '1 h' ... '24 h', '1 day' ...
+	 */
+	public static String approachDuration(long durationInMs, boolean showTilde) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(showTilde)
+			sb.append("~ ");
+		
+		if(durationInMs<secondInMs*55) {
+			sb.append(10*(durationInMs/(10*secondInMs)));
+			sb.append(IneFrameI18n.secShort());
+			return sb.toString();
+		}
+		
+		if(durationInMs<minuteInMs*55) {
+			sb.append(10*(durationInMs/(10*minuteInMs)));
+			sb.append(IneFrameI18n.minShort());
+			return sb.toString();
+		}
+		
+		if(durationInMs<hourInMs*23) {
+			sb.append(durationInMs/hourInMs);
+			sb.append(IneFrameI18n.hourShort());
+			return sb.toString();
+		}
+		
+		sb.append(durationInMs/dayInMs);
+		sb.append(IneFrameI18n.dayShort());
+		return sb.toString();
+	}
+	
 	public static Date getDayEndDate(Date date){
 		date = resetHoursMinsSecsMillis(date);
 		date = addDaysSafe(date, 1);
