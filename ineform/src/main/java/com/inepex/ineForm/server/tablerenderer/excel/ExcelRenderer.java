@@ -90,9 +90,6 @@ public class ExcelRenderer extends TableRenderer{
 	}
 
 	protected void renderField(String content){
-		//		if(setCellTypes){
-		//			return;			
-		//		}
 		actualCell.setCellValue(content);
 	}
 
@@ -198,7 +195,7 @@ public class ExcelRenderer extends TableRenderer{
 	protected Calendar getGMTCalendar(long timeInMillis){
 		Calendar c =  Calendar.getInstance();
 		c.setTimeInMillis(timeInMillis);
-		c.setTimeZone(TimeZone.getTimeZone("GMT"));
+//		c.setTimeZone(TimeZone.getTimeZone("GMT"));
 		return c;
 	}
 	
