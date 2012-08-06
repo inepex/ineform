@@ -418,29 +418,41 @@ public class DateHelper {
 		StringBuilder sb = new StringBuilder();
 		
 		if(showTilde)
-			sb.append("~ ");
+			sb.append("~");
 		
 		if(durationInMs<secondInMs*55) {
-			sb.append(Math.max(10, 10*(durationInMs/(10*secondInMs))));
+			sb.append(10*divAndRoundToAvoidNull(10*secondInMs, durationInMs));
 			sb.append(IneFrameI18n.secShort());
 			return sb.toString();
 		}
 		
-		if(durationInMs<minuteInMs*55) {
-			sb.append(Math.max(10, 10*(durationInMs/(10*minuteInMs))));
+		if(durationInMs<minuteInMs*17) {
+			sb.append(divAndRoundToAvoidNull(minuteInMs, durationInMs));
 			sb.append(IneFrameI18n.minShort());
 			return sb.toString();
 		}
 		
-		if(durationInMs<hourInMs*23) {
-			sb.append(Math.max(1, durationInMs/hourInMs));
+		
+		if(durationInMs<hourInMs*2) {
+			sb.append(10*divAndRoundToAvoidNull(10*minuteInMs, durationInMs));
+			sb.append(IneFrameI18n.minShort());
+			return sb.toString();
+		}
+		
+		if(durationInMs<hourInMs*47) {
+			sb.append(divAndRoundToAvoidNull(hourInMs, durationInMs));
 			sb.append(IneFrameI18n.hourShort());
 			return sb.toString();
 		}
 		
-		sb.append(Math.max(1, durationInMs/dayInMs));
+		sb.append(divAndRoundToAvoidNull(dayInMs, durationInMs));
 		sb.append(IneFrameI18n.dayShort());
 		return sb.toString();
+	}
+	
+	
+	protected static long divAndRoundToAvoidNull(long magnitude, long num) {
+		return Math.max(1, (num+magnitude/2)/magnitude);
 	}
 	
 	public static Date getDayEndDate(Date date){
