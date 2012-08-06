@@ -421,24 +421,24 @@ public class DateHelper {
 			sb.append("~ ");
 		
 		if(durationInMs<secondInMs*55) {
-			sb.append(10*(durationInMs/(10*secondInMs)));
+			sb.append(Math.max(10, 10*(durationInMs/(10*secondInMs))));
 			sb.append(IneFrameI18n.secShort());
 			return sb.toString();
 		}
 		
 		if(durationInMs<minuteInMs*55) {
-			sb.append(10*(durationInMs/(10*minuteInMs)));
+			sb.append(Math.max(10, 10*(durationInMs/(10*minuteInMs))));
 			sb.append(IneFrameI18n.minShort());
 			return sb.toString();
 		}
 		
 		if(durationInMs<hourInMs*23) {
-			sb.append(durationInMs/hourInMs);
+			sb.append(Math.max(1, durationInMs/hourInMs));
 			sb.append(IneFrameI18n.hourShort());
 			return sb.toString();
 		}
 		
-		sb.append(durationInMs/dayInMs);
+		sb.append(Math.max(1, durationInMs/dayInMs));
 		sb.append(IneFrameI18n.dayShort());
 		return sb.toString();
 	}
