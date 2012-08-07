@@ -1,12 +1,15 @@
 package com.inepex.ineFrame.test;
 
+import java.util.List;
+
 import com.google.gwt.junit.GWTMockUtilities;
 import com.google.inject.Provider;
 import com.inepex.ineFrame.server.IneInitializer;
-import com.inepex.ineFrame.server.LocalizationInitializer;
 import com.inepex.ineFrame.server.MockCurrentLang;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.inei18n.shared.I18nModule;
+import com.inepex.ineom.TestI18nModuleProvider;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 
 public abstract class IneFrameClientSideTestBase implements IneInitializer {
@@ -38,8 +41,21 @@ public abstract class IneFrameClientSideTestBase implements IneInitializer {
 	}
 	
 	private void setupLocalization() {
-		new LocalizationInitializer(serverI18n, this, currentLangProvider)
+		new TestLocalizationInitializer(serverI18n, this, currentLangProvider)
 			.doInitialize();
 	}
 	
+	public abstract List<Class<? extends I18nModule>> listUsedI18nClasses();
+	
+	@Override
+	public final void registerAdditionalI18nModules(I18nStore_Server serverI18n,
+			Provider<CurrentLang> currentLangProvider) {
+		List<Class<? extends I18nModule>> modules = listUsedI18nClasses();
+		if(modules!=null) {
+			for(Class<? extends I18nModule> mod : modules) {
+				serverI18n.registerModule(TestI18nModuleProvider.createTestI18nProvider(mod));
+			}
+		}
+		
+	}
 }

@@ -8,14 +8,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.google.inject.Provider;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
-import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
 import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
-import com.inepex.inei18n.server.I18nStore_Server;
-import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -25,13 +22,14 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTestBase {
-	
-	@Override
-	public void registerAdditionalI18nModules(I18nStore_Server serverI18n,
-			Provider<CurrentLang> currentLangProvider) {
-		serverI18n.registerModule(new IneFormI18n(new ServerIneFormI18nProvider(currentLangProvider)));
-	}
 
+	@Override
+	public List<Class<? extends I18nModule>> listUsedI18nClasses() {
+		ArrayList<Class<? extends I18nModule>> list = new ArrayList<Class<? extends I18nModule>>();
+		list.add(IneFormI18n.class);
+		return list;
+	}
+	
 	@Test
 	public void getRowsFromAoAndOdTest() {
 		final String k_str="k_str";

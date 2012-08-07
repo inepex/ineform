@@ -46,7 +46,7 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	public void init() throws ServletException {
 		setupDefaults();
 		// TODO use DI here also!
-		new LocalizationInitializer(serverI18n, this, currentLangProvider).doInitialize();
+		new RealLocalizationInitializer(serverI18n, this, currentLangProvider).doInitialize();
 		setupDescriptorStores();
 		
 		super.init();

@@ -97,6 +97,9 @@ public class I18nStore_Server extends I18nStoreBase {
 	
 	public void initI18nModules() {
 		for (I18nModule i18nModule : modulesByName.values()) {
+			if(i18nModule.getI18nProvider()==null || !(i18nModule.getI18nProvider() instanceof ServerI18nProvider))
+					continue;
+			
 			ServerI18nProvider<?> serverI18nProv = (ServerI18nProvider<?>)i18nModule.getI18nProvider();
 			
 			TreeMap<String, LocalizedString> localizablesByKey = localizablesByKeyByModule.get(i18nModule.getModuleName());
