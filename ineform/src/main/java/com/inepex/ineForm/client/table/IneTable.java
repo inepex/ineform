@@ -16,6 +16,7 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -28,11 +29,13 @@ import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.assistedinject.Assisted;
@@ -98,8 +101,26 @@ public class IneTable extends HandlerAwareComposite {
 	
 	}	
 	
+	RowCountChangeEvent.Handler defaultEmptyRowsHandler = new RowCountChangeEvent.Handler(){
+
+		@Override
+		public void onRowCountChange(RowCountChangeEvent event) {
+			if(event.getNewRowCount()==0){
+				onEmptyRows();
+			}else{
+				cellTable.setVisible(true);
+				if(showPager)
+					pager.setVisible(true);
+				if(emptyRowsWidget!=null)
+					emptyRowsWidget.setVisible(false);
+			}
+		}
+		
+	};
+	
 	final FlowPanel mainPanel = new FlowPanel();
 	final CellTable<AssistedObject> cellTable;
+	private Widget emptyRowsWidget = null;
 	
 	protected String commandsTitle = "";
 	protected List<UserCommand> commands = new ArrayList<IneTable.UserCommand>();
@@ -174,7 +195,7 @@ public class IneTable extends HandlerAwareComposite {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
 				super.setRowData(start, values);
-				onRowDataChanged();
+				onRowDataChanged(values);
 			};
 			
 			@Override
@@ -187,6 +208,8 @@ public class IneTable extends HandlerAwareComposite {
 			};
 		};
 		
+		cellTable.addRowCountChangeHandler(defaultEmptyRowsHandler);
+		
 		this.objectDescriptorName = objectDescriptorName;
 		this.tableRenderDescriptor = tableRenderDescriptor != null  
 				? tableRenderDescriptor
@@ -198,10 +221,24 @@ public class IneTable extends HandlerAwareComposite {
 	}
 	
 //**** Set behaviour properties ****// 
-
-	protected void onRowDataChanged() {
+	protected void onRowDataChanged(){
+	}
+	
+	private void onRowDataChanged(java.util.List<? extends AssistedObject> values){
+		if(values.size()==0){
+			onEmptyRows();
+		}
 	}
 
+	private void onEmptyRows(){
+		if(emptyRowsWidget!=null){
+			emptyRowsWidget.setVisible(true);
+			cellTable.setVisible(false);
+			if(showPager)
+				pager.setVisible(false);
+		}
+	}
+	
 	public void setCommandsTitle(String commandsTitle) {
 		this.commandsTitle = commandsTitle;
 	}
@@ -608,5 +645,13 @@ public class IneTable extends HandlerAwareComposite {
 		return multiSelectionModel;
 	}
 	
+	public void setEmptyRowsWidget(Widget widget){
+		emptyRowsWidget=widget;
+		emptyRowsWidget.setVisible(false);
+		mainPanel.add(emptyRowsWidget);
+	}
 	
+	public HandlerRegistration addRowCountChangedHandler(RowCountChangeEvent.Handler handler){
+		return cellTable.addRowCountChangeHandler(handler);
+	}
 }
