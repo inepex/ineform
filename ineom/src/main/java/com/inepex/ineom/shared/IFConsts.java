@@ -37,6 +37,7 @@ public class IFConsts {
 	public static final String COOKIE_FALSE= "false";
 	
 	public static final String LANG = "lang";
+	public static final String FWIDPREFIX = "formwidget-";
 	
 	public static String buildEnumList(String ... items){
 		StringBuilder sb = new StringBuilder();

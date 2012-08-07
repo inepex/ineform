@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.FDesc;
@@ -29,6 +30,7 @@ public abstract class FormWidget extends HandlerAwareComposite {
 		
 		this.mainWidget = widget;
 		super.initWidget(widget);
+		getElement().setId(IFConsts.FWIDPREFIX + fieldDescriptor.getKey());
 	}
 	
 	public void setWidth(String width) {
