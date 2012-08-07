@@ -30,7 +30,8 @@ public abstract class FormWidget extends HandlerAwareComposite {
 		
 		this.mainWidget = widget;
 		super.initWidget(widget);
-		getElement().setId(IFConsts.FWIDPREFIX + fieldDescriptor.getKey());
+		if (fieldDescriptor != null)
+			getElement().setId(IFConsts.FWIDPREFIX + fieldDescriptor.getKey());
 	}
 	
 	public void setWidth(String width) {
