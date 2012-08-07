@@ -33,6 +33,10 @@ public abstract class IneFrameClientSideTestBase implements IneInitializer {
 		registerAssists(descStore);
 	}
 	
+	public ClientDescriptorStore getDescStore() {
+		return descStore;
+	}
+	
 	private void setupLocalization() {
 		new LocalizationInitializer(serverI18n, this, currentLangProvider)
 			.doInitialize();
