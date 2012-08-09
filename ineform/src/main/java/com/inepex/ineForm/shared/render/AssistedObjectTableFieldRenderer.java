@@ -129,10 +129,10 @@ public class AssistedObjectTableFieldRenderer {
 	
 				// Crop result
 				int usingCropsLeng = colRdesc.getCropWidth();
-						
-				result = result.length() > usingCropsLeng ? result.substring(
-						0, usingCropsLeng) + "..." : result;
-	
+				if (usingCropsLeng != 0) {
+					result = result.length() > usingCropsLeng ? result.substring(
+							0, usingCropsLeng) + "..." : result;
+				}
 				return result;
 				
 			} catch (Exception e) {

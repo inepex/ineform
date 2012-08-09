@@ -100,6 +100,13 @@ public class ColRDesc extends TableRDescBase {
 		return columnWidth;
 	}
 	
+	/**
+	 * Sets how many characters is the maximum that can be rendered in a specific column. Default is DEF_CROP_WIDTH.
+	 * If set to 0, than the string will not be cropped at all.
+	 * 
+	 * @param customCorpsWidth
+	 * @return
+	 */
 	public ColRDesc cropWidth(int customCorpsWidth) {
 		this.cropWidth = customCorpsWidth;
 		return this;
