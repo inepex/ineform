@@ -27,7 +27,7 @@
 			<build>
 				<plugins>
 					<plugin>
-					<groupId>groupId>org.codehaus.mojo</groupId>		
+					<groupId>org.codehaus.mojo</groupId>		
 					<artifactId>buildnumber-maven-plugin</artifactId>		
 					<version>${buildNumberVersion}</version>		
 					<executions>		
