@@ -32,10 +32,10 @@
 		<javaxServletVersion>2.5</javaxServletVersion>
 		<nettyVersion>3.3.1.Final</nettyVersion>
 		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
-		<mavenCompilerVersion>2.1</mavenCompilerVersion>
+		<mavenCompilerVersion>2.5.1</mavenCompilerVersion>
 		<mavenCompilerSourceVersion>1.6</mavenCompilerSourceVersion>
 		<mavenCompilerTargetVersion>1.6</mavenCompilerTargetVersion>
-		<mavenJarVersion>2.2</mavenJarVersion>
+		<mavenJarVersion>2.4</mavenJarVersion>
 		<mavenSureFireVersion>2.8</mavenSureFireVersion>
 		<eclipselinkVersion>2.3.0</eclipselinkVersion>
 		<slf4jVersion>1.6.1</slf4jVersion>
@@ -43,7 +43,7 @@
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
 		<jukitoVersion>1.1</jukitoVersion>
 		<googleGuavaVersion>11.0.2</googleGuavaVersion>
-
+		<buildHelperVersion>1.7</buildHelperVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<SVNConnBase>scm:svn:http://ineform.googlecode.com/svn/trunk</SVNConnBase>
 	</properties>

@@ -39,9 +39,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-				<groupId>io.netty</groupId>
-				<artifactId>netty</artifactId>
-				<version>${nettyVersion}</version>
+			<groupId>io.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>${nettyVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
@@ -152,23 +152,6 @@
 					<source>${mavenCompilerSourceVersion}</source>
 					<target>${mavenCompilerTargetVersion}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>buildnumber-maven-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>create</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<doCheck>false</doCheck>
-					<doUpdate>false</doUpdate>
 				</configuration>
 			</plugin>
 			<plugin>
