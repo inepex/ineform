@@ -45,6 +45,7 @@
 		<googleGuavaVersion>11.0.2</googleGuavaVersion>
 		<buildHelperVersion>1.7</buildHelperVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<buildNumberVersion>1.1</buildNumberVersion>
 		<SVNConnBase>scm:svn:http://ineform.googlecode.com/svn/trunk</SVNConnBase>
 	</properties>
 

@@ -20,6 +20,33 @@
 		<connection>${SVNConnBase}/${project.artifactId}</connection>
 	</scm>
 
+	<profiles>
+		<profile>
+			<id>buildnum</id>
+			<build>
+				<plugins>
+					<plugin>
+					<groupId>groupId>org.codehaus.mojo</groupId>		
+					<artifactId>buildnumber-maven-plugin</artifactId>		
+					<version>${buildNumberVersion}</version>		
+					<executions>		
+						<execution>		
+							<phase>validate</phase>		
+							<goals>		
+								<goal>create</goal>		
+							</goals>		
+						</execution>		
+					</executions>		
+					<configuration>		
+						<doCheck>true</doCheck>		
+						<doUpdate>false</doUpdate>		
+					</configuration>	
+					</plugin>		
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
