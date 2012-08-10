@@ -14,13 +14,11 @@ public class EmailValidator implements KeyValueObjectValidator {
 	
 	public final static String regExpr = 
 			"^" +
-			"([a-zA-Z0-9]){2,40}" +									//firstname
-			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//.lastname
-			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//.lastlastname
-			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//.lastlastlastname
+			"([a-zA-Z0-9]){1,40}" +									//firstname
+			"(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*" +				//.lastname or .lastname.lastlastname...
 			"@" + 													//@
-			"([a-zA-Z0-9]){2,40}" +									//sg
-			"(([_\\.\\-\\+])([a-zA-Z0-9]){2,40})?" +				//-domain
+			"([a-zA-Z0-9]){1,40}" +									//sg
+			"(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*" +				//-domain or -domain-domain...
 			"\\." + 												//.
 			"[a-zA-Z0-9]{2,6}$"; 									//com
 	
