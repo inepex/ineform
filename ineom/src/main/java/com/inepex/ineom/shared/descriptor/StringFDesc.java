@@ -32,6 +32,11 @@ public class StringFDesc extends FDesc implements Serializable {
 		validatorNames.add(KeyValueObjectValidationManager.MAXLENGTH+":"+maxLenght);
 		return this;
 	}
+	
+	public StringFDesc minLength(int minLenght)  {
+		validatorNames.add(KeyValueObjectValidationManager.MINLENGTH+":"+minLenght);
+		return this;
+	}
 
 	public StringFDesc email() {
 		validatorNames.add(KeyValueObjectValidationManager.EMAIL);
