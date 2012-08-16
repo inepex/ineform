@@ -184,7 +184,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return action.getObject().getId();
 	}
 
-	public E doCreateOrEdit(AssistedObject kvo, CustomKVOObjectDesc... custOds) {
+	public E doCreateOrEdit(AssistedObject kvo, CustomKVOObjectDesc... custOds) throws Exception {
 		E entity = null;
 
 		if (kvo.isNew())

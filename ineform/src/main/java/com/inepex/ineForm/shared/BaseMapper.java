@@ -10,7 +10,7 @@ import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 
 public abstract class BaseMapper<E> {
 	
-	public abstract E kvoToEntity(AssistedObject from, E to, CustomKVOObjectDesc... descs);
+	public abstract E kvoToEntity(AssistedObject from, E to, CustomKVOObjectDesc... descs) throws Exception;
 	
 	public abstract AssistedObject entityToKvo(E entity);
 	
