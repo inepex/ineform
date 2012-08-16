@@ -50,32 +50,35 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	private class ObjectListSuccess extends SuccessCallback<ObjectListResult> {
 		private final boolean updateDisplays;
-		private final DataConnectorReadyCallback readyCallback;
 
-		public ObjectListSuccess(boolean updateDisplays, DataConnectorReadyCallback readyCallback) {
+		public ObjectListSuccess(boolean updateDisplays) {
 			this.updateDisplays = updateDisplays;
-			this.readyCallback = readyCallback;
+			
 		}
 
 		@Override
-		public void onSuccess(ObjectListResult result) {
+		public void onSuccess(ObjectListResult result) {		
 			updateWithObjectListResultCount(result, updateDisplays);
-
-			if (readyCallback != null)
-				readyCallback.ready();
+			
 		}
 	}
 
 	private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
 		HasData<AssistedObject> display;
+		private final DataConnectorReadyCallback readyCallback;
 
-		public ObjectRangeSuccess(HasData<AssistedObject> display) {
+		public ObjectRangeSuccess(HasData<AssistedObject> display, DataConnectorReadyCallback readyCallback) {
 			this.display = display;
+			this.readyCallback = readyCallback;
 		}
 
 		@Override
 		public void onSuccess(ObjectListResult result) {
+			lastResult = result;
 			updateSpecificDisplay(result, display);
+			
+			if (readyCallback != null)
+				readyCallback.ready();
 		}
 	}
 
@@ -96,8 +99,12 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	protected AsyncStatusIndicator customListingStatusIndicator = null;
 	protected AsyncStatusIndicator customManipulateStatusIndicator = null;
+	
+	protected ObjectListResult lastResult;
 
 	private boolean isPaging = true;
+	
+	private DataConnectorReadyCallback callback;
 
 	public IneDataConnector(EventBus eventBus, String descriptorName) {
 		this.eventBus = eventBus;
@@ -262,6 +269,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 
 	public void update(boolean updateDisplays, DataConnectorReadyCallback callback) {
+		this.callback = callback;
 		createDefaultListActionIfNull();
 
 		if (!isPaging) {
@@ -272,7 +280,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 		// if table is a paging table than we should query count
 		setListActionDetails(objectList, searchParameters, 0, 0, true);
-		executeObjectList(objectList, new ObjectListSuccess(updateDisplays, callback), customListingStatusIndicator);
+		executeObjectList(objectList, new ObjectListSuccess(updateDisplays), customListingStatusIndicator);
 	}
 
 	private void updateWithObjectListResultCount(ObjectListResult result, boolean updateDisplays) {
@@ -288,7 +296,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 				.getVisibleRange()
 				.getLength(), false);
 
-		executeObjectList(objectList, new ObjectRangeSuccess(display), customListingStatusIndicator);
+		executeObjectList(objectList, new ObjectRangeSuccess(display, callback), customListingStatusIndicator);
 	}
 
 	protected void updateSpecificDisplay(ObjectListResult result, HasData<AssistedObject> display) {
@@ -306,4 +314,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	 */
 	protected void onNewData(ObjectListResult objectListResult) {
 	}
+
+	public ObjectListResult getLastResult() {
+		return lastResult;
+	}
+
 }
