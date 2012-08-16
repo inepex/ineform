@@ -10,13 +10,13 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.BooleanFDesc;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 import com.inepex.ineom.shared.descriptor.DoubleFDesc;
 import com.inepex.ineom.shared.descriptor.ListFDesc;
 import com.inepex.ineom.shared.descriptor.LongFDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 
 public class KVOTest {
 	

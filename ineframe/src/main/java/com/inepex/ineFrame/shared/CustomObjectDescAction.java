@@ -1,8 +1,8 @@
 package com.inepex.ineFrame.shared;
 
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-
 import net.customware.gwt.dispatch.shared.Action;
+
+import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 
 /**
  * 

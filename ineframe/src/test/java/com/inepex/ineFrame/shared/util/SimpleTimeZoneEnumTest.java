@@ -3,7 +3,6 @@ package com.inepex.ineFrame.shared.util;
 import java.util.TimeZone;
 
 import org.junit.Assert;
-import org.junit.Test;
 
 import com.google.gwt.dev.util.collect.HashSet;
 import com.inepex.ineFrame.server.util.SimpleTimeZoneEnum;

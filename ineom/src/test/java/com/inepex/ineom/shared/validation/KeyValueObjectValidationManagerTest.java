@@ -1,5 +1,9 @@
 package com.inepex.ineom.shared.validation;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,12 +18,10 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.StringFDesc;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
-
-import static junit.framework.Assert.*;
 
 public class KeyValueObjectValidationManagerTest {
 
