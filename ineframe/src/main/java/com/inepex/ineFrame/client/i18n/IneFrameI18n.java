@@ -34,20 +34,28 @@ public class IneFrameI18n extends I18nModule {
 	public String USERNAME = "User name:";
 	public String confirmDialogTitle = "Question";
 	public String dayShort = "d";
+	public String daysAgo = "{number} days ago";
 	public String dialogCancelButton = "Cancel";
 	public String dialogOkButton = "Ok";
 	public String dummyPageText = "not implemented yet...";
 	public String errorDialogTitle = "Error";
 	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
 	public String hourShort = "h";
+	public String hoursAgo = "{number} hours ago";
 	public String loading = "Loading data...";
 	public String minShort = "m";
+	public String minsAgo = "{number} mins ago";
+	public String oneDayAgo = "one day ago";
+	public String oneHourAgo = "one hour ago";
+	public String oneMinAgo = "one min ago";
+	public String oneSecAgo = "one sec ago";
 	public String reconnected = "Connected";
 	public String reconnection = "No network connection. Reconnect in {delay}.";
 	public String saveError = "Error occurred during save: <br /> {error}";
 	public String saveSuccessful = "Save successful.";
 	public String saveUnknownError = "Unknown error occurred during save!";
 	public String savingInProgress = "Saving of {savedThing} in progress";
+	public String secSAgo = "{number} secs ago";
 	public String secShort = "s";
 
 	
@@ -133,6 +141,15 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
+	* <u><i>Description:</i></u> in plural, must be short <br />
+	* <u><i>In English:</i></u> {number} days ago
+	* <u><i>Magyarul:</i></u> {number} napja
+	*/
+	public static String daysAgo(String number) {
+		return moduleProvider.get().daysAgo.replace("{number}", number);
+	}
+	
+	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Cancel
 	* <u><i>Magyarul:</i></u> Mégse
@@ -187,6 +204,15 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
+	* <u><i>Description:</i></u> in plural, must be short <br />
+	* <u><i>In English:</i></u> {number} hours ago
+	* <u><i>Magyarul:</i></u> {number} órája
+	*/
+	public static String hoursAgo(String number) {
+		return moduleProvider.get().hoursAgo.replace("{number}", number);
+	}
+	
+	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Loading data...
 	* <u><i>Magyarul:</i></u> Adatok betöltése...
@@ -202,6 +228,51 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String minShort() {
 		return moduleProvider.get().minShort;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> in plural, must be short <br />
+	* <u><i>In English:</i></u> {number} mins ago
+	* <u><i>Magyarul:</i></u> {number} perce
+	*/
+	public static String minsAgo(String number) {
+		return moduleProvider.get().minsAgo.replace("{number}", number);
+	}
+	
+	/**
+	* <u><i>Description:</i></u> in singular, must be short <br />
+	* <u><i>In English:</i></u> one day ago
+	* <u><i>Magyarul:</i></u> egy napja
+	*/
+	public static String oneDayAgo() {
+		return moduleProvider.get().oneDayAgo;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> in singular, must be short <br />
+	* <u><i>In English:</i></u> one hour ago
+	* <u><i>Magyarul:</i></u> egy órája
+	*/
+	public static String oneHourAgo() {
+		return moduleProvider.get().oneHourAgo;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> in singular, must be short <br />
+	* <u><i>In English:</i></u> one min ago
+	* <u><i>Magyarul:</i></u> egy perce
+	*/
+	public static String oneMinAgo() {
+		return moduleProvider.get().oneMinAgo;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> in singular, must be short <br />
+	* <u><i>In English:</i></u> one sec ago
+	* <u><i>Magyarul:</i></u> egy másodperce
+	*/
+	public static String oneSecAgo() {
+		return moduleProvider.get().oneSecAgo;
 	}
 	
 	/**
@@ -256,6 +327,15 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String savingInProgress(String savedThing) {
 		return moduleProvider.get().savingInProgress.replace("{savedThing}", savedThing);
+	}
+	
+	/**
+	* <u><i>Description:</i></u> in plural, must be short <br />
+	* <u><i>In English:</i></u> {number} secs ago
+	* <u><i>Magyarul:</i></u> {number} másodperce
+	*/
+	public static String secSAgo(String number) {
+		return moduleProvider.get().secSAgo.replace("{number}", number);
 	}
 	
 	/**

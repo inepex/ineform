@@ -412,41 +412,54 @@ public class DateHelper {
 	 * @param durationInMs in milliseconds
 	 * @param showTilde if true the returned string begins with '~'
 	 * 
-	 * @return on the current language: '10 sec' .. '30sec', '1 min' .. '5 min', '10 min'... '50 min', '1 h' ... '24 h', '1 day' ...
+	 * @return on the current language: '10 secs ago' .. '30 secs ago', '1 min ago' .. '5 mins ago', '10 mins ago'... '50 mins ago', '1 hour ago' ...
 	 */
 	public static String approachDuration(long durationInMs, boolean showTilde) {
 		StringBuilder sb = new StringBuilder();
+		long number=0;
 		
 		if(showTilde)
 			sb.append("~");
 		
 		if(durationInMs<secondInMs*55) {
-			sb.append(10*divAndRoundToAvoidNull(10*secondInMs, durationInMs));
-			sb.append(IneFrameI18n.secShort());
+			number=10*divAndRoundToAvoidNull(10*secondInMs, durationInMs);
+			sb.append(IneFrameI18n.secSAgo(number+""));
 			return sb.toString();
 		}
 		
 		if(durationInMs<minuteInMs*17) {
-			sb.append(divAndRoundToAvoidNull(minuteInMs, durationInMs));
-			sb.append(IneFrameI18n.minShort());
+			number=divAndRoundToAvoidNull(minuteInMs, durationInMs);
+			if(number==1)
+				sb.append(IneFrameI18n.oneMinAgo());
+			else
+				sb.append(IneFrameI18n.minsAgo(number+""));
 			return sb.toString();
 		}
 		
 		
 		if(durationInMs<hourInMs*2) {
-			sb.append(10*divAndRoundToAvoidNull(10*minuteInMs, durationInMs));
-			sb.append(IneFrameI18n.minShort());
+			number=10*divAndRoundToAvoidNull(10*minuteInMs, durationInMs);
+			if(number==1)
+				sb.append(IneFrameI18n.oneMinAgo());
+			else
+				sb.append(IneFrameI18n.minsAgo(number+""));
 			return sb.toString();
 		}
 		
 		if(durationInMs<hourInMs*47) {
-			sb.append(divAndRoundToAvoidNull(hourInMs, durationInMs));
-			sb.append(IneFrameI18n.hourShort());
+			number=divAndRoundToAvoidNull(hourInMs, durationInMs);
+			if(number==1)
+				sb.append(IneFrameI18n.oneHourAgo());
+			else
+				sb.append(IneFrameI18n.hoursAgo(number+""));
 			return sb.toString();
 		}
 		
-		sb.append(divAndRoundToAvoidNull(dayInMs, durationInMs));
-		sb.append(IneFrameI18n.dayShort());
+		number=divAndRoundToAvoidNull(dayInMs, durationInMs);
+		if(number==1)
+			sb.append(IneFrameI18n.oneDayAgo());
+		else
+			sb.append(IneFrameI18n.daysAgo(number+""));
 		return sb.toString();
 	}
 	
