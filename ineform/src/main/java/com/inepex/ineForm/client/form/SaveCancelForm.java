@@ -150,8 +150,10 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	public void save(){
 		originalData = getInitialOrEmptyData();
 		kvo = getValues(originalData.clone());
-		if (fireBeforeSaveEvent(kvo).isCancelled())
+		if (fireBeforeSaveEvent(kvo).isCancelled()){
+			fireAfterUnsuccesfulSaveEvent(null);
 			return;			
+		}						
 		
 		doSave();
 	}

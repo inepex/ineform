@@ -57,26 +57,26 @@ import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
 /**
- * A CellTable that automatically renders itself according to the given ObjectRenderDescriptor
- * and TableRenderDescriptor
+ * A CellTable that automatically renders itself according to the given
+ * ObjectRenderDescriptor and TableRenderDescriptor
  * 
  * IMPORTANT: Don't forget to call renderTable() before use!
  * 
- * @author SoTi 
- * @author Sebi 
+ * @author SoTi
+ * @author Sebi
  * @author Szobi
  * 
  */
 
 public class IneTable extends HandlerAwareComposite {
-	
+
 	// Constants
 	public final static int DEFAULT_PAGE_SIZE = 20;
 	public final static int DEFAULT_PAGE_SIZE_WITHOUT_PAGER = 1000;
 
 	// Class variables
 	private int pageSize = DEFAULT_PAGE_SIZE;
-	
+
 	/**
 	 * The key provider that provides the unique ID of a AssistedObject.
 	 */
@@ -85,174 +85,182 @@ public class IneTable extends HandlerAwareComposite {
 			return item == null ? null : item.getId();
 		}
 	};
-	
+
 	public static enum SelectionBehaviour {
-		NO_SELECTION,
-		SINGLE_SELECTION,
-		MULTIPLE_SELECTION;
+		NO_SELECTION, SINGLE_SELECTION, MULTIPLE_SELECTION;
 	}
-	
+
 	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
-		if(tableRenderDescriptorName==null) {
+		if (tableRenderDescriptorName == null) {
 			return descriptorStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
 		} else {
 			return descriptorStore.getNamedTypedDesc(objectDescName, tableRenderDescriptorName, TableRDesc.class);
 		}
-	
-	}	
-	
-	RowCountChangeEvent.Handler defaultEmptyRowsHandler = new RowCountChangeEvent.Handler(){
+
+	}
+
+	RowCountChangeEvent.Handler defaultEmptyRowsHandler = new RowCountChangeEvent.Handler() {
 
 		@Override
 		public void onRowCountChange(RowCountChangeEvent event) {
-			if(event.getNewRowCount()==0){
+			if (event.getNewRowCount() == 0) {
 				onEmptyRows();
-			}else{
+			} else {
 				cellTable.setVisible(true);
-				if(showPager)
+				if (showPager)
 					pager.setVisible(true);
-				if(emptyRowsWidget!=null)
+				if (emptyRowsWidget != null)
 					emptyRowsWidget.setVisible(false);
 			}
 		}
-		
+
 	};
-	
+
 	final FlowPanel mainPanel = new FlowPanel();
 	final CellTable<AssistedObject> cellTable;
 	private Widget emptyRowsWidget = null;
-	
+
 	protected String commandsTitle = "";
 	protected List<UserCommand> commands = new ArrayList<IneTable.UserCommand>();
-	protected RowStylesProvider rowStylesProvider = null; 
-	
+	protected RowStylesProvider rowStylesProvider = null;
+
 	// Properties
 	protected final String objectDescriptorName;
 	protected final TableRDesc tableRenderDescriptor;
-	
+
 	// Dependencies
 	protected final IneDataConnector dataConnector;
 	protected final DescriptorStore descStore;
 	protected final AssistedObjectHandlerFactory handlerFactory;
-	
+
 	private SingleSelectionModel<AssistedObject> singleSelectionModel = null;
 	private MultiSelectionModel<AssistedObject> multiSelectionModel = null;
-	
+
 	protected SimplePager pager = null;
 	private boolean showPager = true;
-	
+
 	private boolean rendered = false;
-	
+
 	private SelectionBehaviour selectionBehaviour = SelectionBehaviour.NO_SELECTION;
-	
+
 	protected Map<String, Header<String>> headers = new TreeMap<String, Header<String>>();
-	
-	
-	private boolean batchColumnAddig = false; //faster rendering
-	
+
+	private boolean batchColumnAddig = false; // faster rendering
+
 	protected final AssistedObjectTableFieldRenderer fieldRenderer;
 
 	@AssistedInject
-	public IneTable(DescriptorStore descriptorStore, 
+	public IneTable(
+			DescriptorStore descriptorStore,
 			@Assisted("od") String objectDescName,
-			@Assisted("trd") String tableRenderDescriptorName, 
+			@Assisted("trd") String tableRenderDescriptorName,
 			@Assisted IneDataConnector connector,
 			AssistedObjectTableFieldRenderer fieldRenderer) {
-		this(descriptorStore, objectDescName, getTRD(descriptorStore, objectDescName, tableRenderDescriptorName), connector, fieldRenderer);
-		
+		this(
+				descriptorStore,
+				objectDescName,
+				getTRD(descriptorStore, objectDescName, tableRenderDescriptorName),
+				connector,
+				fieldRenderer);
+
 	}
-	
+
 	/**
 	 * Uses the default {@link TableRDesc}
+	 * 
 	 * @param objectDescriptorName
 	 * @param dataProvider
 	 */
 	@AssistedInject
-	public IneTable(DescriptorStore descStore,
-					@Assisted String objectDescriptorName,
-					@Assisted IneDataConnector dataProvider,
-					AssistedObjectTableFieldRenderer fieldRenderer) {
-		this(descStore, objectDescriptorName, (String)null, dataProvider, fieldRenderer);
+	public IneTable(
+			DescriptorStore descStore,
+			@Assisted String objectDescriptorName,
+			@Assisted IneDataConnector dataProvider,
+			AssistedObjectTableFieldRenderer fieldRenderer) {
+		this(descStore, objectDescriptorName, (String) null, dataProvider, fieldRenderer);
 	}
-	
+
 	/**
 	 * IMPORTANT: Don't forget to call renderTable() before use!
+	 * 
 	 * @param objectDescriptorName
-	 * @param tableRenderDescriptor - add null to default value by DescriptorStore.get().getDefaultTRD(objectDescriptorName)
+	 * @param tableRenderDescriptor
+	 *            - add null to default value by
+	 *            DescriptorStore.get().getDefaultTRD(objectDescriptorName)
 	 * @param dataProvider
 	 */
-	protected IneTable(DescriptorStore descStore,
+	protected IneTable(
+			DescriptorStore descStore,
 			String objectDescriptorName,
 			TableRDesc tableRenderDescriptor,
 			IneDataConnector dataProvider,
-			AssistedObjectTableFieldRenderer fieldRenderer
-			) {
+			AssistedObjectTableFieldRenderer fieldRenderer) {
 		this.fieldRenderer = fieldRenderer;
 		this.descStore = descStore;
-		this.handlerFactory= new AssistedObjectHandlerFactory(descStore);
-		
+		this.handlerFactory = new AssistedObjectHandlerFactory(descStore);
+
 		cellTable = new CellTable<AssistedObject>(DEFAULT_PAGE_SIZE, ResourceHelper.cellTableResources(), KEY_PROVIDER) {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
 				super.setRowData(start, values);
 				onRowDataChanged(values);
 			};
-			
+
 			@Override
 			public void redraw() {
-				if(!batchColumnAddig) {
+				if (!batchColumnAddig) {
 					super.redraw();
 				} else {
-					//dont need redraw while initializing table columns  
+					// dont need redraw while initializing table columns
 				}
 			};
 		};
-		
+
 		cellTable.addRowCountChangeHandler(defaultEmptyRowsHandler);
-		
+
 		this.objectDescriptorName = objectDescriptorName;
-		this.tableRenderDescriptor = tableRenderDescriptor != null  
-				? tableRenderDescriptor
-				: descStore.getDefaultTypedDesc(objectDescriptorName, TableRDesc.class);
+		this.tableRenderDescriptor = tableRenderDescriptor != null ? tableRenderDescriptor : descStore.getDefaultTypedDesc(
+				objectDescriptorName,
+				TableRDesc.class);
 		this.dataConnector = dataProvider;
-		
+
 		initWidget(mainPanel);
 		mainPanel.add(cellTable);
 	}
-	
-//**** Set behaviour properties ****// 
-	protected void onRowDataChanged(){
+
+	// **** Set behaviour properties ****//
+	protected void onRowDataChanged() {
 	}
-	
-	private void onRowDataChanged(java.util.List<? extends AssistedObject> values){
-		if(values.size()==0){
+
+	private void onRowDataChanged(java.util.List<? extends AssistedObject> values) {
+		if (values.size() == 0) {
 			onEmptyRows();
 		}
 	}
 
-	private void onEmptyRows(){
-		if(emptyRowsWidget!=null){
+	private void onEmptyRows() {
+		if (emptyRowsWidget != null) {
 			emptyRowsWidget.setVisible(true);
 			cellTable.setVisible(false);
-			if(showPager)
+			if (showPager)
 				pager.setVisible(false);
 		}
 	}
-	
+
 	public void setCommandsTitle(String commandsTitle) {
 		this.commandsTitle = commandsTitle;
 	}
-	
-	public void addCommand(UserCommand command){
+
+	public void addCommand(UserCommand command) {
 		this.commands.add(command);
 	}
 
-	public void addCommands(UserCommand... command){
+	public void addCommands(UserCommand... command) {
 		for (UserCommand userCommand : command) {
 			this.commands.add(userCommand);
 		}
 	}
-	
+
 	public void setRowStylesProvider(RowStylesProvider rowStylesProvider) {
 		this.rowStylesProvider = rowStylesProvider;
 	}
@@ -264,8 +272,11 @@ public class IneTable extends HandlerAwareComposite {
 	public void addCellContentDisplayer(String columnId, CustomCellContentDisplayer cellContentDisplayer) {
 		fieldRenderer.setCustomFieldRenderer(columnId, cellContentDisplayer);
 	}
-	
-	/**Also sets pagesize to DEFAULT_PAGE_SIZE, or DEFAULT_PAGE_SIZE_WITHOUT_PAGER 
+
+	/**
+	 * Also sets pagesize to DEFAULT_PAGE_SIZE, or
+	 * DEFAULT_PAGE_SIZE_WITHOUT_PAGER
+	 * 
 	 * @param showPager
 	 */
 	public void setShowPager(boolean showPager) {
@@ -276,34 +287,32 @@ public class IneTable extends HandlerAwareComposite {
 		this.showPager = showPager;
 	}
 
-//**** Logic functions ****// 
-	
+	// **** Logic functions ****//
+
 	public void renderTable() {
 		if (!rendered) {
 			cellTable.addStyleName(ResourceHelper.ineformRes().style().ineTable());
-			
-			batchColumnAddig=true;
+
+			batchColumnAddig = true;
 			initTable();
 			initTableColumns();
-			
-			batchColumnAddig=false;
+
+			batchColumnAddig = false;
 			cellTable.redraw();
-			
+
 			if (showPager)
 				mainPanel.add(pager);
-			
+
 			rendered = true;
 		}
 	}
-	
+
 	private void initTable() {
 
 		// Create a Pager to control the table.
 		if (showPager) {
-			SimplePager.Resources pagerResources = GWT
-					.create(SimplePager.Resources.class);
-			pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0,
-					true);
+			SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
+			pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
 			pager.setDisplay(cellTable);
 		}
 		cellTable.setPageSize(pageSize);
@@ -312,43 +321,39 @@ public class IneTable extends HandlerAwareComposite {
 			// Add a selection model so that only single selection is available.
 			singleSelectionModel = new SingleSelectionModel<AssistedObject>(KEY_PROVIDER);
 			cellTable.setSelectionModel(singleSelectionModel);
-			
+
 		} else if (selectionBehaviour == SelectionBehaviour.NO_SELECTION) {
 			cellTable.setSelectionModel(new NoSelectionModel<AssistedObject>());
-		} else if(selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION){
+		} else if (selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION) {
 			multiSelectionModel = new MultiSelectionModel<AssistedObject>(KEY_PROVIDER);
-			cellTable.setSelectionModel(multiSelectionModel, 
-										DefaultSelectionEventManager
-											.<AssistedObject> createCheckboxManager());
+			cellTable.setSelectionModel(
+					multiSelectionModel,
+					DefaultSelectionEventManager.<AssistedObject> createCheckboxManager());
 		}
-		
+
 		// Add the CellList to the adapter in the database.
 		dataConnector.addDataDisplay(cellTable);
-		
+
 		cellTable.setRowStyles(new PointerAndCustomRowStyleProvider());
 	}
 
 	private void initTableColumns() {
 
-		ObjectDesc objectDesc = descStore.getOD(
-		objectDescriptorName);
-		
-		if(selectionBehaviour != null && 
-		   selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION){
-			Column<AssistedObject, Boolean> checkColumn = new Column<AssistedObject, Boolean>(
-			        new CheckboxCell(true, false)) {
-			      @Override
-			      public Boolean getValue(AssistedObject object) {
-			    	  return multiSelectionModel.isSelected(object);
-			      }
+		ObjectDesc objectDesc = descStore.getOD(objectDescriptorName);
+
+		if (selectionBehaviour != null && selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION) {
+			Column<AssistedObject, Boolean> checkColumn = new Column<AssistedObject, Boolean>(new CheckboxCell(true, false)) {
+				@Override
+				public Boolean getValue(AssistedObject object) {
+					return multiSelectionModel.isSelected(object);
+				}
 			};
 			cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
 		}
 
-		for (Node<TableRDescBase> columnNode : tableRenderDescriptor.getRootNode()
-				.getChildren()) {
-			
-			ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
+		for (Node<TableRDescBase> columnNode : tableRenderDescriptor.getRootNode().getChildren()) {
+
+			ColRDesc colRenderDesc = (ColRDesc) columnNode.getNodeElement();
 
 			if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 				continue;
@@ -363,15 +368,13 @@ public class IneTable extends HandlerAwareComposite {
 					fieldDesc = descStore.getRelatedFieldDescrMultiLevel(objectDesc, nodeIdAsList);
 				} catch (Exception e) {
 					fieldDesc = objectDesc.getField(nodeIdAsList.get(0));
-					System.out.println("You set complex id for a field, which is not a relation. "
-									+ "(" + nodeIdAsList.get(0) + ")");
+					System.out.println("You set complex id for a field, which is not a relation. " + "(" + nodeIdAsList.get(0)
+							+ ")");
 				}
 			}
-			
-			IneTableColumn column = new IneTableColumn(new TextCell(), 
-										columnNode.getNodeId()
-										);
-			
+
+			IneTableColumn column = new IneTableColumn(new TextCell(), columnNode.getNodeId());
+
 			String headerText = colRenderDesc.getDisplayName() != null ? colRenderDesc.getDisplayName() : null;
 			if (headerText == null) {
 				if (fieldDesc != null)
@@ -379,162 +382,165 @@ public class IneTable extends HandlerAwareComposite {
 				else
 					headerText = "";
 			}
-			
+
 			Header<String> header = createHeader(
-					colRenderDesc.isSortable()
-					, headerText
-					, columnNode.getNodeId()
-					, colRenderDesc.hasProp(ColRDesc.DEFAULTSORT)
-					, colRenderDesc.hasProp(ColRDesc.DEFAULTSORTREVERSE));
+					colRenderDesc.isSortable(),
+					headerText,
+					columnNode.getNodeId(),
+					colRenderDesc.hasProp(ColRDesc.DEFAULTSORT),
+					colRenderDesc.hasProp(ColRDesc.DEFAULTSORTREVERSE));
 			headers.put(columnNode.getNodeId(), header);
 			cellTable.addColumn(column, header);
-			
-			if(colRenderDesc.hasColumnWidth())
+
+			if (colRenderDesc.hasColumnWidth())
 				cellTable.setColumnWidth(column, colRenderDesc.getColumnWidthAsString());
-			
-			if(colRenderDesc.hasHAlign()) {
-				HorizontalAlignmentConstant hAl=null;
+
+			if (colRenderDesc.hasHAlign()) {
+				HorizontalAlignmentConstant hAl = null;
 				switch (colRenderDesc.getHAlign()) {
-				
+
 				case RIGHT:
-					hAl=HasHorizontalAlignment.ALIGN_RIGHT;
+					hAl = HasHorizontalAlignment.ALIGN_RIGHT;
 					break;
-					
+
 				case LEFT:
-					hAl=HasHorizontalAlignment.ALIGN_LEFT;
+					hAl = HasHorizontalAlignment.ALIGN_LEFT;
 					break;
-					
+
 				case CENTER:
 				default:
-					hAl=HasHorizontalAlignment.ALIGN_CENTER;
+					hAl = HasHorizontalAlignment.ALIGN_CENTER;
 					break;
 				}
-				cellTable.getColumn(cellTable.getColumnCount()-1).setHorizontalAlignment(hAl);
+				cellTable.getColumn(cellTable.getColumnCount() - 1).setHorizontalAlignment(hAl);
 			}
 		}
-		
-		if(commands!=null) {
-			
-			List<HasCell<AssistedObject, ?>> commandList = new ArrayList<HasCell<AssistedObject, ?>>(); 
-			
+
+		if (commands != null) {
+
+			List<HasCell<AssistedObject, ?>> commandList = new ArrayList<HasCell<AssistedObject, ?>>();
+
 			for (int i = 0; i < commands.size(); i++) {
-				commandList.add(new UserCommandColumnPart(
-						  new LinkActionCell(commands.get(i).getCommandCellText()
-								  		   , commands.get(i)
-						                   , i != commands.size()-1)));
+				commandList.add(new UserCommandColumnPart(new LinkActionCell(commands.get(i).getCommandCellText(), commands
+						.get(i), i != commands.size() - 1)));
 			}
-			
+
 			CompositeCell<AssistedObject> compCell = new CompositeCell<AssistedObject>(commandList);
-			
-			cellTable.addColumn(new UserCommandColumn(compCell),
-								commandsTitle);
+
+			cellTable.addColumn(new UserCommandColumn(compCell), commandsTitle);
 		}
-		
+
 	}
-	
-	protected Header<String> createHeader(boolean sortable, String text, String key, boolean defaultSort, boolean defaultSortReverse){
+
+	protected Header<String> createHeader(
+			boolean sortable,
+			String text,
+			String key,
+			boolean defaultSort,
+			boolean defaultSortReverse) {
 		return new CustomTextHeader(text);
 	}
-	
-	
+
 	public SingleSelectionModel<AssistedObject> getSingleSelectionModel() {
 		return singleSelectionModel;
 	}
-	
+
 	public void redrawHeaders() {
 		cellTable.redrawHeaders();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public AssistedObject getDisplayedKvoById(Long key) {
-		//FIXME: valamiért kell ide null check... amikor egy 11 elemű táblában 2-11 van megjelenítve 
-		//és visszafelé lapozunk(1-10es oldalra), akkor a displayed items olyan lista aminek a 0. eleme null így elszáll a kód
-		//a if(kvo!=null && kvo.getId().equals(key))-es nullcheck úgy tűnik megoldja a dolgot, de valószínű, hogy vmi más hiba
-		//indikátora a jelenség
-		for(AssistedObject kvo : cellTable.getDisplayedItems()) {
-			if(kvo!=null && kvo.getId().equals(key))
+		// FIXME: valamiért kell ide null check... amikor egy 11 elemű táblában
+		// 2-11 van megjelenítve
+		// és visszafelé lapozunk(1-10es oldalra), akkor a displayed items olyan
+		// lista aminek a 0. eleme null így elszáll a kód
+		// a if(kvo!=null && kvo.getId().equals(key))-es nullcheck úgy tűnik
+		// megoldja a dolgot, de valószínű, hogy vmi más hiba
+		// indikátora a jelenség
+		for (AssistedObject kvo : cellTable.getDisplayedItems()) {
+			if (kvo != null && kvo.getId().equals(key))
 				return kvo;
 		}
 		return null;
 	}
-	
+
 	public Header<String> getHeader(String key) {
 		return headers.get(key);
 	}
-	
+
 	public CustomTextHeader getCustomTextHeader(String key) {
 		return (CustomTextHeader) headers.get(key);
 	}
-	
-	private class IneTableColumn extends Column<AssistedObject, String>{
-		
+
+	private class IneTableColumn extends Column<AssistedObject, String> {
+
 		private final String key;
 
 		public IneTableColumn(Cell<String> cell, String key) {
 			super(cell);
-			this.key=key;
+			this.key = key;
 			setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		}		
-		
+		}
+
 		@Override
-		public void render(Context context, AssistedObject rowValue,
-				 SafeHtmlBuilder sb) {
+		public void render(Context context, AssistedObject rowValue, SafeHtmlBuilder sb) {
 			fieldRenderer.setObjectAndDescriptor(rowValue, tableRenderDescriptor);
 			sb.appendHtmlConstant(fieldRenderer.getField(key));
 		}
 
 		@Override
 		public String getValue(AssistedObject rowValue) {
-			//do nothing
+			// do nothing
 			return "";
 		}
 	};
-	
-	
+
 	private class PointerAndCustomRowStyleProvider implements RowStyles<AssistedObject> {
 
 		@Override
 		public String getStyleNames(AssistedObject row, int rowIndex) {
 			String extraStyle = null;
-			if(rowStylesProvider!=null) {
+			if (rowStylesProvider != null) {
 				extraStyle = rowStylesProvider.getStyleNames(row, rowIndex);
 			}
-			
-			return 
-				((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? ResourceHelper.ineformRes().style().clickable() : "" ) +  
-				((extraStyle == null) ? ("") : (" "+extraStyle));
+
+			return ((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? ResourceHelper.ineformRes().style().clickable()
+					: "") + ((extraStyle == null) ? ("") : (" " + extraStyle));
 		}
-		
+
 	}
-	
+
 	public static interface RowStylesProvider extends RowStyles<AssistedObject> {
-	}	
-	
+	}
+
 	public static interface UserCommand {
 		public String getCommandCellText();
+
 		public void onCellClicked(AssistedObject kvoOfRow);
+
 		public boolean visible(AssistedObject kvoOfRow);
 	}
-	
-	private class UserCommandColumn  extends Column<AssistedObject, AssistedObject> {
+
+	private class UserCommandColumn extends Column<AssistedObject, AssistedObject> {
 		public UserCommandColumn(CompositeCell<AssistedObject> cell) {
 			super(cell);
 		}
+
 		@Override
 		public AssistedObject getValue(AssistedObject object) {
 			return object;
 		}
 	}
-	
+
 	private class UserCommandColumnPart extends Column<AssistedObject, String> {
 
 		public UserCommandColumnPart(LinkActionCell cell) {
 			super(cell);
 		}
-		
+
 		@Override
-		public void onBrowserEvent(Context context, Element elem,
-				AssistedObject object, NativeEvent event) {
+		public void onBrowserEvent(Context context, Element elem, AssistedObject object, NativeEvent event) {
 			super.onBrowserEvent(context, elem, object, event);
 		}
 
@@ -543,7 +549,7 @@ public class IneTable extends HandlerAwareComposite {
 			return "";
 		}
 	}
-	
+
 	private class LinkActionCell extends AbstractCell<String> {
 
 		private final SafeHtml html;
@@ -553,62 +559,67 @@ public class IneTable extends HandlerAwareComposite {
 			super("click");
 			this.userCommand = userCommand;
 			SafeHtmlBuilder hmtlBuilder = new SafeHtmlBuilder()
-					.appendHtmlConstant("<a>").appendHtmlConstant(message)
+					.appendHtmlConstant("<a class = 'ineTable-ActionCell'>")
+					.appendHtmlConstant(message)
 					.appendHtmlConstant("</a>");
 			if (appendSeparator) {
 				hmtlBuilder.appendHtmlConstant("&nbsp;|&nbsp;").toSafeHtml();
 			}
-			
+
 			this.html = hmtlBuilder.toSafeHtml();
 		}
-		
+
 		@Override
-		public void onBrowserEvent(Context context, Element parent, String value, 
-				NativeEvent event, ValueUpdater<String> valueUpdater) {
+		public void onBrowserEvent(
+				Context context,
+				Element parent,
+				String value,
+				NativeEvent event,
+				ValueUpdater<String> valueUpdater) {
 			super.onBrowserEvent(context, parent, value, event, valueUpdater);
 			AssistedObject row = getDisplayedKvoById((Long) context.getKey());
 			userCommand.onCellClicked(row);
 		}
-		
+
 		@Override
 		public void render(Context context, String value, SafeHtmlBuilder sb) {
 			if (userCommand.visible(getDisplayedKvoById((Long) context.getKey())))
 				sb.append(html);
-			
+
 		}
-		
+
 	}
-	
+
 	public void setPageSize(int pageSize) {
-		this.pageSize=pageSize;
+		this.pageSize = pageSize;
 		cellTable.setPageSize(pageSize);
 	}
-	
+
 	public SelectionModel<? super AssistedObject> getSelectionModel() {
 		return cellTable.getSelectionModel();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public AssistedObject getDisplayedItem(int index) {
 		return cellTable.getDisplayedItem(index);
 	}
-	
+
 	public class CustomTextHeader extends Header<String> {
-		
+
 		private final String originalText;
-		
+
 		private String text;
-		
+
 		public CustomTextHeader(String originalText) {
 			super(new TextCell());
-			this.originalText=originalText;
-			this.text=originalText;
+			this.originalText = originalText;
+			this.text = originalText;
 		}
-		
+
 		public String getOriginalText() {
 			return originalText;
 		}
-		
+
 		public void setText(String text) {
 			this.text = text;
 		}
@@ -617,15 +628,15 @@ public class IneTable extends HandlerAwareComposite {
 		public void render(Context context, SafeHtmlBuilder sb) {
 			sb.appendHtmlConstant(text);
 		}
-		
+
 		@Override
 		public String getValue() {
-			//nothing to do
+			// nothing to do
 			return "";
 		}
-		
+
 	}
-	
+
 	public HasData<AssistedObject> getDataDisplay() {
 		return cellTable;
 	}
@@ -633,25 +644,26 @@ public class IneTable extends HandlerAwareComposite {
 	public AssistedObjectTableFieldRenderer getFieldRenderer() {
 		return fieldRenderer;
 	}
-	
-	public void addColumnStyle(int col, String style){
+
+	public void addColumnStyle(int col, String style) {
 		cellTable.addColumnStyleName(col, style);
 	}
-		
+
 	public CellTable<AssistedObject> getCellTable() {
 		return cellTable;
 	}
+
 	public MultiSelectionModel<AssistedObject> getMultiSelectionModel() {
 		return multiSelectionModel;
 	}
-	
-	public void setEmptyRowsWidget(Widget widget){
-		emptyRowsWidget=widget;
+
+	public void setEmptyRowsWidget(Widget widget) {
+		emptyRowsWidget = widget;
 		emptyRowsWidget.setVisible(false);
 		mainPanel.add(emptyRowsWidget);
 	}
-	
-	public HandlerRegistration addRowCountChangedHandler(RowCountChangeEvent.Handler handler){
+
+	public HandlerRegistration addRowCountChangedHandler(RowCountChangeEvent.Handler handler) {
 		return cellTable.addRowCountChangeHandler(handler);
 	}
 }
