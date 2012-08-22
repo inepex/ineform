@@ -86,8 +86,12 @@ public class IneTable extends HandlerAwareComposite {
 		}
 	};
 
+	/**
+	 * When use custom, use getCellTable.setSelectionModel() to set selection model
+	 *
+	 */
 	public static enum SelectionBehaviour {
-		NO_SELECTION, SINGLE_SELECTION, MULTIPLE_SELECTION;
+		NO_SELECTION, SINGLE_SELECTION, MULTIPLE_SELECTION, CUSTOM;
 	}
 
 	private static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
@@ -666,4 +670,9 @@ public class IneTable extends HandlerAwareComposite {
 	public HandlerRegistration addRowCountChangedHandler(RowCountChangeEvent.Handler handler) {
 		return cellTable.addRowCountChangeHandler(handler);
 	}
+
+	public void setSingleSelectionModel(SingleSelectionModel<AssistedObject> singleSelectionModel) {
+		this.singleSelectionModel = singleSelectionModel;
+	}
+	
 }
