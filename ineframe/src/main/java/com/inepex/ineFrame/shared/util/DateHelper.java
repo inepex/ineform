@@ -408,13 +408,18 @@ public class DateHelper {
 	}
 	
 	/**
+	 * Converts the durationInMs to human readable, nice format (see below)
 	 * 
 	 * @param durationInMs in milliseconds
 	 * @param showTilde if true the returned string begins with '~'
 	 * 
 	 * @return on the current language: '10 secs ago' .. '30 secs ago', '1 min ago' .. '5 mins ago', '10 mins ago'... '50 mins ago', '1 hour ago' ...
 	 */
-	public static String approachDuration(long durationInMs, boolean showTilde) {
+	public static String approachDuration(long durationInMs, boolean showTilde, boolean shorten) {
+		
+		if(shorten)
+			return approachDurationShort(durationInMs, showTilde);
+		
 		StringBuilder sb = new StringBuilder();
 		long number=0;
 		
@@ -463,7 +468,50 @@ public class DateHelper {
 		return sb.toString();
 	}
 	
-	
+	/**
+	 * Does the same as the {@linkplain DateHelper.approachDuration} method, but the returned strings are shorter
+	 * 
+	 * @param durationInMs in milliseconds
+	 * @param showTilde if true the returned string begins with '~'
+	 * @return '~2h', '~10m', '2d', etc.
+	 */
+	private static String approachDurationShort(long durationInMs,	boolean showTilde) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(showTilde)
+			sb.append("~");
+		
+		if(durationInMs<secondInMs*55) {
+			sb.append(10*divAndRoundToAvoidNull(10*secondInMs, durationInMs));
+			sb.append(IneFrameI18n.secShort());
+			return sb.toString();
+		}
+		
+		if(durationInMs<minuteInMs*17) {
+			sb.append(divAndRoundToAvoidNull(minuteInMs, durationInMs));
+			sb.append(IneFrameI18n.minShort());
+			return sb.toString();
+		}
+		
+		
+		if(durationInMs<hourInMs*2) {
+			sb.append(10*divAndRoundToAvoidNull(10*minuteInMs, durationInMs));
+			sb.append(IneFrameI18n.minShort());
+			return sb.toString();
+		}
+		
+		if(durationInMs<hourInMs*47) {
+			sb.append(divAndRoundToAvoidNull(hourInMs, durationInMs));
+			sb.append(IneFrameI18n.hourShort());
+			return sb.toString();
+		}
+		
+		sb.append(divAndRoundToAvoidNull(dayInMs, durationInMs));
+		sb.append(IneFrameI18n.dayShort());
+		return sb.toString();
+	}
+
 	protected static long divAndRoundToAvoidNull(long magnitude, long num) {
 		return Math.max(1, (num+magnitude/2)/magnitude);
 	}
