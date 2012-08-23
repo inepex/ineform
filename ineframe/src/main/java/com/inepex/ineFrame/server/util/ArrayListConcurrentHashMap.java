@@ -1,6 +1,7 @@
 package com.inepex.ineFrame.server.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -64,5 +65,10 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 	
 	public void addEmptyListById(T id){
 		put(id, new ArrayList<K>());
+	}
+
+	public void addAllToListById(T id, Collection<K> elements) {
+		List<K> list = ensureListById(id);
+		list.addAll(elements);
 	}
 }
