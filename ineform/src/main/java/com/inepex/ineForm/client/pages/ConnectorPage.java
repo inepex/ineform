@@ -104,7 +104,6 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 
 		@Override
 		public void ready() {
-			System.out.println(size);
 			size--;
 			if(size==0)
 				callback.onUrlParamsParsed();
