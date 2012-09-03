@@ -148,7 +148,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("k2", ODFieldType.STRING, "123"));
 		rows.add(new CustomKVORow("k3", ODFieldType.EMAIL, "alma@korte.er"));
 		
-		ObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows);
+		ObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows, "test");
 		
 		Assert.assertEquals(IFConsts.customDescriptorName, od.getName());
 		Assert.assertEquals(3, od.getFieldCount());
@@ -185,7 +185,7 @@ public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTest
 		rows.add(new CustomKVORow("k4", ODFieldType.DOUBLE, "abc")); //can not parse so it will null
 		rows.add(new CustomKVORow("k5", ODFieldType.LONG, "abc")); //can not parse so it will null
 		
-		ObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows);
+		ObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows, "test");
 		AssistedObject ao = ODAOCustomKVOMappingHelper.getAoFromRows(rows);
 		AssistedObjectChecker checker = new AssistedObjectChecker(ao, IFConsts.customDescriptorName, od);
 		

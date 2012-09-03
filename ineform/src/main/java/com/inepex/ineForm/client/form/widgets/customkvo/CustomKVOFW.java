@@ -140,8 +140,7 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 	}
 	
 	public CustomKVOObjectDesc getOdFromRows() {
-		CustomKVOObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows);
-		od.setKey(fieldDescriptor.getKey());
+		CustomKVOObjectDesc od = ODAOCustomKVOMappingHelper.getOdFromRows(rows, fieldDescriptor.getKey());
 		return od;
 	}
 
