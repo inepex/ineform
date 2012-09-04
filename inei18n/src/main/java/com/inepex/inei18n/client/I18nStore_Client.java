@@ -31,17 +31,20 @@ public class I18nStore_Client extends I18nStoreBase {
 			moduleNames.add(string);
 		}
 		
-		String lastLang=null;
-		if(loadLangFromCookie) {
-			lastLang = Cookies.getCookie(LANG_COOKIE_ID);
-		}
+		String requestedLang=null;
 		if (forcedLanguage != null){
-			lastLang = forcedLanguage;
+			requestedLang = forcedLanguage;
+		} else if(loadLangFromCookie) {
+			requestedLang = Cookies.getCookie(LANG_COOKIE_ID);
+			
+			if(requestedLang==null) {
+				requestedLang = getBrowserLang();
+			}
 		}
 		
-		return new GetI18nModulesAndSetCurrentLangFromCookieAction(lastLang, moduleNames);
+		return new GetI18nModulesAndSetCurrentLangFromCookieAction(requestedLang, moduleNames);
 	}
-	
+
 	public void onModulesQueriedSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
 		currentLanguage = result.currentLang;
 		
@@ -54,4 +57,32 @@ public class I18nStore_Client extends I18nStoreBase {
 	public String getCurrentLanguage() {
 		return currentLanguage;
 	}
+	
+	private String getBrowserLang() {
+		String browserLang = getLanguage();
+		if(browserLang==null || browserLang.length()<1)
+			return null;
+		
+		if(browserLang.startsWith("en"))
+			return "en";
+		
+		return browserLang;
+	}
+	
+	/**
+	   * Get preferred language according to browser settings.
+	   *
+	   * @return The preferred language.
+	   */
+	  public static native String getLanguage() /*-{
+	     if (navigator.language == null) {
+		     if (navigator.userLanguage == null) {
+		     	return null;
+		     } else {
+		     	return navigator.userLanguage;
+		     }
+	     } else {
+	     	return navigator.language;
+	     }
+	  }-*/;
 }

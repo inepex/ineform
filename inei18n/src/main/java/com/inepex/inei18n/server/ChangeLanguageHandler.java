@@ -18,13 +18,15 @@ import com.inepex.inei18n.shared.SimpleResult;
  */
 public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction, SimpleResult> {
 
-	final static Logger logger = LoggerFactory.getLogger(ChangeLanguageHandler.class);
+	private final static Logger logger = LoggerFactory.getLogger(ChangeLanguageHandler.class);
 	
 	private final CurrentLang currentLang;
+	private final I18nStore_Server i18nStore;
 	
 	@Inject
-	public ChangeLanguageHandler(CurrentLang currentLang) {
+	public ChangeLanguageHandler(CurrentLang currentLang, I18nStore_Server i18nStore) {
 		this.currentLang = currentLang;
+		this.i18nStore=i18nStore;
 	}
 	
 	@Override
@@ -36,11 +38,15 @@ public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction
 	public SimpleResult execute(ChangeLanguageAction action, net.customware.gwt.dispatch.server.ExecutionContext arg1)
 			throws DispatchException {
 		
-		logger.info("current: {}", currentLang.getCurrentLang());
-		logger.info("action: {}", action.requestedLanguage);
-		currentLang.setSessionLang(action.requestedLanguage);
-		logger.info("after action: {}", currentLang.getCurrentLang());
+		String reqLang = null;
+		if(action.requestedLanguage==null || "".equals(action.requestedLanguage) || !i18nStore.getAllLangs().contains(action.requestedLanguage)) {
+			reqLang=CurrentLang.DEFAULT_LANG;
+			logger.warn("Requested lang is not supported or null: {}", action.requestedLanguage);
+		} else {
+			reqLang=action.requestedLanguage;
+		}
 		
+		currentLang.setSessionLang(reqLang);
 		return new SimpleResult();
 	}
 

@@ -56,7 +56,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
 	protected final DispatchAsync dispatchAsync;
 	protected final EventBus eventBus;
-	protected final I18nStore_Client clientI18nStore = new I18nStore_Client();
+	protected final I18nStore_Client clientI18nStore;
 	
 	protected final DescriptorStore descStore;
 
@@ -65,9 +65,10 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	private final HistoryProvider historyProvider;
 	
 	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager, 
-			DescriptorStore descStore, HistoryProvider historyProvider) {
+			DescriptorStore descStore, HistoryProvider historyProvider, I18nStore_Client clientI18nStore) {
 		this.dispatchAsync = dispatchAsync;
 		this.eventBus = eventBus;
+		this.clientI18nStore=clientI18nStore;
 		this.authManager = authManager;
 		this.descStore = descStore;
 		this.historyProvider = historyProvider;
