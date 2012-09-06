@@ -15,6 +15,7 @@ import com.inepex.ineForm.client.form.events.BeforeSaveEvent;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.DeletedEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
+import com.inepex.ineForm.client.form.events.ResetEvent;
 import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
@@ -166,8 +167,10 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	}
 	
 	public void doSave(){
-		if (!doValidate(kvo).isValid())
+		if (!doValidate(kvo).isValid()) {
+			fireAfterUnsuccesfulSaveEvent(null);
 			return;
+		}
 		
 		// Send only the changes to the server 
 		AssistedObject difference = handlerFactory.createHandler(kvo).getDifference(
@@ -229,6 +232,12 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 
 	public CancelledEvent fireCancelledEvent() {
 		return doFireEvent(new CancelledEvent());
+	}
+	
+	@Override
+	public ResetEvent fireResetEvent() {
+		view.dataReseted();
+		return super.fireResetEvent();
 	}
 	
 	public BeforeSaveEvent fireBeforeSaveEvent(AssistedObject kvo) {

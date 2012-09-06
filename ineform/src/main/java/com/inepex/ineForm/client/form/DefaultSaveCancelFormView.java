@@ -296,8 +296,10 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 
 	@Override
 	public void setFormValidationSuccess(boolean isSuccess) {
-		// TODO Auto-generated method stub
-		
+	}
+
+	@Override
+	public void dataReseted() {
 	}
 	
 	

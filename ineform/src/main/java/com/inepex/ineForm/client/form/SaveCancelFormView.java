@@ -41,4 +41,6 @@ public interface SaveCancelFormView extends IsWidget{
 	public void setCancelButtonVisible(boolean visible);
 	
 	public void setFormValidationSuccess(boolean isSuccess);
+
+	public void dataReseted();
 }
