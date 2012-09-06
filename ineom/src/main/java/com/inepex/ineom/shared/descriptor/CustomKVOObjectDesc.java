@@ -2,6 +2,8 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
+import com.inepex.ineom.shared.IFConsts;
+
 
 @SuppressWarnings("serial")
 public class CustomKVOObjectDesc extends ObjectDesc implements Serializable{
@@ -12,11 +14,8 @@ public class CustomKVOObjectDesc extends ObjectDesc implements Serializable{
 	private String key;
 	
 	
-	public CustomKVOObjectDesc() {	
-	}
-	
-	public CustomKVOObjectDesc(String customdescriptorname) {
-		super(customdescriptorname);
+	public CustomKVOObjectDesc() {
+		super(IFConsts.customDescriptorName);
 	}
 
 	public void setKey(String key) {

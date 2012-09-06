@@ -87,7 +87,7 @@ public class ODAOCustomKVOMappingHelper {
 	}
 	
 	public static CustomKVOObjectDesc getOdFromRows(List<CustomKVORow> rows, String key) {
-		CustomKVOObjectDesc od = new CustomKVOObjectDesc(IFConsts.customDescriptorName);
+		CustomKVOObjectDesc od = new CustomKVOObjectDesc();
 		for(CustomKVORow r : rows) {
 			od.addField(new CreatedFdesc(r.getKey(), r.getType().ineT, r.getType().validators));
 		}
