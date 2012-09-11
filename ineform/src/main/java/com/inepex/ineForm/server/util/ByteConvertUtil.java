@@ -11,9 +11,9 @@ import org.jboss.netty.handler.codec.base64.Base64;
 public class ByteConvertUtil {
 	
 	static final String HEXES = "0123456789ABCDEF";
-	static final Charset ASCII = Charset.forName("ASCII");
+	public static final Charset ASCII = Charset.forName("ASCII");
 
-	public static String getHex(byte[] raw) {
+	public static String getHex(byte... raw) {
 		if (raw == null) {
 			return null;
 		}
