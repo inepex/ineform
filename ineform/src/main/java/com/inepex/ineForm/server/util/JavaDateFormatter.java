@@ -1,5 +1,6 @@
 package com.inepex.ineForm.server.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -24,13 +25,13 @@ public class JavaDateFormatter implements DateFormatter {
 	}
 	
 	@Override
-	public String format(String pattern, Date date) {
-		return new SimpleDateFormat(pattern, getLocale()).format(date);
-	}
-	
-	@Override
 	public String format(String pattern, Long date) {
 		return new SimpleDateFormat(pattern, getLocale()).format(new Date(date));
+	}
+
+	@Override
+	public Long parseUiDate(String pattern, String localDateString) throws ParseException {
+		return new SimpleDateFormat(pattern, getLocale()).parse(localDateString).getTime();
 	}
 
 }

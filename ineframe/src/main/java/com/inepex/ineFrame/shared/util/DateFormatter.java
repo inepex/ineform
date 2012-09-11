@@ -1,14 +1,11 @@
 package com.inepex.ineFrame.shared.util;
 
-import java.util.Date;
+import java.text.ParseException;
+
 
 public interface DateFormatter {
-
-	/**
-	 * May cause problems with timezone. Use {@link DateFormatter#format(String, Long)} instead. 
-	 */
-	@Deprecated
-	public String format(String pattern, Date date);
 	
 	public String format(String pattern, Long date);
+	
+	public Long parseUiDate(String format, String localDateString) throws ParseException;
 }

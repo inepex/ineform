@@ -17,16 +17,16 @@ public class GwtDateFormatter implements DateFormatter {
 	public GwtDateFormatter(DateProvider dateProvider) {
 		this.dateProvider = dateProvider;
 	}
-	
-	@Override
-	public String format(String pattern, Date date) {
-		return DateTimeFormat.getFormat(pattern).format(date);
-	}
 
 	@Override
 	public String format(String pattern, Long dateInUtc) {
 		Date date = dateProvider.getDate(dateInUtc);
 		return DateTimeFormat.getFormat(pattern).format(date);
+	}
+
+	@Override
+	public Long parseUiDate(String format, String localDateString) {
+		return dateProvider.whatMeansTyped(DateTimeFormat.getFormat(format).parse(localDateString).getTime()).getTime();
 	}
 
 }
