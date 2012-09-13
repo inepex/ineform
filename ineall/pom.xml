@@ -23,7 +23,7 @@
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.8.5</mockitoVersion>
 		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
-		<ginVersion>1.5.0</ginVersion>
+		<ginVersion>2.0.0</ginVersion>
 		<guiceVersion>3.0</guiceVersion>
 		<gwtDndVersion>3.1.1</gwtDndVersion>
 		<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
@@ -59,6 +59,11 @@
 			<id>inepex</id>
 			<url>http://maven.inepex.com/content/groups/public</url>
 			<name>inepex</name>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/comgooglegwtinject-268/</url>
+			<name>Sonatype Nexus Snapshots</name>
 		</repository>
 
 
