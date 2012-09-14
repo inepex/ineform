@@ -33,8 +33,8 @@
 		<nettyVersion>3.3.1.Final</nettyVersion>
 		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
 		<mavenCompilerVersion>2.5.1</mavenCompilerVersion>
-		<mavenCompilerSourceVersion>1.6</mavenCompilerSourceVersion>
-		<mavenCompilerTargetVersion>1.6</mavenCompilerTargetVersion>
+		<mavenCompilerSourceVersion>1.7</mavenCompilerSourceVersion>
+		<mavenCompilerTargetVersion>1.7</mavenCompilerTargetVersion>
 		<mavenJarVersion>2.4</mavenJarVersion>
 		<mavenSureFireVersion>2.8</mavenSureFireVersion>
 		<eclipselinkVersion>2.3.0</eclipselinkVersion>
