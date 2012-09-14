@@ -1,9 +1,11 @@
 package com.inepex.ineFrame.shared.exceptions;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import net.customware.gwt.dispatch.shared.ActionException;
 
 
-public class AuthenticationException extends ActionException {
+public class AuthenticationException extends ActionException implements IsSerializable {
 
 	public AuthenticationException(){
 	}

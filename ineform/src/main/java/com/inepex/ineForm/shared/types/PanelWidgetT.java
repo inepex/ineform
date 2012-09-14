@@ -2,6 +2,7 @@ package com.inepex.ineForm.shared.types;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 
 /**
@@ -10,7 +11,7 @@ import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
  * @author istvan
  */
 @SuppressWarnings("serial")
-public class PanelWidgetT implements Serializable{
+public class PanelWidgetT implements Serializable, IsSerializable {
 	
 	public final static PanelWidgetT FLOWPANEL = new PanelWidgetT("FLOWPANEL");
 	public final static PanelWidgetT VERTICALPANEL = new PanelWidgetT("VERTICALALPANEL");

@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 
-public class ValidationResult implements Serializable {
+public class ValidationResult implements Serializable, IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 	

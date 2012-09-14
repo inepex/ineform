@@ -2,11 +2,12 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 @SuppressWarnings("serial")
-public abstract class NumericFDesc extends FDesc implements Serializable {
+public abstract class NumericFDesc extends FDesc implements Serializable, IsSerializable {
 
 	public NumericFDesc(String key, IneT type, String defaultDisplayName, String... properties) {
 		super(key, type, defaultDisplayName, properties);

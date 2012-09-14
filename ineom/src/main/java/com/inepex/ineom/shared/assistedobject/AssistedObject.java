@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 
@@ -15,7 +16,7 @@ import com.inepex.ineom.shared.Relation;
  *  
  */
 @SuppressWarnings("serial")
-public abstract class AssistedObject implements Serializable {
+public abstract class AssistedObject implements Serializable, IsSerializable {
 
 	/******** ADD methods ********/
 	protected abstract void set(String key, Boolean value);

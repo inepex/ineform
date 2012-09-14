@@ -1,10 +1,11 @@
 package com.inepex.ineForm.shared.types;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
-public enum ODFieldType {
+public enum ODFieldType implements IsSerializable  {
 	
 	BOOLEAN(IneT.BOOLEAN),
 	DOUBLE(IneT.DOUBLE),

@@ -1,5 +1,6 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
@@ -20,7 +21,7 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 	
 	private final String fieldDisplayname;
 	
-	public enum RelType {
+	public enum RelType implements IsSerializable  {
 		gt, lt, ge, le, eq;
 	}
 	

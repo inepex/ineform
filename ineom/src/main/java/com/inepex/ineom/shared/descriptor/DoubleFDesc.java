@@ -2,10 +2,11 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 
 public class DoubleFDesc extends NumericFDesc implements
-		Serializable {
+		Serializable, IsSerializable {
 
 	/**
 	 * 

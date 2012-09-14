@@ -1,5 +1,6 @@
 package com.inepex.ineom.shared.validation.basicvalidators;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
@@ -10,7 +11,7 @@ import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class LengthValidator implements KeyValueObjectValidator {
 	
-	public enum Type {
+	public enum Type implements IsSerializable  {
 		MAXLENGTH,
 		MINLENGTH
 	}

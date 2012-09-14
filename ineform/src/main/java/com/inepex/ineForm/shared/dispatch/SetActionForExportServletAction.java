@@ -2,12 +2,13 @@ package com.inepex.ineForm.shared.dispatch;
 
 import net.customware.gwt.dispatch.shared.Action;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 
 
 public class SetActionForExportServletAction implements Action<GenericResult>{
 
-	public enum Renderer {
+	public enum Renderer implements IsSerializable  {
 		CSV
 		, HTML
 		, TRTD

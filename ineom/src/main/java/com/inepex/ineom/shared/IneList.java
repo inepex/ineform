@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IneList implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class IneList implements Serializable, IsSerializable {
 
 	/**
 	 *

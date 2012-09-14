@@ -2,6 +2,7 @@ package com.inepex.ineForm.shared.types;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 
 /**
@@ -11,7 +12,7 @@ import com.inepex.ineForm.client.form.widgets.FormWidget;
  * @author istvan
  *
  */
-public class FormUnitT implements Serializable{
+public class FormUnitT implements Serializable, IsSerializable {
 	/**
 	 * 
 	 */

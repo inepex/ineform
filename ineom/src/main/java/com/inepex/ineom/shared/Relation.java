@@ -2,9 +2,10 @@ package com.inepex.ineom.shared;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
-public class Relation implements Serializable {
+public class Relation implements Serializable, IsSerializable {
 
 	private static final long serialVersionUID = 4137968016737976837L;
 

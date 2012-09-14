@@ -1,5 +1,7 @@
 package com.inepex.ineForm.shared.descriptorext;
 
-public enum ColRDescHAlign {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public enum ColRDescHAlign implements IsSerializable {
 	CENTER, LEFT, RIGHT;
 }

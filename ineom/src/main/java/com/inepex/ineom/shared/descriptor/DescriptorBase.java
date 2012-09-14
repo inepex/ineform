@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 @SuppressWarnings("serial")
-public class DescriptorBase implements Serializable {
+public class DescriptorBase implements Serializable, IsSerializable {
 	
 	public static final String separator = ":";
 	

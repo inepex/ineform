@@ -3,6 +3,7 @@ package com.inepex.ineFrame.server.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IFConsts;
 
 /**
@@ -10,7 +11,7 @@ import com.inepex.ineom.shared.IFConsts;
  *  
  *  Tested(TimeZoneTest) with Java time zone for consistance! This enum can be used both client and server side!
  */
-public enum TimeZoneEnum {
+public enum TimeZoneEnum implements IsSerializable  {
 	
 	Africa_Abidjan("Africa/Abidjan","{\"transitions\": [], \"names\": [\"GMT\", \"Greenwich Mean Time\"], \"id\": \"Africa/Abidjan\", \"std_offset\": 0}"),
 	Africa_Accra("Africa/Accra","{\"transitions\": [], \"names\": [\"GMT\", \"Greenwich Mean Time\"], \"id\": \"Africa/Accra\", \"std_offset\": 0}"),

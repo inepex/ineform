@@ -2,11 +2,12 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IFConsts;
 
 
 @SuppressWarnings("serial")
-public class CustomKVOObjectDesc extends ObjectDesc implements Serializable{
+public class CustomKVOObjectDesc extends ObjectDesc implements Serializable, IsSerializable {
 	
 	/**
 	 *  field key of ObjectDec

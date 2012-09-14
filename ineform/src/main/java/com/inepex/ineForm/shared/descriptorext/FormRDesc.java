@@ -2,10 +2,11 @@ package com.inepex.ineForm.shared.descriptorext;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.descriptor.Node;
 
 
-public class FormRDesc extends FormRDescBase implements Serializable{
+public class FormRDesc extends FormRDescBase implements Serializable, IsSerializable{
 
 	private static final long serialVersionUID = -5591579072781758641L;
 	

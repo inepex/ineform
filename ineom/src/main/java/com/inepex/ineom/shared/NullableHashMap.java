@@ -8,8 +8,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 @SuppressWarnings("serial")
-public class NullableHashMap<K, V> implements Map<K, V>, Serializable {
+public class NullableHashMap<K, V> implements Map<K, V>, Serializable, IsSerializable {
 	
 	private HashMap<K, V> map;
 

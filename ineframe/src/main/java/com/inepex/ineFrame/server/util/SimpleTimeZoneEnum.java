@@ -3,6 +3,7 @@ package com.inepex.ineFrame.server.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IFConsts;
 
 /**
@@ -15,7 +16,7 @@ import com.inepex.ineom.shared.IFConsts;
  *  
  *  Tested with {SimpleTimeZoneEnumTest}.
  */
-public enum SimpleTimeZoneEnum {
+public enum SimpleTimeZoneEnum implements IsSerializable  {
 	
 	minus11("(GMT-11:00) Midway Island, Samoa", "Pacific/Midway","{\"transitions\": [], \"names\": [\"SST\", \"Samoa Standard Time\"], \"id\": \"Pacific/Midway\", \"std_offset\": -660}"),
 	minus10("(GMT-10:00) Hawaii","Pacific/Honolulu","{\"transitions\": [], \"names\": [\"HST\", \"Hawaii Standard Time\", \"HDT\", \"Hawaii Daylight Time\"], \"id\": \"Pacific/Honolulu\", \"std_offset\": -600}"),

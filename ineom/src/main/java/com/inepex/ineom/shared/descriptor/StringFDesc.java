@@ -2,6 +2,7 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
@@ -9,7 +10,7 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
  * @author Istvan Szoboszlai
  *
  */
-public class StringFDesc extends FDesc implements Serializable {
+public class StringFDesc extends FDesc implements Serializable, IsSerializable {
 
 	/**
 	 * 

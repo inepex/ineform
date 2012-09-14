@@ -3,7 +3,9 @@ package com.inepex.inei18n.shared;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class GetI18nModulesAndSetCurrentLangFromCookieResult extends SimpleResult implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class GetI18nModulesAndSetCurrentLangFromCookieResult extends SimpleResult implements Serializable, IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 

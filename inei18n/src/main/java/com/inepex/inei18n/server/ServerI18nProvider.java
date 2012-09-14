@@ -25,6 +25,9 @@ public abstract class ServerI18nProvider<T extends I18nModule> implements I18nMo
 	
 	private TreeMap<String, Field> fieldsByName = null;
 	
+	public ServerI18nProvider() {
+	}
+	
 	public ServerI18nProvider(Provider<CurrentLang> currentLangProvider) {
 		this.currentLangProvider = currentLangProvider;
 	}

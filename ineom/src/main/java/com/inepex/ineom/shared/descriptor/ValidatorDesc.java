@@ -2,8 +2,10 @@ package com.inepex.ineom.shared.descriptor;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class ValidatorDesc extends DescriptorBase implements Serializable{
+
+public class ValidatorDesc extends DescriptorBase implements Serializable, IsSerializable {
 
 	/**
 	 * 

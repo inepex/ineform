@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 /**
@@ -16,7 +17,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
  * @param <T> base generic type of this node
  * 
  */
-public class Node<T> implements Serializable {
+public class Node<T> implements Serializable, IsSerializable {
 	
 	private static final long serialVersionUID = 7055245403110164008L;
 

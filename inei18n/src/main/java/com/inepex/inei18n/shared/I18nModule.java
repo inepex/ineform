@@ -2,7 +2,9 @@ package com.inepex.inei18n.shared;
 
 import java.io.Serializable;
 
-public abstract class I18nModule implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public abstract class I18nModule implements Serializable, IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 

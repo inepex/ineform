@@ -5,12 +5,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 
 /**
  * a tree of FieldDescriptors
  *
  */
-public class ObjectDesc implements Serializable {
+public class ObjectDesc implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 7161148180827105250L;
 
 	private LinkedHashMap<String, FDesc> fields = new LinkedHashMap<String, FDesc>();

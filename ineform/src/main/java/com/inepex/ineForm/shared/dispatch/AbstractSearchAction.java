@@ -3,6 +3,7 @@ package com.inepex.ineForm.shared.dispatch;
 import java.io.Serializable;
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
@@ -13,7 +14,7 @@ import com.inepex.ineom.shared.assistedobject.KeyValueObject;
  * @author István Szoboszlai
  *
  */
-public class AbstractSearchAction implements Serializable{
+public class AbstractSearchAction implements Serializable, IsSerializable{
 
 	/**
 	 * 
