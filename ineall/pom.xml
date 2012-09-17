@@ -21,7 +21,7 @@
 	<properties>
 		<gwtVersion>2.5.0-rc1</gwtVersion>
 		<jUnitVersion>4.8.2</jUnitVersion>
-		<mockitoVersion>1.8.5</mockitoVersion>
+		<mockitoVersion>1.9.0</mockitoVersion>
 		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
 		<ginVersion>2.0.0</ginVersion>
 		<guiceVersion>3.0</guiceVersion>
@@ -30,19 +30,19 @@
 		<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
 		<commonsIoVersion>2.0.1</commonsIoVersion>
 		<javaxServletVersion>2.5</javaxServletVersion>
-		<nettyVersion>3.3.1.Final</nettyVersion>
+		<nettyVersion>3.5.7.Final</nettyVersion>
 		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
 		<mavenCompilerVersion>2.5.1</mavenCompilerVersion>
 		<mavenCompilerSourceVersion>1.7</mavenCompilerSourceVersion>
 		<mavenCompilerTargetVersion>1.7</mavenCompilerTargetVersion>
 		<mavenJarVersion>2.4</mavenJarVersion>
 		<mavenSureFireVersion>2.8</mavenSureFireVersion>
-		<eclipselinkVersion>2.3.0</eclipselinkVersion>
+		<eclipselinkVersion>2.4.0</eclipselinkVersion>
 		<slf4jVersion>1.6.1</slf4jVersion>
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
 		<jukitoVersion>1.1</jukitoVersion>
-		<googleGuavaVersion>11.0.2</googleGuavaVersion>
+		<googleGuavaVersion>13.0.1</googleGuavaVersion>
 		<buildHelperVersion>1.7</buildHelperVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumberVersion>1.1</buildNumberVersion>
@@ -65,8 +65,10 @@
 			<url>https://oss.sonatype.org/content/repositories/comgooglegwtinject-268/</url>
 			<name>Sonatype Nexus Snapshots</name>
 		</repository>
-
-
+		<repository>
+			<id>EclipseLink</id>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+		</repository>
 	</repositories>
 
 	<distributionManagement>
