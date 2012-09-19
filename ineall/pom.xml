@@ -66,8 +66,8 @@
 			<name>Sonatype Nexus Snapshots</name>
 		</repository>
 		<repository>
-			<id>EclipseLink</id>
-			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+			<id>Eclipse maven repo</id>
+			<url>http://maven.eclipse.org/nexus/content/repositories/Sonatype/</url>
 		</repository>
 	</repositories>
 
