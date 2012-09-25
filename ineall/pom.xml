@@ -38,7 +38,7 @@
 		<mavenJarVersion>2.4</mavenJarVersion>
 		<mavenSureFireVersion>2.8</mavenSureFireVersion>
 		<eclipselinkVersion>2.4.0</eclipselinkVersion>
-		<slf4jVersion>1.6.1</slf4jVersion>
+		<slf4jVersion>1.6.6</slf4jVersion>
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
 		<jukitoVersion>1.1</jukitoVersion>
