@@ -13,6 +13,11 @@ import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
@@ -67,4 +72,5 @@ public class CustomKVODao extends BaseDao<CustomKVO> {
 	public CustomKVO newInstance() {
 		throw new UnsupportedOperationException();
 	}
+
 }

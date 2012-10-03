@@ -243,5 +243,19 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		res.setList(getMapper().toRelationList(find(action)));
 		return res;
 	}
+	
+	public void manipulateAsync(ObjectManipulation action, 
+			IneformAsyncCallback<ObjectManipulationResult> callback) throws Exception {
+		callback.onResponse(manipulate(action));
+	}
+	
+	public void searchAsync(AbstractSearchAction action, IneformAsyncCallback<ObjectListResult> callback){
+		callback.onResponse(search(action));
+	}
+	
+	public void searchAsRelationAsync(AbstractSearchAction action, IneformAsyncCallback<RelationListResult> callback){
+		callback.onResponse(searchAsRelation(action));
+	}
+	
 
 }

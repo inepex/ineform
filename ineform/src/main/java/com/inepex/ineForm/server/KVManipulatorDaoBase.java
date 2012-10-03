@@ -12,7 +12,14 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
  *
  */
 public interface KVManipulatorDaoBase {
+
 	public abstract ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception;
 	public abstract ObjectListResult search(AbstractSearchAction action);
 	public abstract RelationListResult searchAsRelation(AbstractSearchAction action);
+	
+	public abstract void manipulateAsync(ObjectManipulation action, 
+			IneformAsyncCallback<ObjectManipulationResult> callback) throws Exception;
+	public abstract void searchAsync(AbstractSearchAction action, IneformAsyncCallback<ObjectListResult> callback);
+	public abstract void searchAsRelationAsync(AbstractSearchAction action, IneformAsyncCallback<RelationListResult> callback);
+	
 }
