@@ -15,8 +15,11 @@ public class OdFieldTypeListBox extends FlowPanel {
 		setStyleName(ResourceHelper.ineformRes().style().OdFieldTypeListBoxWrapper());
 		
 		add(listBox);
+		
 		for(ODFieldType type : ODFieldType.values()) {
-			listBox.addItem(type.toString());
+			listBox.addItem(
+					ODFieldType.getODFieldTypeName(type),
+					type.toString());
 		}
 	}
 	

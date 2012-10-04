@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
+import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
 public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
@@ -83,7 +84,7 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 	private void showRow(int rowNr, CustomKVORow row, boolean showType){
 		grid.setText(rowNr, 0, row.getKey());
 		if (showType) {
-			grid.setText(rowNr, 1, row.getType().toString());
+			grid.setText(rowNr, 1, ODFieldType.getODFieldTypeName(row.getType()));
 			grid.setText(rowNr, 2, row.getValue());
 		} else {
 			grid.setText(rowNr, 1, row.getValue());

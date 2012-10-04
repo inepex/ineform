@@ -18,7 +18,17 @@ public class LocalizationUtil {
 	
 	public static void main(String[] args) {
 		generateIneFormSourceFromCsv();
+//		generateHelperForEnums();
 	}
+	
+//	private static void generateHelperForEnums() {
+//		List<EnumClassWithPostfix> enumList = new ArrayList<EnumI18nExtractor.EnumClassWithPostfix>();
+//		enumList.add(new EnumClassWithPostfix(ODFieldType.class));
+//
+//		EnumI18nExtractor.generateI18nAccessHelpersForEnums(Thread
+//				.currentThread().getContextClassLoader(),
+//				IneFormI18n.MODULE_NAME, enumList);
+//	}
 
 	private static void generateIneFormSourceFromCsv() {
 		I18nModuleConverter converter = new I18nModuleConverter(IneFormI18n.class);

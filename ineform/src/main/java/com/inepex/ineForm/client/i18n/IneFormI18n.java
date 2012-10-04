@@ -40,6 +40,11 @@ public class IneFormI18n extends I18nModule {
 	public String MOVEUP = "Up";
 	public String NEW = "New";
 	public String NEXT = "Next page";
+	public String ODFieldType_BOOLEAN = "Checkbox";
+	public String ODFieldType_DOUBLE = "Fraction";
+	public String ODFieldType_EMAIL = "E-mail";
+	public String ODFieldType_LONG = "Number";
+	public String ODFieldType_STRING = "Text";
 	public String OK = "Ok";
 	public String PREVIOUS = "Previous page";
 	public String REMOVE = "-";
@@ -262,6 +267,51 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String NEXT() {
 		return moduleProvider.get().NEXT;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Checkbox
+	* <u><i>Magyarul:</i></u> Igaz-Hamis
+	*/
+	public static String ODFieldType_BOOLEAN() {
+		return moduleProvider.get().ODFieldType_BOOLEAN;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Fraction
+	* <u><i>Magyarul:</i></u> Tört szám
+	*/
+	public static String ODFieldType_DOUBLE() {
+		return moduleProvider.get().ODFieldType_DOUBLE;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> E-mail
+	* <u><i>Magyarul:</i></u> E-mail
+	*/
+	public static String ODFieldType_EMAIL() {
+		return moduleProvider.get().ODFieldType_EMAIL;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Number
+	* <u><i>Magyarul:</i></u> Szám
+	*/
+	public static String ODFieldType_LONG() {
+		return moduleProvider.get().ODFieldType_LONG;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Text
+	* <u><i>Magyarul:</i></u> Szöveg
+	*/
+	public static String ODFieldType_STRING() {
+		return moduleProvider.get().ODFieldType_STRING;
 	}
 	
 	/**
