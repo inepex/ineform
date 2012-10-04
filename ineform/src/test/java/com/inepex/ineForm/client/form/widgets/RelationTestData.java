@@ -12,9 +12,9 @@ import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.ContactKVO;
 import com.inepex.ineForm.client.form.widgets.kvo.ContactNatRelKVO;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.descriptor.ListFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class RelationTestData {
 	

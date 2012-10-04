@@ -7,11 +7,11 @@ import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.LongFDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class UserAssist extends Assist {
 	
@@ -51,10 +51,10 @@ public class UserAssist extends Assist {
 		TableRDesc tableRDesc = new TableRDesc(UserConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(UserConsts.k_id, new ColRDesc(/*hc:tdr1_1*/100, true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(UserConsts.k_firstName, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(UserConsts.k_lastName, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(UserConsts.k_email, new ColRDesc(/*hc:tdr1_4*/100, true/*hc*/)/*hc:tdr2_4*//*hc*/)
+			.addChild(UserConsts.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
+			.addChild(UserConsts.k_firstName, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
+			.addChild(UserConsts.k_lastName, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
+			.addChild(UserConsts.k_email, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
 			;
 		return tableRDesc;
 	}

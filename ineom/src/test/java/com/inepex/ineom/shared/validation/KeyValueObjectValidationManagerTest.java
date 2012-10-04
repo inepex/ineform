@@ -16,11 +16,12 @@ import com.inepex.ineom.server.ServerIneOmI18nProvider;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
+import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
+import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 public class KeyValueObjectValidationManagerTest {
@@ -34,7 +35,7 @@ public class KeyValueObjectValidationManagerTest {
 				.addField(new StringFDesc(f1, "f1").maxLength(10).mandatory())
 				.addField(new StringFDesc(f2, "f2").email());
 	
-	private final DescriptorStore descriptorStore = new ClientDescriptorStore();
+	private final DescriptorStore descriptorStore = new ClientDescriptorStore(new TreeDescriptorStoreMapCreator());
 	private final AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(descriptorStore);
 	private final KeyValueObjectValidationManager validationManager = new  KeyValueObjectValidationManager(descriptorStore, objectHandlerFactory);
 	

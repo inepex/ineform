@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 /**
  * A listbox with String value and String list value range

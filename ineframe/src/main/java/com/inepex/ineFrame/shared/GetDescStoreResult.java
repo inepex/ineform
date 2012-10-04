@@ -1,23 +1,22 @@
 package com.inepex.ineFrame.shared;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.TypedDescriptorMap;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class GetDescStoreResult extends GenericResult {
 
 	private List<ObjectDesc> objectDescs;
-	private Map<String, TypedDescriptorMap<? extends DescriptorBase>> allTypedDescMap = new HashMap<String, TypedDescriptorMap<? extends DescriptorBase>>();
 	
+	private List<String> odNames = new ArrayList<String>();
+	private List<String> names = new ArrayList<String>();
+	private List<DescriptorBase> typedDescrptors = new ArrayList<DescriptorBase>(); 
 	
 	public GetDescStoreResult() {
 	}
-	
 	
 	public List<ObjectDesc> getObjectDescs() {
 		return objectDescs;
@@ -27,15 +26,21 @@ public class GetDescStoreResult extends GenericResult {
 		this.objectDescs = objectDescs;
 	}
 
-	public void setAllTypedDescriptorMap(
-			Map<String, TypedDescriptorMap<? extends DescriptorBase>> typedDescriptorMapWhole) {
-		this.allTypedDescMap.putAll(typedDescriptorMapWhole);
-		
+	public List<String> getNames() {
+		return names;
 	}
-
-	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getAllTypedDescMap() {
-		return allTypedDescMap;
-	}
-		
 	
+	public List<String> getOdNames() {
+		return odNames;
+	}
+	
+	public List<? extends DescriptorBase> getTypedDescrptors() {
+		return typedDescrptors;
+	}
+	
+	public void addTypedDescriptor(String odName, String name, DescriptorBase typedDescriptor ) {
+		odNames.add(odName);
+		names.add(name);
+		typedDescrptors.add(typedDescriptor);
+	}
 }

@@ -17,7 +17,7 @@ public class App extends IneFrameEntryPoint {
 	
 	public App() {
 		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager(), INJECTOR.getDescriptorStore(),
-				INJECTOR.getHistoryProvider());
+				INJECTOR.getHistoryProvider(), INJECTOR.getI18nStore_Client());
 	}
 	
 	@Override

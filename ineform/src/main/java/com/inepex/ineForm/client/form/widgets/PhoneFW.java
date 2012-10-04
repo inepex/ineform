@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class PhoneFW extends DenyingFormWidget {
 

@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.datamanipulator;
 
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 	
 public interface ValueRangeProvider {
 	

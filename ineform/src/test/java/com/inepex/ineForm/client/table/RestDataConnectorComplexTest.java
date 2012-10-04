@@ -31,7 +31,7 @@ import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.TestUtil;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 /**
  * Not works because of json classes which tied to gwt

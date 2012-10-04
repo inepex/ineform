@@ -28,8 +28,8 @@ import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
-import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 /**

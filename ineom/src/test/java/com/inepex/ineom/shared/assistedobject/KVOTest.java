@@ -7,16 +7,17 @@ import org.junit.Test;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.BooleanFDesc;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
-import com.inepex.ineom.shared.descriptor.DoubleFDesc;
-import com.inepex.ineom.shared.descriptor.ListFDesc;
-import com.inepex.ineom.shared.descriptor.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.BooleanFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.DoubleFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
+import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
-import com.inepex.ineom.shared.descriptor.StringFDesc;
 
 public class KVOTest {
 	
@@ -34,7 +35,7 @@ public class KVOTest {
 	static final String k_list="li";
 	
 	static {
-		descriptorStore=new ClientDescriptorStore();
+		descriptorStore=new ClientDescriptorStore(new TreeDescriptorStoreMapCreator());
 		
 		ObjectDesc descriptor2 = new ObjectDesc("test2Kvo");
 		descriptor2.addField(new LongFDesc(k_long, "A long"));

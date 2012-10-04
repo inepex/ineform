@@ -4,7 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class CheckBoxFW extends DenyingFormWidget {
 

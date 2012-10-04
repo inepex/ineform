@@ -1,9 +1,15 @@
-package com.inepex.ineom.shared.descriptor;
+package com.inepex.ineom.shared.descriptorstore;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
+
+import com.google.inject.Inject;
+import com.inepex.ineom.shared.descriptor.DescriptorBase;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 /**
  * This class is used for storing {@link ObjectDesc}s, {@link FormRDesc}s, {@link ValidatorDesc}s
@@ -17,11 +23,17 @@ import java.util.TreeMap;
  */
 public class ClientDescriptorStore extends DescriptorStore {
 
-	protected final Map<String, ODescMarkerPair> objectDescriptorMap = new TreeMap<String, ODescMarkerPair>();
+	private final DescriptorStoreMapCreator mapCreator;
+	private final Map<String, ODescMarkerPair> objectDescriptorMap;
+	private final Map<String, TypedDescriptorMap<? extends DescriptorBase>> typedDescMap;
 	
-    protected final Map<String, TypedDescriptorMap<? extends DescriptorBase>>
-    	typedDescMap = new TreeMap<String, TypedDescriptorMap<? extends DescriptorBase>>();
-	
+	@Inject
+    public ClientDescriptorStore(DescriptorStoreMapCreator mapCreator) {
+    	this.mapCreator=mapCreator;
+    	this.objectDescriptorMap=mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, ODescMarkerPair>());
+    	this.typedDescMap=mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, TypedDescriptorMap<? extends DescriptorBase>>());
+    }
+    
 	@Override
 	public ObjectDesc getOD(String objectDescriptorName) {
 		ODescMarkerPair pair = objectDescriptorMap.get(objectDescriptorName);
@@ -48,7 +60,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 	
 	private <D extends DescriptorBase> void ensureDescriptorForClass(Class<D> clazz) {
 		if (!typedDescMap.containsKey(typeToKey(clazz)))
-			typedDescMap.put(typeToKey(clazz), new TypedDescriptorMap<D>());
+			typedDescMap.put(typeToKey(clazz), new TypedDescriptorMap<D>(mapCreator));
 	}
 	
 	@Override
@@ -81,10 +93,11 @@ public class ClientDescriptorStore extends DescriptorStore {
 	public Map<String, ODescMarkerPair> getOjectDescriptorMap(){
 		return objectDescriptorMap;
 	}
-
-	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getAllTypedDescriptorMap() {
+	
+	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getTypedDescMap() {
 		return typedDescMap;
 	}
+
 
 	@Override
 	public String getOdNames(Decoration decorator) {
@@ -120,9 +133,5 @@ public class ClientDescriptorStore extends DescriptorStore {
 		default:
 			return "";
 		}
-	}
-
-	public Map<String, TypedDescriptorMap<? extends DescriptorBase>> getTypedDescMap() {
-		return typedDescMap;
 	}
 }

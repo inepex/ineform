@@ -8,7 +8,7 @@ import java.util.TreeMap;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class RelationList {
 

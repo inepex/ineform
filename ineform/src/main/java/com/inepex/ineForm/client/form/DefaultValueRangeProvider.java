@@ -5,8 +5,8 @@ import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineom.shared.IneT;
-import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 

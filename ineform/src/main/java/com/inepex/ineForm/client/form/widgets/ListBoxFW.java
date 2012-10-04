@@ -12,8 +12,8 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class ListBoxFW extends AbstractListBoxFW {
 	

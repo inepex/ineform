@@ -12,8 +12,8 @@ import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class SuggestBoxFw extends DenyingFormWidget {
 

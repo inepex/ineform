@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class LabelClickableFW extends FormWidgetWrapperFormWidget {
 

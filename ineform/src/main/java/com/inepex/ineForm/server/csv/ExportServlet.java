@@ -29,7 +29,7 @@ import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 @Singleton
 public class ExportServlet extends HttpServlet{

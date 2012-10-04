@@ -18,7 +18,7 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IneList;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class ChooserFw extends DenyingFormWidget implements ChooserView {
 	public static final String relationChooser = "relationChooser"; //default

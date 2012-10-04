@@ -3,7 +3,7 @@ package com.inepex.ineForm.client.table;
 import com.google.gwt.user.client.ui.HTML;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 /**
  * displaying an HTML element with the "alterText" instead of an empty table

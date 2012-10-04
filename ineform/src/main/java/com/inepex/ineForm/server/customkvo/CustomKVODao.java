@@ -12,7 +12,7 @@ import com.inepex.ineForm.server.SelectorCustomizer;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;

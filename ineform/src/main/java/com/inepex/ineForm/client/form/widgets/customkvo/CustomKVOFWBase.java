@@ -10,7 +10,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public abstract class CustomKVOFWBase extends DenyingFormWidget{
 	

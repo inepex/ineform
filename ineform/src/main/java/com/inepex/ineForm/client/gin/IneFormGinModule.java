@@ -63,8 +63,10 @@ import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineFrame.shared.util.NumberFormatter;
 import com.inepex.ineFrame.shared.util.NumberUtil;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
+import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
 public class IneFormGinModule extends AbstractGinModule {
 
@@ -79,7 +81,8 @@ public class IneFormGinModule extends AbstractGinModule {
 	public IneFormGinModule() {
 	}
 
-	public IneFormGinModule setDescStore(Class<? extends DescriptorStore> descStore) {
+	public IneFormGinModule setDescStore(
+			Class<? extends DescriptorStore> descStore) {
 		this.descStore = descStore;
 		return this;
 	}
@@ -128,6 +131,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 		bind(DescriptorStore.class).to(descStore).in(Singleton.class);
+		bind(DescriptorStoreMapCreator.class).to(TreeDescriptorStoreMapCreator.class).in(Singleton.class);
 		
 		bind(FormContext.class);
 		

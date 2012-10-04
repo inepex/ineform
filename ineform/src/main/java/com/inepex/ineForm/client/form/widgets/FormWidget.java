@@ -10,7 +10,7 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public abstract class FormWidget extends HandlerAwareComposite {
 		

@@ -1,6 +1,7 @@
-package com.inepex.ineom.shared.descriptor;
+package com.inepex.ineom.shared.descriptorstore;
 
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 
 public class ODescMarkerPair {
 	

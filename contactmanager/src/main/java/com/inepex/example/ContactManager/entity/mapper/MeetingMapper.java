@@ -13,7 +13,7 @@ import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class MeetingMapper extends BaseMapper<Meeting>{
 	

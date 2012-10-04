@@ -40,9 +40,9 @@ import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
 import com.inepex.ineom.shared.IneT;
-import com.inepex.ineom.shared.descriptor.FDesc;
-import com.inepex.ineom.shared.descriptor.ListFDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class DefaultFormWidgetFactory implements FormWidgetFactory {
 	

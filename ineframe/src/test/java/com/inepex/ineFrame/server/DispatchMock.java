@@ -28,8 +28,12 @@ import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.ineom.server.ConcurrentDescStoreMapCreator;
+import com.inepex.ineom.server.DescStoreCreator;
 import com.inepex.ineom.server.MultiLangDescStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.ClientDescStoreCreator;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
 import com.inepex.ineom.shared.dispatch.GenericResult;
 
 public class DispatchMock {
@@ -40,6 +44,8 @@ public class DispatchMock {
 				@Override
 				protected void configure() {
 					bind(DescriptorStore.class).to(MultiLangDescStore.class);
+					bind(DescriptorStoreMapCreator.class).to(ConcurrentDescStoreMapCreator.class);
+					bind(DescStoreCreator.class).to(ClientDescStoreCreator.class);
 					bind(CurrentLang.class).to(MockCurrentLang.class);
 				}
 			},

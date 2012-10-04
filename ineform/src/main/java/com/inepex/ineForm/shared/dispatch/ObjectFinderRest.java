@@ -15,7 +15,7 @@ import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser;
 import com.inepex.ineFrame.client.kvo.KvoJsonParser.ResultObjectExtractor;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class ObjectFinderRest {
 	public static interface ResultExtractor {

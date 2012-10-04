@@ -28,8 +28,8 @@ import com.inepex.example.ContactManager.shared.MeetingType;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class MeetingQuery extends BaseQuery<Meeting>{

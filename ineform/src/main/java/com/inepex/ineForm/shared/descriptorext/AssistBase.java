@@ -1,8 +1,8 @@
 package com.inepex.ineForm.shared.descriptorext;
 
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public abstract class AssistBase extends Assist {
 

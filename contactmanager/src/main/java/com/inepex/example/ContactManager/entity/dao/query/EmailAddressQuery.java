@@ -16,8 +16,8 @@ import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory.EmailAddressSearchHandler;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class EmailAddressQuery extends BaseQuery<EmailAddress>{

@@ -14,16 +14,20 @@ import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.server.WebServerCurrentLang;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.ineom.server.ConcurrentDescStoreMapCreator;
+import com.inepex.ineom.server.DescStoreCreator;
 import com.inepex.ineom.server.MultiLangDescStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.ClientDescStoreCreator;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
 
 public class IneFrameBaseModule extends AbstractModule {
 
 	private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler = DefaultLoginHandler.class;
 	private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
-	private boolean jpa = true;
+	private Class<? extends DescStoreCreator> descStoreCreatorClass = ClientDescStoreCreator.class;
 	
-	public Class<? extends DescriptorStore> descStoreClass = MultiLangDescStore.class;
+	private boolean jpa = true;
 	
 	public IneFrameBaseModule(boolean jpa) {
 		this.jpa = jpa;
@@ -44,12 +48,14 @@ public class IneFrameBaseModule extends AbstractModule {
 		install(new IneFrameBaseActionHandlerModule().setLoginHandler(loginHandler).setGetAuthStatusHandler(getAuthStatusHandler));
 		bind(I18nStore_Server.class).in(Singleton.class);
 		bind(CurrentLang.class).to(WebServerCurrentLang.class).in(Singleton.class);
-		bind(DescriptorStore.class).to(descStoreClass).in(Singleton.class);
+		bind(DescriptorStore.class).to(MultiLangDescStore.class).in(Singleton.class);
+		bind(DescriptorStoreMapCreator.class).to(ConcurrentDescStoreMapCreator.class).in(Singleton.class);
+		bind(DescStoreCreator.class).to(descStoreCreatorClass).in(Singleton.class);
 		if (jpa) bind(PersistInitializer.class).asEagerSingleton();
 	}
 	
-	public IneFrameBaseModule setDescStoreClass(Class<? extends DescriptorStore> descStoreClass) {
-		this.descStoreClass = descStoreClass;
+	public IneFrameBaseModule setDescStoreInnerStructure(Class<? extends DescStoreCreator> descStoreCreatorClass) {
+		this.descStoreCreatorClass=descStoreCreatorClass;
 		return this;
 	}
 

@@ -21,9 +21,9 @@ import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public class ExcelRenderer extends TableRenderer{

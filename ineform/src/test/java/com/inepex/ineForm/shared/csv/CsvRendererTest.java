@@ -27,7 +27,7 @@ import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 @RunWith(JukitoRunner.class)
 public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {

@@ -3,7 +3,7 @@ package com.inepex.ineForm.client.form.widgets;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.ListBox;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class ThreeWayBoolFw extends DenyingFormWidget {
 	

@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public abstract class TextBoxFWBase extends StringFormWidget {
 

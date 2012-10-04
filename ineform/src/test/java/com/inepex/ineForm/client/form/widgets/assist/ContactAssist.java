@@ -7,10 +7,10 @@ import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
-import com.inepex.ineom.shared.descriptor.ListFDesc;
-import com.inepex.ineom.shared.descriptor.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 

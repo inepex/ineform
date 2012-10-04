@@ -15,7 +15,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveCallback, RowValueChangeCallback {

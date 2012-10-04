@@ -9,7 +9,7 @@ import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineFrame.client.widgets.CaptchaWidget;
 import com.inepex.ineFrame.client.widgets.CaptchaWidget.Rendering;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class CaptchaFW extends StringFormWidget {
 

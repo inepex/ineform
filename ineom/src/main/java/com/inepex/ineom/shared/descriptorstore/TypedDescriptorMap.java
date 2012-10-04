@@ -1,10 +1,9 @@
-package com.inepex.ineom.shared.descriptor;
+package com.inepex.ineom.shared.descriptorstore;
 
 import java.util.Map;
-import java.util.TreeMap;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
+import com.inepex.ineom.shared.descriptor.DescriptorBase;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 
 /**
  * Helper class for string Typed Descriptors. This class is used in {@link ClientDescriptorStore}.
@@ -15,16 +14,22 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
  *
  * @param <D> must be subclass of {@link DescriptorBase}
  */
-public class TypedDescriptorMap<D> implements IsSerializable {
+public class TypedDescriptorMap<D extends DescriptorBase > {
 	
-	private Map<String, Map<String, D>> namedDescriptorsByOdName = new TreeMap<String, Map<String,D>>();
+	private final DescriptorStoreMapCreator mapCreator;
+	private final Map<String, Map<String, D>> namedDescriptorsByOdName;
+	
+	public TypedDescriptorMap(DescriptorStoreMapCreator mapCreator) {
+		this.mapCreator=mapCreator;
+		this.namedDescriptorsByOdName=mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, Map<String, D>>());
+	}
 	
 	public void addNamedDescriptor(Marker marker, String odName, String descName, D descriptor){
 		
 		Map<String, D> descriptors = namedDescriptorsByOdName.get(odName);
 		
 		if (descriptors == null) {
-			descriptors =  new TreeMap<String, D>();
+			descriptors = mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, D>());
 			namedDescriptorsByOdName.put(odName, descriptors);
 		}
 		
@@ -39,7 +44,7 @@ public class TypedDescriptorMap<D> implements IsSerializable {
 			return namedDescriptors.get(descName);
 	}
 	
-	public Map<String, Map<String, D>> getNamedDescriptors(){
+	public Map<String, Map<String, D>> getNamedDescriptorsByOdName() {
 		return namedDescriptorsByOdName;
 	}
 }

@@ -5,8 +5,8 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class HtmlRenderer extends TableRenderer{
 

@@ -11,8 +11,8 @@ import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 public abstract class UIBinderFormUnitSkin extends Composite {

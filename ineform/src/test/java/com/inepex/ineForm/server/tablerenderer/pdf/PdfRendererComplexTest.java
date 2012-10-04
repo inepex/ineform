@@ -21,7 +21,7 @@ import com.inepex.ineFrame.server.NumberUtilSrv;
 import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 

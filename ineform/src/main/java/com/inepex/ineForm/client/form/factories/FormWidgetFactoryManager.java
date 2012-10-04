@@ -7,7 +7,7 @@ import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.View;
 import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 /**
  * Composite class for using multiple formwidgetfactories

@@ -11,7 +11,7 @@ import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 /**
  * available properties:

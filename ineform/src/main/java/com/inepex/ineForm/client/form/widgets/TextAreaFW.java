@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class TextAreaFW extends StringFormWidget {
 	/**

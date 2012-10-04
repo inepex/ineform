@@ -14,8 +14,8 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class EnumChooser implements Chooser {
 	

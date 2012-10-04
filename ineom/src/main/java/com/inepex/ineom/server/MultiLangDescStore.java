@@ -10,28 +10,30 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class MultiLangDescStore extends DescriptorStore {
 	
 	private static final Logger _logger = LoggerFactory.getLogger(MultiLangDescStore.class);
 	
 	private final Map<String, DescriptorStore> storeByLang = new HashMap<String, DescriptorStore>();
-	protected final Provider<CurrentLang> currLangProvider;
+	private final Provider<CurrentLang> currLangProvider;
+	private DescStoreCreator descStoreCreator;
 	
 	@Inject
-	public MultiLangDescStore(Provider<CurrentLang> currLangProvider) {
+	public MultiLangDescStore(Provider<CurrentLang> currLangProvider, DescStoreCreator descStoreCreator) {
 		this.currLangProvider = currLangProvider;
+		this.descStoreCreator=descStoreCreator;
 	}
 	
 	public DescriptorStore get(String lang) {
 		if (!storeByLang.containsKey(lang)){
 			_logger.info("MultiDescStore has just created desc store for lang: {}", lang);
-			ClientDescriptorStore localizedDescStore = createDescStore(lang);
+			ClientDescriptorStore localizedDescStore = descStoreCreator.createDescStore(lang);
 			storeByLang.put(lang, localizedDescStore);
 		}
 		return storeByLang.get(lang);
@@ -44,10 +46,6 @@ public class MultiLangDescStore extends DescriptorStore {
 			_logger.warn("Lang can not found:", e);
 			return CurrentLang.DEFAULT_LANG;
 		}
-	}
-	
-	protected ClientDescriptorStore createDescStore(String lang) {
-		return new ClientDescriptorStore();
 	}
 
 	// Bridge methods follow

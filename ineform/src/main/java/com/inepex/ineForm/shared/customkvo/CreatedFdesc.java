@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 @SuppressWarnings("serial")
 public class CreatedFdesc extends FDesc implements Serializable, IsSerializable {

@@ -10,7 +10,8 @@ import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.ineom.TestI18nModuleProvider;
-import com.inepex.ineom.shared.descriptor.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
 public abstract class IneFrameClientSideTestBase implements IneInitializer {
 	public class MockCurrentLangProvider implements Provider<CurrentLang> {
@@ -29,7 +30,7 @@ public abstract class IneFrameClientSideTestBase implements IneInitializer {
 		
 		serverI18n = new I18nStore_Server();
 		currentLangProvider = new MockCurrentLangProvider();
-		descStore = new ClientDescriptorStore();
+		descStore = new ClientDescriptorStore(new TreeDescriptorStoreMapCreator());
 		
 		setupLocalization();
 		

@@ -18,10 +18,10 @@ import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 /**

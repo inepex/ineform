@@ -14,7 +14,7 @@ import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 											implements IneInitializer{

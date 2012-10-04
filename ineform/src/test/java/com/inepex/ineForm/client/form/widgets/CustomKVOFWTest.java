@@ -31,7 +31,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.UncheckedAssistedObjectReader;
 import com.inepex.ineom.shared.assistedobject.UncheckedKVO;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class CustomKVOFWTest extends DefaultIneFormClientSideTestBase {
 	

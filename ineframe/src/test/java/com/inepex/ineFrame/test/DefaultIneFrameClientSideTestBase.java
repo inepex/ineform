@@ -3,7 +3,7 @@ package com.inepex.ineFrame.test;
 import java.util.List;
 
 import com.inepex.inei18n.shared.I18nModule;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class DefaultIneFrameClientSideTestBase extends IneFrameClientSideTestBase {
 

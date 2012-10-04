@@ -19,8 +19,8 @@ import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class CompanyMapper extends BaseMapper<Company>{
 	

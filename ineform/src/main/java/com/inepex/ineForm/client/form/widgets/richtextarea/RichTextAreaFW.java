@@ -9,7 +9,7 @@ import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.client.form.widgets.StringFormWidget;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class RichTextAreaFW extends StringFormWidget {
 	

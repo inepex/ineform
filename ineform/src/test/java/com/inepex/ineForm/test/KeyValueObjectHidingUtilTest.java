@@ -21,7 +21,7 @@ import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 @RunWith(JukitoRunner.class)

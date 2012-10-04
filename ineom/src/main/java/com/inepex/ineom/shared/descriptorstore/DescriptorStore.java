@@ -1,7 +1,11 @@
-package com.inepex.ineom.shared.descriptor;
+package com.inepex.ineom.shared.descriptorstore;
 
 import java.util.List;
 import java.util.Map;
+
+import com.inepex.ineom.shared.descriptor.DescriptorBase;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public abstract class DescriptorStore {
 

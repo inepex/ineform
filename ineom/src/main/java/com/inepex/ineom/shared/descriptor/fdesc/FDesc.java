@@ -1,8 +1,9 @@
-package com.inepex.ineom.shared.descriptor;
+package com.inepex.ineom.shared.descriptor.fdesc;
 
 import java.util.TreeSet;
 
 import com.inepex.ineom.shared.IneT;
+import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 @SuppressWarnings("serial")

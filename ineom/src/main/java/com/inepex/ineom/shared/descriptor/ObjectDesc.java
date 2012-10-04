@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 
 /**

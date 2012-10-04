@@ -16,8 +16,8 @@ import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory.CompanySearchHandler;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.Node;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
 
 public class CompanyQuery extends BaseQuery<Company>{

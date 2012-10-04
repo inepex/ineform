@@ -12,13 +12,13 @@ import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
-import com.inepex.ineom.shared.descriptor.LongFDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.RelationFDesc;
-import com.inepex.ineom.shared.descriptor.StringFDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
-import com.inepex.ineom.shared.descriptor.DescriptorStore.Marker;
+import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 
 public class MeetingAssist extends Assist {
 	
@@ -69,12 +69,12 @@ public class MeetingAssist extends Assist {
 		TableRDesc tableRDesc = new TableRDesc(MeetingConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(MeetingConsts.k_meetingTimestamp, new ColRDesc(/*hc:tdr1_2*/100, true/*hc*/).asDate()/*hc:tdr2_2*//*hc*/)
-			.addChild(MeetingConsts.k_user, new ColRDesc(/*hc:tdr1_3*/100, true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(MeetingConsts.k_company, new ColRDesc(/*hc:tdr1_4*/100, true/*hc*/)/*hc:tdr2_4*//*hc*/)
-			.addChild(MeetingConsts.k_contact, new ColRDesc(/*hc:tdr1_5*/100, true/*hc*/)/*hc:tdr2_5*//*hc*/)
-			.addChild(MeetingConsts.k_meetingType, new ColRDesc(/*hc:tdr1_6*/100, true/*hc*/)/*hc:tdr2_6*//*hc*/.addProp(EnumListFW.enumValues, MeetingType.getValuesAsString()))
-			.addChild(MeetingConsts.k_description, new ColRDesc(/*hc:tdr1_7*/100, true/*hc*/)/*hc:tdr2_7*//*hc*/)
+			.addChild(MeetingConsts.k_meetingTimestamp, new ColRDesc(/*hc:tdr1_2*/true/*hc*/).asDate()/*hc:tdr2_2*//*hc*/)
+			.addChild(MeetingConsts.k_user, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
+			.addChild(MeetingConsts.k_company, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
+			.addChild(MeetingConsts.k_contact, new ColRDesc(/*hc:tdr1_5*/true/*hc*/)/*hc:tdr2_5*//*hc*/)
+			.addChild(MeetingConsts.k_meetingType, new ColRDesc(/*hc:tdr1_6*/true/*hc*/)/*hc:tdr2_6*//*hc*/.addProp(EnumListFW.enumValues, MeetingType.getValuesAsString()))
+			.addChild(MeetingConsts.k_description, new ColRDesc(/*hc:tdr1_7*/true/*hc*/)/*hc:tdr2_7*//*hc*/)
 			;
 		return tableRDesc;
 	}

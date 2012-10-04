@@ -25,7 +25,7 @@ import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.ServerIneOmI18nProvider;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 @Singleton

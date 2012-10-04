@@ -1,4 +1,4 @@
-package com.inepex.ineom.shared.descriptor;
+package com.inepex.ineom.shared.descriptor.fdesc;
 
 import java.io.Serializable;
 

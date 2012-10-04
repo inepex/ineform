@@ -14,7 +14,7 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.util.DateFormatter;
 import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.ineFrame.shared.util.NumberUtil;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
 /**

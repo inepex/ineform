@@ -15,8 +15,8 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.UncheckedKVO;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.descriptor.FDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class ODAOCustomKVOMappingHelper {
 	

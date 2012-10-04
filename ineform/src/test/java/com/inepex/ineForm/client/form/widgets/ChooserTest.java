@@ -26,7 +26,7 @@ import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 @RunWith(JukitoRunner.class)
 public class ChooserTest extends DefaultIneFrameClientSideTestBase {

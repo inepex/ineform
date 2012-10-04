@@ -29,7 +29,7 @@ import com.inepex.ineom.shared.KeyValueObjectSerializer.ListSerializer;
 import com.inepex.ineom.shared.KeyValueObjectSerializer.RelationSerializer;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.DescriptorStore;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
