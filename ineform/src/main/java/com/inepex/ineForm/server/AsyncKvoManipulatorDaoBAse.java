@@ -13,7 +13,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
  * @author SoTi
  *
  */
-public abstract class AsyncKvManipulatorDaoBAse implements KVManipulatorDaoBase {
+public abstract class AsyncKvoManipulatorDaoBAse implements KVManipulatorDaoBase {
 
 	@Override
 	public final ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
