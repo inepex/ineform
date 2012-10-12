@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
+import com.google.inject.Inject;
 import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
@@ -30,18 +31,32 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	private RowValueChangeCallback rowValueChangeCallback;
 	
 	private final CustomKVOFWReadOnlyView readOnlyView = new CustomKVOFWReadOnlyView();
+	private final boolean showType;
 	
-	protected CustomKVOFWView() {
+	@Inject
+	public CustomKVOFWView(){
+		this(true);
+	}
+	
+	protected CustomKVOFWView(boolean showType) {
+		this.showType=showType;
 	}
 	
 	private void createHeader() {
-		rowTable.setWidget(0, 0, new Label(IneFormI18n.customKVO_key()));
-		rowTable.setWidget(0, 1, new Label(IneFormI18n.customKVO_type()));
-		rowTable.setWidget(0, 2, new Label(IneFormI18n.customKVO_value()));
+		int col=0;
+		rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
+		if(showType)
+			rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
+		rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
 		
 		rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeader());
-		rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
-		rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeader());
+		if(showType) {
+			rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
+			rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeader());
+		} else {
+			rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeader());
+		}
+			
 	}
 
 	@Override
@@ -100,13 +115,14 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	@Override
 	public void addRow(CustomKVORow r) {
-		DispRow dr = createDispRow(r, removeCallback, rowValueChangeCallback, rowTable);
+		DispRow dr = createDispRow(r, removeCallback, rowValueChangeCallback, rowTable, showType);
 		rowsByInnerId.put(r.getInnerId(), dr);
 		dispRowinnerIdMirror.add(r.getInnerId());
 	}
 	
-	protected DispRow createDispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable) {
-		return new DispRow(row, removeCallback, rowValueChangeCallback, rowTable);
+	protected DispRow createDispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable,
+			boolean showType) {
+		return new DispRow(row, removeCallback, rowValueChangeCallback, rowTable, showType);
 	}
 
 	@Override

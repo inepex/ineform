@@ -38,13 +38,14 @@ public class DispRow {
 	private final Button removeBtn = new Button(IneFormI18n.REMOVE());
 	private ErrorMessageManagerInterface emm;
 	
-	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable) {
+	public DispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, 
+			FlexTable rowTable, boolean showTypes) {
 		this.rowTable=rowTable;
 		this.row=row;
 		this.removeCallback=removeCallback;
 		this.rowValueChangeCallback=rowValueChangeCallback;
 		
-		createRowUI();
+		createRowUI(showTypes);
 		
 		keyBox.setValue(row.getKey());
 		typeBox.setValue(row.getType());
@@ -81,22 +82,24 @@ public class DispRow {
 		return emm;
 	}
 	
-	private void createRowUI() {
+	private void createRowUI(boolean showTypes) {
 		int currentRow = rowTable.getRowCount();
+		int col=0;
 		
 		attachHackKeyWidget.add(keyBox);
-		rowTable.setWidget(currentRow, 0, attachHackKeyWidget);
+		rowTable.setWidget(currentRow, col++, attachHackKeyWidget);
 		
-		rowTable.setWidget(currentRow, 1, typeBox);
+		if(showTypes)
+			rowTable.setWidget(currentRow, col++, typeBox);
 		
 		valueBoxes.add(valueBox);
 		valueBoxes.add(valueBooleanBox);
-		rowTable.setWidget(currentRow, 2, valueBoxes); 
+		rowTable.setWidget(currentRow, col++, valueBoxes); 
 		
-		rowTable.setWidget(currentRow, 3, removeBtn);
+		rowTable.setWidget(currentRow, col++, removeBtn);
 		
 		rowTable.addCell(currentRow);
-		emm = createEMM(rowTable.getCellFormatter().getElement(currentRow, 4));
+		emm = createEMM(rowTable.getCellFormatter().getElement(currentRow, col++));
 	}
 	
 	protected ErrorMessageManagerInterface createEMM(Element target) {

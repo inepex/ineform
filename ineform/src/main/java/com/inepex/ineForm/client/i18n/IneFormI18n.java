@@ -64,9 +64,9 @@ public class IneFormI18n extends I18nModule {
 	public String custKVOValidateEmpty = "Empty key!";
 	public String custKVOValidateParse = "Value can not be parsed!";
 	public String custKVOValidateSet = "Type must be set!";
-	public String customKVO_key = "key";
-	public String customKVO_type = "type";
-	public String customKVO_value = "value";
+	public String customKVO_key = "Name";
+	public String customKVO_type = "Type";
+	public String customKVO_value = "Value";
 	public String day_friday = "Friday";
 	public String day_monday = "Monday";
 	public String day_saturday = "Saturday";
@@ -487,8 +487,8 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> key
-	* <u><i>Magyarul:</i></u> kulcs
+	* <u><i>In English:</i></u> Name
+	* <u><i>Magyarul:</i></u> Név
 	*/
 	public static String customKVO_key() {
 		return moduleProvider.get().customKVO_key;
@@ -496,8 +496,8 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> type
-	* <u><i>Magyarul:</i></u> típus
+	* <u><i>In English:</i></u> Type
+	* <u><i>Magyarul:</i></u> Típus
 	*/
 	public static String customKVO_type() {
 		return moduleProvider.get().customKVO_type;
@@ -505,8 +505,8 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> value
-	* <u><i>Magyarul:</i></u> érték
+	* <u><i>In English:</i></u> Value
+	* <u><i>Magyarul:</i></u> Érték
 	*/
 	public static String customKVO_value() {
 		return moduleProvider.get().customKVO_value;
