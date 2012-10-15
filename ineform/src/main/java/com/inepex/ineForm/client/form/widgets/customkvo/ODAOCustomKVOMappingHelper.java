@@ -56,6 +56,12 @@ public class ODAOCustomKVOMappingHelper {
 			}
 			keys.add(key);
 			
+			if(r.getKey().indexOf('.')!=-1) {
+				ret.put(r.getInnerId(), IneFormI18n.custKVOValidateDot());
+				continue;
+			}
+				
+			
 			if(r.getType()==null) {
 				ret.put(r.getInnerId(), IneFormI18n.custKVOValidateSet());
 				continue;

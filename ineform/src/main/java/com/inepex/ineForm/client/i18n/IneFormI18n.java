@@ -60,8 +60,9 @@ public class IneFormI18n extends I18nModule {
 	public String csvDownload = "Download";
 	public String csvError = "Something went wrong. See server log!";
 	public String csvInvalid = "Invalid request. Try to refresh!";
-	public String custKVOValidateDuplicate = "Duplicated key!";
-	public String custKVOValidateEmpty = "Empty key!";
+	public String custKVOValidateDot = "Name should not contain dot!";
+	public String custKVOValidateDuplicate = "Duplicated name!";
+	public String custKVOValidateEmpty = "Empty name!";
 	public String custKVOValidateParse = "Value can not be parsed!";
 	public String custKVOValidateSet = "Type must be set!";
 	public String customKVO_key = "Name";
@@ -451,8 +452,17 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Duplicated key!
-	* <u><i>Magyarul:</i></u> Egy kulcs csak egyszer használható
+	* <u><i>In English:</i></u> Name should not contain dot!
+	* <u><i>Magyarul:</i></u> A név ne tartalmazzon pontot!
+	*/
+	public static String custKVOValidateDot() {
+		return moduleProvider.get().custKVOValidateDot;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Duplicated name!
+	* <u><i>Magyarul:</i></u> Egy név csak egyszer használható
 	*/
 	public static String custKVOValidateDuplicate() {
 		return moduleProvider.get().custKVOValidateDuplicate;
@@ -460,8 +470,8 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Empty key!
-	* <u><i>Magyarul:</i></u> A kulcs mezőt ki kell tölteni!
+	* <u><i>In English:</i></u> Empty name!
+	* <u><i>Magyarul:</i></u> A név mezőt ki kell tölteni!
 	*/
 	public static String custKVOValidateEmpty() {
 		return moduleProvider.get().custKVOValidateEmpty;
