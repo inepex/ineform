@@ -98,6 +98,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 	
 	@Override
 	public void doLogout(AuthActionCallback callback) {
+		eventBus.fireEvent(new UserLoggedOutEvent());
 		LogoutAction action = new LogoutAction();
 		dispatcher.getDispatcher().execute(action, new LogoutCallback(callback));
 	}
@@ -120,8 +121,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		@Override
 		public void onSuccess(GenericResult arg0) {
 			lastAuthStatusResult = null;
-			callback.onAuthCheckDone(null);
-			eventBus.fireEvent(new UserLoggedOutEvent());
+			callback.onAuthCheckDone(null);			
 		}	
 	}
 
