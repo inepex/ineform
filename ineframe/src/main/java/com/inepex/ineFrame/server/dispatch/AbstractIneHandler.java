@@ -9,7 +9,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 import com.inepex.ineom.shared.validation.ValidationException;
 import com.inepex.ineom.shared.validation.ValidationResult;
@@ -24,7 +24,7 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  *
  * @param <A>
  */
-public abstract class AbstractIneHandler<A extends Action<R>, R extends GenericResult> implements
+public abstract class AbstractIneHandler<A extends Action<R>, R extends GenericActionResult> implements
 		ActionHandler<A, R> {
 	
 	@Override

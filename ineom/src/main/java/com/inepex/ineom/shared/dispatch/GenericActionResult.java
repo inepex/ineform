@@ -6,16 +6,15 @@ import net.customware.gwt.dispatch.shared.Result;
  * @author Horváth Szabolcs
  *
  */
-public class GenericResult implements Result {
+public class GenericActionResult implements Result {
     
-	private static final long serialVersionUID = 1L;
 	private String message = null;
     private Boolean success = true;
 
-    public GenericResult() {
+    public GenericActionResult() {
     }
 
-    public GenericResult(String message, boolean success) {
+    public GenericActionResult(String message, boolean success) {
         this.message = message;
         this.success = success;
     }

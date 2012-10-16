@@ -11,10 +11,10 @@ import com.google.inject.Singleton;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 @Singleton
-public class LogoutHandler extends AbstractIneHandler<LogoutAction, GenericResult> {
+public class LogoutHandler extends AbstractIneHandler<LogoutAction, GenericActionResult> {
 
 	private final Provider<HttpSession> sessionProvider;
 	
@@ -29,12 +29,12 @@ public class LogoutHandler extends AbstractIneHandler<LogoutAction, GenericResul
 	}
 
 	@Override
-	protected GenericResult doExecute(LogoutAction action, ExecutionContext context) throws AuthenticationException,
+	protected GenericActionResult doExecute(LogoutAction action, ExecutionContext context) throws AuthenticationException,
 			DispatchException {
 		
 		sessionProvider.get().invalidate();
 		
-		return new GenericResult("", true);
+		return new GenericActionResult("", true);
 	}
 	
 }

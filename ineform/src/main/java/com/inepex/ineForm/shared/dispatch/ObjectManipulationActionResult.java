@@ -1,7 +1,7 @@
 package com.inepex.ineForm.shared.dispatch;
 
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
@@ -11,7 +11,7 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * @author István Szoboszlai
  *
  */
-public class ObjectManipulationActionResult extends GenericResult implements ObjectManipulationResult {
+public class ObjectManipulationActionResult extends GenericActionResult implements ObjectManipulationResult {
 
 	private static final long serialVersionUID = 5884303239610810826L;
 

@@ -2,9 +2,9 @@ package com.inepex.ineFrame.shared.auth;
 
 import java.util.Set;
 
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
-public class AuthStatusResultBase extends GenericResult {
+public class AuthStatusResultBase extends GenericActionResult {
 
 	//if login was unsuccessful
 	protected boolean needCaptcha;

@@ -2,10 +2,10 @@ package com.inepex.ineFrame.shared;
 
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 import com.inepex.ineom.shared.dispatch.interfaces.CustomObjectDescResultInterface;
 
-public class CustomObjectDescResult extends GenericResult implements CustomObjectDescResultInterface {
+public class CustomObjectDescResult extends GenericActionResult implements CustomObjectDescResultInterface {
 	
 	private ObjectDesc od;
 	private AssistedObject assistedObject;

@@ -16,7 +16,7 @@ import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
 import com.inepex.ineFrame.shared.util.DateHelper;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public abstract class AbstractAuthManager implements AuthManager {
 
@@ -103,7 +103,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		dispatcher.getDispatcher().execute(action, new LogoutCallback(callback));
 	}
 	
-	class LogoutCallback implements AsyncCallback<GenericResult> {
+	class LogoutCallback implements AsyncCallback<GenericActionResult> {
 		final AuthActionCallback callback;
 		public LogoutCallback(AuthActionCallback callback) {
 			this.callback = callback;
@@ -119,7 +119,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		}
 		
 		@Override
-		public void onSuccess(GenericResult arg0) {
+		public void onSuccess(GenericActionResult arg0) {
 			lastAuthStatusResult = null;
 			callback.onAuthCheckDone(null);			
 		}	

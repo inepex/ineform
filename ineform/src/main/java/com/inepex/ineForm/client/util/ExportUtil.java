@@ -11,7 +11,7 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.dialog.InfoDialog;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public class ExportUtil {
 
@@ -77,10 +77,10 @@ public class ExportUtil {
 				, withHeader
 				, rendererType
 				, appendDateToFileName)
-		, new SuccessCallback<GenericResult>(){
+		, new SuccessCallback<GenericActionResult>(){
 
 			@Override
-			public void onSuccess(GenericResult result) {
+			public void onSuccess(GenericActionResult result) {
 				if (Window.Navigator.getUserAgent().contains("MSIE")){
 					
 					new InfoDialog(IneFormI18n.CSVEXPORT(), IneFormI18n.csvComment() + "<a href = '"+ IFConsts.exportServletUrl +"'>" + IneFormI18n.csvDownload() + "</a>");

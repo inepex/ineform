@@ -3,7 +3,7 @@ package com.inepex.ineForm.shared.dispatch;
 import java.util.List;
 
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 
 /**
@@ -12,7 +12,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
  * @author István Szoboszlai
  * 
  */
-public class ObjectListActionResult extends GenericResult implements ObjectListResult{
+public class ObjectListActionResult extends GenericActionResult implements ObjectListResult{
 
 	private static final long serialVersionUID = 3223896182657888457L;
 

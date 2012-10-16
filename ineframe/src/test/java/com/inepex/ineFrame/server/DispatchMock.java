@@ -34,7 +34,7 @@ import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptorstore.ClientDescStoreCreator;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public class DispatchMock {
 
@@ -62,7 +62,7 @@ public class DispatchMock {
 	private TestDispatchServlet dispatchServlet = injector.getInstance(TestDispatchServlet.class);
 
 	
-	public static class Result1 extends GenericResult {}
+	public static class Result1 extends GenericActionResult {}
 	
 	public static class Action1 implements Action<Result1> {};
 	
@@ -78,7 +78,7 @@ public class DispatchMock {
 		}
 	}
 	
-	public static class Result2 extends GenericResult {}
+	public static class Result2 extends GenericActionResult {}
 	
 	public static class Action2 implements Action<Result2> {};
 	
@@ -94,7 +94,7 @@ public class DispatchMock {
 		}
 	}
 	
-	public static class Result3 extends GenericResult {}
+	public static class Result3 extends GenericActionResult {}
 	
 	public static class ActionThrowsException implements Action<Result3> {};
 	

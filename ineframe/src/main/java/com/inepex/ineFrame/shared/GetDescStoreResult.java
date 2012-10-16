@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
-public class GetDescStoreResult extends GenericResult {
+public class GetDescStoreResult extends GenericActionResult {
 
 	private List<ObjectDesc> objectDescs;
 	

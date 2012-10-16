@@ -11,9 +11,9 @@ import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
-public class SetActionForExportServletHandler extends AbstractIneHandler<SetActionForExportServletAction, GenericResult> {
+public class SetActionForExportServletHandler extends AbstractIneHandler<SetActionForExportServletAction, GenericActionResult> {
 
 	public static final String actionForCsvKey = "actionForCsvKey";
 	public static final String filenameForCsvKey = "filenameForCsvKey";
@@ -38,7 +38,7 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 	}
 	
 	@Override
-	protected GenericResult doExecute(SetActionForExportServletAction action,
+	protected GenericActionResult doExecute(SetActionForExportServletAction action,
 			ExecutionContext context) throws AuthenticationException, DispatchException {
 		
 		HttpServletRequest request = requestProvider.get();
@@ -71,7 +71,7 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 				rendererLanguage
 				, currLangProvider.get().getCurrentLang());
 		
-		return new GenericResult();
+		return new GenericActionResult();
 	}
 
 }

@@ -2,9 +2,9 @@ package com.inepex.ineFrame.shared;
 
 import java.util.List;
 
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
-public class GetTimeZoneNamesResult extends GenericResult {
+public class GetTimeZoneNamesResult extends GenericActionResult {
 	
 	private List<String> timeZoneNames;
 	

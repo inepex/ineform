@@ -1,8 +1,8 @@
 package com.inepex.ineFrame.shared.auth;
 
-import com.inepex.ineom.shared.dispatch.GenericResult;
+import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
-public class CaptchaInfoResult extends GenericResult {
+public class CaptchaInfoResult extends GenericActionResult {
 	
 	private boolean needCaptcha;
 	
