@@ -53,16 +53,6 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 		
 	}
 	
-	public void addElementListById(T id, List<K> elementList){
-		List<K> list = get(id);
-		if(list == null){
-			put(id, elementList);
-		}
-		else{
-			list.addAll(elementList);
-		}
-	}
-	
 	public void addEmptyListById(T id){
 		put(id, new ArrayList<K>());
 	}
