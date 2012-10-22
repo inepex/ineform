@@ -3,7 +3,7 @@ package com.inepex.ineom.shared.dispatch.interfaces;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 
-public interface AbstractSearchAction {
+public interface AbstractSearch {
 
 	public AssistedObject getSearchParameters();
 

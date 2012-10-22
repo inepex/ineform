@@ -6,7 +6,7 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public abstract class BaseQuery<E> {
 
@@ -23,13 +23,13 @@ public abstract class BaseQuery<E> {
 	}	
 	
 	public abstract Expression<Boolean> buildWhere(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<E> from
 			, Expression<Boolean> base);
 	
 	public abstract Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<E> from
 			);

@@ -17,14 +17,18 @@ import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 public abstract class BaseDao<E> implements KVManipulatorDaoBase {
-
+	
+	public abstract class SelectorCustomizer {
+		public abstract void customizeSelect(CriteriaSelector<?,E> sel);
+	}
+	
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	protected final Provider<EntityManager> em;
 	
@@ -87,13 +91,13 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		em.get().remove(em.get().find(getClazz(), id));
 	}
 
-	public List<E> find(AbstractSearchAction action) {
+	public List<E> find(AbstractSearch action) {
 		return find(action, null, true, true);
 	}
 
 	public List<E> find(
-			AbstractSearchAction action,
-			SelectorCustomizer<CriteriaSelector<?, ?>> customizer,
+			AbstractSearch action,
+			SelectorCustomizer customizer,
 			boolean useDefaultQuery,
 			boolean useDefaultOrder) {
 		CriteriaSelector<E, E> selector = getSelector();
@@ -113,12 +117,12 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return res;
 	}
 
-	public Long count(AbstractSearchAction action) {
+	public Long count(AbstractSearch action) {
 		return count(action, null, true);
 	}
 
-	public Long count(AbstractSearchAction action,
-			SelectorCustomizer<CriteriaSelector<?, ?>> customizer, boolean useDefaultQuery) {
+	public Long count(AbstractSearch action,
+			SelectorCustomizer customizer, boolean useDefaultQuery) {
 		CriteriaSelector<Long, E> selector = getCountSelector();
 
 		if (customizer != null)
@@ -217,15 +221,15 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return dbState;
 	}
 
-	public ObjectListResult search(AbstractSearchAction action) {
+	public ObjectListResult search(AbstractSearch action) {
 		return search(action, true, true, null);
 	}
 
 	public ObjectListResult search(
-			AbstractSearchAction action,
+			AbstractSearch action,
 			boolean useDefaultQuery,
 			boolean useDefaultOrder,
-			SelectorCustomizer<CriteriaSelector<?, ?>> customizer) {
+			SelectorCustomizer customizer) {
 		ObjectListResult res = objectFactory.getNewObjectListResult();
 		if (action.isQueryResultCount()) {
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
@@ -235,7 +239,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return res;
 	}
 
-	public RelationListResult searchAsRelation(AbstractSearchAction action) {
+	public RelationListResult searchAsRelation(AbstractSearch action) {
 		RelationListResult res = objectFactory.getNewRelationListResult();
 		if (action.isQueryResultCount()) {
 			res.setAllResultCount(count(action));
@@ -249,11 +253,11 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		callback.onResponse(manipulate(action));
 	}
 	
-	public void searchAsync(AbstractSearchAction action, IneformAsyncCallback<ObjectListResult> callback){
+	public void searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback){
 		callback.onResponse(search(action));
 	}
 	
-	public void searchAsRelationAsync(AbstractSearchAction action, IneformAsyncCallback<RelationListResult> callback){
+	public void searchAsRelationAsync(AbstractSearch action, IneformAsyncCallback<RelationListResult> callback){
 		callback.onResponse(searchAsRelation(action));
 	}
 	

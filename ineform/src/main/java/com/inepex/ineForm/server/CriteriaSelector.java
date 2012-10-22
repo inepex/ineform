@@ -5,7 +5,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
 import com.google.inject.Provider;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class CriteriaSelector<ResultType, RootType> extends CustomDaoCriteriaSelector<ResultType, RootType> {
 	
@@ -17,7 +17,7 @@ public class CriteriaSelector<ResultType, RootType> extends CustomDaoCriteriaSel
 		this.query = query;
 	}
 	
-	public void buildDefaultQuery(AbstractSearchAction action) {
+	public void buildDefaultQuery(AbstractSearch action) {
 		if (action.getSearchParameters() != null) {
 			Expression<Boolean> expr = null;
 			expr = query.buildWhere(action, cb, root, expr);
@@ -31,7 +31,7 @@ public class CriteriaSelector<ResultType, RootType> extends CustomDaoCriteriaSel
 		}
 	}
 	
-	public void orderBy(AbstractSearchAction action) {
+	public void orderBy(AbstractSearch action) {
 		cq.orderBy(query.getOrderExpression(action, cb, root));
 	}
 

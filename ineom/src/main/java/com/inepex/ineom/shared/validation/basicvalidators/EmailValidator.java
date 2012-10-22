@@ -37,14 +37,20 @@ public class EmailValidator implements KeyValueObjectValidator {
 			ValidationResult validationResult) {
 		
 		String val = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc).getString(fieldName);
-		if(val!=null && !isValidEmail(val)) {
+		if(val==null || "".equals(val))
+			return;
+		
+		if(!isValidEmail(val)) {
 			validationResult.addFieldError(fieldName, IneOmI18n.validationEmail());
 		}
 	}
 	
-	public static boolean isValidEmail(String email) {
-		return email.replaceAll(regExpr, "").length()==0;
+	private static boolean isValidEmail(String email) {
+		return email.matches(regExpr);
 	}
 	
+	public static boolean isNotNullAndValid(String email) {
+		return email!=null && isValidEmail(email);
+	}
 
 }

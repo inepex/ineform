@@ -8,16 +8,10 @@ import com.google.inject.Singleton;
 import com.inepex.ineForm.server.BaseDao;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
-import com.inepex.ineForm.server.SelectorCustomizer;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
-import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
-import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
-import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
-import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
@@ -28,9 +22,6 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
  */
 @Singleton
 public class CustomKVODao extends BaseDao<CustomKVO> {
-
-	public static interface CustomKVOSelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,CustomKVO>> {
-	}
 	
 	@Inject
 	public CustomKVODao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory

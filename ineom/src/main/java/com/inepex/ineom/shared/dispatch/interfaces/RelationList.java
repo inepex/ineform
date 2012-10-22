@@ -1,5 +1,5 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
-public interface RelationList extends AbstractSearchAction {
+public interface RelationList extends AbstractSearch {
 
 }

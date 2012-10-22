@@ -34,9 +34,6 @@ import com.inepex.ineForm.shared.BaseMapper;
  */
 @Singleton
 public class ${classname}Dao extends BaseDao<${classname}> {
-
-	public static interface ${classname}SelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,${classname}>> {
-	}
 	
 	private final DescriptorStore descStore;
 	
