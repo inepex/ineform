@@ -50,7 +50,7 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		@Override
 		public void onManipulationResult(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
 			dealValidationResult(result.getValidationResult());
-			if(result.getValidationResult() == null) {
+			if(result.isSuccess() && result.getValidationResult() == null) {
 				if (result.getObjectsNewState() != null) {
 					setInitialData(result.getObjectsNewState());
 				}
