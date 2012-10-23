@@ -63,6 +63,9 @@ public abstract class CustomKVOFWBase extends DenyingFormWidget{
 			
 			@Override
 			public void onFound(ObjectDesc od) {
+				//clearing again to avoid "fast-reload caused row duplications"
+				rows.clear();
+				
 				//adding new rows
 				for(CustomKVORow r : ODAOCustomKVOMappingHelper.getRowsFromAoAndOd(ao, od)) {
 					rows.add(r);
