@@ -22,10 +22,19 @@ class DateTimeTextBox extends HandlerAwareComposite {
 	
 	private final boolean selectmanager;
 	
-	private final TextBox wrappedtb = new TextBox();
+	private class TextBoxWrapper extends TextBox{
+		@Override
+		protected void onDetach() {
+			abstractField.textBoxChange();
+			super.onDetach();
+		}
+	}
+	private final TextBoxWrapper wrappedtb = new TextBoxWrapper();
+	private final AbstractField abstractField;
 	
-	public DateTimeTextBox(Precision precision, boolean enableselectmanager) {
+	public DateTimeTextBox(Precision precision, boolean enableselectmanager, AbstractField abstractField) {
 		this.precision=precision;
+		this.abstractField = abstractField;
 		initWidget(wrappedtb);
 		
 		this.selectmanager=enableselectmanager;

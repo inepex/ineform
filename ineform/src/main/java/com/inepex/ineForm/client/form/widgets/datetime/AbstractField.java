@@ -49,7 +49,7 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 		}
 
 		if(usetextbox) {
-			tb_datetime = new DateTimeTextBox(precision, enableselectmanager);
+			tb_datetime = new DateTimeTextBox(precision, enableselectmanager, this);
 		} else {
 			lbl_datetime=new InlineLabel();
 		}
@@ -158,21 +158,22 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 
 		@Override
 		public void onChange() {
-			if(prevValue.equals(tb_datetime.getStringValue())) return;
-			
-			if(tb_datetime.getStringValue().length()==0) {
-				inedate.setDateNull(PRECISION);				
-			} else  {
-				try {
-					inedate.setDate(PRECISION, PRECISION.getFormatter().parse(tb_datetime.getStringValue()));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-			parent.childValueChanged(true, false);
+			textBoxChange();
 		}
-
+	}
+	public void textBoxChange(){
+		if(prevValue.equals(tb_datetime.getStringValue())) return;
+		
+		if(tb_datetime.getStringValue().length()==0) {
+			inedate.setDateNull(PRECISION);				
+		} else  {
+			try {
+				inedate.setDate(PRECISION, PRECISION.getFormatter().parse(tb_datetime.getStringValue()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		parent.childValueChanged(true, false);
 	}
 
 	@Override
