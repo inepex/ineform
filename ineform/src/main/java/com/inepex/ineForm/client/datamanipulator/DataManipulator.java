@@ -19,7 +19,7 @@ import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineFrame.client.dialog.ConfirmDialogBox;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
@@ -64,7 +64,7 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 			, String objectDescriptorName
 			, IneDataConnector ineDataConnector
 			, boolean sortable
-			, AssistedObjectTableFieldRenderer fieldRenderer) {
+			, TableFieldRenderer fieldRenderer) {
 		
 		this.objectDescriptorName = objectDescriptorName;
 		this.ineDataConnector = ineDataConnector;

@@ -6,8 +6,8 @@ import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
@@ -29,12 +29,12 @@ public abstract class TableRenderer {
 	protected boolean renderHeader = false;
 	protected boolean renderLastFieldEnd = false;
 
-	protected final AssistedObjectTableFieldRenderer fieldRenderer;
+	protected final TableFieldRenderer fieldRenderer;
 	
 	public TableRenderer(DescriptorStore descStore
 			, String objectDescName
 			, String tableRDescName
-			, AssistedObjectTableFieldRenderer assistedObjectTableFieldRenderer) {
+			, TableFieldRenderer assistedObjectTableFieldRenderer) {
 		this.descStore = descStore;
 		this.fieldRenderer = assistedObjectTableFieldRenderer;
 		
@@ -47,7 +47,7 @@ public abstract class TableRenderer {
 	public TableRenderer(DescriptorStore descStore
 			, ObjectDesc objectDesc
 			, TableRDesc tableRDesc
-			, AssistedObjectTableFieldRenderer assistedObjectTableFieldRenderer) {
+			, TableFieldRenderer assistedObjectTableFieldRenderer) {
 		super();
 		this.objectDesc = objectDesc;
 		this.tableRDesc = tableRDesc;
@@ -190,7 +190,7 @@ public abstract class TableRenderer {
 		this.renderLastFieldEnd = renderLastFieldEnd;
 	}
 	
-	public AssistedObjectTableFieldRenderer getFieldRenderer(){
+	public TableFieldRenderer getFieldRenderer(){
 		return fieldRenderer;
 	}
 

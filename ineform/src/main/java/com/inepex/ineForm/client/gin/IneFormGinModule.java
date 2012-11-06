@@ -45,6 +45,8 @@ import com.inepex.ineForm.client.util.NumberUtilCln;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinderRest;
 import com.inepex.ineForm.shared.dispatch.ObjectFinderRestFactory;
+import com.inepex.ineForm.shared.render.DefaultTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
@@ -128,6 +130,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		bind(DateFormatter.class).to(GwtDateFormatter.class);
 		bind(NumberFormatter.class).to(GwtNumberFormatter.class);
 		bind(NumberUtil.class).to(NumberUtilCln.class);
+		bind(TableFieldRenderer.class).to(DefaultTableFieldRenderer.class);
 		
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 		bind(DescriptorStore.class).to(descStore).in(Singleton.class);

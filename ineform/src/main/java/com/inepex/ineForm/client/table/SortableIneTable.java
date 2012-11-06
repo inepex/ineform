@@ -4,7 +4,7 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class SortableIneTable extends IneTable {
@@ -16,7 +16,7 @@ public class SortableIneTable extends IneTable {
 	public SortableIneTable(DescriptorStore descStore,
 			@Assisted String objectDescriptorName,
 			@Assisted IneDataConnector dataProvider,
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+			TableFieldRenderer fieldRenderer) {
 		super(descStore, objectDescriptorName, dataProvider, fieldRenderer);
 	}
 	
@@ -24,7 +24,7 @@ public class SortableIneTable extends IneTable {
 	public SortableIneTable(DescriptorStore descriptorStore,
 			@Assisted("od") String objectDescName, @Assisted("trd") String tableRenderDescriptor,
 			@Assisted IneDataConnector connector, 
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+			TableFieldRenderer fieldRenderer) {
 		super(descriptorStore, objectDescName, tableRenderDescriptor, connector, fieldRenderer);
 	}
 

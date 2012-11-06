@@ -45,8 +45,8 @@ import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
@@ -151,7 +151,7 @@ public class IneTable extends HandlerAwareComposite {
 
 	private boolean batchColumnAddig = false; // faster rendering
 
-	protected final AssistedObjectTableFieldRenderer fieldRenderer;
+	protected final TableFieldRenderer fieldRenderer;
 
 	@AssistedInject
 	public IneTable(
@@ -159,7 +159,7 @@ public class IneTable extends HandlerAwareComposite {
 			@Assisted("od") String objectDescName,
 			@Assisted("trd") String tableRenderDescriptorName,
 			@Assisted IneDataConnector connector,
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+			TableFieldRenderer fieldRenderer) {
 		this(
 				descriptorStore,
 				objectDescName,
@@ -180,7 +180,7 @@ public class IneTable extends HandlerAwareComposite {
 			DescriptorStore descStore,
 			@Assisted String objectDescriptorName,
 			@Assisted IneDataConnector dataProvider,
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+			TableFieldRenderer fieldRenderer) {
 		this(descStore, objectDescriptorName, (String) null, dataProvider, fieldRenderer);
 	}
 
@@ -198,7 +198,7 @@ public class IneTable extends HandlerAwareComposite {
 			String objectDescriptorName,
 			TableRDesc tableRenderDescriptor,
 			IneDataConnector dataProvider,
-			AssistedObjectTableFieldRenderer fieldRenderer) {
+			TableFieldRenderer fieldRenderer) {
 		this.fieldRenderer = fieldRenderer;
 		this.descStore = descStore;
 		this.handlerFactory = new AssistedObjectHandlerFactory(descStore);
@@ -645,7 +645,7 @@ public class IneTable extends HandlerAwareComposite {
 		return cellTable;
 	}
 
-	public AssistedObjectTableFieldRenderer getFieldRenderer() {
+	public TableFieldRenderer getFieldRenderer() {
 		return fieldRenderer;
 	}
 

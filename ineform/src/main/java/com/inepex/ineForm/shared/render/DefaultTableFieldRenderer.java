@@ -17,14 +17,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.util.SharedUtil;
 
-public class AssistedObjectTableFieldRenderer {
-	
-	public static interface CustomCellContentDisplayer {
-		/**
-		 * @return the html (or string) value of the pointed column's
-		 */
-		public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc);
-	}
+public class DefaultTableFieldRenderer implements TableFieldRenderer {
 	
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	private final DateFormatter dateFormatter;
@@ -32,30 +25,46 @@ public class AssistedObjectTableFieldRenderer {
 	
 	private TableRDesc tableRDesc;
 	private AssistedObject object;
-	private Map<String, CustomCellContentDisplayer> customizers = new TreeMap<String, AssistedObjectTableFieldRenderer.CustomCellContentDisplayer>();
+	private Map<String, CustomCellContentDisplayer> customizers = new TreeMap<String, TableFieldRenderer.CustomCellContentDisplayer>();
 
 	@Inject
-	public AssistedObjectTableFieldRenderer(AssistedObjectHandlerFactory handlerFactory, DateFormatter dateFormatter,
+	public DefaultTableFieldRenderer(AssistedObjectHandlerFactory handlerFactory, DateFormatter dateFormatter,
 			NumberUtil numberUtil) {
 		this.handlerFactory = handlerFactory;
 		this.dateFormatter = dateFormatter;
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.inepex.ineForm.shared.render.TableFieldRenderer#setObjectAndDescriptor(com.inepex.ineom.shared.assistedobject.AssistedObject, com.inepex.ineForm.shared.descriptorext.TableRDesc)
+	 */
+	@Override
 	public void setObjectAndDescriptor(AssistedObject object, TableRDesc tableRDesc){
 		this.tableRDesc = tableRDesc;
 		this.object = object;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.inepex.ineForm.shared.render.TableFieldRenderer#setCustomFieldRenderer(java.lang.String, com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer)
+	 */
+	@Override
 	public void setCustomFieldRenderer(String key, CustomCellContentDisplayer customCellContentDisplayer){
 		customizers.put(key, customCellContentDisplayer);
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.inepex.ineForm.shared.render.TableFieldRenderer#containsCustomizer(java.lang.String)
+	 */
+	@Override
 	public boolean containsCustomizer(String key){
 		return customizers.get(key)!=null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.inepex.ineForm.shared.render.TableFieldRenderer#getFieldByCustomizer(java.lang.String)
+	 */
+	@Override
 	public String getFieldByCustomizer(String key){
 		ColRDesc colRdesc = (ColRDesc)tableRDesc.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
 		AssistedObjectHandler rowHandler = handlerFactory.createHandler(object);
@@ -63,6 +72,10 @@ public class AssistedObjectTableFieldRenderer {
 		return customHtmlContent;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.inepex.ineForm.shared.render.TableFieldRenderer#getField(java.lang.String)
+	 */
+	@Override
 	public String getField(String key){
 		ColRDesc colRdesc = (ColRDesc)tableRDesc.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
 		String deepestKey = SharedUtil.deepestKey(key);

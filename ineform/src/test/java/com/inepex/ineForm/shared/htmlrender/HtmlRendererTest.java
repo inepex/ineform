@@ -16,6 +16,8 @@ import com.inepex.ineForm.client.form.widgets.assist.NationalityAssist;
 import com.inepex.ineForm.client.form.widgets.kvo.NationalityKVO;
 import com.inepex.ineForm.server.guice.IneFormExportGuiceModule;
 import com.inepex.ineForm.server.util.JavaDateFormatter;
+import com.inepex.ineForm.shared.render.DefaultTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
 import com.inepex.ineForm.test.TestIneFormClientGuiceModule;
@@ -36,6 +38,7 @@ public class HtmlRendererTest extends DefaultIneFrameClientSideTestBase {
 			install(new IneFormExportGuiceModule());
 			bind(DateFormatter.class).to(JavaDateFormatter.class);
 			bind(NumberUtil.class).to(NumberUtilSrv.class);
+			bind(TableFieldRenderer.class).to(DefaultTableFieldRenderer.class);
 		}
 	}
 	

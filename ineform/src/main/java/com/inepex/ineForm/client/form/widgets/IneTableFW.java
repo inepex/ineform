@@ -7,7 +7,8 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.table.DummyDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.DefaultTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
@@ -29,7 +30,7 @@ public class IneTableFW extends DenyingFormWidget {
 		super(fielddescriptor);
 		
 		connector = new DummyDataConnector(context.eventBus, objectDescriptorName);
-		AssistedObjectTableFieldRenderer fieldRenderer = new AssistedObjectTableFieldRenderer(
+		TableFieldRenderer fieldRenderer = new DefaultTableFieldRenderer(
 				new AssistedObjectHandlerFactory(context.descStore),
 				context.dateFormatter, context.numberUtil);
 		ineTable = new IneTable(context.descStore, objectDescriptorName, connector, fieldRenderer);

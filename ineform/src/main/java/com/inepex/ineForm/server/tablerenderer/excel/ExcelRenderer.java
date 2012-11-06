@@ -15,7 +15,7 @@ import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -47,7 +47,7 @@ public class ExcelRenderer extends TableRenderer{
 			@Assisted("od") String objectDescName,
 			@Assisted("td") @Nullable String tableRDescName,
 			@Assisted Sheet sheet,
-			AssistedObjectTableFieldRenderer fieldRenderer,
+			TableFieldRenderer fieldRenderer,
 			@Assisted boolean setCellTypes
 			) {
 		super(descStore, objectDescName, tableRDescName, fieldRenderer);

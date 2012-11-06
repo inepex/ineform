@@ -14,7 +14,7 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.IneTable.UserCommand;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class RowCommandDataManipulator extends DataManipulator {
@@ -33,7 +33,7 @@ public class RowCommandDataManipulator extends DataManipulator {
 			, @Assisted String objectDescriptorName
 			, @Assisted IneDataConnector ineDataConnector
 			, @Assisted boolean sortable
-			, AssistedObjectTableFieldRenderer fieldRenderer) {
+			, TableFieldRenderer fieldRenderer) {
 		super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
 		
 		userCommands.add(new EditCommand());

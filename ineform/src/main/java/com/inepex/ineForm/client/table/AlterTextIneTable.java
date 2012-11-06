@@ -2,7 +2,7 @@ package com.inepex.ineForm.client.table;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 /**
@@ -15,7 +15,7 @@ public class AlterTextIneTable extends IneTable {
 	
 	public AlterTextIneTable(DescriptorStore descStore, String objectDescriptorName
 						   , TableRDesc tableRenderDescriptor, IneDataConnector dataProvider, String alterText,
-						   AssistedObjectTableFieldRenderer fieldRenderer) {
+						   TableFieldRenderer fieldRenderer) {
 		super(descStore, objectDescriptorName, tableRenderDescriptor, dataProvider, fieldRenderer);
 		initAlterText(alterText);
 	}
