@@ -8,12 +8,12 @@ public class DoubleUtilTest {
 	
 	@Test
 	public void doubleToLongBits() {
-		assertEquals(0L, DoubleUtil.doubleToLongBits(0.0));
-		assertEquals(0L, DoubleUtil.doubleToLongBits(0.0+0.0));
-		assertEquals(-0L, DoubleUtil.doubleToLongBits(0.0));
+		assertEquals(0L, Double.doubleToLongBits(0.0));
+		assertEquals(0L, Double.doubleToLongBits(0.0+0.0));
+		assertEquals(-0L, Double.doubleToLongBits(0.0));
 		
 		for(double d=-10.0; d<10; d+=0.1) {
-			assertEquals(Double.doubleToLongBits(d), DoubleUtil.doubleToLongBits(d));
+			assertEquals(Double.doubleToLongBits(d), Double.doubleToLongBits(d));
 		}
 	}
 	
