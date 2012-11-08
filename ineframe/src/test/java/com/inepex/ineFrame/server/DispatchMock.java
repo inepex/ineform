@@ -106,7 +106,7 @@ public class DispatchMock {
 		@Override
 		protected Result3 doExecute(ActionThrowsException action, ExecutionContext context)
 				throws AuthenticationException, DispatchException {
-			throw new ActionException("");
+			throw new ActionException("Planned test case exception");
 		}
 	}
 	
