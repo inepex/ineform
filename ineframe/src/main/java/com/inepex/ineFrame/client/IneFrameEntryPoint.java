@@ -43,6 +43,12 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
  */
 public abstract class IneFrameEntryPoint implements EntryPoint {
 
+	protected static long startTime;
+	
+	static {
+		startTime = System.currentTimeMillis();
+	}
+	
 	protected abstract void registerAdditionalI18nModules();
 
 	public abstract void onIneModuleLoad();
@@ -93,6 +99,12 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		});
 	}
 	
+	private void printLoadTimeAndCallModuleLoad(){
+		long appLoadTimeMillis = System.currentTimeMillis() - startTime;
+		System.out.println("App loaded in " + appLoadTimeMillis + " ms");
+		onIneModuleLoad();
+	}
+	
 	private void queryDescriptorStore() {
 		queryCounter.incQueries();
 		
@@ -123,7 +135,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 			queryCounter.decQueries();
 			
 			if(queryCounter.isAllQueriesResponseArrived())
-				onIneModuleLoad();
+				printLoadTimeAndCallModuleLoad();
 		}
 	}
 
@@ -139,7 +151,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 			queryDescriptorStore();
 			
 			if(queryCounter.isAllQueriesResponseArrived())
-				onIneModuleLoad();
+				printLoadTimeAndCallModuleLoad();
 		}
 	}
 
