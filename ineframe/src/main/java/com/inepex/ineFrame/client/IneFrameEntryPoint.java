@@ -100,7 +100,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	}
 	
 	private void printLoadTimeAndCallModuleLoad(){
-		long appLoadTimeMillis = System.currentTimeMillis() - startTime;
+		long appLoadTimeMillis = System.currentTimeMillis() - new Double(getNavigationStartTime()).longValue();		
 		System.out.println("App loaded in " + appLoadTimeMillis + " ms");
 		onIneModuleLoad();
 	}
@@ -210,4 +210,8 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 				return false;
 		}
 	} 
+	
+	public static native double getNavigationStartTime() /*-{
+	  return $wnd.performance.timing.navigationStart;
+	}-*/;
 }
