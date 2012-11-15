@@ -199,6 +199,7 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 		return list;
 	}
 	
+	@Override
 	public void reRender(){
 		valueRange.clear();
 		selected.clear();

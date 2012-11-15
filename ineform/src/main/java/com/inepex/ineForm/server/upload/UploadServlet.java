@@ -43,6 +43,7 @@ public class UploadServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	public void init() throws ServletException {
 		props = new OnDemandProperties(PROPNAME);
 		uploadProc = new UploadProcessor(props);
@@ -53,6 +54,7 @@ public class UploadServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO: sometimes it is not multipart, why?

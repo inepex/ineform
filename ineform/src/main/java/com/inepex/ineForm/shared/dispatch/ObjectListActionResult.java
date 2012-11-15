@@ -34,19 +34,22 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 		this.allResultCount = allResultCount;
 
 	}
-
+	@Override
 	public List<AssistedObject> getList() {
 		return (List<AssistedObject>) list;
 	}
 
+	@Override
 	public void setList(List<AssistedObject> list) {
 		this.list = list;
 	}
 
+	@Override
 	public Long getAllResultCount() {
 		return allResultCount;
 	}
 
+	@Override
 	public void setAllResultCount(Long allResultCount) {
 		this.allResultCount = allResultCount;
 	}

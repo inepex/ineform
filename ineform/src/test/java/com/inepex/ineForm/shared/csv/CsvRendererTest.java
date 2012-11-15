@@ -35,6 +35,7 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 
 	public static class Module extends JukitoModule {
+		@Override
 		protected void configureTest() {
 			install(new TestIneFormClientGuiceModule());
 			install(new IneFormExportGuiceModule());

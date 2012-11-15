@@ -27,6 +27,7 @@ public class UnorderedListWidget extends ComplexPanel
 		((UListElement) getElement().cast()).setDir(dir);
 	}
 
+	@Override
 	public void add(Widget w)
 	{
 		// ComplexPanel requires the two-arg add() method

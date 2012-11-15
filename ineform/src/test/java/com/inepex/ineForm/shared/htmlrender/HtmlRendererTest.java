@@ -33,6 +33,7 @@ public class HtmlRendererTest extends DefaultIneFrameClientSideTestBase {
 	List<AssistedObject> kvos;
 	
 	public static class Module extends JukitoModule {
+		@Override
 		protected void configureTest() {
 			install(new TestIneFormClientGuiceModule());
 			install(new IneFormExportGuiceModule());

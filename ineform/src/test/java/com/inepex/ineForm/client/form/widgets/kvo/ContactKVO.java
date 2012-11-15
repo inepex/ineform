@@ -26,17 +26,10 @@ public class ContactKVO extends KeyValueObject {
 				;
 	}
 	
-	public Long getId() {
-		return super.getId();
-	}
-	
 	public IneList getNationalities() {
 		if (listValues == null)
     		return null;
 		return listValues.get(k_nationalities);
-    }
-    public void setId(Long id) {
-		set(k_id, id);
     }
 
     public void setNationalities(IneList nationalities) {

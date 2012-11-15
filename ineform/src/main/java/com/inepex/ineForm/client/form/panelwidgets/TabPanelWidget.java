@@ -42,6 +42,7 @@ public class TabPanelWidget extends PanelWidget {
 			selectTab(index, true);
 		}
 		
+		@Override
 		public void selectTab(int index, boolean userAction) {
 			if(userAction) {
 				if (tabPanel.getTabBar().getSelectedTab() != -1){

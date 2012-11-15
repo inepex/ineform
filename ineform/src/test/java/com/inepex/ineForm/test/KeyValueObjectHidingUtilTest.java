@@ -28,6 +28,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 public class KeyValueObjectHidingUtilTest extends DefaultIneFrameClientSideTestBase {
 
 	public static class Module extends JukitoModule {
+		@Override
 		protected void configureTest() {
 			install(new TestIneFormClientGuiceModule());
 			bind(DateFormatter.class).to(JavaDateFormatter.class);

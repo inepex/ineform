@@ -28,6 +28,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 @RunWith(JukitoRunner.class)
 public class PdfRendererComplexTest {
 	public static class Module extends JukitoModule {
+		@Override
 		protected void configureTest() {
 			install(new TestIneFormClientGuiceModule());
 			install(new IneFormExportGuiceModule());

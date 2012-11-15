@@ -172,6 +172,7 @@ public class RichTextToolbar extends Composite {
   private class EventHandler implements ClickHandler, ChangeHandler,
       KeyUpHandler {
 
+	@Override
     public void onChange(ChangeEvent event) {
       Widget sender = (Widget) event.getSource();
 
@@ -190,6 +191,7 @@ public class RichTextToolbar extends Composite {
       }
     }
 
+	@Override
     public void onClick(ClickEvent event) {
       Widget sender = (Widget) event.getSource();
 
@@ -243,6 +245,7 @@ public class RichTextToolbar extends Composite {
       }
     }
 
+	@Override
     public void onKeyUp(KeyUpEvent event) {
       Widget sender = (Widget) event.getSource();
       if (sender == richText) {

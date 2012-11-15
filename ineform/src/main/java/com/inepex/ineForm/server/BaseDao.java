@@ -149,6 +149,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	 * Throws {@link ObjectManipulationException} when create or edit request failed by constrain violation!
 	 * 
 	 */
+	@Override
 	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
 		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
@@ -221,6 +222,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return dbState;
 	}
 
+	@Override
 	public ObjectListResult search(AbstractSearch action) {
 		return search(action, true, true, null);
 	}
@@ -239,6 +241,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return res;
 	}
 
+	@Override
 	public RelationListResult searchAsRelation(AbstractSearch action) {
 		RelationListResult res = objectFactory.getNewRelationListResult();
 		if (action.isQueryResultCount()) {
@@ -248,15 +251,18 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return res;
 	}
 	
+	@Override
 	public void manipulateAsync(ObjectManipulation action, 
 			IneformAsyncCallback<ObjectManipulationResult> callback) throws Exception {
 		callback.onResponse(manipulate(action));
 	}
 	
+	@Override
 	public void searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback){
 		callback.onResponse(search(action));
 	}
 	
+	@Override
 	public void searchAsRelationAsync(AbstractSearch action, IneformAsyncCallback<RelationListResult> callback){
 		callback.onResponse(searchAsRelation(action));
 	}

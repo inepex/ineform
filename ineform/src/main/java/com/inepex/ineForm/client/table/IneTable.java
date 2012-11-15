@@ -81,6 +81,7 @@ public class IneTable extends HandlerAwareComposite {
 	 * The key provider that provides the unique ID of a AssistedObject.
 	 */
 	public static final ProvidesKey<AssistedObject> KEY_PROVIDER = new ProvidesKey<AssistedObject>() {
+		@Override
 		public Object getKey(AssistedObject item) {
 			return item == null ? null : item.getId();
 		}

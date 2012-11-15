@@ -18,6 +18,7 @@ public class UrlDownloadServiceImpl extends RemoteServiceServlet implements UrlD
 	private OnDemandProperties props;
 	private UploadProcessor uploadProc;
 	
+	@Override
 	public void init() throws ServletException {
 		props = new OnDemandProperties(UploadServlet.PROPNAME);
 		uploadProc = new UploadProcessor(props);

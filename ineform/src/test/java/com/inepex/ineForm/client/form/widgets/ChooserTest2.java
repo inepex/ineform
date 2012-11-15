@@ -27,6 +27,7 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 public class ChooserTest2 extends DefaultIneFrameClientSideTestBase {
 	
 	public static class Module extends JukitoModule {
+		@Override
 		protected void configureTest() {
 			install(new TestIneFormClientGuiceModule());
 			bind(DateFormatter.class).to(JavaDateFormatter.class);

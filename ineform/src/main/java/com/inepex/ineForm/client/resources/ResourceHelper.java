@@ -49,6 +49,7 @@ public class ResourceHelper {
          * The styles used in this widget.
          */
         @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
+        @Override
         CellTable.Style cellTableStyle();
 	}
 	

@@ -70,6 +70,7 @@ public class DefaultOneParamPresenter implements OneParamPresenter {
 		return this;
 	}
 	
+	@Override
 	public void setOneParamPlace(OneParamPlace oneParamPlace) {
 		this.oneParamPlace = oneParamPlace;
 	}
@@ -148,6 +149,7 @@ public class DefaultOneParamPresenter implements OneParamPresenter {
 		});
 	}
 
+	@Override
 	public Widget asWidget() {
 		return selectorView.asWidget();
 	}

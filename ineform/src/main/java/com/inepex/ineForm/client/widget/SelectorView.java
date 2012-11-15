@@ -94,6 +94,7 @@ public class SelectorView extends FlowPanel implements DefaultOneParamPresenter.
 		this.add(nextButton);		
 	}
 	
+	@Override
 	public void clear(){
 		elementOrder.clear();
 		itemContainer.clear();
@@ -172,6 +173,7 @@ public class SelectorView extends FlowPanel implements DefaultOneParamPresenter.
 		return selectedIndex;
 	}
 	
+	@Override
 	public String getSelectedItem(){
 		if(selectedIndex == -1)
 			return null;

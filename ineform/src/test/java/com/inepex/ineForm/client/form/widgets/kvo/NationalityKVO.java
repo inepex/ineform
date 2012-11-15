@@ -25,20 +25,12 @@ public class NationalityKVO extends KeyValueObject {
 				;
 	}
 	
-	public Long getId() {
-		return super.getId();
-	}
-	
 	public String getName() {
 		if (stringValues == null)
     		return null;
 			
 		return stringValues.get(k_name);
 	}
-
-    public void setId(Long id) {
-		set(k_id, id);
-    }
 
     public void setName(String name) {
 		set(k_name, name);

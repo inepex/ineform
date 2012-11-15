@@ -91,6 +91,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		cancelButton.addStyleName("cancelBtn");
 	}
 	
+	@Override
 	public void setDelegate(SaveCancelFormView.Delegate delegate){
 		this.delegate = delegate;
 	}
@@ -139,27 +140,27 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		}));
 		
 	}
-	
+	@Override
 	public void setSaveButtonText(String saveButtonText) {
 		this.saveButtonText = saveButtonText;
 	}
-
+	@Override
 	public void setCancelButtonText(String cancelButtonText) {
 		this.cancelButtonText = cancelButtonText;
 	}
-	
+	@Override
 	public void setSaveBtnStyle(String style){
 		saveButton.setStyleName(style);
 	}
-	
+	@Override
 	public void setCancelBtnStyle(String style){
 		cancelButton.setStyleName(style);
 	}
-	
+	@Override
 	public void setSaveButtonVisible(boolean visible) {
 		saveButton.setVisible(visible);
 	}
-	
+	@Override
 	public void setCancelButtonVisible(boolean visible) {
 		cancelButton.setVisible(visible);
 	}
@@ -189,6 +190,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		this.rootStepper=(StepperPanelWidget) rootStepper;
 	}
 	
+	@Override
 	public void refreshButtonsAndNavWidget() {
 		//default behaviour
 		nextButton.setText(nextButtonText);

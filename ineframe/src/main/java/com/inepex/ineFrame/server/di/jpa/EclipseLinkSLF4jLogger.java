@@ -27,6 +27,7 @@ public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements Sessio
 
 	public static final Logger LOG = LoggerFactory.getLogger("EclipseLink");
 
+	@Override
 	public void log(SessionLogEntry sessionLogEntry) {
 		switch (sessionLogEntry.getLevel()) {
 		case SEVERE:

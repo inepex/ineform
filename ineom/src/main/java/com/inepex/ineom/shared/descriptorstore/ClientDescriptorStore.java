@@ -44,6 +44,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public <D extends DescriptorBase> D getNamedTypedDesc(String objDescName, String namedDescName, Class<D> clazz) {
 		ensureDescriptorForClass(clazz);
 		return (D) typedDescMap.get(typeToKey(clazz)).getNamedDescriptor(objDescName, namedDescName);
@@ -80,6 +81,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 		objectDescriptorMap.put(oDName, new ODescMarkerPair(objDesc, marker));
 	}
 	
+	@Override
 	public FDesc getRelatedFieldDescrMultiLevel(ObjectDesc baseOD, List<String> path) {
 		ObjectDesc relObjectDesc = baseOD;
 		for (int i = 0; i < path.size()-1; i++){

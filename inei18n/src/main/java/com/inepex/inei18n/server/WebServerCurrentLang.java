@@ -49,6 +49,7 @@ public class WebServerCurrentLang implements CurrentLang {
 	 * Overrides the current lang for the executing thread!
 	 * @param langOverride
 	 */
+	@Override
 	public void setLangOverride(String langOverride) {
 		this.threadLangOverride.set(langOverride);
 	}
@@ -56,6 +57,7 @@ public class WebServerCurrentLang implements CurrentLang {
 	/**
 	 * Deletes the lang overrdie for the current thread
 	 */
+	@Override
 	public void resetLangOverride() {
 		threadLangOverride.set(null);
 	}

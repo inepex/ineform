@@ -27,10 +27,6 @@ public class ContactNatRelKVO extends KeyValueObject {
 				;
 	}
 	
-	public Long getId() {
-		return super.getId();
-	}
-	
     public Relation getNationality() {
 		if (relationValues == null)
     		return null;
@@ -43,10 +39,6 @@ public class ContactNatRelKVO extends KeyValueObject {
 			
 		return longValues.get(k_orderNum);
 	}
-
-    public void setId(Long id) {
-		set(k_id, id);
-    }
 
     public void setNationality(Relation nationality) {
 		set(k_nationality, nationality);

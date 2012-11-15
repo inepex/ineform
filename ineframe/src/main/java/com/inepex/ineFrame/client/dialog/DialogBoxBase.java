@@ -56,6 +56,7 @@ public abstract class DialogBoxBase extends DialogBox {
 		panel.setCellHorizontalAlignment(buttonBar, VerticalPanel.ALIGN_CENTER);
 
 		okButton.addClickHandler(new ClickHandler() {
+			@Override
 			public void onClick(ClickEvent event) {
 				hide();
 			}

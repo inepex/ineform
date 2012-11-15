@@ -34,6 +34,7 @@ public abstract class FormWidget extends HandlerAwareComposite {
 			getElement().setId(IFConsts.FWIDPREFIX + fieldDescriptor.getKey());
 	}
 	
+	@Override
 	public void setWidth(String width) {
 		mainWidget.setWidth(width);
 	}

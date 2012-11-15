@@ -185,8 +185,10 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 		return defaultStatusIndicator;
 	}
 
+	@Override
 	public void onEvent(ConnectionEvent e){
-		if (!e.isFailure()) reconnected();
+		if (!e.isFailure()) 
+			reconnected();
 	}
 	
 	public <R> void execute(A action, SuccessCallback<R> callback){

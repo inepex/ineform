@@ -56,6 +56,7 @@ public abstract class AbstractMasterPage implements MasterPage {
 		showPage(place, forbiddenPage);
 	}
 	
+	@Override
 	public IsWidget getView(){
 		return view.asWidget();
 	}

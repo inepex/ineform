@@ -43,22 +43,27 @@ public class ObjectManipulationActionResult extends GenericActionResult implemen
 		this.validationResult = validationResult;
 	}
 
+	@Override
 	public AssistedObject getObjectsNewState() {
 		return objectsNewState;
 	}
 
+	@Override
 	public void setObjectsNewState(AssistedObject objectsNewState) {
 		this.objectsNewState = objectsNewState;
 	}
 
+	@Override
 	public Long getNewObjectsId() {
 		return newObjectsId;
 	}
 
+	@Override
 	public ValidationResult getValidationResult() {
 		return validationResult;
 	}
 
+	@Override
 	public void setValidationResult(ValidationResult validationResult) {
 		this.validationResult = validationResult;
 	}

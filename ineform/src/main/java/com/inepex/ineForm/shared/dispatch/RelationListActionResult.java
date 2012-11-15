@@ -34,18 +34,22 @@ public class RelationListActionResult extends GenericActionResult implements Rel
 
 	}
 
+	@Override
 	public List<Relation> getList() {
 		return list;
 	}
 
+	@Override
 	public void setList(List<Relation> list) {
 		this.list = list;
 	}
 
+	@Override
 	public Long getAllResultCount() {
 		return allResultCount;
 	}
 
+	@Override
 	public void setAllResultCount(Long allResultCount) {
 		this.allResultCount = allResultCount;
 	}

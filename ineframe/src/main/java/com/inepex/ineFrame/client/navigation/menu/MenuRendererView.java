@@ -101,10 +101,6 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		public void setSelectorRendered(boolean selectorRendered) {
 			this.selectorRendered = selectorRendered;
 		}
-		
-		public void removeFromParent(){
-			parent.remove(this);
-		}
 
 		public boolean isSelectorPageRendered() {
 			return selectorPageRendered;

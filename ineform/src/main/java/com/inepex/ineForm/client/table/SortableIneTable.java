@@ -48,6 +48,7 @@ public class SortableIneTable extends IneTable {
 			dataConnector.setOrderDescending(defaultSortReverse);
 		}
 		header.setUpdater(new ValueUpdater<String>() {
+			@Override
 			public void update(String value) {
 				header.setSorted(true);
 				header.toggleReverseSort();

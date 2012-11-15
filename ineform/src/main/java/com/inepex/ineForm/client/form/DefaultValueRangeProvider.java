@@ -65,6 +65,7 @@ public abstract class DefaultValueRangeProvider implements ValueRangeProvider {
 			this.valueRagecallback = valueRagecallback;
 		}
 
+		@Override
 		public void onSuccess(RelationListResult result) {
 			valueRagecallback.onValueRangeResultReady(result.getList());
 		}

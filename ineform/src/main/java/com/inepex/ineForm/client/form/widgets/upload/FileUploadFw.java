@@ -105,6 +105,7 @@ public class FileUploadFw extends DenyingFormWidget {
 			
 			panelForm
 					.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+						@Override
 						public void onSubmitComplete(SubmitCompleteEvent event) {
 							btnSubmit.setEnabled(true);
 							if (event.getResults().equals("<pre>-1</pre>") || event.getResults().equals("-1")){

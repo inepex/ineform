@@ -59,6 +59,7 @@ public class PdfRenderer extends TableRenderer {
 		
 	}
 	
+	@Override
 	protected void renderField(String content){
 		table.addCell(content);
 	}
@@ -81,6 +82,7 @@ public class PdfRenderer extends TableRenderer {
 		
 	}
 	
+	@Override
 	protected void renderHeaderField(String content){
 		renderField(content);
 	}

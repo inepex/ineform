@@ -28,6 +28,7 @@ public class ConfirmDialogBox extends DialogBoxBase {
 	protected void configureButtonBar() {		
 		cancelButton = new Button(IneFrameI18n.dialogCancelButton());		
         cancelButton.addClickHandler(new ClickHandler() {
+        	@Override
             public void onClick(ClickEvent event) {
                 hide();
             }            
