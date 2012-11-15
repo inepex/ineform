@@ -35,6 +35,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 		this.handlerFactory=new ${classname}HandlerFactory(descriptorStore);
 	}
 
+	@Override
 	public ${classname} kvoToEntity(AssistedObject fromKvo, ${classname} to, CustomKVOObjectDesc... descs) {
 		${classname}Handler fromHandler = handlerFactory.createHandler(fromKvo);
 		
@@ -143,6 +144,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 		return to;
 	}
 	
+	@Override
 	public AssistedObject entityToKvo(${classname} entity) {
 		${classname}Handler handler = handlerFactory.createHandler();
 	
@@ -201,6 +203,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 		return handler.getAssistedObject();
 	}
 	
+	@Override
 	public Relation toRelation(${classname} entity, boolean includeKvo){
 		if (entity == null)
 			return null;

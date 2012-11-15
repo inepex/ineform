@@ -37,6 +37,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 		this.handlerFactory= new ${classname}HandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
 		AbstractSearchAction action
 		, CriteriaBuilder cb
@@ -105,7 +106,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 	return base;
 	}
 	
-	
+	@Override
 	public Order getOrderExpression(
 			AbstractSearchAction action
 			, CriteriaBuilder cb
@@ -158,6 +159,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<${classname}> from
