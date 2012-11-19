@@ -76,6 +76,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		public void onSuccess(ObjectListResult result) {
 			lastResult = result;
 			updateSpecificDisplay(result, display);
+			//TODO: rethink the use of statusindicator
+			if (!result.isSuccess() && customListingStatusIndicator != null){
+				customListingStatusIndicator.onGeneralFailure("");
+			}
 			
 			if (readyCallback != null)
 				readyCallback.ready();
