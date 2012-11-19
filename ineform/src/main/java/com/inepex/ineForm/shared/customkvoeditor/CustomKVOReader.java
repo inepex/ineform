@@ -55,6 +55,8 @@ public class CustomKVOReader {
 		 * @return human readable value of field or null 
 		 */
 		public String getValueAsString(String key);
+		
+		public Boolean getBoolean(String key, Boolean defaultValue);
 	}
 	
 	public static interface ReadyCallback {

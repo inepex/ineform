@@ -12,6 +12,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
+import com.inepex.ineom.shared.assistedobject.InvalidKeyException;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
@@ -62,6 +63,17 @@ class ReaderImpl implements Reader {
 					: numberUtil.formatNumberGroupThousands(l);
 		default:
 			return IneFormI18n.cantDisplay();
+		}
+	}
+	
+	@Override
+	public Boolean getBoolean(String key, Boolean defaultValue){
+		if(!typeByKeys.containsKey(key))
+			return defaultValue;
+		try {
+			return checker.getBoolean(key);
+		} catch (InvalidKeyException e) {
+			return defaultValue;
 		}
 	}
 }
