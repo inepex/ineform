@@ -37,7 +37,6 @@ public class PdfRenderer extends TableRenderer {
 
 	@Override
 	protected void renderEnd() {
-		// TODO Auto-generated method stub
 		
 	}
 

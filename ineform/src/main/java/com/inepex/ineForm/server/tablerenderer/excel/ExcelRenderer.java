@@ -1,6 +1,7 @@
 package com.inepex.ineForm.server.tablerenderer.excel;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -41,6 +42,8 @@ public class ExcelRenderer extends TableRenderer{
 	protected int actualCellNr;
 	protected Cell actualCell;
 	protected boolean setCellTypes;
+	
+	protected HashMap<String, CellStyle> definedStyles;
 
 	@Inject
 	public ExcelRenderer(DescriptorStore descStore,
@@ -133,7 +136,6 @@ public class ExcelRenderer extends TableRenderer{
 		renderFieldStart();
 	}
 
-
 	@Override
 	public String render(List<AssistedObject> kvos){
 		if(!setCellTypes){
@@ -210,10 +212,20 @@ public class ExcelRenderer extends TableRenderer{
 	}
 	
 	protected void setDataFormatForActualCell(String format){
-		CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
-		CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(format));
-		actualCell.setCellStyle(cellStyle);
+		actualCell.setCellStyle(getOrCreateCellStyle(format));
+	}
+	
+	protected CellStyle getOrCreateCellStyle(String format){
+		if(definedStyles == null){
+			definedStyles = new HashMap<String, CellStyle>();
+		}
+		if(!definedStyles.containsKey(format)){
+			CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
+			CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+			cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(format));
+			definedStyles.put(format, cellStyle);
+		}
+		return definedStyles.get(format);
 	}
 	
 	protected void cellValueSet(String key, AssistedObjectHandler rowKvo){}
