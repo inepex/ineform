@@ -5,6 +5,7 @@ import java.util.Date;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.EventBus;
@@ -100,8 +101,11 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	}
 	
 	private void printLoadTimeAndCallModuleLoad(){
-		long appLoadTimeMillis = System.currentTimeMillis() - new Double(getNavigationStartTime()).longValue();		
-		System.out.println("App loaded in " + appLoadTimeMillis + " ms");
+		if (!GWT.isProdMode())
+		{
+			long appLoadTimeMillis = System.currentTimeMillis() - new Double(getNavigationStartTime()).longValue();		
+			System.out.println("App loaded in " + appLoadTimeMillis + " ms");
+		}
 		onIneModuleLoad();
 	}
 	
