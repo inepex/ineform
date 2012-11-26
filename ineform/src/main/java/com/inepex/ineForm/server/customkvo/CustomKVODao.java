@@ -11,7 +11,6 @@ import com.inepex.ineForm.server.CriteriaSelector;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
-import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
@@ -25,8 +24,7 @@ public class CustomKVODao extends BaseDao<CustomKVO> {
 	
 	@Inject
 	public CustomKVODao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
-		, AssistedObjectHandlerFactory handlerFactory
-		, DescriptorStore descStore){
+		, AssistedObjectHandlerFactory handlerFactory){
 		super(em, objectFactory, handlerFactory);
 	}
 

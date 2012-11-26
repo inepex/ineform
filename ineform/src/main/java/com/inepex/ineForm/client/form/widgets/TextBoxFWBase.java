@@ -14,7 +14,7 @@ public abstract class TextBoxFWBase extends StringFormWidget {
 
 	protected TextBox textBox; 
 
-	public TextBoxFWBase(FDesc fielddescriptor, WidgetRDesc wrDesc) {
+	public TextBoxFWBase(FDesc fielddescriptor) {
 		super(fielddescriptor);		
 	}
 	

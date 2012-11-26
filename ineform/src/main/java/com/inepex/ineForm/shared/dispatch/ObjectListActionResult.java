@@ -36,7 +36,7 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 	}
 	@Override
 	public List<AssistedObject> getList() {
-		return (List<AssistedObject>) list;
+		return list;
 	}
 
 	@Override

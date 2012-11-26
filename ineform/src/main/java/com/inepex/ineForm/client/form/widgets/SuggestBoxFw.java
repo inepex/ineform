@@ -21,10 +21,9 @@ public class SuggestBoxFw extends DenyingFormWidget {
 	private final Map<Long, Relation> idToRelation = new HashMap<Long, Relation>();
 
 	private ValueRangeProvider valueRangeProvider;
-	private RelationFDesc relationFDesc = null;
 
-	MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
-	SuggestBox suggestBox = new SuggestBox(suggestOracle);
+	private MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
+	private SuggestBox suggestBox = new SuggestBox(suggestOracle);
 
 	Relation value;
 
@@ -32,9 +31,11 @@ public class SuggestBoxFw extends DenyingFormWidget {
 	
 	public SuggestBoxFw(FormContext formContext, FDesc fielddescriptor) {
 		super(fielddescriptor);
+		if(!(fieldDescriptor instanceof RelationFDesc))
+			throw new IllegalArgumentException();
+		
 		initWidget(suggestBox);
 		this.valueRangeProvider = formContext.valueRangeProvider;
-		relationFDesc = (RelationFDesc) fieldDescriptor;
 		loadDataFromValueRangeProvider();
 
 	}

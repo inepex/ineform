@@ -6,7 +6,6 @@ import java.util.TreeMap;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.EnumListFW;
-import com.inepex.ineForm.client.util.NumberUtilCln;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineFrame.shared.util.DateFormatter;
@@ -32,6 +31,7 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 			NumberUtil numberUtil) {
 		this.handlerFactory = handlerFactory;
 		this.dateFormatter = dateFormatter;
+		this.numberUtil=numberUtil;
 		
 	}
 	
@@ -110,7 +110,7 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 				} else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
 					Double val = rowHandler.getDouble(deepestKey);
 					if (val != null) {
-						result = new NumberUtilCln().formatNumberToFractial(val, Integer.parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
+						result = numberUtil.formatNumberToFractial(val, Integer.parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
 					}
 				} else if (colRdesc.getPropValue(ColRDesc.AS_DATE_WITHSEC) != null) {
 					Long date = rowHandler.getLong(deepestKey);

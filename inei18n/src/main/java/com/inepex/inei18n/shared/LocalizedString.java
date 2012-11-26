@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class LocalizedString  {
 
-	private static final long serialVersionUID = 1L;
-
 	private String key;
 	private String description;
 	

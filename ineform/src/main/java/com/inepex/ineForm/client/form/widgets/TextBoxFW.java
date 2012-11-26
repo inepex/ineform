@@ -7,7 +7,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 public class TextBoxFW extends TextBoxFWBase {
 
 	public TextBoxFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
-		super(fielddescriptor, wrDesc);
+		super(fielddescriptor);
 		textBox= new TextBox();
 		updateWidth(wrDesc);
 		initWidget(textBox);

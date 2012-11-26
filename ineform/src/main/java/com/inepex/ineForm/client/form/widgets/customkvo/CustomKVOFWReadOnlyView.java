@@ -14,13 +14,12 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
 public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 
-	private Grid grid = new Grid();
+	private final Grid grid = new Grid();
 	
-	List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
-	boolean showHeader = true;
-	boolean showType = false;
-	
-	boolean rendered = false;
+	private List<CustomKVORow> rows = new ArrayList<CustomKVORow>();
+	private boolean showHeader = true;
+	private boolean showType = false;
+	private boolean rendered = false;
 	
 	@Inject
 	public CustomKVOFWReadOnlyView() {
@@ -54,17 +53,17 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 		grid.clear();
 		grid.resize(rowNr, columns);
 		
-		if (showHeader) createHeader(showType);
+		if (showHeader) createHeader();
 		
 		int i = (showHeader) ? 1 : 0;
 		for (CustomKVORow row : rows){
-			showRow(i, row, showType);
+			showRow(i, row);
 			i++;
 		}
 		rendered = true;
 	}
 	
-	private void createHeader(boolean showType) {
+	private void createHeader() {
 		grid.setWidget(0, 0, new Label(IneFormI18n.customKVO_key()));
 		if (showType){
 			grid.setWidget(0, 1, new Label(IneFormI18n.customKVO_type()));
@@ -81,7 +80,7 @@ public class CustomKVOFWReadOnlyView extends HandlerAwareComposite {
 			grid.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderRO());	
 		}
 	}
-	private void showRow(int rowNr, CustomKVORow row, boolean showType){
+	private void showRow(int rowNr, CustomKVORow row){
 		grid.setText(rowNr, 0, row.getKey());
 		if (showType) {
 			grid.setText(rowNr, 1, ODFieldType.getODFieldTypeName(row.getType()));

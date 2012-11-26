@@ -27,9 +27,7 @@ import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
-import com.inepex.ineFrame.shared.util.DateProvider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 @Singleton
 public class ExportServlet extends HttpServlet{
@@ -39,25 +37,20 @@ public class ExportServlet extends HttpServlet{
 
 
 	private static final long serialVersionUID = 9213396221597526509L;
-	
-	final Provider<DescriptorStore> descStoreProvider;
-	final Provider<CurrentLang> currLangProvider;
-	final Dispatch dispatcher;
-	final DateProvider dateProvider;
+	private final Provider<CurrentLang> currLangProvider;
+	private final Dispatch dispatcher;
 	private final TrtdRendererFactory trtdRendererFactory;
 	private final HtmlRendererFactory htmlRendererFactory;
 	private final CsvRendererFactory csvRendererFactory;
 	
 	@Inject
-	public ExportServlet(Provider<DescriptorStore> descStoreProvider, Provider<CurrentLang> currLangProvider
-						, Dispatch dispatcher, DateProvider dateProvider,
+	public ExportServlet(Provider<CurrentLang> currLangProvider
+						, Dispatch dispatcher,
 						TrtdRendererFactory trtdRendererFactory, 
 						HtmlRendererFactory htmlRendererFactory,
 						CsvRendererFactory csvRendererFactory) {
-		this.descStoreProvider = descStoreProvider;
 		this.currLangProvider = currLangProvider;
 		this.dispatcher = dispatcher;
-		this.dateProvider = dateProvider;
 		this.trtdRendererFactory = trtdRendererFactory;
 		this.htmlRendererFactory = htmlRendererFactory;
 		this.csvRendererFactory = csvRendererFactory;
@@ -101,7 +94,7 @@ public class ExportServlet extends HttpServlet{
 			currLangProvider.get().setLangOverride((String) req.getSession()
 				.getAttribute(SetActionForExportServletHandler.rendererLanguage));
 			
-			ObjectListActionResult listResult = (ObjectListActionResult)dispatcher.execute(action);
+			ObjectListActionResult listResult = dispatcher.execute(action);
 			
 			TableRenderer renderer = null;
 			switch (rendererType) {

@@ -39,6 +39,7 @@ public class AuthStatusResultBase extends GenericActionResult {
 		this.roles = roles;
 		this.userEmail=userEmail;
 		this.userId=userId;
+		this.userUUID=userUUID;
 	}
 	
 	public String getDisplayName() {

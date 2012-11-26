@@ -25,12 +25,10 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 	
 	protected boolean allowsNull = true;
 	
-	protected FDesc fieldDescriptor;
 	protected WidgetRDesc wrDesc;
 	
 	public AbstractListBoxFW(FDesc fieldDesc, WidgetRDesc wrDesc) {
 		super(fieldDesc);
-		this.fieldDescriptor = fieldDesc;
 		this.wrDesc = wrDesc;
 		
 		listBoxPanel.add(listBox);

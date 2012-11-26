@@ -7,7 +7,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 public class PasswordTextBoxFW extends TextBoxFWBase {
 
 	public PasswordTextBoxFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
-		super(fielddescriptor, wrDesc);
+		super(fielddescriptor);
 		textBox= new PasswordTextBox();
 		updateWidth(wrDesc);
 		initWidget(textBox);

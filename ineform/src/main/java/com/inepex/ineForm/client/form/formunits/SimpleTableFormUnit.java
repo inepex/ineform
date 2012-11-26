@@ -138,7 +138,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 			} 
 			
 			//create the line
-			if((nodeElement instanceof DescriptorBase) && !((DescriptorBase) nodeElement).hasProp(putNextWidgetIntoThisLineToo)) {
+			if(!nodeElement.hasProp(putNextWidgetIntoThisLineToo)) {
 				
 				if(widgetsInThisLine.size()>0) {
 					cf.setStyleName(row, 0, ResourceHelper.ineformRes().style().cellTitle());

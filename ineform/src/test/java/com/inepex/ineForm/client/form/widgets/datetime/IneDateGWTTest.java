@@ -8,6 +8,7 @@ import org.junit.Test;
 public class IneDateGWTTest {
 
 	@Test
+	@SuppressWarnings("deprecation")
 	public void addMonthTest(){
 		Date date = new Date(2012-1900, 2, 30);
 		System.out.println(date.toString());

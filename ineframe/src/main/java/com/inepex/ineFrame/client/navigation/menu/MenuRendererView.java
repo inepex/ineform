@@ -30,14 +30,9 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		private FlowPanel target = new FlowPanel();
 		private FlowPanel menu = new FlowPanel();
 		private UnorderedListWidget menuUL;
-		private int level;
 		private boolean selectorRendered = false;
-		private boolean selectorPageRendered = false;
-		private FlowPanel parent;
 		
 		public OneLevel(FlowPanel parent, int level) {
-			this.level = level;
-			this.parent = parent;
 			parent.add(this);
 			
 			switch (level) {
@@ -56,7 +51,6 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		}
 
 		public void init(){
-			selectorPageRendered = false;
 			selectorRendered = false;
 			clear();
 			target.clear();
@@ -97,19 +91,6 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		public boolean isSelectorRendered() {
 			return selectorRendered;
 		}
-
-		public void setSelectorRendered(boolean selectorRendered) {
-			this.selectorRendered = selectorRendered;
-		}
-
-		public boolean isSelectorPageRendered() {
-			return selectorPageRendered;
-		}
-
-		public void setSelectorPageRendered(boolean selectorPageRendered) {
-			this.selectorPageRendered = selectorPageRendered;
-		}
-		
 	}
 	
 	private List<OneLevel> levels = new ArrayList<OneLevel>(); 
@@ -149,7 +130,6 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 	public void showSelector(IsWidget w, int level, boolean asPage) {
 		if (asPage){
 			getOneLevel(level).getTarget().add(w);
-			getOneLevel(level).setSelectorPageRendered(true);
 		} else {
 			getOneLevel(level).setSelector(w);
 		}
@@ -157,7 +137,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 
 	@Override
 	public Tab createTab(String menuName, int level) {
-		MenuBarWidget barWidget = new MenuBarWidget(menuName, level);
+		MenuBarWidget barWidget = new MenuBarWidget(menuName);
 		getOneLevel(level).getMenu().add(barWidget);
 		return barWidget;
 	}	
@@ -179,7 +159,7 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		private OnClickedLogic onClickedLogic;
 		
 		
-		public MenuBarWidget(String menuName, int level) {
+		public MenuBarWidget(String menuName) {
 			a = new AnchorWidget(menuName);
 			listWidget = new ListItemWidget(a);
 			initWidget(listWidget);

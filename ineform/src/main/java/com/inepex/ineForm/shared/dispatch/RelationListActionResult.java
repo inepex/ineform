@@ -14,8 +14,6 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
  */
 public class RelationListActionResult extends GenericActionResult implements RelationListResult {
 
-	private static final long serialVersionUID = 3223896182657888457L;
-
 	private List<Relation> list;
 	private Long allResultCount;
 

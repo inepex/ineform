@@ -187,7 +187,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 
 	@Override
 	public void setRootStepper(StepperPanelWidget rootStepper) {
-		this.rootStepper=(StepperPanelWidget) rootStepper;
+		this.rootStepper=rootStepper;
 	}
 	
 	@Override

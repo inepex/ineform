@@ -5,7 +5,6 @@ import java.util.List;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
@@ -19,18 +18,11 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 		super(assistedObject, assistedObject.getDescriptorName(), descriptorStore.getOD(assistedObject.getDescriptorName()));
 		this.descriptorStore=descriptorStore;
 		
-		String descriptorName = assistedObject.getDescriptorName();
-		if (descriptorName == null) {
-			throw new IllegalArgumentException();
-		}
+		if (descriptorName == null)
+			throw new IllegalArgumentException("No desciptorName!");
 
-		ObjectDesc objectDescriptor = descriptorStore.getOD(assistedObject
-				.getDescriptorName());
-		if (objectDescriptor == null) {
+		if (objectDescriptor == null)
 			throw new IllegalArgumentException("No object descriptor registered for '"+descriptorName+"'");
-		}
-		
-		
 	}
 
 	// -------------------------------------------------------

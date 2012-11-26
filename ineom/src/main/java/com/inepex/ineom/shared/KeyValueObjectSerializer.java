@@ -91,7 +91,7 @@ public class KeyValueObjectSerializer {
 
 		case RELATION:
 			Relation r = checker.getRelation(key);
-			if (relationSerializer != null) return  r == null ? null : relationSerializer.serialize((Relation)r);
+			if (relationSerializer != null) return  r == null ? null : relationSerializer.serialize(r);
 			return r == null ? null : r.getDisplayName();
 
 		case STRING:

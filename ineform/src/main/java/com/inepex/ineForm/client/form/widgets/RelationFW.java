@@ -20,11 +20,11 @@ public class RelationFW extends DenyingFormWidget {
 	
 	private IneForm form = null;
 	private Relation relation = null;
-	final private RelationFDesc fieldDescriptor;
+	final private RelationFDesc relFieldDescriptor;
 	
 	public RelationFW(FormContext formCtx, RelationFDesc fieldDescriptor, String frd) {
 		super(fieldDescriptor);
-		this.fieldDescriptor = fieldDescriptor;
+		this.relFieldDescriptor = fieldDescriptor;
 		
 		String relatedDescriptorName = fieldDescriptor.getRelatedDescriptorName();
 		form = new IneForm(formCtx, relatedDescriptorName, frd);
@@ -67,7 +67,7 @@ public class RelationFW extends DenyingFormWidget {
 		if (relation != null && relation.getKvo() != null)
 			kvo = relation.getKvo().clone();
 		else
-			kvo = new KeyValueObject(fieldDescriptor.getRelatedDescriptorName());
+			kvo = new KeyValueObject(relFieldDescriptor.getRelatedDescriptorName());
 		
 		form.getValues(kvo);
 		
