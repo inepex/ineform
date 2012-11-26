@@ -32,7 +32,7 @@
 		<javaxServletVersion>2.5</javaxServletVersion>
 		<nettyVersion>3.5.7.Final</nettyVersion>
 		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
-		<mavenCompilerVersion>2.5.1</mavenCompilerVersion>
+		<mavenCompilerVersion>3.0</mavenCompilerVersion>
 		<mavenCompilerSourceVersion>1.7</mavenCompilerSourceVersion>
 		<mavenCompilerTargetVersion>1.7</mavenCompilerTargetVersion>
 		<mavenJarVersion>2.4</mavenJarVersion>
