@@ -86,7 +86,7 @@ public class CsvRenderer extends TableRenderer{
 		sb.append("\"" + content + "\"");
 	}
 	@Override
-	protected void renderHeaderField(String content){
+	protected void renderHeaderField(String key, String content){
 		sb.append("\"" + content + "\"");
 	}
 

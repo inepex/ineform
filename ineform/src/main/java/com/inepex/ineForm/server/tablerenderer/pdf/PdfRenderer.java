@@ -82,7 +82,7 @@ public class PdfRenderer extends TableRenderer {
 	}
 	
 	@Override
-	protected void renderHeaderField(String content){
+	protected void renderHeaderField(String key, String content){
 		renderField(content);
 	}
 

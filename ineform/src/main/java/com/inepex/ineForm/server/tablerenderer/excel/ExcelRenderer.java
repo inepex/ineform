@@ -118,7 +118,7 @@ public class ExcelRenderer extends TableRenderer{
 	}
 
 	@Override
-	protected void renderHeaderField(String content){
+	protected void renderHeaderField(String key, String content){
 		renderField(content);
 	}
 
@@ -149,7 +149,7 @@ public class ExcelRenderer extends TableRenderer{
 			renderLineStart();
 			for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
 					.getChildren()) {
-				renderFieldStart();
+				renderFieldStart();	
 				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 					continue;

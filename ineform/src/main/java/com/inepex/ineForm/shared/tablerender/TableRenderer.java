@@ -122,7 +122,7 @@ public abstract class TableRenderer {
 				else
 					headerText = "";
 			}
-			renderHeaderField(headerText);
+			renderHeaderField(columnNode.getNodeId(), headerText);
 			
 			if (renderLastFieldEnd 
 					|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
@@ -135,7 +135,7 @@ public abstract class TableRenderer {
 	protected abstract void renderHeaderEnd();
 	protected abstract void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc);
 	protected abstract void renderHeaderFieldEnd();
-	protected void renderHeaderField(String content){
+	protected void renderHeaderField(String key, String content){
 		sb.append(content);
 	}
 	
