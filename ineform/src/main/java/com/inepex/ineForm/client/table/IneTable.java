@@ -104,7 +104,7 @@ public class IneTable extends HandlerAwareComposite {
 
 	}
 
-	RowCountChangeEvent.Handler defaultEmptyRowsHandler = new RowCountChangeEvent.Handler() {
+	private RowCountChangeEvent.Handler defaultEmptyRowsHandler = new RowCountChangeEvent.Handler() {
 
 		@Override
 		public void onRowCountChange(RowCountChangeEvent event) {
@@ -121,8 +121,8 @@ public class IneTable extends HandlerAwareComposite {
 
 	};
 
-	final FlowPanel mainPanel = new FlowPanel();
-	final CellTable<AssistedObject> cellTable;
+	protected final FlowPanel mainPanel = new FlowPanel();
+	protected final CellTable<AssistedObject> cellTable;
 	private Widget emptyRowsWidget = null;
 
 	protected String commandsTitle = "";
@@ -161,12 +161,11 @@ public class IneTable extends HandlerAwareComposite {
 			@Assisted("trd") String tableRenderDescriptorName,
 			@Assisted IneDataConnector connector,
 			TableFieldRenderer fieldRenderer) {
-		this(
-				descriptorStore,
-				objectDescName,
-				getTRD(descriptorStore, objectDescName, tableRenderDescriptorName),
-				connector,
-				fieldRenderer);
+		this(descriptorStore,
+			objectDescName,
+			getTRD(descriptorStore, objectDescName, tableRenderDescriptorName),
+			connector,
+			fieldRenderer);
 
 	}
 
@@ -208,7 +207,10 @@ public class IneTable extends HandlerAwareComposite {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
 				super.setRowData(start, values);
-				onRowDataChanged(values);
+				
+				if (values.isEmpty()) {
+					onEmptyRows();
+				}
 			};
 
 			@Override
@@ -231,16 +233,6 @@ public class IneTable extends HandlerAwareComposite {
 
 		initWidget(mainPanel);
 		mainPanel.add(cellTable);
-	}
-
-	// **** Set behaviour properties ****//
-	protected void onRowDataChanged() {
-	}
-
-	private void onRowDataChanged(java.util.List<? extends AssistedObject> values) {
-		if (values.size() == 0) {
-			onEmptyRows();
-		}
 	}
 
 	private void onEmptyRows() {
