@@ -66,6 +66,8 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	
 	private final HistoryProvider historyProvider;
 	
+	private IneDispatch dispatch;
+	
 	public IneFrameEntryPoint(DispatchAsync dispatchAsync, EventBus eventBus, AuthManager authManager, 
 			DescriptorStore descStore, HistoryProvider historyProvider, I18nStore_Client clientI18nStore) {
 		this.dispatchAsync = dispatchAsync;
@@ -113,22 +115,24 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		queryCounter.incQueries();
 		
 		//query server side descriptor store
-		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
-				new DefaultFailedHandler());
 		GetDescStore getDescriptorStore = new GetDescStore();
-		dispatch.execute(getDescriptorStore, new GetDescriptorStoreCallback());
+		getIneDispatch().execute(getDescriptorStore, new GetDescriptorStoreCallback());
 	}
 
 	private void queryI18nAndInvokeOnIneModuleLoad(boolean loadLangFromCookie) {
 		queryCounter.incQueries();
 		
-		// query i18n
-		IneDispatch dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
-				new DefaultFailedHandler());
-		
+		// query i18n		
 		String langFromUrl = PlaceHandlerHelper.getUrlParameters(historyProvider.getToken()).get(IFConsts.LANG);
 		GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction = clientI18nStore.getModuleQueryAction(loadLangFromCookie, langFromUrl);
-		dispatch.execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
+		getIneDispatch().execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
+	}
+	
+	private IneDispatch getIneDispatch(){
+		if (dispatch == null)
+			dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
+				new DefaultFailedHandler());
+		return dispatch;
 	}
 	
 	private class GetDescriptorStoreCallback extends SuccessCallback<GetDescStoreResult>{
