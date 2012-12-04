@@ -12,9 +12,11 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.HasValue;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 /**
  * @author David Mason
+ * @author sebi
  */
 public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean> {
 
@@ -63,6 +65,10 @@ public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean
 	public void setValue(Boolean value, boolean fireEvents) {
 		checked = value;
 		table.redrawHeaders();
+		
+		for(AssistedObject ao : table.getCellTable().getVisibleItems())
+			table.getSelectionModel().setSelected(ao, value);
+		
 		if (fireEvents) {
 			ValueChangeEvent.fire(this, value);
 		}

@@ -337,7 +337,7 @@ public class IneTable extends HandlerAwareComposite {
 	private void initTableColumns() {
 		ObjectDesc objectDesc = descStore.getOD(objectDescriptorName);
 
-		if (selectionBehaviour != null && selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION) {
+		if(selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION) {
 			Column<AssistedObject, Boolean> checkColumn = new Column<AssistedObject, Boolean>(new CheckboxCell(true, false)) {
 				@Override
 				public Boolean getValue(AssistedObject object) {
@@ -672,4 +672,7 @@ public class IneTable extends HandlerAwareComposite {
 		this.singleSelectionModel = singleSelectionModel;
 	}
 	
+	public SelectionBehaviour getSelectionBehaviour() {
+		return selectionBehaviour;
+	}
 }
