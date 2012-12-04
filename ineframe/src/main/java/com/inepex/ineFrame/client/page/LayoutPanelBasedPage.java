@@ -2,6 +2,8 @@ package com.inepex.ineFrame.client.page;
 
 import java.util.Map;
 
+import org.apache.tools.ant.taskdefs.condition.IsFileSelected;
+
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineFrame.client.misc.HandlerAwareLayoutPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -9,6 +11,7 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements InePage{
 
 	protected InePlace currentPlace;
+	protected Boolean isFirstShow = true;
 	
 	public LayoutPanelBasedPage() {}
 	
@@ -25,7 +28,12 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 
 	@Override
 	public void onShow() {
-		// TODO Auto-generated method stub
+		if(isFirstShow){
+			isFirstShow = false;
+			onShow(true);
+		}else{
+			onShow(false);
+		}
 		
 	}
 
@@ -36,5 +44,8 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 
 	public InePlace getCurrentPlace() {
 		return currentPlace;
+	}
+	public void onShow(boolean isfirstShow){
+		
 	}
 }
