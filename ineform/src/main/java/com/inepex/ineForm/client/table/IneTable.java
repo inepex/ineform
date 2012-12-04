@@ -19,7 +19,6 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
@@ -140,6 +139,7 @@ public class IneTable extends HandlerAwareComposite {
 
 	private SingleSelectionModel<AssistedObject> singleSelectionModel = null;
 	private MultiSelectionModel<AssistedObject> multiSelectionModel = null;
+	private SelectAllHeader selectAllHeader = null;
 
 	protected SimplePager pager = null;
 	private boolean showPager = true;
@@ -335,7 +335,6 @@ public class IneTable extends HandlerAwareComposite {
 	}
 
 	private void initTableColumns() {
-
 		ObjectDesc objectDesc = descStore.getOD(objectDescriptorName);
 
 		if (selectionBehaviour != null && selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION) {
@@ -345,7 +344,8 @@ public class IneTable extends HandlerAwareComposite {
 					return multiSelectionModel.isSelected(object);
 				}
 			};
-			cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
+			selectAllHeader=new SelectAllHeader(this);
+			cellTable.addColumn(checkColumn, selectAllHeader);
 		}
 
 		for (Node<TableRDescBase> columnNode : tableRenderDescriptor.getRootNode().getChildren()) {
@@ -444,6 +444,10 @@ public class IneTable extends HandlerAwareComposite {
 
 	public void redrawHeaders() {
 		cellTable.redrawHeaders();
+	}
+	
+	public SelectAllHeader getSelectAllHeader() {
+		return selectAllHeader;
 	}
 
 	@SuppressWarnings("deprecation")
