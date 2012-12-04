@@ -3,6 +3,7 @@ package com.inepex.ineFrame.client.navigation.header;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
@@ -49,10 +50,10 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	private class DefaultSettingOnClicked implements OnClickedLogic {
 		@Override
 		public void doLogic() {
-			if(view.isSettingsPopupShowing()) {
-				view.hideSettingsPopup();
+			if(getOrCreateView().isSettingsPopupShowing()) {
+				getOrCreateView().hideSettingsPopup();
 			} else {
-				view.showSettingsPopup();
+				getOrCreateView().showSettingsPopup();
 			}
 		}
 	}
@@ -61,18 +62,20 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	private final PlaceHierarchyProvider placeHierarchyProvider;
 	private final EventBus eventBus;
 	
-	private final View view;
+	private final Provider<View> viewProv;
+	private View view;
+	
 	
 	private OnClickedLogic settingsClickLogic;
 	
 	@Inject
 	public IneFrameHeader(AuthManager authManager,
 			PlaceHierarchyProvider placeHierarchyProvider,
-			View view, EventBus eventBus) {
+			Provider<View> view, EventBus eventBus) {
 		super();
 		this.authManager = authManager;
 		this.placeHierarchyProvider = placeHierarchyProvider;
-		this.view = view;
+		this.viewProv = view;
 		this.eventBus=eventBus;
 		
 		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
@@ -86,23 +89,23 @@ public class IneFrameHeader implements PlaceRequestHandler {
 
 	@Override
 	public void onPlaceRequest(PlaceRequestEvent e) {
-		view.hideSettingsPopup();
+		getOrCreateView().hideSettingsPopup();
 	}
 
 	public void refresh(InePlace place) {
 		if (settingsClickLogic == null) settingsClickLogic = new DefaultSettingOnClicked();
-		view.setSettingsButtonLogic(settingsClickLogic);
-		view.setUserNameClickedLogic(settingsClickLogic);
+		getOrCreateView().setSettingsButtonLogic(settingsClickLogic);
+		getOrCreateView().setUserNameClickedLogic(settingsClickLogic);
 		
 		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
-			view.setUserName(authManager.getLastAuthStatusResult().getDisplayName());
+			getOrCreateView().setUserName(authManager.getLastAuthStatusResult().getDisplayName());
 		} else {
-			view.setUserName(null);
+			getOrCreateView().setUserName(null);
 		}
 		
 		boolean showSettings = false;
 		boolean showLangSelector = true;
-		view.clearSettingsPopup();
+		getOrCreateView().clearSettingsPopup();
 		
 		Node<InePlace> settingsPlaceRoot = placeHierarchyProvider.getPlaceRoot()
 										   .findNodeById(NavigationProperties.SETTINGS);
@@ -119,7 +122,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 			
 				showSettings=true;
 				final String hierarchicalID = placeNode.getHierarchicalId();
-				view.addToSettingsPopup(placeNode.getNodeElement().getMenuName(), new OnClickedLogic() {
+				getOrCreateView().addToSettingsPopup(placeNode.getNodeElement().getMenuName(), new OnClickedLogic() {
 					
 					@Override
 					public void doLogic() {
@@ -133,7 +136,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 			showSettings = true;
 			showLangSelector = false;
 			
-			view.addToSettingsPopup(IneFrameI18n.LOGOUT(), new OnClickedLogic() {
+			getOrCreateView().addToSettingsPopup(IneFrameI18n.LOGOUT(), new OnClickedLogic() {
 				
 				@Override
 				public void doLogic() {
@@ -146,8 +149,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 				}
 			});
 		}
-		view.setLanguageSelectorVisible(showLangSelector);
-		view.setSettingsButtonVisible(showSettings);
+		getOrCreateView().setLanguageSelectorVisible(showLangSelector);
+		getOrCreateView().setSettingsButtonVisible(showSettings);
 		
 		
 		if (place == null)
@@ -155,7 +158,14 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	}
 	
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
-		view.setLogoNameClickedLogic(logic);
+		getOrCreateView().setLogoNameClickedLogic(logic);
 		
+	}
+	
+	private View getOrCreateView(){
+		if (view == null){ 
+			view = viewProv.get();
+		}
+		return view;
 	}
 }
