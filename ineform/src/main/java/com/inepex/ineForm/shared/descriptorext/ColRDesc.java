@@ -13,6 +13,7 @@ public class ColRDesc extends TableRDescBase {
 	public static final String AS_FRACTIALDIGITCOUNT = "AS_SHOWFRACTIAL";
 	public static final String AS_GROUPTHOUSANDS = "AS_GROUPTHOUSANDS";
 	public static final String AS_FORMATTEDDOUBLE = "AS_FORMATTEDDOUBLE";
+	public static final String AS_CB = "AS_CB"; //display as checkbox
 	
 	public static final String EXCEL_DATETIMEFORMAT = "EXCEL_DATETIMEFORMAT";
 	public static final String EXCEL_NUMBERFORMAT = "EXCEL_NUMBERFORMAT";

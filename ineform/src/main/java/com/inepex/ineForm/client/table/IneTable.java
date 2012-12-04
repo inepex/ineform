@@ -369,8 +369,7 @@ public class IneTable extends HandlerAwareComposite {
 							+ ")");
 				}
 			}
-
-			IneTableColumn column = new IneTableColumn(new TextCell(), columnNode.getNodeId());
+			Column column = new IneTableColumnProvider(columnNode.getNodeId()).getColumn();
 
 			String headerText = colRenderDesc.getDisplayName() != null ? colRenderDesc.getDisplayName() : null;
 			if (headerText == null) {
@@ -474,12 +473,12 @@ public class IneTable extends HandlerAwareComposite {
 		return (CustomTextHeader) headers.get(key);
 	}
 
-	private class IneTableColumn extends Column<AssistedObject, String> {
+	private class StringTableColumn extends Column<AssistedObject, String> {
 
 		private final String key;
 
-		public IneTableColumn(Cell<String> cell, String key) {
-			super(cell);
+		public StringTableColumn(String key) {
+			super(new TextCell());
 			this.key = key;
 			setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		}
@@ -492,10 +491,40 @@ public class IneTable extends HandlerAwareComposite {
 
 		@Override
 		public String getValue(AssistedObject rowValue) {
-			// do nothing
 			return "";
 		}
 	};
+	private class BooleanTableColumn extends Column<AssistedObject, Boolean> {
+
+		private final String key;
+
+		public BooleanTableColumn(String key) {
+			super(new CheckboxCell(false, false));
+			this.key = key;
+			setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		}
+		@Override
+		public Boolean getValue(AssistedObject rowValue) {
+			return rowValue.getBooleanUnchecked(key);
+		}
+	};
+	private class IneTableColumnProvider{
+		private String key;
+
+		public IneTableColumnProvider(String key) {
+			this.key = key;
+		}
+		@SuppressWarnings("rawtypes")
+		public Column getColumn(){
+			ColRDesc colRdesc = (ColRDesc)tableRenderDescriptor.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
+			if(colRdesc.getPropValue(ColRDesc.AS_CB) != null){
+				return new BooleanTableColumn( key);
+			}else{
+				return new StringTableColumn(key);
+			}
+			
+		}
+	}
 
 	private class PointerAndCustomRowStyleProvider implements RowStyles<AssistedObject> {
 
