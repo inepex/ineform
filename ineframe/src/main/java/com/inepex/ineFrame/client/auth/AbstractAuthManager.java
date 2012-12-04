@@ -9,6 +9,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.inject.Provider;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
@@ -26,10 +27,10 @@ public abstract class AbstractAuthManager implements AuthManager {
 
 	AuthStatusResultBase lastAuthStatusResult = null;
 
-	final IneDispatch dispatcher;
+	final Provider<IneDispatch> dispatcher;
 	protected final EventBus eventBus;
 	
-	public AbstractAuthManager(IneDispatch dispatcher, EventBus eventBus) {
+	public AbstractAuthManager(Provider<IneDispatch> dispatcher, EventBus eventBus) {
 		this.dispatcher = dispatcher;
 		this.eventBus = eventBus;
 	}
@@ -44,7 +45,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		}else{
 			action = new GetAuthStatusAction();
 		}
-		dispatcher.getDispatcher().execute(action, new AuthStatusResultCallback(callback));
+		dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
 	}
 	
 	@Override
@@ -56,7 +57,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		}else{
 			action = new LoginAction(userName, password, captchaAnswer);
 		}
-		dispatcher.getDispatcher().execute(action, new AuthStatusResultCallback(callback));
+		dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
 	}
 	
 	class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase>{
@@ -100,7 +101,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 	public void doLogout(AuthActionCallback callback) {
 		eventBus.fireEvent(new UserLoggedOutEvent());
 		LogoutAction action = new LogoutAction();
-		dispatcher.getDispatcher().execute(action, new LogoutCallback(callback));
+		dispatcher.get().getDispatcher().execute(action, new LogoutCallback(callback));
 	}
 	
 	class LogoutCallback implements AsyncCallback<GenericActionResult> {
