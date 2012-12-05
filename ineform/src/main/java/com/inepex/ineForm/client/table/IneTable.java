@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.eclipse.jdt.internal.compiler.ast.SuperReference;
+
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.Cell.Context;
@@ -25,6 +27,7 @@ import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
@@ -40,6 +43,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.form.events.CheckBoxValueChangeListener;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
@@ -47,6 +51,7 @@ import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
+import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -147,6 +152,7 @@ public class IneTable extends HandlerAwareComposite {
 	private boolean rendered = false;
 
 	private SelectionBehaviour selectionBehaviour = SelectionBehaviour.NO_SELECTION;
+	private CheckBoxValueChangeListener checkBoxValueChangeListener;
 
 	protected Map<String, Header<String>> headers = new TreeMap<String, Header<String>>();
 
@@ -494,12 +500,35 @@ public class IneTable extends HandlerAwareComposite {
 			return "";
 		}
 	};
+	private class EventCheckBoxCell extends CheckboxCell{
+		public EventCheckBoxCell() {
+			super(false, false);
+		}
+		@Override
+		public void onBrowserEvent(
+				com.google.gwt.cell.client.Cell.Context context,
+				Element parent, Boolean value, NativeEvent event,
+				ValueUpdater<Boolean> valueUpdater) {
+			int eventType = Event.as(event).getTypeInt();
+		    if (eventType == Event.ONCHANGE){
+		    	AssistedObject ao = dataConnector.getAssistedObjectByKey((Long)context.getKey());
+		    	if(checkBoxValueChangeListener != null && ao != null){
+		    		List<Node<TableRDescBase>> descriptorNodes = tableRenderDescriptor.getRootNode().getChildren();
+			    	Node<TableRDescBase> modifiedNode = descriptorNodes.get(context.getColumn());
+			    	AssistedObjectHandler handler = handlerFactory.createHandler(ao);
+			    	handler.set(modifiedNode.getNodeId(), !value);
+		    		checkBoxValueChangeListener.onCheckBoxValueChanged(ao);
+		    	}
+		    }
+			super.onBrowserEvent(context, parent, value, event, valueUpdater);
+		}
+	}
 	private class BooleanTableColumn extends Column<AssistedObject, Boolean> {
 
 		private final String key;
-
+		
 		public BooleanTableColumn(String key) {
-			super(new CheckboxCell(false, false));
+			super(new EventCheckBoxCell());
 			this.key = key;
 			setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		}
@@ -703,5 +732,11 @@ public class IneTable extends HandlerAwareComposite {
 	
 	public SelectionBehaviour getSelectionBehaviour() {
 		return selectionBehaviour;
+	}
+	public void setCheckBoxValueChangeListener(CheckBoxValueChangeListener listener){
+		this.checkBoxValueChangeListener = listener;
+	}
+	public void removeCheckBoxValueChangeListener(){
+		this.checkBoxValueChangeListener = null;
 	}
 }

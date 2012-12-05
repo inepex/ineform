@@ -6,12 +6,12 @@ import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 
 public class NationalityAssist {
 

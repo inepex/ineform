@@ -1,5 +1,7 @@
 package com.inepex.ineForm.client.table;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
@@ -35,10 +37,14 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		@Override
 		public void onSuccess(ObjectManipulationResult result) {
 			if (result!=null && result.isSuccess() && (result.getValidationResult()==null || result.getValidationResult().isValid())) {
-				if (isCreateRequest)
+				if (isCreateRequest){
 					updateRowCount(lastRowCount + 1, true);
-				if (objectManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0)
+					resultMap.put(result.getObjectsNewState().getId(), result.getObjectsNewState());
+				}
+				if (objectManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0){
 					updateRowCount(lastRowCount - 1, true);
+					resultMap.remove(result.getObjectsNewState().getId());
+				}
 			}
 			if (callback != null)
 				callback.onManipulationResult(result);
@@ -59,7 +65,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		@Override
 		public void onSuccess(ObjectListResult result) {		
 			updateWithObjectListResultCount(result, updateDisplays);
-			
+			resultMap.clear();
+			for(AssistedObject obj : result.getList()){
+				resultMap.put(obj.getId(), obj);
+			}
 		}
 	}
 
@@ -75,6 +84,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		@Override
 		public void onSuccess(ObjectListResult result) {
 			lastResult = result;
+			resultMap.clear();
+			for(AssistedObject obj : result.getList()){
+				resultMap.put(obj.getId(), obj);
+			}
 			updateSpecificDisplay(result, display);
 			//TODO: rethink the use of statusindicator
 			if (!result.isSuccess() && customListingStatusIndicator != null){
@@ -97,6 +110,8 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	protected boolean orderDescending = false;
 
 	protected AssistedObject searchParameters;
+	
+	protected HashMap<Long, AssistedObject> resultMap = new HashMap<Long, AssistedObject>();
 
 	protected ObjectList objectList = null;
 	protected ObjectManipulation objectManipulation = null;
@@ -321,6 +336,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	public ObjectListResult getLastResult() {
 		return lastResult;
+	}
+	public AssistedObject getAssistedObjectByKey(Long key){
+		return resultMap.get(key);
 	}
 
 }
