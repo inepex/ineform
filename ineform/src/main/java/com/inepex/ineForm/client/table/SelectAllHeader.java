@@ -66,8 +66,13 @@ public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean
 		checked = value;
 		table.redrawHeaders();
 		
-		for(AssistedObject ao : table.getCellTable().getVisibleItems())
-			table.getSelectionModel().setSelected(ao, value);
+		if(value) {
+			for(AssistedObject ao : table.getCellTable().getVisibleItems())
+				table.getSelectionModel().setSelected(ao, true);
+		} else {
+			for(AssistedObject ao : table.getMultiSelectionModel().getSelectedSet())
+				table.getSelectionModel().setSelected(ao, false);
+		}
 		
 		if (fireEvents) {
 			ValueChangeEvent.fire(this, value);
