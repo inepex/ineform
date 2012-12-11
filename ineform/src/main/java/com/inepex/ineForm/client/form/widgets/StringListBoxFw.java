@@ -31,8 +31,12 @@ public class StringListBoxFw extends AbstractListBoxFW {
 	
 	@Override
 	public String getStringValue() {
-		if (allowsNull && listBox.getItemText(listBox.getSelectedIndex()).equals(notSelectedText)) return null;
-		else return listBox.getItemText(listBox.getSelectedIndex());
+		int selectedIndex = listBox.getSelectedIndex();
+		
+		if(selectedIndex==-1 || allowsNull && selectedIndex==0)
+			return null;
+		
+		return valueRange.get(selectedIndex - (allowsNull ? 1 : 0) );
 	}
 	
 	@Override
