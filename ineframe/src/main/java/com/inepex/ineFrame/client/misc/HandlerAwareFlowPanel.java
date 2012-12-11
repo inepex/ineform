@@ -2,7 +2,7 @@ package com.inepex.ineFrame.client.misc;
 
 import java.util.List;
 
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FlowPanel;
 
 public class HandlerAwareFlowPanel extends FlowPanel {
