@@ -23,31 +23,32 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	protected class ObjectManipulationCallback extends SuccessCallback<ObjectManipulationResult> {
 
-		ObjectManipulation objectManipulation;
-		boolean isCreateRequest;
-		ManipulateResultCallback callback;
+		private final ObjectManipulation currentManipulation;
+		private final ManipulateResultCallback currentCallback;
 
-		public ObjectManipulationCallback(ObjectManipulation objectManipulation, ManipulateResultCallback callback) {
-			super();
-			this.objectManipulation = objectManipulation;
-			this.isCreateRequest = objectManipulation.getObject().isNew();
-			this.callback = callback;
+		public ObjectManipulationCallback(ObjectManipulation currentManipulation, ManipulateResultCallback currentCallback) {
+			this.currentManipulation = currentManipulation;
+			this.currentCallback = currentCallback;
 		}
 
 		@Override
 		public void onSuccess(ObjectManipulationResult result) {
 			if (result!=null && result.isSuccess() && (result.getValidationResult()==null || result.getValidationResult().isValid())) {
-				if (isCreateRequest){
+				if (currentManipulation.getObject()!=null
+						&& currentManipulation.getObject().isNew()){
+					
 					updateRowCount(lastRowCount + 1, true);
 					resultMap.put(result.getObjectsNewState().getId(), result.getObjectsNewState());
+					
 				}
-				if (objectManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0){
+				
+				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0){
 					updateRowCount(lastRowCount - 1, true);
-					resultMap.remove(result.getObjectsNewState().getId());
+					resultMap.remove(currentManipulation.getObject().getId());
 				}
 			}
-			if (callback != null)
-				callback.onManipulationResult(result);
+			if (currentCallback != null)
+				currentCallback.onManipulationResult(result);
 
 			updateDisplaysAndfireListChangedEvent();
 		}
