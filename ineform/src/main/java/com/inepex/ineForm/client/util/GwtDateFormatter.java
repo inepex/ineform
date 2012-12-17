@@ -11,7 +11,7 @@ import com.inepex.ineFrame.shared.util.DateProvider;
 @Singleton
 public class GwtDateFormatter implements DateFormatter {
 
-	DateProvider dateProvider;
+	private final DateProvider dateProvider;
 	
 	@Inject
 	public GwtDateFormatter(DateProvider dateProvider) {
