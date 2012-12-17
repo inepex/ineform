@@ -9,7 +9,7 @@ public class ${className} extends I18nModule {
 
 	public static final String MODULE_NAME = "${className}";
 	
-	static I18nModuleProvider<${className}> moduleProvider;
+	public static I18nModuleProvider<${className}> moduleProvider;
 	
 	public ${className}() {
 		super(MODULE_NAME);
