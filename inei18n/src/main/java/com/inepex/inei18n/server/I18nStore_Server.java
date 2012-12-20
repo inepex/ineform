@@ -40,7 +40,7 @@ public class I18nStore_Server extends I18nStoreBase {
 		}
 		
 		if (localizablesByKey.containsKey(localizable.getKey())) {
-			_logger.info("List of localizables already contains key: {}", localizable.getKey());
+			_logger.info("List of localizables already contains key: {} in module {}", localizable.getKey(), module);
 			return;
 		}
 		
