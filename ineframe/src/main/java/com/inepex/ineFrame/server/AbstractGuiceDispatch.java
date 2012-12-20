@@ -24,17 +24,20 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	private final I18nStore_Server serverI18n;
 	private final Provider<CurrentLang> currentLangProvider;
 	private final MultiLangDescStore multiLangDescStore;
+	private final boolean behaveIsIneInitializer;
 	
 	public abstract void doLogAction(Loggable loggable, HttpServletRequest request);
 	
 	public AbstractGuiceDispatch(Dispatch dispatch
 							   , Provider<CurrentLang> currentLangProvider
 							   , I18nStore_Server serverI18n
-							   , DescriptorStore multiLangDescStore) {
+							   , DescriptorStore multiLangDescStore
+							   , boolean behaveIsIneInitializer) {
 		super(dispatch);
 		this.currentLangProvider = currentLangProvider;
 		this.serverI18n = serverI18n;
 		this.multiLangDescStore = (MultiLangDescStore)multiLangDescStore;
+		this.behaveIsIneInitializer = behaveIsIneInitializer;
 	}
 	
 	@Override
@@ -44,10 +47,12 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 	
 	@Override
 	public void init() throws ServletException {
-		setupDefaults();
-		// TODO use DI here also!
-		new RealLocalizationInitializer(serverI18n, this, currentLangProvider).doInitialize();
-		setupDescriptorStores();
+		if (behaveIsIneInitializer){
+			setupDefaults();
+			// TODO use DI here also!
+			new RealLocalizationInitializer(serverI18n, this, currentLangProvider).doInitialize();
+			setupDescriptorStores();
+		}
 		
 		super.init();
 	}

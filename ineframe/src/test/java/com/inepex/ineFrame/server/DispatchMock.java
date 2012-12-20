@@ -115,7 +115,7 @@ public class DispatchMock {
 		@Inject
 		public TestDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider, I18nStore_Server serverI18n,
 				MultiLangDescStore multiLangDescStore) {
-			super(dispatch, currentLangProvider, serverI18n, multiLangDescStore);
+			super(dispatch, currentLangProvider, serverI18n, multiLangDescStore, true);
 		}
 
 		private static final long serialVersionUID = 1L;
