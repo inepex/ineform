@@ -21,7 +21,7 @@ public class I18nDatePicker extends DatePicker {
 		
 		@Override
 		public String formatDayOfWeek(int dayInWeek) {
-			return DateI18nHelper.formatDayOfWeek(dayInWeek);
+			return DateI18nHelper.shortFormatDayOfWeek(dayInWeek);
 		}
 		
 		@Override
