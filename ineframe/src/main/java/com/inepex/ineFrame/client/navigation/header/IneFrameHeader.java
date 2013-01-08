@@ -92,7 +92,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		getOrCreateView().hideSettingsPopup();
 	}
 
-	public void refresh(InePlace place) {
+	public void refresh() {
 		if (settingsClickLogic == null) settingsClickLogic = new DefaultSettingOnClicked();
 		getOrCreateView().setSettingsButtonLogic(settingsClickLogic);
 		getOrCreateView().setUserNameClickedLogic(settingsClickLogic);
@@ -151,10 +151,6 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		getOrCreateView().setLanguageSelectorVisible(showLangSelector);
 		getOrCreateView().setSettingsButtonVisible(showSettings);
-		
-		
-		if (place == null)
-			return; // 
 	}
 	
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
@@ -166,6 +162,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		if (view == null){ 
 			view = viewProv.get();
 		}
+		
 		return view;
 	}
 }
