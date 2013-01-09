@@ -4,6 +4,7 @@ import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIREC
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.loginPlace;
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +19,9 @@ import com.google.gwt.user.client.Window;
 import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
-import com.inepex.ineFrame.client.navigation.ParamPlaceRedirectionCallbackHandler.AfterRedirectionLogic;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
+import com.inepex.ineFrame.client.navigation.places.ParamPlace;
+import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceRequestHandler {
@@ -28,13 +30,93 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	public static final String AND_SIGN = "&";
 	public static final String EQUALS_SIGN = "=";
 	
+	private static interface AfterRedirectionLogic {
+		public void afterRedirectionHandled(String token);
+	}
+	
+	private static class ParamPlaceRedirectionCallbackHandler {
+		
+		private final List<String> redirections = new ArrayList<String>();
+		private final AfterRedirectionLogic afterRedirectionLogic;
+		private final Map<String, String> urlParams;
+		private final String requestedToken;
+
+		private int waitingCounter = 0;
+		private boolean canFinish = false;
+		private Node<InePlace> pointer;
+
+		public ParamPlaceRedirectionCallbackHandler(String requestedToken,
+				Node<InePlace> pointer, Map<String, String> urlParams,
+				AfterRedirectionLogic afterRedirectionLogic) {
+			this.afterRedirectionLogic = afterRedirectionLogic;
+			this.requestedToken = requestedToken;
+			this.pointer = pointer;
+			this.urlParams = urlParams;
+		}
+
+		public void execute() {
+			while (pointer != null) {
+				InePlace pointerPlace = pointer.getNodeElement();
+				if (pointerPlace instanceof ParamPlace) {
+					waitCallback((ParamPlace) pointerPlace);
+				}
+				pointer = pointer.getParent();
+			}
+			setCanFinish();
+		}
+
+		private void waitCallback(ParamPlace paramPlace) {
+			waitingCounter++;
+			paramPlace.processParams(requestedToken, urlParams,
+					new UrlParamsParsedCallback() {
+
+						@Override
+						public void onUrlParamsParsed(String redirection) {
+							waitingCounter--;
+							redirections.add(redirection);
+							finish();
+						}
+
+						@Override
+						public void onUrlParamsParsed() {
+							onUrlParamsParsed(null);
+						}
+					});
+		}
+
+		private void finish() {
+			if (canFinish && waitingCounter == 0
+					&& afterRedirectionLogic != null) {
+				afterRedirectionLogic
+						.afterRedirectionHandled(getFirstRedirection());
+			}
+		}
+
+		private String getFirstRedirection() {
+			if (redirections.size() > 0)
+				return redirections.get(0);
+			else
+				return null;
+		}
+
+		private void setCanFinish() {
+			this.canFinish = true;
+			finish();
+		}
+
+	}
+
 	private final PlaceHierarchyProvider placeHierarchyProvider;
 	private final MasterPage masterPage;
 	private final AuthManager authManager;
 	private final HistoryProvider historyProvider;
+	private final EventBus eventBus;
 	private final ConnectionFailedHandler connectionFailedHandler;
 
+	private String previousToken = null;
 	private String currentFullToken = null;
+	
+	private boolean lastRequestWasARedirect = false;
 
 	public PlaceHandler(PlaceHierarchyProvider placeHierarchyProvider, MasterPage masterPage, AuthManager authManager,
 			HistoryProvider historyProvider, EventBus eventBus, ConnectionFailedHandler connectionFailedHandler) {
@@ -42,6 +124,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		this.masterPage = masterPage;
 		this.authManager = authManager;
 		this.historyProvider = historyProvider;
+		this.eventBus = eventBus;
 		this.connectionFailedHandler = connectionFailedHandler;
 
 		historyProvider.addHandler(this);
@@ -64,25 +147,34 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (event.getValue().equals(currentFullToken))
 			return;
 		else {
-			if (event.getValue().equals(""))
-				realizePlaceChange(false, NavigationProperties.defaultPlace);
-			else
-				realizePlaceChange(false, event.getValue());
+			if (event.getValue().equals("")){
+				eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));	
+			} else {
+				eventBus.fireEvent(new PlaceRequestEvent(event.getValue()));
+			}
+			
 		}
 			
 	}
 
 	@Override
 	public void onPlaceRequest(PlaceRequestEvent e) {
-		if (e.isOpenInNewWindow())
-			openInNewWindow("#" + e.getHierarchicalTokensWithParam());
-		else
-			realizePlaceChange(e.isNeedWindowReload(), e.getHierarchicalTokensWithParam());
+		if (lastRequestWasARedirect){
+			lastRequestWasARedirect = false;
+		} else {
+			previousToken = currentFullToken;
+		}		
+		
+		currentFullToken =  e.getHierarchicalTokensWithParam();		
+	
+		if (e.isOpenInNewWindow()){
+			openInNewWindow("#" + currentFullToken);
+		} else {
+			realizePlaceChange(e.isNeedWindowReload());
+		}
 	}
 
-	private void realizePlaceChange(final boolean needWindowReload, String newfullToken) {
-		currentFullToken =  newfullToken;
-		
+	private void realizePlaceChange(final boolean needWindowReload) {
 		String currentFullTokenWithoutRedirect;
 		if(currentFullToken.contains(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT))
 			currentFullTokenWithoutRedirect=currentFullToken.substring(0,
@@ -95,7 +187,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));
 		
 		if (placeNode == null) {
-			realizePlaceChange(needWindowReload, wrongTokenPlace);
+			onPlaceRequest(new PlaceRequestEvent(wrongTokenPlace));
 			return;
 		}
 		
@@ -103,19 +195,16 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 		final InePlace place = placeNode.getNodeElement();
 
-		if(!(authManager instanceof NoAuthManager)
-				&& currentFullTokenWithoutRedirect.startsWith(NavigationProperties.loginPlace)
-				&& authManager.isUserLoggedIn()) {
-			realizePlaceChange(needWindowReload, NavigationProperties.defaultPlace);
-			return;
-		}
+		if (checkIfLoginPageAndLoggedIn(currentFullTokenWithoutRedirect, needWindowReload)) return;
 		
-		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect, needWindowReload))
-			return;
+		if (!checkPermissionsAndRedirectIfNeeded(place, currentFullTokenWithoutRedirect, needWindowReload)) return;
 		
 		if (place instanceof ChildRedirectPlace) {
 			ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-			realizePlaceChange(needWindowReload, PlaceHandlerHelper.appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken()));
+			PlaceRequestEvent pre = new PlaceRequestEvent(PlaceHandlerHelper.appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken()));
+			pre.setNeedWindowReload(needWindowReload);
+			lastRequestWasARedirect = true;
+			eventBus.fireEvent(pre);
 			return;
 		}
 		
@@ -128,12 +217,14 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			@Override
 			public void afterRedirectionHandled(String token) {
 				if (token != null && !token.equals(currentFullToken)){
-					realizePlaceChange(needWindowReload, token);
+					PlaceRequestEvent pre = new PlaceRequestEvent(token);
+					pre.setNeedWindowReload(needWindowReload);
+					eventBus.fireEvent(pre);
 					return;
 				}
 				
 				// change the browsers token if does not mach current token
-				if (needToRefresh())
+				if (needToRefreshToken())
 					historyProvider.newItem(currentFullToken);
 				
 				if(needWindowReload) {
@@ -150,7 +241,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
 	}
 	
-	private boolean needToRefresh(){
+	private boolean needToRefreshToken(){
 		return (!historyProvider.getToken().equals(currentFullToken) 
 				&& (!isWrongTokenPlaceSet() 
 						|| (isWrongTokenPlaceSet() && !currentFullToken.equals(NavigationProperties.wrongTokenPlace))));
@@ -161,8 +252,13 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	protected abstract boolean specificAdjustPlaceShouldReturn(InePlace place);
+
+	public void back() {
+		historyProvider.back();
+	}
 	
-	private static void openInNewWindow(String url) {
+	
+	private void openInNewWindow(String url) {
 		final String realURL;
 		
 		if (Window.Navigator.getUserAgent().contains("MSIE")){
@@ -193,15 +289,17 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (place.isAuthenticationNeeded()) {
 			List<String> allowedRolesForPlace = place.getRolesAllowed();
 			if (!authManager.isUserLoggedIn()){
-				realizePlaceChange(needWindowReload, 
-						loginPlace +
-						QUESTION_MARK +
-						REDIRECT +
-						EQUALS_SIGN +
-						currentFullTokenWithoutRedirect);
+				PlaceRequestEvent pre = new PlaceRequestEvent(loginPlace +
+								QUESTION_MARK +
+								REDIRECT +
+								EQUALS_SIGN +
+								currentFullTokenWithoutRedirect);
+				pre.setNeedWindowReload(needWindowReload);
+				lastRequestWasARedirect = true;
+				eventBus.fireEvent(pre);
 				
 				return false;
-			} else if (authManager.isUserLoggedIn() && (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0)) {
+			}else if (authManager.isUserLoggedIn() && (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0)) {
 				return true;
 			} else if (authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))){
 				return true;				
@@ -211,18 +309,31 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			}
 		} else return true;
 	}
-	
-	public void back() {
-		historyProvider.back();
+
+	private boolean checkIfLoginPageAndLoggedIn(String currentFullTokenWithoutRedirect, boolean needWindowReload){
+		if (authManager instanceof NoAuthManager) return false; 
+		if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.loginPlace) 
+				&& authManager.isUserLoggedIn()) {
+			PlaceRequestEvent pre = new PlaceRequestEvent(NavigationProperties.defaultPlace);
+			pre.setNeedWindowReload(needWindowReload);
+			lastRequestWasARedirect = true;
+			eventBus.fireEvent(pre);
+			return true;
+		}
+		else return false;
 	}
 	
 	public String getCurrentFullToken(){
 		return currentFullToken;
 	}
+
+	public String getPreviousToken() {
+		return previousToken;
+	}
 	
-//-------------------------------------
+//------- ------------------------------
 //        navigation helper methods
-//-------------------------------------
+//------- ------------------------------
 	public PlaceRequestEvent generateRefreshEvent() {
 		return generateSubMenuEvent();
 	}
