@@ -24,7 +24,7 @@ public class DateI18nHelper {
 		}
 	}
 	
-	public static String shortFormatDay(int dayOfWeek, int letterCount) {
+	public static String shortFormatDayOfWeek(int dayOfWeek, int letterCount) {
 		String res = formatDayOfWeek(dayOfWeek);
 		return sub(res, letterCount);
 	} 
