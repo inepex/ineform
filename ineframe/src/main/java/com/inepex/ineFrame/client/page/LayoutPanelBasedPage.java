@@ -9,7 +9,7 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements InePage{
 
 	protected InePlace currentPlace;
-	protected Boolean isFirstShow = true;
+	private Boolean isFirstShow = true;
 	
 	public LayoutPanelBasedPage() {}
 	
@@ -25,7 +25,7 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 	}
 
 	@Override
-	public void onShow() {
+	public final void onShow() {
 		if(isFirstShow){
 			isFirstShow = false;
 			onShow(true);
@@ -43,6 +43,9 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 	public InePlace getCurrentPlace() {
 		return currentPlace;
 	}
+	
+	
+	@SuppressWarnings("unused")
 	public void onShow(boolean isfirstShow){
 		
 	}
