@@ -2,6 +2,7 @@ package com.inepex.ineFrame.client.navigation;
 
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,42 @@ import com.inepex.ineom.shared.descriptor.Node;
 
 public class PlaceHandlerHelper {
 	
+	public static final String listParamSeparator = ",";
+	
 	public static String regExp(String str) {
-		//TODO: excape special characters like \
+		//TODO: escape special characters like \
 		return "[" + str + "]";
+	}
+	
+	public static List<String> parseListParams(Map<String, String> urlParams, String key) {
+		String names = urlParams.get(key);
+		if(names==null || names.length()==0)
+			return null;
+		
+		List<String> nameList = new ArrayList<String>();
+		String[] nameArray = names.split(listParamSeparator);
+		for(String name : nameArray){
+			nameList.add(name);
+		}
+		return nameList;
+	}
+	
+	public static String appendParam(String hierarchicalToken, String paramToken, List<String> listValue) {
+		String value;
+		if(listValue==null || listValue.isEmpty())
+			value="";
+		else {
+			StringBuffer valSb = new StringBuffer();
+			for(String name : listValue){
+				valSb.append(name);
+				valSb.append(listParamSeparator);
+			}
+			
+			valSb.deleteCharAt(valSb.length()-1);
+			value=valSb.toString();
+		}
+		
+		return appendParam(hierarchicalToken, paramToken, value);
 	}
 	
 	public static String appendParam(String hierarchicalToken, String paramToken, String value) {
@@ -51,6 +85,54 @@ public class PlaceHandlerHelper {
 			return hierarchicalToken+PlaceHandler.QUESTION_MARK+paramToken+PlaceHandler.EQUALS_SIGN+value;
 	}
 	
+	public static String removeParam(String hierarchicalToken, String paramName) {
+		int paramStart=hierarchicalToken.indexOf(PlaceHandler.AND_SIGN+paramName+PlaceHandler.EQUALS_SIGN);
+		
+		//not first param somewhere
+		if(paramStart!=-1) {
+			int nextControl=nextControl(hierarchicalToken, paramStart);
+			if(nextControl==-1)
+				return hierarchicalToken.substring(0, paramStart);
+			else
+				return hierarchicalToken.substring(0, paramStart)+hierarchicalToken.substring(nextControl);
+		} 
+		
+		
+		paramStart=hierarchicalToken.indexOf(PlaceHandler.QUESTION_MARK+paramName+PlaceHandler.EQUALS_SIGN);
+		//first param somewhere
+		if(paramStart!=-1) {
+			int nextControl=nextControl(hierarchicalToken, paramStart);
+			if(nextControl==-1)
+				return hierarchicalToken.substring(0, paramStart);
+			else
+				if(PlaceHandler.AND_SIGN.equals(""+hierarchicalToken.charAt(nextControl)))
+					return hierarchicalToken.substring(0, paramStart+1)+hierarchicalToken.substring(nextControl+1);
+				else
+					return hierarchicalToken.substring(0, paramStart)+hierarchicalToken.substring(nextControl);
+		} else {
+			return hierarchicalToken;
+		}
+	}
+	
+	private static int nextControl(String hierarchicalToken, int paramStart) {
+		int eq = hierarchicalToken.indexOf(PlaceHandler.AND_SIGN, paramStart+1);
+		int per = hierarchicalToken.indexOf(Node.ID_SEPARATOR, paramStart+1);
+		
+		if(eq==-1) {
+			if(per==-1) {
+				return -1;
+			} else {
+				return per;
+			}
+		} else {
+			if(per==-1) {
+				return eq;
+			} else {
+				return Math.min(eq, per);
+			}
+		}
+	}
+
 	public static String appendChild(String hierarchicalToken, String childToken) {
 		if(hierarchicalToken.length()<1)
 			return childToken;

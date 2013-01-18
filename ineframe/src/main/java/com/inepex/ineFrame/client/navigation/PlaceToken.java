@@ -1,5 +1,6 @@
 package com.inepex.ineFrame.client.navigation;
 
+import java.util.List;
 import java.util.Map;
 
 public class PlaceToken {
@@ -16,6 +17,11 @@ public class PlaceToken {
 	}
 	
 	public PlaceToken appendParam(String name, String value){
+		token = PlaceHandlerHelper.appendParam(token, name, value);
+		return this;
+	}
+	
+	public PlaceToken appendParam(String name, List<String> value) {
 		token = PlaceHandlerHelper.appendParam(token, name, value);
 		return this;
 	}
@@ -42,5 +48,4 @@ public class PlaceToken {
 	public String getToken(){
 		return token;
 	}
-
 }
