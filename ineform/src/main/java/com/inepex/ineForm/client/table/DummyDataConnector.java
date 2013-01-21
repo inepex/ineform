@@ -19,6 +19,10 @@ public class DummyDataConnector extends IneDataConnector{
 	public DummyDataConnector(EventBus eventBus, String descriptorName) {
 		super(eventBus, descriptorName);
 	}
+	
+	public void showLoadingOnDisplays() {
+		updateRowCount(0, false);
+	}
 
 	public void setDisplayedItems(List<AssistedObject> items) {
 		if(items==null) 
