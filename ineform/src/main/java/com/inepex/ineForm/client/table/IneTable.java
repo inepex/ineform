@@ -513,6 +513,7 @@ public class IneTable extends HandlerAwareComposite {
 		    		List<Node<TableRDescBase>> descriptorNodes = tableRenderDescriptor.getRootNode().getChildren();
 			    	Node<TableRDescBase> modifiedNode = descriptorNodes.get(context.getColumn());
 			    	AssistedObjectHandler handler = handlerFactory.createHandler(ao);
+			    	if(value == null) value = false;
 			    	handler.set(modifiedNode.getNodeId(), !value);
 		    		checkBoxValueChangeListener.onCheckBoxValueChanged(ao);
 		    	}
