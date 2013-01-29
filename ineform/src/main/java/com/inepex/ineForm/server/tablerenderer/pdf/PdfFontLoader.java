@@ -12,7 +12,7 @@ public class PdfFontLoader {
 	private static final Logger _logger = LoggerFactory.getLogger(PdfFontLoader.class);
 	
 	private BaseFont baseFont;
-	private boolean inited=true;
+	private boolean inited=false;
 
 	
 	public BaseFont getBaseFont() {
