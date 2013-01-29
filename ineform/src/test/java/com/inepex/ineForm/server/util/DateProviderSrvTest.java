@@ -3,7 +3,7 @@ package com.inepex.ineForm.server.util;
 import org.junit.Test;
 
 import com.inepex.ineFrame.server.util.CETDateProviderSrv;
-import com.inepex.ineFrame.server.util.EnumBasedDateProviderSrv;
+import com.inepex.ineFrame.server.util.EnumBasedSessionScopedDateProvider;
 import com.inepex.ineFrame.server.util.TimeZoneEnum;
 
 public class DateProviderSrvTest {
@@ -20,7 +20,7 @@ public class DateProviderSrvTest {
 	
 	@Test
 	public void testEnumBasedateProvider() {
-		EnumBasedDateProviderSrv dateProvider = new EnumBasedDateProviderSrv();
+		EnumBasedSessionScopedDateProvider dateProvider = new EnumBasedSessionScopedDateProvider();
 		dateProvider.setTimeZoneEnumAndTimeZone(TimeZoneEnum.Europe_Budapest);
 		
 		CETDateTestCases.cetSummerEquality(dateProvider);

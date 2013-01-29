@@ -13,7 +13,7 @@ import com.inepex.ineFrame.shared.util.DateProvider;
  * 
  */
 @SessionScoped
-public class EnumBasedDateProviderSrv implements DateProvider {
+public class EnumBasedSessionScopedDateProvider implements DateProvider {
 	
 	private TimeZoneEnum timeZoneEnum;
 	private TimeZone tz=null;
