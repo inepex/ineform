@@ -6,7 +6,6 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
-import com.inepex.ineom.shared.util.DoubleUtil;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
@@ -67,7 +66,7 @@ public class NumericRelationValidator implements KeyValueObjectValidator{
 				} else {
 					secondVal = constval;
 				}
-				constvalAsString = Double.toString(DoubleUtil.stubToMaxDigits(2, secondVal));
+				constvalAsString = Double.toString(secondVal);
 				break;
 				
 			case LONG:
