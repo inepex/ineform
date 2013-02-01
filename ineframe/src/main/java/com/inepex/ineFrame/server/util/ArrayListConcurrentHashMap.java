@@ -61,4 +61,9 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 		List<K> list = ensureListById(id);
 		list.addAll(elements);
 	}
+	public boolean contains(T id, K element){
+		if(isListEmptyOrNullById(id)) return false;
+		List<K> list = get(id);
+		return list.contains(element);
+	}
 }
