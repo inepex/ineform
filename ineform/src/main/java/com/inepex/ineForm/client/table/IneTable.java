@@ -18,6 +18,7 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
@@ -156,6 +157,9 @@ public class IneTable extends HandlerAwareComposite {
 	private boolean batchColumnAddig = false; // faster rendering
 
 	protected final TableFieldRenderer fieldRenderer;
+	
+	protected String checkboxActiveHtml = "<input type=\"checkbox\" tabindex=\"-1\" checked/>";
+	protected String checkboxInactiveHtml = "<input type=\"checkbox\" tabindex=\"-1\"/>";
 
 	@AssistedInject
 	public IneTable(
@@ -497,17 +501,44 @@ public class IneTable extends HandlerAwareComposite {
 			return "";
 		}
 	};
-	private class EventCheckBoxCell extends CheckboxCell{
-		public EventCheckBoxCell() {
-			super(false, false);
+//	private class EventCheckBoxCell extends CheckboxCell{
+//		public EventCheckBoxCell() {
+//			super(false, false);
+//		}
+//		@Override
+//		public void onBrowserEvent(
+//				com.google.gwt.cell.client.Cell.Context context,
+//				Element parent, Boolean value, NativeEvent event,
+//				ValueUpdater<Boolean> valueUpdater) {
+//			int eventType = Event.as(event).getTypeInt();
+//		    if (eventType == Event.ONCHANGE){
+//		    	AssistedObject ao = dataConnector.getAssistedObjectByKey((Long)context.getKey());
+//		    	if(checkBoxValueChangeListener != null && ao != null){
+//		    		List<Node<TableRDescBase>> descriptorNodes = tableRenderDescriptor.getRootNode().getChildren();
+//			    	Node<TableRDescBase> modifiedNode = descriptorNodes.get(context.getColumn());
+//			    	AssistedObjectHandler handler = handlerFactory.createHandler(ao);
+//			    	if(value == null) value = false;
+//			    	handler.set(modifiedNode.getNodeId(), !value);
+//		    		checkBoxValueChangeListener.onCheckBoxValueChanged(ao);
+//		    	}
+//		    }
+//			super.onBrowserEvent(context, parent, value, event, valueUpdater);
+//		}
+//	}
+//	
+	private class IneCheckboxCell extends AbstractCell<Boolean> {
+
+		public IneCheckboxCell() {
+			super("click");
 		}
+		
 		@Override
 		public void onBrowserEvent(
 				com.google.gwt.cell.client.Cell.Context context,
 				Element parent, Boolean value, NativeEvent event,
 				ValueUpdater<Boolean> valueUpdater) {
 			int eventType = Event.as(event).getTypeInt();
-		    if (eventType == Event.ONCHANGE){
+		    if (eventType == Event.ONCLICK){
 		    	AssistedObject ao = dataConnector.getAssistedObjectByKey((Long)context.getKey());
 		    	if(checkBoxValueChangeListener != null && ao != null){
 		    		List<Node<TableRDescBase>> descriptorNodes = tableRenderDescriptor.getRootNode().getChildren();
@@ -517,16 +548,28 @@ public class IneTable extends HandlerAwareComposite {
 			    	handler.set(modifiedNode.getNodeId(), !value);
 		    		checkBoxValueChangeListener.onCheckBoxValueChanged(ao);
 		    	}
-		    }
+		    }			
 			super.onBrowserEvent(context, parent, value, event, valueUpdater);
 		}
+	
+		
+		@Override
+		public void render(com.google.gwt.cell.client.Cell.Context context, Boolean value, SafeHtmlBuilder sb) {
+			if (value){
+				sb.append(SafeHtmlUtils.fromSafeConstant(checkboxActiveHtml));
+			} else {
+				sb.append(SafeHtmlUtils.fromSafeConstant(checkboxInactiveHtml));
+			}
+		}
+		
 	}
+	
 	private class BooleanTableColumn extends Column<AssistedObject, Boolean> {
 
 		private final String key;
 		
 		public BooleanTableColumn(String key) {
-			super(new EventCheckBoxCell());
+			super(new IneCheckboxCell());
 			this.key = key;
 			setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		}
@@ -737,4 +780,14 @@ public class IneTable extends HandlerAwareComposite {
 	public void removeCheckBoxValueChangeListener(){
 		this.checkBoxValueChangeListener = null;
 	}
+	
+	public void setCheckboxHtml(String activeHtml, String inactiveHtml){
+		this.checkboxActiveHtml = activeHtml;
+		this.checkboxInactiveHtml = inactiveHtml;
+	}
+
+	public IneDataConnector getDataConnector() {
+		return dataConnector;
+	}
+	
 }
