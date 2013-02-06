@@ -133,7 +133,10 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			}
 			if(wrDesc.getPropValue(NumberTextBoxFW.WHOLEDIGITCONT)!=null) {
 				numberTextbox.setMaxWholeDigits(Integer.parseInt(wrDesc.getPropValue(NumberTextBoxFW.WHOLEDIGITCONT)));
-			}			
+			}
+			if(wrDesc.getPropValue(NumberTextBoxFW.ENABLE_NEGATIVE_NUMBER)!=null){
+				numberTextbox.setNegativeNumEnabled();
+			}
 			
 			createdWidget = numberTextbox;
 		} else if (widgetType.equals(FWTypes.RELATIONLIST)) {

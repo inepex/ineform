@@ -13,6 +13,7 @@ public class NumberTextBoxFW extends DenyingFormWidget {
 	
 	public static final String FRACTIONALDIGITCONT = "fractdigitcount";
 	public static final String WHOLEDIGITCONT = "wholedigitcount";
+	public static final String ENABLE_NEGATIVE_NUMBER = "negativeNumber";
 	
 	private static char decimalpoint = '.';
 	private static char decimalpoint2 = ',';
@@ -22,6 +23,7 @@ public class NumberTextBoxFW extends DenyingFormWidget {
 	private int maxWholeDigits = -1;
 
 	protected final TextBox textBox = new TextBox();
+	private boolean negativeNumEnabled = false;
 
 	public NumberTextBoxFW(FDesc fielddescriptor) {
 		this(fielddescriptor, false);
@@ -91,11 +93,15 @@ public class NumberTextBoxFW extends DenyingFormWidget {
 	
 	private void filterTextPreserveCaretPosition(String text) {
 		int origCurPos = textBox.getCursorPos();
-		
+		boolean negativeSignRemoved = false;
 		StringBuffer filteredSb = new StringBuffer();
 		String original = textBox.getText();
 			
     	int decimalpointAt = -1;
+    	if(negativeNumEnabled && text.charAt(0) == '-'){
+    		text = text.substring(1, text.length());
+    		negativeSignRemoved = true;
+    	}
     	for(int i=0; i < text.length(); i++) {
     		char ch = text.charAt(i);
     		if (isNumber(ch)) {
@@ -117,7 +123,9 @@ public class NumberTextBoxFW extends DenyingFormWidget {
 				origCurPos = decreaseIfBigger(origCurPos, filteredSb.length());
     		}
      	}
-    	
+    	if(negativeSignRemoved){
+    		filteredSb.insert(0, "-");
+    	}
     	if (filteredSb.toString().equals(original))
     		return;
     	
@@ -207,5 +215,9 @@ public class NumberTextBoxFW extends DenyingFormWidget {
       		textBox.setText(value.toString());
       	}
    }
+
+	public void setNegativeNumEnabled() {
+		this.negativeNumEnabled  = true;
+	}
     
 }
