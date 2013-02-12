@@ -2,8 +2,6 @@ package com.inepex.ineForm.client.table;
 
 import java.util.HashMap;
 
-import org.apache.tools.ant.taskdefs.condition.IsFileSelected;
-
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
