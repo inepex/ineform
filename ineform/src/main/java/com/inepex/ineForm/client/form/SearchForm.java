@@ -77,7 +77,8 @@ public class SearchForm extends IneForm {
 	private void setSearchParamsForDataConnector(){
 		AssistedObject currentState;
 		currentState = searchForm.getValues(searchForm.getInitialOrEmptyData());
-		dataConnector.setSearchParametersAndUpdate(currentState);
+		dataConnector.setSearchParameters(currentState);
+		dataConnector.update();
 	}
 	
 	private void resetFieldsAndSendSearch(){

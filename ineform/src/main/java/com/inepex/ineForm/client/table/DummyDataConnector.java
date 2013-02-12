@@ -19,11 +19,12 @@ public class DummyDataConnector extends IneDataConnector{
 	public DummyDataConnector(EventBus eventBus, String descriptorName) {
 		super(eventBus, descriptorName);
 	}
-	
-	public void showLoadingOnDisplays() {
-		updateRowCount(0, false);
-	}
 
+	public void startLoading(){
+		if (getFirstDataDisplay().getRowCount() == 0) reset();
+		getFirstDataDisplay().setVisibleRangeAndClearData(getFirstDataDisplay().getVisibleRange(), false);
+	}
+	
 	public void setDisplayedItems(List<AssistedObject> items) {
 		if(items==null) 
 			this.items  = new ArrayList<AssistedObject>();

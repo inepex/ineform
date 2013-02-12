@@ -97,6 +97,7 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	private void buildManipulator() {
 		initilaizeIneTableAndBuildCustom();
 		ineTable.renderTable();
+		if (ineDataConnector != null) ineDataConnector.update();
 	}
 	
 	public void setAutoUpdating(PushedEventProvider pEventProvider) {

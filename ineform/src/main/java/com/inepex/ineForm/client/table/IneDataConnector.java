@@ -2,12 +2,12 @@ package com.inepex.ineForm.client.table;
 
 import java.util.HashMap;
 
+import org.apache.tools.ant.taskdefs.condition.IsFileSelected;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifiedEvent;
 import com.inepex.ineForm.client.table.ServerSideDataConnector.DataConnectorReadyCallback;
-import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -50,55 +50,55 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 			if (currentCallback != null)
 				currentCallback.onManipulationResult(result);
 
-			updateDisplaysAndfireListChangedEvent();
+			updateDisplaysAndfireListChangedEventV2();
 		}
 
 	}
 
-	private class ObjectListSuccess extends SuccessCallback<ObjectListResult> {
-		private final boolean updateDisplays;
+//	private class ObjectListSuccess extends SuccessCallback<ObjectListResult> {
+//		private final boolean updateDisplays;
+//
+//		public ObjectListSuccess(boolean updateDisplays) {
+//			this.updateDisplays = updateDisplays;
+//			
+//		}
+//
+//		@Override
+//		public void onSuccess(ObjectListResult result) {		
+//			updateWithObjectListResultCount(result, updateDisplays);
+//			resultMap.clear();
+//			for(AssistedObject obj : result.getList()){
+//				resultMap.put(obj.getId(), obj);
+//			}
+//		}
+//	}
 
-		public ObjectListSuccess(boolean updateDisplays) {
-			this.updateDisplays = updateDisplays;
-			
-		}
-
-		@Override
-		public void onSuccess(ObjectListResult result) {		
-			updateWithObjectListResultCount(result, updateDisplays);
-			resultMap.clear();
-			for(AssistedObject obj : result.getList()){
-				resultMap.put(obj.getId(), obj);
-			}
-		}
-	}
-
-	private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
-		HasData<AssistedObject> display;
-		private final DataConnectorReadyCallback readyCallback;
-
-		public ObjectRangeSuccess(HasData<AssistedObject> display, DataConnectorReadyCallback readyCallback) {
-			this.display = display;
-			this.readyCallback = readyCallback;
-		}
-
-		@Override
-		public void onSuccess(ObjectListResult result) {
-			lastResult = result;
-			resultMap.clear();
-			for(AssistedObject obj : result.getList()){
-				resultMap.put(obj.getId(), obj);
-			}
-			updateSpecificDisplay(result, display);
-			//TODO: rethink the use of statusindicator
-			if (!result.isSuccess() && customListingStatusIndicator != null){
-				customListingStatusIndicator.onGeneralFailure("");
-			}
-			
-			if (readyCallback != null)
-				readyCallback.ready();
-		}
-	}
+//	private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
+//		HasData<AssistedObject> display;
+//		private final DataConnectorReadyCallback readyCallback;
+//
+//		public ObjectRangeSuccess(HasData<AssistedObject> display, DataConnectorReadyCallback readyCallback) {
+//			this.display = display;
+//			this.readyCallback = readyCallback;
+//		}
+//
+//		@Override
+//		public void onSuccess(ObjectListResult result) {
+//			lastResult = result;
+//			resultMap.clear();
+//			for(AssistedObject obj : result.getList()){
+//				resultMap.put(obj.getId(), obj);
+//			}
+//			updateSpecificDisplay(result, display);
+//			//TODO: rethink the use of statusindicator
+//			if (!result.isSuccess() && customListingStatusIndicator != null){
+//				customListingStatusIndicator.onGeneralFailure("");
+//			}
+//			
+//			if (readyCallback != null)
+//				readyCallback.ready();
+//		}
+//	}
 
 	private final String descriptorName;
 	protected final EventBus eventBus;
@@ -124,7 +124,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	private boolean isPaging = true;
 	
-	private DataConnectorReadyCallback callback;
+	private DataConnectorReadyCallback callback;	
+	
+	private boolean firstCall = true;
 
 	public IneDataConnector(EventBus eventBus, String descriptorName) {
 		this.eventBus = eventBus;
@@ -264,75 +266,66 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	}
 
-	protected void updateDisplaysAndfireListChangedEvent() {
-		for (HasData<AssistedObject> display : getDataDisplays()) {
-			onRangeChanged(display);
-		}
-		eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));
-	}
+//	protected void updateDisplaysAndfireListChangedEvent() {
+//		for (HasData<AssistedObject> display : getDataDisplays()) {
+//			onRangeChanged(display);
+//		}
+//		eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));
+//	}
 
 	protected boolean isShowDeletedActive() {
 		return showDeletedActive;
 	}
+	
+//	public void setSearchParametersAndUpdate(AssistedObject searchParameters) {
+//		this.searchParameters = searchParameters;
+//
+//		boolean updateDisplays = lastRowCount != -1;
+//		// we should only update the displays if the rowCount have already been
+//		// set at least once
+//		update(updateDisplays);
+//	}
 
-	public void setSearchParametersAndUpdate(AssistedObject searchParameters) {
-		this.searchParameters = searchParameters;
+//	public void update(boolean updateDisplays) {
+//		update(updateDisplays, null);
+//	}
 
-		boolean updateDisplays = lastRowCount != -1;
-		// we should only update the displays if the rowCount have already been
-		// set at least once
-		update(updateDisplays);
-	}
+//	public void update(boolean updateDisplays, DataConnectorReadyCallback callback) {
+//		this.callback = callback;
+//		createDefaultListActionIfNull();
+//
+//		if (!isPaging) {
+//			if (updateDisplays)
+//				updateDisplaysAndfireListChangedEvent();
+//			return;
+//		}
+//
+//		// if table is a paging table than we should query count
+//		setListActionDetails(objectList, searchParameters, 0, 0, true);
+//		executeObjectList(objectList, new ObjectListSuccess(updateDisplays), customListingStatusIndicator);
+//	}
 
-	public void update(boolean updateDisplays) {
-		update(updateDisplays, null);
-	}
-
-	public void update(boolean updateDisplays, DataConnectorReadyCallback callback) {
-		this.callback = callback;
-		createDefaultListActionIfNull();
-
-		if (!isPaging) {
-			if (updateDisplays)
-				updateDisplaysAndfireListChangedEvent();
-			return;
-		}
-
-		// if table is a paging table than we should query count
-		setListActionDetails(objectList, searchParameters, 0, 0, true);
-		executeObjectList(objectList, new ObjectListSuccess(updateDisplays), customListingStatusIndicator);
-	}
-
-	private void updateWithObjectListResultCount(ObjectListResult result, boolean updateDisplays) {
-		updateRowCount((int) (null != result ? result.getAllResultCount() : 0), true);
-		if (updateDisplays)
-			updateDisplaysAndfireListChangedEvent();
-	}
+//	private void updateWithObjectListResultCount(ObjectListResult result, boolean updateDisplays) {
+//		updateRowCount((int) (null != result ? result.getAllResultCount() : 0), true);
+//		if (updateDisplays)
+//			updateDisplaysAndfireListChangedEvent();
+//	}
 
 	@Override
 	protected void onRangeChanged(HasData<AssistedObject> display) {
-		createDefaultListActionIfNull();
-		setListActionDetails(objectList, searchParameters, display.getVisibleRange().getStart(), display
-				.getVisibleRange()
-				.getLength(), false);
-
-		executeObjectList(objectList, new ObjectRangeSuccess(display, callback), customListingStatusIndicator);
+		update();
+//		createDefaultListActionIfNull();
+//		setListActionDetails(objectList, searchParameters, display.getVisibleRange().getStart(), display
+//				.getVisibleRange()
+//				.getLength(), false);
+//
+//		executeObjectList(objectList, new ObjectRangeSuccess(display, callback), customListingStatusIndicator);
 	}
 
 	protected void updateSpecificDisplay(ObjectListResult result, HasData<AssistedObject> display) {
 		updateRowData(display, display.getVisibleRange().getStart(), result.getList());
 		if (!isPaging)
 			updateRowCount(result.getList().size(), true);
-		onNewData(result);
-	}
-
-	/**
-	 * Override this method to be notified about new result of
-	 * {@link ObjectListAction}
-	 * 
-	 * @param objectListResult
-	 */
-	protected void onNewData(ObjectListResult objectListResult) {
 	}
 
 	public ObjectListResult getLastResult() {
@@ -340,6 +333,89 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 	public AssistedObject getAssistedObjectByKey(Long key){
 		return resultMap.get(key);
+	}
+	
+	protected HasData<AssistedObject> getFirstDataDisplay(){
+		if (getDataDisplays() != null && getDataDisplays().size() > 0){
+			return getDataDisplays().iterator().next();
+		} else {
+			throw new RuntimeException("DataDisplay not set on IneDataConnector. Call IneTable.renderTable() before updating dataConnector");
+		}
+	}
+	
+	public void update(boolean dummy){
+		update();
+	}
+	
+	public void update(boolean dummy, DataConnectorReadyCallback callback){
+		update(callback);
+	}
+	
+	public void update(){
+		update(null);
+	}
+	
+	public void update(DataConnectorReadyCallback callback){
+		this.callback = callback;
+		if (getFirstDataDisplay().getRowCount() == 0) reset();
+		getFirstDataDisplay().setVisibleRangeAndClearData(getFirstDataDisplay().getVisibleRange(), false);
+		if (!firstCall){
+			createDefaultListActionIfNull();
+			setListActionDetails(objectList, searchParameters, getFirstDataDisplay().getVisibleRange().getStart(), 
+					getFirstDataDisplay().getVisibleRange().getLength(), isPaging);
+			executeObjectList(objectList, new ObjectRangeSuccessV2(), customListingStatusIndicator);
+		}
+	}
+	
+	public void setSearchParameters(AssistedObject searchParameters){
+		this.searchParameters = searchParameters;
+	}
+	
+	protected void updateDisplaysAndfireListChangedEventV2() {
+//		for (HasData<AssistedObject> display : getDataDisplays()) {
+//			display.setRowData(0, values)
+//			updateRowData(display, display.get)
+//			onRangeChanged(display);
+//		}
+//		eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));
+	}
+	
+	public void addDataDisplay(final HasData<AssistedObject> display) {
+		super.addDataDisplay(display);
+		firstCall = false;
+	}
+	
+	protected void reset(){
+		getFirstDataDisplay().setRowCount(1);
+	}
+	
+	private class ObjectRangeSuccessV2 extends SuccessCallback<ObjectListResult> {
+
+		@Override
+		public void onSuccess(ObjectListResult result) {
+			if (isPaging) {
+				getFirstDataDisplay().setRowCount(result.getAllResultCount().intValue());
+				updateRowCount(result.getAllResultCount().intValue(), true);
+			}
+			
+			lastResult = result;
+			resultMap.clear();
+			for(AssistedObject obj : result.getList()){
+				resultMap.put(obj.getId(), obj);
+			}
+			
+			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), result.getList());
+						
+			//TODO: rethink the use of statusindicator
+			if (!result.isSuccess() && customListingStatusIndicator != null){
+				customListingStatusIndicator.onGeneralFailure("");
+			}
+			
+			if (callback != null)
+				callback.ready();
+		}
+		
+		
 	}
 
 }

@@ -93,6 +93,7 @@ public class IneFormI18n extends I18nModule {
 	public String imageuploadError = "Error during upload. See server log!";
 	public String imageuploadInvalidFileFormat = "Invalid file format.";
 	public String imageuploadTitle = "Upload";
+	public String inetable_noresult = "No result found";
 	public String infoDialogTitle = "Message";
 	public String loading = "Loading data...";
 	public String minutes = "minutes";
@@ -745,6 +746,15 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String imageuploadTitle() {
 		return moduleProvider.get().imageuploadTitle;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> No result found
+	* <u><i>Magyarul:</i></u> Nincs találat
+	*/
+	public static String inetable_noresult() {
+		return moduleProvider.get().inetable_noresult;
 	}
 	
 	/**

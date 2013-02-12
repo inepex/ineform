@@ -72,7 +72,7 @@ public class SortableIneTable extends IneTable {
 				if(pager!=null) pager.firstPage();
 				dataConnector.setOrderKey(orderKey);
 				dataConnector.setOrderDescending(descending);
-				dataConnector.update(true);
+				dataConnector.update();
 			}
 		});
 		return header;

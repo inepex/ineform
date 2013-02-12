@@ -66,6 +66,7 @@
 "imageuploadError";"";"Error during upload. See server log!";"Hiba a feltöltés során. Ellenőrízze a szerver beállításait."
 "imageuploadInvalidFileFormat";"";"Invalid file format.";"Nem megfelelő fájlformátum"
 "imageuploadTitle";"";"Upload";"Feltöltés"
+"inetable_noresult";"";"No result found";"Nincs találat"
 "infoDialogTitle";"";"Message";"Üzenet"
 "loading";"";"Loading data...";"Adatok betöltése..."
 "minutes";"";"minutes";"perc"

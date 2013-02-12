@@ -15,6 +15,8 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.TableSectionElement;
+import com.google.gwt.dom.client.Style.Visibility;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -29,7 +31,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
@@ -42,6 +44,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.events.CheckBoxValueChangeListener;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
@@ -106,26 +109,8 @@ public class IneTable extends HandlerAwareComposite {
 
 	}
 
-	private RowCountChangeEvent.Handler defaultEmptyRowsHandler = new RowCountChangeEvent.Handler() {
-
-		@Override
-		public void onRowCountChange(RowCountChangeEvent event) {
-			if (event.getNewRowCount() == 0) {
-				onEmptyRows();
-			} else {
-				cellTable.setVisible(true);
-				if (showPager)
-					pager.setVisible(true);
-				if (emptyRowsWidget != null)
-					emptyRowsWidget.setVisible(false);
-			}
-		}
-
-	};
-
 	protected final FlowPanel mainPanel = new FlowPanel();
 	protected final CellTable<AssistedObject> cellTable;
-	private Widget emptyRowsWidget = null;
 
 	protected String commandsTitle = "";
 	protected List<UserCommand> commands = new ArrayList<IneTable.UserCommand>();
@@ -173,7 +158,6 @@ public class IneTable extends HandlerAwareComposite {
 			getTRD(descriptorStore, objectDescName, tableRenderDescriptorName),
 			connector,
 			fieldRenderer);
-
 	}
 
 	/**
@@ -214,9 +198,12 @@ public class IneTable extends HandlerAwareComposite {
 			@Override
 			public void setRowData(int start, java.util.List<? extends AssistedObject> values) {
 				super.setRowData(start, values);
-				
-				if (values.isEmpty()) {
-					onEmptyRows();
+				if (values.size() == 0){
+					if (pager != null) pager.setVisible(false);
+					getTableHeadElement().getStyle().setVisibility(Visibility.HIDDEN);					
+				} else {
+					if (pager != null) pager.setVisible(true);
+					getTableHeadElement().getStyle().setVisibility(Visibility.VISIBLE);
 				}
 			};
 
@@ -228,9 +215,12 @@ public class IneTable extends HandlerAwareComposite {
 					// dont need redraw while initializing table columns
 				}
 			};
+			
+			 @Override
+			protected TableSectionElement getTableHeadElement() {
+				 return super.getTableHeadElement();
+			}
 		};
-
-		cellTable.addRowCountChangeHandler(defaultEmptyRowsHandler);
 
 		this.objectDescriptorName = objectDescriptorName;
 		this.tableRenderDescriptor = tableRenderDescriptor != null ? tableRenderDescriptor : descStore.getDefaultTypedDesc(
@@ -240,15 +230,6 @@ public class IneTable extends HandlerAwareComposite {
 
 		initWidget(mainPanel);
 		mainPanel.add(cellTable);
-	}
-
-	private void onEmptyRows() {
-		if (emptyRowsWidget != null) {
-			emptyRowsWidget.setVisible(true);
-			cellTable.setVisible(false);
-			if (showPager)
-				pager.setVisible(false);
-		}
 	}
 
 	public void setCommandsTitle(String commandsTitle) {
@@ -339,6 +320,9 @@ public class IneTable extends HandlerAwareComposite {
 		dataConnector.addDataDisplay(cellTable);
 
 		cellTable.setRowStyles(new PointerAndCustomRowStyleProvider());
+		
+		//Set default empty widget
+		cellTable.setEmptyTableWidget(new Label(IneFormI18n.inetable_noresult()));
 	}
 
 	private void initTableColumns() {
@@ -757,12 +741,6 @@ public class IneTable extends HandlerAwareComposite {
 		return multiSelectionModel;
 	}
 
-	public void setEmptyRowsWidget(Widget widget) {
-		emptyRowsWidget = widget;
-		emptyRowsWidget.setVisible(false);
-		mainPanel.add(emptyRowsWidget);
-	}
-
 	public HandlerRegistration addRowCountChangedHandler(RowCountChangeEvent.Handler handler) {
 		return cellTable.addRowCountChangeHandler(handler);
 	}
@@ -788,6 +766,5 @@ public class IneTable extends HandlerAwareComposite {
 
 	public IneDataConnector getDataConnector() {
 		return dataConnector;
-	}
-	
+	}	
 }
