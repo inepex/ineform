@@ -65,6 +65,11 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
  * A CellTable that automatically renders itself according to the given
  * ObjectRenderDescriptor and TableRenderDescriptor
  * 
+ * Usage:
+ * 1. set attributes
+ * 2. call renderTable() 
+ * 3. call dataConnector.update() to set or refresh table data 
+ * 
  * IMPORTANT: Don't forget to call renderTable() before use!
  * 
  * @author SoTi
@@ -274,6 +279,9 @@ public class IneTable extends HandlerAwareComposite {
 
 	// **** Logic functions ****//
 
+	/**
+	 * initialize inetable columns. To set or refresh table data, call dataConnector.update().
+	 */
 	public void renderTable() {
 		if (!rendered) {
 			cellTable.addStyleName(ResourceHelper.ineformRes().style().ineTable());
