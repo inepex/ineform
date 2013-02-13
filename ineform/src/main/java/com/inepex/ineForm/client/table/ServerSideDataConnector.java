@@ -75,7 +75,8 @@ public class ServerSideDataConnector extends IneDataConnector {
 
 		@Override
 		public void onCastedSuccess(ObjectListActionResult result) {
-			updateSpecificDisplay(result, display);
+			updateLastResult(result);
+			updateDisplayToLastResult();
 		}
 
 		@Override
