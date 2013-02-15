@@ -4,7 +4,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
-import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Renderer;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -12,28 +11,42 @@ import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineFrame.client.dialog.InfoDialog;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 
 public class ExportUtil {
 
 	public static class ExportClickHandler implements ClickHandler{
 
-		ObjectListAction action;
+		ObjectList action;
 		String fileName;
+		String tableRDescName;		
 		IneDispatch dispatcher;
 		Renderer rendererType;
 		Boolean withHeader;
 		Boolean appendDateToFileName;
-				
+		
 		public ExportClickHandler(
 				IneDispatch dispatcher
-				, ObjectListAction action
+				, ObjectList action
 				, String fileName
+				, Renderer rendererType
+				, Boolean withHeader
+				, Boolean appendDateToFileName) {
+			this(dispatcher, action, fileName, null, rendererType, withHeader, appendDateToFileName);
+		}
+		
+		public ExportClickHandler(
+				IneDispatch dispatcher
+				, ObjectList action
+				, String fileName
+				, String tableRDescName
 				, Renderer rendererType
 				, Boolean withHeader
 				, Boolean appendDateToFileName) {
 			super();
 			this.action = action;
 			this.fileName = fileName;
+			this.tableRDescName = tableRDescName;
 			this.dispatcher = dispatcher;
 			this.rendererType = rendererType;
 			this.withHeader = withHeader;
@@ -46,7 +59,7 @@ public class ExportUtil {
 					dispatcher
 					, action
 					, fileName
-					, null
+					, tableRDescName
 					, withHeader
 					, rendererType
 					, appendDateToFileName);
@@ -64,7 +77,7 @@ public class ExportUtil {
 	 */
 	public static void setActionForExportAndOpenDownloadDialog(
 			IneDispatch dispatcher
-			, ObjectListAction action
+			, ObjectList action
 			, String fileName
 			, String tableRDescName
 			, boolean withHeader

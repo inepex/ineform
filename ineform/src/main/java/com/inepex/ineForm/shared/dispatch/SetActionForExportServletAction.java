@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 
 
 public class SetActionForExportServletAction implements Action<GenericActionResult>{
@@ -15,7 +16,7 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 	}
 	
 	
-	ObjectListAction actionForCsvServlet;
+	ObjectList actionForCsvServlet;
 	String fileName = "export";
 	String tableRDescName = null;
 	boolean withHeader = false;
@@ -37,7 +38,7 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 	}
 
 	public SetActionForExportServletAction(
-			ObjectListAction actionForCsvServlet
+			ObjectList actionForCsvServlet
 			, String fileName
 			, String tableRDescName
 			, boolean withHeader) {
@@ -48,7 +49,7 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 		this.withHeader = withHeader;
 	}
 	
-	public SetActionForExportServletAction(ObjectListAction actionForCsvServlet,
+	public SetActionForExportServletAction(ObjectList actionForCsvServlet,
 			String fileName, String tableRDescName, boolean withHeader,
 			Renderer renderer, boolean appendDate) {
 		super();
@@ -60,7 +61,7 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 		this.appendDate=appendDate;
 	}
 
-	public ObjectListAction getActionForCsvServlet() {
+	public ObjectList getActionForCsvServlet() {
 		return actionForCsvServlet;
 	}
 
