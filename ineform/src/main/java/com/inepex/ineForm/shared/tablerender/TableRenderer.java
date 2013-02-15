@@ -70,10 +70,10 @@ public abstract class TableRenderer {
 			renderLineStart();
 			for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
 					.getChildren()) {
-				renderFieldStart();
 				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 					continue;
+				renderFieldStart();
 				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
