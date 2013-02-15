@@ -295,11 +295,13 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 	
 	protected void updateDisplayToLastResult() {
-		if (isPaging) {
-			getFirstDataDisplay().setRowCount(lastResult.getAllResultCount().intValue());
-			updateRowCount(lastResult.getAllResultCount().intValue(), true);
+		if (getDataDisplays() != null && getDataDisplays().size() > 0){
+			if (isPaging) {
+				getFirstDataDisplay().setRowCount(lastResult.getAllResultCount().intValue());
+				updateRowCount(lastResult.getAllResultCount().intValue(), true);
+			}
+			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), lastResult.getList());
 		}
-		updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), lastResult.getList());
 	}
 	
 	private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
