@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.table;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gwt.event.shared.EventBus;
@@ -74,8 +75,6 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	protected AsyncStatusIndicator customListingStatusIndicator = null;
 	protected AsyncStatusIndicator customManipulateStatusIndicator = null;
 	
-	protected ObjectListResult lastResult;
-
 	private boolean isPaging = true;
 	
 	private DataConnectorReadyCallback callback;	
@@ -228,10 +227,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	protected void onRangeChanged(HasData<AssistedObject> display) {
 		update();
 	}
-
-	public ObjectListResult getLastResult() {
-		return lastResult;
+	
+	public HashMap<Long, AssistedObject> getResultMap(){
+		return resultMap;
 	}
+	
 	public AssistedObject getAssistedObjectByKey(Long key){
 		return resultMap.get(key);
 	}
@@ -287,7 +287,6 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 	
 	protected void updateLastResult(ObjectListResult result){
-		lastResult = result;
 		resultMap.clear();
 		for(AssistedObject obj : result.getList()){
 			resultMap.put(obj.getId(), obj);
@@ -297,10 +296,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	protected void updateDisplayToLastResult() {
 		if (getDataDisplays() != null && getDataDisplays().size() > 0){
 			if (isPaging) {
-				getFirstDataDisplay().setRowCount(lastResult.getAllResultCount().intValue());
-				updateRowCount(lastResult.getAllResultCount().intValue(), true);
+				getFirstDataDisplay().setRowCount(resultMap.size());
+				updateRowCount(resultMap.size(), true);
 			}
-			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), lastResult.getList());
+			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), 
+					new ArrayList<AssistedObject>(resultMap.values()));
 		}
 	}
 	
