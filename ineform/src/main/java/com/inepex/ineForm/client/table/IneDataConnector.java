@@ -2,6 +2,7 @@ package com.inepex.ineForm.client.table;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -38,12 +39,14 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 						&& currentManipulation.getObject().isNew()){
 					
 					updateRowCount(lastRowCount + 1, true);
-					resultMap.put(result.getObjectsNewState().getId(), result.getObjectsNewState());
+					resultMap.put(result.getObjectsNewState().getId(), resultList.size());
+					resultList.add(result.getObjectsNewState());					
 					
 				}
 				
 				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0){
 					updateRowCount(lastRowCount - 1, true);
+					resultList.remove(resultMap.get(currentManipulation.getObject().getId()));
 					resultMap.remove(currentManipulation.getObject().getId());
 				}
 			}
@@ -67,8 +70,13 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	protected AssistedObject searchParameters;
 	
-	protected HashMap<Long, AssistedObject> resultMap = new HashMap<Long, AssistedObject>();
-
+	/**
+	 * map assisted object id to list index
+	 */
+	protected HashMap<Long, Integer> resultMap = new HashMap<Long, Integer>();
+	
+	protected List<AssistedObject> resultList = new ArrayList<AssistedObject>();
+	
 	protected ObjectList objectList = null;
 	protected ObjectManipulation objectManipulation = null;
 
@@ -228,12 +236,12 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		update();
 	}
 	
-	public HashMap<Long, AssistedObject> getResultMap(){
-		return resultMap;
+	public List<AssistedObject> getResultList(){
+		return resultList;
 	}
 	
 	public AssistedObject getAssistedObjectByKey(Long key){
-		return resultMap.get(key);
+		return resultList.get(resultMap.get(key));
 	}
 	
 	protected HasData<AssistedObject> getFirstDataDisplay(){
@@ -287,9 +295,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 	
 	protected void updateLastResult(ObjectListResult result){
+		resultList.clear();
 		resultMap.clear();
 		for(AssistedObject obj : result.getList()){
-			resultMap.put(obj.getId(), obj);
+			resultMap.put(obj.getId(), resultList.size());
+			resultList.add(obj);			
 		}
 	}
 	
@@ -300,7 +310,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 				updateRowCount(resultMap.size(), true);
 			}
 			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), 
-					new ArrayList<AssistedObject>(resultMap.values()));
+					resultList);
 		}
 	}
 	
