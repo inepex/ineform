@@ -77,6 +77,8 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	
 	protected List<AssistedObject> resultList = new ArrayList<AssistedObject>();
 	
+	protected Long rowCount;
+	
 	protected ObjectList objectList = null;
 	protected ObjectManipulation objectManipulation = null;
 
@@ -295,6 +297,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 	
 	protected void updateLastResult(ObjectListResult result){
+		rowCount = result.getAllResultCount();
 		resultList.clear();
 		resultMap.clear();
 		for(AssistedObject obj : result.getList()){
@@ -306,8 +309,8 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	protected void updateDisplayToLastResult() {
 		if (getDataDisplays() != null && getDataDisplays().size() > 0){
 			if (isPaging) {
-				getFirstDataDisplay().setRowCount(resultMap.size());
-				updateRowCount(resultMap.size(), true);
+				getFirstDataDisplay().setRowCount(rowCount.intValue());
+				updateRowCount(rowCount.intValue(), true);
 			}
 			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), 
 					resultList);
