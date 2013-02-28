@@ -121,7 +121,6 @@ public class ListBoxFW extends AbstractListBoxFW {
 	}
 
 	private void loadDataFromValueRangeProvider(){
-		System.out.println("--------------------------------------------");
 		if (valueRangeProvider != null) {
 			listBox.setEnabled(false);
 			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
