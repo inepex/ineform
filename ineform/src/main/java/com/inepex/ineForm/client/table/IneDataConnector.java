@@ -37,16 +37,15 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 			if (result!=null && result.isSuccess() && (result.getValidationResult()==null || result.getValidationResult().isValid())) {
 				if (currentManipulation.getObject()!=null
 						&& currentManipulation.getObject().isNew()){
-					
-					updateRowCount(lastRowCount + 1, true);
+					rowCount++;
 					resultMap.put(result.getObjectsNewState().getId(), resultList.size());
 					resultList.add(result.getObjectsNewState());					
 					
 				}
 				
-				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && lastRowCount > 0){
-					updateRowCount(lastRowCount - 1, true);
-					resultList.remove(resultMap.get(currentManipulation.getObject().getId()));
+				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && rowCount > 0){
+					--rowCount;
+					resultList.remove(resultMap.get(currentManipulation.getObject().getId()).intValue());
 					resultMap.remove(currentManipulation.getObject().getId());
 				}
 			}
@@ -64,7 +63,6 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	protected boolean suppotsIsDeleted = false;
 	protected boolean showDeletedActive = false;
 
-	protected int lastRowCount = -1;
 	protected String orderKey = null;
 	protected boolean orderDescending = false;
 
@@ -145,12 +143,6 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	public static interface ManipulateResultCallback {
 		void onManipulationResult(ObjectManipulationResult result);
-	}
-
-	@Override
-	public void updateRowCount(int size, boolean exact) {
-		this.lastRowCount = size;
-		super.updateRowCount(size, exact);
 	}
 
 	protected void createDefaultListActionIfNull() {
