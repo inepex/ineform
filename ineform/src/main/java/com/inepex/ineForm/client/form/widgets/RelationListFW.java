@@ -1,6 +1,7 @@
 package com.inepex.ineForm.client.form.widgets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.allen_sauer.gwt.dnd.client.DragEndEvent;
@@ -186,10 +187,12 @@ public class RelationListFW extends DenyingFormWidget {
 	
 	@Override
 	public void setListValue(IneList value) {
-		if (value == null || value.getRelationList() == null)
-			return;
+		if (value == null || value.getRelationList() == null) {
+			relationList.setRelations(Collections.<Relation>emptyList());
+		} else {
+			relationList.setRelations(value.getRelationList());
+		}
 		
-		relationList.setRelations(value.getRelationList());
 		reRenderRelations();
 	}
 	

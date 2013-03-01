@@ -30,6 +30,9 @@ public class RelationList {
 	}
 	
 	public void setRelations(List<Relation> relations){
+		changes.clear();
+		this.relations.clear();
+		
 		if (supportsOrdering){
 			TreeMap<Long, Relation> orderedRelationList = new TreeMap<Long, Relation>();
 			for (Relation relation : relations) {
