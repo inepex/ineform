@@ -75,7 +75,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	
 	protected List<AssistedObject> resultList = new ArrayList<AssistedObject>();
 	
-	protected Long rowCount;
+	protected Long rowCount = new Long(0L);
 	
 	protected ObjectList objectList = null;
 	protected ObjectManipulation objectManipulation = null;
