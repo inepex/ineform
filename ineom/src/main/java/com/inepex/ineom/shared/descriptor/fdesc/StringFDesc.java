@@ -43,4 +43,10 @@ public class StringFDesc extends FDesc implements Serializable, IsSerializable {
 		validatorNames.add(KeyValueObjectValidationManager.EMAIL);
 		return this;
 	}
+	
+	@Override
+	public StringFDesc addProp(String name, String value) {
+		super.addProp(name, value);
+		return this;
+	}
 }
