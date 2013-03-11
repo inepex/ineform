@@ -33,4 +33,10 @@ public class WidgetRDesc extends FormRDescBase {
 		addProp(SimpleTableFormUnit.WIDTH, pixel+"px");
 		return this;
 	}
+	
+	@Override
+	public WidgetRDesc addProp(String name, String value) {
+		super.addProp(name, value);
+		return this;
+	}
 }
