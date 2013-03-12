@@ -26,10 +26,50 @@ public class DummyDataConnector extends IneDataConnector{
 	}
 	
 	public void setDisplayedItems(List<AssistedObject> items) {
-		if(items==null) 
+		if(items==null) { 
 			this.items  = new ArrayList<AssistedObject>();
-		else
+		} else {
 			this.items = items;
+		}
+		
+		updateLastResult(new ObjectListResult() {
+			
+			@Override
+			public List<AssistedObject> getList() {
+				return DummyDataConnector.this.items;
+			}
+			
+			@Override
+			public Long getAllResultCount() {
+				return (long) DummyDataConnector.this.items.size();
+			}
+			
+			@Override
+			public Boolean isSuccess() {
+				return true;
+			}
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public void setList(List<AssistedObject> list) {
+			}
+			
+			@Override
+			public void setAllResultCount(Long allResultCount) {
+			}
+			
+			@Override
+			public void setSuccess(Boolean success) {
+			}
+			
+			@Override
+			public void setMessage(String message) {
+			}
+		});
 		
 		update(true);
 	}

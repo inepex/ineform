@@ -523,7 +523,7 @@ public class IneTable extends HandlerAwareComposite {
 		
 		@Override
 		public void render(com.google.gwt.cell.client.Cell.Context context, Boolean value, SafeHtmlBuilder sb) {
-			if (value){
+			if (Boolean.TRUE.equals(value)){
 				sb.append(SafeHtmlUtils.fromSafeConstant(checkboxActiveHtml));
 			} else {
 				sb.append(SafeHtmlUtils.fromSafeConstant(checkboxInactiveHtml));
