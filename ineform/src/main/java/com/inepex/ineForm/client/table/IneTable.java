@@ -493,31 +493,7 @@ public class IneTable extends HandlerAwareComposite {
 			return "";
 		}
 	};
-//	private class EventCheckBoxCell extends CheckboxCell{
-//		public EventCheckBoxCell() {
-//			super(false, false);
-//		}
-//		@Override
-//		public void onBrowserEvent(
-//				com.google.gwt.cell.client.Cell.Context context,
-//				Element parent, Boolean value, NativeEvent event,
-//				ValueUpdater<Boolean> valueUpdater) {
-//			int eventType = Event.as(event).getTypeInt();
-//		    if (eventType == Event.ONCHANGE){
-//		    	AssistedObject ao = dataConnector.getAssistedObjectByKey((Long)context.getKey());
-//		    	if(checkBoxValueChangeListener != null && ao != null){
-//		    		List<Node<TableRDescBase>> descriptorNodes = tableRenderDescriptor.getRootNode().getChildren();
-//			    	Node<TableRDescBase> modifiedNode = descriptorNodes.get(context.getColumn());
-//			    	AssistedObjectHandler handler = handlerFactory.createHandler(ao);
-//			    	if(value == null) value = false;
-//			    	handler.set(modifiedNode.getNodeId(), !value);
-//		    		checkBoxValueChangeListener.onCheckBoxValueChanged(ao);
-//		    	}
-//		    }
-//			super.onBrowserEvent(context, parent, value, event, valueUpdater);
-//		}
-//	}
-//	
+	
 	private class IneCheckboxCell extends AbstractCell<Boolean> {
 
 		public IneCheckboxCell() {
@@ -538,7 +514,7 @@ public class IneTable extends HandlerAwareComposite {
 			    	AssistedObjectHandler handler = handlerFactory.createHandler(ao);
 			    	if(value == null) value = false;
 			    	handler.set(modifiedNode.getNodeId(), !value);
-		    		checkBoxValueChangeListener.onCheckBoxValueChanged(ao);
+		    		checkBoxValueChangeListener.onCheckBoxValueChanged(modifiedNode.getNodeId(), value, ao);
 		    	}
 		    }			
 			super.onBrowserEvent(context, parent, value, event, valueUpdater);
