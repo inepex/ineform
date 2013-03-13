@@ -514,7 +514,7 @@ public class IneTable extends HandlerAwareComposite {
 			    	AssistedObjectHandler handler = handlerFactory.createHandler(ao);
 			    	if(value == null) value = false;
 			    	handler.set(modifiedNode.getNodeId(), !value);
-		    		checkBoxValueChangeListener.onCheckBoxValueChanged(modifiedNode.getNodeId(), value, ao);
+		    		checkBoxValueChangeListener.onCheckBoxValueChanged(IneTable.this, modifiedNode.getNodeId(), !value, ao);
 		    	}
 		    }			
 			super.onBrowserEvent(context, parent, value, event, valueUpdater);

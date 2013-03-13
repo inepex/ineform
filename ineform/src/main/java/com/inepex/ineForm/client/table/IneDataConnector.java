@@ -238,6 +238,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		return resultList.get(resultMap.get(key));
 	}
 	
+	public Integer getSeqNumberById(Long key) {
+		return resultMap.get(key);
+	}
+	
 	protected HasData<AssistedObject> getFirstDataDisplay(){
 		if (getDataDisplays() != null && getDataDisplays().size() > 0){
 			return getDataDisplays().iterator().next();
