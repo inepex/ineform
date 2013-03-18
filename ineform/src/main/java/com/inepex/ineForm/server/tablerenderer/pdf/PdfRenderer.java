@@ -1,5 +1,8 @@
 package com.inepex.ineForm.server.tablerenderer.pdf;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
@@ -8,31 +11,53 @@ import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
 public class PdfRenderer extends TableRenderer {
 
+	private static final Logger _logger = LoggerFactory.getLogger(PdfRenderer.class);
+	
 	public static interface PdfRendererFactory {
 		public PdfRenderer create(@Assisted("od") String objectDescName,
 				@Assisted("td") @Nullable String tableRDescName);
 	}
 	
+	protected PdfStyle pdfStyle;
 	protected PdfPTable table;
+	protected int[] colWidthPctgs;
 	
 	@Inject
 	public PdfRenderer(DescriptorStore descStore,
 			@Assisted("od") String objectDescName,
 			@Assisted("td") @Nullable String tableRDescName,
-			TableFieldRenderer fieldRenderer
+			TableFieldRenderer fieldRenderer,
+			PdfFontLoader pdfFontLoader
 			) {
 		super(descStore, objectDescName, tableRDescName, fieldRenderer);
+		pdfStyle = new PdfStyle(pdfFontLoader);
 		setRenderLastFieldEnd(false);
 	}
-	
+		
+	public void setColWidthPctgs(int[] colWidthPctgs) {
+		this.colWidthPctgs = colWidthPctgs;
+	}
+
 	@Override
 	protected void renderStart() {
 		table = new PdfPTable(tableRDesc.getRootNode().getChildren().size());
-		tableRDesc.getProps();
+		table.setWidthPercentage(100f);
+		if (colWidthPctgs != null){
+			try {
+				table.setWidths(colWidthPctgs);
+			} catch (DocumentException e){
+				_logger.info("Exception:", e);
+			}
+		}
 	}
 
 	@Override
@@ -42,65 +67,79 @@ public class PdfRenderer extends TableRenderer {
 
 	@Override
 	protected void renderLineStart() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void renderLineEnd() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void renderFieldStart() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	protected void renderField(String content){
-		table.addCell(content);
+		PdfPCell cell = new PdfPCell(new Paragraph(content, pdfStyle.getDataCellFont()));
+		cell.setColspan(1);
+		
+		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setBorder(Rectangle.NO_BORDER);
+		customizeFieldCell(cell);
+		table.addCell(cell);
+	}
+	
+	protected void customizeFieldCell(PdfPCell cell){
 	}
 
 	@Override
 	protected void renderFieldEnd() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void renderHeaderStart() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void renderHeaderEnd() {
-		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
 	}
 	
 	@Override
 	protected void renderHeaderField(String key, String content){
-		renderField(content);
+		if (renderHeader){
+			PdfPCell cell = new PdfPCell(new Paragraph(content, pdfStyle.getHeaderFont()));
+			cell.setColspan(1);
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			customizeHeaderCell(cell);
+			table.addCell(cell);
+
+		}
 	}
 
+	protected void customizeHeaderCell(PdfPCell cell){
+	}
+	
 	@Override
 	protected void renderHeaderFieldEnd() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public PdfPTable getTable() {
 		return table;
 	}
 
-	@Override
-	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
-		// TODO Auto-generated method stub
-		
+	public PdfStyle getPdfStyle() {
+		return pdfStyle;
 	}
+
+	
+
 	
 
 }
