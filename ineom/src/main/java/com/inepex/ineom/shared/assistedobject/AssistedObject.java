@@ -48,6 +48,8 @@ public abstract class AssistedObject implements Serializable, IsSerializable {
 	public abstract void setUnchecked(String key, Long value);
 
 	public abstract void setUnchecked(String key, String value);
+	
+	public abstract void setUnchecked(String key, Boolean value);
 
 	/******** Unchecked GET methods ********/
 	public abstract Long getLongUnchecked(String key);

@@ -186,6 +186,11 @@ public class KeyValueObject extends AssistedObject {
 	public void setUnchecked(String key, String value) {
 		stringValues.put(key, value);
 	}
+	
+	@Override
+	public void setUnchecked(String key, Boolean value) {
+		booleanValues.put(key, value);
+	}
 
 	@Override
 	public Long getLongUnchecked(String key) {
