@@ -124,7 +124,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 			this.formRenderDescriptor = descStore.getNamedTypedDesc(descriptorName, formRenderDescName, FormRDesc.class);
 		}
 		this.objectDescriptor = descStore.getOD(descriptorName);
-		if (formRenderDescriptor == null) throw new RuntimeException("Formrenderdescriptor [" + formRenderDescName +
+		if (formRenderDescriptor == null) throw new RuntimeException("FormRenderDescriptor [" + formRenderDescName +
 				"] for Objectdescriptor [" + descriptorName + "] not found. You may forget to register it in AppDispatchServlet!");
 	}
 

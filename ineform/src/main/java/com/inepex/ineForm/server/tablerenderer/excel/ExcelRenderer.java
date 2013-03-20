@@ -137,7 +137,7 @@ public class ExcelRenderer extends TableRenderer{
 	}
 
 	@Override
-	public String render(List<AssistedObject> kvos){
+	public String render(List<? extends AssistedObject> kvos){
 		if(!setCellTypes){
 			return super.render(kvos);		
 		}

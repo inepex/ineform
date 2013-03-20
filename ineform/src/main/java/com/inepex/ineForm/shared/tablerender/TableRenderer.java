@@ -60,7 +60,7 @@ public abstract class TableRenderer {
 	}
 
 
-	public String render(List<AssistedObject> kvos){
+	public String render(List<? extends AssistedObject> kvos){
 		AssistedObjectHandlerFactory factory = new AssistedObjectHandlerFactory(descStore);
 		sb = new StringBuffer();
 		renderStart();

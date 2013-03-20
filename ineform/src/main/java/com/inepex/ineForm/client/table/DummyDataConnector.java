@@ -25,11 +25,11 @@ public class DummyDataConnector extends IneDataConnector{
 		getFirstDataDisplay().setVisibleRangeAndClearData(getFirstDataDisplay().getVisibleRange(), false);
 	}
 	
-	public void setDisplayedItems(List<AssistedObject> items) {
+	public void setDisplayedItems(List<? extends AssistedObject> items) {
 		if(items==null) { 
 			this.items  = new ArrayList<AssistedObject>();
 		} else {
-			this.items = items;
+			this.items = new ArrayList<AssistedObject>(items);
 		}
 		
 		updateLastResult(new ObjectListResult() {
