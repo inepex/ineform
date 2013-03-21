@@ -9,6 +9,7 @@ public class ColRDesc extends TableRDescBase {
 	public static final String AS_DATE_WITHSEC = "AS_DATE_WITHSEC";
 	public static final String AS_SHORTDATE = "AS_SHORTDATE";
 	public static final String AS_HOURMIN = "AS_HOURMIN";
+	public static final String AS_HOURMINSEC = "AS_HOURMINSEC";
 	public static final String DEFAULTSORT = "DEFAULTSORT";
 	public static final String DEFAULTSORTREVERSE = "DEFAULTSORTREVERSE";
 	public static final String AS_FRACTIALDIGITCOUNT = "AS_SHOWFRACTIAL";
@@ -77,6 +78,11 @@ public class ColRDesc extends TableRDescBase {
 	
 	public ColRDesc asHourMin(){
 		addProp(AS_HOURMIN);
+		return this;
+	}
+	
+	public ColRDesc asHourMinSec(){
+		addProp(AS_HOURMINSEC);
 		return this;
 	}
 	

@@ -111,6 +111,10 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 					Long date = rowHandler.getLong(deepestKey);
 					if (date != null)
 						result = dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_HOURMIN, date);
+				} else if (colRdesc.getPropValue(ColRDesc.AS_HOURMINSEC) != null) {
+					Long date = rowHandler.getLong(deepestKey);
+					if (date != null)
+						result = dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_HOURMINSEC, date);
 				} else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
 					Double val = rowHandler.getDouble(deepestKey);
 					if (val != null) {

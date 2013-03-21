@@ -215,7 +215,7 @@ public class ExcelRenderer extends TableRenderer{
 		actualCell.setCellStyle(getOrCreateCellStyle(format));
 	}
 	
-	protected CellStyle getOrCreateCellStyle(String format){
+	public CellStyle getOrCreateCellStyle(String format){
 		if(definedStyles == null){
 			definedStyles = new HashMap<String, CellStyle>();
 		}

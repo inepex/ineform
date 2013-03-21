@@ -21,6 +21,7 @@ public class IneFormProperties {
 	public static String INETABLE_DEFAULT_DATETIMEFORMAT="yyyy.MM.dd HH:mm";
 	public static String INETABLE_DEFAULT_SHORT_DATETIMEFORMAT ="yyyy.MM.dd";
 	public static String INETABLE_DEFAULT_HOURMIN ="HH:mm";
+	public static String INETABLE_DEFAULT_HOURMINSEC ="HH:mm:ss";
 	public static String INETABLE_DEFAULT_SEC_DATETIMEFORMAT="yyyy.MM.dd HH:mm:ss";
 	
 	public static PanelWidgetT defPanelWidgetType = PanelWidgetT.FLOWPANEL;
