@@ -14,7 +14,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 
 public class DummyDataConnector extends IneDataConnector{
 
-	private List<AssistedObject> items  = new ArrayList<AssistedObject>();
+	private List<? extends AssistedObject> items  = new ArrayList<AssistedObject>();
 	
 	public DummyDataConnector(EventBus eventBus, String descriptorName) {
 		super(eventBus, descriptorName);
@@ -25,18 +25,18 @@ public class DummyDataConnector extends IneDataConnector{
 		getFirstDataDisplay().setVisibleRangeAndClearData(getFirstDataDisplay().getVisibleRange(), false);
 	}
 	
-	public void setDisplayedItems(List<? extends AssistedObject> items) {
+	public void setDisplayedItems(List<? extends AssistedObject> newItems) {
 		if(items==null) { 
 			this.items  = new ArrayList<AssistedObject>();
 		} else {
-			this.items = new ArrayList<AssistedObject>(items);
+			this.items = newItems;
 		}
 		
 		updateLastResult(new ObjectListResult() {
 			
 			@Override
 			public List<AssistedObject> getList() {
-				return DummyDataConnector.this.items;
+				return new ArrayList<AssistedObject>(DummyDataConnector.this.items);
 			}
 			
 			@Override
@@ -80,7 +80,7 @@ public class DummyDataConnector extends IneDataConnector{
 			updateRowCount(items.size(), true);
 			
 			for(HasData<AssistedObject> d : getDataDisplays()) {
-				updateRowData(d, d.getVisibleRange().getStart(), items);
+				updateRowData(d, d.getVisibleRange().getStart(), new ArrayList<AssistedObject>(items));
 			}
 		}
 			
