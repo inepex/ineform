@@ -14,6 +14,45 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 
 public class DummyDataConnector extends IneDataConnector{
 
+	private final ObjectListResult dummyResult = new ObjectListResult() {
+		
+		@Override
+		public List<AssistedObject> getList() {
+			return new ArrayList<AssistedObject>(DummyDataConnector.this.items);
+		}
+		
+		@Override
+		public Long getAllResultCount() {
+			return (long) DummyDataConnector.this.items.size();
+		}
+		
+		@Override
+		public Boolean isSuccess() {
+			return true;
+		}
+		
+		@Override
+		public String getMessage() {
+			return null;
+		}
+		
+		@Override
+		public void setList(List<AssistedObject> list) {
+		}
+		
+		@Override
+		public void setAllResultCount(Long allResultCount) {
+		}
+		
+		@Override
+		public void setSuccess(Boolean success) {
+		}
+		
+		@Override
+		public void setMessage(String message) {
+		}
+	};
+	
 	private List<? extends AssistedObject> items  = new ArrayList<AssistedObject>();
 	
 	public DummyDataConnector(EventBus eventBus, String descriptorName) {
@@ -32,51 +71,14 @@ public class DummyDataConnector extends IneDataConnector{
 			this.items = newItems;
 		}
 		
-		updateLastResult(new ObjectListResult() {
-			
-			@Override
-			public List<AssistedObject> getList() {
-				return new ArrayList<AssistedObject>(DummyDataConnector.this.items);
-			}
-			
-			@Override
-			public Long getAllResultCount() {
-				return (long) DummyDataConnector.this.items.size();
-			}
-			
-			@Override
-			public Boolean isSuccess() {
-				return true;
-			}
-			
-			@Override
-			public String getMessage() {
-				return null;
-			}
-			
-			@Override
-			public void setList(List<AssistedObject> list) {
-			}
-			
-			@Override
-			public void setAllResultCount(Long allResultCount) {
-			}
-			
-			@Override
-			public void setSuccess(Boolean success) {
-			}
-			
-			@Override
-			public void setMessage(String message) {
-			}
-		});
-		
 		update(true);
 	}
 	
 	@Override
 	public void update(boolean updateDisplays) {
 		if(updateDisplays) {
+			updateLastResult(dummyResult);
+			
 			updateRowCount(items.size(), true);
 			
 			for(HasData<AssistedObject> d : getDataDisplays()) {
