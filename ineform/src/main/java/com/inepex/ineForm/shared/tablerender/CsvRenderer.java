@@ -10,7 +10,13 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class CsvRenderer extends TableRenderer{
 
+	public static interface CustomLineStart {
+		public void renderLineStart(StringBuffer sb);
+	}
+	
 	String separator = ",";
+	
+	protected CustomLineStart customLineStart;
 	
 	public static interface CsvRendererFactory {
 		public CsvRenderer create(@Assisted("od") String objectDescName,
@@ -37,6 +43,9 @@ public class CsvRenderer extends TableRenderer{
 
 	@Override
 	protected void renderLineStart() {
+		if (customLineStart != null){
+			customLineStart.renderLineStart(sb);
+		}
 	}
 
 	@Override
@@ -95,8 +104,10 @@ public class CsvRenderer extends TableRenderer{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
+
+	public void setCustomLineStart(CustomLineStart customLineStart) {
+		this.customLineStart = customLineStart;
+	}
 	
 	
 }
