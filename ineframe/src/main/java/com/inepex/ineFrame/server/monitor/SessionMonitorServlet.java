@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,11 +27,10 @@ import com.google.inject.Singleton;
 public class SessionMonitorServlet extends HttpServlet implements HttpSessionListener {
 	
 	private static List<HttpSession> sessions = new ArrayList<HttpSession>();
-	private static Long numberOfSessions = 0L;
+	private static AtomicLong numberOfSessions = new AtomicLong(0L);
 	
 	@Inject
 	public SessionMonitorServlet() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class SessionMonitorServlet extends HttpServlet implements HttpSessionLis
 	@Override	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		resp.getWriter().println("Number of active sessions: " + numberOfSessions);
+		resp.getWriter().println("Number of active sessions: " + numberOfSessions.get());
 		List<HttpSession> copy;
 		synchronized (sessions) {
 			copy = new ArrayList<HttpSession>(sessions);
@@ -73,9 +73,8 @@ public class SessionMonitorServlet extends HttpServlet implements HttpSessionLis
 
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
-		synchronized (numberOfSessions) {
-			numberOfSessions++;
-		}
+		numberOfSessions.incrementAndGet();
+		
 		synchronized (sessions) {
 			sessions.add(arg0.getSession());			
 		}
@@ -85,9 +84,8 @@ public class SessionMonitorServlet extends HttpServlet implements HttpSessionLis
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent arg0) {
-		synchronized (numberOfSessions) {
-			numberOfSessions--;
-		}
+		numberOfSessions.decrementAndGet();
+		
 		synchronized (sessions) {
 			sessions.remove(arg0.getSession());			
 		}
