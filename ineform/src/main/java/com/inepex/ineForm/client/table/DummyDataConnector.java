@@ -65,7 +65,7 @@ public class DummyDataConnector extends IneDataConnector{
 	}
 	
 	public void setDisplayedItems(List<? extends AssistedObject> newItems) {
-		if(items==null) { 
+		if(newItems==null) { 
 			this.items  = new ArrayList<AssistedObject>();
 		} else {
 			this.items = newItems;
