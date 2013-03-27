@@ -304,7 +304,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			} else if (authManager.doUserHaveAnyOfRoles(allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))){
 				return true;				
 			} else {
-				masterPage.renderForbidden(place);
+				eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.noRightPlace));
 				return false;
 			}
 		} else return true;

@@ -11,6 +11,5 @@ public interface MasterPage {
 	}
 	
 	void render(InePlace place, Map<String, String> urlParams);
-	void renderForbidden(InePlace place);
 	public IsWidget getView();
 }

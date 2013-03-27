@@ -28,7 +28,7 @@ public abstract class LayoutPanelBasedPage extends HandlerAwareLayoutPanel imple
 
 	/**
 	 * onShow called only after {@link UrlParamsParsedCallback#onUrlParamsParsed()} called
-	 * override to handle url parameters
+	 * override to handle url parameters async
 	 */
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams,

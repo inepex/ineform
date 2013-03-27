@@ -2,19 +2,18 @@ package com.inepex.ineFrame.client.navigation;
 
 import java.util.Map;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.page.InePage;
-import com.inepex.ineFrame.client.page.defaults.DummyPage;
 
 public abstract class AbstractMasterPage implements MasterPage {
 	
-	protected final AsyncStatusIndicator statusIndicator;
 	protected final MasterPage.View view;
+	protected final EventBus eventBus;
 	
-	public AbstractMasterPage(AsyncStatusIndicator statusIndicator, MasterPage.View view) {
-		this.statusIndicator=statusIndicator;
+	public AbstractMasterPage(MasterPage.View view, EventBus eventBus) {
 		this.view = view;
+		this.eventBus = eventBus;
 	}
 	
 	protected abstract void showPage(InePlace place, InePage page);
@@ -44,18 +43,11 @@ public abstract class AbstractMasterPage implements MasterPage {
 				}
 			});
 		} catch (Exception e) {
-			statusIndicator.onGeneralFailure(e.getMessage());
+			eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.pageNotFoundPlace));
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public void renderForbidden(InePlace place) {
-		InePage forbiddenPage = new DummyPage("<h2>access denied</h2>");
-		forbiddenPage.onShow();
-		showPage(place, forbiddenPage);
-	}
-	
 	@Override
 	public IsWidget getView(){
 		return view.asWidget();
