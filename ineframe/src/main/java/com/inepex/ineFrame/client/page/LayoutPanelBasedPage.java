@@ -6,7 +6,14 @@ import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineFrame.client.misc.HandlerAwareLayoutPanel;
 import com.inepex.ineFrame.client.navigation.InePlace;
 
-public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements InePage{
+/**
+ * render page contents in {@link #onShow(boolean)}
+ * optionally clean up resources in {@link #onUnload()}
+ * override {@link #setUrlParameters(Map, com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback)} 
+ * to handle url params
+ *
+ */
+public abstract class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements InePage{
 
 	protected InePlace currentPlace;
 	private Boolean isFirstShow = true;
@@ -18,6 +25,9 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 		this.currentPlace = place;
 	}
 
+	/**
+	 * override to handle url parameters
+	 */
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams,
 			UrlParamsParsedCallback callback) throws Exception {
@@ -45,8 +55,5 @@ public class LayoutPanelBasedPage extends HandlerAwareLayoutPanel implements Ine
 	}
 	
 	
-	@SuppressWarnings("unused")
-	public void onShow(boolean isfirstShow){
-		
-	}
+	public abstract void onShow(boolean isfirstShow);
 }
