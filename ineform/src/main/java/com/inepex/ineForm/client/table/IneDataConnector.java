@@ -3,6 +3,7 @@ package com.inepex.ineForm.client.table;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -22,12 +23,12 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 
 public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject> {
 
-	protected class ObjectManipulationCallback extends SuccessCallback<ObjectManipulationResult> {
+	public class ObjectManipulationCallback extends SuccessCallback<ObjectManipulationResult> {
 
 		private final ObjectManipulation currentManipulation;
 		private final ManipulateResultCallback currentCallback;
 
-		public ObjectManipulationCallback(ObjectManipulation currentManipulation, ManipulateResultCallback currentCallback) {
+		private ObjectManipulationCallback(ObjectManipulation currentManipulation, ManipulateResultCallback currentCallback) {
 			this.currentManipulation = currentManipulation;
 			this.currentCallback = currentCallback;
 		}
@@ -46,8 +47,13 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 				
 				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && rowCount > 0){
 					--rowCount;
-					resultList.remove(resultMap.get(currentManipulation.getObject().getId()).intValue());
+					int indexOfDeleted = resultMap.get(currentManipulation.getObject().getId()).intValue();
+					resultList.remove(indexOfDeleted);
 					resultMap.remove(currentManipulation.getObject().getId());
+					for(Entry<Long, Integer> entry : resultMap.entrySet()) {
+						if(entry.getValue()>=indexOfDeleted)
+							entry.setValue(entry.getValue()-1);
+					}
 				}
 			}
 			if (currentCallback != null)
@@ -59,30 +65,27 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	}
 
 	private final String descriptorName;
-	protected final EventBus eventBus;
+	private final EventBus eventBus;
 
-	protected boolean suppotsIsDeleted = false;
-	protected boolean showDeletedActive = false;
-
-	protected String orderKey = null;
-	protected boolean orderDescending = false;
+	private String orderKey = null;
+	private boolean orderDescending = false;
 
 	protected AssistedObject searchParameters;
 	
 	/**
 	 * map assisted object id to list index
 	 */
-	protected HashMap<Long, Integer> resultMap = new HashMap<Long, Integer>();
+	private HashMap<Long, Integer> resultMap = new HashMap<Long, Integer>();
 	
-	protected List<AssistedObject> resultList = new ArrayList<AssistedObject>();
+	private List<AssistedObject> resultList = new ArrayList<AssistedObject>();
 	
-	protected Long rowCount = new Long(0L);
+	private Long rowCount = new Long(0L);
 	
 	protected ObjectList objectList = null;
 	protected ObjectManipulation objectManipulation = null;
 
 	protected AsyncStatusIndicator customListingStatusIndicator = null;
-	protected AsyncStatusIndicator customManipulateStatusIndicator = null;
+	private AsyncStatusIndicator customManipulateStatusIndicator = null;
 	
 	private boolean isPaging = true;
 	
@@ -168,13 +171,13 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		objectList.setDescending(orderDescending);
 	}
 
-	protected void createDefaultManipulateActionIfNUll() {
+	private void createDefaultManipulateActionIfNUll() {
 		if (objectManipulation == null)
 			objectManipulation = createNewObjectManipulate();
 		// new ObjectManipulationAction();
 	}
 
-	protected void setManipulateActionDetails(
+	private void setManipulateActionDetails(
 			ObjectManipulation objectManipulation,
 			ManipulationTypes manipulationType,
 			AssistedObject kvo, CustomKVOObjectDesc... customObjectDescs) {
@@ -211,19 +214,6 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 				objectManipulation,
 				new ObjectManipulationCallback(objectManipulation, callback),
 				customManipulateStatusIndicator);
-	}
-
-	/**
-	 * This function is called when an object is deleted
-	 * 
-	 * @param object
-	 */
-	public void objectUnDeleteRequested(AssistedObject object, ManipulateResultCallback callback) {
-
-	}
-
-	protected boolean isShowDeletedActive() {
-		return showDeletedActive;
 	}
 
 	@Override
@@ -279,11 +269,12 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		this.searchParameters = searchParameters;
 	}
 	
-	protected void updateDisplaysAndfireListChangedEvent() {
+	private void updateDisplaysAndfireListChangedEvent() {
 		updateDisplayToLastResult();
 		eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));
 	}
 	
+	@Override
 	public void addDataDisplay(final HasData<AssistedObject> display) {
 		super.addDataDisplay(display);
 		firstCall = false;
