@@ -2,6 +2,7 @@ package com.inepex.ineFrame.client.navigation;
 
 import java.util.Map;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.inepex.ineFrame.client.page.InePage;
@@ -38,13 +39,20 @@ public abstract class AbstractMasterPage implements MasterPage {
 
 				@Override
 				public void onUrlParamsParsed(String redirectToToken) {
-					showPage(place, page);
-					page.onShow();
+					try {
+						showPage(place, page);
+						page.onShow();
+					} catch (Exception e){
+						GWT.log("Page rendering error. See exception details", e);
+					}
 				}
 			});
 		} catch (Exception e) {
-			eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.pageNotFoundPlace));
-			e.printStackTrace();
+			GWT.log("Could not parse url params. Navigating to NavigationProperties.wrongTokenPlace(" 
+					+ NavigationProperties.wrongTokenPlace + ")", e);
+			if (!NavigationProperties.wrongTokenPlace.equals(NavigationProperties.defaultPlace)){
+				eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.wrongTokenPlace));	
+			} else GWT.log("NavigationProperties.wrongTokenPlace not set");			
 		}
 	}
 

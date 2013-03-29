@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -187,7 +188,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));
 		
 		if (placeNode == null) {
-			onPlaceRequest(new PlaceRequestEvent(wrongTokenPlace));
+			if (!currentFullTokenWithoutRedirect.equals(wrongTokenPlace))
+				onPlaceRequest(new PlaceRequestEvent(wrongTokenPlace));
+			else GWT.log("Page for NavigationProperties.wrongTokenPlace(" + wrongTokenPlace + ") does not exist");
 			return;
 		}
 		
@@ -314,6 +317,12 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		if (authManager instanceof NoAuthManager) return false; 
 		if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.loginPlace) 
 				&& authManager.isUserLoggedIn()) {
+			if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.defaultPlace)){
+				GWT.log("Cannot redirect to NavigationProperties.defaultPlace. " +
+						"NavigationProperties.loginPlace(" + NavigationProperties.loginPlace + ") and " +
+						"NavigationProperties.defaultPlace("+ NavigationProperties.defaultPlace +") is the same.");
+				return false;
+			}
 			PlaceRequestEvent pre = new PlaceRequestEvent(NavigationProperties.defaultPlace);
 			pre.setNeedWindowReload(needWindowReload);
 			lastRequestWasARedirect = true;
