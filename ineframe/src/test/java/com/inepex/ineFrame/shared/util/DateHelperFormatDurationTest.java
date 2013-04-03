@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.ineFrame.test.DefaultIneFrameClientSideTestBase;
 
 public class DateHelperFormatDurationTest extends DefaultIneFrameClientSideTestBase {

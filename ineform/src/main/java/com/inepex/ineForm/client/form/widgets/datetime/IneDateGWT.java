@@ -343,11 +343,11 @@ public class IneDateGWT {
 	}
 
 	public void setToNowRoundToSec(int rt) {
-		date.setTime(((new Date().getTime()+rt*500L)/(rt*1000L))*(rt*1000L));
+		date.setTime(((System.currentTimeMillis()+rt*500L)/(rt*1000L))*(rt*1000L));
 	}
 
 	public void setToNow() {
-		date.setTime(new Date().getTime());
+		date.setTime(System.currentTimeMillis());
 	}
 
 }

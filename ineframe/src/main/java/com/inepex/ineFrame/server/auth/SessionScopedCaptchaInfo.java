@@ -1,9 +1,7 @@
 package com.inepex.ineFrame.server.auth;
 
-import java.util.Date;
-
 import com.google.inject.servlet.SessionScoped;
-import com.inepex.ineFrame.shared.util.DateHelper;
+import com.inepex.ineFrame.shared.util.date.DateHelper;
 
 /**
  * 
@@ -31,12 +29,12 @@ public class SessionScopedCaptchaInfo {
 	 * USE ONLY in synchronized blocks!!!!!
 	 */
 	public void registerIncorrectAnswer() {
-		if(lastBadLogin+deterioration < new Date().getTime())
+		if(lastBadLogin+deterioration < System.currentTimeMillis())
 			badLoginCount=1;
 		else 
 			badLoginCount++;
 		
-		lastBadLogin=new Date().getTime();
+		lastBadLogin=System.currentTimeMillis();
 	}
 	
 	/**
@@ -44,7 +42,7 @@ public class SessionScopedCaptchaInfo {
 	 */
 	public boolean needCaptcha() {
 		return 
-			lastBadLogin+deterioration > new Date().getTime()
+			lastBadLogin+deterioration > System.currentTimeMillis()
 				&& badLoginCount >= maxBadRequest;
 	}
 

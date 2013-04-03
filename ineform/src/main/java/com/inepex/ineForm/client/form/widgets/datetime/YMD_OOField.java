@@ -12,7 +12,7 @@ import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.ResourceHelper;
-import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineFrame.shared.util.date.DateProvider;
 
 class YMD_OOField extends AbstractField {
 	
@@ -79,8 +79,8 @@ class YMD_OOField extends AbstractField {
 					datepicker.setCurrentMonth(inedate.getDateClone());
 					datepicker.setValue(inedate.getDateClone());
 				} else {
-					datepicker.setCurrentMonth(dateProv.getDate(new Date().getTime()));
-					datepicker.setValue(dateProv.getDate(new Date().getTime()));
+					datepicker.setCurrentMonth(dateProv.getDate(System.currentTimeMillis()));
+					datepicker.setValue(dateProv.getDate(System.currentTimeMillis()));
 				}
 				popup.showRelativeTo(img_calendar);
 			}

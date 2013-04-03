@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.shared.util;
+package com.inepex.ineFrame.shared.util.date;
 
 import java.text.ParseException;
 

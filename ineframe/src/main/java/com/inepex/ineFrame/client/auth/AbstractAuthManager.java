@@ -15,7 +15,7 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
 import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.auth.LogoutAction;
-import com.inepex.ineFrame.shared.util.DateHelper;
+import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
@@ -84,8 +84,8 @@ public abstract class AbstractAuthManager implements AuthManager {
 			
 			// here we set the cookies for the stay signed in functionality (if set in the result)
 			if(result!=null && result.getUserUUID()!=null && result.getUserEmail()!=null){
-				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUUID, result.getUserUUID(), DateHelper.addDaysSafe(new Date(), 30));
-				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME, result.getUserEmail(), DateHelper.addDaysSafe(new Date(), 30));
+				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUUID, result.getUserUUID(), new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
+				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME, result.getUserEmail(), new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
 			}
 			
 			callback.onAuthCheckDone(result);

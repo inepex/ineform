@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.inepex.ineFrame.shared.util.DateFormatter;
+import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.inei18n.shared.CurrentLang;
 
 public class JavaDateFormatter implements DateFormatter {

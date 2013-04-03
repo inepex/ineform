@@ -37,7 +37,7 @@ import com.inepex.ineFrame.client.widgets.CaptchaWidget;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoAction;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoResult;
-import com.inepex.ineFrame.shared.util.DateHelper;
+import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.ineom.shared.IFConsts;
 
 public abstract class LoginBox extends HandlerAwareComposite {
@@ -117,9 +117,9 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if(event.getValue()){
-					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_TRUE, DateHelper.addDaysSafe(new Date(), 30));
+					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_TRUE, new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
 				}else{
-					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_FALSE, DateHelper.addDaysSafe(new Date(), 30));
+					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_FALSE, new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
 				}
 			}
 		}));

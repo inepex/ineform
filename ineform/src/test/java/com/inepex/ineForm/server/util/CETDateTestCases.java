@@ -7,7 +7,7 @@ import java.util.TimeZone;
 
 import org.junit.Assert;
 
-import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineFrame.shared.util.date.DateProvider;
 
 public class CETDateTestCases {
 	

@@ -1,9 +1,8 @@
-package com.inepex.ineFrame.shared.util;
-
-import java.util.Date;
+package com.inepex.ineFrame.shared.util.date;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 
 public class DateHelperTest {
 	
@@ -42,55 +41,31 @@ public class DateHelperTest {
 			Assert.assertEquals(31, DateHelper.divAndRoundToAvoidNull(magnitude, magnitude*31));
 		}
 	}
-
-	/**
-	 * leap year test
-	 */
-	@Test
-	public void addMonthTestLeapYear(){
-		Date date = new Date(2012-1900, 2, 30);
-		Date result = DateHelper.addMonth(date, -1);
-		Assert.assertEquals(1, result.getMonth());
-	}
 	
-	/**
-	 * normal test
-	 */
 	@Test
-	public void addMonthTestBasic(){
-		Date date = new Date(2012-1900, 6, 3);
-		Date result = DateHelper.addMonth(date, -1);
-		Assert.assertEquals(5, result.getMonth());
-	}
-	
-	/**
-	 * add 0
-	 */
-	@Test
-	public void addMonthTestAdd0(){
-		Date date = new Date(2012-1900, 6, 3);
-		Date result = DateHelper.addMonth(date, 0);
-		Assert.assertEquals(6, result.getMonth());
-	}
-	
-	/**
-	 * test year change
-	 */
-	@Test
-	public void addMonthTestYearChange(){
-		Date date = new Date(2012-1900, 0, 1);
-		Date result = DateHelper.addMonth(date, -1);
-		Assert.assertEquals(11, result.getMonth());
-	}
-	
-	/**
-	 * test year change 2
-	 */
-	@Test
-	public void addMonthTestYearChange2(){
-		Date date = new Date(2012-1900, 0, 1);
-		Date result = DateHelper.addMonth(date, -13);
-		Assert.assertEquals(11, result.getMonth());
+	public void diffDaysInclusiveTest() {
+		{
+			UserDate date1 = new UserDate(null, LocalDateTest.cetDateOf(2013, 2, 27));
+			UserDate date2 = new UserDate(null, LocalDateTest.cetDateOf(2013, 2, 27));
+			
+			Assert.assertEquals(1, DateHelper.diffDaysInclusive(date1, date2));
+		}
+		
+		{
+			UserDate date1 = new UserDate(null, LocalDateTest.cetDateOf(2013, 2, 27));
+			UserDate date2 = new UserDate(null, LocalDateTest.cetDateOf(2013, 2, 29));
+			
+			Assert.assertEquals(3, DateHelper.diffDaysInclusive(date1, date2));
+		}
+		
+		{
+			//clock setting caused by Daylight Savings Time changing is on 2013.03.31 in CET 
+			UserDate date1 = new UserDate(null, LocalDateTest.cetDateOf(2013, 2, 30));
+			UserDate date2 = new UserDate(null, LocalDateTest.cetDateOf(2013, 3, 2));
+			
+			Assert.assertEquals(4, DateHelper.diffDaysInclusive(date1, date2));
+		}
+		
 	}
 }
 

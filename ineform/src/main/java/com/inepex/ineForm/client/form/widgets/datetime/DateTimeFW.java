@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.ResourceHelper;
-import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineFrame.shared.util.date.DateProvider;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 

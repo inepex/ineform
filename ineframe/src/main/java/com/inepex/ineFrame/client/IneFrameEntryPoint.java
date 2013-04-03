@@ -25,7 +25,7 @@ import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetDescStoreResult;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
-import com.inepex.ineFrame.shared.util.DateHelper;
+import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
@@ -151,7 +151,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		@Override
 		public void onSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
 			clientI18nStore.onModulesQueriedSuccess(result);
-			Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.currentLang, DateHelper.addDaysSafe(new Date(), 50));
+			Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.currentLang, new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
 			
 			queryCounter.decQueries();
 			

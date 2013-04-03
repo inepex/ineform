@@ -5,8 +5,8 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.i18n.client.constants.TimeZoneConstants;
-import com.inepex.ineFrame.shared.util.DateHelper;
-import com.inepex.ineFrame.shared.util.DateProvider;
+import com.inepex.ineFrame.shared.util.date.DateHelper;
+import com.inepex.ineFrame.shared.util.date.DateProvider;
 
 public class CETDateProviderCln implements DateProvider {
 	private final static TimeZoneConstants tsc = GWT.create(TimeZoneConstants.class);
