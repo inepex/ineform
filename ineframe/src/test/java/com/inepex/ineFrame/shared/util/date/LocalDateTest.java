@@ -3,14 +3,19 @@ package com.inepex.ineFrame.shared.util.date;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class LocalDateTest {
 
-	static long cetDateOf(int year, int month, int date) {
+	static Calendar cetCalendar() {
 		Calendar c = Calendar.getInstance();
 		c.setTimeZone(TimeZone.getTimeZone("CET"));
+		return c;
+	}
+	
+	static long cetDateOf(int year, int month, int date) {
+		Calendar c = cetCalendar();
 		c.set(year, month, date);
 		return c.getTimeInMillis();
 	}
@@ -19,9 +24,56 @@ public class LocalDateTest {
 		Calendar c = Calendar.getInstance();
 		c.setTimeZone(TimeZone.getTimeZone("CET"));
 		c.setTimeInMillis(locDate.getTime());
-		Assert.assertEquals(year, locDate.getCalendarStyleYear());
-		Assert.assertEquals(month, locDate.getCalendarStyleMonth());
-		Assert.assertEquals(date, locDate.getCalendarStyleDate());
+		assertEquals(year, locDate.getCalendarStyleYear());
+		assertEquals(month, locDate.getCalendarStyleMonth());
+		assertEquals(date, locDate.getCalendarStyleDate());
+	}
+	
+	@Test
+	public void test_addDayKeepsNoon() {
+		{
+			UntrasformedLocalDate date = new UntrasformedLocalDate(cetDateOf(2012, 4, 10));
+			date.setToNoon().addDaysSafe(1);
+			
+			Calendar c = cetCalendar();
+			c.setTimeInMillis(date.getTimeInMillis());
+			assertDate(date, 2012, 4, 11);
+			assertEquals(12, c.get(Calendar.HOUR_OF_DAY));
+			assertEquals(0, c.get(Calendar.MINUTE));
+		}
+		
+		{
+			UntrasformedLocalDate date = new UntrasformedLocalDate(cetDateOf(2012, 4, 10));
+			date.setToNoon().addDaysSafe(-1);
+			
+			Calendar c = cetCalendar();
+			c.setTimeInMillis(date.getTimeInMillis());
+			assertDate(date, 2012, 4, 9);
+			assertEquals(12, c.get(Calendar.HOUR_OF_DAY));
+			assertEquals(0, c.get(Calendar.MINUTE));
+		}
+		
+		{
+			UntrasformedLocalDate date = new UntrasformedLocalDate(cetDateOf(2012, 2, 31));
+			date.setToNoon().addDaysSafe(1);
+			
+			Calendar c = cetCalendar();
+			c.setTimeInMillis(date.getTimeInMillis());
+			assertDate(date, 2012, 3, 1);
+			assertEquals(12, c.get(Calendar.HOUR_OF_DAY));
+			assertEquals(0, c.get(Calendar.MINUTE));
+		}
+		
+		{
+			UntrasformedLocalDate date = new UntrasformedLocalDate(cetDateOf(2012, 3, 1));
+			date.setToNoon().addDaysSafe(-1);
+			
+			Calendar c = cetCalendar();
+			c.setTimeInMillis(date.getTimeInMillis());
+			assertDate(date, 2012, 2, 31);
+			assertEquals(12, c.get(Calendar.HOUR_OF_DAY));
+			assertEquals(0, c.get(Calendar.MINUTE));
+		}
 	}
 	
 	@Test
