@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
 import com.inepex.ineForm.client.form.events.BeforeRenderEvent;
 import com.inepex.ineForm.client.form.events.FilledWithDataEvent;
@@ -33,6 +32,7 @@ import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.RelationList;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.general.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -60,6 +60,8 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	protected PanelWidget rootPanel;
 	private final FlowPanel mainPanel = new FlowPanel();
 	FlowPanel generalErrorPanel = new FlowPanel();
+	private static int defaultNodeIdNum = 0;
+	private final static String defaultNodeId = "defaultNodeId";
 
 	private SimpleTableErrorMessageManager defaultErrorMessageManager;
 
@@ -68,7 +70,6 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	protected String formRenderDescName;
 	protected FormRDesc formRenderDescriptor;
 	protected ObjectDesc objectDescriptor;
-	protected ValueRangeProvider valueRangeProvider;
 	
 	// dependences
 	protected final EventBus eventBus;
@@ -103,16 +104,10 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		this.descStore = formCtx.descStore;
 		this.descriptorName = descriptorName;
 		this.formRenderDescName = formRDescName;
-		this.valueRangeProvider = formCtx.valueRangeProvider;
 		this.eventBus = formCtx.eventBus;
 		this.formCtx = formCtx;
 		this.handlerFactory=new AssistedObjectHandlerFactory(descStore);
 	}
-	
-	public void setValueRangeProvider(ValueRangeProvider valueRangeProvider) {
-		this.valueRangeProvider = valueRangeProvider;
-	}
-
 	
 	private void initProperties() {
 
@@ -247,7 +242,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 				formdescNode.getChildren());
 
 		if (!formdescNode.hasDefaultId())
-			forms.put(formdescNode.getNodeId(), form);
+			putFormUnit(formdescNode.getNodeId(), form);
 		parentPanel.addToPanel(form);
 		parentPanel.regFormUnit(form);
 	}
@@ -262,7 +257,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
 		AbstractFormUnit form = formCtx.formUnitFactory.createFormUnit(formCtx,
 				null, descriptorName, children);
-
+		putFormUnit(defaultNodeId + ++defaultNodeIdNum, form);
 		parentPanel.addToPanel(form);
 		parentPanel.regFormUnit(form);
 	}
@@ -879,4 +874,15 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		return customValidators;
 	}
 	
+	public void addFormWidgetChangeHandler(FormWidgetChangeHandler handler){
+		for(AbstractFormUnit form : forms.values()){
+			form.addFormWidgetChangeHandler(handler);
+		}
+	}
+	private void putFormUnit(String nodeId, AbstractFormUnit formUnit){
+		if(forms.containsKey(nodeId)){
+			throw new RuntimeException("Failed to add node. NodeId alraedy exists: " + nodeId);
+		}
+		forms.put(nodeId, formUnit);
+	}
 }
