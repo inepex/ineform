@@ -3,6 +3,7 @@ package com.inepex.ineForm.server.tablerenderer.excel;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -33,6 +34,12 @@ public class ExcelRenderer extends TableRenderer{
 		public ExcelRenderer create(@Assisted("od") String objectDescName,
 				@Assisted("td") @Nullable String tableRDescName, @Assisted Sheet sheet, @Assisted boolean setCellTypes);
 	}
+	
+	public static interface ExcelCellDisplayer {
+		
+		public void fillCell(Cell cell, AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc);
+		
+	}
 
 	protected final Sheet sheet;
 	protected int startRowNr;
@@ -44,6 +51,7 @@ public class ExcelRenderer extends TableRenderer{
 	protected boolean setCellTypes;
 	
 	protected HashMap<String, CellStyle> definedStyles;
+	private Map<String, ExcelCellDisplayer> cellDisplayers = new HashMap<>();
 
 	@Inject
 	public ExcelRenderer(DescriptorStore descStore,
@@ -153,43 +161,18 @@ public class ExcelRenderer extends TableRenderer{
 				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 					continue;
-
-				String key = columnNode.getNodeId();
-				
+				String key = columnNode.getNodeId();				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
-						SharedUtil.listFromDotSeparated(key));
-				
-				fieldRenderer.setObjectAndDescriptor(kvoOrRelatedKvoChecker.getAssistedObject(), tableRDesc);
-				
-				if(fieldRenderer.containsCustomizer(key)){
-					actualCell.setCellValue(fieldRenderer.getFieldByCustomizer(key));
+						SharedUtil.listFromDotSeparated(key));				
+				if(SharedUtil.isMultilevelKey(key)){
+					kvoOrRelatedKvoChecker = kvoOrRelatedKvoChecker.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
 				}
-				else{ 
-					String deepestKey = SharedUtil.deepestKey(key);
-					if(SharedUtil.isMultilevelKey(key)){
-						kvoOrRelatedKvoChecker = kvoOrRelatedKvoChecker.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
-					}
-					
-					if (colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT) != null) {
-						Double num = kvoOrRelatedKvoChecker.getDouble(deepestKey);
-						if(num != null){
-							actualCell.setCellValue(num);
-						}
-						setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT));
-						
-					}
-					else if (colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT) != null) {
-						Long date = kvoOrRelatedKvoChecker.getLong(deepestKey);
-						if(date != null){
-							actualCell.setCellValue(getGMTCalendar(date));
-						}
-						setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT));
-					}
-					else{
-						actualCell.setCellValue(fieldRenderer.getField(deepestKey));
-					}
-					
-				}
+				key = SharedUtil.deepestKey(key);
+				
+				applyCellFormat(colRenderDesc);
+			
+				setValue(key, kvoOrRelatedKvoChecker, colRenderDesc);
+				
 				cellValueSet(key, kvoOrRelatedKvoChecker);
 				
 				if (renderLastFieldEnd 
@@ -202,6 +185,41 @@ public class ExcelRenderer extends TableRenderer{
 		
 		renderEnd();
 		return "";
+	}
+	
+	private void applyCellFormat(ColRDesc colRenderDesc){
+		if (colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT) != null) {
+			setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT));
+		} else if (colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT) != null) {
+			setDataFormatForActualCell(colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT));
+		}
+	}
+	
+	private void setValue(String key, AssistedObjectHandler kvoOrRelatedKvoChecker, ColRDesc colRenderDesc){
+		fieldRenderer.setObjectAndDescriptor(kvoOrRelatedKvoChecker.getAssistedObject(), tableRDesc);
+		if (cellDisplayers.containsKey(key)){
+			cellDisplayers.get(key).fillCell(actualCell, kvoOrRelatedKvoChecker, key, colRenderDesc);
+		} else if (fieldRenderer.containsCustomizer(key)){
+			actualCell.setCellValue(fieldRenderer.getFieldByCustomizer(key));
+		}
+		else {					
+			if (colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT) != null) {
+				Double num = kvoOrRelatedKvoChecker.getDouble(key);
+				if(num != null){
+					actualCell.setCellValue(num);
+				}
+			}
+			else if (colRenderDesc.getPropValue(ColRDesc.EXCEL_DATETIMEFORMAT) != null) {
+				Long date = kvoOrRelatedKvoChecker.getLong(key);
+				if(date != null){
+					actualCell.setCellValue(getGMTCalendar(date));
+				}
+			}
+			else{
+				actualCell.setCellValue(fieldRenderer.getField(key));
+			}
+			
+		}
 	}
 	
 	protected Calendar getGMTCalendar(long timeInMillis){
@@ -230,4 +248,7 @@ public class ExcelRenderer extends TableRenderer{
 	
 	protected void cellValueSet(String key, AssistedObjectHandler rowKvo){}
 
+	public Map<String, ExcelCellDisplayer> getCellDisplayers() {
+		return cellDisplayers;
+	}
 }
