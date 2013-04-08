@@ -31,7 +31,7 @@ public class ExcelRenderer extends TableRenderer{
 
 	public static interface ExcelRendererFactory {
 		public ExcelRenderer create(@Assisted("od") String objectDescName,
-				@Assisted("td") @Nullable String tableRDescName, @Assisted Sheet shee, @Assisted boolean setCellTypest);
+				@Assisted("td") @Nullable String tableRDescName, @Assisted Sheet sheet, @Assisted boolean setCellTypes);
 	}
 
 	protected final Sheet sheet;
