@@ -12,7 +12,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import com.google.inject.Inject;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.IFConsts;
@@ -39,7 +39,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 	
 	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<${classname}> from
 		, Expression<Boolean> base){
@@ -108,7 +108,7 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 	
 	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<${classname}> from
 			){
