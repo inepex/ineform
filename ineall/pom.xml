@@ -46,6 +46,7 @@
 		<buildHelperVersion>1.7</buildHelperVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumberVersion>1.1</buildNumberVersion>
+		<jacksonVersion>2.0.0-RC2</jacksonVersion>
 		<SVNConnBase>scm:svn:http://ineform.googlecode.com/svn/trunk</SVNConnBase>
 	</properties>
 

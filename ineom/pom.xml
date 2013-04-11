@@ -88,6 +88,16 @@
 			<artifactId>guava-gwt</artifactId>
 			<version>${googleGuavaVersion}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jacksonVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jacksonVersion}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

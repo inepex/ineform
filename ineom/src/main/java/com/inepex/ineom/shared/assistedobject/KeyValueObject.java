@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.NullableHashMap;
@@ -98,6 +99,7 @@ public class KeyValueObject extends AssistedObject {
 		booleanValues.put(IFConsts.KEY_ISDELETED, b);
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isNew() {
 		return getId().equals(IFConsts.NEW_ITEM_ID);
@@ -243,6 +245,7 @@ public class KeyValueObject extends AssistedObject {
 		return relationValues.keySet().contains(key);
 	}
 
+	@JsonIgnore
 	@Override
 	public List<String> getKeys() {
 		List<String> allKeys = new ArrayList<String>();
@@ -343,31 +346,37 @@ public class KeyValueObject extends AssistedObject {
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public Set<String> getLongKeys() {
 		return longValues.keySet();
 	}
 
+	@JsonIgnore
 	@Override
 	public Set<String> getBooleanKeys() {
 		return booleanValues.keySet();
 	}
 
+	@JsonIgnore
 	@Override
 	public Set<String> getDoubleKeys() {
 		return doubleValues.keySet();
 	}
 
+	@JsonIgnore
 	@Override
 	public Set<String> getStringKeys() {
 		return stringValues.keySet();
 	}
 
+	@JsonIgnore
 	@Override
 	public Set<String> getListKeys() {
 		return listValues.keySet();
 	}
 
+	@JsonIgnore
 	@Override
 	public Set<String> getRelationKeys() {
 		return relationValues.keySet();
