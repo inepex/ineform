@@ -3,10 +3,8 @@ package com.inepex.ineom.shared;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class Relation implements Serializable, IsSerializable {
 

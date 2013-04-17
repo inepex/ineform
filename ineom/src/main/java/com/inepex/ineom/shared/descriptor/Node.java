@@ -20,15 +20,13 @@ import com.inepex.ineom.shared.util.SharedUtil;
 public class Node<T> implements Serializable, IsSerializable {
 	
 	private static final long serialVersionUID = 7055245403110164008L;
-
-	public static String ID_PART_SEPARATOR = SharedUtil.ID_PART_SEPARATOR;
 	
 	public static String ID_SEPARATOR = "/";
 
 	private boolean isRootNode = false;
 	private Node<T> parent;
 	
-	int defChildNodeIdCounter=0;
+	private int defChildNodeIdCounter=0;
 	private List<Node<T>> children;
 	
 	
