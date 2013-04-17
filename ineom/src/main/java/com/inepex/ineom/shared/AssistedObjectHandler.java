@@ -205,6 +205,9 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 							Relation rel = new Relation(chng.getId(),
 									chng.getDisplayName());
 							if (chng.getKvo() != null) {
+								if(orig.getKvo() == null){
+									throw new RuntimeException("Corrupted widget. Dont modify the related object through the entity!");
+								}
 								AssistedObjectHandler hChng = new AssistedObjectHandler(chng
 										.getKvo(), descriptorStore);
 								AssistedObjectHandler hOrig = new AssistedObjectHandler(orig.getKvo(), descriptorStore);
