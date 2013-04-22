@@ -37,12 +37,14 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		public void onSuccess(ObjectManipulationResult result) {
 			if (result!=null && result.isSuccess() && (result.getValidationResult()==null || result.getValidationResult().isValid())) {
 				if (currentManipulation.getObject()!=null
-						&& currentManipulation.getObject().isNew()
 						&& result.getObjectsNewState()!=null){
-					rowCount++;
-					resultMap.put(result.getObjectsNewState().getId(), resultList.size());
-					resultList.add(result.getObjectsNewState());					
-					
+					if (currentManipulation.getObject().isNew()){
+						rowCount++;
+						resultMap.put(result.getObjectsNewState().getId(), resultList.size());
+						resultList.add(result.getObjectsNewState());
+					} else {
+						resultList.set(resultMap.get(result.getObjectsNewState().getId()), result.getObjectsNewState());
+					}
 				}
 				
 				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && rowCount > 0){
