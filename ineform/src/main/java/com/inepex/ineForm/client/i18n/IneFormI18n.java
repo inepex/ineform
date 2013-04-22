@@ -132,7 +132,7 @@ public class IneFormI18n extends I18nModule {
 	public String validatorLength = "Maximum {maxLength} characters can be entered!";
 	public String validatorShouldAfter = "This date should be after {otherFieldsName}!";
 	public String validatorShouldBefore = "This date should be before {otherFieldsName}!";
-	public String validatorUniqueRelList = "The {i}th ant the {j}th items are equal.";
+	public String validatorUniqueRelList = "The {i}th and the {j}th items are equal.";
 	public String validator_mandatory = "This field is required!";
 
 	
@@ -1101,7 +1101,7 @@ public class IneFormI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> The {i}th ant the {j}th items are equal.
+	* <u><i>In English:</i></u> The {i}th and the {j}th items are equal.
 	* <u><i>Magyarul:</i></u> A listában a {i}. és a {j}. elem megegyezik.
 	*/
 	public static String validatorUniqueRelList(String j, String i) {

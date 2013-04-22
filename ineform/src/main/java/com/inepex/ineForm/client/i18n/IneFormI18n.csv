@@ -105,5 +105,5 @@
 "validatorLength";"";"Maximum {maxLength} characters can be entered!";"Legfeljebb {maxLength} karaktert lehet írni a mezőbe!"
 "validatorShouldAfter";"";"This date should be after {otherFieldsName}!";"A dámum {otherFieldsName} után kell, hogy legyen!"
 "validatorShouldBefore";"";"This date should be before {otherFieldsName}!";"A dámum {otherFieldsName} előtt kell, hogy legyen!"
-"validatorUniqueRelList";"";"The {i}th ant the {j}th items are equal.";"A listában a {i}. és a {j}. elem megegyezik."
+"validatorUniqueRelList";"";"The {i}th and the {j}th items are equal.";"A listában a {i}. és a {j}. elem megegyezik."
 "validator_mandatory";"";"This field is required!";"A mező kitöltése kötelező!"
