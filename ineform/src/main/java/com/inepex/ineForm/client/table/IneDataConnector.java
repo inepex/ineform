@@ -43,7 +43,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 						resultMap.put(result.getObjectsNewState().getId(), resultList.size());
 						resultList.add(result.getObjectsNewState());
 					} else {
-						resultList.set(resultMap.get(result.getObjectsNewState().getId()), result.getObjectsNewState());
+						//case of its not a form
+						if(resultMap.get(result.getObjectsNewState().getId())!=null) {
+							resultList.set(resultMap.get(result.getObjectsNewState().getId()), result.getObjectsNewState());
+						}
 					}
 				}
 				
@@ -290,9 +293,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		rowCount = result.getAllResultCount();
 		resultList.clear();
 		resultMap.clear();
-		for(AssistedObject obj : result.getList()){
-			resultMap.put(obj.getId(), resultList.size());
-			resultList.add(obj);			
+		if(result.getList()!=null) {
+			for(AssistedObject obj : result.getList()){
+				resultMap.put(obj.getId(), resultList.size());
+				resultList.add(obj);			
+			}
 		}
 	}
 	
