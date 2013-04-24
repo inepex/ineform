@@ -51,6 +51,11 @@ public class DummyDataConnector extends IneDataConnector{
 		@Override
 		public void setMessage(String message) {
 		}
+
+		@Override
+		public String getDescriptorName() {
+			return null;
+		}
 	};
 	
 	private List<? extends AssistedObject> items  = new ArrayList<AssistedObject>();

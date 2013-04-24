@@ -18,6 +18,7 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 
 	private List<AssistedObject> list;
 	private Long allResultCount;
+	private String descriptorName;	
 
 	public ObjectListActionResult() {
 		super();
@@ -25,12 +26,12 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 
 	public ObjectListActionResult(List<AssistedObject> requestedPage) {
 		super();
-		this.list = requestedPage;
+		setList(requestedPage);
 		allResultCount = new Long(requestedPage.size());
 	}
 
 	public ObjectListActionResult(List<AssistedObject> firstPage, Long allResultCount) {
-		this(firstPage);
+		setList(firstPage);
 		this.allResultCount = allResultCount;
 
 	}
@@ -42,6 +43,9 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 	@Override
 	public void setList(List<AssistedObject> list) {
 		this.list = list;
+		if (list.size() > 0){
+			descriptorName = list.get(0).getDescriptorName();
+		}
 	}
 
 	@Override
@@ -53,5 +57,15 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 	public void setAllResultCount(Long allResultCount) {
 		this.allResultCount = allResultCount;
 	}
+	
+	@Override
+	public String getDescriptorName() {
+		return descriptorName;
+	}
+
+	public void setDescriptorName(String descriptorName) {
+		this.descriptorName = descriptorName;
+	}	
+
 
 }

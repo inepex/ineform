@@ -13,5 +13,11 @@ public interface ObjectListResult extends GenericResult {
 	public Long getAllResultCount();
 
 	public void setAllResultCount(Long allResultCount);
+	
+	/**
+	 * may be null
+	 * @return
+	 */
+	public String getDescriptorName();
 
 }
