@@ -18,6 +18,8 @@ public interface ObjectListResult extends GenericResult {
 	 * may be null
 	 * @return
 	 */
-	public String getDescriptorName();
+	public String getDescriptorName();	
+
+	public void setDescriptorName(String descriptorName);
 
 }

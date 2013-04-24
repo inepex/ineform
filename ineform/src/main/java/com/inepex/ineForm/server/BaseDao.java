@@ -233,6 +233,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			boolean useDefaultOrder,
 			SelectorCustomizer customizer) {
 		ObjectListResult res = objectFactory.getNewObjectListResult();
+		res.setDescriptorName(action.getDescriptorName());
 		if (action.isQueryResultCount()) {
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
