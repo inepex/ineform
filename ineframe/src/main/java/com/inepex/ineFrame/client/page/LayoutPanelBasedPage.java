@@ -17,7 +17,6 @@ public abstract class LayoutPanelBasedPage extends HandlerAwareLayoutPanel imple
 
 	protected InePlace currentPlace;
 	private Boolean isFirstShow = true;
-	protected Map<String, String> urlParams;
 	
 	public LayoutPanelBasedPage() {}
 	
@@ -33,7 +32,6 @@ public abstract class LayoutPanelBasedPage extends HandlerAwareLayoutPanel imple
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams,
 			UrlParamsParsedCallback callback) throws Exception {
-		this.urlParams = urlParams;
 		callback.onUrlParamsParsed();
 	}
 
@@ -55,10 +53,6 @@ public abstract class LayoutPanelBasedPage extends HandlerAwareLayoutPanel imple
 
 	public InePlace getCurrentPlace() {
 		return currentPlace;
-	}
-		
-	public Map<String, String> getUrlParams() {
-		return urlParams;
 	}
 	
 	public abstract void onShow(boolean isfirstShow);
