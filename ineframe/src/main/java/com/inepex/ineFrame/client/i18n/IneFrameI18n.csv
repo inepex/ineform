@@ -23,7 +23,7 @@
 "oneMinAgo";"in singular, must be short";"one min ago";"egy perce"
 "oneSecAgo";"in singular, must be short";"one sec ago";"egy másodperce"
 "reconnected";"";"Connected";"Csatlakozva"
-"reconnection";"";"No network connection. Reconnect in {delay}.";"Nincs kapcsolat. Újracsatlakozás {delay} múlva."
+"reconnection";"";"No network connection. Reconnect in {delay} ({reconnectionTime}).";"Nincs kapcsolat. Újracsatlakozás {delay} múlva ({reconnectionTime})."
 "saveError";"";"Error occurred during save: <br /> {error}";"A mentés során az alábbi hiba történt: <br /> {error}"
 "saveSuccessful";"";"Save successful.";"Sikeresen elmentve"
 "saveUnknownError";"";"Unknown error occurred during save!";"A mentés során ismeretlen hiba történt."

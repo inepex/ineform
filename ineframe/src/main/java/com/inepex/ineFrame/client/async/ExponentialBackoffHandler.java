@@ -35,7 +35,7 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	
 	private final DispatchAsync dispatcher;
 	private int failCount = 0;	
-	private int[] delays = {1000*5, 1000*10, 1000*60, 1000*60*5};
+	private int[] delays = {1000*5, 1000*10, 1000*30, 1000*60};
 	
 	private Timer timer = new WaitTimer();
 	
