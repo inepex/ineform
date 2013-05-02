@@ -22,7 +22,6 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private SettingsPopup popup;
 	private OnClickedLogic settingsButtonLogic;
 	private OnClickedLogic usernameClickedLogic;
-	private OnClickedLogic logoClickedLogic;
 	
 	@Inject
 	IneFrameHeaderView() {
@@ -122,14 +121,9 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	@Override
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
-		logoClickedLogic = logic;
 	}
 
 	@Override
 	public void setLanguageSelectorVisible(boolean visible) {
-	}
-
-	@Override
-	public void updateForNewPlace(String token) {
 	}
 }

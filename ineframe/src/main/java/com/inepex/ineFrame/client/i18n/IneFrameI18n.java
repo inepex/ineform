@@ -48,7 +48,6 @@ public class IneFrameI18n extends I18nModule {
 	public String oneDayAgo = "one day ago";
 	public String oneHourAgo = "one hour ago";
 	public String oneMinAgo = "one min ago";
-	public String oneSecAgo = "one sec ago";
 	public String reconnected = "Connected";
 	public String reconnection = "No network connection. Reconnect in {delay} ({reconnectionTime}).";
 	public String saveError = "Error occurred during save: <br /> {error}";
@@ -264,15 +263,6 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String oneMinAgo() {
 		return moduleProvider.get().oneMinAgo;
-	}
-	
-	/**
-	* <u><i>Description:</i></u> in singular, must be short <br />
-	* <u><i>In English:</i></u> one sec ago
-	* <u><i>Magyarul:</i></u> egy másodperce
-	*/
-	public static String oneSecAgo() {
-		return moduleProvider.get().oneSecAgo;
 	}
 	
 	/**

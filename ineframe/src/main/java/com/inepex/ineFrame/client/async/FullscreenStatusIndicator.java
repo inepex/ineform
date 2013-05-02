@@ -62,11 +62,6 @@ public class FullscreenStatusIndicator extends Composite implements
 		centerPanel.add(getErrorWidget(errorMessage));
 		updateVisiblityStates();
 	}
-	
-	@Override
-	public void onForbidden(String forbiddenMessage) {
-		
-	}
 
 	@Override
 	public void onSuccess(String successMessage) {
@@ -100,9 +95,4 @@ public class FullscreenStatusIndicator extends Composite implements
 			}
 		}
 	}
-
-	@Override
-	public void onUnAuthenticated() {
-	}
-
 }

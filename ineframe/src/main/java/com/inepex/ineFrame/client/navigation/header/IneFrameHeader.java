@@ -43,8 +43,6 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void setLogoNameClickedLogic(OnClickedLogic logic);
 		
 		public IsWidget asWidget();
-		
-		public void updateForNewPlace(String token);
 	}
 
 	private class DefaultSettingOnClicked implements OnClickedLogic {

@@ -4,12 +4,12 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.UListElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class UnorderedListWidget extends ComplexPanel
-{
+public class UnorderedListWidget extends ComplexPanel implements HasClickHandlers{
 	public UnorderedListWidget()
 	{
 		setElement(Document.get().createULElement());
@@ -34,6 +34,7 @@ public class UnorderedListWidget extends ComplexPanel
 		super.add(w, getElement());
 	}
 	
+	@Override
 	public HandlerRegistration addClickHandler(ClickHandler clickHandler) {
 		return addDomHandler(clickHandler, ClickEvent.getType());
 	}

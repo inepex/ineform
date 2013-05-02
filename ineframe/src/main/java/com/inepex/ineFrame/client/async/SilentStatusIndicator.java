@@ -20,14 +20,6 @@ public class SilentStatusIndicator implements AsyncStatusIndicator {
 	}
 
 	@Override
-	public void onForbidden(String forbiddenMessage) {
-	}
-
-	@Override
-	public void onUnAuthenticated() {
-	}
-
-	@Override
 	public void onSuccess(String successMessage) {
 	}
 

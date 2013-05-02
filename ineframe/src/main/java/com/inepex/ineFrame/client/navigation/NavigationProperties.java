@@ -11,7 +11,6 @@ public class NavigationProperties {
 	public static String wrongTokenPlace = "home";
 	public static String pageNotFoundPlace = "home";
 	public static String noRightPlace = "home";
-	public static String logoutToken = "";
 	public static String loginPlace = "home";
 
 }

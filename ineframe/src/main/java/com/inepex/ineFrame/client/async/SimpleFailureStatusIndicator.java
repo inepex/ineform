@@ -7,16 +7,6 @@ public abstract class SimpleFailureStatusIndicator implements AsyncStatusIndicat
 	}
 
 	@Override
-	public void onForbidden(String forbiddenMessage) {
-		onAnyFailure(forbiddenMessage);
-	}
-
-	@Override
-	public void onUnAuthenticated() {
-		onAnyFailure("");
-	}
-
-	@Override
 	public void onSuccess(String successMessage) {
 	}
 

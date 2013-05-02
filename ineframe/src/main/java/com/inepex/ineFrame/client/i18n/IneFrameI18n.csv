@@ -21,7 +21,6 @@
 "oneDayAgo";"in singular, must be short";"one day ago";"egy napja"
 "oneHourAgo";"in singular, must be short";"one hour ago";"egy órája"
 "oneMinAgo";"in singular, must be short";"one min ago";"egy perce"
-"oneSecAgo";"in singular, must be short";"one sec ago";"egy másodperce"
 "reconnected";"";"Connected";"Csatlakozva"
 "reconnection";"";"No network connection. Reconnect in {delay} ({reconnectionTime}).";"Nincs kapcsolat. Újracsatlakozás {delay} múlva ({reconnectionTime})."
 "saveError";"";"Error occurred during save: <br /> {error}";"A mentés során az alábbi hiba történt: <br /> {error}"

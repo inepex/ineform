@@ -16,10 +16,6 @@ public abstract class LocalDate<T extends LocalDate<T>> extends LocalDateBase {
 		super(time);
 	}
 	
-	protected LocalDate(Date d) {
-		super(d);
-	}
-	
 	protected abstract T newInstance(long time);
 	
 	private Date date() {

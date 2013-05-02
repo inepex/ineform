@@ -43,12 +43,6 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
  * 
  */
 public abstract class IneFrameEntryPoint implements EntryPoint {
-
-	protected static long startTime;
-	
-	static {
-		startTime = System.currentTimeMillis();
-	}
 	
 	protected abstract void registerAdditionalI18nModules();
 
