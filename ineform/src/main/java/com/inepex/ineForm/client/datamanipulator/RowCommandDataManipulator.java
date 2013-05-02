@@ -113,6 +113,10 @@ public class RowCommandDataManipulator extends DataManipulator {
 	public void setNewText(String newText) {
 		newButton.setText(newText);
 	}
+	
+	public void setNewBtnVisible(boolean visible) {
+		newButton.setVisible(visible);
+	}
 
 	@Override
 	public void setEditText(String editText) {
