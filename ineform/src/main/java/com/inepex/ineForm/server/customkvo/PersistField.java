@@ -36,11 +36,6 @@ public class PersistField {
 	@Column(nullable=false)
 	private ODFieldType fieldType;
 	
-	/**
-	 * only one can holds value depending on fieldType
-	 * 
-	 * see {@link com.inepex.ineForm.server.customkvo.PersistField#checkfields()}
-	 */
 	private Boolean booleanVal;
 	private Long longVal;
 	private Double doubleVal;
@@ -49,6 +44,9 @@ public class PersistField {
 	public PersistField(){
 	}
 	
+	/**
+	 * only one of '*Val's can hold value depending on fieldType
+	 */
 	public PersistField(Long id, CustomKVO parent, String key, ODFieldType fieldType, Object value) {
 		this.id = id;
 		this.parent = parent;
