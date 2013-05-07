@@ -11,7 +11,7 @@ import java.util.Set;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @SuppressWarnings("serial")
-public class NullableHashMap<K, V> implements Map<K, V>, Serializable, IsSerializable {
+public class LazyHashMap<K, V> implements Map<K, V>, Serializable, IsSerializable {
 	
 	private HashMap<K, V> map;
 
@@ -131,7 +131,7 @@ public class NullableHashMap<K, V> implements Map<K, V>, Serializable, IsSeriali
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NullableHashMap other = (NullableHashMap) obj;
+		LazyHashMap other = (LazyHashMap) obj;
 		if (map == null) {
 			if (other.map != null)
 				return false;

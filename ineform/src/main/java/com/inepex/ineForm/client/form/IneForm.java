@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -44,6 +45,7 @@ import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.IneT;
+import com.inepex.ineom.shared.LazyHashMap;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
@@ -78,8 +80,8 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	
 	// named panels and forms (because its interesting for programmer)
-	protected HashMap<String, PanelWidget> panels = new HashMap<String, PanelWidget>();
-	protected HashMap<String, AbstractFormUnit> forms = new HashMap<String, AbstractFormUnit>();
+	protected Map<String, PanelWidget> panels = new LazyHashMap<String, PanelWidget>();
+	protected Map<String, AbstractFormUnit> forms = new HashMap<String, AbstractFormUnit>();
 
 	// data flow
 	protected AssistedObject initialData;

@@ -2,12 +2,13 @@ package com.inepex.ineom.shared.assistedobject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
-import com.inepex.ineom.shared.NullableHashMap;
+import com.inepex.ineom.shared.LazyHashMap;
 import com.inepex.ineom.shared.Relation;
 
 /**
@@ -19,12 +20,12 @@ public class KeyValueObject extends AssistedObject {
 
 	protected String descriptorName = null;
 
-	protected NullableHashMap<String, Boolean> booleanValues = new NullableHashMap<String, Boolean>();
-	protected NullableHashMap<String, Double> doubleValues = new NullableHashMap<String, Double>();
-	protected NullableHashMap<String, IneList> listValues = new NullableHashMap<String, IneList>();
-	protected NullableHashMap<String, Long> longValues = new NullableHashMap<String, Long>();
-	protected NullableHashMap<String, Relation> relationValues = new NullableHashMap<String, Relation>();
-	protected NullableHashMap<String, String> stringValues = new NullableHashMap<String, String>();
+	protected Map<String, Boolean> booleanValues = new LazyHashMap<String, Boolean>();
+	protected Map<String, Double> doubleValues = new LazyHashMap<String, Double>();
+	protected Map<String, IneList> listValues = new LazyHashMap<String, IneList>();
+	protected Map<String, Long> longValues = new LazyHashMap<String, Long>();
+	protected Map<String, Relation> relationValues = new LazyHashMap<String, Relation>();
+	protected Map<String, String> stringValues = new LazyHashMap<String, String>();
 
 	/**
 	 * Default constructor needed for the type to be searilizable, although the
@@ -381,27 +382,27 @@ public class KeyValueObject extends AssistedObject {
 	public Set<String> getRelationKeys() {
 		return relationValues.keySet();
 	}
-	public NullableHashMap<String, Boolean> getBooleanValues() {
+	public Map<String, Boolean> getBooleanValues() {
 		return booleanValues;
 	}
 
-	public NullableHashMap<String, Double> getDoubleValues() {
+	public Map<String, Double> getDoubleValues() {
 		return doubleValues;
 	}
 
-	public NullableHashMap<String, IneList> getListValues() {
+	public Map<String, IneList> getListValues() {
 		return listValues;
 	}
 
-	public NullableHashMap<String, Long> getLongValues() {
+	public Map<String, Long> getLongValues() {
 		return longValues;
 	}
 
-	public NullableHashMap<String, Relation> getRelationValues() {
+	public Map<String, Relation> getRelationValues() {
 		return relationValues;
 	}
 
-	public NullableHashMap<String, String> getStringValues() {
+	public Map<String, String> getStringValues() {
 		return stringValues;
 	}
 

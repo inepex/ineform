@@ -1,7 +1,6 @@
 package com.inepex.ineForm.shared.render;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
@@ -13,6 +12,7 @@ import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.LazyHashMap;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.util.SharedUtil;
 
@@ -24,7 +24,7 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 	
 	private TableRDesc tableRDesc;
 	private AssistedObject object;
-	private Map<String, CustomCellContentDisplayer> customizers = new TreeMap<String, TableFieldRenderer.CustomCellContentDisplayer>();
+	private Map<String, CustomCellContentDisplayer> customizers = new LazyHashMap<String, TableFieldRenderer.CustomCellContentDisplayer>();
 
 	@Inject
 	public DefaultTableFieldRenderer(AssistedObjectHandlerFactory handlerFactory, DateFormatter dateFormatter,
