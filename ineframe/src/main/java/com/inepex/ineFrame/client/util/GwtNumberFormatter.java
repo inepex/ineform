@@ -12,9 +12,4 @@ public class GwtNumberFormatter implements NumberFormatter {
 		return NumberFormat.getFormat(format).format(number);
 	}
 
-	@Override
-	public String format(String format, float number) {
-		return NumberFormat.getFormat(format).format(number);
-	}
-
 }

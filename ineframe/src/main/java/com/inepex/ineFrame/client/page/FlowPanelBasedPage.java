@@ -15,8 +15,6 @@ public abstract class FlowPanelBasedPage extends HandlerAwareComposite implement
 	
 	protected InePlace currentPlace;
 	
-	protected Map<String, String> urlParams;
-	
 	public FlowPanelBasedPage() {
 		initWidget(mainPanel);
 	}
@@ -41,7 +39,6 @@ public abstract class FlowPanelBasedPage extends HandlerAwareComposite implement
 	@Override
 	public void setUrlParameters(Map<String, String> urlParams,
 			UrlParamsParsedCallback callback) throws Exception {
-		this.urlParams = urlParams;
 		callback.onUrlParamsParsed();
 	}
 	
@@ -52,9 +49,5 @@ public abstract class FlowPanelBasedPage extends HandlerAwareComposite implement
 
 	public InePlace getCurrentPlace() {
 		return currentPlace;
-	}
-
-	public Map<String, String> getUrlParams() {
-		return urlParams;
 	}
 }
