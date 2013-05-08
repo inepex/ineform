@@ -38,7 +38,7 @@ public class LazyArrayList<E> implements List<E>{
 	@Override
 	public Iterator<E> iterator() {
 		if(list==null)
-			return Collections.emptyIterator();
+			return Collections.<E>emptyList().iterator();
 		
 		return list.iterator();
 	}
@@ -174,7 +174,7 @@ public class LazyArrayList<E> implements List<E>{
 	@Override
 	public ListIterator<E> listIterator() {
 		if(list==null)
-			return Collections.emptyListIterator();
+			return Collections.<E>emptyList().listIterator();
 		
 		return list.listIterator();
 	}
@@ -182,7 +182,7 @@ public class LazyArrayList<E> implements List<E>{
 	@Override
 	public ListIterator<E> listIterator(int index) {
 		if(list==null)
-			return Collections.emptyListIterator();
+			return Collections.<E>emptyList().listIterator();
 		
 		return list.listIterator(index);
 	}
