@@ -13,7 +13,7 @@ public abstract class PanelWidget extends HandlerAwareComposite implements Displ
 
 	protected final DisplayedFormUnitChangeHandler parentHandler;
 	protected final PanelWidget parent;
-	protected final List<AbstractFormUnit> formUnits = new ArrayList<AbstractFormUnit>();
+	protected final List<AbstractFormUnit> formUnits = new ArrayList<AbstractFormUnit>(4);
 	protected final PanelWidgetRDesc descriptor;
 
 	public PanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, DisplayedFormUnitChangeHandler parentHandler) {

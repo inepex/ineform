@@ -4,7 +4,6 @@ import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIREC
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.loginPlace;
 import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +36,11 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	
 	private static class ParamPlaceRedirectionCallbackHandler {
 		
-		private final List<String> redirections = new ArrayList<String>();
 		private final AfterRedirectionLogic afterRedirectionLogic;
 		private final Map<String, String> urlParams;
 		private final String requestedToken;
 
+		private String firstRedirection = null;
 		private int waitingCounter = 0;
 		private boolean canFinish = false;
 		private Node<InePlace> pointer;
@@ -74,7 +73,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 						@Override
 						public void onUrlParamsParsed(String redirection) {
 							waitingCounter--;
-							redirections.add(redirection);
+							if(firstRedirection!=null)
+								firstRedirection=redirection;
 							finish();
 						}
 
@@ -89,15 +89,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 			if (canFinish && waitingCounter == 0
 					&& afterRedirectionLogic != null) {
 				afterRedirectionLogic
-						.afterRedirectionHandled(getFirstRedirection());
+						.afterRedirectionHandled(firstRedirection);
 			}
-		}
-
-		private String getFirstRedirection() {
-			if (redirections.size() > 0)
-				return redirections.get(0);
-			else
-				return null;
 		}
 
 		private void setCanFinish() {
