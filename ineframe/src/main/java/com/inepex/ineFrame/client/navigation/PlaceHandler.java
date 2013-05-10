@@ -73,7 +73,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 						@Override
 						public void onUrlParamsParsed(String redirection) {
 							waitingCounter--;
-							if(firstRedirection!=null)
+							if(firstRedirection==null)
 								firstRedirection=redirection;
 							finish();
 						}
