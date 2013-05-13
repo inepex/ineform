@@ -18,7 +18,7 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType>{
 
@@ -29,8 +29,9 @@ public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType>{
 		this.handlerFactory= new PhoneNumberTypeHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<PhoneNumberType> from
 		, Expression<Boolean> base){
@@ -42,12 +43,14 @@ public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType>{
 		String name = handler.getString(PhoneNumberTypeConsts.s_name);
 		if (name!=null)
 			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(PhoneNumberType_.name)), name.toUpperCase() + "%"));
-	return base;
+		
+		return base;
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<PhoneNumberType> from
 			){
@@ -74,6 +77,7 @@ public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<PhoneNumberType> from

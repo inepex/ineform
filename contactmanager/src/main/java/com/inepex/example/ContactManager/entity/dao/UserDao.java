@@ -14,7 +14,6 @@ import com.inepex.example.ContactManager.entity.mapper.UserMapper;
 import com.inepex.ineForm.server.BaseDao;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
-import com.inepex.ineForm.server.SelectorCustomizer;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -29,9 +28,6 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
  */
 @Singleton
 public class UserDao extends BaseDao<User> {
-
-	public static interface UserSelectorCustomizer extends SelectorCustomizer<CriteriaSelector<?,User>> {
-	}
 	
 	private final DescriptorStore descStore;
 	

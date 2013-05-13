@@ -18,5 +18,8 @@
   <source path='shared'/>
   <source path='entity/kvo'/>
   <source path='entity/assist'/>
+  
+  <set-configuration-property name="CssResource.style"
+		value="pretty" />
 
 </module>

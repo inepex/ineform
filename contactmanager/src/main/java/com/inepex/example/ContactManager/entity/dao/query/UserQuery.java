@@ -18,7 +18,7 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class UserQuery extends BaseQuery<User>{
 
@@ -29,8 +29,9 @@ public class UserQuery extends BaseQuery<User>{
 		this.handlerFactory= new UserHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<User> from
 		, Expression<Boolean> base){
@@ -52,8 +53,9 @@ public class UserQuery extends BaseQuery<User>{
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<User> from
 			){
@@ -93,5 +95,4 @@ public class UserQuery extends BaseQuery<User>{
 				cb.like(cb.upper(from.get(User_.email)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-	
 }

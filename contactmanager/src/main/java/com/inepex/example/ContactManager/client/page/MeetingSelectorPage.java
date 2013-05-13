@@ -11,7 +11,6 @@ import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
-import com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer.CustomCellContentDisplayer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
@@ -38,7 +37,7 @@ public class MeetingSelectorPage extends ConnectorPage implements OneParamPresen
 		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, MeetingConsts.descriptorName);
 		
 		sortableIneTable = ineTableFactory.createSortable(MeetingConsts.descriptorName, connector);
-		sortableIneTable.addCellContentDisplayer(MeetingConsts.k_user, new Highlighter());
+		sortableIneTable.getFieldRenderer().setCustomFieldRenderer(MeetingConsts.k_user, new Highlighter());
 		sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		
 		sortableIneTable.renderTable();
@@ -64,7 +63,7 @@ public class MeetingSelectorPage extends ConnectorPage implements OneParamPresen
 		}));
 	}
 	
-	private class Highlighter implements CustomCellContentDisplayer {
+	private class Highlighter implements com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer {
 
 		@Override
 		public String getCustomCellContent(AssistedObjectHandler rowKvo,

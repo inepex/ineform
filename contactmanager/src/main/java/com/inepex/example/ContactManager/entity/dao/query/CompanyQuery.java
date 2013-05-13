@@ -18,7 +18,7 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class CompanyQuery extends BaseQuery<Company>{
 
@@ -29,8 +29,9 @@ public class CompanyQuery extends BaseQuery<Company>{
 		this.handlerFactory= new CompanyHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<Company> from
 		, Expression<Boolean> base){
@@ -55,8 +56,9 @@ public class CompanyQuery extends BaseQuery<Company>{
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<Company> from
 			){
@@ -83,6 +85,7 @@ public class CompanyQuery extends BaseQuery<Company>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<Company> from

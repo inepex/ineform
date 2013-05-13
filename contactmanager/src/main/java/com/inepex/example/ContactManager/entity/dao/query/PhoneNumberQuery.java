@@ -23,7 +23,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 
@@ -34,8 +34,9 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 		this.handlerFactory= new PhoneNumberHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<PhoneNumber> from
 		, Expression<Boolean> base){
@@ -50,12 +51,13 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 		Relation type = handler.getRelation(PhoneNumberConsts.s_type);
 		if (type!=null)
 			base = addAndExpression(cb, base, cb.equal(from.get(PhoneNumber_.type).get(PhoneNumberType_.id), type.getId()));
-	return base;
+		return base;
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<PhoneNumber> from
 			){
@@ -95,6 +97,7 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<PhoneNumber> from
@@ -104,5 +107,4 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 				cb.like(cb.upper(from.get(PhoneNumber_.number)), value.toUpperCase() + "%"));
 		return expr;	
 	}
-	
 }

@@ -37,7 +37,7 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 	@Inject
 	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
 			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder) {
-		super(dispatch, currentLangProvider, serverI18n, descStore);
+		super(dispatch, currentLangProvider, serverI18n, descStore, true);
 		this.daofinder=daoFinder;
 	}
 	

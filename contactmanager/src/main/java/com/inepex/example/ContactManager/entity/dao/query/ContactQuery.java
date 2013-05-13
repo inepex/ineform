@@ -23,7 +23,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class ContactQuery extends BaseQuery<Contact>{
 
@@ -34,8 +34,9 @@ public class ContactQuery extends BaseQuery<Contact>{
 		this.handlerFactory= new ContactHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<Contact> from
 		, Expression<Boolean> base){
@@ -54,8 +55,9 @@ public class ContactQuery extends BaseQuery<Contact>{
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<Contact> from
 			){
@@ -95,6 +97,7 @@ public class ContactQuery extends BaseQuery<Contact>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<Contact> from

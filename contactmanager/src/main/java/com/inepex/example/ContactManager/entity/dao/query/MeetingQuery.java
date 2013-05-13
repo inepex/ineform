@@ -30,7 +30,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class MeetingQuery extends BaseQuery<Meeting>{
 
@@ -41,8 +41,9 @@ public class MeetingQuery extends BaseQuery<Meeting>{
 		this.handlerFactory= new MeetingHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<Meeting> from
 		, Expression<Boolean> base){
@@ -66,12 +67,14 @@ public class MeetingQuery extends BaseQuery<Meeting>{
 		Long meetingType = handler.getLong(MeetingConsts.s_meetingType);
 		if (meetingType!=null)
 			base = addAndExpression(cb, base, cb.equal(from.get(Meeting_.meetingType), MeetingType.values()[meetingType.intValue()]));
-	return base;
+		
+		return base;
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<Meeting> from
 			){
@@ -137,6 +140,7 @@ public class MeetingQuery extends BaseQuery<Meeting>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<Meeting> from

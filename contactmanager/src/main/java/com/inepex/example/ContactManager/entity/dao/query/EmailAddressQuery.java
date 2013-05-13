@@ -18,7 +18,7 @@ import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearchAction;
+import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 
@@ -29,8 +29,9 @@ public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 		this.handlerFactory= new EmailAddressHandlerFactory(descriptorStore);
 	}
 	
+	@Override
 	public Expression<Boolean> buildWhere(
-		AbstractSearchAction action
+		AbstractSearch action
 		, CriteriaBuilder cb
 		, Root<EmailAddress> from
 		, Expression<Boolean> base){
@@ -42,12 +43,13 @@ public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 		String email = handler.getString(EmailAddressConsts.s_email);
 		if (email!=null)
 			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(EmailAddress_.email)), email.toUpperCase() + "%"));
-	return base;
+		return base;
 	}
 	
 	
+	@Override
 	public Order getOrderExpression(
-			AbstractSearchAction action
+			AbstractSearch action
 			, CriteriaBuilder cb
 			, Root<EmailAddress> from
 			){
@@ -74,6 +76,7 @@ public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 		return o;
 	}
 	
+	@Override
 	public Expression<Boolean> getSearchExpression(
 			CriteriaBuilder cb
 			, Path<EmailAddress> from
