@@ -3,6 +3,7 @@ package com.inepex.ineom.server;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class MultiLangDescStore extends DescriptorStore {
 	
 	private static final Logger _logger = LoggerFactory.getLogger(MultiLangDescStore.class);
 	
-	private final Map<String, DescriptorStore> storeByLang = new HashMap<String, DescriptorStore>();
+	private final ConcurrentHashMap<String, DescriptorStore> storeByLang = new ConcurrentHashMap<String, DescriptorStore>();
 	private final Provider<CurrentLang> currLangProvider;
 	private DescStoreCreator descStoreCreator;
 	
@@ -31,14 +32,18 @@ public class MultiLangDescStore extends DescriptorStore {
 	}
 	
 	public DescriptorStore get(String lang) {
-		synchronized (storeByLang) {
-			if (!storeByLang.containsKey(lang)){
-				_logger.info("MultiDescStore has just created desc store for lang: {}", lang);
-				ClientDescriptorStore localizedDescStore = descStoreCreator.createDescStore(lang);
-				storeByLang.put(lang, localizedDescStore);
-			}
-			return storeByLang.get(lang);	
-		}		
+		if (storeByLang.containsKey(lang)){
+			return storeByLang.get(lang);
+		} else {		
+			synchronized (storeByLang) {
+				if (!storeByLang.containsKey(lang)){
+					_logger.info("MultiDescStore has just created desc store for lang: {}", lang);
+					ClientDescriptorStore localizedDescStore = descStoreCreator.createDescStore(lang);
+					storeByLang.put(lang, localizedDescStore);
+				}
+				return storeByLang.get(lang);		
+			}		
+		}
 	}
 	
 	public String currentLang() {
