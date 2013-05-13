@@ -21,6 +21,7 @@ import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineFrame.client.navigation.places.ParamPlace;
+import com.inepex.ineFrame.client.navigation.places.WidgetPlace;
 import com.inepex.ineFrame.client.page.InePage.UrlParamsParsedCallback;
 import com.inepex.ineom.shared.descriptor.Node;
 
@@ -60,7 +61,18 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				if (pointerPlace instanceof ParamPlace) {
 					waitCallback((ParamPlace) pointerPlace);
 				}
+				
 				pointer = pointer.getParent();
+				
+				if(pointer!=null) {
+					for(Node<InePlace> sibling : pointer.getChildren()) {
+						if(sibling.getNodeElement()!=null 
+								&& sibling.getNodeElement()!=pointerPlace 
+								&& sibling.getNodeElement() instanceof WidgetPlace) {
+							((WidgetPlace) sibling.getNodeElement()).update(urlParams);
+						}
+					}
+				}
 			}
 			setCanFinish();
 		}

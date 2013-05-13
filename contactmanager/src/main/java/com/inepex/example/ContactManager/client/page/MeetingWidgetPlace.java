@@ -36,26 +36,30 @@ public class MeetingWidgetPlace extends WidgetPlace {
 
 	@Override
 	public Widget getWidget(Map<String, String> urlParams) {
-		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_MEETING));
-		
-		objectFinder.executeFind(MeetingConsts.descriptorName, id, new ObjectFinder.Callback() {
-
-					@Override
-					public void onObjectFound(AssistedObject foundObject) {
-						AssistedObjectHandler handler = handlerFactory.createHandler(foundObject);
-						
-						html.setHTML(
-								handler.getRelation(MeetingConsts.k_company).getDisplayName()+"&nbsp;"+
-								handler.getRelation(MeetingConsts.k_contact).getDisplayName()+"&nbsp;");
-					}
-				});
-		
+		update(urlParams);
 		return html;
 	}
 
 	@Override
 	public boolean isWidget(Map<String, String> urlParams) {
 		return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_MEETING);
+	}
+
+	@Override
+	public void update(Map<String, String> urlParams) {
+		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_MEETING));
+		
+		objectFinder.executeFind(MeetingConsts.descriptorName, id, new ObjectFinder.Callback() {
+
+			@Override
+			public void onObjectFound(AssistedObject foundObject) {
+				AssistedObjectHandler handler = handlerFactory.createHandler(foundObject);
+				
+				html.setHTML(
+						handler.getRelation(MeetingConsts.k_company).getDisplayName()+"&nbsp;"+
+						handler.getRelation(MeetingConsts.k_contact).getDisplayName()+"&nbsp;");
+			}
+		});
 	}
 
 }

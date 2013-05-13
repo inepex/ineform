@@ -34,6 +34,17 @@ public class ContactWidgetPlace extends WidgetPlace {
 
 	@Override
 	public Widget getWidget(Map<String, String> urlParams) {
+		update(urlParams);
+		return html;
+	}
+
+	@Override
+	public boolean isWidget(Map<String, String> urlParams) {
+		return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_CONTACT);
+	}
+
+	@Override
+	public void update(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_CONTACT));
 		
 		objectFinder.executeFind(ContactConsts.descriptorName, id, new ObjectFinder.Callback() {
@@ -43,13 +54,6 @@ public class ContactWidgetPlace extends WidgetPlace {
 						html.setHTML(contactHandlerFactory.createHandler(foundObject).getName()+"&nbsp;");
 					}
 				});
-		
-		return html;
-	}
-
-	@Override
-	public boolean isWidget(Map<String, String> urlParams) {
-		return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_CONTACT);
 	}
 
 }

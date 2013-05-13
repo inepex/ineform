@@ -19,19 +19,31 @@ public class CompanyWidgetPlace extends WidgetPlace {
 	private final ObjectFinder objectFinder;
 	private final CompanyHandlerFactory companyHandlerFactory;
 	
+	private final HTML html = new HTML();
+	
 	@Inject 
 	private CompanyWidgetPlace(ObjectFinder objectFinder, CompanyHandlerFactory companyHandlerFactory){
 		this.objectFinder=objectFinder;
 		this.companyHandlerFactory=companyHandlerFactory;
+		
+		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
+		html.getElement().getStyle().setPaddingTop(3, Unit.PX);
 	}
 
 	@Override
 	public Widget getWidget(Map<String, String> urlParams) {
+		update(urlParams);
+		return html;
+	}
+
+	@Override
+	public boolean isWidget(Map<String, String> urlParams) {
+		return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_COMPANY);
+	}
+
+	@Override
+	public void update(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
-		
-		final HTML html = new HTML();
-		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
-		html.getElement().getStyle().setPaddingTop(3, Unit.PX);
 		
 		objectFinder.executeFind(CompanyConsts.descriptorName, id, new ObjectFinder.Callback() {
 
@@ -40,13 +52,6 @@ public class CompanyWidgetPlace extends WidgetPlace {
 						html.setHTML(companyHandlerFactory.createHandler(foundObject).getName()+"&nbsp;");
 					}
 				});
-		
-		return html;
-	}
-
-	@Override
-	public boolean isWidget(Map<String, String> urlParams) {
-		return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_COMPANY);
 	}
 
 }

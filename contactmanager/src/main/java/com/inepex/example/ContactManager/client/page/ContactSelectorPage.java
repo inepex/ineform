@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.client.page;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -27,6 +28,8 @@ public class ContactSelectorPage extends ConnectorPage implements OneParamPresen
 	@Inject
 	ContactSelectorPage(IneDispatch dispatcher, EventBus eventBus, IneTableFactory ineTableFactory) {
 		this.eventBus=eventBus;
+		
+		getElement().getStyle().setPadding(0, Unit.PX);
 		
 		ServerSideDataConnector connector = createConnector(dispatcher, eventBus, ContactConsts.descriptorName);
 

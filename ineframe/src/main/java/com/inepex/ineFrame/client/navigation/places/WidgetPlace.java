@@ -19,5 +19,6 @@ public abstract class WidgetPlace extends InePlace {
 	 */
 	public abstract Widget getWidget(Map<String, String> urlParams);
 	public abstract boolean isWidget(Map<String, String> urlParams);
-	
+
+	public abstract void update(Map<String, String> urlParams);
 }
