@@ -293,7 +293,7 @@
 }
 
 .selector{
-	width: 150px;
+	width: 210px;
 	color: #6d6d6d;
 	font-family: arial;
 	font-weight: bold;
@@ -301,6 +301,7 @@
 	text-align: center;
 	vertical-align: top;
 	cursor: pointer;
+	padding: 0;
 }
 
 @sprite .arrow{
@@ -327,4 +328,5 @@
 
 .selector .item .content{
 	margin-top: 5px;
+	white-space: nowrap;
 }

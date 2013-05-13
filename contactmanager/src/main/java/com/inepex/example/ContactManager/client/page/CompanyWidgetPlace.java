@@ -19,22 +19,19 @@ public class CompanyWidgetPlace extends WidgetPlace {
 	private final ObjectFinder objectFinder;
 	private final CompanyHandlerFactory companyHandlerFactory;
 	
-	private HTML html;
-	
 	@Inject 
 	private CompanyWidgetPlace(ObjectFinder objectFinder, CompanyHandlerFactory companyHandlerFactory){
 		this.objectFinder=objectFinder;
 		this.companyHandlerFactory=companyHandlerFactory;
-		
-		html = new HTML();
-		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
-		html.getElement().getStyle().setPaddingTop(3, Unit.PX);
-		
 	}
 
 	@Override
 	public Widget getWidget(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
+		
+		final HTML html = new HTML();
+		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
+		html.getElement().getStyle().setPaddingTop(3, Unit.PX);
 		
 		objectFinder.executeFind(CompanyConsts.descriptorName, id, new ObjectFinder.Callback() {
 

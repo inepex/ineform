@@ -44,7 +44,7 @@ public class Company {
 	
 	@JoinColumn(nullable=false)
 	@OneToOne(cascade={CascadeType.ALL})
-	private CustomKVO extData;
+	private CustomKVO extData = new CustomKVO();
 	
 	public Company(){
 	}

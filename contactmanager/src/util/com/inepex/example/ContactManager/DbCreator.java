@@ -44,7 +44,7 @@ public class DbCreator extends EntityManagerInitializier {
 		
 		//editable stuffs
 		Company blueEagle = new Company("Blue Eagle Corporation", "+22-883-2678", "info@blueeagle.com", "http://www.blueeagle.com",
-				list(new Contact("Big Boss"
+				list(new Contact("Boss Blue"
 						, list(new PhoneNumber("+22-223-5839", home),
 								new PhoneNumber("+22-545-3759", work),
 								new PhoneNumber("+22-329-9524", other))
@@ -109,7 +109,7 @@ public class DbCreator extends EntityManagerInitializier {
 		linkCompany(bme);
 		em.persist(bme);
 		
-		Company sebiCorp = new Company("Sebi's Fried Cheese", "+34-063-1811", "mail@sfc.hu", "http://sfc.hu/",
+		Company friedCheeseCorp = new Company("Fried Cheese Meal", "+34-063-1811", "mail@sfc.hu", "http://sfc.hu/",
 				list(new Contact("Gábor Nagymarosi"
 								, list(new PhoneNumber("+34-153-2522", home),
 										new PhoneNumber("+34-126-2473", other))
@@ -125,8 +125,8 @@ public class DbCreator extends EntityManagerInitializier {
 								, list(new EmailAddress("borbala.lakatos@sfc.hu"),
 									new EmailAddress("titkarsag@sfc.hu")))), new CustomKVO());
 			
-		linkCompany(sebiCorp);
-		em.persist(sebiCorp);
+		linkCompany(friedCheeseCorp);
+		em.persist(friedCheeseCorp);
 		
 		Company CAndC = new Company("Cow and Chichen Ltd", "+9-063-1811", "mail@candc.com", "http://candc.co.uk/",
 				list(new Contact("Chicken"
