@@ -31,12 +31,14 @@ public class MultiLangDescStore extends DescriptorStore {
 	}
 	
 	public DescriptorStore get(String lang) {
-		if (!storeByLang.containsKey(lang)){
-			_logger.info("MultiDescStore has just created desc store for lang: {}", lang);
-			ClientDescriptorStore localizedDescStore = descStoreCreator.createDescStore(lang);
-			storeByLang.put(lang, localizedDescStore);
-		}
-		return storeByLang.get(lang);
+		synchronized (storeByLang) {
+			if (!storeByLang.containsKey(lang)){
+				_logger.info("MultiDescStore has just created desc store for lang: {}", lang);
+				ClientDescriptorStore localizedDescStore = descStoreCreator.createDescStore(lang);
+				storeByLang.put(lang, localizedDescStore);
+			}
+			return storeByLang.get(lang);	
+		}		
 	}
 	
 	public String currentLang() {
