@@ -253,7 +253,7 @@ public class Node<T> implements Serializable, IsSerializable {
 	
 
 	public boolean hasChildren() {
-		return children !=null && children.size() > 0;
+		return children !=null && !children.isEmpty();
 	}
 
 	public boolean hasDefaultId() {

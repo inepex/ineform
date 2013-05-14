@@ -85,14 +85,26 @@ public class AssistedObjectChecker {
 		checkDescriptorCheckKey(key, IneT.BOOLEAN);
 		return assistedObject.getBoolean(key);
 	}
+	
+	public Boolean getBooleanUnchecked(String key) {
+		return assistedObject.getBoolean(key);
+	}
 
 	public Double getDouble(String key) {
 		checkDescriptorCheckKey(key, IneT.DOUBLE);
 		return assistedObject.getDouble(key);
 	}
+	
+	public Double getDoubleUnchecked(String key) {
+		return assistedObject.getDouble(key);
+	}
 
 	public IneList getList(String key) {
 		checkDescriptorCheckKey(key, IneT.LIST);
+		return assistedObject.getList(key);
+	}
+	
+	public IneList getListUnchecked(String key) {
 		return assistedObject.getList(key);
 	}
 
@@ -103,6 +115,10 @@ public class AssistedObjectChecker {
 
 	public Relation getRelation(String key) {
 		checkDescriptorCheckKey(key, IneT.RELATION);
+		return assistedObject.getRelation(key);
+	}
+	
+	public Relation getRelationUnchecked(String key) {
 		return assistedObject.getRelation(key);
 	}
 

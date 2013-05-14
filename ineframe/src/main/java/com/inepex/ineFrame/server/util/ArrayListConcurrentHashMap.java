@@ -24,7 +24,7 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 	
 	public boolean isListEmptyOrNullById(T id) {
 		List<K> list = get(id);
-		return (list == null) || (list.size() == 0);
+		return (list == null) || (list.isEmpty());
 	}
 
 	public boolean isListNullById(T id){

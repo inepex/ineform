@@ -2,9 +2,8 @@ package com.inepex.ineom.shared;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,7 +41,7 @@ public class LazyHashMap<K, V> implements Map<K, V>, Serializable, IsSerializabl
 	@Override
 	public Set<java.util.Map.Entry<K, V>> entrySet() {
 		if(map==null)
-			return new HashSet<Map.Entry<K,V>>(0);
+			return Collections.emptySet();
 		
 		return map.entrySet();
 	}
@@ -66,7 +65,7 @@ public class LazyHashMap<K, V> implements Map<K, V>, Serializable, IsSerializabl
 	@Override
 	public Set<K> keySet() {
 		if(map==null)
-			return new HashSet<K>(0);
+			return Collections.emptySet();
 		
 		return map.keySet();
 	}
@@ -109,7 +108,7 @@ public class LazyHashMap<K, V> implements Map<K, V>, Serializable, IsSerializabl
 	@Override
 	public Collection<V> values() {
 		if(map==null)
-			return new LinkedList<V>();
+			return Collections.emptyList();
 		
 		return map.values();
 	}
