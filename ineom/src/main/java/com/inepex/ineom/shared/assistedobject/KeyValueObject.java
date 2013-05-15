@@ -218,32 +218,32 @@ public class KeyValueObject extends AssistedObject {
 
 	@Override
 	protected boolean containsString(String key) {
-		return stringValues.keySet().contains(key);
+		return stringValues.containsKey(key);
 	}
 
 	@Override
 	protected boolean containsBoolean(String key) {
-		return booleanValues.keySet().contains(key);
+		return booleanValues.containsKey(key);
 	}
 
 	@Override
 	protected boolean containsDouble(String key) {
-		return doubleValues.keySet().contains(key);
+		return doubleValues.containsKey(key);
 	}
 
 	@Override
 	protected boolean containsList(String key) {
-		return listValues.keySet().contains(key);
+		return listValues.containsKey(key);
 	}
 
 	@Override
 	protected boolean containsLong(String key) {
-		return longValues.keySet().contains(key);
+		return longValues.containsKey(key);
 	}
 
 	@Override
 	protected boolean containsRelation(String key) {
-		return relationValues.keySet().contains(key);
+		return relationValues.containsKey(key);
 	}
 
 	@JsonIgnore
