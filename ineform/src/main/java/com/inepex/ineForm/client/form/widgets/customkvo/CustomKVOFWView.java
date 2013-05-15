@@ -32,6 +32,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	private final CustomKVOFWReadOnlyView readOnlyView = new CustomKVOFWReadOnlyView();
 	private final boolean showType;
+	private List<String> tooltipOptions;
 	
 	@Inject
 	public CustomKVOFWView(){
@@ -115,14 +116,15 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	@Override
 	public void addRow(CustomKVORow r) {
-		DispRow dr = createDispRow(r, removeCallback, rowValueChangeCallback, rowTable, showType);
+		DispRow dr = createDispRow(r, removeCallback, rowValueChangeCallback, rowTable, showType, 
+				tooltipOptions);
 		rowsByInnerId.put(r.getInnerId(), dr);
 		dispRowinnerIdMirror.add(r.getInnerId());
 	}
 	
 	protected DispRow createDispRow(CustomKVORow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable,
-			boolean showType) {
-		return new DispRow(row, removeCallback, rowValueChangeCallback, rowTable, showType);
+			boolean showType, List<String> tooltipOptions) {
+		return new DispRow(row, removeCallback, rowValueChangeCallback, rowTable, showType, tooltipOptions);
 	}
 
 	@Override
@@ -160,5 +162,10 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	@Override
 	public void disableAddBtn() {
 		addBtn.setEnabled(false);
+	}
+
+	@Override
+	public void setTooltipOptions(List<String> options) {
+		this.tooltipOptions = options;
 	}
 }

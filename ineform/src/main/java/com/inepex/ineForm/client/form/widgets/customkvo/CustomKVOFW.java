@@ -1,6 +1,7 @@
 package com.inepex.ineForm.client.form.widgets.customkvo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,9 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveCallback, RowValueChangeCallback {
 	
+	public static String PROP_TOOLTIP = "PROP_TOOLTIP";
+	public static String PROP_SEPARATOR = ";";
+	
 	public static interface View extends IsWidget {
 		public void setRemoveCallback(RemoveCallback removeCallback);
 		public void setRowValueChangeCallback(RowValueChangeCallback rowValueChangeCallback);
@@ -36,6 +40,7 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 		public void showReadOnly(List<CustomKVORow> rows);
 		public void showEditable();
 		public void add(IsWidget widget);
+		public void setTooltipOptions(List<String> options);
 		
 		
 	}
@@ -54,6 +59,9 @@ public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveC
 		this.view.setAddCallback(this);
 		this.view.setRemoveCallback(this);
 		this.view.setRowValueChangeCallback(this);
+		if (widgetRDesc.hasProp(PROP_TOOLTIP)){
+			view.setTooltipOptions(Arrays.asList(widgetRDesc.getPropValue(PROP_TOOLTIP).split(PROP_SEPARATOR)));
+		}
 		
 		//for pure java junit tests
 		if(GWT.isClient())
