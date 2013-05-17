@@ -319,5 +319,17 @@ public class Node<T> implements Serializable, IsSerializable {
 		return SharedUtil.listFromDotSeparated(string);
 	}
 	
+	public Node<T> removeChild(String id){
+		if (getChildren() == null) return this;
+		int indexToRemove = -1;
+		for (int i = 0; i < getChildren().size(); i++){
+			if (getChildren().get(i).getNodeId().equals(id)) {
+				indexToRemove = i;
+				break;
+			}
+		}
+		if (indexToRemove != -1) getChildren().remove(indexToRemove);
+		return this;
+	}
 	
 }
