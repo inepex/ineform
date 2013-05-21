@@ -1,0 +1,221 @@
+outpath:${class.workspaceRelativePath}/assist/${classname}Assist.java
+package ${package}.assist;
+import java.util.Date;
+
+
+import com.inepex.ineForm.shared.types.*;
+import com.inepex.ineForm.shared.descriptorext.*;
+import com.inepex.ineom.shared.descriptor.*;
+import com.inepex.ineom.shared.IFConsts;
+
+import static com.inepex.ineom.shared.util.SharedUtil.*;
+
+import ${package}.kvo.*;
+
+public class ${classname}Assist extends Assist {
+
+	public static class I18n{
+// copy these to .csv
+#foreach( $attr in $attrs )
+#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+//"${classnameL1}_${attr.name}";"";"${attr.nameU1}";"${attr.nameU1}"
+#end
+#end
+//
+#foreach( $attr in $attrs )
+#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+		public static String ${classnameL1}_${attr.name}() { return /*hc:i18n_${velocityCount}*/"${attr.nameU1}"/*hc*/;}
+#end
+#end		
+	}
+	
+	public ${classname}Assist(DescriptorStore descStore) {
+		super(descStore);
+	}
+	
+	@Override
+	protected void registerExtraDescriptors() {
+	}
+	
+	@Override
+	public ValidatorDesc getValidatorDesc() {
+		return new ValidatorDesc(${classname}Consts.descriptorName, new String[] {/*hc:vd1*/
+			
+		/*hc*/});
+	}
+
+	@Override
+	public ObjectDesc getObjectDesc() {
+		ObjectDesc objDesc = new ObjectDesc(${classname}Consts.descriptorName
+#foreach( $attr in $attrs )
+#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if($attr.type == "CustomKVO")
+	, new RelationFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/
+										, IFConsts.customDescriptorName)/*hc:d2_${velocityCount}*//*hc*/
+#else
+#if($attr.type == "Date" || $attr.enum)
+			, new LongFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
+#elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
+			, new ${attr.typeU1}FDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/)/*hc:d2_${velocityCount}*//*hc*/
+#elseif($attr.list == true)
+#if(${attr.hasAnnotation("OneToMany")} && ${attr.hasAnnotation("Kvo_SearchParam")})
+			, new ListFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/,${attr.fistGenTypeU1}Consts.descriptorName, "secondLevelJoin:$attr.getAnnotationParamValue("Kvo_SearchParam","secondLevelJoin")")/*hc:d2_${velocityCount}*//*hc*/
+#else
+			, new ListFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/,${attr.fistGenTypeU1}Consts.descriptorName)/*hc:d2_${velocityCount}*//*hc*/
+#end
+#elseif(${attr.hasAnnotation("Kvo_RelationType")})
+			, new RelationFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/
+										, ${attr.getAnnotationParamValue("Kvo_RelationType","name")})/*hc:d2_${velocityCount}*//*hc*/
+#else
+			, new RelationFDesc(${classname}Consts.k_${attr.name}, /*hc:d${velocityCount}*/I18n.${classnameL1}_${attr.name}()/*hc*/
+										, ${attr.type}Consts.descriptorName)/*hc:d2_${velocityCount}*//*hc*/
+#end
+#if(${attr.hasAnnotation("Column")}  || ${attr.hasAnnotation("JoinColumn")})
+#if(${attr.getAnnotationParamValue("Column","nullable")} == "false" 
+	  || ${attr.getAnnotationParamValue("JoinColumn","nullable")} == "false")
+					.mandatory()
+#end
+#end
+#end
+#end
+#end
+		);
+		
+		objDesc.setDefaultOrderKey(getOrderKey());
+		return objDesc;
+	}
+
+	@Override
+	public TableRDesc getTableRDesc() {
+		TableRDesc tableRDesc = new TableRDesc(${classname}Consts.descriptorName);
+			
+		tableRDesc.getRootNode()
+#foreach( $attr in $attrs )
+#if ( $attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")} && $attr.type != "CustomKVO")
+#if ( $attr.type == "Date" )
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/true/*hc*/)/*hc:tdr2_${velocityCount}*/.addProp(ColRDesc.AS_DATE)#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)
+#elseif ($attr.enum)
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/true/*hc*/)/*hc:tdr2_${velocityCount}*//*hc*/.addProp(EnumListFW.enumValues + ":" + ${attr.type}.getValuesAsString())#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end)
+#elseif (!$attr.generic)
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*/true/*hc*/)/*hc:tdr2_${velocityCount}*/#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)
+#else
+			.addChild(${classname}Consts.k_${attr.name}, new ColRDesc(/*hc:tdr1_${velocityCount}*//*hc*/)/*hc:tdr2_${velocityCount}*/#if(${attr.hasAnnotation("Kvo_SortDefault")}).addProp(ColRDesc.DEFAULTSORT)#end/*hc*/)				
+#end 
+#end 
+#end
+			;
+		return tableRDesc;
+	}
+	
+	@Override
+	public FormRDesc getFormRDesc() {
+		FormRDesc formRDesc = new FormRDesc(${classname}Consts.descriptorName/*hc:frd_props*/
+			
+			/*hc*/);
+			
+		formRDesc.getRootNode()
+#foreach( $attr in $attrs )
+#if ($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+#if ($attr.name == "id")
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.LABEL/*hc*/))
+#elseif( $attr.type == "Date" )
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.DATEBOX/*hc*/))
+#elseif($attr.type == "String")
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.TEXTBOX/*hc*/))
+#elseif($attr.type == "Long" || $attr.type == "Double")
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.NUMBERTEXTBOX/*hc*/))
+#elseif($attr.type == "Boolean")
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.CHECKBOX/*hc*/))
+#elseif($attr.type == "CustomKVO")
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.CUSTOMKVO/*hc*/))
+#elseif($attr.enum)
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.ENUMLISTBOX/*hc*/, EnumListFW.enumValues + ":" + ${attr.type}.getValuesAsString()))
+#elseif(${attr.hasAnnotation("Kvo_OneToOne")})
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.RELATEDFORM/*hc*/))
+#elseif($attr.list == true)
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.RELATIONLIST/*hc*/))
+#else
+			.addChild(${classname}Consts.k_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.LISTBOX/*hc*/))
+#end
+#end			
+#end
+			;
+		return formRDesc;
+	}
+
+	@Override
+	public ObjectDesc getSearchObjectDesc() {			
+#if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+		return new ObjectDesc(${classname}Consts.searchDescriptor
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
+#if($attr.type == "Date" || $attr.enum)
+			, new LongFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/)
+#elseif($attr.type == "Long" || $attr.type == "Boolean" || $attr.type == "Double" || $attr.type == "String")
+			, new ${attr.typeU1}FDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/)
+#elseif(${attr.hasAnnotation("Kvo_OneToOne")})
+			, new StringFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/)
+#elseif($attr.list == true)
+			, new ListFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/
+										, ${attr.fistGenType}Consts.searchDescriptor)
+#else 
+			, new RelationFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/
+										, ${attr.type}Consts.searchDescriptor)
+#end
+#end
+#end
+		);
+#else
+		return null;
+#end
+	}
+	
+	@Override
+	public FormRDesc getSearchFormRDesc() {
+#if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+		FormRDesc searchFormRDesc = new FormRDesc(${classname}Consts.searchDescriptor);
+			
+		searchFormRDesc.getRootNode().dummy()
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
+#if ($attr.name == "id")
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.LABEL/*hc*/))
+#elseif($attr.type == "Date" )
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.DATEBOX/*hc*/))
+#elseif($attr.type == "String")
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.TEXTBOX/*hc*/))
+#elseif($attr.type == "Long" || $attr.type == "Double")
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.NUMBERTEXTBOX/*hc*/))
+#elseif($attr.type == "Boolean")
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.CHECKBOX/*hc*/))
+#elseif($attr.enum)
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:f${velocityCount}*/FWTypes.ENUMLISTBOX/*hc*/,  EnumListFW.enumValues + ":" + ${attr.type}.getValuesAsString()))
+#elseif(${attr.hasAnnotation("Kvo_OneToOne")})
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.TEXTBOX/*hc*/))
+#elseif($attr.list == true)
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.RELATIONLIST/*hc*/))
+#elseif($attr.list == false)
+			.addChild(${classname}Consts.s_${attr.name}, new WidgetRDesc(/*hc:fs${velocityCount}*/FWTypes.LISTBOX/*hc*/))
+
+#end
+#end			
+#end
+			;
+		return searchFormRDesc;
+#else
+		return null;
+#end	
+	}
+
+	public static String getOrderKey(){
+		//displayname field
+		String key = "";
+#foreach( $attr in $attrs )
+#if (${attr.hasAnnotation("Kvo_DisplayName")})
+		key = ${classname}KVO.k_${attr.name};
+		
+#end
+#end
+		return key;
+	}
+}

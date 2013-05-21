@@ -1,0 +1,46 @@
+outpath:${class.workspaceRelativePath}kvo/${classname}Consts.java
+package ${package}.kvo;
+
+public class ${classname}Consts {
+
+	public static final String descriptorName = "${classnameL1}Descriptor";
+#if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+	public static final String searchDescriptor = "${classnameL1}SearchDescriptor";
+#end
+
+	//field contsts
+#foreach( $attr in $attrs )
+#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+	public static final String k_${attr.name} = "${attr.name}";	
+#end
+#end
+
+#foreach( $attr in $attrs )
+#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
+	public static String k_${attr.name}() {
+		return k_${attr.name};
+	}	
+#end
+#end
+
+##----------------------------------
+## search stuffs
+##----------------------------------
+#if(${class.hasAnnotation("Kvo_Unsearchable")} == false)
+	
+	//search consts
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
+	public static final String s_${attr.name} = "${attr.name}";
+#end
+#end
+
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
+	public static String s_${attr.name}() {
+		return s_${attr.name};
+	}
+#end
+#end
+#end
+}
