@@ -21,8 +21,8 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CustomKVOFW extends CustomKVOFWBase implements AddCallback, RemoveCallback, RowValueChangeCallback {
 	
-	public static String CUST_KVO_TOOLTIP_PROP = "CUST_KVO_TOOLTIP_PROP";
-	public static String PROP_SEPARATOR = ";";
+	public static final String CUST_KVO_TOOLTIP_PROP = "CUST_KVO_TOOLTIP_PROP";
+	public static final String PROP_SEPARATOR = ";";
 	
 	public static interface View extends IsWidget {
 		public void setRemoveCallback(RemoveCallback removeCallback);
