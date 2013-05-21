@@ -13,7 +13,7 @@ public class AssistedObjectHandlerFactory {
 	private final DescriptorStore descriptorStore;
 
 	/**
-	 * can be injected or created with 'new AIHF(decStore)'
+	 * can be injected or created with 'new {@link AssistedObjectHandlerFactory}(decStore)'
 	 */
 	@Inject
 	public AssistedObjectHandlerFactory(DescriptorStore descriptorStore) {

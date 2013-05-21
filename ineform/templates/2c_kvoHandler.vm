@@ -9,9 +9,10 @@ import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.google.inject.Singleton;
+import com.inepex.ineom.shared.HandlerFactoryI;
 
 @Singleton
-public class ${classname}HandlerFactory { 
+public class ${classname}HandlerFactory implements HandlerFactoryI<${classname}HandlerFactory.${classname}Handler> { 
 
 	private final DescriptorStore descriptorStore;
 
@@ -23,11 +24,13 @@ public class ${classname}HandlerFactory {
 		this.descriptorStore = descriptorStore;
 	}
 	
+	@Override
 	public ${classname}Handler createHandler() {
 		AssistedObject assistedObject = new KeyValueObject(${classname}Consts.descriptorName);
 		return new ${classname}Handler(assistedObject, descriptorStore);
 	}
 	
+	@Override
 	public ${classname}Handler createHandler(AssistedObject assistedObject) {
 		if(!${classname}Consts.descriptorName.equals(assistedObject.getDescriptorName()))
 			throw new IllegalArgumentException("Type incompatibility: handler: '"+${classname}Consts.descriptorName+
