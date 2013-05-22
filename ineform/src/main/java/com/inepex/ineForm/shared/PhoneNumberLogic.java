@@ -12,7 +12,7 @@ public class PhoneNumberLogic {
 	public final static int MAX_AREA_LENGTH = 4;
 	public final static int MAX_LOCAL_LENGTH = 10;
 	
-	public static Long[] parsePhoneString(String value) {
+	public static String[] parsePhoneString(String value) {
 		if(value==null || value.length()==0)
 			return null;
 		
@@ -33,13 +33,18 @@ public class PhoneNumberLogic {
 			return null;
 		
 		try {
-			return new Long[] {parse(p0),parse(p1), parse(p2)};
+			return new String[] {parasbleString(p0),parasbleString(p1), parasbleString(p2)};
 		} catch (Exception e) {
 			return null;
 		}
 	}
 	
-	private static Long parse(String str) {
-		return str.length() > 0 ? Long.parseLong(str) : null;
+	private static String parasbleString(String str) {
+		if(str.length()== 0)
+			return null;
+		
+		Long.parseLong(str);
+		
+		return str;
 	}
 }

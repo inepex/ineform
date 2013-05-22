@@ -194,6 +194,17 @@ public class NumberTextBoxFW extends DenyingFormWidget {
     }
     
     @Override
+    public void setStringValue(String value) {
+    	textBox.setText(value);
+    	filterTextPreserveCaretPosition(textBox.getText());
+    }
+    
+    @Override
+    public String getStringValue() {
+    	return textBox.getValue();
+    }
+    
+    @Override
     public Double getDoubleValue() {
     	try {
 			return Double.parseDouble(textBox.getText());

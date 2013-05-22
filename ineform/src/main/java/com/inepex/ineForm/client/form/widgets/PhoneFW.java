@@ -76,45 +76,33 @@ public class PhoneFW extends DenyingFormWidget {
 	
 	@Override
 	public void setStringValue(String value) {
-		Long[] parsed = PhoneNumberLogic.parsePhoneString(value);
+		String[] parsed = PhoneNumberLogic.parsePhoneString(value);
 		if(parsed!=null) {
-			country.setLongValue(parsed[0]);
-			area.setLongValue(parsed[1]);
-			local.setLongValue(parsed[2]);
+			country.setStringValue(parsed[0]);
+			area.setStringValue(parsed[1]);
+			local.setStringValue(parsed[2]);
 		} else {
-			country.setLongValue(null);
-			area.setLongValue(null);
-			local.setLongValue(null);
+			country.setStringValue(null);
+			area.setStringValue(null);
+			local.setStringValue(null);
 		}
 	}
 
 	@Override
 	public String getStringValue() {
-		Long countryValue = country.getLongValue();
-		Long areaValue = area.getLongValue();
-		Long localValue = local.getLongValue();
-		
-		if(countryValue==null && areaValue==null && localValue==null) {
+		if(country.getLongValue()==null 
+				&& area.getLongValue()==null 
+				&& local.getLongValue()==null)
 			return null;
-		} else {
-			StringBuilder sb = new StringBuilder();
-			sb.append(PhoneNumberLogic.PLUS_SIGN)
-			  .append(longToString(countryValue))
-			  .append(PhoneNumberLogic.PART_SEPARATOR)
-			  .append(longToString(areaValue))
-			  .append(PhoneNumberLogic.PART_SEPARATOR)
-			  .append(longToString(localValue));
-			
-			return sb.toString();
-		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(PhoneNumberLogic.PLUS_SIGN)
+		  .append(country.getStringValue())
+		  .append(PhoneNumberLogic.PART_SEPARATOR)
+		  .append(area.getStringValue())
+		  .append(PhoneNumberLogic.PART_SEPARATOR)
+		  .append(local.getStringValue());
+		
+		return sb.toString();
 	}
-	
-	private static String longToString(Long l) {
-		if(l == null)
-			return "";
-		else
-			return l.toString();
-	}
-	
-
 }
