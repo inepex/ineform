@@ -12,9 +12,9 @@ public class CsvMergeApplicationFileIOTest {
 //				"dummy");
 		
 		CsvMerge.merge(
-			"/cuccos/prog/ew_mvm/PowerforumEJB/ejbModule/com/kirowski/mvm/shared/i18n/PfI18n.csv", 2, ";",
+			"/cuccos/prog/ew_mvm/PW/ejbModule/com/krk/mvm/shared/i18n/PfI18n.csv", 2, ";",
 			"/home/sebi/Asztal/loc20110201", 2, ";",
-			"/cuccos/prog/ew_mvm/PowerforumEJB/ejbModule/com/kirowski/mvm/shared/i18n/PfI18n.csv", ";",
+			"/cuccos/prog/ew_mvm/PW/ejbModule/com/krk/mvm/shared/i18n/PfI18n.csv", ";",
 			"\"\"");
 	}
 }

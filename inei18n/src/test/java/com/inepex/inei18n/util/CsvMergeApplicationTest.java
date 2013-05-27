@@ -1,13 +1,13 @@
 package com.inepex.inei18n.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.inepex.inei18n.util.CsvMerge.MergeResult;
 import com.inepex.inei18n.util.CsvMerge.ParsedCsv;
-import com.inepex.ineom.shared.util.SharedUtil;
 
 public class CsvMergeApplicationTest {
 	
@@ -21,27 +21,27 @@ public class CsvMergeApplicationTest {
 		}
 		
 		try {
-			CsvMerge.parseCsv(SharedUtil.Li("line1"), "");
+			CsvMerge.parseCsv(Arrays.asList("line1"), "");
 			Assert.fail("Separator must be checked");
 		} catch (IllegalArgumentException ex) {
 			//check passed
 		}
 		
 		try {
-			CsvMerge.parseCsv(SharedUtil.Li("line1;desc;", "line2;desc;", "line1;again;"), ";");
+			CsvMerge.parseCsv(Arrays.asList("line1;desc;", "line2;desc;", "line1;again;"), ";");
 			Assert.fail("Key duplication must be checked");
 		} catch (RuntimeException ex) {
 			//check passed
 		}
 		
 		try {
-			CsvMerge.parseCsv(SharedUtil.Li("line1;desc;", "it's;a;long;line"), ";");
+			CsvMerge.parseCsv(Arrays.asList("line1;desc;", "it's;a;long;line"), ";");
 			Assert.fail("Inconsistent column count must be checked");
 		} catch (RuntimeException ex) {
 			//check passed
 		}
 		
-		ParsedCsv parsedCsv = CsvMerge.parseCsv(SharedUtil.Li(
+		ParsedCsv parsedCsv = CsvMerge.parseCsv(Arrays.asList(
 						"key1;desc1;engval;huval;",
 						"key2;desc2;engval;huval", // no closing ;
 						"key3;desc3;engval;huval;"), ";");
@@ -68,14 +68,14 @@ public class CsvMergeApplicationTest {
 		try  {
 			CsvMerge.merge(
 							//target
-							CsvMerge.parseCsv(SharedUtil.Li(
+							CsvMerge.parseCsv(Arrays.asList(
 								"a;a1;a2;a3;",
 								"b;b1;b2;b3;",
 								"e;te1;te2;te3;"), ";"),
 							3,
 							
 							//patch
-							CsvMerge.parseCsv(SharedUtil.Li(
+							CsvMerge.parseCsv(Arrays.asList(
 									"c;c1;c2;c3;",
 									"d;d1;d2;d3;",
 									"e;pe1;pe2;pe3;"), ";"),
@@ -90,7 +90,7 @@ public class CsvMergeApplicationTest {
 		
 		MergeResult res1 = CsvMerge.merge(
 							//target
-							CsvMerge.parseCsv(SharedUtil.Li(
+							CsvMerge.parseCsv(Arrays.asList(
 								"aa;a1;a2;a3;",
 								"xx;t1;t2;t3",
 								"bb;b1;b2;b3;",
@@ -99,7 +99,7 @@ public class CsvMergeApplicationTest {
 							2,
 							
 							//patch
-							CsvMerge.parseCsv(SharedUtil.Li(
+							CsvMerge.parseCsv(Arrays.asList(
 									"zz;p1;p2;p3;",
 									"dd;d1;d2;d3;",
 									"xx;p1;p2;p3;",
@@ -143,12 +143,12 @@ public class CsvMergeApplicationTest {
 		
 		MergeResult res2 = CsvMerge.merge(
 				//target
-				CsvMerge.parseCsv(SharedUtil.Li(
+				CsvMerge.parseCsv(Arrays.asList(
 					"aa;t1;t2;t3;"), ";"),
 				3,
 				
 				//patch
-				CsvMerge.parseCsv(SharedUtil.Li(
+				CsvMerge.parseCsv(Arrays.asList(
 						"aa#p1#p2#p3"), "#"),
 				0,
 
@@ -162,12 +162,12 @@ public class CsvMergeApplicationTest {
 		
 		MergeResult res3 = CsvMerge.merge(
 				//target
-				CsvMerge.parseCsv(SharedUtil.Li(
+				CsvMerge.parseCsv(Arrays.asList(
 					"aa;t1;t2;t3;"), ";"),
 				7,
 				
 				//patch
-				CsvMerge.parseCsv(SharedUtil.Li(
+				CsvMerge.parseCsv(Arrays.asList(
 						"aa#p1#p2#p3"), "#"),
 				2,
 
