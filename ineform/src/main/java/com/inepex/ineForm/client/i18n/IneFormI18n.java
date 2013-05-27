@@ -481,7 +481,7 @@ public class IneFormI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Value can not be parsed!
-	* <u><i>Magyarul:</i></u> Az érték mező nem megfelelő formázumú!
+	* <u><i>Magyarul:</i></u> Az érték mező nem megfelelő formátumú!
 	*/
 	public static String custKVOValidateParse() {
 		return moduleProvider.get().custKVOValidateParse;
@@ -724,7 +724,7 @@ public class IneFormI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Error during upload. See server log!
-	* <u><i>Magyarul:</i></u> Hiba a feltöltés során. Ellenőrízze a szerver beállításait.
+	* <u><i>Magyarul:</i></u> Hiba a feltöltés során. Ellenőrizze a szerver beállításait.
 	*/
 	public static String imageuploadError() {
 		return moduleProvider.get().imageuploadError;

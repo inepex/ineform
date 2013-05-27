@@ -6,25 +6,17 @@ import com.inepex.inei18n.server.util.SimpleOnDemandProperties;
 
 public class ModuleProperties {
 	
-	Properties properties = new Properties();
-	final String moduleName;
-	
-	public String[] languages;
-	public String userCsvPath;
-	public String devCsvPath;
-	public String csvSeparator;
-	public String sourceFolder;
-	public String serverPackage;
+	public final String[] languages;
+	public final String userCsvPath;
+	public final String devCsvPath;
+	public final String csvSeparator;
+	public final String sourceFolder;
+	public final String serverPackage;
 	
 	public ModuleProperties(ClassLoader classLoader, String moduleName) {
-		this.moduleName = moduleName;
 		SimpleOnDemandProperties odp = new SimpleOnDemandProperties(classLoader, moduleName + ".properties");
-		properties = odp.getPropertiesInstance();
+		Properties properties = odp.getPropertiesInstance();
 		
-		loadProperties();
-	}
-	
-	private void loadProperties() {
 		languages = properties.getProperty("languages").split(",");
 		userCsvPath = properties.getProperty("userCsvPath");
 		csvSeparator = properties.getProperty("csvSeparator");

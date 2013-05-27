@@ -39,11 +39,12 @@ public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction
 			throws DispatchException {
 		
 		String reqLang = null;
-		if(action.requestedLanguage==null || "".equals(action.requestedLanguage) || !i18nStore.getAllLangs().contains(action.requestedLanguage)) {
+		if(action.getRequestedLanguage()==null || "".equals(action.getRequestedLanguage()) 
+				|| !i18nStore.getAllLangs().contains(action.getRequestedLanguage())) {
 			reqLang=CurrentLang.DEFAULT_LANG;
-			logger.warn("Requested lang is not supported or null: {}", action.requestedLanguage);
+			logger.warn("Requested lang is not supported or null: {}", action.getRequestedLanguage());
 		} else {
-			reqLang=action.requestedLanguage;
+			reqLang=action.getRequestedLanguage();
 		}
 		
 		currentLang.setSessionLang(reqLang);

@@ -9,7 +9,7 @@ import com.inepex.inei18n.client.I18nStore_Client;
  * this action can be replaced with these client side code lines:
  * {@code 
  * 
- * Cookies.setCookie(I18nStore_Client.COOKIE_ID, newLangString, new Date(Long.MAX_VALUE));				
+ * Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, newLangString, new Date(Long.MAX_VALUE));				
  * Window.Location.reload();
  *
  * }
@@ -17,7 +17,8 @@ import com.inepex.inei18n.client.I18nStore_Client;
  * see {@link I18nStore_Client}
  */
 public class ChangeLanguageAction implements Action<SimpleResult> {
-	public String requestedLanguage;
+	
+	private String requestedLanguage;
 
 	public ChangeLanguageAction() {
 	}
@@ -26,4 +27,11 @@ public class ChangeLanguageAction implements Action<SimpleResult> {
 		this.requestedLanguage = requestedLanguage;
 	}
 	
+	public String getRequestedLanguage() {
+		return requestedLanguage;
+	}
+	
+	public void setRequestedLanguage(String requestedLanguage) {
+		this.requestedLanguage = requestedLanguage;
+	}
 }

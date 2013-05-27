@@ -3,7 +3,7 @@ package com.inepex.inei18n.shared;
 @SuppressWarnings("serial")
 public class ClientI18nProvider<T extends I18nModule> implements I18nModuleProvider<T> {
 
-	T module;
+	private T module;
 	
 	@Override
 	public T get() {

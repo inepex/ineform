@@ -17,13 +17,10 @@ import com.inepex.inei18n.shared.LocalizedString;
 
 public class I18nStore_Server extends I18nStoreBase {
 	
-	private static final Logger _logger = LoggerFactory
-			.getLogger(I18nStore_Server.class);
+	private static final Logger _logger = LoggerFactory.getLogger(I18nStore_Server.class);
 		
-	HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule 
-		= new HashMap<String, TreeMap<String,LocalizedString>>();
-	
-	private HashSet<String> allLangs = new HashSet<String>();
+	private final HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule = new HashMap<>();
+	private final HashSet<String> allLangs = new HashSet<>();
 	
 	@Inject
 	public I18nStore_Server() {

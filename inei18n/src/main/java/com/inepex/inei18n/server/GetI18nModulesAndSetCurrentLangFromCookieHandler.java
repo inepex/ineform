@@ -17,7 +17,7 @@ import com.inepex.inei18n.shared.I18nModule;
 
 public class GetI18nModulesAndSetCurrentLangFromCookieHandler implements ActionHandler<GetI18nModulesAndSetCurrentLangFromCookieAction, GetI18nModulesAndSetCurrentLangFromCookieResult>{
 
-	final static Logger logger = LoggerFactory.getLogger(GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
+	private final static Logger logger = LoggerFactory.getLogger(GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
 	
 	private final I18nStore_Server serverI18nStore;
 	private final CurrentLang currentLang;

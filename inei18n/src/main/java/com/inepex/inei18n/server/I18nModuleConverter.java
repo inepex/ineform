@@ -30,26 +30,25 @@ import com.inepex.inei18n.shared.LocalizedString;
 
 public class I18nModuleConverter {
 
-	private static VelocityUtil velocityUtil;
-	
+	public final static String PER = "/";
+	public final static String QUOTE = "\"";
 	public final static String MODULE_VM = "vm/i18n/Module.vm";
 	public final static String SERVER_MODULE_PROVIDER_VM = "vm/i18n/ServerModuleProvider.vm";
-	final Pattern BRACETED_STIRNG_FINDER = Pattern.compile("\\{([^}]+)\\}");
+	public final static Pattern BRACETED_STIRNG_FINDER = Pattern.compile("\\{([^}]+)\\}");
 	
-	final static Logger logger = LoggerFactory.getLogger(I18nModuleConverter.class);
+	private final static Logger logger = LoggerFactory.getLogger(I18nModuleConverter.class);
 	
-	final static String PER = "/";
-	final static String QUOTE = "\"";
+	private static VelocityUtil velocityUtil;
 	
-	final Class<?> moduleCalss;
-	final String sourceFolder;
-	final String devCsvPath;
-	final String moduleUri;
-	final String moduleName;
-	final ModuleProperties props;
-	final String SEP;
+	private final Class<?> moduleCalss;
+	private final String sourceFolder;
+	private final String devCsvPath;
+	private final String moduleUri;
+	private final String moduleName;
+	private final ModuleProperties props;
+	private final String SEP;
 	
-	Map<String, LocalizedString> localizables;
+	private Map<String, LocalizedString> localizables;
 	
 	public I18nModuleConverter(Class<?> moduleClass) {
 		this.moduleCalss = moduleClass;

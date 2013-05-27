@@ -145,7 +145,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		@Override
 		public void onSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
 			clientI18nStore.onModulesQueriedSuccess(result);
-			Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.currentLang, new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
+			Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.getCurrentLang(), new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
 			
 			queryCounter.decQueries();
 			

@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 
 public class SimpleOnDemandProperties implements Serializable {
 	
-	private ClassLoader classLoader;
-
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(SimpleOnDemandProperties.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(SimpleOnDemandProperties.class);
+	
+	private final ClassLoader classLoader;
 	private final String properyFileName;
+	
 	private Properties properties;
 
 	public SimpleOnDemandProperties(ClassLoader classLoader, String properyFileName) {

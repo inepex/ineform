@@ -11,9 +11,9 @@ import com.inepex.inei18n.shared.CurrentLang;
 @Singleton
 public class WebServerCurrentLang implements CurrentLang {
 	
-	final static Logger logger = LoggerFactory.getLogger(WebServerCurrentLang.class);
+	private final static Logger logger = LoggerFactory.getLogger(WebServerCurrentLang.class);
 	
-	private ThreadLocal<String> threadLangOverride = new ThreadLocal<String>();
+	private final ThreadLocal<String> threadLangOverride = new ThreadLocal<String>();
 	private final Provider<SessionScopedLang> sessionLangProvider;
 	
 	@Inject

@@ -1,6 +1,7 @@
 package com.inepex.inei18n.server;
 
 import com.google.inject.servlet.SessionScoped;
+import com.inepex.inei18n.shared.CurrentLang;
 
 /**
  * This class is used to provide session scoped language setting to {@link WebServerCurrentLang}
@@ -10,5 +11,5 @@ import com.google.inject.servlet.SessionScoped;
  */
 @SessionScoped
 public class SessionScopedLang {
-	public String lang = "en";
+	public String lang = CurrentLang.DEFAULT_LANG;
 }

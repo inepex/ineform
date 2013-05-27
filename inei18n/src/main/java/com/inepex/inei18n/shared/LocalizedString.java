@@ -7,13 +7,12 @@ public class LocalizedString  {
 
 	private String key;
 	private String description;
+	private Map<String, String> localizedMap = new HashMap<String, String>();
 	
 	public LocalizedString(String key, String description) {
 		this.key = key;
 		this.description = description;
 	}
-
-	private Map<String, String> localizedMap = new HashMap<String, String>();
 
 	public String getKey() {
 		return key;

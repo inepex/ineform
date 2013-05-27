@@ -8,7 +8,7 @@ public abstract class I18nModule implements Serializable, IsSerializable {
 
 	private static final long serialVersionUID = 1L;
 
-	String moduleName;
+	private String moduleName;
 	
 	public I18nModule() {
 	}

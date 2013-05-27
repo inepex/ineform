@@ -15,14 +15,12 @@ import com.inepex.inei18n.shared.I18nModuleProvider;
 
 public abstract class ServerI18nProvider<T extends I18nModule> implements I18nModuleProvider<T> {
 
-	final Logger logger = LoggerFactory.getLogger(ServerI18nProvider.class);
-	
 	private static final long serialVersionUID = 1L;
-
-	protected Provider<CurrentLang> currentLangProvider;
+	private static final Logger logger = LoggerFactory.getLogger(ServerI18nProvider.class);
 	
-	protected Map<String, T> i18nsByLang = new HashMap<String, T>(); 
+	private final Map<String, T> i18nsByLang = new HashMap<String, T>();
 	
+	private Provider<CurrentLang> currentLangProvider;
 	private TreeMap<String, Field> fieldsByName = null;
 	
 	public ServerI18nProvider() {

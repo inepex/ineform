@@ -9,8 +9,8 @@ public class GetI18nModulesAndSetCurrentLangFromCookieResult extends SimpleResul
 
 	private static final long serialVersionUID = 1L;
 
-	public String currentLang; 
-	public HashMap<String, I18nModule> i18nModulesByName;
+	private String currentLang; 
+	private HashMap<String, I18nModule> i18nModulesByName;
 
 	public GetI18nModulesAndSetCurrentLangFromCookieResult() {
 	}

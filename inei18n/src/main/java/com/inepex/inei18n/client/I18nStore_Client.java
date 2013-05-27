@@ -46,12 +46,12 @@ public class I18nStore_Client extends I18nStoreBase {
 	}
 
 	public void onModulesQueriedSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
-		currentLanguage = result.currentLang;
+		currentLanguage = result.getCurrentLang();
 		
 		for (I18nModule i18nModule : modulesByName.values()) {
 			ClientI18nProvider<?>  clientProvider 
 				= (ClientI18nProvider<?>) i18nModule.getI18nProvider();
-			clientProvider.setCurrentModule(result.i18nModulesByName.get(i18nModule.getModuleName()));
+			clientProvider.setCurrentModule(result.getI18nModulesByName().get(i18nModule.getModuleName()));
 		}
 	}
 	public String getCurrentLanguage() {
