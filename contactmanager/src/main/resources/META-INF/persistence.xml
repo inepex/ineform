@@ -15,10 +15,11 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="manager" />
 			<property name="javax.persistence.jdbc.password" value="manager123" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/contactmanager" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/contactmanager?useUnicode=true&amp;characterEncoding=UTF-8" />
 		
 			<property name="eclipselink.target-database" value="MySQL"/>
 			<property name="eclipselink.exclude-eclipselink-orm" value="false"/>
+			<property name="eclipselink.logging.logger" value="com.inepex.ineFrame.server.di.jpa.EclipseLinkSLF4jLogger" />
 			<property name="eclipselink.logging.level" value="FINE" />
 		</properties>
 		
