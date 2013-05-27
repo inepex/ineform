@@ -1,0 +1,65 @@
+package com.inepex.translatorapp.server;
+
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import net.customware.gwt.dispatch.server.Dispatch;
+
+import com.inepex.translatorapp.server.i18n.ServertranslatorappI18nProvider;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.server.DaoFinder;
+import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
+import com.inepex.ineFrame.server.AbstractGuiceDispatch;
+import com.inepex.ineFrame.shared.dispatch.Loggable;
+import com.inepex.inei18n.server.I18nStore_Server;
+import com.inepex.inei18n.shared.CurrentLang;
+import com.inepex.ineom.server.ServerIneOmI18nProvider;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.i18n.IneOmI18n;
+
+@Singleton
+@SuppressWarnings("serial")
+public class AppDispatchServlet extends AbstractGuiceDispatch {
+	
+	private final DaoFinder daofinder;
+
+	@Inject
+	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
+			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder) {
+		super(dispatch, currentLangProvider, serverI18n, descStore, true);
+		this.daofinder=daoFinder;
+	}
+	
+	@Override
+	public void init() throws ServletException {
+		daofinder.addPackageByName("com.inepex.translatorapp.entity.dao");
+		super.init();
+	}
+
+	@Override
+	public void doLogAction(Loggable loggable, HttpServletRequest request) {		
+	}
+
+	@Override
+	public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {
+		serverI18n.registerModule(new IneFormI18n(new ServerIneFormI18nProvider(currentLangProvider)));
+		serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
+		serverI18n.registerModule(new translatorappI18n(new ServertranslatorappI18nProvider(currentLangProvider)));
+	}
+
+	@Override
+	public void registerAssists(DescriptorStore descStore) {
+	    //don't forget to register descriptor for each KVO!
+		//new UserAssist(descStore).registerDescriptors();
+	}
+
+	@Override
+	public void setupDefaults() {
+	}
+}

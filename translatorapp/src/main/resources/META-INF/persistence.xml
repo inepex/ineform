@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
+	<persistence-unit name="translatorapp">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		
+<!-- 		uncomment to enable CustomKVO feature -->
+<!-- 		<class>com.inepex.ineForm.server.customkvo.PersistField</class> -->
+<!-- 		<class>com.inepex.ineForm.server.customkvo.CustomKVO</class> -->
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="transUser" />
+			<property name="javax.persistence.jdbc.password" value="transPass" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/translatorapp?useUnicode=true&amp;characterEncoding=UTF-8" />
+		
+			<property name="eclipselink.target-database" value="MySQL"/>
+			<property name="eclipselink.exclude-eclipselink-orm" value="false"/>
+			<property name="eclipselink.logging.logger" value="com.inepex.ineFrame.server.di.jpa.EclipseLinkSLF4jLogger" />
+			<property name="eclipselink.logging.level" value="FINE" />
+		</properties>
+		
+	</persistence-unit>
+</persistence>

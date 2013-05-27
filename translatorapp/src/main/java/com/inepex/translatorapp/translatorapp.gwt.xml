@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='translatorapp'>
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User'/>
+
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+
+  <inherits name="com.inepex.ineForm.ineForm" />
+  <inherits name="com.inepex.ineFrame.ineFrame" />
+  <inherits name="com.inepex.inei18n.ineI18n" />
+  <inherits name="com.inepex.ineom.ineOm" />
+
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='com.inepex.translatorapp.client.App'/>
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client'/>
+  <source path='shared'/>
+
+</module>
