@@ -1,6 +1,8 @@
 package com.inepex.translatorapp.server.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,11 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
+import com.inepex.ineForm.client.form.widgets.StringListFw;
 import com.inepex.ineFrame.server.auth.AuthUser;
 
 @Entity
@@ -34,11 +36,8 @@ public class User implements AuthUser{
 	@Column(nullable=false)
 	private String password;
 	
-	@Kvo_Transparent
-	@Column(nullable=false)
-	private Set<String> allowedRoles = new HashSet<>();
+	private String roles;
 	
-	@OneToMany
 	private List<Lang> translates = new ArrayList<>();
 	
 	public User(){
@@ -71,11 +70,18 @@ public class User implements AuthUser{
 
 	@Override
 	public Set<String> getAllowedRoles() {
-		return allowedRoles;
+		if(roles==null || roles.length()<1)
+			return Collections.emptySet();
+		
+		return new HashSet<>(Arrays.asList(roles.split(StringListFw.SEPARATOR)));
 	}
-	 
-	public void setAllowedRoles(Set<String> allowedRoles) {
-		this.allowedRoles = allowedRoles;
+	
+	public String getRoles() {
+		return roles;
+	}
+	
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 	
 	@Override

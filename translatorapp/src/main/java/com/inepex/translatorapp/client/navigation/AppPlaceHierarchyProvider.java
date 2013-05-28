@@ -5,27 +5,71 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
-import com.inepex.ineFrame.client.navigation.NavigationProperties;
+import com.inepex.ineFrame.client.navigation.InePlace;
+import com.inepex.ineFrame.client.navigation.RequiresAuthentication;
+import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
-import com.inepex.translatorapp.client.page.DummyPage;
+import com.inepex.ineom.shared.util.SharedUtil;
+import com.inepex.translatorapp.client.page.InactivePage;
+import com.inepex.translatorapp.client.page.LoginPage;
+import com.inepex.translatorapp.client.page.PageNotFoundPage;
+import com.inepex.translatorapp.client.page.TranslatorPage;
+import com.inepex.translatorapp.shared.TXT;
 
 @Singleton
 public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 
-	//loggedin
-	@Inject Provider<DummyPage> dummyPageProvider;
+	public static final String LOGIN="login";
+	public static final String PAGENOTFOUND = "notfound";
+	public static final String TRANSLATOR = "translator";
+	public static final String INACTIVE = "inactive";
+	public static final String LOGGEDIN="loggedin";
 	
+	
+	@Inject AuthManager authManager;
+	
+	@Inject Provider<LoginPage> loginProvider;
+	@Inject Provider<PageNotFoundPage> pageNotFoundProvider;
+	@Inject Provider<InactivePage> inactiveProvider;
+	@Inject Provider<TranslatorPage> translatorProvider;
 	
 	@Override
 	public void createPlaceHierarchy() {
-		placeRoot.addChild(NavigationProperties.defaultPlace, new SimpleCachingPlace(dummyPageProvider))
+		placeRoot.addChild(LOGIN, new SimpleCachingPlace(loginProvider))
+				.addChildGC(LOGGEDIN, new ChildRedirectPlace(TRANSLATOR))
+					.addChild(INACTIVE, auth(new SimpleCachingPlace(inactiveProvider)))
+					.addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))
+					.addChild(TRANSLATOR, usr(new SimpleCachingPlace(translatorProvider)))
+					.getParent()
 				 ;
+	}
+	
+	private static <E extends InePlace> E auth(E place) {
+		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
+		return place;
+	}
+	
+	private static <E extends InePlace> E usr(E place) {
+		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
+		place.addAllowedRoles(TXT.Roles.developer, TXT.Roles.translator);
+		return place;
+	}
+	
+	private static <E extends InePlace> E dev(E place) {
+		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
+		place.addAllowedRoles(TXT.Roles.developer);
+		return place;
 	}
 	
 	@Override
 	public List<String> getCurrentMenuRoot() {
-		return null;
+		if(authManager.isUserLoggedIn()) {
+			return SharedUtil.Li(LOGGEDIN);
+		} else {
+			return null;
+		}
 	}
 }
 

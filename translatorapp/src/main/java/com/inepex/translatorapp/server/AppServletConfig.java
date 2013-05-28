@@ -8,7 +8,7 @@ public class AppServletConfig  extends GuiceServletContextListener {
 
 	@Override
 	protected Injector getInjector() {
-		return Guice.createInjector(new AppPersistenceModule()
+		return Guice.createInjector(new AppServletModule()
 									, new AppGuiceModule());
 	}
 	

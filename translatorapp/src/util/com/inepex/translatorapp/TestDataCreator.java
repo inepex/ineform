@@ -30,20 +30,25 @@ public class TestDataCreator {
 		em.getTransaction().begin();
 		
 		User dev = new User();
-		dev.getAllowedRoles().add(TXT.Roles.developer);
-		dev.setEmail("dev@inepex.com");
+		dev.setRoles(TXT.Roles.developer);
+		dev.setEmail("developer@inepex.com");
 		dev.setPassword(StringUtil.hash("a"));
 		dev.getTranslates().add(en);
 		dev.getTranslates().add(hu);
 		em.persist(dev);
 		
 		User trans = new User();
-		trans.getAllowedRoles().add(TXT.Roles.translator);
+		trans.setRoles(TXT.Roles.translator);
 		trans.setEmail("translator@inepex.com");
 		trans.setPassword(StringUtil.hash("a"));
 		trans.getTranslates().add(de);
 		trans.getTranslates().add(en);
 		em.persist(trans);
+		
+		User inactive = new User();
+		inactive.setEmail("inactive@inepex.com");
+		inactive.setPassword(StringUtil.hash("a"));
+		em.persist(inactive);
 		
 		em.getTransaction().commit();
 	}

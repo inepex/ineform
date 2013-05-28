@@ -1,5 +1,4 @@
 package com.inepex.translatorapp.server.i18n;
-
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 import com.inepex.inei18n.server.ServerI18nProvider;

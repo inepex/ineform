@@ -25,14 +25,25 @@ public class translatorappI18n extends I18nModule {
 		return moduleProvider;
 	}
 	
-	public String dummy = "dummy text in english";
+	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
+	public String pageNotFound = "Page not found";
+
 	
 	/**
-	* <u><i>Description:</i></u> description of this string <br />
-	* <u><i>In English:</i></u> dummy text in english
-	* <u><i>Magyarul:</i></u> and it's hungarian translate: dummy szöveg angolul
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Your account is currently inactive. Please ask the administrator for roles!
+	* <u><i>Magyarul:</i></u> A fiókod jelenleg inaktív. Kérj az adminisztrátoroktól jogokat!
 	*/
-	public static String dummy() {
-		return moduleProvider.get().dummy;
+	public static String inactiveAccount() {
+		return moduleProvider.get().inactiveAccount;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Page not found
+	* <u><i>Magyarul:</i></u> Az oldal nem található
+	*/
+	public static String pageNotFound() {
+		return moduleProvider.get().pageNotFound;
 	}
 }
