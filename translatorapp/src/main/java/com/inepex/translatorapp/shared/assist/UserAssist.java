@@ -1,4 +1,4 @@
-package com.inepex.translatorapp.server.entity.assist;
+package com.inepex.translatorapp.shared.assist;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -11,23 +11,11 @@ import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.translatorapp.server.entity.kvo.LangConsts;
-import com.inepex.translatorapp.server.entity.kvo.UserConsts;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
+import com.inepex.translatorapp.shared.kvo.LangConsts;
+import com.inepex.translatorapp.shared.kvo.UserConsts;
 
 public class UserAssist extends Assist {
-
-	public static class I18n{
-// copy these to .csv
-//"user_id";"";"Id";"Id"
-//"user_email";"";"Email";"Email"
-//"user_roles";"";"Roles";"Roles"
-//"user_translates";"";"Translates";"Translates"
-//
-		public static String user_id() { return /*hc:i18n_1*/"Id"/*hc*/;}
-		public static String user_email() { return /*hc:i18n_2*/"Email"/*hc*/;}
-		public static String user_roles() { return /*hc:i18n_4*/"Roles"/*hc*/;}
-		public static String user_translates() { return /*hc:i18n_5*/"Translates"/*hc*/;}
-	}
 	
 	public UserAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -47,11 +35,11 @@ public class UserAssist extends Assist {
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(UserConsts.descriptorName
-			, new LongFDesc(UserConsts.k_id, /*hc:d1*/I18n.user_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(UserConsts.k_email, /*hc:d2*/I18n.user_email()/*hc*/)/*hc:d2_2*//*hc*/
+			, new LongFDesc(UserConsts.k_id, /*hc:d1*/translatorappI18n.user_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new StringFDesc(UserConsts.k_email, /*hc:d2*/translatorappI18n.user_email()/*hc*/)/*hc:d2_2*//*hc*/
 					.mandatory()
-			, new StringFDesc(UserConsts.k_roles, /*hc:d4*/I18n.user_roles()/*hc*/)/*hc:d2_4*//*hc*/
-			, new ListFDesc(UserConsts.k_translates, /*hc:d5*/I18n.user_translates()/*hc*/,LangConsts.descriptorName)/*hc:d2_5*//*hc*/
+			, new StringFDesc(UserConsts.k_roles, /*hc:d4*/translatorappI18n.user_roles()/*hc*/)/*hc:d2_4*//*hc*/
+			, new ListFDesc(UserConsts.k_translates, /*hc:d5*/translatorappI18n.user_translates()/*hc*/,LangConsts.descriptorName)/*hc:d2_5*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());

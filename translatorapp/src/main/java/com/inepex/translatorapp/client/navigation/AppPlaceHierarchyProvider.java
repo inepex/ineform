@@ -15,6 +15,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.translatorapp.client.page.InactivePage;
 import com.inepex.translatorapp.client.page.LoginPage;
 import com.inepex.translatorapp.client.page.PageNotFoundPage;
+import com.inepex.translatorapp.client.page.RegPage;
 import com.inepex.translatorapp.client.page.TranslatorPage;
 import com.inepex.translatorapp.shared.TXT;
 
@@ -22,10 +23,12 @@ import com.inepex.translatorapp.shared.TXT;
 public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 
 	public static final String LOGIN="login";
+	public static final String REGISTER="register";
+	
+	public static final String LOGGEDIN="loggedin";
 	public static final String PAGENOTFOUND = "notfound";
 	public static final String TRANSLATOR = "translator";
 	public static final String INACTIVE = "inactive";
-	public static final String LOGGEDIN="loggedin";
 	
 	
 	@Inject AuthManager authManager;
@@ -34,10 +37,12 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	@Inject Provider<PageNotFoundPage> pageNotFoundProvider;
 	@Inject Provider<InactivePage> inactiveProvider;
 	@Inject Provider<TranslatorPage> translatorProvider;
+	@Inject Provider<RegPage> regProvider;
 	
 	@Override
 	public void createPlaceHierarchy() {
 		placeRoot.addChild(LOGIN, new SimpleCachingPlace(loginProvider))
+				.addChild(REGISTER, new SimpleCachingPlace(regProvider))
 				.addChildGC(LOGGEDIN, new ChildRedirectPlace(TRANSLATOR))
 					.addChild(INACTIVE, auth(new SimpleCachingPlace(inactiveProvider)))
 					.addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))

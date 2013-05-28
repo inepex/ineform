@@ -7,9 +7,9 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.Lang;
-import com.inepex.translatorapp.server.entity.kvo.LangConsts;
-import com.inepex.translatorapp.server.entity.kvo.LangHandlerFactory;
-import com.inepex.translatorapp.server.entity.kvo.LangHandlerFactory.LangHandler;
+import com.inepex.translatorapp.shared.kvo.LangConsts;
+import com.inepex.translatorapp.shared.kvo.LangHandlerFactory;
+import com.inepex.translatorapp.shared.kvo.LangHandlerFactory.LangHandler;
 
 public class LangMapper extends BaseMapper<Lang>{
 	

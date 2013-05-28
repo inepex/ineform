@@ -1,4 +1,4 @@
-package com.inepex.translatorapp.server.entity.assist;
+package com.inepex.translatorapp.shared.assist;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -10,18 +10,10 @@ import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.translatorapp.server.entity.kvo.LangConsts;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
+import com.inepex.translatorapp.shared.kvo.LangConsts;
 
 public class LangAssist extends Assist {
-
-	public static class I18n{
-// copy these to .csv
-//"lang_id";"";"Id";"Id"
-//"lang_isoName";"";"IsoName";"IsoName"
-//
-		public static String lang_id() { return /*hc:i18n_1*/"Id"/*hc*/;}
-		public static String lang_isoName() { return /*hc:i18n_2*/"IsoName"/*hc*/;}
-	}
 	
 	public LangAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -41,8 +33,8 @@ public class LangAssist extends Assist {
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(LangConsts.descriptorName
-			, new LongFDesc(LangConsts.k_id, /*hc:d1*/I18n.lang_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(LangConsts.k_isoName, /*hc:d2*/I18n.lang_isoName()/*hc*/)/*hc:d2_2*//*hc*/
+			, new LongFDesc(LangConsts.k_id, /*hc:d1*/translatorappI18n.lang_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new StringFDesc(LangConsts.k_isoName, /*hc:d2*/translatorappI18n.lang_isoName()/*hc*/)/*hc:d2_2*//*hc*/
 					.mandatory()
 		);
 		

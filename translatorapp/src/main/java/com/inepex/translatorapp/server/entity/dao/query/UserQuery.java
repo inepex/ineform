@@ -16,9 +16,9 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 import com.inepex.translatorapp.server.entity.User;
 import com.inepex.translatorapp.server.entity.User_;
-import com.inepex.translatorapp.server.entity.kvo.UserConsts;
-import com.inepex.translatorapp.server.entity.kvo.UserHandlerFactory;
-import com.inepex.translatorapp.server.entity.kvo.UserHandlerFactory.UserSearchHandler;
+import com.inepex.translatorapp.shared.kvo.UserConsts;
+import com.inepex.translatorapp.shared.kvo.UserHandlerFactory;
+import com.inepex.translatorapp.shared.kvo.UserHandlerFactory.UserSearchHandler;
 
 public class UserQuery extends BaseQuery<User>{
 

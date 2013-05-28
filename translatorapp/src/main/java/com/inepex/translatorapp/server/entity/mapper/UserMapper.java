@@ -12,9 +12,9 @@ import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.User;
-import com.inepex.translatorapp.server.entity.kvo.UserConsts;
-import com.inepex.translatorapp.server.entity.kvo.UserHandlerFactory;
-import com.inepex.translatorapp.server.entity.kvo.UserHandlerFactory.UserHandler;
+import com.inepex.translatorapp.shared.kvo.UserConsts;
+import com.inepex.translatorapp.shared.kvo.UserHandlerFactory;
+import com.inepex.translatorapp.shared.kvo.UserHandlerFactory.UserHandler;
 
 public class UserMapper extends BaseMapper<User>{
 	

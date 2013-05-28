@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import net.customware.gwt.dispatch.server.Dispatch;
 
 import com.inepex.translatorapp.server.i18n.ServertranslatorappI18nProvider;
+import com.inepex.translatorapp.shared.assist.LangAssist;
+import com.inepex.translatorapp.shared.assist.RegAssist;
+import com.inepex.translatorapp.shared.assist.UserAssist;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 import com.google.inject.Inject;
@@ -55,8 +58,9 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 
 	@Override
 	public void registerAssists(DescriptorStore descStore) {
-	    //don't forget to register descriptor for each KVO!
-		//new UserAssist(descStore).registerDescriptors();
+		new UserAssist(descStore).registerDescriptors();
+		new LangAssist(descStore).registerDescriptors();
+		new RegAssist(descStore).registerDescriptors();
 	}
 
 	@Override

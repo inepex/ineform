@@ -1,8 +1,14 @@
 package com.inepex.translatorapp.client.page;
 
 import com.google.gwt.dom.client.Style.Float;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
@@ -14,28 +20,60 @@ import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.PlaceToken;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.translatorapp.shared.TXT;
 
 
 public class LoginPage extends FlowPanelBasedPage {
 
+	private final Anchor regLink;
+	
+	private final EventBus eventBus;
+	
 	@Inject
 	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
+		this.eventBus=eventBus;
 		
-		mainPanel.add(new CMLoginBox(authManager, historyProvider, eventBus, ineDispatch));
+		FlowPanel leftPanel = new FlowPanel();
+		leftPanel.getElement().getStyle().setPosition(Position.ABSOLUTE);
+		
+		HTML welcomeText = new HTML(translatorappI18n.welcomeText());
+		welcomeText.setWidth("600px");
+		leftPanel.add(welcomeText);
+		
+		regLink = new Anchor(translatorappI18n.regAnchor());
+		leftPanel.add(regLink);
+		
+		mainPanel.add(leftPanel);
+		
+		mainPanel.add(new TranslatorLoginBox(authManager, historyProvider, eventBus, ineDispatch));
 	}
 	
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+		
+		registerHandler(regLink.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.REGISTER));
+			}
+		}));
+	}
+	
+
 	@Override
 	protected void onShow(boolean isFirstShow) {
 	}
 
-	private class CMLoginBox extends LoginBox {
+	private class TranslatorLoginBox extends LoginBox {
 
 		// TODO: stay signed in functionality not fully implemented yet!
 		private CheckBox staySignedIn = new CheckBox("Stay signed in");
 		
-		protected CMLoginBox(AuthManager authManager,
+		protected TranslatorLoginBox(AuthManager authManager,
 				HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
 			super(authManager, historyProvider, eventBus, ineDispatch);
 			getElement().getStyle().setFloat(Float.RIGHT);
@@ -63,5 +101,4 @@ public class LoginPage extends FlowPanelBasedPage {
 		}
 		
 	}
-	
 }

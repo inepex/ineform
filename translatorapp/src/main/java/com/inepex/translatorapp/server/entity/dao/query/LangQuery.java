@@ -16,9 +16,9 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.Lang_;
-import com.inepex.translatorapp.server.entity.kvo.LangConsts;
-import com.inepex.translatorapp.server.entity.kvo.LangHandlerFactory;
-import com.inepex.translatorapp.server.entity.kvo.LangHandlerFactory.LangSearchHandler;
+import com.inepex.translatorapp.shared.kvo.LangConsts;
+import com.inepex.translatorapp.shared.kvo.LangHandlerFactory;
+import com.inepex.translatorapp.shared.kvo.LangHandlerFactory.LangSearchHandler;
 
 public class LangQuery extends BaseQuery<Lang>{
 

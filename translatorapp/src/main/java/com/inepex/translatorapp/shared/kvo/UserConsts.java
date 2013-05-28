@@ -1,4 +1,4 @@
-package com.inepex.translatorapp.server.entity.kvo;
+package com.inepex.translatorapp.shared.kvo;
 
 public class UserConsts {
 
