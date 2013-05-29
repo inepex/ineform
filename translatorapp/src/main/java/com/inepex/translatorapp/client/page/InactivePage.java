@@ -8,6 +8,6 @@ public class InactivePage extends DummyPage {
 	
 	@Inject
 	public InactivePage() {
-		super("<h1>" + translatorappI18n.inactiveAccount() + "</h1>");
+		super("<h2>" + translatorappI18n.inactiveAccount() + "</h2>");
 	}
 }

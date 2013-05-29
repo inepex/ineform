@@ -38,7 +38,7 @@ public class UserAssist extends Assist {
 			, new LongFDesc(UserConsts.k_id, /*hc:d1*/translatorappI18n.user_id()/*hc*/)/*hc:d2_1*//*hc*/
 			, new StringFDesc(UserConsts.k_email, /*hc:d2*/translatorappI18n.user_email()/*hc*/)/*hc:d2_2*//*hc*/
 					.mandatory()
-			, new StringFDesc(UserConsts.k_roles, /*hc:d4*/translatorappI18n.user_roles()/*hc*/)/*hc:d2_4*//*hc*/
+			, new StringFDesc(UserConsts.k_role, /*hc:d4*/translatorappI18n.user_role()/*hc*/)/*hc:d2_4*//*hc*/
 			, new ListFDesc(UserConsts.k_translates, /*hc:d5*/translatorappI18n.user_translates()/*hc*/,LangConsts.descriptorName)/*hc:d2_5*//*hc*/
 		);
 		
@@ -53,7 +53,7 @@ public class UserAssist extends Assist {
 		tableRDesc.getRootNode()
 			.addChild(UserConsts.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
 			.addChild(UserConsts.k_email, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(UserConsts.k_roles, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
+			.addChild(UserConsts.k_role, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
 			.addChild(UserConsts.k_translates, new ColRDesc(/*hc:tdr1_5*//*hc*/)/*hc:tdr2_5*//*hc*/)				
 			;
 		return tableRDesc;
@@ -67,8 +67,8 @@ public class UserAssist extends Assist {
 			
 		formRDesc.getRootNode()
 			.addChild(UserConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(UserConsts.k_email, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(UserConsts.k_roles, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(UserConsts.k_email, new WidgetRDesc(/*hc:f2*/FWTypes.LABEL/*hc*/))
+			.addChild(UserConsts.k_role, new WidgetRDesc(/*hc:f4*/FWTypes.STRINGLISTBOX/*hc*/))
 			.addChild(UserConsts.k_translates, new WidgetRDesc(/*hc:f5*/FWTypes.RELATIONLIST/*hc*/))
 			;
 		return formRDesc;

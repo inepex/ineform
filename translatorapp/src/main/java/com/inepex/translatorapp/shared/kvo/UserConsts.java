@@ -8,7 +8,7 @@ public class UserConsts {
 	//field contsts
 	public static final String k_id = "id";	
 	public static final String k_email = "email";	
-	public static final String k_roles = "roles";	
+	public static final String k_role = "roles";	
 	public static final String k_translates = "translates";	
 
 	public static String k_id() {
@@ -18,7 +18,7 @@ public class UserConsts {
 		return k_email;
 	}	
 	public static String k_roles() {
-		return k_roles;
+		return k_role;
 	}	
 	public static String k_translates() {
 		return k_translates;

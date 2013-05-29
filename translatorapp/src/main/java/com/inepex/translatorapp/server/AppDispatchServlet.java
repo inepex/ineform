@@ -41,7 +41,7 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 	
 	@Override
 	public void init() throws ServletException {
-		daofinder.addPackageByName("com.inepex.translatorapp.entity.dao");
+		daofinder.addPackageByName("com.inepex.translatorapp.server.entity.dao");
 		super.init();
 	}
 

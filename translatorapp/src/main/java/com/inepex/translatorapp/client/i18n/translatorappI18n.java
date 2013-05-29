@@ -39,9 +39,12 @@ public class translatorappI18n extends I18nModule {
 	public String reg_passwordAgain = "Password again";
 	public String registeredEmail = "There is already an account for this e-mail address!";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
+	public String translatorPage = "Translator page";
+	public String userListPage = "User list";
+	public String userListTitle = "<h2>Current users</h2><br/>";
 	public String user_email = "E-mail";
 	public String user_id = "Id";
-	public String user_roles = "Roles";
+	public String user_role = "Role";
 	public String user_translates = "Translates";
 	public String weakPassword = "Password should be at least 6 characters long. It should be contain both letters and digits!";
 	public String welcomeText = "<h2>Welcome to our Translator application!</h2><br>If you have an account, just log in with the panel on right.<br><br>If not, you should register: <b>click</b> the link below!<br><br>";
@@ -175,6 +178,33 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Translator page
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatorPage() {
+		return moduleProvider.get().translatorPage;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> User list
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String userListPage() {
+		return moduleProvider.get().userListPage;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> <h2>Current users</h2><br/>
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String userListTitle() {
+		return moduleProvider.get().userListTitle;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> E-mail
 	* <u><i>Magyarul:</i></u> ?
 	*/
@@ -193,11 +223,11 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Roles
+	* <u><i>In English:</i></u> Role
 	* <u><i>Magyarul:</i></u> ?
 	*/
-	public static String user_roles() {
-		return moduleProvider.get().user_roles;
+	public static String user_role() {
+		return moduleProvider.get().user_role;
 	}
 	
 	/**

@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
-import com.inepex.ineForm.client.form.widgets.StringListFw;
 import com.inepex.ineFrame.server.auth.AuthUser;
 
 @Entity
@@ -36,7 +35,7 @@ public class User implements AuthUser{
 	@Column(nullable=false)
 	private String password;
 	
-	private String roles;
+	private String role;
 	
 	private List<Lang> translates = new ArrayList<>();
 	
@@ -70,18 +69,18 @@ public class User implements AuthUser{
 
 	@Override
 	public Set<String> getAllowedRoles() {
-		if(roles==null || roles.length()<1)
+		if(role==null || role.length()<1)
 			return Collections.emptySet();
 		
-		return new HashSet<>(Arrays.asList(roles.split(StringListFw.SEPARATOR)));
+		return new HashSet<>(Arrays.asList(role));
 	}
 	
-	public String getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
 	
-	public void setRoles(String roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	@Override

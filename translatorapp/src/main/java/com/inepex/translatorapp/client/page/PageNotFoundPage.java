@@ -8,6 +8,6 @@ public class PageNotFoundPage extends DummyPage {
 	
 	@Inject
 	public PageNotFoundPage() {
-		super("<h1>" + translatorappI18n.pageNotFound() + "</h1>");
+		super("<h2>" + translatorappI18n.pageNotFound() + "</h2>");
 	}
 }

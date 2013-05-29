@@ -12,11 +12,13 @@ import com.inepex.ineFrame.client.navigation.RequiresAuthentication;
 import com.inepex.ineFrame.client.navigation.places.ChildRedirectPlace;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
 import com.inepex.ineom.shared.util.SharedUtil;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.client.page.InactivePage;
 import com.inepex.translatorapp.client.page.LoginPage;
 import com.inepex.translatorapp.client.page.PageNotFoundPage;
 import com.inepex.translatorapp.client.page.RegPage;
 import com.inepex.translatorapp.client.page.TranslatorPage;
+import com.inepex.translatorapp.client.page.UserListPage;
 import com.inepex.translatorapp.shared.TXT;
 
 @Singleton
@@ -29,6 +31,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	public static final String PAGENOTFOUND = "notfound";
 	public static final String TRANSLATOR = "translator";
 	public static final String INACTIVE = "inactive";
+	public static final String USERLIST = "userList";
 	
 	
 	@Inject AuthManager authManager;
@@ -38,6 +41,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	@Inject Provider<InactivePage> inactiveProvider;
 	@Inject Provider<TranslatorPage> translatorProvider;
 	@Inject Provider<RegPage> regProvider;
+	@Inject Provider<UserListPage> userListProv;
 	
 	@Override
 	public void createPlaceHierarchy() {
@@ -46,7 +50,8 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 				.addChildGC(LOGGEDIN, new ChildRedirectPlace(TRANSLATOR))
 					.addChild(INACTIVE, auth(new SimpleCachingPlace(inactiveProvider)))
 					.addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))
-					.addChild(TRANSLATOR, usr(new SimpleCachingPlace(translatorProvider)))
+					.addChild(TRANSLATOR, usr(new SimpleCachingPlace(translatorProvider)).setMenuName(translatorappI18n.translatorPage()))
+					.addChild(USERLIST, dev(new SimpleCachingPlace(userListProv)).setMenuName(translatorappI18n.userListPage()))
 					.getParent()
 				 ;
 	}

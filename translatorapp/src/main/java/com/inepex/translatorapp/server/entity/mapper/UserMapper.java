@@ -37,8 +37,8 @@ public class UserMapper extends BaseMapper<User>{
 			to.setId(fromHandler.getId());
 		if (fromHandler.containsString(UserConsts.k_email)) 
 			to.setEmail(fromHandler.getEmail());
-		if (fromHandler.containsString(UserConsts.k_roles)) 
-			to.setRoles(fromHandler.getRoles());
+		if (fromHandler.containsString(UserConsts.k_role)) 
+			to.setRole(fromHandler.getRole());
 		if (fromHandler.containsRelation(UserConsts.k_translates)) {
 			if (fromHandler.getTranslates() == null){
 				to.setTranslates(null);
@@ -61,8 +61,8 @@ public class UserMapper extends BaseMapper<User>{
 			handler.setId(entity.getId());
 		if (entity.getEmail() != null && !"".equals(entity.getEmail())) 
 			handler.setEmail(entity.getEmail());
-		if (entity.getRoles() != null && !"".equals(entity.getRoles())) 
-			handler.setRoles(entity.getRoles());
+		if (entity.getRole() != null && !"".equals(entity.getRole())) 
+			handler.setRole(entity.getRole());
 		{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();
