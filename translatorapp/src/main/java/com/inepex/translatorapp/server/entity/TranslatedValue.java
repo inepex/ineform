@@ -36,6 +36,12 @@ public class TranslatedValue {
 	@Kvo_Fetch(mode=Mode.lazy)
 	private ModuleRow row;
 	
+	public TranslatedValue() {
+	}
+	
+	public TranslatedValue(Long id) {
+		this.id=id;
+	}
 	
 	@Override
 	public String toString() {

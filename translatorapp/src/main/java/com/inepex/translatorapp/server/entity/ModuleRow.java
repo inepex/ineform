@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -43,14 +42,16 @@ public class ModuleRow {
 	@Kvo_Fetch(mode=Mode.lazy)
 	private Module module;
 	
-	@OneToOne
-	@JoinColumn(nullable=false)
-	@Kvo_Fetch(mode=Mode.eager)
-	private TranslatedValue defValue; 
-	
 	@Kvo_Fetch(mode=Mode.eager)
 	@OneToMany(mappedBy="row", cascade={CascadeType.ALL}, orphanRemoval=true)
-	private List<TranslatedValue> otherValues = new ArrayList<>();
+	private List<TranslatedValue> values = new ArrayList<>();
+	
+	public ModuleRow(){
+	}
+	
+	public ModuleRow(Long id) {
+		this.id=id;
+	}
 	
 	@Override
 	public String toString() {
@@ -89,21 +90,11 @@ public class ModuleRow {
 		this.module = module;
 	}
 
-	public TranslatedValue getDefValue() {
-		return defValue;
-	}
-
-	public void setDefValue(TranslatedValue defValue) {
-		this.defValue = defValue;
-	}
-
-	public List<TranslatedValue> getOtherValues() {
-		return otherValues;
-	}
-
-	public void setOtherValues(List<TranslatedValue> otherValues) {
-		this.otherValues = otherValues;
+	public List<TranslatedValue> getValues() {
+		return values;
 	}
 	
-	
+	public void setValues(List<TranslatedValue> values) {
+		this.values = values;
+	}
 }

@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.Module;
+import com.inepex.translatorapp.server.entity.ModuleLang;
 import com.inepex.translatorapp.server.entity.User;
 import com.inepex.translatorapp.server.entity.UserLang;
 import com.inepex.translatorapp.shared.TXT;
@@ -75,19 +76,26 @@ public class TestDataCreator {
 		
 		uiModule = new Module();
 		uiModule.setName("uiI18nModule");
-		uiModule.setDefLang(hu);
-		uiModule.getLangs().add(de);
-		uiModule.getLangs().add(en);
+		uiModule.getLangs().add(lang(uiModule, hu));
+		uiModule.getLangs().add(lang(uiModule, de));
+		uiModule.getLangs().add(lang(uiModule, en));
 		createUiModuleRows();
 		em.persist(uiModule);
 		
 		coreModule = new Module();
 		coreModule.setName("coreI18nModule");
-		coreModule.setDefLang(en);
+		coreModule.getLangs().add(lang(coreModule, hu));
 		createCoreModuleRows();
 		em.persist(coreModule);
 		
 		em.getTransaction().commit();
+	}
+
+	private static ModuleLang lang(Module module, Lang l) {
+		ModuleLang ml = new ModuleLang();
+		ml.setModule(module);
+		ml.setLang(l);
+		return ml;
 	}
 
 	private static void createCoreModuleRows() {

@@ -12,7 +12,6 @@ import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
-import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 import com.inepex.translatorapp.shared.kvo.UserLangConsts;
 

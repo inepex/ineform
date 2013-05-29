@@ -8,7 +8,11 @@ import net.customware.gwt.dispatch.server.Dispatch;
 
 import com.inepex.translatorapp.server.i18n.ServertranslatorappI18nProvider;
 import com.inepex.translatorapp.shared.assist.LangAssist;
+import com.inepex.translatorapp.shared.assist.ModuleAssist;
+import com.inepex.translatorapp.shared.assist.ModuleLangAssist;
+import com.inepex.translatorapp.shared.assist.ModuleRowAssist;
 import com.inepex.translatorapp.shared.assist.RegAssist;
+import com.inepex.translatorapp.shared.assist.TranslatedValueAssist;
 import com.inepex.translatorapp.shared.assist.UserAssist;
 import com.inepex.translatorapp.shared.assist.UserLangAssist;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
@@ -63,6 +67,10 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 		new LangAssist(descStore).registerDescriptors();
 		new RegAssist(descStore).registerDescriptors();
 		new UserLangAssist(descStore).registerDescriptors();
+		new ModuleAssist(descStore).registerDescriptors();
+		new ModuleLangAssist(descStore).registerDescriptors();
+		new ModuleRowAssist(descStore).registerDescriptors();
+		new TranslatedValueAssist(descStore).registerDescriptors();
 	}
 
 	@Override

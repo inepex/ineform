@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.inepex.ineForm.annotations.Kvo_Fetch;
 import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
@@ -33,17 +31,16 @@ public class Module {
 	@OneToMany(mappedBy="module", cascade={CascadeType.ALL}, orphanRemoval=true)
 	private List<ModuleRow> rows = new ArrayList<>();
 	
-	@OneToOne
 	@Kvo_Fetch(mode=Mode.eager)
-	@JoinColumn(nullable=false)
-	private Lang defLang;
-	
-	@Kvo_Fetch(mode=Mode.eager)
-	@OneToMany
-	private List<Lang> langs = new ArrayList<>();
+	@OneToMany(mappedBy="module", cascade={CascadeType.ALL}, orphanRemoval=true)
+	private List<ModuleLang> langs = new ArrayList<>();
 	
 	public Module() {
 		
+	}
+	
+	public Module(Long id) {
+		this.id=id;
 	}
 	
 	public Long getId() {
@@ -76,19 +73,11 @@ public class Module {
 		this.rows = rows;
 	}
 
-	public Lang getDefLang() {
-		return defLang;
-	}
-
-	public void setDefLang(Lang defLang) {
-		this.defLang = defLang;
-	}
-
-	public List<Lang> getLangs() {
+	public List<ModuleLang> getLangs() {
 		return langs;
 	}
-
-	public void setLangs(List<Lang> langs) {
+	
+	public void setLangs(List<ModuleLang> langs) {
 		this.langs = langs;
 	}
 }
