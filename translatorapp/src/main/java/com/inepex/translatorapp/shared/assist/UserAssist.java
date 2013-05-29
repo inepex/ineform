@@ -14,6 +14,7 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
+import com.inepex.translatorapp.shared.kvo.UserLangConsts;
 
 public class UserAssist extends Assist {
 	
@@ -39,7 +40,8 @@ public class UserAssist extends Assist {
 			, new StringFDesc(UserConsts.k_email, /*hc:d2*/translatorappI18n.user_email()/*hc*/)/*hc:d2_2*//*hc*/
 					.mandatory()
 			, new StringFDesc(UserConsts.k_role, /*hc:d4*/translatorappI18n.user_role()/*hc*/)/*hc:d2_4*//*hc*/
-			, new ListFDesc(UserConsts.k_translates, /*hc:d5*/translatorappI18n.user_translates()/*hc*/,LangConsts.descriptorName)/*hc:d2_5*//*hc*/
+			, new ListFDesc(UserConsts.k_translates, /*hc:d5*/translatorappI18n.user_translates()/*hc*/,UserLangConsts.descriptorName,
+					"secondLevelJoin:lang")/*hc:d2_5*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -69,7 +71,7 @@ public class UserAssist extends Assist {
 			.addChild(UserConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
 			.addChild(UserConsts.k_email, new WidgetRDesc(/*hc:f2*/FWTypes.LABEL/*hc*/))
 			.addChild(UserConsts.k_role, new WidgetRDesc(/*hc:f4*/FWTypes.STRINGLISTBOX/*hc*/))
-			.addChild(UserConsts.k_translates, new WidgetRDesc(/*hc:f5*/FWTypes.RELATIONLIST/*hc*/))
+			.addChild(UserConsts.k_translates, new WidgetRDesc(/*hc:f5*/FWTypes.CHOOSER/*hc*/))
 			;
 		return formRDesc;
 	}

@@ -6,6 +6,7 @@ import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.Module;
 import com.inepex.translatorapp.server.entity.User;
+import com.inepex.translatorapp.server.entity.UserLang;
 import com.inepex.translatorapp.shared.TXT;
 
 public class TestDataCreator {
@@ -33,16 +34,16 @@ public class TestDataCreator {
 		dev.setRole(TXT.Roles.developer);
 		dev.setEmail("developer@inepex.com");
 		dev.setPassword(StringUtil.hash("a"));
-		dev.getTranslates().add(en);
-		dev.getTranslates().add(hu);
+		dev.getTranslates().add(lang(dev,en));
+		dev.getTranslates().add(lang(dev,hu));
 		em.persist(dev);
 		
 		User trans = new User();
 		trans.setRole(TXT.Roles.translator);
 		trans.setEmail("translator@inepex.com");
 		trans.setPassword(StringUtil.hash("a"));
-		trans.getTranslates().add(de);
-		trans.getTranslates().add(en);
+		trans.getTranslates().add(lang(trans,hu));
+		trans.getTranslates().add(lang(trans,en));
 		em.persist(trans);
 		
 		User inactive = new User();
@@ -51,6 +52,13 @@ public class TestDataCreator {
 		em.persist(inactive);
 		
 		em.getTransaction().commit();
+	}
+
+	private static UserLang lang(User u, Lang l) {
+		UserLang lang = new UserLang();
+		lang.setUser(u);
+		lang.setLang(l);
+		return lang;
 	}
 
 	private static void createLangsAndModules() {
@@ -83,7 +91,7 @@ public class TestDataCreator {
 	}
 
 	private static void createCoreModuleRows() {
-		//TODO
+		// TODO Auto-generated method stub
 	}
 
 	private static void createUiModuleRows() {

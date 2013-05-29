@@ -1,17 +1,20 @@
 package com.inepex.translatorapp.server.entity.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.inject.Inject;
 import com.inepex.ineForm.shared.BaseMapper;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.User;
+import com.inepex.translatorapp.server.entity.UserLang;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 import com.inepex.translatorapp.shared.kvo.UserHandlerFactory;
 import com.inepex.translatorapp.shared.kvo.UserHandlerFactory.UserHandler;
@@ -39,10 +42,32 @@ public class UserMapper extends BaseMapper<User>{
 			to.setEmail(fromHandler.getEmail());
 		if (fromHandler.containsString(UserConsts.k_role)) 
 			to.setRole(fromHandler.getRole());
-		if (fromHandler.containsRelation(UserConsts.k_translates)) {
-			if (fromHandler.getTranslates() == null){
-				to.setTranslates(null);
-			} else {
+		if (fromHandler.containsList(UserConsts.k_translates)) {
+			if (to.getTranslates() == null)
+				to.setTranslates(new ArrayList<UserLang>());
+
+    		Map<Long,UserLang> origItems = new HashMap<Long, UserLang>();
+			for (UserLang item : to.getTranslates()) {
+				origItems.put(item.getId(), item);
+			}
+			
+			UserLangMapper mapper = new UserLangMapper(descriptorStore);
+			for (Relation rel : fromHandler.getTranslates().getRelationList()) {
+				if (rel == null)
+					continue;
+				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
+					UserLang entity = new UserLang(IFConsts.NEW_ITEM_ID);
+					mapper.kvoToEntity(rel.getKvo(), entity, descs);
+					entity.setUser(to);
+					to.getTranslates().add(entity);
+				} else {
+					UserLang origItem = origItems.get(rel.getId());
+					if (rel.getKvo() == null) { 			    // delete item
+						to.getTranslates().remove(origItem);
+					} else {									// edit item
+						mapper.kvoToEntity(rel.getKvo(), origItem, descs);
+					}
+				}
 			}
 		}
 
@@ -67,8 +92,8 @@ public class UserMapper extends BaseMapper<User>{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();
     		if (entity.getTranslates() != null)
-    			for (Lang item : entity.getTranslates()) {
-    				relationList.add(new LangMapper(descriptorStore).toRelation(item, true));
+    			for (UserLang item : entity.getTranslates()) {
+    				relationList.add(new UserLangMapper(descriptorStore).toRelation(item, true));
     			}
     		if (relationList.size() > 0) {
     			ineList.setRelationList(relationList);

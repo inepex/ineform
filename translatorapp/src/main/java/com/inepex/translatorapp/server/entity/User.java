@@ -7,11 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
@@ -37,7 +39,8 @@ public class User implements AuthUser{
 	
 	private String role;
 	
-	private List<Lang> translates = new ArrayList<>();
+	@OneToMany(mappedBy="user", cascade={CascadeType.ALL}, orphanRemoval=true)
+	private List<UserLang> translates = new ArrayList<>();
 	
 	public User(){
 	}
@@ -112,11 +115,11 @@ public class User implements AuthUser{
 		this.password = password;
 	}
 
-	public List<Lang> getTranslates() {
+	public List<UserLang> getTranslates() {
 		return translates;
 	}
-
-	public void setTranslates(List<Lang> translates) {
+	
+	public void setTranslates(List<UserLang> translates) {
 		this.translates = translates;
 	}
 }

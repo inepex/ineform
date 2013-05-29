@@ -70,8 +70,8 @@ public class UserHandlerFactory implements HandlerFactoryI<UserHandlerFactory.Us
         	return getString(UserConsts.k_role);
         }
 
-        public void setRole(String roles) {
-    		set(UserConsts.k_role, roles);
+        public void setRole(String role) {
+    		set(UserConsts.k_role, role);
         }
 		
 			

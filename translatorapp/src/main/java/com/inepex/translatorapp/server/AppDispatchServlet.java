@@ -10,6 +10,7 @@ import com.inepex.translatorapp.server.i18n.ServertranslatorappI18nProvider;
 import com.inepex.translatorapp.shared.assist.LangAssist;
 import com.inepex.translatorapp.shared.assist.RegAssist;
 import com.inepex.translatorapp.shared.assist.UserAssist;
+import com.inepex.translatorapp.shared.assist.UserLangAssist;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 import com.google.inject.Inject;
@@ -61,6 +62,7 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 		new UserAssist(descStore).registerDescriptors();
 		new LangAssist(descStore).registerDescriptors();
 		new RegAssist(descStore).registerDescriptors();
+		new UserLangAssist(descStore).registerDescriptors();
 	}
 
 	@Override
