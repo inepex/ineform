@@ -29,7 +29,7 @@ public class User implements AuthUser{
 	private Long id;
 	
 	@Kvo_SearchParam
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	private String email;
 	
 	@Kvo_Transparent

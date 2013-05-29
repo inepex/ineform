@@ -1,6 +1,5 @@
 package com.inepex.translatorapp.shared.assist;
 import com.inepex.ineForm.shared.descriptorext.Assist;
-import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -34,26 +33,16 @@ public class RegAssist extends Assist {
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(RegConsts.descriptorName
 			, new LongFDesc(RegConsts.k_id, /*hc:d1*/translatorappI18n.reg_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(RegConsts.k_email, /*hc:d2*/translatorappI18n.reg_email()/*hc*/)/*hc:d2_2*//*hc*/
-			, new StringFDesc(RegConsts.k_password, /*hc:d3*/translatorappI18n.reg_password()/*hc*/)/*hc:d2_3*//*hc*/
-			, new StringFDesc(RegConsts.k_passwordAgain, /*hc:d4*/translatorappI18n.reg_passwordAgain()/*hc*/)/*hc:d2_4*//*hc*/
+			, new StringFDesc(RegConsts.k_email, /*hc:d2*/translatorappI18n.reg_email()/*hc*/)
+				.email().mandatory()/*hc:d2_2*//*hc*/
+			, new StringFDesc(RegConsts.k_password, /*hc:d3*/translatorappI18n.reg_password()/*hc*/)
+				.mandatory()/*hc:d2_3*//*hc*/
+			, new StringFDesc(RegConsts.k_passwordAgain, /*hc:d4*/translatorappI18n.reg_passwordAgain()/*hc*/)
+				.mandatory()/*hc:d2_4*//*hc*/
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
 		return objDesc;
-	}
-
-	@Override
-	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(RegConsts.descriptorName);
-			
-		tableRDesc.getRootNode()
-			.addChild(RegConsts.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(RegConsts.k_email, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(RegConsts.k_password, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(RegConsts.k_passwordAgain, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
-			;
-		return tableRDesc;
 	}
 	
 	@Override
@@ -65,30 +54,28 @@ public class RegAssist extends Assist {
 		formRDesc.getRootNode()
 			.addChild(RegConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
 			.addChild(RegConsts.k_email, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(RegConsts.k_password, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(RegConsts.k_passwordAgain, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(RegConsts.k_password, new WidgetRDesc(/*hc:f3*/FWTypes.PASSWORDTEXTBOX/*hc*/))
+			.addChild(RegConsts.k_passwordAgain, new WidgetRDesc(/*hc:f4*/FWTypes.PASSWORDTEXTBOX/*hc*/))
 			;
 		return formRDesc;
 	}
 
 	@Override
+	public TableRDesc getTableRDesc() {
+		return new TableRDesc(RegConsts.descriptorName);
+	}
+	
+	@Override
 	public ObjectDesc getSearchObjectDesc() {			
-		return new ObjectDesc(RegConsts.searchDescriptor
-		);
+		return new ObjectDesc(RegConsts.searchDescriptor);
 	}
 	
 	@Override
 	public FormRDesc getSearchFormRDesc() {
-		FormRDesc searchFormRDesc = new FormRDesc(RegConsts.searchDescriptor);
-			
-		searchFormRDesc.getRootNode().dummy()
-			;
-		return searchFormRDesc;
+		return new FormRDesc(RegConsts.searchDescriptor);
 	}
 
 	public static String getOrderKey(){
-		//displayname field
-		String key = "";
-		return key;
+		return "";
 	}
 }

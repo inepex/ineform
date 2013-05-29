@@ -10,6 +10,7 @@ import com.google.inject.Singleton;
 import com.inepex.ineForm.server.BaseDao;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
+import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -85,6 +86,11 @@ public class UserDao extends BaseDao<User> {
 			ex.printStackTrace();
 			return null;
 		}
+	}
+
+	public void createNewUser(String email, String pw) throws Exception {
+		User u = new User(email, StringUtil.hash(pw));
+		persistTrans(u);
 	}
 	
 	/*hc:customMethods*/

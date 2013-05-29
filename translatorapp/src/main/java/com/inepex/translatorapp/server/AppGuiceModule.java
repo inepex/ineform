@@ -8,6 +8,8 @@ import com.inepex.ineFrame.server.di.guice.IneFrameBaseModule;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseServletModule;
 import com.inepex.ineFrame.shared.CustomObjectDescAction;
 import com.inepex.translatorapp.server.handler.LoginHandler;
+import com.inepex.translatorapp.server.handler.RegActionHandler;
+import com.inepex.translatorapp.shared.action.RegAction;
 
 public class AppGuiceModule  extends ActionHandlerModule {
 
@@ -18,6 +20,7 @@ public class AppGuiceModule  extends ActionHandlerModule {
 		install(new IneFormActionHanlderModule());
 		
 		bindHandler(CustomObjectDescAction.class, CustomObjectDescHandler.class);
+		bindHandler(RegAction.class, RegActionHandler.class);
 	}
 
 }

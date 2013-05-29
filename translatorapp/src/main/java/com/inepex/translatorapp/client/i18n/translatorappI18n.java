@@ -28,17 +28,23 @@ public class translatorappI18n extends I18nModule {
 	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
 	public String lang_id = "Id";
 	public String lang_isoName = "Iso name";
+	public String nonMatchingPws = "The password and this value are not the same!";
 	public String pageNotFound = "Page not found";
 	public String regAnchor = "Click me for registration";
+	public String regError = "Some error has occurred! Tray again later!";
+	public String regPageTitle = "Registration";
 	public String reg_email = "E-mail";
 	public String reg_id = "Id";
 	public String reg_password = "Password";
 	public String reg_passwordAgain = "Password again";
+	public String registeredEmail = "There is already an account for this e-mail address!";
+	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
 	public String user_email = "E-mail";
 	public String user_id = "Id";
 	public String user_roles = "Roles";
 	public String user_translates = "Translates";
-	public String welcomeText = "<h2>Welcome to our Translator application!</h2><br>If you have an account, just log in with the panel on right.<br><br>If not, you should register: <b>click</b> the link below and <b>wait</b> for your account get activated.<br><br>";
+	public String weakPassword = "Password should be at least 6 characters long. It should be contain both letters and digits!";
+	public String welcomeText = "<h2>Welcome to our Translator application!</h2><br>If you have an account, just log in with the panel on right.<br><br>If not, you should register: <b>click</b> the link below!<br><br>";
 
 	
 	/**
@@ -70,6 +76,15 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> The password and this value are not the same!
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String nonMatchingPws() {
+		return moduleProvider.get().nonMatchingPws;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Page not found
 	* <u><i>Magyarul:</i></u> ?
 	*/
@@ -84,6 +99,24 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String regAnchor() {
 		return moduleProvider.get().regAnchor;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Some error has occurred! Tray again later!
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String regError() {
+		return moduleProvider.get().regError;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Registration
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String regPageTitle() {
+		return moduleProvider.get().regPageTitle;
 	}
 	
 	/**
@@ -124,6 +157,24 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> There is already an account for this e-mail address!
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String registeredEmail() {
+		return moduleProvider.get().registeredEmail;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Successful registration. Your account will be activated soon.
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String succesfulRegistration() {
+		return moduleProvider.get().succesfulRegistration;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> E-mail
 	* <u><i>Magyarul:</i></u> ?
 	*/
@@ -160,7 +211,16 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> <h2>Welcome to our Translator application!</h2><br>If you have an account, just log in with the panel on right.<br><br>If not, you should register: <b>click</b> the link below and <b>wait</b> for your account get activated.<br><br>
+	* <u><i>In English:</i></u> Password should be at least 6 characters long. It should be contain both letters and digits!
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String weakPassword() {
+		return moduleProvider.get().weakPassword;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> <h2>Welcome to our Translator application!</h2><br>If you have an account, just log in with the panel on right.<br><br>If not, you should register: <b>click</b> the link below!<br><br>
 	* <u><i>Magyarul:</i></u> ?
 	*/
 	public static String welcomeText() {
