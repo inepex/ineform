@@ -21,7 +21,7 @@ import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class ChooserFw extends DenyingFormWidget implements ChooserView {
-	public static final String relationChooser = "relationChooser"; //default
+	
 	public static final String enumChooser = "enumChooser";
 	public static final String stringChooser = "stringChooser";
 	
