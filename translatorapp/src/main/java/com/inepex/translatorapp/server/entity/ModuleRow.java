@@ -22,7 +22,7 @@ import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
 @Entity
 @Table(uniqueConstraints=
-	@UniqueConstraint(columnNames = {"MODULE_ID", "KEY"}))
+	@UniqueConstraint(columnNames = {"MODULE_ID", "MODULE_ROW_KEY"}))
 public class ModuleRow {
 
 	@Id
@@ -31,7 +31,7 @@ public class ModuleRow {
 	private Long id;
 	
 	@Kvo_SearchParam
-	@Column(nullable=false)
+	@Column(nullable=false, name="MODULE_ROW_KEY")
 	private String key;
 	@Lob
 	private String description;

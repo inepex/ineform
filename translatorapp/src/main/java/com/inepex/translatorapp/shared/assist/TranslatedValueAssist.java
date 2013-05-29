@@ -11,29 +11,13 @@ import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleRowConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 
 public class TranslatedValueAssist extends Assist {
-
-	public static class I18n{
-// copy these to .csv
-//"translatedValue_id";"";"Id";"Id"
-//"translatedValue_lastModTime";"";"LastModTime";"LastModTime"
-//"translatedValue_lastModUser";"";"LastModUser";"LastModUser"
-//"translatedValue_value";"";"Value";"Value"
-//"translatedValue_lang";"";"Lang";"Lang"
-//"translatedValue_row";"";"Row";"Row"
-//
-		public static String translatedValue_id() { return /*hc:i18n_1*/"Id"/*hc*/;}
-		public static String translatedValue_lastModTime() { return /*hc:i18n_2*/"LastModTime"/*hc*/;}
-		public static String translatedValue_lastModUser() { return /*hc:i18n_3*/"LastModUser"/*hc*/;}
-		public static String translatedValue_value() { return /*hc:i18n_4*/"Value"/*hc*/;}
-		public static String translatedValue_lang() { return /*hc:i18n_5*/"Lang"/*hc*/;}
-		public static String translatedValue_row() { return /*hc:i18n_6*/"Row"/*hc*/;}
-	}
 	
 	public TranslatedValueAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -53,15 +37,15 @@ public class TranslatedValueAssist extends Assist {
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(TranslatedValueConsts.descriptorName
-			, new LongFDesc(TranslatedValueConsts.k_id, /*hc:d1*/I18n.translatedValue_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new LongFDesc(TranslatedValueConsts.k_lastModTime, /*hc:d2*/I18n.translatedValue_lastModTime()/*hc*/)/*hc:d2_2*//*hc*/
-			, new RelationFDesc(TranslatedValueConsts.k_lastModUser, /*hc:d3*/I18n.translatedValue_lastModUser()/*hc*/
+			, new LongFDesc(TranslatedValueConsts.k_id, /*hc:d1*/translatorappI18n.translatedValue_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new LongFDesc(TranslatedValueConsts.k_lastModTime, /*hc:d2*/translatorappI18n.translatedValue_lastModTime()/*hc*/)/*hc:d2_2*//*hc*/
+			, new RelationFDesc(TranslatedValueConsts.k_lastModUser, /*hc:d3*/translatorappI18n.translatedValue_lastModUser()/*hc*/
 										, UserConsts.descriptorName)/*hc:d2_3*//*hc*/
-			, new StringFDesc(TranslatedValueConsts.k_value, /*hc:d4*/I18n.translatedValue_value()/*hc*/)/*hc:d2_4*//*hc*/
-			, new RelationFDesc(TranslatedValueConsts.k_lang, /*hc:d5*/I18n.translatedValue_lang()/*hc*/
+			, new StringFDesc(TranslatedValueConsts.k_value, /*hc:d4*/translatorappI18n.translatedValue_value()/*hc*/)/*hc:d2_4*//*hc*/
+			, new RelationFDesc(TranslatedValueConsts.k_lang, /*hc:d5*/translatorappI18n.translatedValue_lang()/*hc*/
 										, LangConsts.descriptorName)/*hc:d2_5*//*hc*/
 					.mandatory()
-			, new RelationFDesc(TranslatedValueConsts.k_row, /*hc:d6*/I18n.translatedValue_row()/*hc*/
+			, new RelationFDesc(TranslatedValueConsts.k_row, /*hc:d6*/translatorappI18n.translatedValue_row()/*hc*/
 										, ModuleRowConsts.descriptorName)/*hc:d2_6*//*hc*/
 					.mandatory()
 		);

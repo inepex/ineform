@@ -10,24 +10,12 @@ import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleLangConsts;
 
 public class ModuleLangAssist extends Assist {
-
-	public static class I18n{
-// copy these to .csv
-//"moduleLang_id";"";"Id";"Id"
-//"moduleLang_lang";"";"Lang";"Lang"
-//"moduleLang_priority";"";"Priority";"Priority"
-//"moduleLang_module";"";"Module";"Module"
-//
-		public static String moduleLang_id() { return /*hc:i18n_1*/"Id"/*hc*/;}
-		public static String moduleLang_lang() { return /*hc:i18n_2*/"Lang"/*hc*/;}
-		public static String moduleLang_priority() { return /*hc:i18n_3*/"Priority"/*hc*/;}
-		public static String moduleLang_module() { return /*hc:i18n_4*/"Module"/*hc*/;}
-	}
 	
 	public ModuleLangAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -47,13 +35,13 @@ public class ModuleLangAssist extends Assist {
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(ModuleLangConsts.descriptorName
-			, new LongFDesc(ModuleLangConsts.k_id, /*hc:d1*/I18n.moduleLang_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new RelationFDesc(ModuleLangConsts.k_lang, /*hc:d2*/I18n.moduleLang_lang()/*hc*/
+			, new LongFDesc(ModuleLangConsts.k_id, /*hc:d1*/translatorappI18n.moduleLang_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new RelationFDesc(ModuleLangConsts.k_lang, /*hc:d2*/translatorappI18n.moduleLang_lang()/*hc*/
 										, LangConsts.descriptorName)/*hc:d2_2*//*hc*/
 					.mandatory()
-			, new LongFDesc(ModuleLangConsts.k_priority, /*hc:d3*/I18n.moduleLang_priority()/*hc*/)/*hc:d2_3*//*hc*/
+			, new LongFDesc(ModuleLangConsts.k_priority, /*hc:d3*/translatorappI18n.moduleLang_priority()/*hc*/)/*hc:d2_3*//*hc*/
 					.mandatory()
-			, new RelationFDesc(ModuleLangConsts.k_module, /*hc:d4*/I18n.moduleLang_module()/*hc*/
+			, new RelationFDesc(ModuleLangConsts.k_module, /*hc:d4*/translatorappI18n.moduleLang_module()/*hc*/
 										, ModuleConsts.descriptorName)/*hc:d2_4*//*hc*/
 					.mandatory()
 		);

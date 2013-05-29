@@ -15,6 +15,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.client.page.InactivePage;
 import com.inepex.translatorapp.client.page.LoginPage;
+import com.inepex.translatorapp.client.page.ModuleListPage;
 import com.inepex.translatorapp.client.page.PageNotFoundPage;
 import com.inepex.translatorapp.client.page.RegPage;
 import com.inepex.translatorapp.client.page.TranslatorPage;
@@ -32,6 +33,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	public static final String TRANSLATOR = "translator";
 	public static final String INACTIVE = "inactive";
 	public static final String USERLIST = "userList";
+	public static final String MODULELIST = "moduleList";
 	
 	
 	@Inject AuthManager authManager;
@@ -42,6 +44,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	@Inject Provider<TranslatorPage> translatorProvider;
 	@Inject Provider<RegPage> regProvider;
 	@Inject Provider<UserListPage> userListProv;
+	@Inject Provider<ModuleListPage> moduleListProvider;
 	
 	@Override
 	public void createPlaceHierarchy() {
@@ -52,6 +55,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 					.addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))
 					.addChild(TRANSLATOR, usr(new SimpleCachingPlace(translatorProvider)).setMenuName(translatorappI18n.translatorPage()))
 					.addChild(USERLIST, dev(new SimpleCachingPlace(userListProv)).setMenuName(translatorappI18n.userListPage()))
+					.addChild(MODULELIST, dev(new SimpleCachingPlace(moduleListProvider)).setMenuName(translatorappI18n.moduleListPage()))
 					.getParent()
 				 ;
 	}

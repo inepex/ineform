@@ -28,6 +28,21 @@ public class translatorappI18n extends I18nModule {
 	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
 	public String lang_id = "Id";
 	public String lang_isoName = "Iso name";
+	public String moduleLang_id = "Id";
+	public String moduleLang_lang = "Lang";
+	public String moduleLang_module = "Module";
+	public String moduleLang_priority = "Priority";
+	public String moduleListPage = "I18n modules";
+	public String moduleListTitle = "<h2>Modules</h2><br><br>Module can be deleted, only after you remove all its languages.";
+	public String moduleRow_description = "Description";
+	public String moduleRow_id = "Id";
+	public String moduleRow_key = "Key";
+	public String moduleRow_module = "Module";
+	public String moduleRow_values = "Values";
+	public String module_id = "Id";
+	public String module_langs = "Langs";
+	public String module_name = "Name";
+	public String module_rows = "Rows";
 	public String nonMatchingPws = "The password and this value are not the same!";
 	public String pageNotFound = "Page not found";
 	public String regAnchor = "Click me for registration";
@@ -39,7 +54,16 @@ public class translatorappI18n extends I18nModule {
 	public String reg_passwordAgain = "Password again";
 	public String registeredEmail = "There is already an account for this e-mail address!";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
+	public String translatedValue_id = "Id";
+	public String translatedValue_lang = "Lang";
+	public String translatedValue_lastModTime = "LastModTime";
+	public String translatedValue_lastModUser = "LastModUser";
+	public String translatedValue_row = "Row";
+	public String translatedValue_value = "Value";
 	public String translatorPage = "Translator page";
+	public String userLang_id = "Id";
+	public String userLang_lang = "Lang";
+	public String userLang_user = "User";
 	public String userListPage = "User list";
 	public String userListTitle = "<h2>Current users</h2><br/>";
 	public String user_email = "E-mail";
@@ -75,6 +99,141 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String lang_isoName() {
 		return moduleProvider.get().lang_isoName;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Id
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleLang_id() {
+		return moduleProvider.get().moduleLang_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Lang
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleLang_lang() {
+		return moduleProvider.get().moduleLang_lang;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Module
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleLang_module() {
+		return moduleProvider.get().moduleLang_module;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Priority
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleLang_priority() {
+		return moduleProvider.get().moduleLang_priority;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> I18n modules
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleListPage() {
+		return moduleProvider.get().moduleListPage;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> <h2>Modules</h2><br><br>Module can be deleted, only after you remove all its languages.
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleListTitle() {
+		return moduleProvider.get().moduleListTitle;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Description
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleRow_description() {
+		return moduleProvider.get().moduleRow_description;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Id
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleRow_id() {
+		return moduleProvider.get().moduleRow_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Key
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleRow_key() {
+		return moduleProvider.get().moduleRow_key;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Module
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleRow_module() {
+		return moduleProvider.get().moduleRow_module;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Values
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleRow_values() {
+		return moduleProvider.get().moduleRow_values;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Id
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String module_id() {
+		return moduleProvider.get().module_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Langs
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String module_langs() {
+		return moduleProvider.get().module_langs;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Name
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String module_name() {
+		return moduleProvider.get().module_name;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Rows
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String module_rows() {
+		return moduleProvider.get().module_rows;
 	}
 	
 	/**
@@ -178,11 +337,92 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Id
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatedValue_id() {
+		return moduleProvider.get().translatedValue_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Lang
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatedValue_lang() {
+		return moduleProvider.get().translatedValue_lang;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> LastModTime
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatedValue_lastModTime() {
+		return moduleProvider.get().translatedValue_lastModTime;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> LastModUser
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatedValue_lastModUser() {
+		return moduleProvider.get().translatedValue_lastModUser;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Row
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatedValue_row() {
+		return moduleProvider.get().translatedValue_row;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Value
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translatedValue_value() {
+		return moduleProvider.get().translatedValue_value;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Translator page
 	* <u><i>Magyarul:</i></u> ?
 	*/
 	public static String translatorPage() {
 		return moduleProvider.get().translatorPage;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Id
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String userLang_id() {
+		return moduleProvider.get().userLang_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Lang
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String userLang_lang() {
+		return moduleProvider.get().userLang_lang;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> User
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String userLang_user() {
+		return moduleProvider.get().userLang_user;
 	}
 	
 	/**

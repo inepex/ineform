@@ -10,22 +10,12 @@ import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 import com.inepex.translatorapp.shared.kvo.UserLangConsts;
 
 public class UserLangAssist extends Assist {
-
-	public static class I18n{
-// copy these to .csv
-//"userLang_id";"";"Id";"Id"
-//"userLang_lang";"";"Lang";"Lang"
-//"userLang_user";"";"User";"User"
-//
-		public static String userLang_id() { return /*hc:i18n_1*/"Id"/*hc*/;}
-		public static String userLang_lang() { return /*hc:i18n_2*/"Lang"/*hc*/;}
-		public static String userLang_user() { return /*hc:i18n_3*/"User"/*hc*/;}
-	}
 	
 	public UserLangAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -45,11 +35,11 @@ public class UserLangAssist extends Assist {
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(UserLangConsts.descriptorName
-			, new LongFDesc(UserLangConsts.k_id, /*hc:d1*/I18n.userLang_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new RelationFDesc(UserLangConsts.k_lang, /*hc:d2*/I18n.userLang_lang()/*hc*/
+			, new LongFDesc(UserLangConsts.k_id, /*hc:d1*/translatorappI18n.userLang_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new RelationFDesc(UserLangConsts.k_lang, /*hc:d2*/translatorappI18n.userLang_lang()/*hc*/
 										, LangConsts.descriptorName)/*hc:d2_2*//*hc*/
 					.mandatory()
-			, new RelationFDesc(UserLangConsts.k_user, /*hc:d3*/I18n.userLang_user()/*hc*/
+			, new RelationFDesc(UserLangConsts.k_user, /*hc:d3*/translatorappI18n.userLang_user()/*hc*/
 										, UserConsts.descriptorName)/*hc:d2_3*//*hc*/
 					.mandatory()
 		);

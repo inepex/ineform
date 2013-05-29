@@ -18,16 +18,16 @@ import com.inepex.translatorapp.shared.kvo.UserConsts;
 public class UserListPage extends FlowPanelBasedPage{
 
 	private final ServerSideDataConnector connector;
-	private final RowCommandDataManipulator rowCommandDataManipulator;
+	private final RowCommandDataManipulator manipulator;
 	
 	@Inject
 	public UserListPage(ManipulatorFactory manipulatorFactory, DataConnectorFactory connectorFactory) {
 		connector=connectorFactory.createServerSide(UserConsts.descriptorName);
-		rowCommandDataManipulator=manipulatorFactory.createRowCommand(UserConsts.descriptorName, connector, true);
-		rowCommandDataManipulator.setTopPanelWidget(new HTML(translatorappI18n.userListTitle()));
-		rowCommandDataManipulator.getUserCommands().clear();
-		rowCommandDataManipulator.getUserCommands().add(rowCommandDataManipulator.new EditCommand());
-		rowCommandDataManipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
+		manipulator=manipulatorFactory.createRowCommand(UserConsts.descriptorName, connector, true);
+		manipulator.setTopPanelWidget(new HTML(translatorappI18n.userListTitle()));
+		manipulator.getUserCommands().clear();
+		manipulator.getUserCommands().add(manipulator.new EditCommand());
+		manipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
 			
 			@Override
 			public void onCreatingEditForm(final IneForm ineForm) {
@@ -47,12 +47,10 @@ public class UserListPage extends FlowPanelBasedPage{
 			}
 		});
 		
-		rowCommandDataManipulator.setNewBtnVisible(false);
+		manipulator.setNewBtnVisible(false);
 		
-		rowCommandDataManipulator.render();
-		
-		
-		mainPanel.add(rowCommandDataManipulator);
+		manipulator.render();
+		mainPanel.add(manipulator);
 	}
 	
 	@Override
