@@ -14,12 +14,19 @@ import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
+import com.inepex.ineFrame.client.async.IneDispatch;
+import com.inepex.ineFrame.client.async.IneDispatchBase;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.AssistedObjectHandler;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
+import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.translatorapp.shared.action.TransTableListAction;
 import com.inepex.translatorapp.shared.action.TranslateListingType;
 import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
@@ -40,7 +47,9 @@ public class TranslatorPage extends FlowPanelBasedPage {
 	private final IneTable table;	
 	
 	@Inject
-	public TranslatorPage(DataConnectorFactory connectorFactory, IneTableFactory tableFactory, FormContext formCtx) {
+	public TranslatorPage(DataConnectorFactory connectorFactory, IneTableFactory tableFactory, FormContext formCtx,
+			final AssistedObjectHandlerFactory handlerFactory,
+			final IneDispatch ineDispatch) {
 		listTypeRadioButton = new RadioEnumSelectorFW(
 				new LongFDesc().setNullable(false),
 				TranslateListingType.getValuesAsString(),
@@ -98,6 +107,36 @@ public class TranslatorPage extends FlowPanelBasedPage {
 					return null;
 				else
 					return sb.toString();
+			}
+		});
+		
+		table.addCommand(new IneTable.UserCommand() {
+			
+			@Override
+			public boolean visible(AssistedObject kvoOfRow) {
+				return true;
+			}
+			
+			@Override
+			public void onCellClicked(AssistedObject kvoOfRow) {
+				Relation transValue = handlerFactory.createHandler(kvoOfRow).getRelation(TranslateTableRowConsts.k_translatedValue);
+				AssistedObjectHandler manhandler = handlerFactory.createHandler(TranslatedValueConsts.descriptorName);
+				manhandler.setId(transValue.getId());
+				manhandler.set(TranslatedValueConsts.k_value, transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
+				
+				ObjectManipulationAction oma = new ObjectManipulationAction(ManipulationTypes.CREATE_OR_EDIT_REQUEST, manhandler.getAssistedObject());
+				ineDispatch.execute(oma, new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+
+					@Override
+					public void onSuccess(ObjectManipulationActionResult result) {
+						connector.update();
+					}
+				});
+			}
+			
+			@Override
+			public String getCommandCellText() {
+				return IneFormI18n.SAVE();
 			}
 		});
 		

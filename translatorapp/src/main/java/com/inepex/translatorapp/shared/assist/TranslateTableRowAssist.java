@@ -60,12 +60,13 @@ public class TranslateTableRowAssist extends Assist {
 			.addChild(flags, new ColRDesc(/*hc:tdr1_2*/false/*hc*/)
 				 .setColumnWidth(60)/*hc:tdr2_2*//*hc*/)
 			.addChild(TranslateTableRowConsts.k_description, new ColRDesc(/*hc:tdr1_4*/false/*hc*/)
-				.addProp(ColRDesc.ESCAPEHTML).cropWidth(150).hAlign(ColRDescHAlign.LEFT)/*hc:tdr2_4*//*hc*/)
+				.addProp(ColRDesc.ESCAPEHTML).cropWidth(120).hAlign(ColRDescHAlign.LEFT).setColumnWidth(350)/*hc:tdr2_4*//*hc*/)
 			.addChild(TranslateTableRowConsts.k_engVal, new ColRDesc(/*hc:tdr1_5*/false/*hc*/)
-				.addProp(ColRDesc.ESCAPEHTML).cropWidth(150).hAlign(ColRDescHAlign.LEFT)/*hc:tdr2_5*//*hc*/)
+				.addProp(ColRDesc.ESCAPEHTML).cropWidth(120).hAlign(ColRDescHAlign.LEFT).setColumnWidth(450)/*hc:tdr2_5*//*hc*/)
 			.addChild(tv(TranslatedValueConsts.k_lang), new ColRDesc(/*hc:tdr1_6*/false/*hc*/)
 				.setColumnWidth(40)/*hc:tdr2_6*//*hc*/)
-			.addChild(tv(TranslatedValueConsts.k_value), new ColRDesc(/*hc:tdr1_6*/false/*hc*/)/*hc:tdr2_6*//*hc*/)
+			.addChild(tv(TranslatedValueConsts.k_value), new ColRDesc(/*hc:tdr1_6*/false/*hc*/)
+				.addProp(ColRDesc.AS_AO_EDITOR_TEXTBOX).setColumnWidth(470)/*hc:tdr2_6*//*hc*/)
 			;
 		return tableRDesc;
 	}

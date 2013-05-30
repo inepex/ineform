@@ -21,6 +21,8 @@ public class TranslatedValue {
 	private Long id;
 	
 	private Long lastModTime = null;
+	
+	@ManyToOne
 	@Kvo_Fetch(mode=Mode.idRelation)
 	private User lastModUser = null;
 	

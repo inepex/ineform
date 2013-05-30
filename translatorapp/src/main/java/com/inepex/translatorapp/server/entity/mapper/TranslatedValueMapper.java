@@ -8,6 +8,7 @@ import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.ModuleRow;
 import com.inepex.translatorapp.server.entity.TranslatedValue;
+import com.inepex.translatorapp.server.entity.User;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory.TranslatedValueHandler;
@@ -37,6 +38,7 @@ public class TranslatedValueMapper extends BaseMapper<TranslatedValue>{
 			if (fromHandler.getLastModUser() == null){
 				to.setLastModUser(null);
 			} else {
+				to.setLastModUser(new User(fromHandler.getLastModUser().getId()));
 			}
 		}
 		if (fromHandler.containsString(TranslatedValueConsts.k_value)) 
