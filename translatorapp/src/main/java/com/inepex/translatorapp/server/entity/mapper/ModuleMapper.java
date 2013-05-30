@@ -2,11 +2,13 @@ package com.inepex.translatorapp.server.entity.mapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
@@ -40,32 +42,8 @@ public class ModuleMapper extends BaseMapper<Module>{
 		if (fromHandler.containsString(ModuleConsts.k_name)) 
 			to.setName(fromHandler.getName());
 		if (fromHandler.containsList(ModuleConsts.k_rows)) {
-			if (to.getRows() == null)
-				to.setRows(new ArrayList<ModuleRow>());
-
-    		Map<Long,ModuleRow> origItems = new HashMap<Long, ModuleRow>();
-			for (ModuleRow item : to.getRows()) {
-				origItems.put(item.getId(), item);
-			}
-			
-			ModuleRowMapper mapper = new ModuleRowMapper(descriptorStore);
-			for (Relation rel : fromHandler.getRows().getRelationList()) {
-				if (rel == null)
-					continue;
-				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
-					ModuleRow entity = new ModuleRow(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(rel.getKvo(), entity, descs);
-					entity.setModule(to);
-					to.getRows().add(entity);
-				} else {
-					ModuleRow origItem = origItems.get(rel.getId());
-					if (rel.getKvo() == null) { 			    // delete item
-						to.getRows().remove(origItem);
-					} else {									// edit item
-						mapper.kvoToEntity(rel.getKvo(), origItem, descs);
-					}
-				}
-			}
+		//TODO
+		//TODO saving skipped, because saving a IneList (which not contains KVO-s) causes removing!!!
 		}
 		if (fromHandler.containsList(ModuleConsts.k_langs)) {
 			if (to.getLangs() == null)
@@ -111,6 +89,30 @@ public class ModuleMapper extends BaseMapper<Module>{
 			handler.setId(entity.getId());
 		if (entity.getName() != null && !"".equals(entity.getName())) 
 			handler.setName(entity.getName());
+		{
+    		IneList ineList = new IneList();
+    		List<Relation> relationList = new ArrayList<Relation>();
+    		if (entity.getRows() != null)
+    			for (ModuleRow item : entity.getRows()) {
+    				relationList.add(new ModuleRowMapper(descriptorStore).toRelation(item, false));
+    			}
+    		if (relationList.size() > 0) {
+    			ineList.setRelationList(relationList);
+    			handler.setRows(ineList);
+    		}
+		}
+		{
+    		IneList ineList = new IneList();
+    		List<Relation> relationList = new ArrayList<Relation>();
+    		if (entity.getLangs() != null)
+    			for (ModuleLang item : entity.getLangs()) {
+    				relationList.add(new ModuleLangMapper(descriptorStore).toRelation(item, true));
+    			}
+    		if (relationList.size() > 0) {
+    			ineList.setRelationList(relationList);
+    			handler.setLangs(ineList);
+    		}
+		}
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

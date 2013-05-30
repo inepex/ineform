@@ -59,7 +59,7 @@ public class UserLangMapper extends BaseMapper<UserLang>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getLang() != null) 
-			handler.setLang(new LangMapper(descriptorStore).toRelation(entity.getLang(), false));
+			handler.setLang(new LangMapper(descriptorStore).toRelation(entity.getLang(), true));
 		if (entity.getUser() != null) 
 			handler.setUser(new UserMapper(descriptorStore).toRelation(entity.getUser(), false));
 

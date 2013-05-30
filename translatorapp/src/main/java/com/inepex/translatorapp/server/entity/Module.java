@@ -27,11 +27,11 @@ public class Module {
 	@Column(nullable=false, unique=true)
 	private String name;
 	
-	@Kvo_Fetch(mode=Mode.lazy)
+	@Kvo_Fetch(mode=Mode.idRelation)
 	@OneToMany(mappedBy="module", cascade={CascadeType.ALL}, orphanRemoval=true)
 	private List<ModuleRow> rows = new ArrayList<>();
 	
-	@Kvo_Fetch(mode=Mode.eager)
+	@Kvo_Fetch(mode=Mode.fullObject)
 	@OneToMany(mappedBy="module", cascade={CascadeType.ALL}, orphanRemoval=true)
 	private List<ModuleLang> langs = new ArrayList<>();
 	

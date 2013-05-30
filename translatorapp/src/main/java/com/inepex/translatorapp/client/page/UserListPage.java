@@ -12,7 +12,7 @@ import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
-import com.inepex.translatorapp.shared.TXT;
+import com.inepex.translatorapp.shared.Consts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 
 public class UserListPage extends FlowPanelBasedPage{
@@ -23,8 +23,10 @@ public class UserListPage extends FlowPanelBasedPage{
 	@Inject
 	public UserListPage(ManipulatorFactory manipulatorFactory, DataConnectorFactory connectorFactory) {
 		connector=connectorFactory.createServerSide(UserConsts.descriptorName);
+		
+		mainPanel.add(new HTML(translatorappI18n.userListTitle()));
+		
 		manipulator=manipulatorFactory.createRowCommand(UserConsts.descriptorName, connector, true);
-		manipulator.setTopPanelWidget(new HTML(translatorappI18n.userListTitle()));
 		manipulator.getUserCommands().clear();
 		manipulator.getUserCommands().add(manipulator.new EditCommand());
 		manipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
@@ -37,7 +39,7 @@ public class UserListPage extends FlowPanelBasedPage{
 					public void onRendered(RenderedEvent event) {
 						StringListBoxFw listbox =  (StringListBoxFw) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(UserConsts.k_role);
 						listbox.setAllowsNull(true);
-						listbox.setValueRange(TXT.Roles.all());
+						listbox.setValueRange(Consts.Roles.all());
 					}
 				});
 			}

@@ -64,15 +64,6 @@ public class ModuleLangHandlerFactory implements HandlerFactoryI<ModuleLangHandl
     		set(ModuleLangConsts.k_lang, lang);
         }
 			
-        public Long getPriority() {
-        	return getLong(ModuleLangConsts.k_priority);
-        }
-
-        public void setPriority(Long priority) {
-    		set(ModuleLangConsts.k_priority, priority);
-        }
-		
-			
         public Relation getModule() {
     		return getRelation(ModuleLangConsts.k_module);
         }	

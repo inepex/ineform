@@ -20,7 +20,7 @@ import com.inepex.translatorapp.client.page.PageNotFoundPage;
 import com.inepex.translatorapp.client.page.RegPage;
 import com.inepex.translatorapp.client.page.TranslatorPage;
 import com.inepex.translatorapp.client.page.UserListPage;
-import com.inepex.translatorapp.shared.TXT;
+import com.inepex.translatorapp.shared.Consts;
 
 @Singleton
 public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
@@ -67,13 +67,13 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	
 	private static <E extends InePlace> E usr(E place) {
 		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
-		place.addAllowedRoles(TXT.Roles.developer, TXT.Roles.translator);
+		place.addAllowedRoles(Consts.Roles.developer, Consts.Roles.translator);
 		return place;
 	}
 	
 	private static <E extends InePlace> E dev(E place) {
 		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
-		place.addAllowedRoles(TXT.Roles.developer);
+		place.addAllowedRoles(Consts.Roles.developer);
 		return place;
 	}
 	

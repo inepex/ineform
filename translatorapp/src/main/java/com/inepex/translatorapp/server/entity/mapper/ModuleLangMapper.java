@@ -38,8 +38,6 @@ public class ModuleLangMapper extends BaseMapper<ModuleLang>{
 				to.setLang(new Lang(fromHandler.getLang().getId()));
 			}
 		}
-		if (fromHandler.containsLong(ModuleLangConsts.k_priority)) 
-			to.setPriority(fromHandler.getPriority());
 		if (fromHandler.containsRelation(ModuleLangConsts.k_module)) {
 			if (fromHandler.getModule() == null){
 				to.setModule(null);
@@ -61,9 +59,7 @@ public class ModuleLangMapper extends BaseMapper<ModuleLang>{
 		if (entity.getId() != null) 
 			handler.setId(entity.getId());
 		if (entity.getLang() != null) 
-			handler.setLang(new LangMapper(descriptorStore).toRelation(entity.getLang(), false));
-		if (entity.getPriority() != null) 
-			handler.setPriority(entity.getPriority());
+			handler.setLang(new LangMapper(descriptorStore).toRelation(entity.getLang(), true));
 		if (entity.getModule() != null) 
 			handler.setModule(new ModuleMapper(descriptorStore).toRelation(entity.getModule(), false));
 

@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.inepex.ineForm.annotations.Kvo_Fetch;
+import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_Transparent;
 import com.inepex.ineFrame.server.auth.AuthUser;
@@ -39,6 +41,7 @@ public class User implements AuthUser{
 	
 	private String role;
 	
+	@Kvo_Fetch(mode=Mode.fullObject)
 	@OneToMany(mappedBy="user", cascade={CascadeType.ALL}, orphanRemoval=true)
 	private List<UserLang> translates = new ArrayList<>();
 	

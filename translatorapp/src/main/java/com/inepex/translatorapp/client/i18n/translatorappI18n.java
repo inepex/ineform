@@ -31,9 +31,8 @@ public class translatorappI18n extends I18nModule {
 	public String moduleLang_id = "Id";
 	public String moduleLang_lang = "Lang";
 	public String moduleLang_module = "Module";
-	public String moduleLang_priority = "Priority";
 	public String moduleListPage = "I18n modules";
-	public String moduleListTitle = "<h2>Modules</h2><br><br>Module can be deleted, only after you remove all its languages.";
+	public String moduleListTitle = "<h2>Modules</h2>Module can be deleted, only after you remove all its languages.<br>";
 	public String moduleRow_description = "Description";
 	public String moduleRow_id = "Id";
 	public String moduleRow_key = "Key";
@@ -130,15 +129,6 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Priority
-	* <u><i>Magyarul:</i></u> ?
-	*/
-	public static String moduleLang_priority() {
-		return moduleProvider.get().moduleLang_priority;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> I18n modules
 	* <u><i>Magyarul:</i></u> ?
 	*/
@@ -148,7 +138,7 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> <h2>Modules</h2><br><br>Module can be deleted, only after you remove all its languages.
+	* <u><i>In English:</i></u> <h2>Modules</h2>Module can be deleted, only after you remove all its languages.<br>
 	* <u><i>Magyarul:</i></u> ?
 	*/
 	public static String moduleListTitle() {

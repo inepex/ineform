@@ -21,6 +21,7 @@ public class TranslatedValue {
 	private Long id;
 	
 	private Long lastModTime = null;
+	@Kvo_Fetch(mode=Mode.idRelation)
 	private User lastModUser = null;
 	
 	@Lob
@@ -33,7 +34,7 @@ public class TranslatedValue {
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	@Kvo_SearchParam
-	@Kvo_Fetch(mode=Mode.lazy)
+	@Kvo_Fetch(mode=Mode.idRelation)
 	private ModuleRow row;
 	
 	public TranslatedValue() {

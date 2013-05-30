@@ -75,7 +75,7 @@ public class TranslatedValueMapper extends BaseMapper<TranslatedValue>{
 		if (entity.getValue() != null && !"".equals(entity.getValue())) 
 			handler.setValue(entity.getValue());
 		if (entity.getLang() != null) 
-			handler.setLang(new LangMapper(descriptorStore).toRelation(entity.getLang(), false));
+			handler.setLang(new LangMapper(descriptorStore).toRelation(entity.getLang(), true));
 		if (entity.getRow() != null) 
 			handler.setRow(new ModuleRowMapper(descriptorStore).toRelation(entity.getRow(), false));
 

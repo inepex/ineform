@@ -2,11 +2,13 @@ package com.inepex.translatorapp.server.entity.mapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
@@ -96,6 +98,18 @@ public class ModuleRowMapper extends BaseMapper<ModuleRow>{
 			handler.setDescription(entity.getDescription());
 		if (entity.getModule() != null) 
 			handler.setModule(new ModuleMapper(descriptorStore).toRelation(entity.getModule(), false));
+		{
+    		IneList ineList = new IneList();
+    		List<Relation> relationList = new ArrayList<Relation>();
+    		if (entity.getValues() != null)
+    			for (TranslatedValue item : entity.getValues()) {
+    				relationList.add(new TranslatedValueMapper(descriptorStore).toRelation(item, true));
+    			}
+    		if (relationList.size() > 0) {
+    			ineList.setRelationList(relationList);
+    			handler.setValues(ineList);
+    		}
+		}
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

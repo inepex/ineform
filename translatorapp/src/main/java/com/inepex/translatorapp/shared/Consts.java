@@ -3,7 +3,9 @@ package com.inepex.translatorapp.shared;
 import java.util.Arrays;
 import java.util.List;
 
-public class TXT {
+import com.inepex.ineFrame.shared.util.date.DateHelper;
+
+public class Consts {
 
 	public static class Roles {
 		public static final String developer = "developer";
@@ -14,5 +16,6 @@ public class TXT {
 		}
 	}
 	
+	public static final long recentTimeRange = DateHelper.dayInMs*7;
 	
 }

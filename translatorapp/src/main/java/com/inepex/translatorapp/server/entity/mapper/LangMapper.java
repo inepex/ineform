@@ -13,10 +13,12 @@ import com.inepex.translatorapp.shared.kvo.LangHandlerFactory.LangHandler;
 
 public class LangMapper extends BaseMapper<Lang>{
 	
+	private final DescriptorStore descriptorStore;
 	private final LangHandlerFactory handlerFactory;
 	
 	@Inject
 	public LangMapper(DescriptorStore descriptorStore) {
+		this.descriptorStore=descriptorStore;
 		this.handlerFactory=new LangHandlerFactory(descriptorStore);
 	}
 

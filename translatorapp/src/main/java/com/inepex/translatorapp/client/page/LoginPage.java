@@ -22,7 +22,7 @@ import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.translatorapp.shared.TXT;
+import com.inepex.translatorapp.shared.Consts;
 
 
 public class LoginPage extends FlowPanelBasedPage {
@@ -81,8 +81,8 @@ public class LoginPage extends FlowPanelBasedPage {
 
 		@Override
 		protected void doLoggedinLogic(AuthStatusResultBase base) {
-			if(authManager.getLastAuthStatusResult().getRoles().contains(TXT.Roles.developer)
-					|| authManager.getLastAuthStatusResult().getRoles().contains(TXT.Roles.translator))
+			if(authManager.getLastAuthStatusResult().getRoles().contains(Consts.Roles.developer)
+					|| authManager.getLastAuthStatusResult().getRoles().contains(Consts.Roles.translator))
 				eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));
 			else
 				eventBus.fireEvent(new PlaceRequestEvent(

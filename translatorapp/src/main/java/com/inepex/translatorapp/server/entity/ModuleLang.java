@@ -1,6 +1,5 @@
 package com.inepex.translatorapp.server.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.inepex.ineForm.annotations.Kvo_Fetch;
+import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
 @Entity
@@ -26,9 +27,7 @@ public class ModuleLang {
 	@ManyToOne
 	private Lang lang;
 	
-	@Column(nullable=false)
-	private Long priority = 0L;
-	
+	@Kvo_Fetch(mode=Mode.idRelation)
 	@JoinColumn(nullable=false)
 	private Module module;
 	
@@ -61,13 +60,5 @@ public class ModuleLang {
 	
 	public void setModule(Module module) {
 		this.module = module;
-	}
-	
-	public Long getPriority() {
-		return priority;
-	}
-	
-	public void setPriority(Long priority) {
-		this.priority = priority;
 	}
 }

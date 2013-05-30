@@ -25,8 +25,9 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			final AssistedObjectHandlerFactory handlerFactory) {
 		connector=connectorFactory.createServerSide(ModuleConsts.descriptorName);
 		
+		mainPanel.add(new HTML(translatorappI18n.moduleListTitle()));
+		
 		final RowCommandDataManipulator manipulator=manipulatorFactory.createRowCommand(ModuleConsts.descriptorName, connector, true);
-		manipulator.setTopPanelWidget(new HTML(translatorappI18n.moduleListTitle()));
 		manipulator.getUserCommands().clear();
 		manipulator.getUserCommands().add(manipulator.new EditCommand());
 		manipulator.getUserCommands().add(new IneTable.UserCommand() {

@@ -39,10 +39,10 @@ public class ModuleRow {
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	@Kvo_SearchParam
-	@Kvo_Fetch(mode=Mode.lazy)
+	@Kvo_Fetch(mode=Mode.idRelation)
 	private Module module;
 	
-	@Kvo_Fetch(mode=Mode.eager)
+	@Kvo_Fetch(mode=Mode.fullObject)
 	@OneToMany(mappedBy="row", cascade={CascadeType.ALL}, orphanRemoval=true)
 	private List<TranslatedValue> values = new ArrayList<>();
 	

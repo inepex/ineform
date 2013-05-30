@@ -8,7 +8,6 @@ public class ModuleLangConsts {
 	//field contsts
 	public static final String k_id = "id";	
 	public static final String k_lang = "lang";	
-	public static final String k_priority = "priority";	
 	public static final String k_module = "module";	
 
 	public static String k_id() {
@@ -16,9 +15,6 @@ public class ModuleLangConsts {
 	}	
 	public static String k_lang() {
 		return k_lang;
-	}	
-	public static String k_priority() {
-		return k_priority;
 	}	
 	public static String k_module() {
 		return k_module;

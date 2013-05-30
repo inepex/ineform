@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.inepex.ineForm.annotations.Kvo_Fetch;
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
+import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
 
 @Entity
 public class UserLang {
@@ -22,6 +24,7 @@ public class UserLang {
 	private Lang lang;
 	
 	@JoinColumn(nullable=false)
+	@Kvo_Fetch(mode=Mode.idRelation)
 	private User user;
 	
 	public UserLang() {

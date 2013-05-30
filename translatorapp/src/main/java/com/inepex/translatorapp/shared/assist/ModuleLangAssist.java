@@ -39,8 +39,6 @@ public class ModuleLangAssist extends Assist {
 			, new RelationFDesc(ModuleLangConsts.k_lang, /*hc:d2*/translatorappI18n.moduleLang_lang()/*hc*/
 										, LangConsts.descriptorName)/*hc:d2_2*//*hc*/
 					.mandatory()
-			, new LongFDesc(ModuleLangConsts.k_priority, /*hc:d3*/translatorappI18n.moduleLang_priority()/*hc*/)/*hc:d2_3*//*hc*/
-					.mandatory()
 			, new RelationFDesc(ModuleLangConsts.k_module, /*hc:d4*/translatorappI18n.moduleLang_module()/*hc*/
 										, ModuleConsts.descriptorName)/*hc:d2_4*//*hc*/
 					.mandatory()
@@ -57,7 +55,6 @@ public class ModuleLangAssist extends Assist {
 		tableRDesc.getRootNode()
 			.addChild(ModuleLangConsts.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
 			.addChild(ModuleLangConsts.k_lang, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(ModuleLangConsts.k_priority, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
 			.addChild(ModuleLangConsts.k_module, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
 			;
 		return tableRDesc;
@@ -72,7 +69,6 @@ public class ModuleLangAssist extends Assist {
 		formRDesc.getRootNode()
 			.addChild(ModuleLangConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
 			.addChild(ModuleLangConsts.k_lang, new WidgetRDesc(/*hc:f2*/FWTypes.LISTBOX/*hc*/))
-			.addChild(ModuleLangConsts.k_priority, new WidgetRDesc(/*hc:f3*/FWTypes.NUMBERTEXTBOX/*hc*/))
 			.addChild(ModuleLangConsts.k_module, new WidgetRDesc(/*hc:f4*/FWTypes.LISTBOX/*hc*/))
 			;
 		return formRDesc;
