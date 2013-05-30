@@ -1,6 +1,7 @@
 package com.inepex.translatorapp.shared.assist;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.ColRDescHAlign;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
@@ -16,6 +17,8 @@ import com.inepex.translatorapp.shared.kvo.TranslateTableRowConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
 public class TranslateTableRowAssist extends Assist {
+	
+	public static String flags = "flags";
 	
 	public TranslateTableRowAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -54,11 +57,14 @@ public class TranslateTableRowAssist extends Assist {
 			
 		tableRDesc.getRootNode()
 			.addChild(TranslateTableRowConsts.k_id, new ColRDesc(/*hc:tdr1_1*/false/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(TranslateTableRowConsts.k_recent, new ColRDesc(/*hc:tdr1_2*/false/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(TranslateTableRowConsts.k_outDated, new ColRDesc(/*hc:tdr1_3*/false/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(TranslateTableRowConsts.k_description, new ColRDesc(/*hc:tdr1_4*/false/*hc*/)/*hc:tdr2_4*//*hc*/)
-			.addChild(TranslateTableRowConsts.k_engVal, new ColRDesc(/*hc:tdr1_5*/false/*hc*/)/*hc:tdr2_5*//*hc*/)
-			.addChild(tv(TranslatedValueConsts.k_lang), new ColRDesc(/*hc:tdr1_6*/false/*hc*/)/*hc:tdr2_6*//*hc*/)
+			.addChild(flags, new ColRDesc(/*hc:tdr1_2*/false/*hc*/)
+				 .setColumnWidth(60)/*hc:tdr2_2*//*hc*/)
+			.addChild(TranslateTableRowConsts.k_description, new ColRDesc(/*hc:tdr1_4*/false/*hc*/)
+				.addProp(ColRDesc.ESCAPEHTML).cropWidth(150).hAlign(ColRDescHAlign.LEFT)/*hc:tdr2_4*//*hc*/)
+			.addChild(TranslateTableRowConsts.k_engVal, new ColRDesc(/*hc:tdr1_5*/false/*hc*/)
+				.addProp(ColRDesc.ESCAPEHTML).cropWidth(150).hAlign(ColRDescHAlign.LEFT)/*hc:tdr2_5*//*hc*/)
+			.addChild(tv(TranslatedValueConsts.k_lang), new ColRDesc(/*hc:tdr1_6*/false/*hc*/)
+				.setColumnWidth(40)/*hc:tdr2_6*//*hc*/)
 			.addChild(tv(TranslatedValueConsts.k_value), new ColRDesc(/*hc:tdr1_6*/false/*hc*/)/*hc:tdr2_6*//*hc*/)
 			;
 		return tableRDesc;

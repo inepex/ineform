@@ -72,13 +72,13 @@ public class TestDataCreator {
 	private static void createLangsAndModules() {
 		em.getTransaction().begin();
 		
-		en = new Lang("en");
+		en = new Lang("en", "gb");
 		em.persist(en);
 		
-		de = new Lang("de");
+		de = new Lang("de", "de");
 		em.persist(de);
 		
-		hu = new Lang("hu");
+		hu = new Lang("hu", "hu");
 		em.persist(hu);
 		
 		uiModule = new Module();

@@ -36,6 +36,8 @@ public class LangAssist extends Assist {
 			, new LongFDesc(LangConsts.k_id, /*hc:d1*/translatorappI18n.lang_id()/*hc*/)/*hc:d2_1*//*hc*/
 			, new StringFDesc(LangConsts.k_isoName, /*hc:d2*/translatorappI18n.lang_isoName()/*hc*/)/*hc:d2_2*//*hc*/
 					.mandatory()
+			, new StringFDesc(LangConsts.k_countryCode, /*hc:d2*/""/*hc*/)/*hc:d2_2*//*hc*/
+				.mandatory()
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());

@@ -2,6 +2,7 @@ package com.inepex.translatorapp.server.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
@@ -32,6 +33,8 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 	@Inject UserDao userDao;
 	@Inject AssistedObjectHandlerFactory assistedObjectHandlerFactory;
 	@Inject TranslatedValueMapper translatedValueMapper;
+	
+	private static AtomicLong dummyId = new AtomicLong(0);
 	
 	@Override
 	protected ObjectListActionResult doExecute(TransTableListAction action,ExecutionContext context) throws AuthenticationException,DispatchException {
@@ -82,6 +85,8 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 
 	private AssistedObject map(TranslatedValue val) {
 		AssistedObjectHandler h = assistedObjectHandlerFactory.createHandler(TranslateTableRowConsts.descriptorName);
+		
+		h.setId(dummyId.incrementAndGet());
 		
 		boolean isRecent = val.getLastModTime()+Consts.recentTimeRange>System.currentTimeMillis();
 		h.set(TranslateTableRowConsts.k_recent, isRecent);

@@ -2,6 +2,7 @@ package com.inepex.ineForm.shared.render;
 
 import java.util.Map;
 
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.EnumListFW;
@@ -142,6 +143,8 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 					if (val != null) {
 						result = numberUtil.csvFormatNumberToFractial(val, Integer.parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
 					}
+				} else if(colRdesc.hasProp(ColRDesc.ESCAPEHTML)) {
+					result = SafeHtmlUtils.htmlEscape(rowHandler.getString(deepestKey));
 				} else
 					result = rowHandler.getValueAsString(deepestKey);
 	

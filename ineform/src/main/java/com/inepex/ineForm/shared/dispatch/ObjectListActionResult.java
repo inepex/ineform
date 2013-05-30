@@ -63,6 +63,7 @@ public class ObjectListActionResult extends GenericActionResult implements Objec
 		return descriptorName;
 	}
 
+	@Override
 	public void setDescriptorName(String descriptorName) {
 		this.descriptorName = descriptorName;
 	}	

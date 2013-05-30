@@ -12,14 +12,21 @@ import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineom.shared.AssistedObjectHandler;
+import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.translatorapp.shared.action.TransTableListAction;
 import com.inepex.translatorapp.shared.action.TranslateListingType;
+import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
+import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 import com.inepex.translatorapp.shared.kvo.TranslateTableRowConsts;
+import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
 public class TranslatorPage extends FlowPanelBasedPage {
 
@@ -53,6 +60,47 @@ public class TranslatorPage extends FlowPanelBasedPage {
 		connector.setAssociatedListAction(action);
 		
 		table = tableFactory.createSimple(TranslateTableRowConsts.descriptorName, connector);
+		table.addCellContentDisplayer(TranslateTableRowAssist.tv(TranslatedValueConsts.k_lang), new TableFieldRenderer.CustomCellContentDisplayer() {
+			
+			@Override
+			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
+				String multiKey = TranslateTableRowAssist.tv(TranslatedValueConsts.k_lang);
+				Relation langRelation = rowKvo.getRelatedRelation(multiKey);
+				if(langRelation==null)
+					return null;
+				
+				String lang = langRelation.getDisplayName();
+				if(langRelation.getKvo()==null)
+					return lang;
+				
+				String countryCode = langRelation.getKvo().getStringUnchecked(LangConsts.k_countryCode); 
+				if(countryCode==null)
+					return lang;
+				
+				return "<img src='flags/png/"+countryCode+".png' title='"+lang+"' />";
+			}
+		});
+		
+		table.addCellContentDisplayer(TranslateTableRowAssist.flags, new TableFieldRenderer.CustomCellContentDisplayer() {
+			
+			@Override
+			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
+				StringBuffer sb = new StringBuffer();
+				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_recent))) {
+					sb.append("<img src='icons/png/new.png' />");
+				}
+				
+				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_outDated))) {
+					sb.append("<img src='icons/png/cross.png' />");
+				}
+				
+				if(sb.length()<1)
+					return null;
+				else
+					return sb.toString();
+			}
+		});
+		
 		table.renderTable();
 		
 		mainPanel.add(table);

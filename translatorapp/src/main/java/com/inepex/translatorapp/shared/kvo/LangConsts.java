@@ -20,6 +20,7 @@ public class LangConsts {
 	//search consts
 	public static final String s_id = "id";
 	public static final String s_isoName = "isoName";
+	public static final String k_countryCode = "countryCode";
 
 	public static String s_id() {
 		return s_id;

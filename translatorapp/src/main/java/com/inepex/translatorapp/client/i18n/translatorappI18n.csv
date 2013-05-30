@@ -5,7 +5,7 @@
 "moduleLang_lang";"";"Lang";"?";"?"
 "moduleLang_module";"";"Module";"?";"?"
 "moduleListPage";"";"I18n modules";"?";"?"
-"moduleListTitle";"";"<h2>Modules</h2>Module can be deleted, only after you remove all its languages.<br>";"?";"?"
+"moduleListTitle";"";"<h2>Modules</h2>Module can be deleted, only after you remove all its languages.<br><br>";"?";"?"
 "moduleRow_description";"";"Description";"?";"?"
 "moduleRow_id";"";"Id";"?";"?"
 "moduleRow_key";"";"Key";"?";"?"

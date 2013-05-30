@@ -20,6 +20,9 @@ public class Lang {
 	@Column(nullable=false, unique=true)
 	private String isoName;
 	
+	@Column(nullable=false)
+	private String countryCode;
+	
 	public Lang() {
 		
 	}
@@ -28,8 +31,9 @@ public class Lang {
 		this.id=id;
 	}
 	
-	public Lang(String isoName) {
+	public Lang(String isoName, String countryCode) {
 		this.isoName=isoName;
+		this.countryCode=countryCode;
 	}
 
 	public Long getId() {
@@ -47,6 +51,14 @@ public class Lang {
 	
 	public void setIsoName(String isoName) {
 		this.isoName = isoName;
+	}
+	
+	public String getCountryCode() {
+		return countryCode;
+	}
+	
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 	
 	@Override

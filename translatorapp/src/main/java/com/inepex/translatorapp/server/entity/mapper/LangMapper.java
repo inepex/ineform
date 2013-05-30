@@ -33,6 +33,9 @@ public class LangMapper extends BaseMapper<Lang>{
 		if (fromHandler.containsString(LangConsts.k_isoName)) 
 			to.setIsoName(fromHandler.getIsoName());
 
+		if (fromHandler.containsString(LangConsts.k_countryCode)) 
+			to.setCountryCode(fromHandler.getString(LangConsts.k_countryCode));
+		
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
 		/*hc*/
@@ -48,6 +51,8 @@ public class LangMapper extends BaseMapper<Lang>{
 			handler.setId(entity.getId());
 		if (entity.getIsoName() != null && !"".equals(entity.getIsoName())) 
 			handler.setIsoName(entity.getIsoName());
+		if (entity.getCountryCode() != null && !"".equals(entity.getCountryCode())) 
+			handler.set(LangConsts.k_countryCode, entity.getCountryCode());
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI
