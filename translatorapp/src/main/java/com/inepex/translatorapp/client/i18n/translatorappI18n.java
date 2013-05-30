@@ -53,6 +53,12 @@ public class translatorappI18n extends I18nModule {
 	public String reg_passwordAgain = "Password again";
 	public String registeredEmail = "There is already an account for this e-mail address!";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
+	public String translateTableRow_description = "Description";
+	public String translateTableRow_engVal = "EngVal";
+	public String translateTableRow_id = "Id";
+	public String translateTableRow_outDated = "OutDated";
+	public String translateTableRow_recent = "Recent";
+	public String translateTableRow_translatedValue = "TranslatedValue";
 	public String translatedValue_id = "Id";
 	public String translatedValue_lang = "Lang";
 	public String translatedValue_lastModTime = "LastModTime";
@@ -323,6 +329,60 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String succesfulRegistration() {
 		return moduleProvider.get().succesfulRegistration;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Description
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translateTableRow_description() {
+		return moduleProvider.get().translateTableRow_description;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> EngVal
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translateTableRow_engVal() {
+		return moduleProvider.get().translateTableRow_engVal;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Id
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translateTableRow_id() {
+		return moduleProvider.get().translateTableRow_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> OutDated
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translateTableRow_outDated() {
+		return moduleProvider.get().translateTableRow_outDated;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Recent
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translateTableRow_recent() {
+		return moduleProvider.get().translateTableRow_recent;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> TranslatedValue
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String translateTableRow_translatedValue() {
+		return moduleProvider.get().translateTableRow_translatedValue;
 	}
 	
 	/**

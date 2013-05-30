@@ -17,6 +17,8 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.TranslatedValue;
 import com.inepex.translatorapp.server.entity.dao.query.TranslatedValueQuery;
 import com.inepex.translatorapp.server.entity.mapper.TranslatedValueMapper;
+import com.inepex.translatorapp.shared.Consts;
+import com.inepex.translatorapp.shared.action.TranslateListingType;
 
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
@@ -69,23 +71,65 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TranslatedValue> listForTranslatorPage(List<Long> userLangs, Integer firstResult, Integer maxResult) {
-		String query = "select tv from TranslatedValue tv " +
-				"where tv.lang.id in "+langIdListForQuery(userLangs);
+	public List<TranslatedValue> listForTranslatorPage(List<Long> userLangs, Integer firstResult, Integer maxResult, String moduleName, TranslateListingType listType) {
+		StringBuffer query = new StringBuffer();
+		query.append("select tv from TranslatedValue tv " +
+				"where 1=1 ");
 		
-		return em.get().createQuery(query)
+		if(userLangs!=null && !userLangs.isEmpty()) {
+			query.append("and tv.lang.id in ");
+			query.append(longIdListForQuery(userLangs));
+		}
+		
+		if(moduleName!=null) {
+			if(!moduleName.matches("[\\p{Alnum}]+")) {
+				throw new IllegalArgumentException("Invalid name:" + moduleName);
+			}
+			query.append("and tv.row.module.name = '");
+			query.append(moduleName);
+			query.append("' ");
+		}
+		
+		switch (listType) {
+		case Recent:
+			query.append("and tv.lastModTime > ");
+			query.append(System.currentTimeMillis()-Consts.recentTimeRange);
+			query.append(" ");
+			query.append("order by tv.lastModTime DESC");
+			break;
+			
+		case Outdated:
+			query.append("and (tv.value is NULL or tv.value='' or ");
+			
+			query.append("not exists (select 1 from TranslatedValue tv2 where tv2.lang.isoName = '");
+				query.append(Consts.defaultLang);
+				query.append("' ");
+				query.append("and tv2.row.id = tv.row.id) ");
+				
+			query.append("or exists (select 1 from TranslatedValue tv2 where tv2.lang.isoName = '");
+				query.append(Consts.defaultLang);
+				query.append("' ");
+				query.append("and tv2.row.id = tv.row.id and tv2.lastModTime > tv.lastModTime) ");
+			
+			query.append(") ");
+			query.append("order by tv.row.key DESC, tv.lang.isoName ASC");
+			break;
+			
+		case All:
+		default:
+			query.append("order by tv.row.key DESC, tv.lang.isoName ASC");
+			break;
+		}
+		
+		return em.get().createQuery(query.toString())
 				.setFirstResult(firstResult)
 				.setMaxResults(maxResult)
-				
 				.getResultList();
 	}
 
-	private String langIdListForQuery(List<Long> userLangs) {
-		if(userLangs==null || userLangs.isEmpty())
-			return "(-1)";
-		
+	private String longIdListForQuery(List<Long> ids) {
 		StringBuffer sb = new StringBuffer("(");
-		for(Long l : userLangs) {
+		for(Long l : ids) {
 			if(sb.length()>1)
 				sb.append(",");
 			sb.append(l);

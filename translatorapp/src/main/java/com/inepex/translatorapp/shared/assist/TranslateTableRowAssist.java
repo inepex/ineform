@@ -11,27 +11,11 @@ import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.kvo.TranslateTableRowConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
 public class TranslateTableRowAssist extends Assist {
-
-	public static class I18n{
-// copy these to .csv
-//"translateTableRow_id";"";"Id";"Id"
-//"translateTableRow_recent";"";"Recent";"Recent"
-//"translateTableRow_outDated";"";"OutDated";"OutDated"
-//"translateTableRow_description";"";"Description";"Description"
-//"translateTableRow_engVal";"";"EngVal";"EngVal"
-//"translateTableRow_translatedValue";"";"TranslatedValue";"TranslatedValue"
-//
-		public static String translateTableRow_id() { return /*hc:i18n_1*/"Id"/*hc*/;}
-		public static String translateTableRow_recent() { return /*hc:i18n_2*/"Recent"/*hc*/;}
-		public static String translateTableRow_outDated() { return /*hc:i18n_3*/"OutDated"/*hc*/;}
-		public static String translateTableRow_description() { return /*hc:i18n_4*/"Description"/*hc*/;}
-		public static String translateTableRow_engVal() { return /*hc:i18n_5*/"EngVal"/*hc*/;}
-		public static String translateTableRow_translatedValue() { return /*hc:i18n_6*/"TranslatedValue"/*hc*/;}
-	}
 	
 	public TranslateTableRowAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -51,12 +35,12 @@ public class TranslateTableRowAssist extends Assist {
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(TranslateTableRowConsts.descriptorName
-			, new LongFDesc(TranslateTableRowConsts.k_id, /*hc:d1*/I18n.translateTableRow_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new BooleanFDesc(TranslateTableRowConsts.k_recent, /*hc:d2*/I18n.translateTableRow_recent()/*hc*/)/*hc:d2_2*//*hc*/
-			, new BooleanFDesc(TranslateTableRowConsts.k_outDated, /*hc:d3*/I18n.translateTableRow_outDated()/*hc*/)/*hc:d2_3*//*hc*/
-			, new StringFDesc(TranslateTableRowConsts.k_description, /*hc:d4*/I18n.translateTableRow_description()/*hc*/)/*hc:d2_4*//*hc*/
-			, new StringFDesc(TranslateTableRowConsts.k_engVal, /*hc:d5*/I18n.translateTableRow_engVal()/*hc*/)/*hc:d2_5*//*hc*/
-			, new RelationFDesc(TranslateTableRowConsts.k_translatedValue, /*hc:d6*/I18n.translateTableRow_translatedValue()/*hc*/
+			, new LongFDesc(TranslateTableRowConsts.k_id, /*hc:d1*/translatorappI18n.translateTableRow_id()/*hc*/)/*hc:d2_1*//*hc*/
+			, new BooleanFDesc(TranslateTableRowConsts.k_recent, /*hc:d2*/translatorappI18n.translateTableRow_recent()/*hc*/)/*hc:d2_2*//*hc*/
+			, new BooleanFDesc(TranslateTableRowConsts.k_outDated, /*hc:d3*/translatorappI18n.translateTableRow_outDated()/*hc*/)/*hc:d2_3*//*hc*/
+			, new StringFDesc(TranslateTableRowConsts.k_description, /*hc:d4*/translatorappI18n.translateTableRow_description()/*hc*/)/*hc:d2_4*//*hc*/
+			, new StringFDesc(TranslateTableRowConsts.k_engVal, /*hc:d5*/translatorappI18n.translateTableRow_engVal()/*hc*/)/*hc:d2_5*//*hc*/
+			, new RelationFDesc(TranslateTableRowConsts.k_translatedValue, /*hc:d6*/translatorappI18n.translateTableRow_translatedValue()/*hc*/
 										, TranslatedValueConsts.descriptorName)/*hc:d2_6*//*hc*/
 		);
 		

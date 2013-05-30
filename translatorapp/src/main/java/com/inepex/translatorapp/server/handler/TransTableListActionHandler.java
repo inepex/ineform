@@ -37,7 +37,7 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 	protected ObjectListActionResult doExecute(TransTableListAction action,ExecutionContext context) throws AuthenticationException,DispatchException {
 		List<Long> userLangs = fetchUserLangs();
 		
-		List<TranslatedValue> values = translatedValueDao.listForTranslatorPage(userLangs, action.getFirstResult(), action.getNumMaxResult());
+		List<TranslatedValue> values = translatedValueDao.listForTranslatorPage(userLangs, action.getFirstResult(), action.getNumMaxResult(), action.getModuleName(), action.getListType());
 		
 		ObjectListActionResult res = new ObjectListActionResult();
 		res.setDescriptorName(TranslateTableRowConsts.descriptorName);
@@ -90,8 +90,12 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 		h.set(TranslateTableRowConsts.k_translatedValue, translatedValueMapper.toRelation(val, true));
 		
 		TranslatedValue engVal = findEngVal(val);
-		h.set(TranslateTableRowConsts.k_outDated, engVal==null ? true : (engVal.getLastModTime()>val.getLastModTime() || val.getValue()==null || "".equals(val.getValue())));
-		h.set(TranslateTableRowConsts.k_engVal, engVal==null ? null : engVal.getValue());
+		
+		h.set(TranslateTableRowConsts.k_outDated, engVal==null ? true 
+				: (engVal.getLastModTime()>val.getLastModTime() || val.getValue()==null || "".equals(val.getValue())));
+		
+		h.set(TranslateTableRowConsts.k_engVal, engVal==null ? null 
+				: engVal.getValue());
 	
 		return h.getAssistedObject();
 	}
