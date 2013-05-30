@@ -1,5 +1,7 @@
 package com.inepex.translatorapp.server.entity.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.google.inject.Inject;
@@ -64,6 +66,33 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 	@Override
 	public TranslatedValue newInstance() {
 		return new TranslatedValue();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TranslatedValue> listForTranslatorPage(List<Long> userLangs, Integer firstResult, Integer maxResult) {
+		String query = "select tv from TranslatedValue tv " +
+				"where tv.lang.id in "+langIdListForQuery(userLangs);
+		
+		return em.get().createQuery(query)
+				.setFirstResult(firstResult)
+				.setMaxResults(maxResult)
+				
+				.getResultList();
+	}
+
+	private String langIdListForQuery(List<Long> userLangs) {
+		if(userLangs==null || userLangs.isEmpty())
+			return "(-1)";
+		
+		StringBuffer sb = new StringBuffer("(");
+		for(Long l : userLangs) {
+			if(sb.length()>1)
+				sb.append(",");
+			sb.append(l);
+		}
+		sb.append(")");
+		
+		return sb.toString();
 	}
 	
 	/*hc:customMethods*/

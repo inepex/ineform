@@ -7,6 +7,8 @@ import com.inepex.ineFrame.shared.util.date.DateHelper;
 
 public class Consts {
 
+	public static final String defaultLang = "en";
+	
 	public static class Roles {
 		public static final String developer = "developer";
 		public static final String translator = "translator";

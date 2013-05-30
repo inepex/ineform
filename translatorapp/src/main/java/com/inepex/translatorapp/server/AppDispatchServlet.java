@@ -12,6 +12,7 @@ import com.inepex.translatorapp.shared.assist.ModuleAssist;
 import com.inepex.translatorapp.shared.assist.ModuleLangAssist;
 import com.inepex.translatorapp.shared.assist.ModuleRowAssist;
 import com.inepex.translatorapp.shared.assist.RegAssist;
+import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
 import com.inepex.translatorapp.shared.assist.TranslatedValueAssist;
 import com.inepex.translatorapp.shared.assist.UserAssist;
 import com.inepex.translatorapp.shared.assist.UserLangAssist;
@@ -71,6 +72,7 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 		new ModuleLangAssist(descStore).registerDescriptors();
 		new ModuleRowAssist(descStore).registerDescriptors();
 		new TranslatedValueAssist(descStore).registerDescriptors();
+		new TranslateTableRowAssist(descStore).registerDescriptors();
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.inepex.translatorapp.shared.assist;
 import com.inepex.ineForm.shared.descriptorext.Assist;
-import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -56,17 +55,7 @@ public class TranslatedValueAssist extends Assist {
 
 	@Override
 	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(TranslatedValueConsts.descriptorName);
-			
-		tableRDesc.getRootNode()
-			.addChild(TranslatedValueConsts.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(TranslatedValueConsts.k_lastModTime, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(TranslatedValueConsts.k_lastModUser, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(TranslatedValueConsts.k_value, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
-			.addChild(TranslatedValueConsts.k_lang, new ColRDesc(/*hc:tdr1_5*/true/*hc*/)/*hc:tdr2_5*//*hc*/)
-			.addChild(TranslatedValueConsts.k_row, new ColRDesc(/*hc:tdr1_6*/true/*hc*/)/*hc:tdr2_6*//*hc*/)
-			;
-		return tableRDesc;
+		return new TableRDesc(TranslatedValueConsts.descriptorName);
 	}
 	
 	@Override
