@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.LocalizedString;
+import com.inepex.inei18n.util.CsvMerge;
 
 public class I18nModuleConverter {
 
@@ -184,7 +185,7 @@ public class I18nModuleConverter {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
 			while ((strLine = br.readLine()) != null) {
-				String[] fields = strLine.split(SEP);
+				String[] fields = CsvMerge.csvSeparatorSplitLogic(strLine, SEP);
 
 				if (localizables.get(fields[0]) != null) {
 					duplicates += fields[0] + "\n";

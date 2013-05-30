@@ -58,7 +58,7 @@ public class CsvMerge {
 		int i=0;
 		for(String str : lines) {
 			i++;
-			String[] splitted = str.split(sep);
+			String[] splitted = csvSeparatorSplitLogic(str, sep);
 			if(splitted.length!=colCount)
 				throw new RuntimeException("There are "+splitted.length+" colums in the line "+i+" (expected: "+colCount+")");
 			
@@ -218,5 +218,32 @@ public class CsvMerge {
 			this.columnCount=columnCount;
 			this.parsedLines=parsedLines;
 		}
+	}
+	
+	public static String[] csvSeparatorSplitLogic(String csvLine, String sep){
+		List<String> splitted = new ArrayList<>();
+		boolean betweenQuot = false;
+		StringBuffer part = new StringBuffer();
+		StringBuffer csvLineBuf = new StringBuffer(csvLine);
+		while (csvLineBuf.length() > 0){
+			if (csvLineBuf.toString().startsWith("\"")){
+				betweenQuot = !betweenQuot;
+				csvLineBuf.delete(0, 1);
+			} else if (csvLineBuf.toString().startsWith(sep) && !betweenQuot){
+				splitted.add(part.toString());
+				part = new StringBuffer();
+				csvLineBuf.delete(0, sep.length());
+			} else if (csvLineBuf.toString().startsWith(System.lineSeparator())){
+				splitted.add(part.toString());
+				part = new StringBuffer();
+				csvLineBuf.delete(0, System.lineSeparator().length());
+			} else {
+				part.append(csvLineBuf.charAt(0));
+				csvLineBuf.delete(0, 1);
+			}
+		}
+		if (part.length() > 0) splitted.add(part.toString());
+		return splitted.toArray(new String[splitted.size()]);
+		
 	}
 }
