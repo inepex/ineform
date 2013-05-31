@@ -29,32 +29,10 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class RelationListFW extends DenyingFormWidget {
-
-	final AbsolutePanel boundaryPanel = new AbsolutePanel();
-	final FlowPanel relationsPanel = new FlowPanel();
 	
-	final List<RelationRow> rowList = new ArrayList<RelationListFW.RelationRow>();
+	public static final String FIXSIZED = "FIXSIZED";
 
-	final PickupDragController dragConroller = new PickupDragController(boundaryPanel, false);
-	final FlowPanelDropController dropController = new FlowPanelDropController(relationsPanel);
-
-	final FlowPanel mainPanel = new FlowPanel();
-	final Button addButton = new Button(IneFormI18n.ADD());
-
-	final String relationDescriptorName;
-	final FormContext formCtx;
-	
-	private RelationList relationList;
-	
-	private FormWidgetChangeHandler fwch = new FormWidgetChangeHandler() {
-		
-		@Override
-		public void onFormWidgetChange(FormWidgetChangeEvent e) {
-			fireFormWidgetChanged();
-		}
-	};
-	
-	class RelationDragHandler extends DragHandlerAdapter {
+	private class RelationDragHandler extends DragHandlerAdapter {
 		@Override
 		public void onDragEnd(DragEndEvent event) {
 			RelationRow movedObject = (RelationRow)event.getSource();
@@ -65,7 +43,7 @@ public class RelationListFW extends DenyingFormWidget {
 		}
 	}
 	
-	class AddButtonClickHandler implements ClickHandler {
+	private class AddButtonClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
 			relationList.add(new Relation());
@@ -74,7 +52,7 @@ public class RelationListFW extends DenyingFormWidget {
 		}
 	}
 
-	abstract class PanelClickHandler implements ClickHandler {
+	private abstract class PanelClickHandler implements ClickHandler {
 		final RelationRow relationRow;
 
 		public PanelClickHandler(RelationRow relationRow) {
@@ -82,7 +60,7 @@ public class RelationListFW extends DenyingFormWidget {
 		}
 	}
 
-	class RemoveClickHandler extends PanelClickHandler {
+	private class RemoveClickHandler extends PanelClickHandler {
 		public RemoveClickHandler(RelationRow relationRow) {
 			super(relationRow);
 		}
@@ -96,7 +74,7 @@ public class RelationListFW extends DenyingFormWidget {
 		}
 	}
 
-	class UpClickHandler extends PanelClickHandler {
+	private class UpClickHandler extends PanelClickHandler {
 		public UpClickHandler(RelationRow relationRow) {
 			super(relationRow);
 		}
@@ -109,7 +87,7 @@ public class RelationListFW extends DenyingFormWidget {
 		}
 	}
 
-	class DownClickHandler extends PanelClickHandler {
+	private class DownClickHandler extends PanelClickHandler {
 		public DownClickHandler(RelationRow relationRow) {
 			super(relationRow);
 		}
@@ -122,6 +100,31 @@ public class RelationListFW extends DenyingFormWidget {
 		}
 	}
 	
+	private final FormWidgetChangeHandler fwch = new FormWidgetChangeHandler() {
+		
+		@Override
+		public void onFormWidgetChange(FormWidgetChangeEvent e) {
+			fireFormWidgetChanged();
+		}
+	};
+	
+	private final AbsolutePanel boundaryPanel = new AbsolutePanel();
+	private final FlowPanel relationsPanel = new FlowPanel();
+	
+	private final List<RelationRow> rowList = new ArrayList<RelationListFW.RelationRow>();
+
+	private final PickupDragController dragConroller = new PickupDragController(boundaryPanel, false);
+	private final FlowPanelDropController dropController = new FlowPanelDropController(relationsPanel);
+
+	private final FlowPanel mainPanel = new FlowPanel();
+	private final Button addButton = new Button(IneFormI18n.ADD());
+
+	private final String relationDescriptorName;
+	private final FormContext formCtx;
+	
+	private final RelationList relationList;
+	
+	private final boolean fixSized;
 
 	/**
 	 * Creates the RelationListFW. allowOrdering set to true. If you want to
@@ -130,16 +133,18 @@ public class RelationListFW extends DenyingFormWidget {
 	 * @param relationDescriptorName
 	 * @param valueRangeProvider
 	 */
-	public RelationListFW(FormContext formCtx, FDesc fielddescriptor, String relationDescriptorName) {
-		this(formCtx, fielddescriptor, relationDescriptorName, true);
+	public RelationListFW(FormContext formCtx, FDesc fielddescriptor, String relationDescriptorName, boolean fixSized) {
+		this(formCtx, fielddescriptor, relationDescriptorName, true, fixSized);
 	}
 
 	public RelationListFW(FormContext formCtx
 			, FDesc fielddescriptor
 			, String relationDescriptorName
-			, boolean allowOrdering) {
+			, boolean allowOrdering
+			, boolean fixSized) {
 		super(fielddescriptor);
 		this.formCtx = formCtx;
+		this.fixSized = fixSized;
 		this.relationDescriptorName = relationDescriptorName;
 		this.relationList = new RelationList(formCtx.descStore, 
 				relationDescriptorName
@@ -155,6 +160,9 @@ public class RelationListFW extends DenyingFormWidget {
 		dragConroller.setBehaviorDragProxy(true);
 		
 		dragConroller.addDragHandler(new RelationDragHandler());
+		
+		if(fixSized)
+			addButton.setVisible(false);
 	}
 	
 	private void reRenderRelations(){
@@ -243,8 +251,10 @@ public class RelationListFW extends DenyingFormWidget {
 				hp.add(dragLabel);
 
 			hp.add(relatedForm.asWidget());
-
-			hp.add(removeButton);
+			
+			if(!fixSized)
+				hp.add(removeButton);
+			
 			if (relationList.isSupportsOrdering()){
 				hp.add(upButton);
 				hp.add(downButton);

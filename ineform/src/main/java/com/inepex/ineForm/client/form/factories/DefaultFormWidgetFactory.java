@@ -141,7 +141,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = numberTextbox;
 		} else if (widgetType.equals(FWTypes.RELATIONLIST)) {
 			ListFDesc castedFieldDesc = (ListFDesc) fieldDesc; 
-			createdWidget = new RelationListFW(formCtx, castedFieldDesc, castedFieldDesc.getRelatedDescriptorType());
+			createdWidget = new RelationListFW(formCtx, castedFieldDesc, castedFieldDesc.getRelatedDescriptorType(), wrDesc.hasProp(RelationListFW.FIXSIZED));
 		} else if (widgetType.equals(FWTypes.TABLE)) {
 			ListFDesc castedFieldDesc = (ListFDesc) fieldDesc; 
 			createdWidget = new IneTableFW(castedFieldDesc, formCtx, castedFieldDesc.getRelatedDescriptorType(),
