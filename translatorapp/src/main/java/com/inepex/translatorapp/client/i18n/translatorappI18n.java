@@ -52,6 +52,7 @@ public class translatorappI18n extends I18nModule {
 	public String reg_password = "Password";
 	public String reg_passwordAgain = "Password again";
 	public String registeredEmail = "There is already an account for this e-mail address!";
+	public String showEditpopup = "Popup editor";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
 	public String translateTableRow_description = "Description";
 	public String translateTableRow_engVal = "EngVal";
@@ -320,6 +321,15 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String registeredEmail() {
 		return moduleProvider.get().registeredEmail;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Popup editor
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String showEditpopup() {
+		return moduleProvider.get().showEditpopup;
 	}
 	
 	/**

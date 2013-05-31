@@ -2,6 +2,7 @@ package com.inepex.translatorapp.client.page;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.form.FormContext;
@@ -27,6 +28,7 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.action.TransTableListAction;
 import com.inepex.translatorapp.shared.action.TranslateListingType;
 import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
@@ -119,9 +121,28 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onCellClicked(AssistedObject kvoOfRow) {
+				//TODO popup editor
+			}
+			
+			@Override
+			public String getCommandCellText() {
+				return translatorappI18n.showEditpopup();
+			}
+		});
+		
+		table.addCommand(new IneTable.UserCommand() {
+			
+			@Override
+			public boolean visible(AssistedObject kvoOfRow) {
+				return true;
+			}
+			
+			@Override
+			public void onCellClicked(AssistedObject kvoOfRow) {
 				Relation transValue = handlerFactory.createHandler(kvoOfRow).getRelation(TranslateTableRowConsts.k_translatedValue);
 				AssistedObjectHandler manhandler = handlerFactory.createHandler(TranslatedValueConsts.descriptorName);
 				manhandler.setId(transValue.getId());
+				Window.alert(transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
 				manhandler.set(TranslatedValueConsts.k_value, transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
 				
 				ObjectManipulationAction oma = new ObjectManipulationAction(ManipulationTypes.CREATE_OR_EDIT_REQUEST, manhandler.getAssistedObject());

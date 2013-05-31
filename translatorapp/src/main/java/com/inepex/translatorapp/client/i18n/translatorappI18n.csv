@@ -25,6 +25,7 @@
 "reg_password";"";"Password";"?";"?"
 "reg_passwordAgain";"";"Password again";"?";"?"
 "registeredEmail";"";"There is already an account for this e-mail address!";"?";"?"
+"showEditpopup";"";"Popup editor";"?";"?"
 "succesfulRegistration";"";"Successful registration. Your account will be activated soon.";"?";"?"
 "translateTableRow_description";"";"Description";"?";"?"
 "translateTableRow_engVal";"";"EngVal";"?";"?"
