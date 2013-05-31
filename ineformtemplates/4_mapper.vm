@@ -88,6 +88,10 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 			to.set${attr.nameU1}(${attr.type}.values()[new Long(fromHandler.get${attr.nameU1}()).intValue()]);
 #elseif($attr.list == true && $attr.hasAnnotation("OneToMany"))
 		if (fromHandler.containsList(${classname}Consts.k_${attr.name})) {
+#if($attr.hasAnnotation("Kvo_Fetch") && $attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.idRelation")
+		//TODO
+		//TODO saving skipped, because saving a IneList (which not contains KVO-s) causes removing!!!
+#else
 			if (to.get${attr.nameU1}() == null)
 				to.set${attr.nameU1}(new ArrayList<${attr.fistGenTypeU1}>());
 
@@ -114,6 +118,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 					}
 				}
 			}
+#end
 		}
 #else
 		if (fromHandler.containsRelation(${classname}Consts.k_${attr.name})) {
@@ -167,8 +172,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 			handler.set${attr.nameU1}(new Long(entity.get${attr.nameU1}().ordinal()));
 		}
 #elseif($attr.list == true)
-## you can annotate your inelist with lazy to skip mapping it
-#if (!$attr.hasAnnotation("Kvo_Fetch") || !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")
+#if(!$attr.hasAnnotation("Kvo_Fetch") || $attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.fullObject")
 		{
     		IneList ineList = new IneList();
     		List<Relation> relationList = new ArrayList<Relation>();
@@ -181,16 +185,28 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
     			handler.set${attr.nameU1}(ineList);
     		}
 		}
+#elseif($attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.idRelation")
+		{
+    		IneList ineList = new IneList();
+    		List<Relation> relationList = new ArrayList<Relation>();
+    		if (entity.get${attr.nameU1}() != null)
+    			for (${attr.fistGenTypeU1} item : entity.get${attr.nameU1}()) {
+    				relationList.add(new ${attr.fistGenTypeU1}Mapper(descriptorStore).toRelation(item, false));
+    			}
+    		if (relationList.size() > 0) {
+    			ineList.setRelationList(relationList);
+    			handler.set${attr.nameU1}(ineList);
+    		}
+		}
 #end
 #else
 		if (entity.get${attr.nameU1}() != null) 
-#if (!$attr.hasAnnotation("Kvo_Fetch") || $attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.lazy")
+#if (!$attr.hasAnnotation("Kvo_Fetch") || $attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.fullObject")
+			handler.set${attr.nameU1}(new ${attr.typeU1}Mapper(descriptorStore).toRelation(entity.get${attr.nameU1}(), true));
+#elseif ($attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.idRelation")
 			handler.set${attr.nameU1}(new ${attr.typeU1}Mapper(descriptorStore).toRelation(entity.get${attr.nameU1}(), false));
-#elseif ($attr.hasAnnotation("Kvo_Fetch") && !$attr.getAnnotationParamValue("Kvo_Fetch","mode")=="Mode.relation")
-			// TODO: use findRelationById
-			handler.set${attr.nameU1}(new ${attr.typeU1}Mapper(descriptorStore).toRelation(entity.get${attr.nameU1}(), true));
 #else
-			handler.set${attr.nameU1}(new ${attr.typeU1}Mapper(descriptorStore).toRelation(entity.get${attr.nameU1}(), true));
+			;//Mode.noFetch
 #end
 #end
 #end

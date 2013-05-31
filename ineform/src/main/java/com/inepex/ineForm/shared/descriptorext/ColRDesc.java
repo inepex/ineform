@@ -1,5 +1,7 @@
 package com.inepex.ineForm.shared.descriptorext;
 
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+
 @SuppressWarnings("serial")
 public class ColRDesc extends TableRDescBase {
 
@@ -15,7 +17,16 @@ public class ColRDesc extends TableRDescBase {
 	public static final String AS_FRACTIALDIGITCOUNT = "AS_SHOWFRACTIAL";
 	public static final String AS_GROUPTHOUSANDS = "AS_GROUPTHOUSANDS";
 	public static final String AS_FORMATTEDDOUBLE = "AS_FORMATTEDDOUBLE";
-	public static final String AS_CB = "AS_CB"; //display as checkbox
+	/**
+	 * display as checkbox
+	 */
+	public static final String AS_CB = "AS_CB";
+	
+	/**
+	 * displays as textbox, 
+	 * modifies {@link AssistedObject} immediately on typing
+	 */
+	public static final String AS_AO_EDITOR_TEXTBOX = "AS_AO_EDITOR_TEXTBOX";
 	public static final String ESCAPEHTML = "ESCAPEHTML";
 	
 	public static final String EXCEL_DATETIMEFORMAT = "EXCEL_DATETIMEFORMAT";

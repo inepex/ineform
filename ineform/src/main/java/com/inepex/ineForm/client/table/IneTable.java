@@ -9,14 +9,16 @@ import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.dom.client.TableSectionElement;
 import com.google.gwt.dom.client.Style.Visibility;
+import com.google.gwt.dom.client.TableSectionElement;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -60,6 +62,7 @@ import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 /**
  * A CellTable that automatically renders itself according to the given
@@ -545,7 +548,35 @@ public class IneTable extends HandlerAwareComposite {
 		public Boolean getValue(AssistedObject rowValue) {
 			return rowValue.getBooleanUnchecked(key);
 		}
-	};
+	}
+	
+	private class TextBoxTableColumn extends Column<AssistedObject, String> {
+
+		private final String key;
+		
+		public TextBoxTableColumn(String key) {
+			super(new TextInputCell());
+			this.key=key;
+			
+			this.setFieldUpdater(new FieldUpdater<AssistedObject, String>() {
+				
+				@Override
+				public void update(int index, AssistedObject ao, String value) {
+					List<String> ids = SharedUtil.listFromDotSeparated(TextBoxTableColumn.this.key);
+					handlerFactory.createHandler(ao)
+						.getRelatedKVOMultiLevel(ids)
+						.setUnchecked(ids.get(ids.size()-1), value);
+				}
+			});
+		}
+		
+		@Override
+		public String getValue(AssistedObject ao) {
+			return handlerFactory.createHandler(ao).getRelatedString(key);
+		}
+		
+	}
+	
 	private class IneTableColumnProvider{
 		private String key;
 
@@ -555,9 +586,11 @@ public class IneTable extends HandlerAwareComposite {
 		@SuppressWarnings("rawtypes")
 		public Column getColumn(){
 			ColRDesc colRdesc = (ColRDesc)tableRenderDescriptor.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
-			if(colRdesc.getPropValue(ColRDesc.AS_CB) != null){
-				return new BooleanTableColumn( key);
-			}else{
+			if(colRdesc.hasProp(ColRDesc.AS_CB)){
+				return new BooleanTableColumn(key);
+			} else if(colRdesc.hasProp(ColRDesc.AS_AO_EDITOR_TEXTBOX)) {
+				return new TextBoxTableColumn(key);
+		 	} else {
 				return new StringTableColumn(key);
 			}
 			

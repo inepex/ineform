@@ -46,6 +46,10 @@
   padding: 5px 5px;
 }
 
+.cellTableCell input[type=text] {
+	width: 100%;
+}
+
 .cellTableFirstColumnFooter {
   
 }
