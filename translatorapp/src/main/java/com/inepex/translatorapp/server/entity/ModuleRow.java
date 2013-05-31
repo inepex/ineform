@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 import com.inepex.ineForm.annotations.Kvo_Fetch;
 import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
+import com.inepex.ineForm.annotations.Kvo_SortDefault;
 
 @Entity
 @Table(uniqueConstraints=
@@ -30,6 +31,7 @@ public class ModuleRow {
 	@Kvo_SearchParam
 	private Long id;
 	
+	@Kvo_SortDefault
 	@Kvo_SearchParam
 	@Column(nullable=false, name="MODULE_ROW_KEY")
 	private String key;

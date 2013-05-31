@@ -66,11 +66,10 @@ public class TranslatedValueAssist extends Assist {
 			
 		formRDesc.getRootNode()
 			.addChild(TranslatedValueConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(TranslatedValueConsts.k_lastModTime, new WidgetRDesc(/*hc:f2*/FWTypes.NUMBERTEXTBOX/*hc*/))
-			.addChild(TranslatedValueConsts.k_lastModUser, new WidgetRDesc(/*hc:f3*/FWTypes.LISTBOX/*hc*/))
+			.addChild(TranslatedValueConsts.k_lang, new WidgetRDesc(/*hc:f5*/FWTypes.LABEL/*hc*/))
+			.addChild(TranslatedValueConsts.k_lastModTime, new WidgetRDesc(/*hc:f2*/FWTypes.LABEL, FWTypes.p_asDate/*hc*/))
+			.addChild(TranslatedValueConsts.k_lastModUser, new WidgetRDesc(/*hc:f3*/FWTypes.LABEL/*hc*/))
 			.addChild(TranslatedValueConsts.k_value, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(TranslatedValueConsts.k_lang, new WidgetRDesc(/*hc:f5*/FWTypes.LISTBOX/*hc*/))
-			.addChild(TranslatedValueConsts.k_row, new WidgetRDesc(/*hc:f6*/FWTypes.LISTBOX/*hc*/))
 			;
 		return formRDesc;
 	}

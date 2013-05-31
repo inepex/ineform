@@ -29,6 +29,8 @@ public class translatorappI18n extends I18nModule {
 	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
 	public String lang_id = "Id";
 	public String lang_isoName = "Iso name";
+	public String modRow_engModTime = "Englis mod. time";
+	public String modRow_engVal = "English value";
 	public String moduleLang_id = "Id";
 	public String moduleLang_lang = "Lang";
 	public String moduleLang_module = "Module";
@@ -54,6 +56,7 @@ public class translatorappI18n extends I18nModule {
 	public String reg_passwordAgain = "Password again";
 	public String registeredEmail = "There is already an account for this e-mail address!";
 	public String revertBtn = "Revert";
+	public String rowListPage = "Rows";
 	public String showEditpopup = "Popup editor";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
 	public String translateTableRow_description = "Description";
@@ -116,6 +119,24 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String lang_isoName() {
 		return moduleProvider.get().lang_isoName;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Englis mod. time
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String modRow_engModTime() {
+		return moduleProvider.get().modRow_engModTime;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> English value
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String modRow_engVal() {
+		return moduleProvider.get().modRow_engVal;
 	}
 	
 	/**
@@ -341,6 +362,15 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String revertBtn() {
 		return moduleProvider.get().revertBtn;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Rows
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String rowListPage() {
+		return moduleProvider.get().rowListPage;
 	}
 	
 	/**

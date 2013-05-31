@@ -29,8 +29,11 @@ public class ModuleRowQuery extends BaseQuery<ModuleRow>{
 
 	private final ModuleRowHandlerFactory handlerFactory;
 	
+	private final DescriptorStore descriptorStore;
+	
 	@Inject
 	public ModuleRowQuery(DescriptorStore descriptorStore) {
+		this.descriptorStore = descriptorStore;
 		this.handlerFactory= new ModuleRowHandlerFactory(descriptorStore);
 	}
 	
@@ -68,6 +71,7 @@ public class ModuleRowQuery extends BaseQuery<ModuleRow>{
 			//default default order
 			orderKey = IFConsts.KEY_ID;
 			//default order specified:
+			orderKey = ModuleRowConsts.k_key;		
 		}
 		Expression<?> orderExpr = null;
 		List<String> idList = Node.idToIdList(orderKey);

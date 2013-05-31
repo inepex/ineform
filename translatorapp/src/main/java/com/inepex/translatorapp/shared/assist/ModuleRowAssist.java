@@ -1,6 +1,8 @@
 package com.inepex.translatorapp.shared.assist;
+import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.ColRDescHAlign;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -19,6 +21,9 @@ import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
 public class ModuleRowAssist extends Assist {
 	
+	public static String engVal = "engVal_col";
+	public static String engModTime = "engModtime_col";
+	
 	public ModuleRowAssist(DescriptorStore descStore) {
 		super(descStore);
 	}
@@ -29,22 +34,22 @@ public class ModuleRowAssist extends Assist {
 	
 	@Override
 	public ValidatorDesc getValidatorDesc() {
-		return new ValidatorDesc(ModuleRowConsts.descriptorName, new String[] {/*hc:vd1*/
+		return new ValidatorDesc(ModuleRowConsts.descriptorName, new String[] {
 			
-		/*hc*/});
+		});
 	}
 
 	@Override
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(ModuleRowConsts.descriptorName
-			, new LongFDesc(ModuleRowConsts.k_id, /*hc:d1*/translatorappI18n.moduleRow_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(ModuleRowConsts.k_key, /*hc:d2*/translatorappI18n.moduleRow_key()/*hc*/)/*hc:d2_2*//*hc*/
+			, new LongFDesc(ModuleRowConsts.k_id, translatorappI18n.moduleRow_id())
+			, new StringFDesc(ModuleRowConsts.k_key, translatorappI18n.moduleRow_key())
 					.mandatory()
-			, new StringFDesc(ModuleRowConsts.k_description, /*hc:d3*/translatorappI18n.moduleRow_description()/*hc*/)/*hc:d2_3*//*hc*/
-			, new RelationFDesc(ModuleRowConsts.k_module, /*hc:d4*/translatorappI18n.moduleRow_module()/*hc*/
-										, ModuleConsts.descriptorName)/*hc:d2_4*//*hc*/
+			, new StringFDesc(ModuleRowConsts.k_description, translatorappI18n.moduleRow_description())
+			, new RelationFDesc(ModuleRowConsts.k_module, translatorappI18n.moduleRow_module()
+										, ModuleConsts.descriptorName)
 					.mandatory()
-			, new ListFDesc(ModuleRowConsts.k_values, /*hc:d5*/translatorappI18n.moduleRow_values()/*hc*/,TranslatedValueConsts.descriptorName)/*hc:d2_5*//*hc*/
+			, new ListFDesc(ModuleRowConsts.k_values, translatorappI18n.moduleRow_values(),TranslatedValueConsts.descriptorName)
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -56,27 +61,40 @@ public class ModuleRowAssist extends Assist {
 		TableRDesc tableRDesc = new TableRDesc(ModuleRowConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(ModuleRowConsts.k_id, new ColRDesc(/*hc:tdr1_1*/true/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(ModuleRowConsts.k_key, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(ModuleRowConsts.k_description, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(ModuleRowConsts.k_module, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
-			.addChild(ModuleRowConsts.k_values, new ColRDesc(/*hc:tdr1_5*//*hc*/)/*hc:tdr2_5*//*hc*/)				
+			.addChild(ModuleRowConsts.k_id, new ColRDesc(true))
+			.addChild(ModuleRowConsts.k_module, new ColRDesc()
+					.cropWidth(30)
+					.setColumnWidth(80))
+			.addChild(ModuleRowConsts.k_key, new ColRDesc(true)
+					.cropWidth(50)
+					.setColumnWidth(150)
+					.hAlign(ColRDescHAlign.LEFT))
+			.addChild(ModuleRowConsts.k_description, new ColRDesc(true)
+					.cropWidth(200)
+					.setColumnWidth(500)
+					.hAlign(ColRDescHAlign.LEFT))
+			.addChild(engVal, new ColRDesc()
+					.setColumnWidth(500)
+					.hAlign(ColRDescHAlign.LEFT)
+					.setDisplayName(translatorappI18n.modRow_engVal()))
+			.addChild(engModTime, new ColRDesc()
+					.setColumnWidth(100)
+					.setDisplayName(translatorappI18n.modRow_engModTime()))
 			;
 		return tableRDesc;
 	}
 	
 	@Override
 	public FormRDesc getFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(ModuleRowConsts.descriptorName/*hc:frd_props*/
-			
-			/*hc*/);
+		FormRDesc formRDesc = new FormRDesc(ModuleRowConsts.descriptorName
+			);
 			
 		formRDesc.getRootNode()
-			.addChild(ModuleRowConsts.k_id, new WidgetRDesc(/*hc:f1*/FWTypes.LABEL/*hc*/))
-			.addChild(ModuleRowConsts.k_key, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ModuleRowConsts.k_description, new WidgetRDesc(/*hc:f3*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ModuleRowConsts.k_module, new WidgetRDesc(/*hc:f4*/FWTypes.LISTBOX/*hc*/))
-			.addChild(ModuleRowConsts.k_values, new WidgetRDesc(/*hc:f5*/FWTypes.RELATIONLIST/*hc*/))
+			.addChild(ModuleRowConsts.k_id, new WidgetRDesc(FWTypes.LABEL))
+			.addChild(ModuleRowConsts.k_module, new WidgetRDesc(FWTypes.LISTBOX))
+			.addChild(ModuleRowConsts.k_key, new WidgetRDesc(FWTypes.TEXTBOX))
+			.addChild(ModuleRowConsts.k_description, new WidgetRDesc(FWTypes.TEXTBOX))
+			.addChild(ModuleRowConsts.k_values, new WidgetRDesc(FWTypes.RELATIONLIST, RelationListFW.FIXSIZED))
 			;
 		return formRDesc;
 	}
@@ -84,9 +102,9 @@ public class ModuleRowAssist extends Assist {
 	@Override
 	public ObjectDesc getSearchObjectDesc() {			
 		return new ObjectDesc(ModuleRowConsts.searchDescriptor
-			, new LongFDesc(ModuleRowConsts.s_id, /*hc:ds1*/"Id"/*hc*/)
-			, new StringFDesc(ModuleRowConsts.s_key, /*hc:ds2*/"Key"/*hc*/)
-			, new RelationFDesc(ModuleRowConsts.s_module, /*hc:ds4*/"Module"/*hc*/
+			, new LongFDesc(ModuleRowConsts.s_id, "Id")
+			, new StringFDesc(ModuleRowConsts.s_key, "Key")
+			, new RelationFDesc(ModuleRowConsts.s_module, "Module"
 										, ModuleConsts.searchDescriptor)
 		);
 	}
@@ -96,17 +114,15 @@ public class ModuleRowAssist extends Assist {
 		FormRDesc searchFormRDesc = new FormRDesc(ModuleRowConsts.searchDescriptor);
 			
 		searchFormRDesc.getRootNode().dummy()
-			.addChild(ModuleRowConsts.s_id, new WidgetRDesc(/*hc:fs1*/FWTypes.LABEL/*hc*/))
-			.addChild(ModuleRowConsts.s_key, new WidgetRDesc(/*hc:fs2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(ModuleRowConsts.s_module, new WidgetRDesc(/*hc:fs4*/FWTypes.LISTBOX/*hc*/))
+			.addChild(ModuleRowConsts.s_id, new WidgetRDesc(FWTypes.LABEL))
+			.addChild(ModuleRowConsts.s_key, new WidgetRDesc(FWTypes.TEXTBOX))
+			.addChild(ModuleRowConsts.s_module, new WidgetRDesc(FWTypes.LISTBOX))
 
 			;
 		return searchFormRDesc;
 	}
 
 	public static String getOrderKey(){
-		//displayname field
-		String key = "";
-		return key;
+		return ModuleRowConsts.k_key;
 	}
 }

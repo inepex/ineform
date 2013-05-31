@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.form.FormContext;
