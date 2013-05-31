@@ -1,5 +1,7 @@
 package com.inepex.translatorapp.client.page;
 
+import java.util.Arrays;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -120,8 +122,24 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			}
 			
 			@Override
-			public void onCellClicked(AssistedObject kvoOfRow) {
-				//TODO popup editor
+			public void onCellClicked(final AssistedObject kvoOfRow) {
+				new TransRowEditPopup(kvoOfRow.getStringUnchecked(TranslateTableRowConsts.k_engVal),
+						handlerFactory.createHandler(kvoOfRow).getRelatedString(TranslateTableRowAssist.tv(TranslatedValueConsts.k_value)))
+					.show(new TransRowEditPopup.Callback() {
+						
+						@Override
+						public void onCancelled() {
+						}
+						
+						@Override
+						public void onSave(String newTranslated) {
+							handlerFactory.createHandler(kvoOfRow)
+								.getRelatedKVOMultiLevel(Arrays.asList(TranslateTableRowConsts.k_translatedValue, TranslatedValueConsts.k_value))
+								.setUnchecked(TranslatedValueConsts.k_value, newTranslated);
+							
+							table.getCellTable().redraw();
+						}
+					});
 			}
 			
 			@Override
@@ -142,7 +160,6 @@ public class TranslatorPage extends FlowPanelBasedPage {
 				Relation transValue = handlerFactory.createHandler(kvoOfRow).getRelation(TranslateTableRowConsts.k_translatedValue);
 				AssistedObjectHandler manhandler = handlerFactory.createHandler(TranslatedValueConsts.descriptorName);
 				manhandler.setId(transValue.getId());
-				Window.alert(transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
 				manhandler.set(TranslatedValueConsts.k_value, transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
 				
 				ObjectManipulationAction oma = new ObjectManipulationAction(ManipulationTypes.CREATE_OR_EDIT_REQUEST, manhandler.getAssistedObject());

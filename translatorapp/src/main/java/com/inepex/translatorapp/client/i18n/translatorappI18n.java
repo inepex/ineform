@@ -25,6 +25,7 @@ public class translatorappI18n extends I18nModule {
 		return moduleProvider;
 	}
 	
+	public String doneBtn = "Done";
 	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
 	public String lang_id = "Id";
 	public String lang_isoName = "Iso name";
@@ -52,6 +53,7 @@ public class translatorappI18n extends I18nModule {
 	public String reg_password = "Password";
 	public String reg_passwordAgain = "Password again";
 	public String registeredEmail = "There is already an account for this e-mail address!";
+	public String revertBtn = "Revert";
 	public String showEditpopup = "Popup editor";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
 	public String translateTableRow_description = "Description";
@@ -79,6 +81,15 @@ public class translatorappI18n extends I18nModule {
 	public String weakPassword = "Password should be at least 6 characters long. It should be contain both letters and digits!";
 	public String welcomeText = "<h2>Welcome to our Translator application!</h2><br>If you have an account, just log in with the panel on right.<br><br>If not, you should register: <b>click</b> the link below!<br><br>";
 
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Done
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String doneBtn() {
+		return moduleProvider.get().doneBtn;
+	}
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
@@ -321,6 +332,15 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String registeredEmail() {
 		return moduleProvider.get().registeredEmail;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Revert
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String revertBtn() {
+		return moduleProvider.get().revertBtn;
 	}
 	
 	/**
