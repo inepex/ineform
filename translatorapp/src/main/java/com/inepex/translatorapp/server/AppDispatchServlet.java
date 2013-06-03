@@ -6,18 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.server.Dispatch;
 
-import com.inepex.translatorapp.server.i18n.ServertranslatorappI18nProvider;
-import com.inepex.translatorapp.shared.assist.LangAssist;
-import com.inepex.translatorapp.shared.assist.ModuleAssist;
-import com.inepex.translatorapp.shared.assist.ModuleLangAssist;
-import com.inepex.translatorapp.shared.assist.ModuleRowAssist;
-import com.inepex.translatorapp.shared.assist.RegAssist;
-import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
-import com.inepex.translatorapp.shared.assist.TranslatedValueAssist;
-import com.inepex.translatorapp.shared.assist.UserAssist;
-import com.inepex.translatorapp.shared.assist.UserLangAssist;
-import com.inepex.translatorapp.client.i18n.translatorappI18n;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -31,6 +19,17 @@ import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.ServerIneOmI18nProvider;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
+import com.inepex.translatorapp.server.i18n.ServertranslatorappI18nProvider;
+import com.inepex.translatorapp.shared.assist.LangAssist;
+import com.inepex.translatorapp.shared.assist.ModuleAssist;
+import com.inepex.translatorapp.shared.assist.ModuleLangAssist;
+import com.inepex.translatorapp.shared.assist.ModuleRowAssist;
+import com.inepex.translatorapp.shared.assist.RegAssist;
+import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
+import com.inepex.translatorapp.shared.assist.TranslatedValueAssist;
+import com.inepex.translatorapp.shared.assist.UserAssist;
+import com.inepex.translatorapp.shared.assist.UserLangAssist;
 
 @Singleton
 @SuppressWarnings("serial")

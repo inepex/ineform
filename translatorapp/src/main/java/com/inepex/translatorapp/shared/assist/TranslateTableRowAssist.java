@@ -39,8 +39,8 @@ public class TranslateTableRowAssist extends Assist {
 	public ObjectDesc getObjectDesc() {
 		ObjectDesc objDesc = new ObjectDesc(TranslateTableRowConsts.descriptorName
 			, new LongFDesc(TranslateTableRowConsts.k_id, /*hc:d1*/translatorappI18n.translateTableRow_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new BooleanFDesc(TranslateTableRowConsts.k_recent, /*hc:d2*/translatorappI18n.translateTableRow_recent()/*hc*/)/*hc:d2_2*//*hc*/
-			, new BooleanFDesc(TranslateTableRowConsts.k_outDated, /*hc:d3*/translatorappI18n.translateTableRow_outDated()/*hc*/)/*hc:d2_3*//*hc*/
+			, new BooleanFDesc(TranslateTableRowConsts.k_recent, /*hc:d2*/""/*hc*/)/*hc:d2_2*//*hc*/
+			, new BooleanFDesc(TranslateTableRowConsts.k_outDated, /*hc:d3*/""/*hc*/)/*hc:d2_3*//*hc*/
 			, new StringFDesc(TranslateTableRowConsts.k_description, /*hc:d4*/translatorappI18n.translateTableRow_description()/*hc*/)/*hc:d2_4*//*hc*/
 			, new StringFDesc(TranslateTableRowConsts.k_engVal, /*hc:d5*/translatorappI18n.translateTableRow_engVal()/*hc*/)/*hc:d2_5*//*hc*/
 			, new RelationFDesc(TranslateTableRowConsts.k_translatedValue, /*hc:d6*/translatorappI18n.translateTableRow_translatedValue()/*hc*/

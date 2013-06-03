@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.inepex.ineForm.annotations.Kvo_Fetch;
-import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
+import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
 @Entity
 public class UserLang {

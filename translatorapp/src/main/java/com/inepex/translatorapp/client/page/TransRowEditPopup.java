@@ -5,8 +5,10 @@ import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
@@ -37,18 +39,19 @@ public class TransRowEditPopup {
 			initWidget(vp);
 			
 			vp.add(new Label(translatorappI18n.translateTableRow_engVal()));
-			Label lbl = new Label(engVal);
+			HTML lbl = new HTML(perNToBr(SafeHtmlUtils.htmlEscape(brToPerN(engVal))));
+			lbl.getElement().getStyle().setBackgroundColor("#f2f2f2");
 			lbl.getElement().getStyle().setWidth(blockWidth, Unit.PX);
 			lbl.getElement().getStyle().setHeight(blockHeight, Unit.PX);
-			lbl.getElement().getStyle().setOverflowY(Overflow.SCROLL);
-			lbl.getElement().getStyle().setBorderColor("#efefef");
+			lbl.getElement().getStyle().setOverflowY(Overflow.AUTO);
+			lbl.getElement().getStyle().setBorderColor("#d0d0d0");
 			lbl.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
 			lbl.getElement().getStyle().setBorderWidth(2, Unit.PX);
 			vp.add(lbl);
 			
 			vp.add(new Label(translatorappI18n.translatedValue_value()));
 			textArea = new TextArea();
-			textArea.setText(translatedVal);
+			textArea.setText(brToPerN(translatedVal));
 			textArea.getElement().getStyle().setWidth(blockWidth, Unit.PX);
 			textArea.getElement().getStyle().setHeight(blockHeight, Unit.PX);
 			vp.add(textArea);
@@ -56,7 +59,7 @@ public class TransRowEditPopup {
 			HorizontalPanel hp = new HorizontalPanel();
 			hp.setSpacing(10);
 			
-			revertBtn = new Button(translatorappI18n.revertBtn());
+			revertBtn = new Button(IneFormI18n.CANCEL());
 			hp.add(revertBtn);
 			
 			doneBtn = new Button(translatorappI18n.doneBtn());
@@ -65,6 +68,14 @@ public class TransRowEditPopup {
 			vp.add(hp);
 		}
 		
+		private String perNToBr(String string) {
+			return string.replaceAll("\n", "<br />");
+		}
+
+		private String brToPerN(String string) {
+			return string.replaceAll("<[\\s]*br[\\s]*[/]?[\\s]*>", "\n");
+		}
+
 		@Override
 		protected void onLoad() {
 			super.onLoad();
@@ -82,7 +93,7 @@ public class TransRowEditPopup {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					callback.onSave(textArea.getText());
+					callback.onSave(perNToBr(textArea.getText()));
 					dialogBox.hide();
 				}
 			}));

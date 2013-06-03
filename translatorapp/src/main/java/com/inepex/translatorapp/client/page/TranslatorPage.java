@@ -2,9 +2,11 @@ package com.inepex.translatorapp.client.page;
 
 import java.util.Arrays;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
@@ -40,9 +42,13 @@ import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
 public class TranslatorPage extends FlowPanelBasedPage {
 
-	private final RadioEnumSelectorFW listTypeRadioButton;
-	private final ListBoxFW moduleListBox;
-	private final Button filterBtn;
+	private RadioEnumSelectorFW listTypeRadioButton;
+	private ListBoxFW moduleListBox;
+	private Button filterBtn;
+	
+	private final FormContext formCtx;
+	private final AssistedObjectHandlerFactory handlerFactory;
+	private final IneDispatch ineDispatch;
 	
 	private final ServerSideDataConnector connector;
 	private final TransTableListAction action;
@@ -51,20 +57,13 @@ public class TranslatorPage extends FlowPanelBasedPage {
 	
 	@Inject
 	public TranslatorPage(DataConnectorFactory connectorFactory, IneTableFactory tableFactory, FormContext formCtx,
-			final AssistedObjectHandlerFactory handlerFactory,
-			final IneDispatch ineDispatch) {
-		listTypeRadioButton = new RadioEnumSelectorFW(
-				new LongFDesc().setNullable(false),
-				TranslateListingType.getValuesAsString(),
-				new WidgetRDesc());
+			AssistedObjectHandlerFactory handlerFactory,
+			IneDispatch ineDispatch) {
+		this.handlerFactory=handlerFactory;
+		this.formCtx=formCtx;
+		this.ineDispatch=ineDispatch;
 		
-		mainPanel.add(listTypeRadioButton);
-		
-		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
-		mainPanel.add(moduleListBox);
-		
-		filterBtn= new Button(IneFormI18n.FILTER());
-		mainPanel.add(filterBtn);
+		createAndAddFilterGrid();
 		
 		action=new TransTableListAction();
 		
@@ -72,47 +71,14 @@ public class TranslatorPage extends FlowPanelBasedPage {
 		connector.setAssociatedListAction(action);
 		
 		table = tableFactory.createSimple(TranslateTableRowConsts.descriptorName, connector);
-		table.addCellContentDisplayer(TranslateTableRowAssist.tv(TranslatedValueConsts.k_lang), new TableFieldRenderer.CustomCellContentDisplayer() {
-			
-			@Override
-			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
-				String multiKey = TranslateTableRowAssist.tv(TranslatedValueConsts.k_lang);
-				Relation langRelation = rowKvo.getRelatedRelation(multiKey);
-				if(langRelation==null)
-					return null;
-				
-				String lang = langRelation.getDisplayName();
-				if(langRelation.getKvo()==null)
-					return lang;
-				
-				String countryCode = langRelation.getKvo().getStringUnchecked(LangConsts.k_countryCode); 
-				if(countryCode==null)
-					return lang;
-				
-				return "<img src='flags/png/"+countryCode+".png' title='"+lang+"' />";
-			}
-		});
+		addCellContentDisplayers();
+		addUserCommands();
+		table.renderTable();
 		
-		table.addCellContentDisplayer(TranslateTableRowAssist.flags, new TableFieldRenderer.CustomCellContentDisplayer() {
-			
-			@Override
-			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
-				StringBuffer sb = new StringBuffer();
-				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_recent))) {
-					sb.append("<img src='icons/png/new.png' />");
-				}
-				
-				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_outDated))) {
-					sb.append("<img src='icons/png/cross.png' />");
-				}
-				
-				if(sb.length()<1)
-					return null;
-				else
-					return sb.toString();
-			}
-		});
-		
+		mainPanel.add(table);
+	}
+	
+	private void addUserCommands() {
 		table.addCommand(new IneTable.UserCommand() {
 			
 			@Override
@@ -176,12 +142,74 @@ public class TranslatorPage extends FlowPanelBasedPage {
 				return IneFormI18n.SAVE();
 			}
 		});
-		
-		table.renderTable();
-		
-		mainPanel.add(table);
 	}
-	
+
+	private void addCellContentDisplayers() {
+		table.addCellContentDisplayer(TranslateTableRowAssist.tv(TranslatedValueConsts.k_lang), new TableFieldRenderer.CustomCellContentDisplayer() {
+			
+			@Override
+			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
+				String multiKey = TranslateTableRowAssist.tv(TranslatedValueConsts.k_lang);
+				Relation langRelation = rowKvo.getRelatedRelation(multiKey);
+				if(langRelation==null)
+					return null;
+				
+				String lang = langRelation.getDisplayName();
+				if(langRelation.getKvo()==null)
+					return lang;
+				
+				String countryCode = langRelation.getKvo().getStringUnchecked(LangConsts.k_countryCode); 
+				if(countryCode==null)
+					return lang;
+				
+				return "<img src='flags/png/"+countryCode+".png' title='"+lang+"' />";
+			}
+		});
+		
+		table.addCellContentDisplayer(TranslateTableRowAssist.flags, new TableFieldRenderer.CustomCellContentDisplayer() {
+			
+			@Override
+			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
+				StringBuffer sb = new StringBuffer();
+				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_recent))) {
+					sb.append("<img src='icons/png/new.png' />");
+				}
+				
+				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_outDated))) {
+					sb.append("<img src='icons/png/cross.png' />");
+				}
+				
+				if(sb.length()<1)
+					return null;
+				else
+					return sb.toString();
+			}
+		});
+	}
+
+	private void createAndAddFilterGrid() {
+		Grid filterGrid = new Grid(3, 2);
+		
+		filterGrid.setHTML(0, 0, translatorappI18n.transPage_listmodeSelect());
+		listTypeRadioButton = new RadioEnumSelectorFW(
+				new LongFDesc().setNullable(false),
+				TranslateListingType.getValuesAsString(),
+				new WidgetRDesc());
+		filterGrid.setWidget(0, 1, listTypeRadioButton);
+		
+		filterGrid.setHTML(1, 0, translatorappI18n.transPage_moduleSelect());
+		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
+		filterGrid.setWidget(1, 1, moduleListBox);
+		
+		filterBtn= new Button(IneFormI18n.FILTER());
+		filterBtn.getElement().getStyle().setMarginBottom(30, Unit.PX);
+		filterGrid.setWidget(2, 0, filterBtn);
+		
+		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
+		filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
+		mainPanel.add(filterGrid);
+	}
+
 	@Override
 	protected void onLoad() {
 		super.onLoad();

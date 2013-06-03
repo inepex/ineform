@@ -7,9 +7,9 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
+import com.inepex.ineFrame.client.navigation.MasterPage;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
-import com.inepex.ineFrame.client.navigation.MasterPage;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 

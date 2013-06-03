@@ -1,6 +1,5 @@
 package com.inepex.translatorapp.client.page;
 
-import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.datamanipulator.DataManipulator;
 import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
@@ -11,7 +10,6 @@ import com.inepex.ineForm.client.form.widgets.StringListBoxFw;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
-import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.Consts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 
@@ -23,8 +21,6 @@ public class UserListPage extends FlowPanelBasedPage{
 	@Inject
 	public UserListPage(ManipulatorFactory manipulatorFactory, DataConnectorFactory connectorFactory) {
 		connector=connectorFactory.createServerSide(UserConsts.descriptorName);
-		
-		mainPanel.add(new HTML(translatorappI18n.userListTitle()));
 		
 		manipulator=manipulatorFactory.createRowCommand(UserConsts.descriptorName, connector, true);
 		manipulator.getUserCommands().clear();

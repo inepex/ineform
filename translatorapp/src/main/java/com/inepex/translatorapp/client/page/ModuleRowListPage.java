@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
@@ -17,7 +18,10 @@ import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.IneForm;
+import com.inepex.ineForm.client.form.SaveCancelForm;
+import com.inepex.ineForm.client.form.events.CancelledEvent;
 import com.inepex.ineForm.client.form.events.RenderedEvent;
+import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
@@ -31,7 +35,6 @@ import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineFrame.client.async.IneDispatchBase;
-import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
@@ -54,53 +57,98 @@ import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory.Transla
 
 public class ModuleRowListPage extends FlowPanelBasedPage {
 	
-	private final ServerSideDataConnector connector;
 	private final TranslatedValueHandlerFactory translatedValueHandlerFactory;
 	private final DateFormatter dateFormatter;
+	private final AssistedObjectHandlerFactory objectHandlerFactory;
+	private final FormContext formCtx;
 	
-	private final ListBoxFW moduleListBox;
-	private final TextBox textBox;
-	private final Button filterBtn;
+	private final ServerSideDataConnector connector;
 	private final RowCommandDataManipulator manipulator;
-	
 	private final RowListAction action;
+	
+	private Grid filterGrid;
+	private ListBoxFW moduleListBox;
+	private TextBox textBox;
+	private Button filterBtn;
 	
 	@Inject
 	public ModuleRowListPage(ManipulatorFactory manipulatorFactory,
 			DataConnectorFactory connectorFactory,
 			TranslatedValueHandlerFactory translatedValueHandlerFactory,
 			DateFormatter dateFormatter,
-			final AssistedObjectHandlerFactory objectHandlerFactory,
-			final FormContext formCtx) {
+			AssistedObjectHandlerFactory objectHandlerFactory,
+			FormContext formCtx) {
 		this.translatedValueHandlerFactory=translatedValueHandlerFactory;
 		this.dateFormatter=dateFormatter;
+		this.objectHandlerFactory=objectHandlerFactory;
+		this.formCtx=formCtx;
+		
+		createAndAddFilterGrid();
+		
+		action = new RowListAction();
 		
 		connector=connectorFactory.createServerSide(ModuleRowConsts.descriptorName);
-		action= new RowListAction();
 		connector.setAssociatedListAction(action);
 		
-		mainPanel.add(new HTML("<h2>"+translatorappI18n.rowListPage()+"</h2>"));
+		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
+		setupTranslatedValueCreator();
+		manipulator.render();
+		setCellContentDisplayers();
+		mainPanel.add(manipulator);
+	}
+
+	private void createAndAddFilterGrid() {
+		filterGrid = new Grid(3, 2);
 		
+		filterGrid.setHTML(0, 0, translatorappI18n.transPage_moduleSelect());
 		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
-		mainPanel.add(moduleListBox);
+		filterGrid.setWidget(0, 1, moduleListBox);
 		
+		filterGrid.setHTML(1, 0, translatorappI18n.rowListPage_magicFilter());
 		textBox=new TextBox();
-		mainPanel.add(textBox);
+		filterGrid.setWidget(1, 1, textBox);
 		
 		filterBtn= new Button(IneFormI18n.FILTER());
-		mainPanel.add(filterBtn);
+		filterGrid.setWidget(2, 0, filterBtn);
 		
-		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
+		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
+		filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
+		mainPanel.add(filterGrid);
+	}
+
+	private void setupTranslatedValueCreator() {
 		manipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
 			
 			@Override
 			public void onCreatingEditForm(IneForm ineForm) {
+				hideFilterAddShowHandler((SaveCancelForm) ineForm);
 				setupFormModuleValueListener(ineForm);
 			}
 			
 			@Override
 			public void onCreatingCreateForm(IneForm ineForm) {
+				hideFilterAddShowHandler((SaveCancelForm) ineForm);
 				setupFormModuleValueListener(ineForm);
+			}
+
+			private void hideFilterAddShowHandler(SaveCancelForm ineForm) {
+				filterGrid.setVisible(false);
+				
+				ineForm.addSavedHandler(new SavedEvent.Handler() {
+					
+					@Override
+					public void onSaved(SavedEvent event) {
+						filterGrid.setVisible(true);
+					}
+				});
+				
+				ineForm.addCancelledHandler(new CancelledEvent.Handler() {
+					
+					@Override
+					public void onCancelled(CancelledEvent event) {
+						filterGrid.setVisible(true);
+					}
+				});
 			}
 
 			private void setupFormModuleValueListener(final IneForm ineForm) {
@@ -165,9 +213,9 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 				});
 			}
 		});
-		
-		manipulator.render();
-		
+	}
+
+	private void setCellContentDisplayers() {
 		manipulator.getIneTable().addCellContentDisplayer(ModuleRowAssist.engVal, new TableFieldRenderer.CustomCellContentDisplayer() {
 			
 			@Override
@@ -193,8 +241,6 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 						engVal.getLastModTime());
 			}
 		});
-		
-		mainPanel.add(manipulator);
 	}
 
 	private TranslatedValueHandler engVal(AssistedObjectHandler modulerRowKvo) {
@@ -223,6 +269,8 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 	@Override
 	protected void onLoad() {
 		super.onLoad();
+		
+		filterGrid.setVisible(true);
 		
 		registerHandler(filterBtn.addClickHandler(new ClickHandler() {
 			
