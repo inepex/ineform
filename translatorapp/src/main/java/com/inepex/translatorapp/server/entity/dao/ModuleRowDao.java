@@ -1,6 +1,9 @@
 package com.inepex.translatorapp.server.entity.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -64,6 +67,39 @@ public class ModuleRowDao extends BaseDao<ModuleRow> {
 	@Override
 	public ModuleRow newInstance() {
 		return new ModuleRow();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ModuleRow> listForPage(Integer firstResult, Integer maxResult, String magicString, Long moduleId) {
+		StringBuffer query = new StringBuffer();
+		
+		query.append("select mr from ModuleRow mr where 1=1 ");
+		
+		if(moduleId!=null) {
+			query.append("and mr.module.id = :moduleId ");
+		}
+		
+		if(magicString!=null && magicString.length()>1) {
+			query.append(" and (mr.key like :magicString or mr.description like :magicString " +
+					"or exists (select 1 from TranslatedValue tv where tv.row.id=mr.id and " +
+					"tv.value like :magicString)) ");
+		}
+		
+		query.append("order by mr.key ");
+		
+		Query q = em.get().createQuery(query.toString());
+		
+		if(moduleId!=null) {
+			q.setParameter("moduleId", moduleId);
+		}
+		
+		if(magicString!=null && magicString.length()>1) {
+			q.setParameter("magicString", "%"+magicString+"%");
+		}
+		
+		return q.setFirstResult(firstResult)
+				.setMaxResults(maxResult)
+				.getResultList();
 	}
 	
 	/*hc:customMethods*/

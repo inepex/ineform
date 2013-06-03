@@ -14,8 +14,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.translatorapp.server.entity.dao.TranslatedValueDao;
 import com.inepex.translatorapp.server.handler.LoginHandler;
 import com.inepex.translatorapp.server.handler.RegActionHandler;
+import com.inepex.translatorapp.server.handler.RowListActionHandler;
 import com.inepex.translatorapp.server.handler.TransTableListActionHandler;
 import com.inepex.translatorapp.shared.action.RegAction;
+import com.inepex.translatorapp.shared.action.RowListAction;
 import com.inepex.translatorapp.shared.action.TransTableListAction;
 
 public class AppGuiceModule  extends ActionHandlerModule {
@@ -29,6 +31,7 @@ public class AppGuiceModule  extends ActionHandlerModule {
 		bindHandler(CustomObjectDescAction.class, CustomObjectDescHandler.class);
 		bindHandler(RegAction.class, RegActionHandler.class);
 		bindHandler(TransTableListAction.class, TransTableListActionHandler.class);
+		bindHandler(RowListAction.class, RowListActionHandler.class);
 		
 		bindInterceptor(Matchers.subclassesOf(TranslatedValueDao.class),
 				Matchers.returns(Matchers.subclassesOf(ObjectManipulationResult.class)),

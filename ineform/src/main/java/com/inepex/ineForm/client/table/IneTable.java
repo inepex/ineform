@@ -371,7 +371,8 @@ public class IneTable extends HandlerAwareComposite {
 							+ ")");
 				}
 			}
-			Column column = new IneTableColumnProvider(columnNode.getNodeId()).getColumn();
+			
+			Column<AssistedObject, ?> column = new IneTableColumnProvider(columnNode.getNodeId()).getColumn();
 
 			String headerText = colRenderDesc.getDisplayName() != null ? colRenderDesc.getDisplayName() : null;
 			if (headerText == null) {
@@ -430,6 +431,7 @@ public class IneTable extends HandlerAwareComposite {
 
 	}
 
+	@SuppressWarnings("unused") 
 	protected Header<String> createHeader(
 			boolean sortable,
 			String text,
@@ -583,8 +585,8 @@ public class IneTable extends HandlerAwareComposite {
 		public IneTableColumnProvider(String key) {
 			this.key = key;
 		}
-		@SuppressWarnings("rawtypes")
-		public Column getColumn(){
+		
+		public Column<AssistedObject, ?> getColumn(){
 			ColRDesc colRdesc = (ColRDesc)tableRenderDescriptor.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
 			if(colRdesc.hasProp(ColRDesc.AS_CB)){
 				return new BooleanTableColumn(key);

@@ -61,15 +61,15 @@ public class ModuleRowAssist extends Assist {
 		TableRDesc tableRDesc = new TableRDesc(ModuleRowConsts.descriptorName);
 			
 		tableRDesc.getRootNode()
-			.addChild(ModuleRowConsts.k_id, new ColRDesc(true))
+			.addChild(ModuleRowConsts.k_id, new ColRDesc())
 			.addChild(ModuleRowConsts.k_module, new ColRDesc()
 					.cropWidth(30)
 					.setColumnWidth(80))
-			.addChild(ModuleRowConsts.k_key, new ColRDesc(true)
+			.addChild(ModuleRowConsts.k_key, new ColRDesc()
 					.cropWidth(50)
 					.setColumnWidth(150)
 					.hAlign(ColRDescHAlign.LEFT))
-			.addChild(ModuleRowConsts.k_description, new ColRDesc(true)
+			.addChild(ModuleRowConsts.k_description, new ColRDesc()
 					.cropWidth(200)
 					.setColumnWidth(500)
 					.hAlign(ColRDescHAlign.LEFT))
