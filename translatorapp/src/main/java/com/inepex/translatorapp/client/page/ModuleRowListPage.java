@@ -1,5 +1,9 @@
 package com.inepex.translatorapp.client.page;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -8,19 +12,32 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.datamanipulator.DataManipulator;
 import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;
 import com.inepex.ineForm.client.form.FormContext;
+import com.inepex.ineForm.client.form.IneForm;
+import com.inepex.ineForm.client.form.events.RenderedEvent;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
+import com.inepex.ineForm.client.form.widgets.RelationListFW;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
+import com.inepex.ineFrame.client.async.IneDispatchBase;
+import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.navigation.NavigationProperties;
+import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.ineom.shared.AssistedObjectHandler;
+import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
@@ -29,12 +46,13 @@ import com.inepex.translatorapp.shared.Consts;
 import com.inepex.translatorapp.shared.action.RowListAction;
 import com.inepex.translatorapp.shared.assist.ModuleRowAssist;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
+import com.inepex.translatorapp.shared.kvo.ModuleLangConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleRowConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory.TranslatedValueHandler;
 
-public class RowListPage extends FlowPanelBasedPage {
+public class ModuleRowListPage extends FlowPanelBasedPage {
 	
 	private final ServerSideDataConnector connector;
 	private final TranslatedValueHandlerFactory translatedValueHandlerFactory;
@@ -48,11 +66,12 @@ public class RowListPage extends FlowPanelBasedPage {
 	private final RowListAction action;
 	
 	@Inject
-	public RowListPage(ManipulatorFactory manipulatorFactory,
+	public ModuleRowListPage(ManipulatorFactory manipulatorFactory,
 			DataConnectorFactory connectorFactory,
 			TranslatedValueHandlerFactory translatedValueHandlerFactory,
 			DateFormatter dateFormatter,
-			FormContext formCtx) {
+			final AssistedObjectHandlerFactory objectHandlerFactory,
+			final FormContext formCtx) {
 		this.translatedValueHandlerFactory=translatedValueHandlerFactory;
 		this.dateFormatter=dateFormatter;
 		
@@ -72,6 +91,80 @@ public class RowListPage extends FlowPanelBasedPage {
 		mainPanel.add(filterBtn);
 		
 		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
+		manipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
+			
+			@Override
+			public void onCreatingEditForm(IneForm ineForm) {
+				setupFormModuleValueListener(ineForm);
+			}
+			
+			@Override
+			public void onCreatingCreateForm(IneForm ineForm) {
+				setupFormModuleValueListener(ineForm);
+			}
+
+			private void setupFormModuleValueListener(final IneForm ineForm) {
+				ineForm.addRenderedHandler(new RenderedEvent.Handler() {
+					
+					@Override
+					public void onRendered(RenderedEvent event) {
+						final ListBoxFW lb = (ListBoxFW) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(ModuleRowConsts.k_module);
+						final RelationListFW transValuesFw = (RelationListFW) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(ModuleRowConsts.k_values);
+						
+						lb.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+							
+							@Override
+							public void onFormWidgetChange(FormWidgetChangeEvent e) {
+								Long selecetedModuleId=null;
+								if(lb.getRelationValue()!=null)
+									selecetedModuleId=lb.getRelationValue().getId();
+								
+								if(selecetedModuleId==null) {
+									transValuesFw.getRelationList().deleteAll();
+									transValuesFw.reRenderRelations();
+									return;
+								}
+								
+								formCtx.ineDispatch.execute(new ObjectManipulationAction(ModuleConsts.descriptorName, selecetedModuleId), new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+
+									@Override
+									public void onSuccess(ObjectManipulationActionResult result) {
+										if(!result.isSuccess() || result.getObjectsNewState()==null) {
+											formCtx.eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.wrongTokenPlace));
+											return;
+										}
+										
+										Map<Long, String> langIds = new HashMap<Long, String>();
+										IneList list = objectHandlerFactory.createHandler(result.getObjectsNewState()).getList(ModuleConsts.k_langs);
+										for(Relation r : list.getRelationList()) {
+											Relation realLang = r.getKvo().getRelationUnchecked(ModuleLangConsts.k_lang);
+											langIds.put(realLang.getId(), realLang.getDisplayName());
+										}
+										
+										for(Relation r : new ArrayList<Relation>(transValuesFw.getRelationList().getRelations())) {
+											Long valueLang = r.getKvo().getRelationUnchecked(TranslatedValueConsts.k_lang).getId();
+											if(langIds.containsKey(valueLang)) {
+												langIds.remove(valueLang);
+											} else {
+												transValuesFw.getRelationList().delete(r);
+											}
+										}
+										
+										for(Long langId : langIds.keySet()) {
+											AssistedObjectHandler newTranslated = objectHandlerFactory.createHandler(TranslatedValueConsts.descriptorName);
+											newTranslated.set(TranslatedValueConsts.k_lang, new Relation(langId, langIds.get(langId)));
+											transValuesFw.getRelationList().add(new Relation(newTranslated.getAssistedObject()));
+										}
+										
+										transValuesFw.reRenderRelations();
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		});
 		
 		manipulator.render();
 		
@@ -96,7 +189,7 @@ public class RowListPage extends FlowPanelBasedPage {
 				if(engVal==null || engVal.getLastModTime()==null)
 					return null;
 				
-				return RowListPage.this.dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT,
+				return ModuleRowListPage.this.dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT,
 						engVal.getLastModTime());
 			}
 		});

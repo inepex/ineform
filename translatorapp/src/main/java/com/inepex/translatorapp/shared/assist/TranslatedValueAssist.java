@@ -46,7 +46,6 @@ public class TranslatedValueAssist extends Assist {
 					.mandatory()
 			, new RelationFDesc(TranslatedValueConsts.k_row, /*hc:d6*/translatorappI18n.translatedValue_row()/*hc*/
 										, ModuleRowConsts.descriptorName)/*hc:d2_6*//*hc*/
-					.mandatory()
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());

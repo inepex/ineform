@@ -18,7 +18,7 @@ import com.inepex.translatorapp.client.page.LoginPage;
 import com.inepex.translatorapp.client.page.ModuleListPage;
 import com.inepex.translatorapp.client.page.PageNotFoundPage;
 import com.inepex.translatorapp.client.page.RegPage;
-import com.inepex.translatorapp.client.page.RowListPage;
+import com.inepex.translatorapp.client.page.ModuleRowListPage;
 import com.inepex.translatorapp.client.page.TranslatorPage;
 import com.inepex.translatorapp.client.page.UserListPage;
 import com.inepex.translatorapp.shared.Consts;
@@ -35,7 +35,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	public static final String INACTIVE = "inactive";
 	public static final String USERLIST = "userList";
 	public static final String MODULELIST = "moduleList";
-	public static final String ROWLIST = "rowList";
+	public static final String MODULEROWLIST = "rowList";
 	
 	
 	@Inject AuthManager authManager;
@@ -47,7 +47,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	@Inject Provider<RegPage> regProvider;
 	@Inject Provider<UserListPage> userListProv;
 	@Inject Provider<ModuleListPage> moduleListProvider;
-	@Inject Provider<RowListPage> rowListProvider;
+	@Inject Provider<ModuleRowListPage> rowListProvider;
 	
 	@Override
 	public void createPlaceHierarchy() {
@@ -57,7 +57,7 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 					.addChild(INACTIVE, auth(new SimpleCachingPlace(inactiveProvider)))
 					.addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))
 					.addChild(TRANSLATOR, usr(new SimpleCachingPlace(translatorProvider)).setMenuName(translatorappI18n.translatorPage()))
-					.addChild(ROWLIST, dev(new SimpleCachingPlace(rowListProvider)).setMenuName(translatorappI18n.rowListPage()))
+					.addChild(MODULEROWLIST, dev(new SimpleCachingPlace(rowListProvider)).setMenuName(translatorappI18n.rowListPage()))
 					.addChild(USERLIST, dev(new SimpleCachingPlace(userListProv)).setMenuName(translatorappI18n.userListPage()))
 					.addChild(MODULELIST, dev(new SimpleCachingPlace(moduleListProvider)).setMenuName(translatorappI18n.moduleListPage()))
 					.getParent()

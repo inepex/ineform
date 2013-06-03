@@ -165,7 +165,7 @@ public class RelationListFW extends DenyingFormWidget {
 			addButton.setVisible(false);
 	}
 	
-	private void reRenderRelations(){
+	public void reRenderRelations(){
 		relationsPanel.clear();
 		rowList.clear();
 		

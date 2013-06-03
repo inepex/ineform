@@ -4,6 +4,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
@@ -19,17 +20,18 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 
 	private static final long serialVersionUID = -7036154087856790606L;
 
-	ManipulationTypes manipulationType;
-	AssistedObject object;
-	Long idToRefresh;
-	CustomKVOObjectDesc[] customOdescs;
+	private ManipulationTypes manipulationType;
+	private AssistedObject object;
+	private Long idToRefresh;
+	private CustomKVOObjectDesc[] customOdescs;
 	
 	public ObjectManipulationAction() {
 	}
 	
-	public ObjectManipulationAction(Long idToRefresh) {
+	public ObjectManipulationAction(String descriptorName, Long idToRefresh) {
 		this.manipulationType=ManipulationTypes.REFRESH;
 		this.idToRefresh=idToRefresh;
+		this.object = new KeyValueObject(descriptorName);
 	}
 
 	public ObjectManipulationAction(ManipulationTypes manipulationType,

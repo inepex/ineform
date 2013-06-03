@@ -49,7 +49,8 @@ public class ModuleRowAssist extends Assist {
 			, new RelationFDesc(ModuleRowConsts.k_module, translatorappI18n.moduleRow_module()
 										, ModuleConsts.descriptorName)
 					.mandatory()
-			, new ListFDesc(ModuleRowConsts.k_values, translatorappI18n.moduleRow_values(),TranslatedValueConsts.descriptorName)
+			, new ListFDesc(ModuleRowConsts.k_values, translatorappI18n.moduleRow_values(),
+					TranslatedValueConsts.descriptorName)
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());

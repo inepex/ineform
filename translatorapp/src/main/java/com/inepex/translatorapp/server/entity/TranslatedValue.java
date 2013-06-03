@@ -29,6 +29,7 @@ public class TranslatedValue {
 	@Lob
 	private String value;
 	
+	@ManyToOne
 	@JoinColumn(nullable=false)
 	@Kvo_SearchParam
 	private Lang lang;

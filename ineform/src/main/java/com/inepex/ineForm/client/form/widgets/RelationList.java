@@ -52,6 +52,12 @@ public class RelationList {
 		return changes;
 	}
 	
+	public void deleteAll() {
+		List<Relation> relCopy = new ArrayList<Relation>(relations);
+		for(Relation r : relCopy)
+			delete(r);
+	}
+	
 	public void delete(Relation rel){
 		relations.remove(rel);
 		rel.setKvo(null);
@@ -116,7 +122,6 @@ public class RelationList {
 		}
 		
 		updateOrders();		
-	}
-	
+	}	
 	
 }

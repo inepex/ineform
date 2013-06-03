@@ -6,6 +6,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.ModuleRow;
 import com.inepex.translatorapp.server.entity.TranslatedValue;
 import com.inepex.translatorapp.server.entity.User;
@@ -47,6 +48,7 @@ public class TranslatedValueMapper extends BaseMapper<TranslatedValue>{
 			if (fromHandler.getLang() == null){
 				to.setLang(null);
 			} else {
+				to.setLang(new Lang(fromHandler.getLang().getId()));
 			}
 		}
 		if (fromHandler.containsRelation(TranslatedValueConsts.k_row)) {
