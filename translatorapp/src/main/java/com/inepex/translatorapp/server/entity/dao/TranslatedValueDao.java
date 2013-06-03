@@ -99,7 +99,7 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 			break;
 			
 		case Outdated:
-			query.append("and (tv.value is NULL or tv.value='' or ");
+			query.append("and (tv.value is NULL or length(tv.value) = 0 or ");
 			
 			query.append("not exists (select 1 from TranslatedValue tv2 where tv2.lang.isoName = '");
 				query.append(Consts.defaultLang);
