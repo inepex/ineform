@@ -138,6 +138,22 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 		
 		return sb.toString();
 	}
+
+	public Object[] countForLangAndModule(Long langId, Long moduleId) {
+		if(langId==null || moduleId==null)
+			throw new IllegalArgumentException();
+		
+		String query = "select " +
+				"sum(case when tv.value is NULL or length(tv.value) = 0 then 1 else 0 end), " +
+				"sum(case when tv.value is NULL or length(tv.value) = 0 then 0 else 1 end) " +
+				"from TranslatedValue tv " +
+				"where tv.row.module.id=:moduleId and tv.lang.id=:langId";
+		
+		return (Object[]) em.get().createQuery(query.toString())
+				.setParameter("moduleId", moduleId)
+				.setParameter("langId", langId)
+				.getSingleResult();
+	}
 	
 	/*hc:customMethods*/
 	//overrides and custom methods

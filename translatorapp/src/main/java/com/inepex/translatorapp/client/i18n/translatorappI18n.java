@@ -31,10 +31,12 @@ public class translatorappI18n extends I18nModule {
 	public String lang_isoName = "Iso name";
 	public String modRow_engModTime = "English mod. time";
 	public String modRow_engVal = "English value";
+	public String moduleLangDelQuestion = "This module contains <b>{emptyCount}</b> empty strings and <b>{translatedCount}</b> translated strings for the selected language. Do you really want remove this language?";
 	public String moduleLang_id = "Id";
 	public String moduleLang_lang = "Lang";
 	public String moduleLang_module = "Module";
 	public String moduleListPage = "I18n modules";
+	public String moduleListPage_changeLangCmd = "Change langs";
 	public String moduleListTitle = "<br />Module can be deleted, only after you remove all its languages.<br /><br />";
 	public String moduleRow_description = "Description";
 	public String moduleRow_id = "Id";
@@ -140,6 +142,15 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> This module contains <b>{emptyCount}</b> empty strings and <b>{translatedCount}</b> translated strings for the selected language. Do you really want remove this language?
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleLangDelQuestion(String translatedCount, String emptyCount) {
+		return moduleProvider.get().moduleLangDelQuestion.replace("{translatedCount}", translatedCount).replace("{emptyCount}", emptyCount);
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Id
 	* <u><i>Magyarul:</i></u> ?
 	*/
@@ -172,6 +183,15 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String moduleListPage() {
 		return moduleProvider.get().moduleListPage;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Change langs
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String moduleListPage_changeLangCmd() {
+		return moduleProvider.get().moduleListPage_changeLangCmd;
 	}
 	
 	/**

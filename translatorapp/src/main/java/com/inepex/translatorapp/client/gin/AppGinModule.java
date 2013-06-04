@@ -1,12 +1,15 @@
 package com.inepex.translatorapp.client.gin;
 
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.inepex.ineForm.client.gin.IneFormDispatcherGinModule;
 import com.inepex.ineForm.client.gin.IneFormGinModule;
 import com.inepex.ineFrame.client.async.ExponentialBackoffHandler;
 import com.inepex.ineFrame.client.gin.IneFrameGinModule;
 import com.inepex.translatorapp.client.navigation.AppPlaceHandler;
 import com.inepex.translatorapp.client.navigation.AppPlaceHierarchyProvider;
+import com.inepex.translatorapp.client.page.ChangeModuleLangPopup;
+import com.inepex.translatorapp.client.page.ChangeModuleLangPopup.ChangeModuleLangPopupFactory;
 
 public class AppGinModule extends AbstractGinModule {
 
@@ -15,6 +18,10 @@ public class AppGinModule extends AbstractGinModule {
 		install(new IneFormGinModule().setConnectionFailedHandler(ExponentialBackoffHandler.class));
 		install(new IneFormDispatcherGinModule());
 		install(new IneFrameGinModule(AppPlaceHierarchyProvider.class, AppPlaceHandler.class));
+		
+		install(new GinFactoryModuleBuilder()
+	     .implement(ChangeModuleLangPopup.class, ChangeModuleLangPopup.class)
+	     .build(ChangeModuleLangPopupFactory.class));
 	}
 
 }

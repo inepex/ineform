@@ -13,6 +13,7 @@ import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
+import com.inepex.translatorapp.client.page.ChangeModuleLangPopup.ChangeModuleLangPopupFactory;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 
 public class ModuleListPage extends FlowPanelBasedPage {
@@ -22,7 +23,8 @@ public class ModuleListPage extends FlowPanelBasedPage {
 	@Inject
 	ModuleListPage(DataConnectorFactory connectorFactory,
 			ManipulatorFactory manipulatorFactory,
-			final AssistedObjectHandlerFactory handlerFactory) {
+			final AssistedObjectHandlerFactory handlerFactory,
+			final ChangeModuleLangPopupFactory langPopUpFactory) {
 		connector=connectorFactory.createServerSide(ModuleConsts.descriptorName);
 		
 		mainPanel.add(new HTML(translatorappI18n.moduleListTitle()));
@@ -48,6 +50,30 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			@Override
 			public String getCommandCellText() {
 				return origDeletCmd.getCommandCellText();
+			}
+		});
+		
+		manipulator.getUserCommands().add(new IneTable.UserCommand() {
+			
+			@Override
+			public boolean visible(AssistedObject kvoOfRow) {
+				return true;
+			}
+			
+			@Override
+			public void onCellClicked(AssistedObject kvoOfRow) {
+				langPopUpFactory.create(kvoOfRow).show(new ChangeModuleLangPopup.Callback() {
+					
+					@Override
+					public void onChanged() {
+						connector.update();
+					}
+				});
+			}
+			
+			@Override
+			public String getCommandCellText() {
+				return translatorappI18n.moduleListPage_changeLangCmd();
 			}
 		});
 		

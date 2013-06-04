@@ -7,12 +7,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.inepex.ineForm.annotations.Kvo_Fetch;
 import com.inepex.ineForm.annotations.Kvo_Fetch.Mode;
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
 @Entity
+@Table(uniqueConstraints=
+	@UniqueConstraint(columnNames = {"ROW_ID", "LANG_ID"}))
 public class TranslatedValue {
 
 	@Id
