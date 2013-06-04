@@ -32,6 +32,8 @@ import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
+import com.inepex.translatorapp.client.page.popup.EditCallback;
+import com.inepex.translatorapp.client.page.popup.TransRowEditPopup;
 import com.inepex.translatorapp.shared.action.TransTableListAction;
 import com.inepex.translatorapp.shared.action.TranslateListingType;
 import com.inepex.translatorapp.shared.assist.TranslateTableRowAssist;
@@ -90,7 +92,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			public void onCellClicked(final AssistedObject kvoOfRow) {
 				new TransRowEditPopup(kvoOfRow.getStringUnchecked(TranslateTableRowConsts.k_engVal),
 						handlerFactory.createHandler(kvoOfRow).getRelatedString(TranslateTableRowAssist.tv(TranslatedValueConsts.k_value)))
-					.show(new TransRowEditPopup.Callback() {
+					.show(new EditCallback() {
 						
 						@Override
 						public void onCancelled() {

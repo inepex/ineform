@@ -40,16 +40,17 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 	protected ObjectListActionResult doExecute(TransTableListAction action,ExecutionContext context) throws AuthenticationException,DispatchException {
 		List<Long> userLangs = fetchUserLangs();
 		
-		List<TranslatedValue> values = translatedValueDao.listForTranslatorPage(userLangs, action.getFirstResult(), action.getNumMaxResult(), action.getModuleName(), action.getListType());
-		
 		ObjectListActionResult res = new ObjectListActionResult();
 		res.setDescriptorName(TranslateTableRowConsts.descriptorName);
 		if (action.isQueryResultCount()) {
+			List<TranslatedValue> values = translatedValueDao.listForTranslatorPage(false, userLangs, 0, 100000, action.getModuleName(), action.getListType());
 			res.setAllResultCount((long) values.size());
 		}
 		
-		if (action.getNumMaxResult() > 0)
+		if (action.getNumMaxResult() > 0) {
+			List<TranslatedValue> values = translatedValueDao.listForTranslatorPage(true, userLangs, action.getFirstResult(), action.getNumMaxResult(), action.getModuleName(), action.getListType());
 			res.setList(map(values));
+		}
 		
 		return res;
 	}

@@ -264,7 +264,8 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 	
 	private static String subString(String s, int maxLength, String append) {
 		if (s.length() > maxLength)
-			s = s.substring(0, maxLength-append.length()) + append;
+			return s.substring(0, maxLength-append.length()) + append;
+		
 		return s;
 
 	}

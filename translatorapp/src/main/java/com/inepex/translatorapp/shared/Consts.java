@@ -20,4 +20,10 @@ public class Consts {
 	
 	public static final long recentTimeRange = DateHelper.dayInMs*7;
 	
+	public static class Upload {
+		public static final String SEP = ";";
+		public static final String key = "key";
+		public static final String desc = "desc";
+	}
+	
 }

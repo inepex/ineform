@@ -23,16 +23,19 @@ public class RowListActionHandler extends AbstractIneHandler<RowListAction, Obje
 	@Override
 	protected ObjectListActionResult doExecute(RowListAction action, ExecutionContext context) throws AuthenticationException, DispatchException {
 
-		List<ModuleRow> values = dao.listForPage(action.getFirstResult(), action.getNumMaxResult(), action.getMagicString(), action.getModuleId());
+		
 		
 		ObjectListActionResult res = new ObjectListActionResult();
 		res.setDescriptorName(TranslateTableRowConsts.descriptorName);
 		if (action.isQueryResultCount()) {
+			List<ModuleRow> values = dao.listForPage(false, 0, 100000, action.getMagicString(), action.getModuleId());
 			res.setAllResultCount((long) values.size());
 		}
 		
-		if (action.getNumMaxResult() > 0)
+		if (action.getNumMaxResult() > 0) {
+			List<ModuleRow> values = dao.listForPage(true, action.getFirstResult(), action.getNumMaxResult(), action.getMagicString(), action.getModuleId());
 			res.setList(mapper.entityListToKvoList(values));
+		}
 
 		
 		return res;

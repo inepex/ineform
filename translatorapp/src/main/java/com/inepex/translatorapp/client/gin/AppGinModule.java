@@ -8,8 +8,8 @@ import com.inepex.ineFrame.client.async.ExponentialBackoffHandler;
 import com.inepex.ineFrame.client.gin.IneFrameGinModule;
 import com.inepex.translatorapp.client.navigation.AppPlaceHandler;
 import com.inepex.translatorapp.client.navigation.AppPlaceHierarchyProvider;
-import com.inepex.translatorapp.client.page.ChangeModuleLangPopup;
-import com.inepex.translatorapp.client.page.ChangeModuleLangPopup.ChangeModuleLangPopupFactory;
+import com.inepex.translatorapp.client.page.popup.ChangeModuleLangPopup;
+import com.inepex.translatorapp.client.page.popup.ChangeModuleLangPopup.ChangeModuleLangPopupFactory;
 
 public class AppGinModule extends AbstractGinModule {
 

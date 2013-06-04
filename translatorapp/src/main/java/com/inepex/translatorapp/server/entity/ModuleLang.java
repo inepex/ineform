@@ -61,4 +61,10 @@ public class ModuleLang {
 	public void setModule(Module module) {
 		this.module = module;
 	}
+	
+	@Override
+	public String toString() {
+		return lang.toString();
+	}
+	
 }

@@ -70,10 +70,13 @@ public class ModuleRowDao extends BaseDao<ModuleRow> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ModuleRow> listForPage(Integer firstResult, Integer maxResult, String magicString, Long moduleId) {
+	public List<ModuleRow> listForPage(boolean data, Integer firstResult, Integer maxResult, String magicString, Long moduleId) {
 		StringBuffer query = new StringBuffer();
 		
-		query.append("select mr from ModuleRow mr where 1=1 ");
+		if(data)
+			query.append("select mr from ModuleRow mr where 1=1 ");
+		else
+			query.append("select mr.id from ModuleRow mr where 1=1 ");
 		
 		if(moduleId!=null) {
 			query.append("and mr.module.id = :moduleId ");

@@ -1,4 +1,4 @@
-package com.inepex.translatorapp.client.page;
+package com.inepex.translatorapp.client.page.popup;
 
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.Overflow;
@@ -19,20 +19,15 @@ import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 public class TransRowEditPopup {
 	
-	public static interface Callback {
-		public void onCancelled();
-		public void onSave(String newTranslated);
-	}
-	
 	private class DialogContent extends HandlerAwareComposite {
 		
-		private final Callback callback;
+		private final EditCallback callback;
 		
 		private final TextArea textArea;
 		private final Button revertBtn;
 		private final Button doneBtn;
 		
-		public DialogContent(Callback callback) {
+		public DialogContent(EditCallback callback) {
 			this.callback=callback;
 			
 			VerticalPanel vp = new VerticalPanel();
@@ -69,10 +64,16 @@ public class TransRowEditPopup {
 		}
 		
 		private String perNToBr(String string) {
+			if(string==null)
+				return "";
+			
 			return string.replaceAll("\n", "<br />");
 		}
 
 		private String brToPerN(String string) {
+			if(string==null)
+				return "";
+			
 			return string.replaceAll("<[\\s]*br[\\s]*[/]?[\\s]*>", "\n");
 		}
 
@@ -113,7 +114,7 @@ public class TransRowEditPopup {
 		this.translatedVal=translatedVal;
 	}
 	
-	public void show(Callback callback) {
+	public void show(EditCallback callback) {
 		dialogBox = new DialogBox(false, true);
 		dialogBox.setWidget(new DialogContent(callback));
 		dialogBox.setGlassEnabled(true);

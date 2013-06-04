@@ -5,13 +5,11 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
 import com.inepex.translatorapp.server.entity.dao.ModuleDao;
-import com.inepex.translatorapp.server.entity.dao.TranslatedValueDao;
 import com.inepex.translatorapp.shared.action.LangChangeAction;
 
 public class LangChangeActionHandler extends AbstractIneHandler<LangChangeAction, GenericActionResult>{

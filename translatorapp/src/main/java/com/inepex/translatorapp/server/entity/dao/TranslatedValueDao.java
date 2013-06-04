@@ -71,10 +71,15 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TranslatedValue> listForTranslatorPage(List<Long> userLangs, Integer firstResult, Integer maxResult, String moduleName, TranslateListingType listType) {
+	public List<TranslatedValue> listForTranslatorPage(boolean data, List<Long> userLangs, Integer firstResult, Integer maxResult, String moduleName, TranslateListingType listType) {
 		StringBuffer query = new StringBuffer();
-		query.append("select tv from TranslatedValue tv " +
-				"where 1=1 ");
+		
+		if(data)
+			query.append("select tv from TranslatedValue tv ");
+		else
+			query.append("select tv.id from TranslatedValue tv ");
+		
+		query.append("where 1=1 ");
 		
 		if(userLangs!=null && !userLangs.isEmpty()) {
 			query.append("and tv.lang.id in ");

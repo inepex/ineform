@@ -74,6 +74,9 @@ public class translatorappI18n extends I18nModule {
 	public String translatedValue_row = "Row";
 	public String translatedValue_value = "Translated value";
 	public String translatorPage = "Translator page";
+	public String upladRows = "Upload rows";
+	public String upload_header = "<h3>Csv content order</h3>";
+	public String upload_rows = "<h3>Rows</h3>";
 	public String userLang_id = "Id";
 	public String userLang_lang = "Lang";
 	public String userLang_user = "User";
@@ -525,6 +528,33 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String translatorPage() {
 		return moduleProvider.get().translatorPage;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Upload rows
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String upladRows() {
+		return moduleProvider.get().upladRows;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> <h3>Csv content order</h3>
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String upload_header() {
+		return moduleProvider.get().upload_header;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> <h3>Rows</h3>
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String upload_rows() {
+		return moduleProvider.get().upload_rows;
 	}
 	
 	/**

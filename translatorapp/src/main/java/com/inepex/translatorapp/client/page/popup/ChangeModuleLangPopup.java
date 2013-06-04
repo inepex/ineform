@@ -1,4 +1,4 @@
-package com.inepex.translatorapp.client.page;
+package com.inepex.translatorapp.client.page.popup;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,21 +33,17 @@ import com.inepex.translatorapp.shared.kvo.ModuleLangConsts;
 
 public class ChangeModuleLangPopup {
 	
-	public static interface Callback {
-		void onChanged();
-	}
-	
 	public static interface ChangeModuleLangPopupFactory {
 		ChangeModuleLangPopup create(@Assisted AssistedObject moduleKvo);
 	}
 	
 	private class DialogContent extends HandlerAwareFlowPanel {
 
-		private final Callback callback;
+		private final ChangedCallback callback;
 		
 		private final Button btn = new Button(IneFormI18n.OK());
 		
-		public DialogContent(Callback callback) {
+		public DialogContent(ChangedCallback callback) {
 			this.callback=callback;
 			add(new Label(IneFormI18n.loading()));
 			ineDispatch.execute(new RelationListAction(LangConsts.descriptorName, null, 0, 10000, false), 
@@ -143,7 +139,7 @@ public class ChangeModuleLangPopup {
 										new ClickHandler() {
 											
 											@Override
-											public void onClick(ClickEvent event) {
+											public void onClick(ClickEvent clkEvent) {
 												doChange(currentState, moduleId, langId);
 											}
 										});
@@ -185,7 +181,7 @@ public class ChangeModuleLangPopup {
 		this.assistedObjectHandlerFactory=assistedObjectHandlerFactory;
 	}
 
-	public void show(Callback callback) {
+	public void show(ChangedCallback callback) {
 		dialogBox = new DialogBox(false, true);
 		dialogBox.setWidget(new DialogContent(callback));
 		dialogBox.setGlassEnabled(true);

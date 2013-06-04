@@ -2,6 +2,7 @@ package com.inepex.translatorapp.client.page;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator.DeleteCommand;
@@ -13,7 +14,9 @@ import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
-import com.inepex.translatorapp.client.page.ChangeModuleLangPopup.ChangeModuleLangPopupFactory;
+import com.inepex.translatorapp.client.page.popup.ChangeModuleLangPopup.ChangeModuleLangPopupFactory;
+import com.inepex.translatorapp.client.page.popup.ChangedCallback;
+import com.inepex.translatorapp.client.page.popup.ModuleUploadPopup;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 
 public class ModuleListPage extends FlowPanelBasedPage {
@@ -24,7 +27,8 @@ public class ModuleListPage extends FlowPanelBasedPage {
 	ModuleListPage(DataConnectorFactory connectorFactory,
 			ManipulatorFactory manipulatorFactory,
 			final AssistedObjectHandlerFactory handlerFactory,
-			final ChangeModuleLangPopupFactory langPopUpFactory) {
+			final ChangeModuleLangPopupFactory langPopUpFactory,
+			final Provider<ModuleUploadPopup> uploadPopupProv) {
 		connector=connectorFactory.createServerSide(ModuleConsts.descriptorName);
 		
 		mainPanel.add(new HTML(translatorappI18n.moduleListTitle()));
@@ -62,7 +66,7 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onCellClicked(AssistedObject kvoOfRow) {
-				langPopUpFactory.create(kvoOfRow).show(new ChangeModuleLangPopup.Callback() {
+				langPopUpFactory.create(kvoOfRow).show(new ChangedCallback() {
 					
 					@Override
 					public void onChanged() {
@@ -74,6 +78,31 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			@Override
 			public String getCommandCellText() {
 				return translatorappI18n.moduleListPage_changeLangCmd();
+			}
+		});
+		
+		manipulator.getUserCommands().add(new IneTable.UserCommand() {
+			
+			@Override
+			public boolean visible(AssistedObject kvoOfRow) {
+				return handlerFactory.createHandler(kvoOfRow).getList(ModuleConsts.k_langs)!=null &&
+						handlerFactory.createHandler(kvoOfRow).getList(ModuleConsts.k_langs).getRelationList().size()>0;
+			}
+			
+			@Override
+			public void onCellClicked(AssistedObject kvoOfRow) {
+				uploadPopupProv.get().show(kvoOfRow, new ChangedCallback() {
+					
+					@Override
+					public void onChanged() {
+						connector.update();	
+					}
+				});
+			}
+			
+			@Override
+			public String getCommandCellText() {
+				return translatorappI18n.upladRows();
 			}
 		});
 		

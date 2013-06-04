@@ -26,7 +26,6 @@ public class LocalizationUtil {
 		Map<String, LocalizedString> localizables = converter.getLocalizablesMap();
 		
 		try {
-			
 			I18nStore_Server serverStore = new I18nStore_Server();
 			serverStore.registerModule(new translatorappI18n(null));
 			
