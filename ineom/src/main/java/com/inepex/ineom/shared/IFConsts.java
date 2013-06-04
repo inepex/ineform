@@ -18,7 +18,7 @@ public class IFConsts {
 	public static final String enumValueSplitChar = "~";
 	public final static String enumValues = "enumValues";
 	
-	public static final String exportServletUrl= "export";
+	public static final String exportServletUrl= "/export";
 	public static final String uploadServletUrl= "upload";	
 	
 	//imageupload properties
