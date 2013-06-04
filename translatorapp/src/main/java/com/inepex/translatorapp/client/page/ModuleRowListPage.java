@@ -139,6 +139,7 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 					@Override
 					public void onSaved(SavedEvent event) {
 						filterGrid.setVisible(true);
+						connector.update();
 					}
 				});
 				
@@ -201,7 +202,9 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 										for(Long langId : langIds.keySet()) {
 											AssistedObjectHandler newTranslated = objectHandlerFactory.createHandler(TranslatedValueConsts.descriptorName);
 											newTranslated.set(TranslatedValueConsts.k_lang, new Relation(langId, langIds.get(langId)));
-											transValuesFw.getRelationList().add(new Relation(newTranslated.getAssistedObject()));
+											Relation newValue = new Relation(newTranslated.getAssistedObject());
+											transValuesFw.getRelationList().add(newValue);
+											transValuesFw.getRelationList().change(newValue);
 										}
 										
 										transValuesFw.reRenderRelations();

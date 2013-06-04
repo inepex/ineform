@@ -1,9 +1,8 @@
 package com.inepex.translatorapp.server.i18n;
-import com.inepex.translatorapp.client.i18n.translatorappI18n;
-
+import com.google.inject.Provider;
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.google.inject.Provider;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 public class ServertranslatorappI18nProvider extends ServerI18nProvider<translatorappI18n> {
 

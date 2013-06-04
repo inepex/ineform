@@ -11,6 +11,7 @@ import com.inepex.ineFrame.server.di.guice.IneFrameBaseServletModule;
 import com.inepex.ineFrame.shared.CustomObjectDescAction;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
+import com.inepex.translatorapp.server.entity.dao.ModuleRowDao;
 import com.inepex.translatorapp.server.entity.dao.TranslatedValueDao;
 import com.inepex.translatorapp.server.handler.LoginHandler;
 import com.inepex.translatorapp.server.handler.RegActionHandler;
@@ -37,6 +38,9 @@ public class AppGuiceModule  extends ActionHandlerModule {
 				Matchers.returns(Matchers.subclassesOf(ObjectManipulationResult.class)),
 				new TransValueModInterceptor(getProvider(SessionScopedAuthStat.class), getProvider(AssistedObjectHandlerFactory.class)));
 		
+		bindInterceptor(Matchers.subclassesOf(ModuleRowDao.class),
+				Matchers.returns(Matchers.subclassesOf(ObjectManipulationResult.class)),
+				new ModuleRowModInterceptor(getProvider(SessionScopedAuthStat.class), getProvider(AssistedObjectHandlerFactory.class)));
 	}
 
 }
