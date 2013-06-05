@@ -13,6 +13,8 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 		CSV
 		, HTML
 		, TRTD
+		, PDF
+		, EXCEL
 	}
 	
 	

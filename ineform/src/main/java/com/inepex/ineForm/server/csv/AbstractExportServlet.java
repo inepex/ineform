@@ -1,5 +1,6 @@
 package com.inepex.ineForm.server.csv;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,12 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
+import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;
+import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer;
+import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer.PdfRendererFactory;
 import com.inepex.ineForm.shared.dispatch.SetActionForExportServletAction.Renderer;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
 import com.inepex.ineForm.shared.tablerender.HtmlRenderer.HtmlRendererFactory;
@@ -23,6 +30,8 @@ import com.inepex.ineForm.shared.tablerender.TrtdRenderer.TrtdRendererFactory;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfWriter;
 
 @SuppressWarnings("serial")
 public abstract class AbstractExportServlet extends HttpServlet{
@@ -34,6 +43,9 @@ public abstract class AbstractExportServlet extends HttpServlet{
 	protected final TrtdRendererFactory trtdRendererFactory;
 	protected final HtmlRendererFactory htmlRendererFactory;
 	protected final CsvRendererFactory csvRendererFactory;
+	protected final ExcelRendererFactory excelRendererFactory;
+	protected final PdfRendererFactory pdfRendererFactory;
+	protected final ExportCustomizerStore exportCustomizerStore;
 	
 	protected abstract void customizeAction(HttpServletRequest req, ObjectList action);
 	protected abstract ObjectListResult getResult(ObjectList action) throws Exception;  
@@ -41,11 +53,17 @@ public abstract class AbstractExportServlet extends HttpServlet{
 	public AbstractExportServlet(Provider<CurrentLang> currLangProvider,
 						TrtdRendererFactory trtdRendererFactory, 
 						HtmlRendererFactory htmlRendererFactory,
-						CsvRendererFactory csvRendererFactory) {
+						CsvRendererFactory csvRendererFactory,
+						ExcelRendererFactory excelRendererFactory,
+						PdfRendererFactory pdfRendererFactory,
+						ExportCustomizerStore exportCustomizerStore) {
 		this.currLangProvider = currLangProvider;
 		this.trtdRendererFactory = trtdRendererFactory;
 		this.htmlRendererFactory = htmlRendererFactory;
 		this.csvRendererFactory = csvRendererFactory;
+		this.excelRendererFactory = excelRendererFactory;
+		this.pdfRendererFactory = pdfRendererFactory;
+		this.exportCustomizerStore = exportCustomizerStore;
 	}
 	
 	@Override
@@ -87,46 +105,80 @@ public abstract class AbstractExportServlet extends HttpServlet{
 			ObjectListResult listResult = getResult(action);
 			
 			TableRenderer renderer = null;
+			String extension = "";
+			ByteArrayOutputStream baos;
 			switch (rendererType) {
 			case CSV:
 				renderer = csvRendererFactory.create(action.getDescriptorName(), tableRDescName);
 				renderer.setRenderHeader(withHeader);
+				resp.setContentType("text/csv");
+				resp.setCharacterEncoding("UTF-8");
+				extension = ".csv";
+				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
+				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				resp.getWriter().write(renderer.render(listResult.getList()));
+				resp.getWriter().close();
 				break;
 			case HTML:
 				renderer = htmlRendererFactory.create(action.getDescriptorName(), tableRDescName);
 				renderer.setRenderHeader(withHeader);
-				break;
-				
+				resp.setContentType("text/html");
+				resp.setCharacterEncoding("UTF-8");
+				extension = ".html";
+				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
+				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				resp.getWriter().write(renderer.render(listResult.getList()));
+				resp.getWriter().close();
+				break;				
 			case TRTD:
 				renderer = trtdRendererFactory.create(action.getDescriptorName(), tableRDescName);
 				renderer.setRenderHeader(withHeader);
+				resp.setContentType("text/html");
+				resp.setCharacterEncoding("UTF-8");
+				extension = ".html";
+				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
+				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				resp.getWriter().write(renderer.render(listResult.getList()));
+				resp.getWriter().close();
+				break;
+				
+			case PDF:
+				renderer = pdfRendererFactory.create(action.getDescriptorName(), tableRDescName);
+				renderer.setRenderHeader(withHeader);
+				resp.setContentType("application/octet-stream");
+				extension = ".pdf";
+				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
+				Document document = new Document();
+				baos = new ByteArrayOutputStream();
+				PdfWriter.getInstance(document, baos);
+				document.open();
+				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				renderer.render(listResult.getList());
+				document.add(((PdfRenderer)renderer).getTable());
+				document.close();
+				resp.getOutputStream().write(baos.toByteArray());
+				resp.getOutputStream().close();
+				break;
+				
+			case EXCEL:
+				Workbook wb = new HSSFWorkbook();
+				Sheet sheet = wb.createSheet(fileName);
+				renderer = excelRendererFactory.create(action.getDescriptorName(), tableRDescName, sheet, true);
+				renderer.setRenderHeader(withHeader);
+				resp.setContentType("application/vnd.ms-excel");
+				resp.setCharacterEncoding("UTF-8");
+				extension = ".xls";
+				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
+				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				renderer.render(listResult.getList());
+				baos = new ByteArrayOutputStream();
+				wb.write(baos);
+				resp.getOutputStream().write(baos.toByteArray());
+				resp.getOutputStream().close();
 				break;
 			}
-			
-			String csvString = renderer.render(listResult.getList());
 
-			String extension = "";
-			switch (rendererType) {
-				case CSV:
-					resp.setContentType("text/csv");
-					resp.setCharacterEncoding("UTF-8");
-					extension = ".csv";
-					break;
-				case HTML:
-					resp.setContentType("text/html");
-					resp.setCharacterEncoding("UTF-8");
-					extension = ".html";
-					break;
-				case TRTD:
-					resp.setContentType("application/vnd.ms-excel");
-					resp.setCharacterEncoding("ISO-8859-2");
-					extension = ".html";
-					break;
-			}
 			
-			resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
-			resp.getWriter().write(csvString);
-			resp.getWriter().close();
 		} catch (Exception e) {
 			_logger.warn(e.getMessage(), e);
 			resp.getWriter().write(IneFormI18n.csvError());

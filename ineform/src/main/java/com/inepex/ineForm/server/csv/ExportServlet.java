@@ -8,6 +8,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
+import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;
+import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer.PdfRendererFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
 import com.inepex.ineForm.shared.tablerender.CsvRenderer.CsvRendererFactory;
@@ -29,8 +31,12 @@ public class ExportServlet extends AbstractExportServlet {
 			Dispatch dispatcher,
 			TrtdRendererFactory trtdRendererFactory,
 			HtmlRendererFactory htmlRendererFactory,
-			CsvRendererFactory csvRendererFactory) {
-		super(currLangProvider, trtdRendererFactory, htmlRendererFactory, csvRendererFactory);
+			CsvRendererFactory csvRendererFactory,
+			PdfRendererFactory pdfRendererFactory,
+			ExcelRendererFactory excelRendererFactory,
+			ExportCustomizerStore exportCustomizerStore) {
+		super(currLangProvider, trtdRendererFactory, htmlRendererFactory, csvRendererFactory,
+				excelRendererFactory, pdfRendererFactory, exportCustomizerStore);
 		this.dispatcher = dispatcher;
 	}
 

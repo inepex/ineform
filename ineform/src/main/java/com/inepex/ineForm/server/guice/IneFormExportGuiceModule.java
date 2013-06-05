@@ -3,6 +3,7 @@ package com.inepex.ineForm.server.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.inepex.ineForm.server.csv.ExportCustomizerStore;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfFontLoader;
@@ -40,6 +41,7 @@ public class IneFormExportGuiceModule extends AbstractModule {
 		.build(PdfRendererFactory.class));
 		
 		bind(PdfFontLoader.class).in(Singleton.class);
+		bind(ExportCustomizerStore.class).in(Singleton.class);
 	}
 
 }
