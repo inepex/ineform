@@ -7,12 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.persistence.RollbackException;
+
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
 import org.supercsv.cellprocessor.ConvertNullTo;
 import org.supercsv.cellprocessor.constraint.Unique;
 import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.exception.SuperCsvException;
 import org.supercsv.io.CsvMapReader;
 import org.supercsv.prefs.CsvPreference;
 
@@ -76,7 +79,10 @@ public class RowUploadActionHandler extends AbstractIneHandler<RowUploadAction, 
 			moduleDao.mergeTrans(module);
 			
 			return new GenericActionResult();
-			
+		} catch (RollbackException e) {
+			return new GenericActionResult("Maybe row duplication by upload.", false);
+		} catch (SuperCsvException e) {
+			return new GenericActionResult("Invalid line: "+(e.getCsvContext().getLineNumber()-1), false);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} catch (ValException e) {
