@@ -1,3 +1,5 @@
+"validationAlphanum";"";"This field should contain only numbers and characters!";"A mező csak betűket és számokat tartalmazhat!";"?"
+"validationAlphanumOrSpace";"";"This field should contain only numbers, characters or space!";"A mező csak betűket, számokat és szóközt tartalmazhat!";"?"
 "validationEmail";"";"This is not valid e-mail address!";"Nem megfelelő e-mail cím!";"Pogrešna e-majl adresa!"
 "validationFieldError";"";"Field error";"Hibás mező - ";"Polje je neispravno -"
 "validationGeneralError";"";"Error:";"Hiba: ";"Greška:"

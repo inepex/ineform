@@ -8,7 +8,8 @@ public class TranslateTableRowConsts {
 	//field contsts
 	public static final String k_id = "id";	
 	public static final String k_recent = "recent";	
-	public static final String k_outDated = "outDated";	
+	public static final String k_outDated = "outDated";
+	public static final String k_invalid = "invaid";
 	public static final String k_description = "description";	
 	public static final String k_engVal = "engVal";	
 	public static final String k_translatedValue = "translatedValue";	

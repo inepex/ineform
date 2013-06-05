@@ -18,7 +18,7 @@ import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
 public class TranslateTableRowAssist extends Assist {
 	
-	public static String flags = "flags";
+	public static String flagsColumn = "flags";
 	
 	public TranslateTableRowAssist(DescriptorStore descStore) {
 		super(descStore);
@@ -40,6 +40,7 @@ public class TranslateTableRowAssist extends Assist {
 		ObjectDesc objDesc = new ObjectDesc(TranslateTableRowConsts.descriptorName
 			, new LongFDesc(TranslateTableRowConsts.k_id, /*hc:d1*/translatorappI18n.translateTableRow_id()/*hc*/)/*hc:d2_1*//*hc*/
 			, new BooleanFDesc(TranslateTableRowConsts.k_recent, /*hc:d2*/""/*hc*/)/*hc:d2_2*//*hc*/
+			, new BooleanFDesc(TranslateTableRowConsts.k_invalid, /*hc:d2*/""/*hc*/)/*hc:d2_2*//*hc*/
 			, new BooleanFDesc(TranslateTableRowConsts.k_outDated, /*hc:d3*/""/*hc*/)/*hc:d2_3*//*hc*/
 			, new StringFDesc(TranslateTableRowConsts.k_description, /*hc:d4*/translatorappI18n.translateTableRow_description()/*hc*/)/*hc:d2_4*//*hc*/
 			, new StringFDesc(TranslateTableRowConsts.k_engVal, /*hc:d5*/translatorappI18n.translateTableRow_engVal()/*hc*/)/*hc:d2_5*//*hc*/
@@ -57,8 +58,8 @@ public class TranslateTableRowAssist extends Assist {
 			
 		tableRDesc.getRootNode()
 			.addChild(TranslateTableRowConsts.k_id, new ColRDesc(/*hc:tdr1_1*/false/*hc*/)/*hc:tdr2_1*//*hc*/)
-			.addChild(flags, new ColRDesc(/*hc:tdr1_2*/false/*hc*/)
-				 .setColumnWidth(60)/*hc:tdr2_2*//*hc*/)
+			.addChild(flagsColumn, new ColRDesc(/*hc:tdr1_2*/false/*hc*/)
+				 .setColumnWidth(90)/*hc:tdr2_2*//*hc*/)
 			.addChild(TranslateTableRowConsts.k_description, new ColRDesc(/*hc:tdr1_4*/false/*hc*/)
 				.addProp(ColRDesc.ESCAPEHTML).cropWidth(120).hAlign(ColRDescHAlign.LEFT).setColumnWidth(350)/*hc:tdr2_4*//*hc*/)
 			.addChild(TranslateTableRowConsts.k_engVal, new ColRDesc(/*hc:tdr1_5*/false/*hc*/)

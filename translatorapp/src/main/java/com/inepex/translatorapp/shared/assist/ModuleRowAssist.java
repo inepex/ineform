@@ -44,8 +44,9 @@ public class ModuleRowAssist extends Assist {
 		ObjectDesc objDesc = new ObjectDesc(ModuleRowConsts.descriptorName
 			, new LongFDesc(ModuleRowConsts.k_id, translatorappI18n.moduleRow_id())
 			, new StringFDesc(ModuleRowConsts.k_key, translatorappI18n.moduleRow_key())
-					.mandatory()
+					.alphanum().mandatory()
 			, new StringFDesc(ModuleRowConsts.k_description, translatorappI18n.moduleRow_description())
+					.alphanumOrSpace()
 			, new RelationFDesc(ModuleRowConsts.k_module, translatorappI18n.moduleRow_module()
 										, ModuleConsts.descriptorName)
 					.mandatory()

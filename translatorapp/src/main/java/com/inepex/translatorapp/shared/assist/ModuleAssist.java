@@ -38,7 +38,7 @@ public class ModuleAssist extends Assist {
 		ObjectDesc objDesc = new ObjectDesc(ModuleConsts.descriptorName
 			, new LongFDesc(ModuleConsts.k_id, /*hc:d1*/translatorappI18n.module_id()/*hc*/)/*hc:d2_1*//*hc*/
 			, new StringFDesc(ModuleConsts.k_name, /*hc:d2*/translatorappI18n.module_name()/*hc*/)/*hc:d2_2*//*hc*/
-					.mandatory()
+					.alphanum().mandatory()
 			, new ListFDesc(ModuleConsts.k_rows, /*hc:d3*/translatorappI18n.module_rows()/*hc*/
 					,ModuleRowConsts.descriptorName)/*hc:d2_3*//*hc*/
 			, new ListFDesc(ModuleConsts.k_langs, /*hc:d4*/translatorappI18n.module_langs()/*hc*/

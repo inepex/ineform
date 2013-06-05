@@ -26,6 +26,7 @@ import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
+import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.Module;
 import com.inepex.translatorapp.server.entity.ModuleLang;
@@ -80,9 +81,13 @@ public class RowUploadActionHandler extends AbstractIneHandler<RowUploadAction, 
 			
 			return new GenericActionResult();
 		} catch (RollbackException e) {
-			return new GenericActionResult("Maybe row duplication by upload.", false);
+			return new GenericActionResult(
+					translatorappI18n.rowUpload_rowDuplication()
+					, false);
 		} catch (SuperCsvException e) {
-			return new GenericActionResult("Invalid line: "+(e.getCsvContext().getLineNumber()-1), false);
+			return new GenericActionResult(
+					translatorappI18n.rowUpload_invalidLine(""+(e.getCsvContext().getLineNumber()-1))
+					, false);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} catch (ValException e) {
@@ -154,7 +159,7 @@ public class RowUploadActionHandler extends AbstractIneHandler<RowUploadAction, 
 			
 			if(Consts.Upload.key.equals(s)) {
 				if(key)
-					throw new ValException("'key' is in header was twice");
+					throw new ValException(translatorappI18n.rowUpload_wasTwice(Consts.Upload.key));
 				
 				key=true;
 				continue;
@@ -162,22 +167,22 @@ public class RowUploadActionHandler extends AbstractIneHandler<RowUploadAction, 
 			
 			if(Consts.Upload.desc.equals(s)) {
 				if(desc)
-					throw new ValException("'desc' is in header was twice");
+					throw new ValException(translatorappI18n.rowUpload_wasTwice(Consts.Upload.desc));
 				
 				desc=true;
 				continue;
 			}
 			
-			throw new ValException("extra coulm: '"+s+"'");
+			throw new ValException(translatorappI18n.rowUpload_extraColumn(s));
 		}
 		
 		if(!key)
-			throw new ValException("no 'key' in header");
+			throw new ValException(translatorappI18n.rowUpload_notInHeader(Consts.Upload.key));
 		if(!desc)
-			throw new ValException("no 'desc' in header");
+			throw new ValException(translatorappI18n.rowUpload_notInHeader(Consts.Upload.desc));
 		
 		if(!copyMap.isEmpty())
-			throw new ValException("there aren't coulmn for every languages in header");
+			throw new ValException(translatorappI18n.rowUpload_notForEveryLang());
 	}
 
 	private Reader createActionContentReader(RowUploadAction action) {

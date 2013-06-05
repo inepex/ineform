@@ -25,8 +25,11 @@ public class translatorappI18n extends I18nModule {
 		return moduleProvider;
 	}
 	
+	public String all = "All";
+	public String appname = "Translator Application";
 	public String doneBtn = "Done";
 	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
+	public String invalid = "Special parts of translated value (or original) are invalid";
 	public String lang_id = "Id";
 	public String lang_isoName = "Iso name";
 	public String modRow_engModTime = "English mod. time";
@@ -48,7 +51,9 @@ public class translatorappI18n extends I18nModule {
 	public String module_name = "Name";
 	public String module_rows = "Rows";
 	public String nonMatchingPws = "The password and this value are not the same!";
+	public String outdated = "Need to be translated";
 	public String pageNotFound = "Page not found";
+	public String recent = "From last 7 days";
 	public String regAnchor = "Click me for registration";
 	public String regError = "Some error has occurred! Tray again later!";
 	public String regPageTitle = "Registration";
@@ -59,6 +64,12 @@ public class translatorappI18n extends I18nModule {
 	public String registeredEmail = "There is already an account for this e-mail address!";
 	public String rowListPage = "Rows";
 	public String rowListPage_magicFilter = "<b>Free text search:</b>";
+	public String rowUpload_extraColumn = "extra column: '{name}';?;?";
+	public String rowUpload_invalidLine = "The line number {number} is invalid.";
+	public String rowUpload_notForEveryLang = "There aren't column for every languages in header";
+	public String rowUpload_notInHeader = "There is not '{fieladName}' in the header row.";
+	public String rowUpload_rowDuplication = "Maybe row duplication by upload.";
+	public String rowUpload_wasTwice = "'{fieldName}' is in header was twice";
 	public String showEditpopup = "Popup editor";
 	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
 	public String transPage_listmodeSelect = "<b>Show:</b>";
@@ -91,6 +102,24 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> All
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String all() {
+		return moduleProvider.get().all;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Translator Application
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String appname() {
+		return moduleProvider.get().appname;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Done
 	* <u><i>Magyarul:</i></u> ?
 	*/
@@ -105,6 +134,15 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String inactiveAccount() {
 		return moduleProvider.get().inactiveAccount;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Special parts of translated value (or original) are invalid
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String invalid() {
+		return moduleProvider.get().invalid;
 	}
 	
 	/**
@@ -298,11 +336,29 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Need to be translated
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String outdated() {
+		return moduleProvider.get().outdated;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Page not found
 	* <u><i>Magyarul:</i></u> ?
 	*/
 	public static String pageNotFound() {
 		return moduleProvider.get().pageNotFound;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> From last 7 days
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String recent() {
+		return moduleProvider.get().recent;
 	}
 	
 	/**
@@ -393,6 +449,60 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String rowListPage_magicFilter() {
 		return moduleProvider.get().rowListPage_magicFilter;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> extra column: '{name}';?;?
+	* <u><i>Magyarul:</i></u> **extra column: '{name}';?;?**
+	*/
+	public static String rowUpload_extraColumn(String name) {
+		return moduleProvider.get().rowUpload_extraColumn.replace("{name}", name);
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> The line number {number} is invalid.
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String rowUpload_invalidLine(String number) {
+		return moduleProvider.get().rowUpload_invalidLine.replace("{number}", number);
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> There aren't column for every languages in header
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String rowUpload_notForEveryLang() {
+		return moduleProvider.get().rowUpload_notForEveryLang;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> There is not '{fieladName}' in the header row.
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String rowUpload_notInHeader(String fieladName) {
+		return moduleProvider.get().rowUpload_notInHeader.replace("{fieladName}", fieladName);
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Maybe row duplication by upload.
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String rowUpload_rowDuplication() {
+		return moduleProvider.get().rowUpload_rowDuplication;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> '{fieldName}' is in header was twice
+	* <u><i>Magyarul:</i></u> ?
+	*/
+	public static String rowUpload_wasTwice(String fieldName) {
+		return moduleProvider.get().rowUpload_wasTwice.replace("{fieldName}", fieldName);
 	}
 	
 	/**

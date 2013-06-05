@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
@@ -26,7 +26,6 @@ import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
-import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
@@ -69,7 +68,6 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 	private Grid filterGrid;
 	private ListBoxFW moduleListBox;
 	private TextBox textBox;
-	private Button filterBtn;
 	
 	@Inject
 	public ModuleRowListPage(ManipulatorFactory manipulatorFactory,
@@ -98,7 +96,7 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 	}
 
 	private void createAndAddFilterGrid() {
-		filterGrid = new Grid(3, 2);
+		filterGrid = new Grid(2, 2);
 		
 		filterGrid.setHTML(0, 0, translatorappI18n.transPage_moduleSelect());
 		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
@@ -107,9 +105,6 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		filterGrid.setHTML(1, 0, translatorappI18n.rowListPage_magicFilter());
 		textBox=new TextBox();
 		filterGrid.setWidget(1, 1, textBox);
-		
-		filterBtn= new Button(IneFormI18n.FILTER());
-		filterGrid.setWidget(2, 0, filterBtn);
 		
 		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
 		filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
@@ -276,11 +271,21 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		
 		filterGrid.setVisible(true);
 		
-		registerHandler(filterBtn.addClickHandler(new ClickHandler() {
+		registerHandler(moduleListBox.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
 			
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
 				fillActionAndUpdate();
+			}
+		}));
+		
+		
+		registerHandler(textBox.addKeyUpHandler(new KeyUpHandler() {
+			
+			@Override
+			public void onKeyUp(KeyUpEvent event) {
+				if(event.getNativeKeyCode()==KeyCodes.KEY_ENTER)
+					fillActionAndUpdate();
 			}
 		}));
 	}

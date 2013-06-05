@@ -21,6 +21,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.basicvalidators.BeforeAfterValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.EmailValidator;
@@ -29,6 +30,7 @@ import com.inepex.ineom.shared.validation.basicvalidators.LengthValidator.Type;
 import com.inepex.ineom.shared.validation.basicvalidators.MandatoryValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.NumericRelationValidator;
 import com.inepex.ineom.shared.validation.basicvalidators.NumericRelationValidator.RelType;
+import com.inepex.ineom.shared.validation.basicvalidators.RegexprValidator;
 
 public class KeyValueObjectValidationManager {
 	
@@ -43,6 +45,8 @@ public class KeyValueObjectValidationManager {
 	public final static String MAXLENGTH = "maxlength";
 	public final static String MINLENGTH = "minlength";
 	public final static String EMAIL = "email";
+	public final static String ALPHANUM = "alphanum";
+	public final static String ALPHANUM_OR_SPACE = "alphanum_or_space";
 	
 	private final DescriptorStore descStore;
 	private final AssistedObjectHandlerFactory objectHandlerFactory; 
@@ -107,6 +111,10 @@ public class KeyValueObjectValidationManager {
 		if(validatorName.contains(EMAIL))
 			return new EmailValidator(type, fieldName, od);
 		
+		if(validatorName.contains(ALPHANUM))
+			return new RegexprValidator(type, fieldName, od, "[\\w]*", "[\\w]*", IneOmI18n.validationAlphanum());
+		if(validatorName.contains(ALPHANUM_OR_SPACE))
+			return new RegexprValidator(type, fieldName, od, "[\\w ]*", "[\\w ]*", IneOmI18n.validationAlphanumOrSpace());
 		
 		return null;
 	}

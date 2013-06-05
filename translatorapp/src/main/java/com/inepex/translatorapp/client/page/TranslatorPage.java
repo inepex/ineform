@@ -3,14 +3,13 @@ package com.inepex.translatorapp.client.page;
 import java.util.Arrays;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.RadioEnumSelectorFW;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneTable;
@@ -46,7 +45,6 @@ public class TranslatorPage extends FlowPanelBasedPage {
 
 	private RadioEnumSelectorFW listTypeRadioButton;
 	private ListBoxFW moduleListBox;
-	private Button filterBtn;
 	
 	private final FormContext formCtx;
 	private final AssistedObjectHandlerFactory handlerFactory;
@@ -168,17 +166,21 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			}
 		});
 		
-		table.addCellContentDisplayer(TranslateTableRowAssist.flags, new TableFieldRenderer.CustomCellContentDisplayer() {
+		table.addCellContentDisplayer(TranslateTableRowAssist.flagsColumn, new TableFieldRenderer.CustomCellContentDisplayer() {
 			
 			@Override
 			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
 				StringBuffer sb = new StringBuffer();
 				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_recent))) {
-					sb.append("<img src='icons/png/new.png' />");
+					sb.append("<img src='icons/png/new.png' title='"+translatorappI18n.recent()+"' />");
 				}
 				
 				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_outDated))) {
-					sb.append("<img src='icons/png/cross.png' />");
+					sb.append("<img src='icons/png/warning.png' title='"+translatorappI18n.outdated()+"'/>");
+				}
+				
+				if(Boolean.TRUE.equals(rowKvo.getBoolean(TranslateTableRowConsts.k_invalid))) {
+					sb.append("<img src='icons/png/exclamation.png' title='"+translatorappI18n.invalid()+"'/>");
 				}
 				
 				if(sb.length()<1)
@@ -190,7 +192,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 	}
 
 	private void createAndAddFilterGrid() {
-		Grid filterGrid = new Grid(3, 2);
+		Grid filterGrid = new Grid(2, 2);
 		
 		filterGrid.setHTML(0, 0, translatorappI18n.transPage_listmodeSelect());
 		listTypeRadioButton = new RadioEnumSelectorFW(
@@ -203,10 +205,6 @@ public class TranslatorPage extends FlowPanelBasedPage {
 		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
 		filterGrid.setWidget(1, 1, moduleListBox);
 		
-		filterBtn= new Button(IneFormI18n.FILTER());
-		filterBtn.getElement().getStyle().setMarginBottom(30, Unit.PX);
-		filterGrid.setWidget(2, 0, filterBtn);
-		
 		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
 		filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
 		mainPanel.add(filterGrid);
@@ -216,10 +214,18 @@ public class TranslatorPage extends FlowPanelBasedPage {
 	protected void onLoad() {
 		super.onLoad();
 		
-		registerHandler(filterBtn.addClickHandler(new ClickHandler() {
+		registerHandler(listTypeRadioButton.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
 			
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
+				fillActionAndUpdate();
+			}
+		}));
+		
+		registerHandler(moduleListBox.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+			
+			@Override
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
 				fillActionAndUpdate();
 			}
 		}));

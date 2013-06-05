@@ -25,6 +25,8 @@ public class IneOmI18n extends I18nModule {
 		return moduleProvider;
 	}
 	
+	public String validationAlphanum = "This field should contain only numbers and characters!";
+	public String validationAlphanumOrSpace = "This field should contain only numbers, characters or space!";
 	public String validationEmail = "This is not valid e-mail address!";
 	public String validationFieldError = "Field error";
 	public String validationGeneralError = "Error:";
@@ -42,7 +44,25 @@ public class IneOmI18n extends I18nModule {
 
 	
 	/**
-	* <u><i>Description:</i></u>   <br />
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> This field should contain only numbers and characters!
+	* <u><i>Magyarul:</i></u> A mező csak betűket és számokat tartalmazhat!
+	*/
+	public static String validationAlphanum() {
+		return moduleProvider.get().validationAlphanum;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> This field should contain only numbers, characters or space!
+	* <u><i>Magyarul:</i></u> A mező csak betűket, számokat és szóközt tartalmazhat!
+	*/
+	public static String validationAlphanumOrSpace() {
+		return moduleProvider.get().validationAlphanumOrSpace;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> This is not valid e-mail address!
 	* <u><i>Magyarul:</i></u> Nem megfelelő e-mail cím!
 	*/

@@ -44,6 +44,16 @@ public class StringFDesc extends FDesc implements Serializable, IsSerializable {
 		return this;
 	}
 	
+	public StringFDesc alphanum() {
+		validatorNames.add(KeyValueObjectValidationManager.ALPHANUM);
+		return this;
+	}
+	
+	public StringFDesc alphanumOrSpace() {
+		validatorNames.add(KeyValueObjectValidationManager.ALPHANUM_OR_SPACE);
+		return this;
+	}
+	
 	@Override
 	public StringFDesc addProp(String name, String value) {
 		super.addProp(name, value);

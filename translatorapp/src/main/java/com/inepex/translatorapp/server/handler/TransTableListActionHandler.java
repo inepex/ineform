@@ -97,8 +97,16 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 		
 		TranslatedValue engVal = findEngVal(val);
 		
-		h.set(TranslateTableRowConsts.k_outDated, engVal==null ? true 
-				: (engVal.getLastModTime()>val.getLastModTime() || val.getValue()==null || "".equals(val.getValue())));
+		boolean outDated = engVal==null ? true 
+				: (engVal.getLastModTime()>val.getLastModTime() || val.getValue()==null || "".equals(val.getValue()));
+		h.set(TranslateTableRowConsts.k_outDated, outDated);
+		
+		if(engVal!=null) {
+			h.set(TranslateTableRowConsts.k_invalid, 
+					!TranslatedUtil.isWellFormatted(engVal.getValue()) ||
+					!TranslatedUtil.isWellFormatted(val.getValue()) ||
+					!TranslatedUtil.areParamsOfTranslatedValid(engVal.getValue(), val.getValue()));
+		}
 		
 		h.set(TranslateTableRowConsts.k_engVal, engVal==null ? null 
 				: engVal.getValue());
