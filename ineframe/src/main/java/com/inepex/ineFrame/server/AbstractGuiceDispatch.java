@@ -11,6 +11,7 @@ import net.customware.gwt.dispatch.shared.Result;
 
 import com.google.inject.Provider;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
+import com.inepex.inei18n.server.ApplicationLangs;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
@@ -19,12 +20,13 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 											implements IneInitializer{
 
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L; 
 	
 	private final I18nStore_Server serverI18n;
 	private final Provider<CurrentLang> currentLangProvider;
 	private final MultiLangDescStore multiLangDescStore;
 	private final boolean behaveIsIneInitializer;
+	private final ApplicationLangs langs;
 	
 	public abstract void doLogAction(Loggable loggable, HttpServletRequest request);
 	
@@ -32,8 +34,10 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 							   , Provider<CurrentLang> currentLangProvider
 							   , I18nStore_Server serverI18n
 							   , DescriptorStore multiLangDescStore
-							   , boolean behaveIsIneInitializer) {
+							   , boolean behaveIsIneInitializer
+							   , ApplicationLangs langs) {
 		super(dispatch);
+		this.langs=langs;
 		this.currentLangProvider = currentLangProvider;
 		this.serverI18n = serverI18n;
 		this.multiLangDescStore = (MultiLangDescStore)multiLangDescStore;
@@ -60,7 +64,7 @@ public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
 
 	private void setupDescriptorStores() {
 		
-		for (String lang : serverI18n.getAllLangs()) {			
+		for (String lang : langs.getLangs()) {			
 			currentLangProvider.get().setLangOverride(lang);
 			DescriptorStore localizedDescStore = multiLangDescStore.getCurrentDescriptorStore();
 			registerAssists(localizedDescStore);

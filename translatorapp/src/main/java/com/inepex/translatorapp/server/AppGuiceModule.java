@@ -32,7 +32,9 @@ public class AppGuiceModule  extends ActionHandlerModule {
 	@Override
 	protected void configureHandlers() {
 		install(new IneFrameBaseServletModule("translatorapp", AppDispatchServlet.class));
-		install(new IneFrameBaseModule(true).setLoginHandler(LoginHandler.class));
+		install(new IneFrameBaseModule(true)
+			.setLoginHandler(LoginHandler.class));
+//			.setAppLangs(TranslatorAppLangs.class));
 		install(new IneFormActionHanlderModule());
 		
 		bindHandler(CustomObjectDescAction.class, CustomObjectDescHandler.class);

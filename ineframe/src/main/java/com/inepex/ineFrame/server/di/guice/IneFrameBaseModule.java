@@ -11,6 +11,7 @@ import com.inepex.ineFrame.server.auth.GetAuthStatusHandler;
 import com.inepex.ineFrame.server.di.jpa.PersistInitializer;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
+import com.inepex.inei18n.server.ApplicationLangs;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.server.WebServerCurrentLang;
 import com.inepex.inei18n.shared.CurrentLang;
@@ -26,6 +27,7 @@ public class IneFrameBaseModule extends AbstractModule {
 	private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler = DefaultLoginHandler.class;
 	private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
 	private Class<? extends DescStoreCreator> descStoreCreatorClass = ClientDescStoreCreator.class;
+	private Class<? extends ApplicationLangs> appLangs = DefaultApplicationLangs.class;
 	
 	private boolean jpa = true;
 	
@@ -43,11 +45,17 @@ public class IneFrameBaseModule extends AbstractModule {
 		return this;
 	}
 	
+	public IneFrameBaseModule setAppLangs(Class<? extends ApplicationLangs> appLangs) {
+		this.appLangs = appLangs;
+		return this;
+	}
+	
 	@Override
 	protected void configure() {
 		install(new IneFrameBaseActionHandlerModule().setLoginHandler(loginHandler).setGetAuthStatusHandler(getAuthStatusHandler));
 		bind(I18nStore_Server.class).in(Singleton.class);
 		bind(CurrentLang.class).to(WebServerCurrentLang.class).in(Singleton.class);
+		bind(ApplicationLangs.class).to(appLangs).in(Singleton.class);
 		bind(DescriptorStore.class).to(MultiLangDescStore.class).in(Singleton.class);
 		bind(DescriptorStoreMapCreator.class).to(ConcurrentDescStoreMapCreator.class).in(Singleton.class);
 		bind(DescStoreCreator.class).to(descStoreCreatorClass).in(Singleton.class);

@@ -20,14 +20,9 @@ public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction
 
 	private final static Logger logger = LoggerFactory.getLogger(ChangeLanguageHandler.class);
 	
-	private final CurrentLang currentLang;
-	private final I18nStore_Server i18nStore;
-	
-	@Inject
-	public ChangeLanguageHandler(CurrentLang currentLang, I18nStore_Server i18nStore) {
-		this.currentLang = currentLang;
-		this.i18nStore=i18nStore;
-	}
+	@Inject CurrentLang currentLang;
+	@Inject I18nStore_Server i18nStore;
+	@Inject ApplicationLangs langs;
 	
 	@Override
 	public Class<ChangeLanguageAction> getActionType() {
@@ -40,7 +35,7 @@ public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction
 		
 		String reqLang = null;
 		if(action.getRequestedLanguage()==null || "".equals(action.getRequestedLanguage()) 
-				|| !i18nStore.getAllLangs().contains(action.getRequestedLanguage())) {
+				|| !langs.getLangs().contains(action.getRequestedLanguage())) {
 			reqLang=CurrentLang.DEFAULT_LANG;
 			logger.warn("Requested lang is not supported or null: {}", action.getRequestedLanguage());
 		} else {

@@ -22,6 +22,7 @@ import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
 import com.inepex.ineFrame.server.AbstractGuiceDispatch;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
+import com.inepex.inei18n.server.ApplicationLangs;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.ServerIneOmI18nProvider;
@@ -36,8 +37,8 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
 
 	@Inject
 	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
-			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder) {
-		super(dispatch, currentLangProvider, serverI18n, descStore, true);
+			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder, ApplicationLangs langs) {
+		super(dispatch, currentLangProvider, serverI18n, descStore, true, langs);
 		this.daofinder=daoFinder;
 	}
 	

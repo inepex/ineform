@@ -1,5 +1,8 @@
 package com.inepex.ineFrame.server;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -26,6 +29,7 @@ import com.inepex.ineFrame.server.di.guice.IneFrameBaseServletModule;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
+import com.inepex.inei18n.server.ApplicationLangs;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.ConcurrentDescStoreMapCreator;
@@ -115,7 +119,14 @@ public class DispatchMock {
 		@Inject
 		public TestDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider, I18nStore_Server serverI18n,
 				MultiLangDescStore multiLangDescStore) {
-			super(dispatch, currentLangProvider, serverI18n, multiLangDescStore, true);
+			super(dispatch, currentLangProvider, serverI18n, 
+					multiLangDescStore, true, new ApplicationLangs() {
+						
+						@Override
+						public Collection<String> getLangs() {
+							return Arrays.asList(CurrentLang.DEFAULT_LANG);
+						}
+					});
 		}
 
 		private static final long serialVersionUID = 1L;
