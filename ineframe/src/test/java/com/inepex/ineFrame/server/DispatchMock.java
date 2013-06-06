@@ -21,9 +21,11 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.async.DefaultFailedHandler;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.SilentStatusIndicator;
+import com.inepex.ineFrame.server.di.guice.DefaultApplicationLangs;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseActionHandlerModule;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseServletModule;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
@@ -51,6 +53,7 @@ public class DispatchMock {
 					bind(DescriptorStoreMapCreator.class).to(ConcurrentDescStoreMapCreator.class);
 					bind(DescStoreCreator.class).to(ClientDescStoreCreator.class);
 					bind(CurrentLang.class).to(MockCurrentLang.class);
+					bind(ApplicationLangs.class).to(DefaultApplicationLangs.class).in(Singleton.class);
 				}
 			},
 			new ActionHandlerModule() {
