@@ -120,15 +120,6 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Done
-	* <u><i>Magyarul:</i></u> $loc.getString("hu")
-	*/
-	public static String doneBtn() {
-		return moduleProvider.get().doneBtn;
-	}
-	
-	/**
-	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Your account is currently inactive. Please ask the administrator for roles!
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/

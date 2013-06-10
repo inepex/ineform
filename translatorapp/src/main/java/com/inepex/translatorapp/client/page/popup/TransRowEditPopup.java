@@ -57,7 +57,7 @@ public class TransRowEditPopup {
 			revertBtn = new Button(IneFormI18n.CANCEL());
 			hp.add(revertBtn);
 			
-			doneBtn = new Button(translatorappI18n.doneBtn());
+			doneBtn = new Button(IneFormI18n.SAVE());
 			hp.add(doneBtn);
 			
 			vp.add(hp);

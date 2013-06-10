@@ -103,7 +103,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 								.getRelatedKVOMultiLevel(Arrays.asList(TranslateTableRowConsts.k_translatedValue, TranslatedValueConsts.k_value))
 								.setUnchecked(TranslatedValueConsts.k_value, newTranslated);
 							
-							table.getCellTable().redraw();
+							saveRowChanges(kvoOfRow);
 						}
 					});
 			}
@@ -123,24 +123,28 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onCellClicked(AssistedObject kvoOfRow) {
-				Relation transValue = handlerFactory.createHandler(kvoOfRow).getRelation(TranslateTableRowConsts.k_translatedValue);
-				AssistedObjectHandler manhandler = handlerFactory.createHandler(TranslatedValueConsts.descriptorName);
-				manhandler.setId(transValue.getId());
-				manhandler.set(TranslatedValueConsts.k_value, transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
-				
-				ObjectManipulationAction oma = new ObjectManipulationAction(ManipulationTypes.CREATE_OR_EDIT_REQUEST, manhandler.getAssistedObject());
-				ineDispatch.execute(oma, new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
-
-					@Override
-					public void onSuccess(ObjectManipulationActionResult result) {
-						connector.update();
-					}
-				});
+				saveRowChanges(kvoOfRow);
 			}
-			
+
 			@Override
 			public String getCommandCellText() {
 				return IneFormI18n.SAVE();
+			}
+		});
+	}
+	
+	private void saveRowChanges(AssistedObject kvoOfRow) {
+		Relation transValue = handlerFactory.createHandler(kvoOfRow).getRelation(TranslateTableRowConsts.k_translatedValue);
+		AssistedObjectHandler manhandler = handlerFactory.createHandler(TranslatedValueConsts.descriptorName);
+		manhandler.setId(transValue.getId());
+		manhandler.set(TranslatedValueConsts.k_value, transValue.getKvo().getStringUnchecked(TranslatedValueConsts.k_value));
+		
+		ObjectManipulationAction oma = new ObjectManipulationAction(ManipulationTypes.CREATE_OR_EDIT_REQUEST, manhandler.getAssistedObject());
+		ineDispatch.execute(oma, new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+
+			@Override
+			public void onSuccess(ObjectManipulationActionResult result) {
+				connector.update();
 			}
 		});
 	}
