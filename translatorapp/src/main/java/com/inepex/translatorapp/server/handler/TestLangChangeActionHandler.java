@@ -22,8 +22,8 @@ public class TestLangChangeActionHandler extends AbstractIneHandler<TestLangChan
 		Object[] nums = dao.countForLangAndModule(action.getLangId(), action.getModuleId());
 		
 		TestLangChangeResult res = new TestLangChangeResult();
-		res.setWillBeDeletedWithEmpty(((Number)nums[0]).longValue());
-		res.setWillBeDeletedWithText(((Number)nums[1]).longValue());
+		res.setWillBeDeletedWithEmpty(nums[0]==null ? 0 : ((Number)nums[0]).longValue());
+		res.setWillBeDeletedWithText(nums[1]==null ? 0 : ((Number)nums[1]).longValue());
 		return res;
 	}
 
