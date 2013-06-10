@@ -95,31 +95,15 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 		h.set(TranslateTableRowConsts.k_description, val.getRow().getDescription());
 		h.set(TranslateTableRowConsts.k_translatedValue, translatedValueMapper.toRelation(val, true));
 		
-		TranslatedValue engVal = findEngVal(val);
+		TranslatedValue engVal = TranslatorAppUtil.findEngValFor(val);
 		
-		boolean outDated = engVal==null ? true 
-				: (engVal.getLastModTime()>val.getLastModTime() || val.getValue()==null || "".equals(val.getValue()));
-		h.set(TranslateTableRowConsts.k_outDated, outDated);
+		h.set(TranslateTableRowConsts.k_outDated, TranslatorAppUtil.isOutdated(val, engVal));
 		
-		if(engVal!=null) {
-			h.set(TranslateTableRowConsts.k_invalid, 
-					!TranslatedUtil.isWellFormatted(engVal.getValue()) ||
-					!TranslatedUtil.isWellFormatted(val.getValue()) ||
-					!TranslatedUtil.areParamsOfTranslatedValid(engVal.getValue(), val.getValue()));
-		}
-		
+		h.set(TranslateTableRowConsts.k_invalid, TranslatorAppUtil.isInvalid(val, engVal));
 		h.set(TranslateTableRowConsts.k_engVal, engVal==null ? null 
 				: engVal.getValue());
 	
 		return h.getAssistedObject();
-	}
-
-	private TranslatedValue findEngVal(TranslatedValue val) {
-		for(TranslatedValue tv : val.getRow().getValues()) {
-			if(Consts.defaultLang.equals(tv.getLang().getIsoName()))
-				return tv;
-		}
-		return null;
 	}
 
 	@Override

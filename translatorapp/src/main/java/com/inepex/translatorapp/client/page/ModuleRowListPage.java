@@ -90,6 +90,7 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		
 		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
 		setupTranslatedValueCreator();
+		manipulator.setPageSize(800);
 		manipulator.render();
 		setCellContentDisplayers();
 		mainPanel.add(manipulator);

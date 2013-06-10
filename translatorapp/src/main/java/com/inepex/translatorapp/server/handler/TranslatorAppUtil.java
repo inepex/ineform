@@ -7,9 +7,38 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 
-public class TranslatedUtil {
+import com.inepex.translatorapp.server.entity.TranslatedValue;
+import com.inepex.translatorapp.shared.Consts;
 
-	public static boolean isWellFormatted(String string) {
+public class TranslatorAppUtil {
+	
+	public static TranslatedValue findEngValFor(TranslatedValue val) {
+		for(TranslatedValue tv : val.getRow().getValues()) {
+			if(Consts.defaultLang.equals(tv.getLang().getIsoName()))
+				return tv;
+		}
+		return null;
+	}
+	
+	public static boolean isOutdated(TranslatedValue val, TranslatedValue engVal) {
+		return engVal==null ? true 
+				: (engVal.getLastModTime()>val.getLastModTime() 
+						|| val.getValue()==null 
+						|| "".equals(val.getValue()));
+	}
+	
+	public static boolean isInvalid(TranslatedValue val, TranslatedValue engVal) {
+		if(engVal!=null) {
+			return 
+					!TranslatorAppUtil.isWellFormatted(engVal.getValue()) ||
+					!TranslatorAppUtil.isWellFormatted(val.getValue()) ||
+					!TranslatorAppUtil.areParamsOfTranslatedValid(engVal.getValue(), val.getValue());
+		}
+		
+		return true;
+	}
+
+	static boolean isWellFormatted(String string) {
 		if(string==null || string.length()<1)
 			return true;
 		
@@ -42,7 +71,7 @@ public class TranslatedUtil {
 		return opened==0;
 	}
 	
-	public static boolean areParamsOfTranslatedValid(String original, String translated) {
+	static boolean areParamsOfTranslatedValid(String original, String translated) {
 		if(!isWellFormatted(original) || !isWellFormatted(translated))
 			throw new IllegalArgumentException();
 		

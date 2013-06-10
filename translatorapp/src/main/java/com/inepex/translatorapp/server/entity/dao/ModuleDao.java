@@ -3,6 +3,11 @@ package com.inepex.translatorapp.server.entity.dao;
 import java.util.Iterator;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -18,6 +23,7 @@ import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.Module;
 import com.inepex.translatorapp.server.entity.ModuleLang;
 import com.inepex.translatorapp.server.entity.ModuleRow;
+import com.inepex.translatorapp.server.entity.Module_;
 import com.inepex.translatorapp.server.entity.TranslatedValue;
 import com.inepex.translatorapp.server.entity.User;
 import com.inepex.translatorapp.server.entity.dao.query.ModuleQuery;
@@ -32,6 +38,9 @@ import com.inepex.translatorapp.server.entity.mapper.ModuleMapper;
  */
 @Singleton
 public class ModuleDao extends BaseDao<Module> {
+	
+	private static final Logger _logger = LoggerFactory
+			.getLogger(ModuleDao.class);
 	
 	private final DescriptorStore descStore;
 	
@@ -125,6 +134,26 @@ public class ModuleDao extends BaseDao<Module> {
 		}
 		
 		mergeTrans(module);
+	}
+
+	public Module findByName(String moduleName) {
+		CriteriaSelector<Module, Module> sel = getSelector();
+		
+		sel.cq.select(sel.root);
+		sel.cq.from(Module.class);
+		sel.cq.where(sel.cb.equal(sel.root.get(Module_.name), moduleName));
+		sel.cq.distinct(true);
+		
+		try {
+			Module u = sel.getTypedQuery().getSingleResult();
+			em.get().refresh(u);
+			return u;
+		} catch (NoResultException ex) {
+			return null;
+		} catch (NonUniqueResultException ex) {
+			_logger.error("No unique result:", ex);
+			return null;
+		}
 	}
 	
 	/*hc:customMethods*/

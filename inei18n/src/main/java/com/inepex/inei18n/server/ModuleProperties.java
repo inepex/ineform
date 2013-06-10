@@ -12,6 +12,7 @@ public class ModuleProperties {
 	public final String csvSeparator;
 	public final String sourceFolder;
 	public final String serverPackage;
+	public final String downloadUrl;
 	
 	public ModuleProperties(ClassLoader classLoader, String moduleName) {
 		SimpleOnDemandProperties odp = new SimpleOnDemandProperties(classLoader, moduleName + ".properties");
@@ -22,6 +23,7 @@ public class ModuleProperties {
 		csvSeparator = properties.getProperty("csvSeparator");
 		sourceFolder = properties.getProperty("sourceFolder");
 		serverPackage = properties.getProperty("serverPackage");
+		downloadUrl = properties.getProperty("downloadUrl", null);
 		
 		//property for localization util
 		devCsvPath=properties.getProperty("devCsvPath");

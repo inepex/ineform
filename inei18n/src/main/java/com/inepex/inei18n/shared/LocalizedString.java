@@ -9,6 +9,9 @@ public class LocalizedString  {
 	private String description;
 	private Map<String, String> localizedMap = new HashMap<String, String>();
 	
+	public LocalizedString(){
+	}
+	
 	public LocalizedString(String key, String description) {
 		this.key = key;
 		this.description = description;

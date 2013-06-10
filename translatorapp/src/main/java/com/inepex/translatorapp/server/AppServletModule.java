@@ -7,6 +7,7 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.ServletModule;
 import com.inepex.ineFrame.server.CaptchaServlet;
 import com.inepex.ineFrame.server.di.jpa.InePersistFilter;
+import com.inepex.translatorapp.server.servlet.ModuleRowsDownloadServlet;
 
 public class AppServletModule extends ServletModule {
 
@@ -20,5 +21,7 @@ public class AppServletModule extends ServletModule {
 		params.put("width", "200");
 		params.put("height", "50");
 		serve("/SimpleCaptcha.jpg").with(CaptchaServlet.class, params);
+		
+		serve("/moduleRowsDownload").with(ModuleRowsDownloadServlet.class);
 	}
 }
