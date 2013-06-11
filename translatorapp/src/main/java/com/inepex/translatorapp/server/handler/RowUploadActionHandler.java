@@ -81,6 +81,7 @@ public class RowUploadActionHandler extends AbstractIneHandler<RowUploadAction, 
 			
 			return new GenericActionResult();
 		} catch (RollbackException e) {
+			e.printStackTrace();
 			return new GenericActionResult(
 					translatorappI18n.rowUpload_rowDuplication()
 					, false);

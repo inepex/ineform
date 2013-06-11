@@ -71,7 +71,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 		connector.setAssociatedListAction(action);
 		
 		table = tableFactory.createSimple(TranslateTableRowConsts.descriptorName, connector);
-		table.setPageSize(800);
+		table.setPageSize(200);
 		addCellContentDisplayers();
 		addUserCommands();
 		table.renderTable();
