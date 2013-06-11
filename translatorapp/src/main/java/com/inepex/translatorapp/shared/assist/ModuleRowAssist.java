@@ -95,7 +95,7 @@ public class ModuleRowAssist extends Assist {
 			.addChild(ModuleRowConsts.k_id, new WidgetRDesc(FWTypes.LABEL))
 			.addChild(ModuleRowConsts.k_module, new WidgetRDesc(FWTypes.LISTBOX))
 			.addChild(ModuleRowConsts.k_key, new WidgetRDesc(FWTypes.TEXTBOX))
-			.addChild(ModuleRowConsts.k_description, new WidgetRDesc(FWTypes.TEXTBOX))
+			.addChild(ModuleRowConsts.k_description, new WidgetRDesc(FWTypes.TEXTAREA))
 			.addChild(ModuleRowConsts.k_values, new WidgetRDesc(FWTypes.RELATIONLIST, RelationListFW.FIXSIZED))
 			;
 		return formRDesc;
