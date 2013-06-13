@@ -10,6 +10,7 @@ import com.google.inject.Singleton;
 import com.inepex.ineForm.server.BaseDao;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
+import com.inepex.ineForm.server.util.DaoUtil;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -83,7 +84,7 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 		
 		if(userLangs!=null && !userLangs.isEmpty()) {
 			query.append("and tv.lang.id in ");
-			query.append(longIdListForQuery(userLangs));
+			query.append(DaoUtil.longIdListForQuery(userLangs));
 		}
 		
 		if(moduleName!=null) {
@@ -130,18 +131,6 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 				.setFirstResult(firstResult)
 				.setMaxResults(maxResult)
 				.getResultList();
-	}
-
-	private String longIdListForQuery(List<Long> ids) {
-		StringBuffer sb = new StringBuffer("(");
-		for(Long l : ids) {
-			if(sb.length()>1)
-				sb.append(",");
-			sb.append(l);
-		}
-		sb.append(")");
-		
-		return sb.toString();
 	}
 
 	public Object[] countForLangAndModule(Long langId, Long moduleId) {

@@ -4,25 +4,26 @@ package ${package}.kvo;
 import java.util.List;
 import java.util.LinkedList;
 import ${package}.*;
-import com.inepex.ineForm.shared.kvo.*;
+import com.inepex.ineom.shared.assistedobject.DtoAdapter;
 
-public class ${classname}KVO extends ${classname} {
+@SuppressWarnings("serial")
+public class ${classname}KVO extends DtoAdapter {
 
-	private static final long serialVersionUID = 1L;
+	private transient List<String> keys = null;
 
-	public static final String descriptorName = "${classnameL1}Descriptor";
+	private ${classname} wrapped;
 
-	List<String> keys = null;
-
-#foreach( $attr in $attrs )
-#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
-	public static final String k_${attr.name} = "${attr.name}";
-#end
-#end
-
+	public ${classname}KVO() {
+		this.wrapped= new ${classname}();
+	}
+	
+	public ${classname}KVO(${classname} wrapped) {
+		this.wrapped=wrapped;
+	}
+	
 	@Override
 	public String getDescriptorName() {
-		return descriptorName;
+		return ${classname}Consts.descriptorName;
 	}
 	
 	@Override
@@ -31,7 +32,7 @@ public class ${classname}KVO extends ${classname} {
 			keys = new LinkedList<String>();
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
-			keys.add(k_${attr.name});
+			keys.add(${classname}Consts.k_${attr.name});
 #end
 #end
 		}	
@@ -44,9 +45,9 @@ public class ${classname}KVO extends ${classname} {
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
 #if($attr.enum)
-		cloned.set${attr.nameU1}(get${attr.nameU1}());
+		cloned.wrapped.set${attr.nameU1}(wrapped.get${attr.nameU1}());
 #else
-		cloned.set${attr.nameU1}(get${attr.nameU1}() == null ? null : new ${attr.type}(get${attr.nameU1}()));
+		cloned.wrapped.set${attr.nameU1}(wrapped.get${attr.nameU1}() == null ? null : new ${attr.type}(wrapped.get${attr.nameU1}()));
 #end
 #end
 #end		
@@ -57,21 +58,21 @@ public class ${classname}KVO extends ${classname} {
 	protected void setObject(String key, Object o) {
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
-		if (key.equals(k_${attr.name})) {
+		if (key.equals(${classname}Consts.k_${attr.name})) {
 #if( $attr.type == "Date")
-			set${attr.nameU1}(new Date((Long)o));
+			wrapped.set${attr.nameU1}(new Date((Long)o));
 			return;
 #elseif($attr.enum)
 			if (o != null){
-				set${attr.nameU1}(${attr.typeU1}.values()[((Long)o).intValue()]);
+				wrapped.set${attr.nameU1}(${attr.typeU1}.values()[((Long)o).intValue()]);
 			}
 			return;
 #elseif($attr.type == "Long" || $attr.type == "Double" || $attr.type == "String" || $attr.type == "Boolean"
 		|| $attr.type == "Relation")
-			set${attr.nameU1}((${attr.type})o);
+			wrapped.set${attr.nameU1}((${attr.type})o);
 			return;
 #elseif($attr.list == true)
-			set${attr.nameU1}((IneList)o);
+			wrapped.set${attr.nameU1}((IneList)o);
 			return;
 #end		
 		}
@@ -84,23 +85,17 @@ public class ${classname}KVO extends ${classname} {
 	protected Object getObject(String key) {
 #foreach( $attr in $attrs )
 #if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})	
-		if (get${attr.nameU1}() != null && key.equals(k_${attr.name}))
+		if (wrapped.get${attr.nameU1}() != null && key.equals(${classname}Consts.k_${attr.name}))
 #if($attr.type == "Date")
-			return get${attr.nameU1}().getTime();
+			return wrapped.get${attr.nameU1}().getTime();
 #elseif($attr.enum)
-			return new Long(get${attr.nameU1}().ordinal());
+			return new Long(wrapped.get${attr.nameU1}().ordinal());
 #elseif($attr.type == "Long" || $attr.type == "Double" || $attr.type == "String" || $attr.type == "Boolean"
 		|| $attr.type == "Relation" || $attr.list == true)
-			return get${attr.nameU1}();
+			return wrapped.get${attr.nameU1}();
 #end
 #end
 #end
 		return null;
 	}
-	
-#foreach( $attr in $attrs )
-#if($attr.static == false && !${attr.hasAnnotation("Kvo_Transparent")})
-	public static String k_${attr.name}() {return k_${attr.name};}
-#end
-#end
 }

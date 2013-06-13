@@ -1,17 +1,44 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import com.inepex.ineom.shared.IFConsts;
+import java.util.Set;
+
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 
 @SuppressWarnings("serial")
 public abstract class DtoAdapter extends AssistedObject {
 	
+	private static Object lock = new Object();
+	private static long counter = 1L;
+	
+	private Long id;
+	
+	protected DtoAdapter() {
+		synchronized (lock) {
+			id=counter++;
+		}
+	}
+	
 	@Override
 	public abstract DtoAdapter clone();
 	
 	protected abstract void setObject(String key, Object o);
 	protected abstract Object getObject(String key);
+	
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean isNew() {
+		return false;
+	}
 	
 	@Override
 	protected void set(String key, Boolean value) {
@@ -75,22 +102,22 @@ public abstract class DtoAdapter extends AssistedObject {
 
 	@Override
 	public void setUnchecked(String key, Long value) {
-		throw new UnsupportedOperationException();
+		set(key, value);
 	}
 
 	@Override
 	public void setUnchecked(String key, String value) {
-		throw new UnsupportedOperationException();
+		set(key, value);
 	}
 
 	@Override
 	public Long getLongUnchecked(String key) {
-		throw new UnsupportedOperationException();
+		return getLong(key);
 	}
 
 	@Override
 	public String getStringUnchecked(String key) {
-		throw new UnsupportedOperationException();
+		return getString(key);
 	}
 
 	@Override
@@ -127,19 +154,54 @@ public abstract class DtoAdapter extends AssistedObject {
 	protected void copyValuesTo(AssistedObject otherKvo) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
-	public Long getId() {
-		return IFConsts.NEW_ITEM_ID;
+	public void setUnchecked(String key, Boolean value) {
+		set(key, value);
 	}
 
 	@Override
-	public void setId(Long id) {
+	public Boolean getBooleanUnchecked(String key) {
+		return getBoolean(key);
 	}
 
 	@Override
-	public boolean isNew() {
-		return true;
+	public Relation getRelationUnchecked(String key) {
+		return getRelation(key);
 	}
 
+	@Override
+	public void setDescriptorName(String descriptorName) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<String> getLongKeys() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<String> getBooleanKeys() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<String> getDoubleKeys() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<String> getStringKeys() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<String> getListKeys() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<String> getRelationKeys() {
+		throw new UnsupportedOperationException();
+	}
 }
