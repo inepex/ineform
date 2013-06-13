@@ -425,6 +425,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		for (AbstractFormUnit form : getRootPanelWidget().getFormUnits()) {
 			for (String key : form.getFormWidgetKeySet()) {
 				FormWidget widget = form.getWidgetByKey(key);
+				widget.initialDataSetOnForm(data);
 				
 				String lastKey = null;
 				AssistedObjectHandler actual = null;
