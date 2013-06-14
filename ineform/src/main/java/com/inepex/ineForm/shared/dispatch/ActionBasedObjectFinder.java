@@ -23,7 +23,17 @@ public class ActionBasedObjectFinder implements ObjectFinder {
 	
 	@Override
 	public void executeFind(String descriptorName, Long id, Callback callback, AsyncStatusIndicator customStatusIndicator) {
-		KeyValueObject idObject = new KeyValueObject(descriptorName);
+		executeFind(descriptorName, id, callback, customStatusIndicator);
+	}
+	
+	@Override
+	public void executeFind(
+			String commandDescName,
+			String objectDescName,
+			Long id,
+			Callback callback,
+			AsyncStatusIndicator customStatusIndicator) {
+		KeyValueObject idObject = new KeyValueObject(objectDescName);
 		idObject.setId(id);
 		ObjectManipulationAction action = new ObjectManipulationAction(ManipulationTypes.REFRESH, idObject);
 		dispatcher.execute(action, new ObjectRefreshCallback(callback), customStatusIndicator);
@@ -42,4 +52,5 @@ public class ActionBasedObjectFinder implements ObjectFinder {
 			callback.onObjectFound(result.getObjectsNewState());
 		}
 	}
+
 }

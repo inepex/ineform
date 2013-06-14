@@ -9,6 +9,8 @@ public interface ObjectFinder {
 	void executeFind(String descriptorName, Long id, Callback callback);
 	
 	void executeFind(String descriptorName, Long id, Callback callback, AsyncStatusIndicator customStatusIndicator);
+	
+	void executeFind(String commandDescName, String objectDescName, Long id, Callback callback, AsyncStatusIndicator customStatusIndicator);
 
 	/**
 	 * @author istvanszoboszlai
