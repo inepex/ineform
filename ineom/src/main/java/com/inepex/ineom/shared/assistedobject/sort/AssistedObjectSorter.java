@@ -34,9 +34,9 @@ public class AssistedObjectSorter {
 		public int compare(AssistedObject o1Ao, AssistedObject o2Ao) {
 			AssistedObjectHandler o1 = aoHandlerFactory.createHandler(o1Ao);
 			AssistedObjectHandler o2 = aoHandlerFactory.createHandler(o2Ao);
-			if (!o1.containsString(key)){
+			if (!o1.getKeys().contains(key)){
 				return 1;
-			} else if (!o2.containsString(key)){
+			} else if (!o2.getKeys().contains(key)){
 				return -1;
 			}
 			return compareField(o1, o2);
@@ -53,6 +53,8 @@ public class AssistedObjectSorter {
 
 		@Override
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
+			if (o1.getString(key) == null) return 1;
+			if (o2.getString(key) == null) return -1;
 			return o1.getString(key).compareTo(o2.getString(key));
 		}
 		
@@ -66,6 +68,8 @@ public class AssistedObjectSorter {
 
 		@Override
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
+			if (o1.getBoolean(key) == null) return 1;
+			if (o2.getBoolean(key) == null) return -1;
 			return o1.getBoolean(key).compareTo(o2.getBoolean(key));
 		}
 		
@@ -79,6 +83,8 @@ public class AssistedObjectSorter {
 
 		@Override
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
+			if (o1.getLong(key) == null) return 1;
+			if (o2.getLong(key) == null) return -1;
 			return o1.getLong(key).compareTo(o2.getLong(key));
 		}
 		
@@ -92,6 +98,8 @@ public class AssistedObjectSorter {
 
 		@Override
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
+			if (o1.getDouble(key) == null) return 1;
+			if (o2.getDouble(key) == null) return -1;
 			return o1.getDouble(key).compareTo(o2.getDouble(key));
 		}
 		
@@ -105,6 +113,8 @@ public class AssistedObjectSorter {
 
 		@Override
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
+			if (o1.getRelation(key) == null) return 1;
+			if (o2.getRelation(key) == null) return -1;
 			return o1.getRelation(key).getDisplayName().compareTo(o2.getRelation(key).getDisplayName());
 		}
 		
