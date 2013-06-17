@@ -21,6 +21,10 @@ public class ArrayListConcurrentHashMap<T, K> {
 		return map.get(id);
 	}
 	
+	public boolean isListNullById(long trackerId) {
+		return map.get(trackerId)==null;
+	}
+	
 	public boolean containsKey(T id) {
 		return map.containsKey(id);
 	}
