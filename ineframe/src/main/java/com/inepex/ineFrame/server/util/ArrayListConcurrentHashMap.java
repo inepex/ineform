@@ -13,27 +13,30 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <T> Type of the Key
  * @param <K> Generic type of the List
  */
-public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<K>>{
+public class ArrayListConcurrentHashMap<T, K> {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private final ConcurrentHashMap<T, List<K>> map = new ConcurrentHashMap<>();
 	
 	public List<K> getListById(T id){
-		return get(id);
+		return map.get(id);
+	}
+	
+	public boolean containsKey(T id) {
+		return map.containsKey(id);
 	}
 	
 	public boolean isListEmptyOrNullById(T id) {
-		List<K> list = get(id);
+		List<K> list = map.get(id);
 		return (list == null) || (list.isEmpty());
-	}
-
-	public boolean isListNullById(T id){
-		return (get(id) == null);
 	}
 	
 	public void addToListById(T id, K element){
 		List<K> list = ensureListById(id);
 		list.add(element);
+	}
+	
+	public void remove(T id) {
+		map.remove(id);
 	}
 	
 	/**
@@ -44,26 +47,37 @@ public class ArrayListConcurrentHashMap<T, K> extends ConcurrentHashMap<T, List<
 	 * @return
 	 */
 	public List<K> ensureListById(T id) {
-		List<K> list = get(id);
-		if(list == null) {
-			list = new ArrayList<K>(1);
-			put(id, list);
-		}
-		return list;
+		List<K> list = map.get(id);
+		if(list!=null)
+			return list;
 		
-	}
-	
-	public void addEmptyListById(T id){
-		put(id, new ArrayList<K>());
+		list = new ArrayList<K>(1);
+		List<K> oldVal = map.putIfAbsent(id, list);
+		if(oldVal!=null)
+			return oldVal;
+		else
+			return list;
 	}
 
 	public void addAllToListById(T id, Collection<K> elements) {
 		List<K> list = ensureListById(id);
 		list.addAll(elements);
 	}
+	
 	public boolean contains(T id, K element){
 		if(isListEmptyOrNullById(id)) return false;
-		List<K> list = get(id);
+		List<K> list = map.get(id);
+		if(list==null)
+			return false;
+		
 		return list.contains(element);
+	}
+
+	public void clear() {
+		map.clear();
+	}
+
+	public boolean isEmpty() {
+		return map.isEmpty();
 	}
 }
