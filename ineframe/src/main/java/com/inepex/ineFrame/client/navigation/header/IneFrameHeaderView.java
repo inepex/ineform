@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 import com.inepex.ineFrame.client.navigation.header.widget.ClickLabel;
@@ -22,6 +23,9 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private SettingsPopup popup;
 	private OnClickedLogic settingsButtonLogic;
 	private OnClickedLogic usernameClickedLogic;
+	
+	private HTML login = new HTML(IneFrameI18n.LOGIN());
+	private OnClickedLogic loginClickLogic;
 	
 	@Inject
 	IneFrameHeaderView() {
@@ -39,18 +43,23 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		userName=new HTML();
 		userName.setStyleName(ResourceHelper.getRes().style().settingsUserName());
 		add(userName);
+		add(login);
+		login.setVisible(false);
+		login.setStyleName(ResourceHelper.getRes().style().settingsUserName());
 		
 		popup=new SettingsPopup();
 	}
 
 	@Override
-	public void setUserName(String username) {
+	public void setUserName(String username, boolean showLoginLinkWhenLoggedOut) {
 		if(username==null) {
 			userName.setVisible(false);
 			userName.setHTML("");
+			if (showLoginLinkWhenLoggedOut) login.setVisible(true);
 		} else {
 			userName.setVisible(true);
 			userName.setHTML(username);
+			login.setVisible(false);
 		}
 	}
 	
@@ -76,6 +85,16 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 				}
 			}
 		}));
+		
+		registerHandler(login.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					if (loginClickLogic != null) {
+						loginClickLogic.doLogic();
+					}
+				}
+			}));
 		
 	}
 
@@ -126,4 +145,9 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	@Override
 	public void setLanguageSelectorVisible(boolean visible) {
 	}
+	
+	public void setLoginClickLogic(OnClickedLogic logic){
+		this.loginClickLogic = logic;
+	}
+	
 }

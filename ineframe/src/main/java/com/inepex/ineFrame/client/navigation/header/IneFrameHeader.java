@@ -25,7 +25,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		/**
 		 * @param username - username as html or null to hide
 		 */
-		public void setUserName(String username);
+		public void setUserName(String username, boolean showLoginLinkWhenLoggedOut);
 		
 		public void setSettingsButtonVisible(boolean visible);
 		public void setSettingsButtonLogic(OnClickedLogic logic);
@@ -41,6 +41,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		public void setUserNameClickedLogic(OnClickedLogic logic);
 		
 		public void setLogoNameClickedLogic(OnClickedLogic logic);
+		
+		public void setLoginClickLogic(OnClickedLogic logic);
 		
 		public IsWidget asWidget();
 	}
@@ -65,6 +67,8 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	
 	
 	private OnClickedLogic settingsClickLogic;
+	
+	private boolean showLoginLinkWhenLoggedOut = false;
 	
 	@Inject
 	public IneFrameHeader(AuthManager authManager,
@@ -96,9 +100,9 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		getOrCreateView().setUserNameClickedLogic(settingsClickLogic);
 		
 		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
-			getOrCreateView().setUserName(authManager.getLastAuthStatusResult().getDisplayName());
+			getOrCreateView().setUserName(authManager.getLastAuthStatusResult().getDisplayName(), showLoginLinkWhenLoggedOut);
 		} else {
-			getOrCreateView().setUserName(null);
+			getOrCreateView().setUserName(null, showLoginLinkWhenLoggedOut);
 		}
 		
 		boolean showSettings = false;
@@ -149,6 +153,15 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		getOrCreateView().setLanguageSelectorVisible(showLangSelector);
 		getOrCreateView().setSettingsButtonVisible(showSettings);
+		if (showLoginLinkWhenLoggedOut){
+			getOrCreateView().setLoginClickLogic(new OnClickedLogic() {
+				
+				@Override
+				public void doLogic() {
+					eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.loginPlace));
+				}
+			});
+		}
 	}
 	
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
@@ -162,5 +175,9 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		
 		return view;
+	}
+	
+	public void setShowLoginLinkWhenLoggedOut(boolean showLoginLinkWhenLoggedOut) {
+		this.showLoginLinkWhenLoggedOut = showLoginLinkWhenLoggedOut;
 	}
 }
