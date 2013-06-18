@@ -59,24 +59,18 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		
 		verify(view, times(1)).clearLevel(anyInt());
 		
-		//5 menu item
-		verify(view, times(5)).createTab(anyString(), anyInt());
-		verify(view, times(5)).createTab(anyString(), eq(0));
-		
-		//plain place
-		verifyTab(tabs[0], false, false, true);
+		//3 visible menu item
+		verify(view, times(3)).createTab(anyString(), anyInt());
+		verify(view, times(3)).createTab(anyString(), eq(0));
 		
 		//has menu name
-		verifyTab(tabs[1], true, true, false);
+		verifyTab(tabs[0], true, true, false);
 		
 		//has menu name 2
-		verifyTab(tabs[2], true, true, false);
-		
-		//only visible when...
-		verifyTab(tabs[3], false, false, false);
+		verifyTab(tabs[1], true, true, false);
 		
 		//only visible when... and has name
-		verifyTab(tabs[4], false, false, false);
+		verifyTab(tabs[2], false, false, false);
 	}
 	
 	/**
@@ -95,24 +89,18 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		
 		verify(view, times(1)).clearLevel(anyInt());
 		
-		//5 menu item
-		verify(view, times(5)).createTab(anyString(), anyInt());
-		verify(view, times(5)).createTab(anyString(), eq(0));
-		
-		//plain place
-		verifyTab(tabs[0], false, false, false);
+		//3 visible menu item
+		verify(view, times(3)).createTab(anyString(), anyInt());
+		verify(view, times(3)).createTab(anyString(), eq(0));
 		
 		//has menu name
-		verifyTab(tabs[1], true, true, false);
+		verifyTab(tabs[0], true, true, false);
 		
 		//has menu name 2
-		verifyTab(tabs[2], true, true, false);
-		
-		//only visible when...
-		verifyTab(tabs[3], false, false, false);
+		verifyTab(tabs[1], true, true, false);
 		
 		//only visible when... and has names
-		verifyTab(tabs[4], true, true, true);
+		verifyTab(tabs[2], true, true, true);
 	}
 	
 	private class PlainPlaceHierarchyProv extends DefaultPlaceHierarchyProvider {

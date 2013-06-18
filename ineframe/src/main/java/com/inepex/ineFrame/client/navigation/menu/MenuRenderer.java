@@ -213,6 +213,7 @@ public class MenuRenderer {
 	}
 	
 	private void createTab(final Node<InePlace> node, List<String> tokens, boolean selected, boolean visible, int level){
+		if (node.getNodeElement().getMenuName() == null) return;
 		Tab tab = view.createTab(node.getNodeElement().getMenuName(), level);
 		
 //		tab.setClickable((!selected || level!=tokens.size()-1) && visible);

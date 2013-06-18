@@ -81,19 +81,19 @@ public class MenuRendererShowChildreWhenActiveTest {
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
 		
 		//4 menu item
-		verify(view, times(5)).createTab(anyString(), anyInt());
-		verify(view, times(4)).createTab(anyString(), eq(0));
+		verify(view, times(3)).createTab(anyString(), anyInt());
+		verify(view, times(2)).createTab(anyString(), eq(0));
 		verify(view, times(1)).createTab(anyString(), eq(1));
 		
 		//visibleItem1
-		verify(tabs[4], times(1)).setClickable(true);
-		verify(tabs[4], never()).setClickable(false);
-		verify(tabs[4], times(1)).setEnabled(true);
-		verify(tabs[4], never()).setEnabled(false);
-		verify(tabs[4], times(1)).setItemVisible(true);
-		verify(tabs[4], never()).setItemVisible(false);
-		verify(tabs[4], times(1)).setSelected(false);
-		verify(tabs[4], never()).setSelected(true);
+		verify(tabs[2], times(1)).setClickable(true);
+		verify(tabs[2], never()).setClickable(false);
+		verify(tabs[2], times(1)).setEnabled(true);
+		verify(tabs[2], never()).setEnabled(false);
+		verify(tabs[2], times(1)).setItemVisible(true);
+		verify(tabs[2], never()).setItemVisible(false);
+		verify(tabs[2], times(1)).setSelected(false);
+		verify(tabs[2], never()).setSelected(true);
 	}
 	
 	/**
@@ -130,29 +130,29 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
-		verify(view, times(6)).createTab(anyString(), anyInt());
-		verify(view, times(4)).createTab(anyString(), eq(0));
+		verify(view, times(4)).createTab(anyString(), anyInt());
+		verify(view, times(2)).createTab(anyString(), eq(0));
 		verify(view, times(2)).createTab(anyString(), eq(1));
 		
 		//visibleItem2
-		verify(tabs[4], times(1)).setClickable(true);
-		verify(tabs[4], never()).setClickable(false);
-		verify(tabs[4], times(1)).setEnabled(true);
-		verify(tabs[4], never()).setEnabled(false);
-		verify(tabs[4], times(1)).setItemVisible(true);
-		verify(tabs[4], never()).setItemVisible(false);
-		verify(tabs[4], times(1)).setSelected(false);
-		verify(tabs[4], never()).setSelected(true);
+		verify(tabs[2], times(1)).setClickable(true);
+		verify(tabs[2], never()).setClickable(false);
+		verify(tabs[2], times(1)).setEnabled(true);
+		verify(tabs[2], never()).setEnabled(false);
+		verify(tabs[2], times(1)).setItemVisible(true);
+		verify(tabs[2], never()).setItemVisible(false);
+		verify(tabs[2], times(1)).setSelected(false);
+		verify(tabs[2], never()).setSelected(true);
 		
 		//visibleItem3
-		verify(tabs[5], times(1)).setClickable(true);
-		verify(tabs[5], never()).setClickable(false);
-		verify(tabs[5], times(1)).setEnabled(true);
-		verify(tabs[5], never()).setEnabled(false);
-		verify(tabs[5], times(1)).setItemVisible(true);
-		verify(tabs[5], never()).setItemVisible(false);
-		verify(tabs[5], times(1)).setSelected(false);
-		verify(tabs[5], never()).setSelected(true);
+		verify(tabs[3], times(1)).setClickable(true);
+		verify(tabs[3], never()).setClickable(false);
+		verify(tabs[3], times(1)).setEnabled(true);
+		verify(tabs[3], never()).setEnabled(false);
+		verify(tabs[3], times(1)).setItemVisible(true);
+		verify(tabs[3], never()).setItemVisible(false);
+		verify(tabs[3], times(1)).setSelected(false);
+		verify(tabs[3], never()).setSelected(true);
 		
 	}
 	
