@@ -67,6 +67,13 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	
 	
 	private OnClickedLogic settingsClickLogic;
+	private OnClickedLogic logoClickLogic = new OnClickedLogic() {
+		
+		@Override
+		public void doLogic() {
+			eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
+		}
+	};
 	
 	private boolean showLoginLinkWhenLoggedOut = false;
 	
@@ -153,6 +160,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		}
 		getOrCreateView().setLanguageSelectorVisible(showLangSelector);
 		getOrCreateView().setSettingsButtonVisible(showSettings);
+		getOrCreateView().setLogoNameClickedLogic(logoClickLogic);
 		if (showLoginLinkWhenLoggedOut){
 			getOrCreateView().setLoginClickLogic(new OnClickedLogic() {
 				
@@ -165,8 +173,7 @@ public class IneFrameHeader implements PlaceRequestHandler {
 	}
 	
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
-		getOrCreateView().setLogoNameClickedLogic(logic);
-		
+		this.logoClickLogic = logic;		
 	}
 	
 	private View getOrCreateView(){

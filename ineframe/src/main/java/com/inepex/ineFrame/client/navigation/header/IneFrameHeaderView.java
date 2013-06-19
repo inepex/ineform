@@ -18,9 +18,11 @@ import com.inepex.ineFrame.client.navigation.header.widget.SettingsPopup;
 @Singleton
 public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFrameHeader.View {
 	
+	private Image logo;
 	private HTML userName;
 	private Image settingsImg;
 	private SettingsPopup popup;
+	private OnClickedLogic logoClickedLogic;
 	private OnClickedLogic settingsButtonLogic;
 	private OnClickedLogic usernameClickedLogic;
 	
@@ -31,7 +33,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	IneFrameHeaderView() {
 		setStyleName(ResourceHelper.getRes().style().header());
 		
-		Image logo = new Image(ResourceHelper.getRes().logo());
+		logo = new Image(ResourceHelper.getRes().logo());
 		logo.setStyleName(ResourceHelper.getRes().style().logo());
 		add(logo);
 		
@@ -86,6 +88,17 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 			}
 		}));
 		
+		
+		registerHandler(logo.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if (logoClickedLogic != null) {
+					logoClickedLogic.doLogic();
+				}
+			}
+		}));
+		
 		registerHandler(login.addClickHandler(new ClickHandler() {
 				
 				@Override
@@ -94,7 +107,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 						loginClickLogic.doLogic();
 					}
 				}
-			}));
+		}));
 		
 	}
 
@@ -140,6 +153,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	@Override
 	public void setLogoNameClickedLogic(OnClickedLogic logic) {
+		logoClickedLogic = logic;
 	}
 
 	@Override
