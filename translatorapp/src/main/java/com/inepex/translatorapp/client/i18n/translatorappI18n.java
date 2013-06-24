@@ -27,11 +27,12 @@ public class translatorappI18n extends I18nModule {
 	
 	public String all = "All";
 	public String appname = "Translator Application";
-	public String doneBtn = "Done";
 	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
 	public String invalid = "Special parts of translated value (or original) are invalid";
 	public String lang_id = "Id";
 	public String lang_isoName = "Iso name";
+	public String massUpload = "Mass upload";
+	public String massUploadAlert = "Error happened or module hasn't got languages. Please check it.";
 	public String modRow_engModTime = "English mod. time";
 	public String modRow_engVal = "English value";
 	public String moduleLangDelQuestion = "This module contains <b>{emptyCount}</b> empty strings and <b>{translatedCount}</b> translated strings for the selected language. Do you really want remove this language?";
@@ -75,8 +76,10 @@ public class translatorappI18n extends I18nModule {
 	public String transPage_listmodeSelect = "<b>Show:</b>";
 	public String transPage_moduleSelect = "<b>Of module:</b>";
 	public String translateTableRow_description = "Description";
+	public String translateTableRow_engModTime = "Eng. last mod.";
 	public String translateTableRow_engVal = "In English";
 	public String translateTableRow_id = "Id";
+	public String translateTableRow_key = "Key";
 	public String translateTableRow_translatedValue = "TranslatedValue";
 	public String translatedValue_id = "Id";
 	public String translatedValue_lang = "Language";
@@ -152,6 +155,24 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String lang_isoName() {
 		return moduleProvider.get().lang_isoName;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Mass upload
+	* <u><i>Magyarul:</i></u> $loc.getString("hu")
+	*/
+	public static String massUpload() {
+		return moduleProvider.get().massUpload;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Error happened or module hasn't got languages. Please check it.
+	* <u><i>Magyarul:</i></u> $loc.getString("hu")
+	*/
+	public static String massUploadAlert() {
+		return moduleProvider.get().massUploadAlert;
 	}
 	
 	/**
@@ -543,6 +564,15 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Eng. last mod.
+	* <u><i>Magyarul:</i></u> $loc.getString("hu")
+	*/
+	public static String translateTableRow_engModTime() {
+		return moduleProvider.get().translateTableRow_engModTime;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> In English
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
@@ -557,6 +587,15 @@ public class translatorappI18n extends I18nModule {
 	*/
 	public static String translateTableRow_id() {
 		return moduleProvider.get().translateTableRow_id;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Key
+	* <u><i>Magyarul:</i></u> $loc.getString("hu")
+	*/
+	public static String translateTableRow_key() {
+		return moduleProvider.get().translateTableRow_key;
 	}
 	
 	/**

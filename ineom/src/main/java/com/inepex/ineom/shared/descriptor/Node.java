@@ -21,7 +21,7 @@ public class Node<T> implements Serializable, IsSerializable {
 	
 	private static final long serialVersionUID = 7055245403110164008L;
 	
-	public static String ID_SEPARATOR = "/";
+	public static final String ID_SEPARATOR = "/";
 
 	private boolean isRootNode = false;
 	private Node<T> parent;

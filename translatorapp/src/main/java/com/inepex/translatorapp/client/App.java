@@ -11,6 +11,7 @@ import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
+import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 import com.inepex.translatorapp.client.gin.AppGinjector;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
@@ -33,7 +34,7 @@ public class App extends IneFrameEntryPoint {
 	public void onIneModuleLoad() {		
 		NavigationProperties.defaultPlace=AppPlaceHierarchyProvider.LOGIN;
 		NavigationProperties.noRightPlace=AppPlaceHierarchyProvider.LOGIN;
-		NavigationProperties.wrongTokenPlace=AppPlaceHierarchyProvider.LOGGEDIN + "/" + AppPlaceHierarchyProvider.PAGENOTFOUND;
+		NavigationProperties.wrongTokenPlace=AppPlaceHierarchyProvider.LOGGEDIN + Node.ID_SEPARATOR + AppPlaceHierarchyProvider.PAGENOTFOUND;
 		NavigationProperties.loginPlace = AppPlaceHierarchyProvider.LOGIN;
 		NavigationProperties.defaultWindowTitle=translatorappI18n.appname();
 		

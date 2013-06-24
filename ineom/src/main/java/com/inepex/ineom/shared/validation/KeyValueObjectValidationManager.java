@@ -107,13 +107,12 @@ public class KeyValueObjectValidationManager {
 		if(validatorName.contains(MINLENGTH))
 			return new LengthValidator(type, fieldName, Type.MINLENGTH, Integer.parseInt(validatorName.replaceAll(MINLENGTH+":", "")), od);
 		
-		//e-mail
-		if(validatorName.contains(EMAIL))
+		//kind of string 
+		if(validatorName.equals(EMAIL))
 			return new EmailValidator(type, fieldName, od);
-		
-		if(validatorName.contains(ALPHANUM))
+		if(validatorName.equals(ALPHANUM))
 			return new RegexprValidator(type, fieldName, od, "[\\w]*", "[\\w]*", IneOmI18n.validationAlphanum());
-		if(validatorName.contains(ALPHANUM_OR_SPACE))
+		if(validatorName.equals(ALPHANUM_OR_SPACE))
 			return new RegexprValidator(type, fieldName, od, "[\\w ]*", "[\\w ]*", IneOmI18n.validationAlphanumOrSpace());
 		
 		return null;

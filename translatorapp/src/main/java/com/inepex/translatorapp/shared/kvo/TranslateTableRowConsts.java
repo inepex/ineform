@@ -12,7 +12,9 @@ public class TranslateTableRowConsts {
 	public static final String k_invalid = "invaid";
 	public static final String k_description = "description";	
 	public static final String k_engVal = "engVal";	
-	public static final String k_translatedValue = "translatedValue";	
+	public static final String k_translatedValue = "translatedValue";
+	public static final String k_engModTime = "engModTime";
+	public static final String k_key = "key";
 
 	public static String k_id() {
 		return k_id;

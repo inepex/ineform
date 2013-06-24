@@ -41,7 +41,6 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 		List<Long> userLangs = fetchUserLangs();
 		
 		ObjectListActionResult res = new ObjectListActionResult();
-		res.setDescriptorName(TranslateTableRowConsts.descriptorName);
 		if (action.isQueryResultCount()) {
 			List<TranslatedValue> values = translatedValueDao.listForTranslatorPage(false, userLangs, 0, 100000, action.getModuleName(), action.getListType());
 			res.setAllResultCount((long) values.size());
@@ -103,6 +102,9 @@ public class TransTableListActionHandler extends AbstractIneHandler<TransTableLi
 		h.set(TranslateTableRowConsts.k_engVal, engVal==null ? null 
 				: engVal.getValue());
 	
+		h.set(TranslateTableRowConsts.k_key, val.getRow().getKey());
+		h.set(TranslateTableRowConsts.k_engModTime, engVal==null ? null : engVal.getLastModTime());
+		
 		return h.getAssistedObject();
 	}
 

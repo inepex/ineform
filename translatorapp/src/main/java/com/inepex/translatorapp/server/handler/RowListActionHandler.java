@@ -13,7 +13,6 @@ import com.inepex.translatorapp.server.entity.ModuleRow;
 import com.inepex.translatorapp.server.entity.dao.ModuleRowDao;
 import com.inepex.translatorapp.server.entity.mapper.ModuleRowMapper;
 import com.inepex.translatorapp.shared.action.RowListAction;
-import com.inepex.translatorapp.shared.kvo.TranslateTableRowConsts;
 
 public class RowListActionHandler extends AbstractIneHandler<RowListAction, ObjectListActionResult> {
 
@@ -22,11 +21,8 @@ public class RowListActionHandler extends AbstractIneHandler<RowListAction, Obje
 	
 	@Override
 	protected ObjectListActionResult doExecute(RowListAction action, ExecutionContext context) throws AuthenticationException, DispatchException {
-
-		
 		
 		ObjectListActionResult res = new ObjectListActionResult();
-		res.setDescriptorName(TranslateTableRowConsts.descriptorName);
 		if (action.isQueryResultCount()) {
 			List<ModuleRow> values = dao.listForPage(false, 0, 100000, action.getMagicString(), action.getModuleId());
 			res.setAllResultCount((long) values.size());
