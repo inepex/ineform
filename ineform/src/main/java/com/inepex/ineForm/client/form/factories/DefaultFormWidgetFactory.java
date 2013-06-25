@@ -179,13 +179,21 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new SuggestBoxFw(formCtx, fieldDesc);
 		}
 		
-		//setting label or html after fw
-		if(createdWidget!=null && wrDesc.hasProp(FWTypes.p_label)) {
-			return new LabelledFW(createdWidget, wrDesc.getPropValue(FWTypes.p_label));
-		}
+
 		
 		return createdWidget;
 		
 	}
+
+	@Override
+	public FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc) {
+		//setting label or html after fw
+		if(formWidget!=null && wrDesc.hasProp(FWTypes.p_label)) {
+			return new LabelledFW(formWidget, wrDesc.getPropValue(FWTypes.p_label));
+		}
+		
+		return formWidget;
+	}
+
 
 }

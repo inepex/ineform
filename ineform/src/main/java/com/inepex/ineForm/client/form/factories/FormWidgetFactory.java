@@ -20,4 +20,6 @@ public interface FormWidgetFactory {
 			 , WidgetRDesc wrDesc
 			 , CustomOdFinder odFinder
 			 , Provider<CustomKVOFW.View> customKvoView);
+	
+	FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc);
 }

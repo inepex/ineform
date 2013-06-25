@@ -36,7 +36,19 @@ public class FormWidgetFactoryManager implements FormWidgetFactory {
 			createdWidget = factory.createWidget(formCtx, form, fieldDesc, wrDesc, odFinder, customKvoView);
 			if (createdWidget != null) break;
 		}
+		
 		return createdWidget;
+	}
+
+	@Override
+	public FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc) {
+		for (FormWidgetFactory factory : factories){
+			if (formWidget != null) {
+				formWidget = factory.createDecorator(formWidget, fieldDesc, wrDesc);
+			}
+		}
+		
+		return formWidget;
 	}
 	
 	
