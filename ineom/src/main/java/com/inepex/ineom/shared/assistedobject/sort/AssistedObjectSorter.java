@@ -38,6 +38,8 @@ public class AssistedObjectSorter {
 				return 1;
 			} else if (!o2.getKeys().contains(key)){
 				return -1;
+			} else if (!o1.getKeys().contains(key) && !o2.getKeys().contains(key)){
+				return 0;
 			}
 			return compareField(o1, o2);
 		}
@@ -55,6 +57,7 @@ public class AssistedObjectSorter {
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
 			if (o1.getString(key) == null) return 1;
 			if (o2.getString(key) == null) return -1;
+			if (o1.getString(key) == null && o2.getString(key) == null) return 0;
 			return o1.getString(key).compareTo(o2.getString(key));
 		}
 		
@@ -70,6 +73,7 @@ public class AssistedObjectSorter {
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
 			if (o1.getBoolean(key) == null) return 1;
 			if (o2.getBoolean(key) == null) return -1;
+			if (o1.getBoolean(key) == null && o2.getBoolean(key) == null) return 0;
 			return o1.getBoolean(key).compareTo(o2.getBoolean(key));
 		}
 		
@@ -85,6 +89,7 @@ public class AssistedObjectSorter {
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
 			if (o1.getLong(key) == null) return 1;
 			if (o2.getLong(key) == null) return -1;
+			if (o1.getLong(key) == null && o2.getLong(key) == null) return 0;
 			return o1.getLong(key).compareTo(o2.getLong(key));
 		}
 		
@@ -100,6 +105,7 @@ public class AssistedObjectSorter {
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
 			if (o1.getDouble(key) == null) return 1;
 			if (o2.getDouble(key) == null) return -1;
+			if (o1.getDouble(key) == null && o2.getDouble(key) == null) return 0;
 			return o1.getDouble(key).compareTo(o2.getDouble(key));
 		}
 		
@@ -115,6 +121,7 @@ public class AssistedObjectSorter {
 		protected int compareField(AssistedObjectHandler o1, AssistedObjectHandler o2) {
 			if (o1.getRelation(key) == null) return 1;
 			if (o2.getRelation(key) == null) return -1;
+			if (o1.getRelation(key) == null && o2.getRelation(key) == null) return 0;
 			return o1.getRelation(key).getDisplayName().compareTo(o2.getRelation(key).getDisplayName());
 		}
 		
