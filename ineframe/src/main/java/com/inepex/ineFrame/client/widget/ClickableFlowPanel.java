@@ -1,4 +1,4 @@
-package com.inepex.ineForm.client.widget;
+package com.inepex.ineFrame.client.widget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
