@@ -117,7 +117,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	@Override
 	public void setSettingsButtonVisible(boolean visible) {
-		settingsImg.setVisible(visible);
+		settingsPanel.setVisible(visible);
 	}
 
 	@Override

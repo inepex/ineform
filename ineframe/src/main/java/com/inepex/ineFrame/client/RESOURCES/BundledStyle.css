@@ -39,13 +39,16 @@
 	width: 200px;
 }
 .settingsPopup td{
-	padding: 0 15px;
 	text-align: right;
 	height: 50px;
 	vertical-align: middle !important;
 	font-weight: bold;
 	color: #ccc;
+	border-top: 1px solid #ccc;
 	
+}
+.settingsPopup tr:first-child td{
+	border-top: 0;
 }
 .settingsPopup td:hover{
 	background: #f6f6f6;
@@ -55,7 +58,8 @@
 }
 
 .settingsPopup td div{
-
+	padding: 0 15px;
+	line-height: 50px;
 }
 .settingPanel{
 	float: right;

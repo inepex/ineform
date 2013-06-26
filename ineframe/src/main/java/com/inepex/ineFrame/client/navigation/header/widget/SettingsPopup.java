@@ -22,4 +22,5 @@ public class SettingsPopup extends DialogBox {
 	public void addClickLabel(ClickLabel clickLabel) {
 		panel.add(clickLabel);
 	}
+	
 }

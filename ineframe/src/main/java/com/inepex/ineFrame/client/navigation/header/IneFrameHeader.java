@@ -144,7 +144,6 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		if((!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn())) {
 			showSettings = true;
 			showLangSelector = false;
-			
 			getOrCreateView().addToSettingsPopup(IneFrameI18n.LOGOUT(), new OnClickedLogic() {
 				
 				@Override
