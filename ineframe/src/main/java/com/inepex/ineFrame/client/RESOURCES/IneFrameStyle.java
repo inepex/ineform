@@ -14,8 +14,10 @@ public interface IneFrameStyle extends CssResource {
 	
 	String header();
 	String logo();
+	String settingsPopup();
 	String settingsUserName();
-	
+	String settingPanel();
+	String settingImg();
 	String selector();
 	String arrow();
 	String item();

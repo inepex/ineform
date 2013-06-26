@@ -34,10 +34,6 @@ public interface IneFrameResources extends ClientBundle {
 	@ImageOptions(repeatStyle=RepeatStyle.Horizontal)
 	ImageResource submenu_on();
 	
-	@Source("header.png")
-	@ImageOptions(repeatStyle=RepeatStyle.Horizontal)
-	ImageResource header();
-	
 	@Source("logo.png")
 	ImageResource logo();
 	

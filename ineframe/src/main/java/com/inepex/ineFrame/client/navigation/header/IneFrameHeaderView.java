@@ -1,7 +1,5 @@
 package com.inepex.ineFrame.client.navigation.header;
 
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.HTML;
@@ -14,12 +12,14 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 import com.inepex.ineFrame.client.navigation.header.widget.ClickLabel;
 import com.inepex.ineFrame.client.navigation.header.widget.SettingsPopup;
+import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton
 public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFrameHeader.View {
 	
 	private Image logo;
 	private HTML userName;
+	private ClickableFlowPanel settingsPanel;
 	private Image settingsImg;
 	private SettingsPopup popup;
 	private OnClickedLogic logoClickedLogic;
@@ -38,16 +38,20 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		add(logo);
 		
 		settingsImg = new Image(ResourceHelper.getRes().settings());
-		settingsImg.getElement().getStyle().setFloat(Float.RIGHT);
-		settingsImg.getElement().getStyle().setCursor(Cursor.POINTER);
-		add(settingsImg);
+		settingsImg.setStyleName(ResourceHelper.getRes().style().settingImg());
+		settingsPanel = new ClickableFlowPanel();
+		settingsPanel.add(settingsImg);
+		settingsPanel.setStyleName(ResourceHelper.getRes().style().settingPanel());
+		add(settingsPanel);
+		
 		
 		userName=new HTML();
 		userName.setStyleName(ResourceHelper.getRes().style().settingsUserName());
 		add(userName);
-		add(login);
+		
 		login.setVisible(false);
 		login.setStyleName(ResourceHelper.getRes().style().settingsUserName());
+		add(login);
 		
 		popup=new SettingsPopup();
 	}
@@ -69,7 +73,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	protected void onAttach() {
 		super.onAttach();
 			
-		registerHandler(settingsImg.addClickHandler(new ClickHandler() {
+		registerHandler(settingsPanel.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -133,7 +137,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	@Override
 	public void showSettingsPopup() {
-		popup.showRelativeTo(settingsImg);
+		popup.showRelativeTo(settingsPanel);
 	}
 
 	@Override
