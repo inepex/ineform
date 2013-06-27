@@ -101,15 +101,13 @@
 /* opera */
 } @elif user.agent opera {
 .menu {
-		height:50px;
-
+	height:50px;
 	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 /* menu other or safari or chrome*/
 } @else {
 .menu {
 	height:50px;
-
 	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 }
@@ -130,7 +128,7 @@
 .menu a {
 	float: left;
 	color: #666;
-	padding: 19px 10px 18px 40px;
+	padding: 19px 10px 16px 40px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;
@@ -141,7 +139,7 @@
 .menu a:hover {
 	float: left;
 	color: #666;
-	padding: 19px 10px 18px 40px;
+	padding: 19px 10px 16px 40px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;
@@ -155,7 +153,7 @@
 .menu .current_page_item a {
 	float: left;
 	color: #666;
-	padding: 19px 10px 18px 40px;
+	padding: 19px 10px 16px 40px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;
@@ -167,36 +165,21 @@
 
 /* submenu */
 @if user.agent gecko1_8 {
-	@sprite .submenu {    
-		gwt-image: 'submenu';
-		padding: 0;
-		margin: 0;
-		padding-top: 3px;
-		padding-left: 10px;
-		
-		min-width: -moz-max-content;
+.submenu {    
+	height:30px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 /* opera */
 } @elif user.agent opera {
-	@sprite .submenu {    
-		gwt-image: 'submenu';
-		padding: 0;
-		margin: 0;
-		padding-top: 3px;
-		padding-left: 10px;
-		
-		min-width: -o-max-content;
+.submenu {    
+	height:30px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 /* menu other or safari or chrome*/
 } @else {
-	@sprite .submenu {    
-		gwt-image: 'submenu';
-		padding: 0;
-		margin: 0;
-		padding-top: 3px;
-		padding-left: 10px;
-		
-		min-width: 500px;
+.submenu {    
+	height:30px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 }
 
@@ -211,76 +194,51 @@
 .submenu li {
 	float: left;
 }
+.submenu li div{
+padding-top:4px !important;
+padding-left: 9px;
+}
 
-@sprite .submenu a, .submenu a:link, .submenu a:visited, .submenu a:active {
-	gwt-image: 'submenu_li';
-	
-	border:1px solid;
-	border-color: #b1afa5;
+.submenu a, .submenu a:link, .submenu a:visited, .submenu a:active {
+	float: left;
+	padding: 5px 10px 9px 10px;
+	text-decoration: none;
 	display: block;
-	height: 16px;
-	margin-right: 1px;
-	padding: 3px 15px 0px 15px;
-	text-decoration: none;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #666666;
+	font-family: arial;
+	font-size: 13px;
+	border-right: 1px solid #f0f0f0;
 }
 
-@sprite  .submenu a:hover {
-	gwt-image: 'submenu_on';
-	
-	height: 16px;
-	text-decoration: none;
-	color: #4b4b4b;
-	border:1px solid;
-	border-color: #b1afa5;
+.submenu a:hover {
+	color : white;
+	border-right: 1px solid #12ad2b;
+	background-color: #12ad2b;
 }
 
-@sprite  .submenu .current_page_item a {
-	gwt-image: 'submenu_on';
-	
-	height: 16px;
-	text-decoration: none;
-	color: #000000;
-	border:1px solid;
-	border-color: #b1afa5;
+.submenu .current_page_item a {
+	color: white;
+	border-right: 1px solid #12ad2b;
 }
-
+.submenu .current_page_item{
+	background-color: #12ad2b;
+}
 /* menu3 */
 @if user.agent gecko1_8 {
-	.menu3 {
-		padding: 0;
-		margin: 0;
-		padding-top: 3px;
-		padding-left: 10px;
-		display: inline-block;
-		
-		min-width: -moz-max-content;
+.menu3 {
+	height:30px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 /* opera */
 } @elif user.agent opera {
-	.menu3 {
-		padding: 0;
-		margin: 0;
-		padding-top: 3px;
-		padding-left: 10px;
-		display: inline-block;
-		
-		min-width: -o-max-content;
+.menu3 {
+	height:30px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}
 /* menu other or safari or chrome*/
 } @else {
-	.menu3 {
-		padding: 0;
-		margin: 0;
-		padding-top: 3px;
-		padding-left: 10px;
-		display: inline-block;
-		
-		min-width: 500px;
+.menu3 {
+	height:30px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);
 	}	
 }
 
@@ -296,41 +254,25 @@
 	float: left;
 }
 
-@sprite .menu3 a, .submenu a:link, .submenu a:visited, .submenu a:active {
-	gwt-image: 'submenu_li';
-	
-	border:1px solid;
-	border-color: #b1afa5;
+.menu3 a, .submenu a:link, .submenu a:visited, .submenu a:active {
+	float: left;
+	padding: 5px 10px 9px 10px;
+	text-decoration: none;
 	display: block;
-	height: 16px;
-	margin-right: 1px;
-	padding: 3px 15px 0px 15px;
-	text-decoration: none;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #666666;
+	font-family: arial;
+	font-size: 13px;
+	border-right: 1px solid #12ad2b;
 }
 
-@sprite .menu3 a:hover {
-	gwt-image: 'submenu_on';
-	
-	height: 16px;
-	text-decoration: none;
-	color: #4b4b4b;
-	border:1px solid;
-	border-color: #b1afa5;
+.menu3 a:hover {
+	color : white;
+	border-right: 1px solid #12ad2b;
+	background-color: #12ad2b;
 }
 
-@sprite  .menu3 .current_page_item a {
-	gwt-image: 'submenu_on';
-	
-	height: 16px;
-	text-decoration: none;
-	color: #000000;
-	border:1px solid;
-	border-color: #b1afa5;
+.menu3 .current_page_item a {
+	color: white;
+	border-right: 1px solid #12ad2b;
 }
 
 .selector{

@@ -23,7 +23,7 @@ public class ActionBasedObjectFinder implements ObjectFinder {
 	
 	@Override
 	public void executeFind(String descriptorName, Long id, Callback callback, AsyncStatusIndicator customStatusIndicator) {
-		executeFind(descriptorName, id, callback, customStatusIndicator);
+		executeFind(descriptorName, descriptorName, id, callback, customStatusIndicator);
 	}
 	
 	@Override
