@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import com.google.gwt.user.client.ui.Image;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -41,7 +43,7 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
 		
 		verify(view, times(1)).clearLevel(anyInt());
-		verify(view, never()).createTab(anyString(), anyInt());
+		verify(view, never()).createTab(anyString(), Mockito.any(Image.class), anyInt());
 	}
 	
 	/**
@@ -60,8 +62,8 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//3 visible menu item
-		verify(view, times(3)).createTab(anyString(), anyInt());
-		verify(view, times(3)).createTab(anyString(), eq(0));
+		verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), anyInt());
+		verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), eq(0));
 		
 		//has menu name
 		verifyTab(tabs[0], true, true, false);
@@ -90,8 +92,8 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//3 visible menu item
-		verify(view, times(3)).createTab(anyString(), anyInt());
-		verify(view, times(3)).createTab(anyString(), eq(0));
+		verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), anyInt());
+		verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), eq(0));
 		
 		//has menu name
 		verifyTab(tabs[0], true, true, false);

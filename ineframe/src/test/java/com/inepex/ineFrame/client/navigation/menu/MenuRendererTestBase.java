@@ -8,10 +8,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Image;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
@@ -33,7 +35,7 @@ public class MenuRendererTestBase {
 		
 		renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
 		
-		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
+		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 			
 			@Override
 			public Tab answer(InvocationOnMock invocation) throws Throwable {

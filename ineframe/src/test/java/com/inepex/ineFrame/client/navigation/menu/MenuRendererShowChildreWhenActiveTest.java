@@ -12,10 +12,12 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Image;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -45,7 +47,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
 		
 		verify(view, times(1)).clearLevel(anyInt());
-		verify(view, never()).createTab(anyString(), anyInt());
+		verify(view, never()).createTab(anyString(), Mockito.any(Image.class), anyInt());
 	}
 	
 	/**
@@ -60,7 +62,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[5];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
-		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
+		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
 			
@@ -81,9 +83,9 @@ public class MenuRendererShowChildreWhenActiveTest {
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
 		
 		//4 menu item
-		verify(view, times(3)).createTab(anyString(), anyInt());
-		verify(view, times(2)).createTab(anyString(), eq(0));
-		verify(view, times(1)).createTab(anyString(), eq(1));
+		verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), anyInt());
+		verify(view, times(2)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+		verify(view, times(1)).createTab(anyString(), Mockito.any(Image.class), eq(1));
 		
 		//visibleItem1
 		verify(tabs[2], times(1)).setClickable(true);
@@ -107,7 +109,7 @@ public class MenuRendererShowChildreWhenActiveTest {
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[6];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
-		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
+		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
 			
@@ -130,9 +132,9 @@ public class MenuRendererShowChildreWhenActiveTest {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
-		verify(view, times(4)).createTab(anyString(), anyInt());
-		verify(view, times(2)).createTab(anyString(), eq(0));
-		verify(view, times(2)).createTab(anyString(), eq(1));
+		verify(view, times(4)).createTab(anyString(), Mockito.any(Image.class), anyInt());
+		verify(view, times(2)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+		verify(view, times(2)).createTab(anyString(), Mockito.any(Image.class), eq(1));
 		
 		//visibleItem2
 		verify(tabs[2], times(1)).setClickable(true);

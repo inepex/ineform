@@ -13,10 +13,12 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Image;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -37,7 +39,7 @@ public class MenuRendererAuthManagerTest {
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
-		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
+		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
 			
@@ -60,7 +62,7 @@ public class MenuRendererAuthManagerTest {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
-		verify(view, times(tabCount)).createTab(anyString(), eq(0));
+		verify(view, times(tabCount)).createTab(anyString(),Mockito.any(Image.class), eq(0));
 		
 		//place1
 		verify(tabs[0], times(1)).setClickable(true);
@@ -127,7 +129,7 @@ public class MenuRendererAuthManagerTest {
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
-		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
+		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
 			
@@ -150,7 +152,7 @@ public class MenuRendererAuthManagerTest {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
-		verify(view, times(tabCount)).createTab(anyString(), eq(0));
+		verify(view, times(tabCount)).createTab(anyString(), Mockito.any(Image.class), eq(0));
 		
 		//place1
 		verify(tabs[0], times(1)).setClickable(true);
@@ -198,7 +200,7 @@ public class MenuRendererAuthManagerTest {
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
 		MenuRenderer.View view = mock(MenuRenderer.View.class);
-		when(view.createTab(anyString(), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
+		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
 			
@@ -221,7 +223,7 @@ public class MenuRendererAuthManagerTest {
 		verify(view, times(1)).clearLevel(anyInt());
 		
 		//4 menu item
-		verify(view, times(tabCount)).createTab(anyString(), eq(0));
+		verify(view, times(tabCount)).createTab(anyString(), Mockito.any(Image.class), eq(0));
 		
 		//place2
 		verify(tabs[0], times(1)).setClickable(true);
