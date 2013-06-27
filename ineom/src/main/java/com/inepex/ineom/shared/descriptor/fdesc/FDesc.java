@@ -21,6 +21,8 @@ public abstract class FDesc extends DescriptorBase {
 	private String defaultDisplayName = null;
 
 	private boolean nullable = true;
+	
+	private boolean excludeFromDesc = false;
 
 	public FDesc() {
 	}
@@ -108,5 +110,20 @@ public abstract class FDesc extends DescriptorBase {
 	public void setKey(String key) {
 		this.key = key;
 	}
+
+	public boolean isExcludeFromDesc() {
+		return excludeFromDesc;
+	}
+
+	public FDesc setExcludeFromDesc(boolean excludeFromDesc) {
+		this.excludeFromDesc = excludeFromDesc;
+		return this;
+	}
+	
+	public FDesc excl() {
+		return setExcludeFromDesc(true);
+	}
+	
+	
 
 }
