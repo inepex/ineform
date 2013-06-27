@@ -3,6 +3,8 @@ package com.inepex.ineFrame.client.navigation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.Image;
 import com.inepex.ineFrame.client.page.InePage;
 
 /**
@@ -18,6 +20,7 @@ public abstract class InePlace {
 	
 	private String menuName = null;
 	private boolean renderOnRightSide = false;
+	private Image icon = null;
 
 	private RequiresAuthentication requiresAuthentication = RequiresAuthentication.FALSE;
 	private List<String> rolesNeeded = null;
@@ -42,7 +45,12 @@ public abstract class InePlace {
 		this(requiresAuthentication);
 		this.menuName = menuName;
 	}
-	
+
+	public InePlace(RequiresAuthentication requiresAuthentication, String menuName, Image icon) {
+		this(requiresAuthentication);
+		this.menuName = menuName;
+		this.icon = icon;
+	}
 	public InePlace addAllowedRoles(String... roles) {
 		if (rolesNeeded == null)
 			rolesNeeded = new ArrayList<String>(3);
@@ -60,6 +68,20 @@ public abstract class InePlace {
 	
 	public InePlace setMenuName(String menuName) {
 		this.menuName = menuName;
+		return this;
+	}
+	
+	public Image getIcon(){
+		return icon;
+	}
+	
+	public InePlace setIcon(Image icon){
+		this.icon = icon;
+		return this;
+	}
+	public InePlace setIcon(ImageResource resource){
+		this.icon = new Image();
+		icon.setResource(resource);
 		return this;
 	}
 	

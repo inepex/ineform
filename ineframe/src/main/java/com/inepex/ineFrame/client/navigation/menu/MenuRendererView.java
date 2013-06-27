@@ -11,6 +11,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -137,10 +138,15 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 
 	@Override
 	public Tab createTab(String menuName, int level) {
-		MenuBarWidget barWidget = new MenuBarWidget(menuName);
+		return createTab(menuName, null, level);
+	}
+	
+	@Override
+	public Tab createTab(String menuName, Image icon, int level) {
+		MenuBarWidget barWidget = new MenuBarWidget(menuName, icon);
 		getOneLevel(level).getMenu().add(barWidget);
 		return barWidget;
-	}	
+	}
 	
 	@Override
 	public void appendMenuWidget(Widget widget, int level) {
@@ -161,6 +167,14 @@ public class MenuRendererView extends FlowPanel implements MenuRenderer.View {
 		
 		public MenuBarWidget(String menuName) {
 			a = new AnchorWidget(menuName);
+			listWidget = new ListItemWidget(a);
+			initWidget(listWidget);
+		}
+		public MenuBarWidget(String menuName, Image icon) {
+			a = new AnchorWidget(menuName);
+			if(icon != null){
+				a.add(icon);				
+			}
 			listWidget = new ListItemWidget(a);
 			initWidget(listWidget);
 		}

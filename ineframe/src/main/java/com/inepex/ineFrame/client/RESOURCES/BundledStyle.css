@@ -125,10 +125,15 @@
 	float: left;
 }
 
+.menu li img{
+	float: left;
+	padding-right: 10px;
+}
 .menu a {
 	float: left;
 	color: #666;
-	padding: 19px 10px 16px 40px;
+	line-height: 20px;
+	padding: 15px 10px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;
@@ -139,7 +144,8 @@
 .menu a:hover {
 	float: left;
 	color: #666;
-	padding: 19px 10px 16px 40px;
+	padding: 15px 10px;
+	line-height: 20px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;
@@ -153,7 +159,8 @@
 .menu .current_page_item a {
 	float: left;
 	color: #666;
-	padding: 19px 10px 16px 40px;
+	padding: 15px 10px;
+	line-height: 20px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;

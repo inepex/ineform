@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -35,6 +36,7 @@ public class MenuRenderer {
 		public void clearLevel(int level);
 
 		public Tab createTab(String menuName, int level);
+		public Tab createTab(String menuName, Image icon, int level);
 		public void appendMenuWidget(Widget widget, int level);
 		
 		public void showSelector(IsWidget w, int level, boolean asPage);
@@ -214,7 +216,7 @@ public class MenuRenderer {
 	
 	private void createTab(final Node<InePlace> node, List<String> tokens, boolean selected, boolean visible, int level){
 		if (node.getNodeElement().getMenuName() == null) return;
-		Tab tab = view.createTab(node.getNodeElement().getMenuName(), level);
+		Tab tab = view.createTab(node.getNodeElement().getMenuName(), node.getNodeElement().getIcon(), level);
 		
 //		tab.setClickable((!selected || level!=tokens.size()-1) && visible);
 		tab.setClickable(visible);
