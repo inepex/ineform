@@ -3,8 +3,6 @@
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
 
-  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
-
   <inherits name="com.inepex.ineForm.ineForm" />
   <inherits name="com.inepex.ineFrame.ineFrame" />
   <inherits name="com.inepex.inei18n.ineI18n" />

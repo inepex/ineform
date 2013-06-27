@@ -1,3 +1,78 @@
-body{
-	font-family: Trebuchet MS,Arial;
+@font-face {
+	font-family: 'OpenSansRegular';
+	src: url('font/opensans.eot');
+	src: url('font/opensans.eot?#iefix') format('embedded-opentype'),
+		url('font/opensans.woff') format('woff'),
+		url('font/opensans.ttf') format('truetype'),
+		url('font/opensans.svg#OpenSansRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+html,body {
+	margin: 0;
+	padding: 0;
+		font-family: 'OpenSansRegular',Arial,Trebuchet MS;
+	height: 100%; /* needed for container min-height */
+}
+
+body {
+	color: #666666;
+/* 	overflow: hidden; */
+}
+.gwt-Button {
+	height: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #666666;
+	padding: 7px 20px;
+	background: -moz-linear-gradient(top, #ffffff 0%, #eaeaea);
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff),
+		to(#eaeaea) );
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 1px solid #cccccc;
+	-moz-box-shadow: 0px -1px 0px rgba(000, 000, 000, 0), inset 0px 1px 1px
+		rgba(255, 255, 255, 0.5);
+	-webkit-box-shadow: 0px -1px 0px rgba(000, 000, 000, 0), inset 0px 1px
+		1px rgba(255, 255, 255, 0.5);
+	text-shadow: 0px -1px 0px rgba(255, 255, 255, 0.2), 0px 1px 0px
+		rgba(255, 255, 255, 0.3);
+	margin-right: 10px;
+}
+
+.gwt-Button:hover {
+	background: -moz-linear-gradient(top, #eaeaea 0%, #eaeaea);
+	background: -webkit-gradient(linear, left top, left bottom, from(#eaeaea),
+		to(#eaeaea) );
+	-moz-box-shadow: 0px -1px 0px rgba(000, 000, 000, 0), inset 0px 1px 1px
+		rgba(255, 255, 255, 0.5);
+	-webkit-box-shadow: 0px -1px 0px rgba(000, 000, 000, 0), inset 0px 1px
+		1px rgba(255, 255, 255, 0.5);
+	text-shadow: 0px -1px 0px rgba(255, 255, 255, 0.2), 0px 1px 0px
+		rgba(255, 255, 255, 0.3);
+}
+
+/* these two rules below are good for eliminating the dotted border around a focused button */
+.gwt-Button::-moz-focus-inner {
+  border: 0;
+}
+
+.gwt-Button:focus {
+  outline: none;
+}
+
+button.gwt-Button:disabled {
+	cursor: default !important;
+	opacity: 0.7 !important;
+	background: -moz-linear-gradient(top, #ffffff 0%, #eaeaea) !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff),
+		to(#eaeaea) ) !important;
+	-moz-box-shadow: 0px -1px 0px rgba(000, 000, 000, 0), inset 0px 1px 1px
+		rgba(255, 255, 255, 0.5) !important;
+	-webkit-box-shadow: 0px -1px 0px rgba(000, 000, 000, 0), inset 0px 1px
+		1px rgba(255, 255, 255, 0.5) !important;
+	text-shadow: 0px -1px 0px rgba(255, 255, 255, 0.2), 0px 1px 0px
+		rgba(255, 255, 255, 0.3) !important;
 }
