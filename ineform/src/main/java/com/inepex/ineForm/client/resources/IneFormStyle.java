@@ -29,6 +29,7 @@ public interface IneFormStyle extends CssResource {
 	String ChooserFw();
 	String richTextArea();
 	String displayInline();
+	String textBoxFW();
 	
 	String fpb_errorMessageHolder_dontShowError();
 	String fpb_errorMessageHolder_showError();
