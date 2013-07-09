@@ -128,14 +128,13 @@
 .submenu a:link,
 .submenu a:active,
 .submenu a:visited {
-	height:20px;
 	float: left;
 	color: #666;
-	padding: 15px !important;
+	padding: 17px;
 	text-decoration: none;
 	display: block;
 	font-family: arial;
-	font-size: 13px;
+	font-size: 14px;
 	border-right: 1px solid #f0f0f0;
 }
 

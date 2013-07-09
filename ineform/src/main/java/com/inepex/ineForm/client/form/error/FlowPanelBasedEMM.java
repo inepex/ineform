@@ -1,4 +1,4 @@
-package com.inepex.ineForm.client.general;
+package com.inepex.ineForm.client.form.error;
 
 import java.util.List;
 

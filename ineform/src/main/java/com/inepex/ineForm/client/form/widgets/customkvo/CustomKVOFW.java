@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.inepex.ineForm.client.general.ErrorMessageManagerInterface;
+import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
