@@ -11,7 +11,7 @@ public class PhoneFW extends DenyingFormWidget {
 	
 	public final static String COUNTRY_WIDTH = "22px";
 	public final static String AREA_WIDTH = "35px";
-	public final static String LOCAL_WIDTH = "80px";
+	public final static String LOCAL_WIDTH = "95px";
 	
 	final FlowPanel mainPanel = new FlowPanel();
 	final NumberTextBoxFW country = new NumberTextBoxFW(null);

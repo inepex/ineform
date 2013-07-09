@@ -166,11 +166,15 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 							fp.add(w);
 						}
 					}
-			
-					ErrorMessageManagerInterface emm = createEMMI(cf.getElement(row, 3));
-					for(String modelName : modelNameKeySet) {
-						registerErrorMessegeManager(modelName, emm);
-						rowsByKeys.put(modelName, row);
+					
+					if(((WidgetRDesc)nodeElement).getFormWidgetType().isRenderIntoTwoColumn()) {
+						cf.getElement(row, 2).setAttribute("colspan", "2");
+					} else {
+						ErrorMessageManagerInterface emm = createEMMI(cf.getElement(row, 3));
+						for(String modelName : modelNameKeySet) {
+							registerErrorMessegeManager(modelName, emm);
+							rowsByKeys.put(modelName, row);
+						}
 					}
 					
 					widgetsInThisLine.clear();

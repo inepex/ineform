@@ -7,7 +7,7 @@ public class IneFormProperties {
 
 	public static boolean showIds;
 
-	public static String DEFAULT_TextBoxWidth = "300px";
+	public static String DEFAULT_TextBoxWidth = "585px";
 	public static String DEFAULT_TextAreaHeigth = "150px";
 	
 	public static String DEFAULT_RichTextBoxWidth = "500px";

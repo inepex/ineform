@@ -47,23 +47,28 @@ public class FWTypes implements Serializable, IsSerializable {
 	public static final FWTypes RICHTEXTAREA = new FWTypes("RICHTEXTAREA");
 	public static final FWTypes STRINGLISTBOX = new FWTypes("STRINGLISTBOX");
 	public static final FWTypes SUGGESTBOX = new FWTypes("SUGGESTBOX");
-	public static final FWTypes TABLE = new FWTypes("TABLE");
-	public static final FWTypes CUSTOMKVO = new FWTypes("CUSTOMKVO");
-	public static final FWTypes CUSTOMKVOREADONLY = new FWTypes("CUSTOMKVOREADONLY");
+	public static final FWTypes TABLE = new FWTypes("TABLE", true);
+	public static final FWTypes CUSTOMKVO = new FWTypes("CUSTOMKVO", true);
+	public static final FWTypes CUSTOMKVOREADONLY = new FWTypes("CUSTOMKVOREADONLY", true);
 	
 	/**
 	 * A label that holds the value and a clickable label after it.
 	 */
-	public static final FWTypes LABELCLICKABLE = new FWTypes("LABELBUTTON");
+	public static final FWTypes LABELCLICKABLE = new FWTypes("LABELCLICKABLE");
 	
 	private String typeName = "";
+	private boolean renderIntoTwoColumn=false;
 
 	public FWTypes(){
-		
 	}
 
 	public FWTypes(String typeName){
 		this.typeName = typeName;
+	}
+	
+	public FWTypes(String typeName, boolean renderIntoTwoColumn){
+		this.typeName = typeName;
+		this.renderIntoTwoColumn=renderIntoTwoColumn;
 	}
 	
 	public String getTypeName() {
@@ -82,6 +87,10 @@ public class FWTypes implements Serializable, IsSerializable {
 			return ((String)obj).equals(getTypeName());
 				
 		return super.equals(obj);
+	}
+	
+	public boolean isRenderIntoTwoColumn() {
+		return renderIntoTwoColumn;
 	}
 	
 }

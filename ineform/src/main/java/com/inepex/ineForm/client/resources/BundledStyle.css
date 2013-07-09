@@ -15,38 +15,46 @@
 
 .fpb_errorMessageHolder_dontShowError {
 	display: block !important;
-	width: 202px;
-	background-color: #F2F2F2;
+	width: 402px;
 	margin-bottom: 3px;
 	padding: 4px 4px 4px 4px;
 }
 
 .fpb_errorMessageHolder_showError {
 	display: block !important;
-	background-color:#FFF2F2;
 	border:1px solid red;
+	background-color:#FFF2F2;
 	color:black;
 	margin-bottom:3px;
 	padding:4px;
-	width:200px;
+	width:400px;
 }
 
 .errorMessageHolder_dontShowError {
-	width: 202px;
-	background-color: #F2F2F2;
-	border-bottom:1px solid #DADADA;
+	width: 402px;
 	margin-bottom: 3px;
 	padding: 4px 4px 4px 4px;
 }
 
 .errorMessageHolder_showError {
-	background-color:#FFF2F2;
-	border:1px solid red;
-	color:black;
-	font-size: 10px;
-	margin-bottom:3px;
-	padding:4px;
-	width:200px;
+	width:400px;
+}
+
+@sprite .errorMessageHolder_showError div {
+	gwt-image: 'form_error';
+	background-position: 15px 13px;
+	background-color: #e74c3c;
+	color: white;
+	font-size: 13px;
+    margin-bottom: 27px;
+    padding-left: 45px;
+    padding-right: 10px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    
+    position: relative;
+    top: -4px;
+    min-width: 45px;
 }
 
 .clickable {
@@ -70,13 +78,12 @@
 }
 
 .cellTitle {
-	border-bottom:1px solid #E1E1E1;
 	color:#000000;
 	font-size: 14px;
 }
 
 .cellContent {
-	width:353px; background:none repeat scroll 0 0 #F2F2F2; border-bottom:1px solid #DADADA;
+	width: 640px;
 }
 
 .cellContent .gwt-TextBox,
@@ -94,7 +101,9 @@
 }
 
 .mandatorySign {
-	padding: 5px; background:none repeat scroll 0 0 #F2F2F2; border-bottom:1px solid #DADADA; color: red; font-size:12px;
+	padding: 5px;
+	color: red;
+	font-size:12px;
 }
 
 .evenCellContent{}
@@ -188,7 +197,8 @@
 	font-size: 14px;
 	height: 30px;
 	border-radius: 3px;
-	padding-left: 10px;
+	padding: 5px 0 5px 10px;
+	margin-bottom: 10px;
 }
 
 .datetimeFW {
