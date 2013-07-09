@@ -20,6 +20,7 @@ public class KeyValueObjectSerializer {
 	RelationSerializer relationSerializer;
 	
 	boolean includeId = true;
+	boolean skipEmptyValues = false;
 	
 	public KeyValueObjectSerializer(AssistedObjectChecker checker, String fieldSeparator, String equalsSign) {
 		this.checker = checker;
@@ -47,6 +48,11 @@ public class KeyValueObjectSerializer {
 		return this;
 	}
 
+	public KeyValueObjectSerializer setSkipEmptyValues(boolean skipEmptyValues) {
+		this.skipEmptyValues = skipEmptyValues;
+		return this;
+	}
+
 	public String serializeToString() {
 		StringBuilder sb = new StringBuilder();
 		if (includeDescriptorName)
@@ -58,6 +64,7 @@ public class KeyValueObjectSerializer {
 			String value = getValueAsString(key);
 			if (value == null)
 				continue;
+			if (skipEmptyValues && value.equals("")) continue;
 			sb.append(key);
 			sb.append(equalsSign);
 			sb.append(value);
