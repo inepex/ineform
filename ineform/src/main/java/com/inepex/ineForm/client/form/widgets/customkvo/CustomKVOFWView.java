@@ -7,11 +7,12 @@ import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -24,7 +25,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	private final FlexTable rowTable = new FlexTable();
 	
-	private final Button addBtn = new Button(IneFormI18n.ADD());
+	private final IFButton addBtn = new IFButton(IFButtonType.CONTROL, IneFormI18n.ADD());
 	
 	private RemoveCallback removeCallback;
 	private AddCallback addCallback;

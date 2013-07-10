@@ -1,0 +1,103 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type="com.inepex.ineForm.client.general.IFButton.ButtonStyles">
+		.pagingColors{
+			min-width: 100px;
+			padding: 10px 10px;
+			background-color: #3a99e2;
+			color: #fff;
+			border: 0px;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			cursor: pointer;
+			font-size: 13px;
+			
+			-webkit-transition: 0.25s;
+			-moz-transition: 0.25s;
+			-o-transition: 0.25s;
+			transition: 0.25s;
+		}
+		
+		.pagingColors:hover {
+			background-color: #51a9ed;
+		}
+		
+		.cancelColors{
+			min-width: 100px;
+			padding:  10px 10px;
+			background-color: #333;
+			color: #fff;
+			border: 0px;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			cursor: pointer;
+			font-size: 13px;
+			
+			-webkit-transition: 0.25s;
+			-moz-transition: 0.25s;
+			-o-transition: 0.25s;
+			transition: 0.25s;
+		}
+		
+		
+		.cancelColors:hover {
+			background-color: #444;
+		}
+		
+		.controlColors{
+			background: transparent;
+			color: #ccc;
+			border: 1px dashed #ccc;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			cursor: pointer;
+			font-weight: bold;
+			font-size: 20px;
+			-webkit-transition: 0.25s;
+			-moz-transition: 0.25s;
+			-o-transition: 0.25s;
+			transition: 0.25s;
+			width: 35px;
+			height: 35px;
+		}
+		
+		.controlColors:hover {
+			background-color: #666;
+			color: white;
+			border: 1px dashed #666;
+		}
+		
+		.actionColors{
+			min-width: 100px;
+			padding: 10px 10px;
+			background-color: #12ad2b;
+			color: #fff;
+			border: 0px;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			cursor: pointer;
+			font-size: 13px;
+			
+			-webkit-transition: 0.25s;
+			-moz-transition: 0.25s;
+			-o-transition: 0.25s;
+			transition: 0.25s;
+		}
+		
+		.actionColors:hover {
+			background-color: #1aba34;
+		}
+		
+		.disabled{
+			cursor: default !important;
+			opacity: 0.7 !important;
+		}
+		
+	</ui:style>
+	<g:Button ui:field="button"/>
+</ui:UiBinder> 

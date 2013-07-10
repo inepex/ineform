@@ -8,7 +8,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -22,6 +21,8 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
@@ -39,7 +40,7 @@ public class FileUploadFw extends DenyingFormWidget {
 	private String uploadUrl = IFConsts.uploadServletUrl;
 	private Image preview = new Image();
 	private InlineLabel filename = new InlineLabel();
-	private Button upload = new Button(IneFormI18n.imageuploadBtn());
+	private IFButton upload = new IFButton(IFButtonType.ACTION, IneFormI18n.imageuploadBtn());
 	
 	private ImageUploadPopup popup;
 	
@@ -61,8 +62,8 @@ public class FileUploadFw extends DenyingFormWidget {
 		private FormPanel panelForm = new FormPanel();
 		private FlowPanel panelInsideForm = new FlowPanel();
 		private FileUpload fileupload = new FileUpload();
-		private Button btnSubmit = new Button(IneFormI18n.imageuploadBtn());
-		private Button btnCancel = new Button(IneFormI18n.CANCEL());
+		private IFButton btnSubmit = new IFButton(IFButtonType.ACTION, IneFormI18n.imageuploadBtn());
+		private IFButton btnCancel = new IFButton(IFButtonType.CANCEL, IneFormI18n.CANCEL());
 		private Label error = new Label();
 		
 		private FileUploadFw parent;

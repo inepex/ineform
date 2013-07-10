@@ -7,13 +7,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -34,12 +35,12 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 	private ListBox selected = new ListBox();
 	private VerticalPanel selectedPanel = new VerticalPanel();
 	private VerticalPanel buttons = new VerticalPanel();
-	private Button select = new Button(IneFormI18n.SELECT());
-	private Button deselect = new Button(IneFormI18n.DESELECT());
-	private Button selectAll = new Button(IneFormI18n.SELECTALL());
-	private Button deselectAll = new Button(IneFormI18n.DESELECTALL());
-	private Button moveUp = new Button(IneFormI18n.MOVEUP());
-	private Button moveDown = new Button(IneFormI18n.MOVEDOWN());
+	private IFButton select = new IFButton(IFButtonType.CONTROL, IneFormI18n.SELECT());
+	private IFButton deselect = new IFButton(IFButtonType.CONTROL, IneFormI18n.DESELECT());
+	private IFButton selectAll = new IFButton(IFButtonType.CONTROL, IneFormI18n.SELECTALL());
+	private IFButton deselectAll = new IFButton(IFButtonType.CONTROL, IneFormI18n.DESELECTALL());
+	private IFButton moveUp = new IFButton(IFButtonType.CONTROL, IneFormI18n.MOVEUP());
+	private IFButton moveDown = new IFButton(IFButtonType.CONTROL, IneFormI18n.MOVEDOWN());
 	
 	private Map<String, Item> stringToObject = new HashMap<String, Item>();
 

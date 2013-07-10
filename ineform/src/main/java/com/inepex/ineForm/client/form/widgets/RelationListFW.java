@@ -11,7 +11,6 @@ import com.allen_sauer.gwt.dnd.client.drop.FlowPanelDropController;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -20,6 +19,8 @@ import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineom.shared.IneList;
@@ -117,7 +118,7 @@ public class RelationListFW extends DenyingFormWidget {
 	private final FlowPanelDropController dropController = new FlowPanelDropController(relationsPanel);
 
 	private final FlowPanel mainPanel = new FlowPanel();
-	private final Button addButton = new Button(IneFormI18n.ADD());
+	private final IFButton addButton = new IFButton(IFButtonType.CONTROL, IneFormI18n.ADD());
 
 	private final String relationDescriptorName;
 	private final FormContext formCtx;
@@ -225,9 +226,9 @@ public class RelationListFW extends DenyingFormWidget {
 		HorizontalPanel hp = new HorizontalPanel();
 
 		private final IneForm relatedForm;
-		Button removeButton = new Button(IneFormI18n.REMOVE());
-		Button upButton = new Button(IneFormI18n.UP());
-		Button downButton = new Button(IneFormI18n.DOWN());
+		IFButton removeButton = new IFButton(IFButtonType.CONTROL, IneFormI18n.REMOVE());
+		IFButton upButton = new IFButton(IFButtonType.CONTROL, IneFormI18n.UP());
+		IFButton downButton = new IFButton(IFButtonType.CONTROL, IneFormI18n.DOWN());
 		InlineLabel dragLabel = new InlineLabel("Drag");
 		
 		private Relation rel;

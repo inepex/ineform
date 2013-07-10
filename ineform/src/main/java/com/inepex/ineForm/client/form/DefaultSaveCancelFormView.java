@@ -3,16 +3,18 @@ package com.inepex.ineForm.client.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.WizardForm.NavWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelPageWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -62,12 +64,17 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	private String saveButtonText=IneFormI18n.SAVE();
 	private String cancelButtonText=IneFormI18n.CANCEL();
 	
-	protected final Button saveButton = new Button();
-	protected final Button cancelButton = new Button();
+	protected final IFButton saveButton = new IFButton(IFButtonType.ACTION);
+	protected final IFButton cancelButton = new IFButton(IFButtonType.CANCEL);
+	private final IFButton nextButton = new IFButton(IFButtonType.PAGING);
+	private final IFButton previousButton = new IFButton(IFButtonType.PAGING);
 	
-	SaveCancelFormView.Delegate delegate;
+	private final List<IFButton> custButtons = new ArrayList<IFButton>();
+	private final List<HandlerRegistration> custHandlerRegs = new ArrayList<HandlerRegistration>();
 	
-	boolean isWizardOn = false;
+	private SaveCancelFormView.Delegate delegate;
+	
+	private boolean isWizardOn = false;
 	
 	private StepperPanelWidget rootStepper;
 	
@@ -75,20 +82,13 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	private String previousButtonText=IneFormI18n.PREVIOUS();
 	
 	private NavWidget navWidget;
-	private Button nextButton = new Button();
-	private Button previousButton = new Button();
 	
-	private List<Button> custButtons = new ArrayList<Button>();
-	private List<HandlerRegistration> custHandlerRegs = new ArrayList<HandlerRegistration>();
-	
-	private String wizardBtnStyleName = "wizardBtn";
-	
-	private String customBtnStyleName = "custBtn";
 	
 	public DefaultSaveCancelFormView() {
-		
-		saveButton.addStyleName("saveBtn");
-		cancelButton.addStyleName("cancelBtn");
+		for(IFButton btn : new IFButton[]{cancelButton, previousButton, nextButton, saveButton}) {
+			btn.getElement().getStyle().setMarginRight(5, Unit.PX);
+			btn.getElement().getStyle().setMarginBottom(3, Unit.PX);
+		}
 	}
 	
 	@Override
@@ -196,9 +196,6 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		nextButton.setText(nextButtonText);
 		previousButton.setText(previousButtonText);
 		
-		nextButton.setStyleName(wizardBtnStyleName);
-		previousButton.setStyleName(wizardBtnStyleName);
-		
 		saveButton.setEnabled(rootStepper.getDisplayedPageNumber()+1==rootStepper.getPageCount());
 		nextButton.setEnabled(rootStepper.getDisplayedPageNumber()+1!=rootStepper.getPageCount());
 		previousButton.setEnabled(rootStepper.getDisplayedPageNumber()!=0);
@@ -234,7 +231,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 			}
 			custHandlerRegs.clear();
 			
-			for (Button btn : custButtons){
+			for (IFButton btn : custButtons){
 				btn.removeFromParent();
 			}
 			custButtons.clear();
@@ -242,8 +239,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 			if (desc.hasProp(StepperPanelPageWidget.Param.custButtons)){
 				String[] custButtons = desc.getPropValue(StepperPanelPageWidget.Param.custButtons).split(",");
 				for (String btnLabel : custButtons){
-					Button btn = new Button(btnLabel);
-					btn.setStyleName(customBtnStyleName);
+					IFButton btn = new IFButton(IFButtonType.CONTROL, btnLabel);
 					this.custButtons.add(btn);
 					custHandlerRegs.add(btn.addClickHandler(new CustomBtnClickHandler(btnLabel)));
 					buttonPanel.add(btn);
@@ -252,7 +248,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		}
 	}
 	
-	private void processButtonProperties(PanelWidgetRDesc desc, String visibleParam, String labelParam, Button btn){
+	private void processButtonProperties(PanelWidgetRDesc desc, String visibleParam, String labelParam, IFButton btn){
 		if (desc.hasProp(visibleParam) 
 				|| desc.hasProp(labelParam)) {
 			boolean visible = (desc.hasProp(visibleParam) && desc.getPropValue(visibleParam).equals(IFConsts.TRUE)) 
@@ -263,17 +259,6 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 				btn.setHTML(desc.getPropValue(labelParam));
 			}
 		}
-	}
-
-	@Override
-	public void setCustomBtnStyleName(String customBtnStyleName) {
-		this.customBtnStyleName = customBtnStyleName;
-	}
-
-	@Override
-	public void setWizardBtnStyleName(String wizardBtnStyleName) {
-		this.wizardBtnStyleName = wizardBtnStyleName;
-		
 	}
 
 	@Override

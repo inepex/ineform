@@ -74,14 +74,6 @@ public class WizardForm extends SaveCancelForm implements WizardFormView.Delegat
 
 	public void setCustomClickHandler(CustomClickHandler customClickHandler) {
 		this.customClickHandler = customClickHandler;
-	}
-
-	public void setCustomBtnStyleName(String customBtnStyleName) {
-		getView().setCustomBtnStyleName(customBtnStyleName);
-	}
-
-	public void setWizardBtnStyleName(String wizardBtnStyleName) {
-		getView().setWizardBtnStyleName(wizardBtnStyleName);
 	}	
 	
 	private WizardFormView getView(){

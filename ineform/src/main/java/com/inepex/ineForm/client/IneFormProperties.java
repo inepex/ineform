@@ -5,6 +5,11 @@ import com.inepex.ineForm.shared.types.PanelWidgetT;
 
 public class IneFormProperties {
 
+	/**
+	 * temporary variable for button replacing 
+	 */
+	public static boolean CREATESIMPLEBUTTON = true;
+	
 	public static boolean showIds;
 
 	public static String DEFAULT_TextBoxWidth = "585px";

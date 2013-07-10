@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.inepex.example.ContactManager.client.gin.AppGinjector;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.IneFrameEntryPoint;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
@@ -21,6 +22,7 @@ public class App extends IneFrameEntryPoint {
 	public static AppGinjector INJECTOR = GWT.create(AppGinjector.class);
 	
 	static {
+		IneFormProperties.CREATESIMPLEBUTTON=false;
 		Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, "en", new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
 	}
 	

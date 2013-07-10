@@ -124,40 +124,6 @@
 .ChooserFw{
 	width: 100%;
 }
-.ChooserFw .gwt-Button{
-	color: #fff;
-	border: 1px solid #666;
-	border-radius: 3px;
-	font-size: 13px;
-	padding: 10px 20px;
-	height: auto;
-	-webkit-transition: 0.25s;
-	-moz-transition: 0.25s;
-	-o-transition: 0.25s;
-	transition: 0.25s;
-	-webkit-backface-visibility: hidden;
-	background-color: #666;
-	
-}
-.gwt-Button{
-	box-shadow: none !important;
-	text-shadow: none !important;
-	color: #fff;
-	background: #333 !important;
-	border: 1px solid #666;
-	border-radius: 3px;
-	font-size: 13px;
-	padding: 10px 20px;
-	height: auto;
-	-webkit-transition: 0.25s;
-	-moz-transition: 0.25s;
-	-o-transition: 0.25s;
-	transition: 0.25s;
-	-webkit-backface-visibility: hidden;
-}
-.gwt-Button:hover{
-	background: #777 !important;
-}
 
 .richTextArea{
 	background:white;

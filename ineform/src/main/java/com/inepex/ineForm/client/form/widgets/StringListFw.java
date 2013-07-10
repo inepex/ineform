@@ -7,10 +7,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
@@ -20,7 +21,7 @@ public class StringListFw extends DenyingFormWidget {
 
 	final FlowPanel textBoxFlowPanel = new FlowPanel(); 
 	final FlowPanel mainFlowPanel = new FlowPanel(); 
-	final Button addButton = new Button(IneFormI18n.ADD());
+	final IFButton addButton = new IFButton(IFButtonType.CONTROL, IneFormI18n.ADD());
 	
 	final List<TextBox> textBoxList = new ArrayList<TextBox>();
 	final ValueChangeHandler<String> ch;

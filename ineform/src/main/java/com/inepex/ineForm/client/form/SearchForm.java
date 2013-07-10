@@ -2,13 +2,14 @@ package com.inepex.ineForm.client.form;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IFButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -17,8 +18,8 @@ public class SearchForm extends IneForm {
 	private FlowPanel mainPanel = new FlowPanel(); 
 	private IneForm searchForm;
 	private Grid buttons = new Grid(1, 3);
-	private Button doSearch = new Button(IneFormI18n.SEARCH());
-	private Button doReset = new Button(IneFormI18n.RESET());
+	private IFButton doSearch = new IFButton(IFButtonType.ACTION, IneFormI18n.SEARCH());
+	private IFButton doReset = new IFButton(IFButtonType.ACTION, IneFormI18n.RESET());
 	private Label message = new Label();
 	
 	private IneDataConnector dataConnector;

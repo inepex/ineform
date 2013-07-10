@@ -17,8 +17,6 @@ public interface WizardFormView extends SaveCancelFormView {
 	public void setPreviousButtonText(String previousButtonText);
 	public void setNavWidget(NavWidget navWidget);
 	public void setRootStepper(StepperPanelWidget rootStepper);
-	public void setCustomBtnStyleName(String customBtnStyleName);
-	public void setWizardBtnStyleName(String wizardBtnStyleName);
 	public void setDisplayedPage(int index, boolean needCustomCodeCallback);
 	public void refreshButtonsAndNavWidget();
 	public StepperPanelWidget getRootStepper();
