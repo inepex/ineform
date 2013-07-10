@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
+import com.inepex.ineForm.client.general.IneRadioButton;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
@@ -16,16 +17,13 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class RadioEnumSelectorFW extends DenyingFormWidget {
 	
-	private final static String rGroupNameBase="RadioEnumSelectorFW";
-	private static int counter = 0;
-	
 	public final static String enumValues = EnumListFW.enumValues;
 	protected final static String DEFAULT_notSelectedText = AbstractListBoxFW.DEFAULT_notSelectedText;
 	protected final boolean allowsNull;
 	public final static String VERTICAL = "vertical";
 	
 	protected ComplexPanel mainPanel = new FlowPanel();
-	protected List<RadioButtonBase> radioButtons = new ArrayList<RadioButtonBase>();
+	protected List<IneRadioButton> radioButtons = new ArrayList<IneRadioButton>();
 	
 	private ClickHandler changeHandler = new ClickHandler() {
 		
@@ -50,12 +48,12 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 			labels=valuesAsArray;
 		}
 		
-		radioButtons=createGroup(labels);
+		radioButtons=IneRadioButton.createGroup(labels);
 		
 		if (renderDescriptor.hasProp(VERTICAL)) mainPanel = new VerticalPanel();
 		
 		initWidget(mainPanel);
-		for(RadioButtonBase rb : radioButtons) 
+		for(IneRadioButton rb : radioButtons) 
 			mainPanel.add(rb);
 		
 		radioButtons.get(0).setValue(true);
@@ -63,19 +61,10 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 		mainPanel.setStyleName(ResourceHelper.ineformRes().style().displayInline());
 	}
 	
-	protected List<RadioButtonBase> createGroup(String... labels) {
-		String name = rGroupNameBase+counter++;
-		List<RadioButtonBase> ret = new ArrayList<RadioButtonBase>(labels.length);
-		for(String label: labels)
-			ret.add(new IneFormRadioButton(name, label));
-				
-		return ret;
-	}
-	
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		for(RadioButtonBase rb : radioButtons) {
+		for(IneRadioButton rb : radioButtons) {
 			registerHandler(rb.addClickHandler(changeHandler));
 		}
 	}
@@ -98,7 +87,7 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
     
     public void selectFirstVisibleIfFwIsEmpty() {
     	if(getLongValue()==null) {
-    		for(RadioButtonBase rb : radioButtons) {
+    		for(IneRadioButton rb : radioButtons) {
     			if(rb.isVisible()) {
     				rb.setValue(true);
     				return;
@@ -110,7 +99,7 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
     @Override
     public void setLongValue(Long value) {
       	if (value == null) {
-  			for(RadioButtonBase rb : radioButtons) {
+  			for(IneRadioButton rb : radioButtons) {
   				rb.setValue(false);
   			}
   		

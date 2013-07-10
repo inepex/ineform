@@ -1,6 +1,5 @@
 package com.inepex.ineForm.client.form.widgets;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,14 +7,15 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.inepex.ineForm.client.general.IneRadioButton;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class RadioBoolFW extends DenyingFormWidget {
 	public final static String VERTICAL = "vertical";
 	
 	private ComplexPanel mainPanel = new FlowPanel();
-	private final RadioButtonBase rbTrue;
-	private final RadioButtonBase rbFalse;
+	private final IneRadioButton rbTrue;
+	private final IneRadioButton rbFalse;
 	
 	public static long radioGruop = 0L; 
 
@@ -24,18 +24,12 @@ public class RadioBoolFW extends DenyingFormWidget {
 		if (vertical) mainPanel = new VerticalPanel();
 		initWidget(mainPanel);
 		
-		List<RadioButtonBase> radios =createGroup(trueString, falseString);
+		List<IneRadioButton> radios =IneRadioButton.createGroup(trueString, falseString);
 		rbTrue=radios.get(0);
 		rbFalse=radios.get(1);
 		
 		mainPanel.add(rbTrue);
 		mainPanel.add(rbFalse);
-	}
-	
-	protected List<RadioButtonBase> createGroup(String label1, String label2) {
-		return Arrays.asList(
-				(RadioButtonBase)new IneFormRadioButton("RadioBoolFW"+radioGruop, label1),
-				(RadioButtonBase)new IneFormRadioButton("RadioBoolFW"+radioGruop++, label2));
 	}
 	
 	@Override
@@ -61,8 +55,7 @@ public class RadioBoolFW extends DenyingFormWidget {
 
 	@Override
 	public void setEnabled(boolean enabled) {
-		rbFalse.setEnabled(enabled);
-		rbTrue.setEnabled(enabled);
+		rbFalse.setWholeGroupEnabled(enabled);
 	}
 	
 	@Override
