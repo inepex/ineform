@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+@sprite .ineCheckBox{
+	gwt-image: 'checkBoxBG';
+    display: inline-block;
+    float: left;
+    height: 13px;
+    padding: 0;
+	margin-top: 5px;
+    width: 12px;
+    background-position: -15px -0.5px;
+}
+
+.ineCheckBoxActive{
+	background-position: 0 0;
+}
+
+.ineCheckBoxText{
+	clear: none !important;
+    float: left;
+    margin-top: 2px;
+    padding-left: 5px;
+    color: #666666;
+    display: block;
+    font-size: 14px;
+    margin-right: 10px;
+}

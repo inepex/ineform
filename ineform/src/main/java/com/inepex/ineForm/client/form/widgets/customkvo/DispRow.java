@@ -11,7 +11,6 @@ import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -19,6 +18,7 @@ import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.form.error.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneCheckBox;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -38,7 +38,7 @@ public class DispRow {
 	
 	private final FlowPanel valueBoxes = new FlowPanel();
 	private final TextBox valueBox = new TextBox();
-	private final CheckBox valueBooleanBox = new CheckBox();
+	private final IneCheckBox valueBooleanBox = new IneCheckBox();
 	
 	private final IneButton removeBtn = new IneButton(IFButtonType.CONTROL, IneFormI18n.REMOVE());
 	private ErrorMessageManagerInterface emm;
