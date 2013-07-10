@@ -10,8 +10,8 @@ import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
-import com.inepex.ineForm.client.general.IFButton;
-import com.inepex.ineForm.client.general.IFButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
@@ -29,7 +29,7 @@ public class CompanyDeletePage extends FlowPanelBasedPage {
 	private final PlaceHandler placeHandler;
 	
 	private final HTML html;
-	private final IFButton button;
+	private final IneButton button;
 	
 	private Long companyId;
 	
@@ -45,7 +45,7 @@ public class CompanyDeletePage extends FlowPanelBasedPage {
 		
 		mainPanel.add(new HTML("<br />"));
 		
-		button= new IFButton(IFButtonType.ACTION, IneFormI18n.DELETE());
+		button= new IneButton(IFButtonType.ACTION, IneFormI18n.DELETE());
 		mainPanel.add(button);
 	}
 	

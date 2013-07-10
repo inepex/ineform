@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.IneFormProperties;
 
-public class IFButton extends Composite implements IsWidget, HasEnabled, HasText, HasHTML {
+public class IneButton extends Composite implements IsWidget, HasEnabled, HasText, HasHTML {
 	
 	public static enum IFButtonType {
 		
@@ -43,7 +43,7 @@ public class IFButton extends Composite implements IsWidget, HasEnabled, HasText
 	private static IFButtonUiBinder uiBinder = GWT
 			.create(IFButtonUiBinder.class);
 
-	interface IFButtonUiBinder extends UiBinder<Widget, IFButton> {
+	interface IFButtonUiBinder extends UiBinder<Widget, IneButton> {
 	}
 	
 	interface ButtonStyles extends CssResource {
@@ -60,12 +60,12 @@ public class IFButton extends Composite implements IsWidget, HasEnabled, HasText
 	@UiField
 	ButtonStyles style;
 	
-	public IFButton(IFButtonType type, String text) {
+	public IneButton(IFButtonType type, String text) {
 		this(type);
 		button.setText(text);
 	}
 	
-	public IFButton(IFButtonType type) {
+	public IneButton(IFButtonType type) {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		if(IneFormProperties.CREATESIMPLEBUTTON)

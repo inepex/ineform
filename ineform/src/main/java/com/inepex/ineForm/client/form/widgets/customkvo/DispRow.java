@@ -17,8 +17,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.form.error.SimpleTableErrorMessageManager;
-import com.inepex.ineForm.client.general.IFButton;
-import com.inepex.ineForm.client.general.IFButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -40,7 +40,7 @@ public class DispRow {
 	private final TextBox valueBox = new TextBox();
 	private final CheckBox valueBooleanBox = new CheckBox();
 	
-	private final IFButton removeBtn = new IFButton(IFButtonType.CONTROL, IneFormI18n.REMOVE());
+	private final IneButton removeBtn = new IneButton(IFButtonType.CONTROL, IneFormI18n.REMOVE());
 	private ErrorMessageManagerInterface emm;
 	private CustomKVOTooltip tooltip;
 	

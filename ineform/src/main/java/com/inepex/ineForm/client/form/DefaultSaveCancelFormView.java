@@ -13,8 +13,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.WizardForm.NavWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelPageWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
-import com.inepex.ineForm.client.general.IFButton;
-import com.inepex.ineForm.client.general.IFButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -64,12 +64,12 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	private String saveButtonText=IneFormI18n.SAVE();
 	private String cancelButtonText=IneFormI18n.CANCEL();
 	
-	protected final IFButton saveButton = new IFButton(IFButtonType.ACTION);
-	protected final IFButton cancelButton = new IFButton(IFButtonType.CANCEL);
-	private final IFButton nextButton = new IFButton(IFButtonType.PAGING);
-	private final IFButton previousButton = new IFButton(IFButtonType.PAGING);
+	protected final IneButton saveButton = new IneButton(IFButtonType.ACTION);
+	protected final IneButton cancelButton = new IneButton(IFButtonType.CANCEL);
+	private final IneButton nextButton = new IneButton(IFButtonType.PAGING);
+	private final IneButton previousButton = new IneButton(IFButtonType.PAGING);
 	
-	private final List<IFButton> custButtons = new ArrayList<IFButton>();
+	private final List<IneButton> custButtons = new ArrayList<IneButton>();
 	private final List<HandlerRegistration> custHandlerRegs = new ArrayList<HandlerRegistration>();
 	
 	private SaveCancelFormView.Delegate delegate;
@@ -85,7 +85,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	
 	
 	public DefaultSaveCancelFormView() {
-		for(IFButton btn : new IFButton[]{cancelButton, previousButton, nextButton, saveButton}) {
+		for(IneButton btn : new IneButton[]{cancelButton, previousButton, nextButton, saveButton}) {
 			btn.getElement().getStyle().setMarginRight(5, Unit.PX);
 			btn.getElement().getStyle().setMarginBottom(3, Unit.PX);
 		}
@@ -231,7 +231,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 			}
 			custHandlerRegs.clear();
 			
-			for (IFButton btn : custButtons){
+			for (IneButton btn : custButtons){
 				btn.removeFromParent();
 			}
 			custButtons.clear();
@@ -239,7 +239,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 			if (desc.hasProp(StepperPanelPageWidget.Param.custButtons)){
 				String[] custButtons = desc.getPropValue(StepperPanelPageWidget.Param.custButtons).split(",");
 				for (String btnLabel : custButtons){
-					IFButton btn = new IFButton(IFButtonType.CONTROL, btnLabel);
+					IneButton btn = new IneButton(IFButtonType.CONTROL, btnLabel);
 					this.custButtons.add(btn);
 					custHandlerRegs.add(btn.addClickHandler(new CustomBtnClickHandler(btnLabel)));
 					buttonPanel.add(btn);
@@ -248,7 +248,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		}
 	}
 	
-	private void processButtonProperties(PanelWidgetRDesc desc, String visibleParam, String labelParam, IFButton btn){
+	private void processButtonProperties(PanelWidgetRDesc desc, String visibleParam, String labelParam, IneButton btn){
 		if (desc.hasProp(visibleParam) 
 				|| desc.hasProp(labelParam)) {
 			boolean visible = (desc.hasProp(visibleParam) && desc.getPropValue(visibleParam).equals(IFConsts.TRUE)) 

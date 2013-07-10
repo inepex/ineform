@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.inepex.ineForm.client.general.IFButton;
-import com.inepex.ineForm.client.general.IFButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -18,8 +18,8 @@ public class SearchForm extends IneForm {
 	private FlowPanel mainPanel = new FlowPanel(); 
 	private IneForm searchForm;
 	private Grid buttons = new Grid(1, 3);
-	private IFButton doSearch = new IFButton(IFButtonType.ACTION, IneFormI18n.SEARCH());
-	private IFButton doReset = new IFButton(IFButtonType.ACTION, IneFormI18n.RESET());
+	private IneButton doSearch = new IneButton(IFButtonType.ACTION, IneFormI18n.SEARCH());
+	private IneButton doReset = new IneButton(IFButtonType.ACTION, IneFormI18n.RESET());
 	private Label message = new Label();
 	
 	private IneDataConnector dataConnector;

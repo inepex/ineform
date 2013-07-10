@@ -13,8 +13,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
-import com.inepex.ineForm.client.general.IFButton;
-import com.inepex.ineForm.client.general.IFButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -35,12 +35,12 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 	private ListBox selected = new ListBox();
 	private VerticalPanel selectedPanel = new VerticalPanel();
 	private VerticalPanel buttons = new VerticalPanel();
-	private IFButton select = new IFButton(IFButtonType.CONTROL, IneFormI18n.SELECT());
-	private IFButton deselect = new IFButton(IFButtonType.CONTROL, IneFormI18n.DESELECT());
-	private IFButton selectAll = new IFButton(IFButtonType.CONTROL, IneFormI18n.SELECTALL());
-	private IFButton deselectAll = new IFButton(IFButtonType.CONTROL, IneFormI18n.DESELECTALL());
-	private IFButton moveUp = new IFButton(IFButtonType.CONTROL, IneFormI18n.MOVEUP());
-	private IFButton moveDown = new IFButton(IFButtonType.CONTROL, IneFormI18n.MOVEDOWN());
+	private IneButton select = new IneButton(IFButtonType.CONTROL, IneFormI18n.SELECT());
+	private IneButton deselect = new IneButton(IFButtonType.CONTROL, IneFormI18n.DESELECT());
+	private IneButton selectAll = new IneButton(IFButtonType.CONTROL, IneFormI18n.SELECTALL());
+	private IneButton deselectAll = new IneButton(IFButtonType.CONTROL, IneFormI18n.DESELECTALL());
+	private IneButton moveUp = new IneButton(IFButtonType.CONTROL, IneFormI18n.MOVEUP());
+	private IneButton moveDown = new IneButton(IFButtonType.CONTROL, IneFormI18n.MOVEDOWN());
 	
 	private Map<String, Item> stringToObject = new HashMap<String, Item>();
 

@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.FormFactory;
-import com.inepex.ineForm.client.general.IFButton;
+import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
@@ -20,7 +20,7 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 public class RowCommandDataManipulator extends DataManipulator {
 	private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
-	protected final IFButton newButton = new IFButton(IFButton.IFButtonType.ACTION, IneFormI18n.NEW());
+	protected final IneButton newButton = new IneButton(IneButton.IFButtonType.ACTION, IneFormI18n.NEW());
 	
 	private String editText = IneFormI18n.EDIT();
 	private String deleteText = IneFormI18n.DELETE();
