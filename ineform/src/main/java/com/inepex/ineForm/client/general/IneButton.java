@@ -21,21 +21,25 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 		
 		/**
 		 * to jump to the next or previous page
+		 * <br><b>blue</b>
 		 */
 		PAGING,
 		
 		/**
 		 * to abort a started action
+		 * <br><b>gray</b>
 		 */
 		CANCEL,
 		
 		/**
 		 * to modify the properties of action (what is useless without saving)
+		 * <br><b>transparent</b>
 		 */
 		CONTROL,
 		
 		/**
 		 * to commit an action that effects data changes or changes in the sate of user or view
+		 * <br><b>green</b>
 		 */
 		ACTION;
 	}

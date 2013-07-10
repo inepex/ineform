@@ -9,7 +9,7 @@ import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 public interface GeneralRes extends ClientBundle {
 	
 	public static class INST {
-		static GeneralRes INST;
+		private static GeneralRes INST;
 		public static GeneralRes get() {
 			if (INST == null) {
 				INST = GWT.create(GeneralRes.class);

@@ -61,7 +61,7 @@
 			-moz-transition: 0.25s;
 			-o-transition: 0.25s;
 			transition: 0.25s;
-			width: 35px;
+			min-width: 35px;
 			height: 35px;
 		}
 		

@@ -8,77 +8,41 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.InlineLabel;
-import com.inepex.ineForm.client.form.widgets.CheckBoxFW;
-import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
-import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
-import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
-public class IneCheckBox extends DenyingFormWidget implements HasValue<Boolean> {
+public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boolean>, HasText,
+	HasHTML, HasEnabled {
 
 	private final FlowPanel mainPanel = new FlowPanel();
 	private final ClickableFlowPanel checkPanel = new ClickableFlowPanel();
-	private final InlineLabel textLabel = new InlineLabel();
-	private final HTML textHTML = new HTML("");
+	private final HTML textWidget = new HTML("");
 	private Boolean checked = false;
+	private boolean enabled = true;
 	
 	public IneCheckBox() {
-		this(null);
+		initWidget(mainPanel);
+		createUI();
 	}
 	
 	public IneCheckBox(String text){
-		this(null, null, text);
-	}
-	
-	public IneCheckBox(FDesc fielddescriptor, WidgetRDesc wrDesc) {
-		this(fielddescriptor, wrDesc, null);
-	}
-	
-	public IneCheckBox(FDesc fDesc, WidgetRDesc wrDesc, String text) {
-		super(fDesc);
-		
-		if(text!=null) {
-			textLabel.setText(text);
-		} else if(wrDesc!=null && wrDesc.hasProp(CheckBoxFW.CHECKBOXTEXT)) {
-			textLabel.setText(wrDesc.getPropValue(CheckBoxFW.CHECKBOXTEXT));
-		}else if(wrDesc!=null && wrDesc.hasProp(CheckBoxFW.CHECKBOXHTML)) {
-			textHTML.setHTML(wrDesc.getPropValue(CheckBoxFW.CHECKBOXHTML));
-		}
-		
-		initWidget(mainPanel);
-		createUI();
+		this();
+		setText(text);
 	}
 
 	private void createUI() {
 		mainPanel.add(checkPanel);
-		if(textHTML.getHTML().equals("")){
-			mainPanel.add(textLabel);
-		}else{
-			mainPanel.add(textHTML);
-		}
-		textLabel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
-		textHTML.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
+		mainPanel.add(textWidget);
+		
+		textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
 		checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
 		checkPanel.getElement().getStyle().setPosition(Position.STATIC);
 	}
 	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		registerHandler(checkPanel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				checked=!checked;
-				ValueChangeEvent.fire(IneCheckBox.this, checked);
-				fireFormWidgetChanged();
-				correctCheckboxStyle();
-			}
-		}));
-	}
 	
 	private void correctCheckboxStyle() {
 		if(checked){
@@ -97,6 +61,10 @@ public class IneCheckBox extends DenyingFormWidget implements HasValue<Boolean> 
 	public HandlerRegistration addClickHandler(ClickHandler handler){
 		return checkPanel.addClickHandler(handler);
 	}
+	
+	public HandlerRegistration addLabelClickHandler(ClickHandler clickHandler) {
+		return textWidget.addClickHandler(clickHandler);
+	}
 
 	@Override
 	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Boolean> handler) {
@@ -114,40 +82,60 @@ public class IneCheckBox extends DenyingFormWidget implements HasValue<Boolean> 
 		
 		if(fireEvents && value != null) {
 			ValueChangeEvent.fire(IneCheckBox.this, value);
-			fireFormWidgetChanged();
 		}
 		
 		correctCheckboxStyle();
 	}
+	
+	@Override
+	protected void onAttach() {
+		super.onAttach();
+		
+		registerHandler(checkPanel.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if(!enabled)
+					return;
+				
+				checked=!checked;
+				ValueChangeEvent.fire(IneCheckBox.this, checked);
+				correctCheckboxStyle();
+			}
+		}));
+	}
 
 	@Override
 	public void setEnabled(boolean enabled) {
-		//TODO
-		throw new UnsupportedOperationException("unimplemented yet!");
+		this.enabled=enabled;
+		if(enabled)
+			textWidget.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
+		else
+			textWidget.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
 	}
 
 	@Override
-	public boolean isFocusable() {
-		return false;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 	@Override
-	public boolean handlesBoolean() {
-		return true;
+	public String getHTML() {
+		return textWidget.getHTML();
 	}
 
 	@Override
-	public void setBooleanValue(Boolean value) {
-		setValue(value);
+	public void setHTML(String arg0) {
+		textWidget.setHTML(arg0);
 	}
 
 	@Override
-	public Boolean getBooleanValue() {
-		return getValue();
+	public String getText() {
+		return textWidget.getText();
 	}
 
-	public HandlerRegistration addLabelClickHandler(ClickHandler clickHandler) {
-		return textLabel.addClickHandler(clickHandler);
+	@Override
+	public void setText(String arg0) {
+		textWidget.setText(arg0);
 	}
-
 }
