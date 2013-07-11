@@ -10,8 +10,8 @@ import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.IneDataConnector;
-import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 

@@ -22,9 +22,9 @@ public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean
 
 	private boolean checked;
 	private HandlerManager handlerManager;
-	private IneTable table;
+	private AbstractIneTable table;
 
-	public SelectAllHeader(IneTable table) {
+	public SelectAllHeader(AbstractIneTable table) {
 		super(new CheckboxCell());
 		this.table=table;
 	}

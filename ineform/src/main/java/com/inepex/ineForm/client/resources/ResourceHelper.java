@@ -3,6 +3,7 @@ package com.inepex.ineForm.client.resources;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Image;
 
 public class ResourceHelper {
@@ -10,6 +11,7 @@ public class ResourceHelper {
 	private static IneResources imageResources = null;
 	private static IneFormResources ifResources = null;
 	private static CellTableResources cellTableResources = null;
+	private static DataGrid.Resources dataGridResources = null;
 	
 	//image helper
 	public static String getImageAsString(ImageResource resource) {
@@ -51,6 +53,14 @@ public class ResourceHelper {
         @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
         @Override
         CellTable.Style cellTableStyle();
+	}
+	
+	public static DataGrid.Resources dataGridResources() {
+		if(dataGridResources==null) {
+			dataGridResources = new IneDataGridResources();
+		}
+		
+		return dataGridResources;
 	}
 	
 	//image resources

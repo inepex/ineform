@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inepex.ineForm.client.form.FormContext;
+import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.DummyDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
-import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
 import com.inepex.ineForm.shared.render.DefaultTableFieldRenderer;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -39,7 +39,7 @@ public class IneTableFW extends DenyingFormWidget {
 			ineTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 		
 		ineTable.renderTable();
-		initWidget(ineTable);
+		initWidget(ineTable.asWidget());
 	}
 	
 	@Override
