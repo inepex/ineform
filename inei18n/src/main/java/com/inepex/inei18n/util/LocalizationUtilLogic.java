@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.CharStreams;
 import com.inepex.inei18n.server.I18nModuleConverter;
@@ -20,8 +17,6 @@ import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.LocalizedString;
 
 public class LocalizationUtilLogic {
-
-	private final static Logger logger = LoggerFactory.getLogger(LocalizationUtilLogic.class);
 	
 	private final Class<? extends I18nModule> i18nClass;
 	private final String moduleName;
@@ -29,6 +24,7 @@ public class LocalizationUtilLogic {
 	public LocalizationUtilLogic(Class<? extends I18nModule> i18nClass, String name) {
 		this.i18nClass=i18nClass;
 		this.moduleName=name;
+		
 	}
 
 	public void generateIneFormSourceFromCsv() {
@@ -50,9 +46,10 @@ public class LocalizationUtilLogic {
 			srvI18nConverter.saveCsvToDefaultPath();
 			srvI18nConverter.generateModuleFile();
 			srvI18nConverter.generateServerModuleProviderFile();
+			System.out.println("Generation finished!");
 			
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -61,7 +58,7 @@ public class LocalizationUtilLogic {
 	}
 
 	private Map<String, LocalizedString> downloadLocalizables(String downloadUrl) {
-		logger.info("Downloading rows from: {}", downloadUrl);
+		System.out.println("Downloading rows from: "+ downloadUrl);
 		try {
 			URL url = new URL(downloadUrl);
 			InputStream r = url.openStream();
@@ -72,7 +69,7 @@ public class LocalizationUtilLogic {
 			
 			if(dto.getWarning()!=null) {
 				for(String str : dto.getWarning()) 
-					logger.warn(str);
+					System.err.println(str);
 			}
 			
 			if(dto.getLocalizables()==null || dto.getLocalizables().isEmpty()) {

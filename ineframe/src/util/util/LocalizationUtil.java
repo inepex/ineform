@@ -1,4 +1,4 @@
-package com.inepex.ineFrame.util;
+package util;
 
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.inei18n.util.LocalizationUtilLogic;

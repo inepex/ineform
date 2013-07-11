@@ -56,7 +56,7 @@ public class ClientDescriptorStore extends DescriptorStore {
 		ensureDescriptorForClass(namedDesc.getClass());
 		
 		((TypedDescriptorMap<D>) typedDescMap.get(typeToKey(namedDesc.getClass())))
-			.addNamedDescriptor(marker, objDescName, namedDescName, namedDesc);
+			.addNamedDescriptor(objDescName, namedDescName, namedDesc);
 	}
 	
 	private <D extends DescriptorBase> void ensureDescriptorForClass(Class<D> clazz) {

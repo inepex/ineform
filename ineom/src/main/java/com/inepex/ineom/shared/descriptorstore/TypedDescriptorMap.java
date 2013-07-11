@@ -3,7 +3,6 @@ package com.inepex.ineom.shared.descriptorstore;
 import java.util.Map;
 
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
-import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 
 /**
  * Helper class for string Typed Descriptors. This class is used in {@link ClientDescriptorStore}.
@@ -24,7 +23,7 @@ public class TypedDescriptorMap<D extends DescriptorBase > {
 		this.namedDescriptorsByOdName=mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, Map<String, D>>());
 	}
 	
-	public void addNamedDescriptor(Marker marker, String odName, String descName, D descriptor){
+	public void addNamedDescriptor(String odName, String descName, D descriptor){
 		
 		Map<String, D> descriptors = namedDescriptorsByOdName.get(odName);
 		
