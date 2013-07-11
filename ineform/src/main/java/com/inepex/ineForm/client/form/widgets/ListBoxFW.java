@@ -51,22 +51,22 @@ public class ListBoxFW extends AbstractListBoxFW {
 	
 	@Override
 	protected void fireFormWidgetChanged() {
-		int selected = listBox.getSelectedIndex();
+		int selected = getListBox().getSelectedIndex();
 		
 		if(selected==-1 || selected==0 &&  allowsNull) value = null;
-		else value = new Relation(Long.parseLong(listBox.getValue(selected)), listBox.getItemText(selected));
+		else value = new Relation(Long.parseLong(getListBox().getValue(selected)), getListBox().getItemText(selected));
 		
 		super.fireFormWidgetChanged();
 	}
 	
 	public void reLoadListAndKeepSelectedOrSetToNull() {
 		if (valueRangeProvider != null) {
-			listBox.setEnabled(false);
+			getListBox().setEnabled(false);
 			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
 				@Override
 				public void onValueRangeResultReady(List<Relation> relationList) {
 					if (relationList != null){
-						listBox.setEnabled(true);
+						getListBox().setEnabled(true);
 						ListBoxFW.this.setValueRange(relationList);
 						if(value==null || !itemIdIndexMap.containsKey(value.getId())) {
 							setRelationValue(null);
@@ -83,7 +83,7 @@ public class ListBoxFW extends AbstractListBoxFW {
 	}
 	
 	public void setValueRange(List<Relation> valueRange){
-		listBox.clear();
+		getListBox().clear();
 		itemIdIndexMap.clear();
 		
 		if (allowsNull) addNullItem();
@@ -91,7 +91,7 @@ public class ListBoxFW extends AbstractListBoxFW {
 		
 		if(valueRange!=null) {
 			for (Relation relation : valueRange) {
-				listBox.addItem(relation.getDisplayName(), relation.getId().toString());
+				getListBox().addItem(relation.getDisplayName(), relation.getId().toString());
 				itemIdIndexMap.put(relation.getId(), index++);
 			}
 		}
@@ -107,11 +107,11 @@ public class ListBoxFW extends AbstractListBoxFW {
 		
 		if (value == null) {
 			if (allowsNull) {
-				listBox.setSelectedIndex(0);
+				getListBox().setSelectedIndex(0);
 			}
 		} else {
 			if(itemIdIndexMap.containsKey(value.getId()))
-				listBox.setSelectedIndex(itemIdIndexMap.get(value.getId()));
+				getListBox().setSelectedIndex(itemIdIndexMap.get(value.getId()));
 		}
 	}
 	
@@ -122,12 +122,12 @@ public class ListBoxFW extends AbstractListBoxFW {
 
 	private void loadDataFromValueRangeProvider(){
 		if (valueRangeProvider != null) {
-			listBox.setEnabled(false);
+			getListBox().setEnabled(false);
 			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
 				@Override
 				public void onValueRangeResultReady(List<Relation> relationList) {
 					if (relationList != null){
-						listBox.setEnabled(true);
+						getListBox().setEnabled(true);
 						ListBoxFW.this.setValueRange(relationList);
 					}
 				}

@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+@external .gwt-*;
 
 @sprite .ineCheckBox{
 	gwt-image: 'checkBoxBG';
@@ -28,4 +29,42 @@
 .ineCheckBoxDisabled {
 	cursor: normal;
 	opacity: 0.7;
+}
+
+@sprite .listBoxExtraDiv{
+	display: inline-block !important;
+	height: 31px;
+	margin-top: 2px;
+   	overflow: hidden;
+   	outline: none;
+   	
+   	gwt-image: 'select_icon';
+	background-color: #FFFFFF;
+	
+	/* Turning off selection arrows */
+	-webkit-appearance: none;
+	
+	/* Border */
+	border: 1px solid #ccc;
+	border-radius: 3px;
+  	-moz-border-radius: 3px;
+  	-webkit-border-radius: 3px;
+  	
+  	
+}
+
+.listBoxExtraDiv .gwt-ListBox {
+	padding: 7px 0 0 5px !important;
+	
+	background: transparent;
+	outline: none;
+	font-weight: bold;
+	font-size: 12px;
+	color: #666666;
+	height: 30px;
+	
+	/* Turn off base selection arrows */
+	-webkit-appearance: none;
+	
+	border: none;	
 }

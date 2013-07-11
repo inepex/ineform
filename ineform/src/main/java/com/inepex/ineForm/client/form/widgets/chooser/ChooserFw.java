@@ -168,8 +168,8 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 		
 		addStyleName(ResourceHelper.ineformRes().style().ChooserFw());
 		
-		selected.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
-		valueRange.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
+		selected.setWidth(IneFormProperties.DEFAULT_ListBoxWidth_inPx+"px");
+		valueRange.setWidth(IneFormProperties.DEFAULT_ListBoxWidth_inPx+"px");
 		
 		if (widgetRDesc.hasProp(enumChooser) 
 				|| widgetRDesc.hasProp(stringChooser)){

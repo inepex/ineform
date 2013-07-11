@@ -2,11 +2,9 @@ package com.inepex.ineForm.client.form.widgets.listbox;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
-import com.inepex.ineForm.client.resources.ResourceHelper;
+import com.inepex.ineForm.client.general.IneListbox;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
@@ -15,9 +13,7 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 		public static String notSelectedText = "notSelectedText";
 	}
 	
-	//there is an extra div around the listbox for styling
-	protected final FlowPanel listBoxPanel = new FlowPanel();
-	protected final ListBox listBox = new ListBox();
+	private final IneListbox listBox = new IneListbox();
 	
 	public final static String DEFAULT_notSelectedText = "--";
 	
@@ -31,12 +27,9 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 		super(fieldDesc);
 		this.wrDesc = wrDesc;
 		
-		listBoxPanel.add(listBox);
-		listBoxPanel.addStyleName(ResourceHelper.ineformRes().style().listBoxExtraDiv());
-		initWidget(listBoxPanel);
+		initWidget(listBox.asWidget());
 		
 		setAllowsNull(fieldDesc.isNullable());
-		listBox.setWidth(IneFormProperties.DEFAULT_ListBoxWidth);
 		if (wrDesc.hasProp(Params.notSelectedText)){
 			notSelectedText = wrDesc.getPropValue(Params.notSelectedText);
 		}
@@ -46,7 +39,7 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 	protected void onAttach() {
 		super.onAttach();
 		
-		registerHandler(listBox.addChangeHandler(new ChangeHandler() {
+		registerHandler(listBox.getListBox().addChangeHandler(new ChangeHandler() {
 			
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -62,21 +55,21 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 	}
 	
 	protected void addNullItem() {
-		listBox.addItem(notSelectedText, notSelectedText);
+		listBox.getListBox().addItem(notSelectedText, notSelectedText);
 	}
 	
 	@Override
 	public void setEnabled(boolean enabled) {
-		listBox.setEnabled(enabled);
+		listBox.getListBox().setEnabled(enabled);
 	}
 
 	@Override
 	public void setFocus(boolean focused) {
-		listBox.setFocus(focused);
+		listBox.getListBox().setFocus(focused);
 	}
 	
 	public ListBox getListBox(){
-		return listBox;
+		return listBox.getListBox();
 	}
     
 }

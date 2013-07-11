@@ -22,16 +22,16 @@ public class StringListBoxFw extends AbstractListBoxFW {
 	
 	public void setValueRange(List<String> valueRange){
 		this.valueRange = valueRange;
-		listBox.clear();
+		getListBox().clear();
 		if (allowsNull) addNullItem();
 		for (String value : valueRange){
-			listBox.addItem(value);
+			getListBox().addItem(value);
 		}
 	}
 	
 	@Override
 	public String getStringValue() {
-		int selectedIndex = listBox.getSelectedIndex();
+		int selectedIndex = getListBox().getSelectedIndex();
 		
 		if(selectedIndex==-1 || allowsNull && selectedIndex==0)
 			return null;
@@ -46,7 +46,7 @@ public class StringListBoxFw extends AbstractListBoxFW {
 
 	@Override
 	public void setStringValue(String value) {
-		listBox.setSelectedIndex((allowsNull ? 1 : 0) + valueRange.indexOf(value));
+		getListBox().setSelectedIndex((allowsNull ? 1 : 0) + valueRange.indexOf(value));
 	}
 
 

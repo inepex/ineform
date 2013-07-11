@@ -118,9 +118,6 @@
 .formWidgetError{
 }
 
-.listBoxExtraDiv{
-}
-
 .ChooserFw{
 	width: 100%;
 }
@@ -143,9 +140,6 @@
 	padding: 10px 0px;
 /* 	font-weight: normal; */
 	width: 90px;	
-}
-
-.OdFieldTypeListBoxWrapper{	
 }
 
 .placeHolderTitlePanel{
