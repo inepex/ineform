@@ -4,6 +4,7 @@ import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressConsts;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
+import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -58,7 +59,7 @@ public class ContactAssist extends Assist {
 	@Override
 	public TableRDesc getTableRDesc() {
 		TableRDesc tableRDesc = new TableRDesc(ContactConsts.descriptorName);
-			
+		
 		tableRDesc.getRootNode()
 			.addChild(ContactConsts.k_name, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
 			.addChild(ContactConsts.k_phone, new ColRDesc(/*hc:tdr1_3*//*hc*/)/*hc:tdr2_3*//*hc*/)				

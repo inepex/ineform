@@ -6,7 +6,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
-import com.inepex.ineForm.client.table.IneTable.SelectionBehaviour;
+import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.table.SortableIneTable;
