@@ -91,10 +91,14 @@ public class CompanyAssist extends Assist {
 		FormRDesc formRDesc = new FormRDesc(CompanyConsts.descriptorName/*hc:frd_props*/
 			
 			/*hc*/);
-			
+		
+		//TODO remove labels
+		
 		formRDesc.getRootNode()
-			.addChild(CompanyConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(CompanyConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.PHONE/*hc*/))
+			.addChild(CompanyConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/)
+				.addProp(FWTypes.p_label, "a long text to read... bla bla bla b ert ert sdfsdfsd ert dfsdf  ertertret  dfgdfg. Bla bla bla b ert ert sdfsdfsd ert dfsdf  ertertret  dfgdfg!"))
+			.addChild(CompanyConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.PHONE/*hc*/)
+				.addProp(FWTypes.p_label, "small label"))
 			.addChild(CompanyConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
 			.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.TEXTBOX/*hc*/))
 			.addChild(CompanyConsts.k_extData, new WidgetRDesc(FWTypes.CUSTOMKVO))

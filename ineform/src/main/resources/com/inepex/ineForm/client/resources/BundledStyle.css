@@ -146,8 +146,11 @@
 }
 
 .labelledFWLabel {
-	font-size: 10px;
 	color: #666;
+	display: block;
+    font-size: 13px;
+    padding-top: 4px;
+    padding-left: 2px;
 }
 
 .textBoxFW{
