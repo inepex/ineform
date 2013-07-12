@@ -16,7 +16,7 @@ public class LabelledFW extends FormWidgetWrapperFormWidget{
 		mainPanel.add(afterFormLabel);
 		if(defLbl!=null) {
 			afterFormLabel.setText(defLbl);
-			afterFormLabel.setHTML("&nbsp;" + afterFormLabel.getText());
+			afterFormLabel.setHTML(afterFormLabel.getText());
 		}
 		afterFormLabel.setStyleName(ResourceHelper.ineformRes().style().labelledFWLabel());
 	}
