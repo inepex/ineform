@@ -130,11 +130,6 @@ public class ByteConvertUtil {
 		}
 	}
 	
-	/**
-	 * Lazy evaluation for logging.
-	 * 
-	 * TODO avoid byte array copy
-	 */
 	public static class Base64Msg{
 		
 		private final byte[] msg;
@@ -148,5 +143,13 @@ public class ByteConvertUtil {
 			ChannelBuffer ch = ChannelBuffers.wrappedBuffer(Arrays.copyOf(msg, msg.length));
 			return base64EncodeEatChannelBuffer(ch);
 		}
+	}
+	public static long getBigEndianValue(byte[] b){
+		long value = 0;
+		for (int i = 0; i < b.length; i++)
+		{
+		   value += ((long) b[i] & 0xff) << (8 * i);
+		}
+		return value;
 	}
 }
