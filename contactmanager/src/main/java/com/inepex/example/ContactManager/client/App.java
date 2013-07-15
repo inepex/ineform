@@ -22,7 +22,7 @@ public class App extends IneFrameEntryPoint {
 	public static AppGinjector INJECTOR = GWT.create(AppGinjector.class);
 	
 	static {
-		IneFormProperties.CREATESIMPLEBUTTON=false;
+		IneFormProperties.OLD_STYLE_COMPATIBILITY=false;
 		Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, "en", new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
 	}
 	

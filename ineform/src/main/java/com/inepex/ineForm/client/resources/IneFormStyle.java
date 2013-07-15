@@ -45,5 +45,8 @@ public interface IneFormStyle extends CssResource {
 	String datetimeFW();
 
 	String labelClickableFW();
+
+	String tableEditIcon();
+	String tableDeleteIcon();
 }
 

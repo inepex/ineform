@@ -9,4 +9,8 @@ public interface IneFormResources extends ClientBundle {
 	IneFormStyle style();
 	
     ImageResource form_error();
+    
+    ImageResource rowcommand_delete();
+    
+    ImageResource rowcommand_edit();
 }

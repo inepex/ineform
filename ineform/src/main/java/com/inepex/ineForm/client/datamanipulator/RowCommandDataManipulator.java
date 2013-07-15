@@ -7,10 +7,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.AbstractIneTable.UserCommand;
 import com.inepex.ineForm.client.table.IneDataConnector;
@@ -22,8 +24,8 @@ public class RowCommandDataManipulator extends DataManipulator {
 
 	protected final IneButton newButton = new IneButton(IneButton.IFButtonType.ACTION, IneFormI18n.NEW());
 	
-	private String editText = IneFormI18n.EDIT();
-	private String deleteText = IneFormI18n.DELETE();
+	private String editText;
+	private String deleteText;
 	
 	protected List<UserCommand> userCommands = new ArrayList<UserCommand>();
 	
@@ -35,6 +37,14 @@ public class RowCommandDataManipulator extends DataManipulator {
 			, @Assisted boolean sortable
 			, TableFieldRenderer fieldRenderer) {
 		super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
+		
+		if(IneFormProperties.OLD_STYLE_COMPATIBILITY) {
+			editText = IneFormI18n.EDIT();
+			deleteText = IneFormI18n.DELETE();
+		} else {
+			editText = "<div class='"+ResourceHelper.ineformRes().style().tableEditIcon()+"' title='"+IneFormI18n.EDIT()+"'></div>";
+			deleteText = "<div class='"+ResourceHelper.ineformRes().style().tableDeleteIcon()+"' title='"+IneFormI18n.DELETE()+"'></div>";
+		}
 		
 		userCommands.add(new EditCommand());
 		userCommands.add(new DeleteCommand());

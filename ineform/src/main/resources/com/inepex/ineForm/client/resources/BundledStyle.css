@@ -178,3 +178,21 @@
 	text-decoration: none;
 	cursor: hover;
 }
+
+@sprite .tableEditIcon {
+	gwt-image : 'rowcommand_edit';
+	opacity: 0.4;
+	display: inline-block;	
+}
+
+@sprite .tableDeleteIcon {
+	gwt-image : 'rowcommand_delete';
+	opacity: 0.4;
+	display: inline-block;
+}
+
+.tableDeleteIcon:hover,
+.tableEditIcon:hover {
+	cursor: pointer;
+	opacity: 1.0;
+}
