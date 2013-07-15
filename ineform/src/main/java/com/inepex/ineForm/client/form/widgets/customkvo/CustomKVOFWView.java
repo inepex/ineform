@@ -42,6 +42,11 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	protected CustomKVOFWView(boolean showType) {
 		this.showType=showType;
+		
+		rowTable.setStyleName(ResourceHelper.ineformRes().style().customKVOTable());
+		rowTable.getColumnFormatter().setStyleName(0, ResourceHelper.ineformRes().style().customKVOTableContent());
+		rowTable.getColumnFormatter().setStyleName(1, ResourceHelper.ineformRes().style().customKVOTableContent());
+		rowTable.getColumnFormatter().setStyleName(2, ResourceHelper.ineformRes().style().customKVOTableContent());
 	}
 	
 	private void createHeader() {

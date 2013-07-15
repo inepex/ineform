@@ -50,5 +50,9 @@ public interface IneFormStyle extends CssResource {
 	String tableDeleteIcon();
 
 	String abstractField_dateLabel();
+
+	String customKVOTable();
+
+	String customKVOTableContent();
 }
 

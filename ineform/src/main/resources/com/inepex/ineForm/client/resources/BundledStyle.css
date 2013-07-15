@@ -126,19 +126,30 @@
 	background:white;
 }
 
+.customKVOTable {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.customKVOTableContent {
+	border: 1px solid #f0f0f0;
+}
+
 .customKVOHeader,
-.customKVOHeaderRO {
+.customKVOHeaderRO,
+.customKVOHeaderType,
+.customKVOHeaderTypeRO {
 	width: 132px;
+	color: #333;
+	padding: 10px;
 	font-size: 14px;
-	padding: 10px 0px;
-/* 	font-weight: normal; */
+	text-align: left;
+	font-weight: bold;
+	border: 1px solid #f0f0f0;
 }
 
 .customKVOHeaderType,
 .customKVOHeaderTypeRO {
-	font-size: 14px;
-	padding: 10px 0px;
-/* 	font-weight: normal; */
 	width: 90px;	
 }
 
