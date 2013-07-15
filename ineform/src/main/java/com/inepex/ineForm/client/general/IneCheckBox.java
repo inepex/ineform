@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.general;
 
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -41,6 +42,7 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 		textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
 		checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
 		checkPanel.getElement().getStyle().setPosition(Position.STATIC);
+		mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
 	}
 	
 	
