@@ -47,6 +47,10 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 		if(showstepbuttons) {
 			img_step_bck=new Image();
 			img_step_fwd=new Image();
+			img_step_bck.setResource(ResourceHelper.ineformRes().arrowLeft());
+			img_step_fwd.setResource(ResourceHelper.ineformRes().arrowRight());
+			img_step_bck.addStyleName(ResourceHelper.ineformRes().style().clickable());
+			img_step_fwd.addStyleName(ResourceHelper.ineformRes().style().clickable());
 		}
 
 		if(usetextbox) {
@@ -62,11 +66,6 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 		else panel_main.add(lbl_datetime);
 
 		if(showstepbuttons) panel_main.add(img_step_fwd);
-
-		img_step_bck.setResource(ResourceHelper.ineformRes().arrowLeft());
-		img_step_fwd.setResource(ResourceHelper.ineformRes().arrowRight());
-		img_step_bck.addStyleName(ResourceHelper.ineformRes().style().clickable());
-		img_step_fwd.addStyleName(ResourceHelper.ineformRes().style().clickable());
 		
 		setEnabled(true);
 	}

@@ -38,13 +38,13 @@ class YMD_OOField extends AbstractField {
 			popup=new PopupPanel();
 			popup.setWidget(datepicker);
 			popup.setAutoHideEnabled(true);
+			
+			img_calendar.setResource(ResourceHelper.ineformRes().calendar());
+			img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
+			img_calendar.getElement().getStyle().setPadding(5, Unit.PX);
 		}
 		
 		if(showcalendar) panel_main.insert(img_calendar, 0);
-		
-		img_calendar.setResource(ResourceHelper.ineformRes().calendar());
-		img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
-		img_calendar.getElement().getStyle().setPadding(5, Unit.PX);
 		
 		setEnabled(true);
 	}
