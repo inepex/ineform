@@ -14,7 +14,6 @@ import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -26,7 +25,6 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
@@ -242,8 +240,7 @@ public abstract class AbstractIneTable {
 
 		// Create a Pager to control the table.
 		if (showPager) {
-			SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
-			pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
+			pager = SimplePagerCreator.create();
 			pager.setDisplay(cellTable);
 		}
 		cellTable.setPageSize(pageSize);
