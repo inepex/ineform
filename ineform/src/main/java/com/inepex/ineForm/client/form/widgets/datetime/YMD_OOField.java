@@ -2,6 +2,8 @@ package com.inepex.ineForm.client.form.widgets.datetime;
 
 import java.util.Date;
 
+import com.google.gwt.dom.client.Style.Cursor;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -38,7 +40,11 @@ class YMD_OOField extends AbstractField {
 			popup.setAutoHideEnabled(true);
 		}
 		
-		if(showcalendar) panel_main.add(img_calendar);
+		if(showcalendar) panel_main.insert(img_calendar, 0);
+		
+		img_calendar.setResource(ResourceHelper.ineformRes().calendar());
+		img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
+		img_calendar.getElement().getStyle().setPadding(5, Unit.PX);
 		
 		setEnabled(true);
 	}
@@ -62,11 +68,11 @@ class YMD_OOField extends AbstractField {
 		super.setEnabled(enabled);
 		if(showcalendar)
 			if(enabled) {
-				img_calendar.setResource(ResourceHelper.imageResources().calendar());
-				img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
+				img_calendar.getElement().getStyle().setCursor(Cursor.POINTER);
+				img_calendar.getElement().getStyle().setOpacity(1.0);
 			} else {
-				img_calendar.setResource(ResourceHelper.imageResources().calendar_disabled());
-				img_calendar.removeStyleName(ResourceHelper.ineformRes().style().clickable());
+				img_calendar.getElement().getStyle().setCursor(Cursor.DEFAULT);
+				img_calendar.getElement().getStyle().setOpacity(0.3);
 			}
 	}
 	

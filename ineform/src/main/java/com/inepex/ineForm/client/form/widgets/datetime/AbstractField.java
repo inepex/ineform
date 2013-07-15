@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets.datetime;
 
+import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -27,7 +28,7 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 	protected Image img_step_fwd;
 	protected Image img_step_bck;
 
-	protected boolean enabled;
+	protected boolean enabled = true;
 	
 	protected String prevValue="";
 
@@ -52,6 +53,7 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 			tb_datetime = new DateTimeTextBox(precision, enableselectmanager, this);
 		} else {
 			lbl_datetime=new InlineLabel();
+			lbl_datetime.setStyleName(ResourceHelper.ineformRes().style().abstractField_dateLabel());
 		}
 
 		if(showstepbuttons) panel_main.add(img_step_bck);
@@ -61,6 +63,11 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 
 		if(showstepbuttons) panel_main.add(img_step_fwd);
 
+		img_step_bck.setResource(ResourceHelper.ineformRes().arrowLeft());
+		img_step_fwd.setResource(ResourceHelper.ineformRes().arrowRight());
+		img_step_bck.addStyleName(ResourceHelper.ineformRes().style().clickable());
+		img_step_fwd.addStyleName(ResourceHelper.ineformRes().style().clickable());
+		
 		setEnabled(true);
 	}
 	
@@ -137,15 +144,15 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
 		
 		if(showstepbuttons) {
 			if(enabled) {
-				img_step_bck.setResource(ResourceHelper.imageResources().arrowLeft());
-				img_step_fwd.setResource(ResourceHelper.imageResources().arrowRight());
-				img_step_bck.addStyleName(ResourceHelper.ineformRes().style().clickable());
-				img_step_fwd.addStyleName(ResourceHelper.ineformRes().style().clickable());
+				img_step_bck.getElement().getStyle().setOpacity(1);
+				img_step_bck.getElement().getStyle().setCursor(Cursor.POINTER);
+				img_step_fwd.getElement().getStyle().setOpacity(1);
+				img_step_fwd.getElement().getStyle().setCursor(Cursor.POINTER);
 			} else {
-				img_step_bck.setResource(ResourceHelper.imageResources().arrowLeft_disabled());
-				img_step_fwd.setResource(ResourceHelper.imageResources().arrowRight_disabled());
-				img_step_bck.removeStyleName(ResourceHelper.ineformRes().style().clickable());
-				img_step_fwd.removeStyleName(ResourceHelper.ineformRes().style().clickable());
+				img_step_bck.getElement().getStyle().setOpacity(0.3);
+				img_step_bck.getElement().getStyle().setCursor(Cursor.DEFAULT);
+				img_step_fwd.getElement().getStyle().setOpacity(0.3);
+				img_step_fwd.getElement().getStyle().setCursor(Cursor.DEFAULT);
 			}
 		}
 

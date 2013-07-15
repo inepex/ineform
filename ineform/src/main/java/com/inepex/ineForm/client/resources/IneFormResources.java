@@ -13,4 +13,13 @@ public interface IneFormResources extends ClientBundle {
     ImageResource rowcommand_delete();
     
     ImageResource rowcommand_edit();
+    
+	ImageResource arrowLeft();
+
+	ImageResource arrowRight();
+	
+    ImageResource downArrow();
+    ImageResource upArrow();
+    
+    ImageResource calendar();
 }

@@ -47,8 +47,8 @@ public class SortableHeader extends Header<String> {
   private static Template template;
 
   private static final int IMAGE_WIDTH = 16;
-  private static final SafeHtml DOWN_ARROW = makeImage(ResourceHelper.imageResources().downArrow());
-  private static final SafeHtml UP_ARROW = makeImage(ResourceHelper.imageResources().upArrow());
+  private static final SafeHtml DOWN_ARROW = makeImage(ResourceHelper.ineformRes().downArrow());
+  private static final SafeHtml UP_ARROW = makeImage(ResourceHelper.ineformRes().upArrow());
 
   private static SafeHtml makeImage(ImageResource resource) {
     AbstractImagePrototype proto = AbstractImagePrototype.create(resource);

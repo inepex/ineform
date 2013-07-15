@@ -48,5 +48,7 @@ public interface IneFormStyle extends CssResource {
 
 	String tableEditIcon();
 	String tableDeleteIcon();
+
+	String abstractField_dateLabel();
 }
 

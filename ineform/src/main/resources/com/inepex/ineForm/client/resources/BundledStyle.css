@@ -196,3 +196,11 @@
 	cursor: pointer;
 	opacity: 1.0;
 }
+
+.abstractField_dateLabel {
+	border: 1px solid #CCC;
+    font-size: 13px;
+    line-height: 47px;
+    padding: 11px 11px 12px;
+    vertical-align: bottom;
+}

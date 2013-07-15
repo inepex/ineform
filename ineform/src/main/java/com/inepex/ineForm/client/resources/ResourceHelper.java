@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.Image;
 
 public class ResourceHelper {
 
-	private static IneResources imageResources = null;
 	private static IneFormResources ifResources = null;
 	private static CellTableResources cellTableResources = null;
 	
@@ -51,17 +50,5 @@ public class ResourceHelper {
         @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
         @Override
         CellTable.Style cellTableStyle();
-	}
-	
-	//image resources
-	public static void setImageResources(IneResources imageResources) {
-		ResourceHelper.imageResources = imageResources;
-	}
-	
-	public static IneResources imageResources() {
-		if(imageResources==null)
-			imageResources=GWT.create(IneResources.class);
-		
-		return imageResources;
 	}
 }
