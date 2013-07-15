@@ -13,9 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-@def selectionBorderWidth 0px;
 .cellTableWidget {
-	border: 1px solid #e6e6e6;
 }
 
 .cellTableFirstColumn {
@@ -27,23 +25,31 @@
 }
 
 .cellTableFooter {
-  border-top: 2px solid #6f7277;
-  padding: 3px 15px;
-  text-align: left;
-  color: #4b4a4a;
-  text-shadow: #ddf 1px 1px 0;
 }
 
 .cellTableHeader {
-  border-bottom: 3px double #e6e6e6;
-  background: #F3F3F3;
-  padding: 5px 5px;
-  color: #4E4E4E;
-  text-align: center;
+  	color: #333;
+	padding: 10px;
+	font-size: 14px;
+	text-align: left;
+	border: 1px solid #f0f0f0;
 }
 
 .cellTableCell {
-  padding: 5px 5px;
+	color: #666;
+	padding: 10px;
+	font-size: 14px;
+	text-align: left;
+	border: 1px solid #f0f0f0;
+}
+
+.cellTableCell a{
+	color: #666;
+	text-decoration: none;
+}
+
+.cellTableCell a:hover{
+	color: #12ad2b;
 }
 
 .cellTableCell input[type=text] {
@@ -72,7 +78,7 @@
 }
 
 .cellTableSortableHeader:hover {
-  color: #6c6b6b;
+  background-color: rgba(51, 51, 51, .05);
 }
 
 .cellTableSortedHeaderAscending {
@@ -84,27 +90,24 @@
 }
 
 .cellTableEvenRow {
-  background: #ffffff;
+  background: white;
 }
 
 .cellTableEvenRowCell {
-  border: selectionBorderWidth solid #ffffff;
 }
 
 .cellTableOddRow {
-  background: #f3f7fb;
+  background-color: #f9f9f9;
 }
 
 .cellTableOddRowCell {
-  border: selectionBorderWidth solid #f3f7fb;
 }
 
 .cellTableHoveredRow {
-  background: #eee;
+  background-color: rgba(51, 51, 51, .05);
 }
 
 .cellTableHoveredRowCell {
-  border: selectionBorderWidth solid #eee;
 }
 
 .cellTableKeyboardSelectedRow {
@@ -114,21 +117,15 @@
 }
 
 .cellTableSelectedRow {
-  background: #628cd5;
-  color: white;
+  background-color: rgba(18, 173, 43, .3);
   height: auto;
   overflow: auto;
 }
 
 .cellTableSelectedRowCell {
-  border: selectionBorderWidth solid #628cd5;
 }
 
-/**
- * The keyboard selected cell is visible over selection.
- */
 .cellTableKeyboardSelectedCell {
-  border: selectionBorderWidth solid #d7dde8;
 }
 
 @sprite .cellTableLoading {
