@@ -135,7 +135,7 @@
 	display: block;
 	font-family: arial;
 	font-size: 14px;
-	border-right: 1px solid #f0f0f0;
+	border-left: 1px solid #f0f0f0;
 }
 
 .menu a:hover,
@@ -144,8 +144,13 @@
 .submenu .current_page_item a {
 	text-decoration: none;
 	color: white;
-	border-right: 1px solid #12ad2b;
+	border-left: 1px solid #12ad2b;
 	background-color: #12ad2b;
+}
+
+.menu li:first-child a,
+.submenu li:first-child a {
+	border-left: 0 !important;
 }
 
 /* menu3 */

@@ -29,3 +29,28 @@ body {
 }
 
 
+.gwt-DatePicker { 
+	background-color: #f6f6f6;
+	border: 0px solid #ccc;
+	box-shadow: 0px 1px 4px #ccc;
+}
+
+.datePickerDayIsValue {
+	background: #12ad2b;
+	border: 0px;
+	color: white;
+}
+
+.datePickerDay {
+	padding: 10px;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.datePickerWeekdayLabel,.datePickerWeekendLabel {
+	background-color: #f1f1f1;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 10px;
+	cursor: default;
+}

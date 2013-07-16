@@ -32,7 +32,17 @@
 	padding: 10px;
 	font-size: 14px;
 	text-align: left;
-	border: 1px solid #f0f0f0;
+	border-top: 1px solid #f0f0f0;
+	border-right: 1px solid #f0f0f0;
+	border-bottom: 2px solid #f0f0f0;
+}
+
+.cellTableHeader:first-child {
+	border-left: 1px solid #f0f0f0;
+}
+
+.cellTableCell:first-child {
+	border-left: 1px solid #f0f0f0;
 }
 
 .cellTableCell {
@@ -40,7 +50,8 @@
 	padding: 10px;
 	font-size: 14px;
 	text-align: left;
-	border: 1px solid #f0f0f0;
+	border-right: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
 }
 
 .cellTableCell a{
@@ -91,6 +102,11 @@
 
 .cellTableEvenRow {
   background: white;
+}
+
+.cellTableEvenRow:first-child,
+.cellTableOddRow:first-child {
+	
 }
 
 .cellTableEvenRowCell {
