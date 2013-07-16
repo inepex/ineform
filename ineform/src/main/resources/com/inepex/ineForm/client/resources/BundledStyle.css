@@ -64,7 +64,7 @@
 /* inetable */
 .ineTable {
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 /* ineform */
@@ -101,6 +101,8 @@
 	color:#7F9DB9;
 	font-size:12px; 
 	padding:1px 1px 1px 4px;
+	border-radius: 3px;
+	color: #666
 }
 
 .mandatorySign {
@@ -217,9 +219,13 @@
 }
 
 .abstractField_dateLabel {
-	border: 1px solid #CCC;
+    border: 1px solid #CCC;
     font-size: 13px;
     line-height: 45px;
-    padding: 11px 11px 12px;
+    padding: 11px 11px 10px;
     vertical-align: bottom;
+}
+
+.saveCancelButtonDiv {
+	padding-left: 222px;
 }

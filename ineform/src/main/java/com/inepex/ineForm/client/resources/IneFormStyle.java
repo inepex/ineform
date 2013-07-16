@@ -56,5 +56,7 @@ public interface IneFormStyle extends CssResource {
 	String customKVOTableContent();
 
 	String labelFW();
+
+	String saveCancelButtonDiv();
 }
 

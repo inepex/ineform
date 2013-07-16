@@ -16,6 +16,7 @@ import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IFButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.IFConsts;
@@ -108,6 +109,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 		
 		add(formwidget);
 		add(buttonPanel);
+		buttonPanel.setStyleName(ResourceHelper.ineformRes().style().saveCancelButtonDiv());
 		buttonPanel.add(cancelButton);
 		buttonPanel.add(saveButton);
 		saveButton.setText(saveButtonText);
