@@ -85,7 +85,7 @@
 }
 
 .cellContent {
-	width: 640px;
+	width: 600px;
 }
 
 .textBoxFW,
@@ -112,6 +112,7 @@
 	padding: 5px;
 	color: red;
 	font-size:12px;
+	vertical-align: super;
 }
 
 .evenCellContent{}
@@ -174,7 +175,7 @@
 	color: #666;
 	display: block;
     font-size: 13px;
-    padding-top: 4px;
+    padding-top: 10px;
     padding-left: 2px;
 }
 
@@ -221,8 +222,15 @@
     border: 1px solid #CCC;
     font-size: 13px;
     line-height: 45px;
-    padding: 11px 11px 10px;
+    padding: 11px 10px 11px 10px;
     vertical-align: bottom;
+}
+
+/* firefox */
+@if user.agent gecko1_8 {
+	.abstractField_dateLabel{
+	 	padding: 11px 10px 10px 10px;
+	 }
 }
 
 .saveCancelButtonDiv {

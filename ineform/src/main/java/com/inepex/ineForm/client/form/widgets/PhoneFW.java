@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
@@ -9,9 +10,9 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class PhoneFW extends DenyingFormWidget {
 	
-	public final static String COUNTRY_WIDTH = "22px";
-	public final static String AREA_WIDTH = "35px";
-	public final static String LOCAL_WIDTH = "95px";
+	public final static String COUNTRY_WIDTH = "30px";
+	public final static String AREA_WIDTH = "30px";
+	public final static String LOCAL_WIDTH = "100px";
 	
 	final FlowPanel mainPanel = new FlowPanel();
 	final NumberTextBoxFW country = new NumberTextBoxFW(null);
@@ -29,8 +30,17 @@ public class PhoneFW extends DenyingFormWidget {
 		initWidget(mainPanel);
 		
 		country.setWidth(COUNTRY_WIDTH);
+		country.getElement().getStyle().setMarginLeft(5, Unit.PX);
+		country.getElement().getStyle().setMarginRight(5, Unit.PX);
+		
 		area.setWidth(AREA_WIDTH);
+		area.getElement().getStyle().setMarginLeft(5, Unit.PX);
+		area.getElement().getStyle().setMarginRight(5, Unit.PX);
+		
 		local.setWidth(LOCAL_WIDTH);
+		local.getElement().getStyle().setMarginLeft(5, Unit.PX);
+		local.getElement().getStyle().setMarginRight(5, Unit.PX);
+		
 		country.setMaxLength(PhoneNumberLogic.MAX_COUNTRY_LENGTH);
 		area.setMaxLength(PhoneNumberLogic.MAX_AREA_LENGTH);
 		local.setMaxLength(PhoneNumberLogic.MAX_LOCAL_LENGTH);
