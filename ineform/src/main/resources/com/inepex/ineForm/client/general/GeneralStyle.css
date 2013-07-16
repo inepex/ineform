@@ -31,7 +31,8 @@
 	opacity: 0.7;
 }
 
-@sprite .listBoxExtraDiv{
+@sprite .listBoxExtraDiv,
+.OLD_listBoxExtraDiv {
 	display: inline-block !important;
 	height: 38px;
 	line-height: 38px;
@@ -49,13 +50,17 @@
 	border: 1px solid #ccc;
 	border-radius: 3px;
   	-moz-border-radius: 3px;
-  	-webkit-border-radius: 3px;
-  	
-  	
+  	-webkit-border-radius: 3px;  	
 }
 
-.listBoxExtraDiv .gwt-ListBox {
-	padding: 0px 0 0 10px !important;
+.OLD_listBoxExtraDiv {
+	height: 30px;
+	line-height: 30px;
+}
+
+.listBoxExtraDiv .gwt-ListBox,
+.OLD_listBoxExtraDiv .gwt-ListBox {
+	padding: 0 0 0 10px !important;
 	
 	background: transparent;
 	outline: none;
@@ -70,4 +75,9 @@
 	
 	height: 29px;
 	line-height: 40px;
+}
+
+.OLD_listBoxExtraDiv .gwt-ListBox {
+	height: 21px;
+	line-height: 32px;
 }

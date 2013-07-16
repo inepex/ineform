@@ -13,5 +13,7 @@ public interface GeneralStyle extends CssResource {
 	String ineCheckBoxDisabled();
 
 	String listBoxExtraDiv();
+
+	String OLD_listBoxExtraDiv();
 	
 }
