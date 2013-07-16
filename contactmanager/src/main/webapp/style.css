@@ -49,7 +49,8 @@ body {
 	font-size: 14px;
 }
 
-.datePickerWeekdayLabel,.datePickerWeekendLabel {
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
 	background-color: #f1f1f1;
 	font-weight: bold;
 	font-size: 14px;
@@ -60,4 +61,20 @@ body {
 
 .datePickerDayIsToday {
 	border:0	
+}
+
+.datePickerDayIsDisabled {
+	opacity: 0.3;
+}
+
+.datePickerPreviousButton,
+.datePickerNextButton {
+	padding: 10px;
+	font-weight: bold;
+}
+
+.datePickerMonth {
+	width: 198px;
+	text-align: center;
+	font-weight: bold;
 }
