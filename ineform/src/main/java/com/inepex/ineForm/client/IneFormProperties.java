@@ -19,7 +19,7 @@ public class IneFormProperties {
 	public static String DEFAULT_RichTextAreaHeigth = "350px";
 	
 	public static int DEFAULT_ListBoxWidth_inPx = 320;
-	public static String DEFAULT_FormLabelWidth = "200px";
+	public static String DEFAULT_FormLabelWidth = "230px";
 		
 	public static FormUnitT defFormUnitType = FormUnitT.SIMPLETABLEFORM;
 	

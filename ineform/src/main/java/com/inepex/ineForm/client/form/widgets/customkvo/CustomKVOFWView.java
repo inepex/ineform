@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -50,6 +51,10 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 		rowTable.getColumnFormatter().setStyleName(1, ResourceHelper.ineformRes().style().customKVOTableContent());
 		rowTable.getColumnFormatter().setStyleName(2, ResourceHelper.ineformRes().style().customKVOTableContent());
 		rowTable.getColumnFormatter().setStyleName(3, ResourceHelper.ineformRes().style().customKVOTableContent());
+		
+		if(!IneFormProperties.OLD_STYLE_COMPATIBILITY) {
+			addBtn.getElement().getStyle().setMarginTop(15, Unit.PX);
+		}
 	}
 	
 	private void createHeader() {

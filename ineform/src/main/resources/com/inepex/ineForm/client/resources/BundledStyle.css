@@ -80,6 +80,8 @@
 .cellTitle {
 	color:#666;
 	font-size: 14px;
+	vertical-align: super;
+	padding-top: 15px;
 }
 
 .cellContent {
@@ -224,5 +226,6 @@
 }
 
 .saveCancelButtonDiv {
-	padding-left: 222px;
+	padding-top: 15px;
+	padding-left: 250px;
 }
