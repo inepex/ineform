@@ -27,7 +27,7 @@ public class IneListbox implements IsWidget {
 	public void setWidthOfCosturction(int widhtInPx) {
 		mainPanel.getElement().setAttribute("style",
 				"width: " +widhtInPx+"px; "+
-				"background-position: "+(widhtInPx-40)+"px -5px;");
+				"background-position: "+(widhtInPx-39)+"px 0px;");
 		
 		listBox.getElement().getStyle().setWidth(widhtInPx+24, Unit.PX);
 	}

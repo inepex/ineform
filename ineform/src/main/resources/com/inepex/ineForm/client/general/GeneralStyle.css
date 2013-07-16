@@ -33,7 +33,7 @@
 
 @sprite .listBoxExtraDiv{
 	display: inline-block !important;
-	height: 31px;
+	height: 38px;
 	margin-top: 2px;
    	overflow: hidden;
    	outline: none;
@@ -54,14 +54,14 @@
 }
 
 .listBoxExtraDiv .gwt-ListBox {
-	padding: 7px 0 0 5px !important;
+	padding: 0px 0 0 10px !important;
 	
 	background: transparent;
 	outline: none;
 	font-weight: bold;
 	font-size: 12px;
 	color: #666666;
-	height: 30px;
+	height: 38px;
 	
 	/* Turn off base selection arrows */
 	-webkit-appearance: none;

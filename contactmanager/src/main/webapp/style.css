@@ -55,3 +55,7 @@ body {
 	padding: 10px;
 	cursor: default;
 }
+
+.datePickerDayIsToday {
+	border:0	
+}
