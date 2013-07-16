@@ -9,7 +9,7 @@ import com.google.gwt.user.cellview.client.SimplePager.Style;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.inepex.ineForm.client.IneFormProperties;
 
-public class SimplePagerCreator {
+public class PagerCreator {
 
 	private static SimplePager.Resources resources;
 	
@@ -34,34 +34,39 @@ public class SimplePagerCreator {
 	public static interface PagerResources extends SimplePager.Resources, ClientBundle{
 		
 		@Override
+		@Source("dummy.png")
 	    ImageResource simplePagerFastForward();
 
 	    @Override
+	    @Source("dummy.png")
 	    ImageResource simplePagerFastForwardDisabled();
 
 	    @Override
 	    ImageResource simplePagerFirstPage();
 
 	    @Override
+	    @Source("simplePagerFirstPage.png")
 	    ImageResource simplePagerFirstPageDisabled();
 
 	    @Override
 	    ImageResource simplePagerLastPage();
 
 	    @Override
+	    @Source("simplePagerLastPage.png")
 	    ImageResource simplePagerLastPageDisabled();
 
 	    @Override
 	    ImageResource simplePagerNextPage();
 
 	    @Override
+	    @Source("simplePagerNextPage.png")
 	    ImageResource simplePagerNextPageDisabled();
 
 	    @Override
 	    ImageResource simplePagerPreviousPage();
 
-	    
 	    @Override
+	    @Source("simplePagerPreviousPage.png")
 	    ImageResource simplePagerPreviousPageDisabled();
 		
 		@Override
@@ -70,5 +75,5 @@ public class SimplePagerCreator {
 	}
 	
 	
-	private SimplePagerCreator(){}
+	private PagerCreator(){}
 }

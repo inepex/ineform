@@ -1,13 +1,29 @@
 @CHARSET "UTF-8";
+@external .gwt-*;
 
-.button {
-	
+.button{}
+
+.button img {
+	cursor: pointer;
+	opacity: 1.0;
 }
 
-.disabledButton {
-	
+.disabledButton {}
+
+.disabledButton  img {
+	cursor: default !important;
+	opacity: 0.5  !important;
 }
 
-.pageDetails {
-	
+.pageDetails{
+}
+
+.pageDetails .gwt-HTML {
+	border: 1px solid #ccc;
+    line-height: 38px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    top: -2px;
+    white-space: nowrap;
 }

@@ -54,5 +54,7 @@ public interface IneFormStyle extends CssResource {
 	String customKVOTable();
 
 	String customKVOTableContent();
+
+	String labelFW();
 }
 

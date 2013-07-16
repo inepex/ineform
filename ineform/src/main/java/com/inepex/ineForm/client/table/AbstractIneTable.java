@@ -240,7 +240,7 @@ public abstract class AbstractIneTable {
 
 		// Create a Pager to control the table.
 		if (showPager) {
-			pager = SimplePagerCreator.create();
+			pager = PagerCreator.create();
 			pager.setDisplay(cellTable);
 		}
 		cellTable.setPageSize(pageSize);

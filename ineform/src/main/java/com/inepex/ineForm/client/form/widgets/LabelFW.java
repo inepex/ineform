@@ -1,6 +1,7 @@
 package com.inepex.ineForm.client.form.widgets;
 
 import com.google.gwt.user.client.ui.InlineHTML;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.date.DateProvider;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
@@ -28,6 +29,7 @@ public class LabelFW extends StringFormWidget {
 			this.nullAlterText=nullAlterText;
 		
 		this.showLongAsDate = showLongAsDate;
+		label.setStyleName(ResourceHelper.ineformRes().style().labelFW());
 		initWidget(label);
 	}
 	
