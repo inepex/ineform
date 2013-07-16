@@ -86,6 +86,7 @@
 	width: 640px;
 }
 
+.textBoxFW,
 .cellContent .gwt-TextBox,
 .cellContent .gwt-PasswordTextBox {
 	border: 1px solid #ccc;
@@ -93,7 +94,7 @@
 	font-size: 14px;
 	height: 30px;
 	border-radius: 3px;
-	padding-left: 10px;
+	padding: 5px 0 5px 10px;
 }
 
 .cellContent .gwt-TextArea {
@@ -137,6 +138,10 @@
 	border-spacing: 0;
 }
 
+.customKVOTable td {
+	padding: 10px;
+}
+
 .customKVOTableContent {
 	border: 1px solid #f0f0f0;
 }
@@ -152,6 +157,7 @@
 	text-align: left;
 	font-weight: bold;
 	border: 1px solid #f0f0f0;
+	border-bottom: 2px solid #f0f0f0;
 }
 
 .customKVOHeaderType,
@@ -168,15 +174,6 @@
     font-size: 13px;
     padding-top: 4px;
     padding-left: 2px;
-}
-
-.textBoxFW{
-	border: 1px solid #ccc;
-	color: #666;
-	font-size: 14px;
-	height: 30px;
-	border-radius: 3px;
-	padding: 5px 0 5px 10px;
 }
 
 .labelFW {

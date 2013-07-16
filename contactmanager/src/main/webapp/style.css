@@ -46,6 +46,7 @@ body {
 	padding: 10px;
 	cursor: hand;
 	cursor: pointer;
+	font-size: 14px;
 }
 
 .datePickerWeekdayLabel,.datePickerWeekendLabel {
@@ -54,6 +55,7 @@ body {
 	font-size: 14px;
 	padding: 10px;
 	cursor: default;
+	text-align: center; 
 }
 
 .datePickerDayIsToday {
