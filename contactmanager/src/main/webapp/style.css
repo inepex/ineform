@@ -6,12 +6,13 @@
 		url('font/opensans.ttf') format('truetype'),
 		url('font/opensans.svg#OpenSansRegular') format('svg');
 	font-weight: normal;
-	font-style: normal;
+	font-style: normal; 
 }
+
 html,body {
 	margin: 0;
 	padding: 0;
-		font-family: 'OpenSansRegular',Arial,Trebuchet MS;
+	font-family: 'OpenSansRegular',Arial,Trebuchet MS;
 	height: 100%; /* needed for container min-height */
 }
 
@@ -28,7 +29,7 @@ body {
   outline: none;
 }
 
-
+/* date picker */
 .gwt-DatePicker { 
 	background-color: #f6f6f6;
 	border: 0px solid #ccc;

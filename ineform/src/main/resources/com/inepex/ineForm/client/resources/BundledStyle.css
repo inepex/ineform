@@ -97,7 +97,10 @@
 }
 
 .cellContent .gwt-TextArea {
-	border:1px solid #ccc; color:#7F9DB9; font-size:10px; padding:1px 1px 1px 4px;
+	border:1px solid #ccc;
+	color:#7F9DB9;
+	font-size:12px; 
+	padding:1px 1px 1px 4px;
 }
 
 .mandatorySign {

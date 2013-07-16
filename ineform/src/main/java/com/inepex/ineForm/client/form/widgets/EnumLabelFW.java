@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
+import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
@@ -26,6 +27,7 @@ public class EnumLabelFW extends DenyingFormWidget {
 			displayableStrings.add(value);
 		}
 		
+		dispLabel.setStyleName(ResourceHelper.ineformRes().style().labelFW());
 		initWidget(dispLabel);
 	}
 	

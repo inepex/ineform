@@ -15,7 +15,6 @@
 .settingsUserName{
 	color: #fff;
 	font-size: 12px;
-	font-family: arial;
    	cursor: pointer;
    	float: right;
  	margin-top: 18px;
@@ -25,7 +24,6 @@
 .settingsUserName:hover{
 	color: #12ad2b;
 	font-size: 12px;
-	font-family: arial;
    	cursor: pointer;
    	float: right;
  	margin-top: 18px;
@@ -133,7 +131,6 @@
 	padding: 17px;
 	text-decoration: none;
 	display: block;
-	font-family: arial;
 	font-size: 14px;
 	border-left: 1px solid #f0f0f0;
 }
@@ -185,7 +182,6 @@
 .selector{
 	width: 210px;
 	color: #6d6d6d;
-	font-family: arial;
 	font-weight: bold;
 	font-size: 11pt;
 	text-align: center;
