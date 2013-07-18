@@ -47,6 +47,7 @@ public class IneRadioButton extends HandlerAwareComposite implements HasValue<Bo
 	
 	interface Res extends ClientBundle {
 		ImageResource radioButton();
+		ImageResource radioButton_old();
 	}
 	
 	@UiField(provided=true)
