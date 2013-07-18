@@ -6,7 +6,6 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -14,6 +13,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneDialogBox;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
@@ -108,7 +108,7 @@ public class TransRowEditPopup {
 	private final String engVal;
 	private final String translatedVal;
 	
-	private DialogBox dialogBox; 
+	private IneDialogBox dialogBox; 
 	
 	public TransRowEditPopup(String engVal, String translatedVal) {
 		this.engVal=engVal;
@@ -116,7 +116,7 @@ public class TransRowEditPopup {
 	}
 	
 	public void show(EditCallback callback) {
-		dialogBox = new DialogBox(false, true);
+		dialogBox = new IneDialogBox(false, true);
 		dialogBox.setWidget(new DialogContent(callback));
 		dialogBox.setGlassEnabled(true);
 		dialogBox.setAnimationEnabled(true);

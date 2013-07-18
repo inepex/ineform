@@ -241,7 +241,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 			if (desc.hasProp(StepperPanelPageWidget.Param.custButtons)){
 				String[] custButtons = desc.getPropValue(StepperPanelPageWidget.Param.custButtons).split(",");
 				for (String btnLabel : custButtons){
-					IneButton btn = new IneButton(IneButtonType.CONTROL, btnLabel);
+					IneButton btn = new IneButton(IneButtonType.DEFAULT, btnLabel);
 					this.custButtons.add(btn);
 					custHandlerRegs.add(btn.addClickHandler(new CustomBtnClickHandler(btnLabel)));
 					buttonPanel.add(btn);

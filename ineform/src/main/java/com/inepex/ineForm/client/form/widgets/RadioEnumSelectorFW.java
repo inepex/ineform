@@ -3,8 +3,8 @@ package com.inepex.ineForm.client.form.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -25,10 +25,10 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 	protected ComplexPanel mainPanel = new FlowPanel();
 	protected List<IneRadioButton> radioButtons = new ArrayList<IneRadioButton>();
 	
-	private ClickHandler changeHandler = new ClickHandler() {
-		
+	private ValueChangeHandler<Boolean> changeHandler = new ValueChangeHandler<Boolean>() {
+
 		@Override
-		public void onClick(ClickEvent event) {
+		public void onValueChange(ValueChangeEvent<Boolean> arg0) {
 			fireFormWidgetChanged();
 		}
 	};
@@ -65,7 +65,7 @@ public class RadioEnumSelectorFW extends DenyingFormWidget {
 	protected void onAttach() {
 		super.onAttach();
 		for(IneRadioButton rb : radioButtons) {
-			registerHandler(rb.addClickHandler(changeHandler));
+			registerHandler(rb.addValueChangeHandler(changeHandler));
 		}
 	}
 

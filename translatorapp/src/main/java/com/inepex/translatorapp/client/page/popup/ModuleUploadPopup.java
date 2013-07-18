@@ -3,7 +3,6 @@ package com.inepex.translatorapp.client.page.popup;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -12,6 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.inject.Inject;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneDialogBox;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase;
@@ -92,6 +92,11 @@ public class ModuleUploadPopup {
 				
 				@Override
 				public void onClick(ClickEvent event) {
+					if(rows.getText()==null || rows.getText().isEmpty()) {
+						dialogBox.hide();
+						return;
+					}
+						
 					ineDispatch.execute(new RowUploadAction(moduleKvo.getId(), header.getText(), rows.getText()), new IneDispatchBase.SuccessCallback<GenericActionResult>() {
 
 						@Override
@@ -128,13 +133,13 @@ public class ModuleUploadPopup {
 	@Inject AssistedObjectHandlerFactory assistedObjectHandlerFactory;
 	@Inject IneDispatch ineDispatch;
 	
-	private DialogBox dialogBox;
+	private IneDialogBox dialogBox;
 	private AssistedObject moduleKvo;
 	
 	public void show(AssistedObject kvoOfRow, ChangedCallback callback) {
 		this.moduleKvo=kvoOfRow;
 		
-		dialogBox = new DialogBox(false, true);
+		dialogBox = new IneDialogBox(false, true);
 		dialogBox.setWidget(new DialogContent(callback));
 		dialogBox.setGlassEnabled(true);
 		dialogBox.setAnimationEnabled(true);

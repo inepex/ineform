@@ -121,7 +121,7 @@ public class IneRadioButton extends HandlerAwareComposite implements HasValue<Bo
 			@Override
 			public void onClick(ClickEvent event) {
 				if(group.enabled)
-					setValue(true);
+					setValue(true, true);
 			}
 		}, ClickEvent.getType()));
 		

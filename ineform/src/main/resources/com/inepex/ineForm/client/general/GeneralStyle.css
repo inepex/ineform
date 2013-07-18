@@ -1,5 +1,7 @@
 @CHARSET "UTF-8";
 @external .gwt-*;
+@external .dialog*;
+@external .Caption;
 
 @sprite .ineCheckBox_old{
 	gwt-image: 'checkBoxBG_old';
@@ -110,4 +112,33 @@
 .OLD_listBoxExtraDiv .gwt-ListBox {
 	height: 21px;
 	line-height: 32px;
+}
+
+.ineDialogBox {
+	border: 0 solid #CCCCCC;
+	box-shadow: 0 1px 4px #CCCCCC;
+}
+
+.ineDialogBox .dialogTop { 
+	background-color: #333;
+	color: white;
+	line-height: 40px;
+}
+
+.ineDialogBox .dialogMiddle {
+	background-color: #F6F6F6;
+	color: #666;
+}
+
+.ineDialogBox .dialogTopLeft,
+.ineDialogBox .dialogTopRight,
+.ineDialogBox .dialogMiddleLeft,
+.ineDialogBox .dialogMiddleRight {
+	min-width: 15px;
+	min-height: 15px;
+}
+
+.ineDialogBox .dialogMiddleCenterInner {
+	padding-bottom: 10px;
+    padding-top: 10px;
 }

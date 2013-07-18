@@ -19,7 +19,7 @@ public class SingleSelectDataManipulator extends DataManipulator {
 	private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
 	private final IneButton newButton = new IneButton(IneButtonType.ACTION, IneFormI18n.NEW());
-	private final IneButton editButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.EDIT());
+	private final IneButton editButton = new IneButton(IneButtonType.DEFAULT, IneFormI18n.EDIT());
 	private final IneButton deleteButton = new IneButton(IneButtonType.ACTION, IneFormI18n.DELETE());
 	
 	@Inject

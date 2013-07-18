@@ -35,12 +35,12 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
 	private ListBox selected = new ListBox();
 	private VerticalPanel selectedPanel = new VerticalPanel();
 	private VerticalPanel buttons = new VerticalPanel();
-	private IneButton select = new IneButton(IneButtonType.CONTROL, IneFormI18n.SELECT());
-	private IneButton deselect = new IneButton(IneButtonType.CONTROL, IneFormI18n.DESELECT());
-	private IneButton selectAll = new IneButton(IneButtonType.CONTROL, IneFormI18n.SELECTALL());
-	private IneButton deselectAll = new IneButton(IneButtonType.CONTROL, IneFormI18n.DESELECTALL());
-	private IneButton moveUp = new IneButton(IneButtonType.CONTROL, IneFormI18n.MOVEUP());
-	private IneButton moveDown = new IneButton(IneButtonType.CONTROL, IneFormI18n.MOVEDOWN());
+	private IneButton select = new IneButton(IneButtonType.DEFAULT, IneFormI18n.SELECT());
+	private IneButton deselect = new IneButton(IneButtonType.DEFAULT, IneFormI18n.DESELECT());
+	private IneButton selectAll = new IneButton(IneButtonType.DEFAULT, IneFormI18n.SELECTALL());
+	private IneButton deselectAll = new IneButton(IneButtonType.DEFAULT, IneFormI18n.DESELECTALL());
+	private IneButton moveUp = new IneButton(IneButtonType.DEFAULT, IneFormI18n.MOVEUP());
+	private IneButton moveDown = new IneButton(IneButtonType.DEFAULT, IneFormI18n.MOVEDOWN());
 	
 	private Map<String, Item> stringToObject = new HashMap<String, Item>();
 

@@ -23,5 +23,7 @@ public interface GeneralStyle extends CssResource {
 	String listBoxExtraDiv();
 
 	String OLD_listBoxExtraDiv();
+
+	String ineDialogBox();
 	
 }

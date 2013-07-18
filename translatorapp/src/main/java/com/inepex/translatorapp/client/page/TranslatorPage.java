@@ -167,7 +167,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 				if(countryCode==null)
 					return lang;
 				
-				return "<img src='flags/png/"+countryCode+".png' title='"+lang+"' />";
+				return "<img src='flags/png/"+countryCode+".png' title='"+lang+"' style='display: block; margin: 0 auto;'/>";
 			}
 		});
 		

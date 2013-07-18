@@ -4,6 +4,8 @@ package com.inepex.ineFrame.client.dialog;
  *
  */
 
+import com.google.gwt.dom.client.Style.BorderStyle;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -32,7 +34,12 @@ public abstract class DialogBoxBase extends DialogBox {
 	public DialogBoxBase() {
 		super();
 
-		addStyleName("common-BaseDialogBox");
+		getElement().getStyle().setBackgroundColor("white");
+		getElement().getStyle().setPadding(15, Unit.PX);
+		getElement().getStyle().setBorderColor("black");
+		getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+		getElement().getStyle().setBorderWidth(1, Unit.PX);
+		
 		setModal(true);
 		setGlassEnabled(true);
 		setAnimationEnabled(true);

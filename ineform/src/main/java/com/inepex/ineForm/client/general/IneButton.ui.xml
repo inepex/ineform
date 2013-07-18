@@ -2,22 +2,20 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style type="com.inepex.ineForm.client.general.IneButton.ButtonStyles">
+		.defaultColors{
+			background-color: #f6f6f6;
+			color: #666;
+			border: 1px solid #f1f1f1;
+		}
+		
+		.defaultColors:hover {
+			background-color: #f1f1f1;
+		}
+	
 		.pagingColors{
-			min-width: 100px;
-			padding: 10px 10px;
 			background-color: #3a99e2;
 			color: #fff;
 			border: 0px;
-			border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			cursor: pointer;
-			font-size: 13px;
-			
-			-webkit-transition: 0.25s;
-			-moz-transition: 0.25s;
-			-o-transition: 0.25s;
-			transition: 0.25s;
 		}
 		
 		.pagingColors:hover {
@@ -25,21 +23,9 @@
 		}
 		
 		.cancelColors{
-			min-width: 100px;
-			padding:  10px 10px;
 			background-color: #333;
 			color: #fff;
-			border: 0px;
-			border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			cursor: pointer;
-			font-size: 13px;
-			
-			-webkit-transition: 0.25s;
-			-moz-transition: 0.25s;
-			-o-transition: 0.25s;
-			transition: 0.25s;
+			border: 0px;	
 		}
 		
 		
@@ -51,18 +37,6 @@
 			background: transparent;
 			color: #ccc;
 			border: 1px dashed #ccc;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			border-radius: 3px;
-			cursor: pointer;
-			font-weight: bold;
-			font-size: 20px;
-			-webkit-transition: 0.25s;
-			-moz-transition: 0.25s;
-			-o-transition: 0.25s;
-			transition: 0.25s;
-			min-width: 35px;
-			height: 35px;
 		}
 		
 		.controlColors:hover {
@@ -72,25 +46,39 @@
 		}
 		
 		.actionColors{
-			min-width: 100px;
-			padding: 10px 10px;
 			background-color: #12ad2b;
 			color: #fff;
 			border: 0px;
-			border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			cursor: pointer;
-			font-size: 13px;
 			
-			-webkit-transition: 0.25s;
-			-moz-transition: 0.25s;
-			-o-transition: 0.25s;
-			transition: 0.25s;
+		}
+		
+		.normalSize {
+			min-width: 100px;
+			padding: 10px 10px;
+			font-size: 13px;
 		}
 		
 		.actionColors:hover {
 			background-color: #1aba34;
+		}
+		
+		.oneCharSize{
+			font-weight: bold;
+			font-size: 20px;
+			min-width: 35px;
+			height: 35px;
+		}
+		
+		.sharedStyles {
+			-webkit-transition: 0.25s;
+			-moz-transition: 0.25s;
+			-o-transition: 0.25s;
+			transition: 0.25s;
+			
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			cursor: pointer;
 		}
 		
 		.disabled{
@@ -99,5 +87,5 @@
 		}
 		
 	</ui:style>
-	<g:Button ui:field="button"/>
+	<g:Button ui:field="button" styleName="{style.sharedStyles}"/>
 </ui:UiBinder> 

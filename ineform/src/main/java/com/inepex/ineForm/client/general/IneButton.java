@@ -27,7 +27,7 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 		
 		/**
 		 * to abort a started action
-		 * <br><b>gray</b>
+		 * <br><b>dark gray</b>
 		 */
 		CANCEL,
 		
@@ -41,7 +41,13 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 		 * to commit an action that effects data changes or changes in the sate of user or view
 		 * <br><b>green</b>
 		 */
-		ACTION;
+		ACTION,
+		
+		/**
+		 * other buttons
+		 * <br><b>light gray</b>
+		 */
+		DEFAULT;
 	}
 	
 	private static IFButtonUiBinder uiBinder = GWT
@@ -54,8 +60,11 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 		String pagingColors();
 		String cancelColors();
 		String controlColors();
+		String defaultColors();
 		String actionColors();
 		String disabled();
+		String normalSize();
+		String oneCharSize();
 	}
 
 	@UiField
@@ -78,20 +87,27 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 		switch (type) {
 		case PAGING:
 			button.addStyleName(style.pagingColors());
+			button.addStyleName(style.normalSize());
 			break;
 		
 		case CANCEL:
 			button.addStyleName(style.cancelColors());
+			button.addStyleName(style.normalSize());
 			break;
 					
 		case CONTROL:
 			button.addStyleName(style.controlColors());
+			button.addStyleName(style.oneCharSize());
 			break;
 			
 		case ACTION:
 			button.addStyleName(style.actionColors());
+			button.addStyleName(style.normalSize());
 			break;
+		case DEFAULT:
 		default:
+			button.addStyleName(style.defaultColors());
+			button.addStyleName(style.normalSize());
 			break;
 		}
 	}
