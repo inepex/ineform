@@ -25,17 +25,14 @@
 			
 			@sprite .rbIconStyle {
 				gwt-image: 'radioButton';
-				background-position: -16px 0px;
-				display: inline-block;
-				float: left;
-				width: 15px;
-				height: 15px;
-				padding: 0px;
-				margin: 0px;
-				cursor: pointer;
-				position: relative;
-				top: 5px;
-				margin-right: 3px;
+			    cursor: pointer;
+			    display: inline-block;
+			    float: left;
+			    height: 15px;
+			    margin: 0 5px 0 0;
+			    overflow: hidden;
+			    width: 16px;
+			    background-position: -17px 0;
 			}
 			
 			.checked {

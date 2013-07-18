@@ -57,6 +57,7 @@
 .cellTableCell a{
 	color: #666;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .cellTableCell a:hover{

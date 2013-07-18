@@ -5,6 +5,7 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.IneFrameEntryPoint;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
@@ -23,6 +24,7 @@ public class App extends IneFrameEntryPoint {
 	
 	static {
 		Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, "en", new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
+		IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE=false;
 	}
 	
 	public App() {
