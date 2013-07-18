@@ -73,9 +73,11 @@ public class IneTable extends AbstractIneTable implements IsWidget {
 				super.setRowData(start, values);
 				if (values.size() == 0){
 					if (pager != null) pager.setVisible(false);
+					if (topPager != null) topPager.setVisible(false);
 					getTableHeadElement().getStyle().setVisibility(Visibility.HIDDEN);					
 				} else {
 					if (pager != null) pager.setVisible(true);
+					if (topPager != null) topPager.setVisible(true);
 					getTableHeadElement().getStyle().setVisibility(Visibility.VISIBLE);
 				}
 			}

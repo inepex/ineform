@@ -99,6 +99,10 @@ public abstract class AbstractIneTable {
 	public static enum SelectionBehaviour {
 		NO_SELECTION, SINGLE_SELECTION, MULTIPLE_SELECTION, CUSTOM;
 	}
+	
+	public static enum PagerPosition {
+		TOP, BOTTOM, BOTH;
+	}
 
 	protected static TableRDesc getTRD(DescriptorStore descriptorStore, String objectDescName, String tableRenderDescriptorName) {
 		if (tableRenderDescriptorName == null) {
@@ -128,8 +132,11 @@ public abstract class AbstractIneTable {
 	private MultiSelectionModel<AssistedObject> multiSelectionModel = null;
 	private SelectAllHeader selectAllHeader = null;
 
+	protected SimplePager topPager = null;
 	protected SimplePager pager = null;
 	private boolean showPager = true;
+	
+	private PagerPosition pagerPos = PagerPosition.BOTTOM;
 
 	private boolean rendered = false;
 
@@ -213,6 +220,10 @@ public abstract class AbstractIneTable {
 			pageSize = DEFAULT_PAGE_SIZE_WITHOUT_PAGER;
 		this.showPager = showPager;
 	}
+	
+	public void setPagerPosition(PagerPosition position){
+		this.pagerPos = position;
+	}
 
 	// **** Logic functions ****//
 
@@ -221,16 +232,23 @@ public abstract class AbstractIneTable {
 	 */
 	public void renderTable() {
 		if (!rendered) {
+			initTable();
+			if (showPager == true && (pagerPos == PagerPosition.TOP)){
+				addToMainPanel(pager);
+			}
+			if (showPager && pagerPos == PagerPosition.BOTH){
+				addToMainPanel(topPager);
+			}
 			addToMainPanel(cellTable);
 			
 			cellTable.addStyleName(ResourceHelper.ineformRes().style().ineTable());
 
-			initTable();
 			initTableColumns();
 			cellTable.redraw();
 
-			if (showPager)
+			if (showPager && (pagerPos == PagerPosition.TOP || pagerPos == PagerPosition.BOTH)){
 				addToMainPanel(pager);
+			}			
 
 			rendered = true;
 		}
@@ -242,6 +260,10 @@ public abstract class AbstractIneTable {
 		if (showPager) {
 			pager = PagerCreator.create();
 			pager.setDisplay(cellTable);
+			if (pagerPos == PagerPosition.BOTH){
+				topPager = PagerCreator.create();
+				topPager.setDisplay(cellTable);	
+			}
 		}
 		cellTable.setPageSize(pageSize);
 

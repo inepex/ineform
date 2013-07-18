@@ -70,6 +70,7 @@ public class SortableIneTable extends IneTable {
 
 				// Go to the first page of the newly-sorted results
 				if(pager!=null) pager.firstPage();
+				if(topPager!=null) topPager.firstPage();
 				dataConnector.setOrderKey(orderKey);
 				dataConnector.setOrderDescending(descending);
 				dataConnector.update();
