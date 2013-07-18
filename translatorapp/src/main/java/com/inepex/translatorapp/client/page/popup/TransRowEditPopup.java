@@ -6,13 +6,14 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
@@ -24,8 +25,8 @@ public class TransRowEditPopup {
 		private final EditCallback callback;
 		
 		private final TextArea textArea;
-		private final Button revertBtn;
-		private final Button doneBtn;
+		private final IneButton revertBtn;
+		private final IneButton doneBtn;
 		
 		public DialogContent(EditCallback callback) {
 			this.callback=callback;
@@ -54,10 +55,10 @@ public class TransRowEditPopup {
 			HorizontalPanel hp = new HorizontalPanel();
 			hp.setSpacing(10);
 			
-			revertBtn = new Button(IneFormI18n.CANCEL());
+			revertBtn = new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
 			hp.add(revertBtn);
 			
-			doneBtn = new Button(IneFormI18n.SAVE());
+			doneBtn = new IneButton(IneButtonType.ACTION, IneFormI18n.SAVE());
 			hp.add(doneBtn);
 			
 			vp.add(hp);

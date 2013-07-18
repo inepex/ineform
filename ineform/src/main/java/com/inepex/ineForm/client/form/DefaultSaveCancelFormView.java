@@ -14,7 +14,7 @@ import com.inepex.ineForm.client.form.WizardForm.NavWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelPageWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
@@ -65,10 +65,10 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 	private String saveButtonText=IneFormI18n.SAVE();
 	private String cancelButtonText=IneFormI18n.CANCEL();
 	
-	protected final IneButton saveButton = new IneButton(IFButtonType.ACTION);
-	protected final IneButton cancelButton = new IneButton(IFButtonType.CANCEL);
-	private final IneButton nextButton = new IneButton(IFButtonType.PAGING);
-	private final IneButton previousButton = new IneButton(IFButtonType.PAGING);
+	protected final IneButton saveButton = new IneButton(IneButtonType.ACTION);
+	protected final IneButton cancelButton = new IneButton(IneButtonType.CANCEL);
+	private final IneButton nextButton = new IneButton(IneButtonType.PAGING);
+	private final IneButton previousButton = new IneButton(IneButtonType.PAGING);
 	
 	private final List<IneButton> custButtons = new ArrayList<IneButton>();
 	private final List<HandlerRegistration> custHandlerRegs = new ArrayList<HandlerRegistration>();
@@ -241,7 +241,7 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 			if (desc.hasProp(StepperPanelPageWidget.Param.custButtons)){
 				String[] custButtons = desc.getPropValue(StepperPanelPageWidget.Param.custButtons).split(",");
 				for (String btnLabel : custButtons){
-					IneButton btn = new IneButton(IFButtonType.CONTROL, btnLabel);
+					IneButton btn = new IneButton(IneButtonType.CONTROL, btnLabel);
 					this.custButtons.add(btn);
 					custHandlerRegs.add(btn.addClickHandler(new CustomBtnClickHandler(btnLabel)));
 					buttonPanel.add(btn);

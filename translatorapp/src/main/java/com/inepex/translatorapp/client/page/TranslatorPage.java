@@ -213,7 +213,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
 		filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
 		filterGrid.getElement().getStyle().setHeight(90, Unit.PX);
-		filterGrid.getElement().getStyle().setWidth(500, Unit.PX);
+		filterGrid.getElement().getStyle().setWidth(700, Unit.PX);
 		mainPanel.add(filterGrid);
 	}
 

@@ -22,7 +22,7 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 public class RowCommandDataManipulator extends DataManipulator {
 	private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
-	protected final IneButton newButton = new IneButton(IneButton.IFButtonType.ACTION, IneFormI18n.NEW());
+	protected final IneButton newButton = new IneButton(IneButton.IneButtonType.ACTION, IneFormI18n.NEW());
 	
 	private String editText;
 	private String deleteText;

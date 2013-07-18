@@ -3,12 +3,13 @@ package com.inepex.translatorapp.client.page.popup;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneCheckBox;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineFrame.client.async.IneDispatch;
@@ -41,7 +42,7 @@ public class ChangeModuleLangPopup {
 
 		private final ChangedCallback callback;
 		
-		private final Button btn = new Button(IneFormI18n.OK());
+		private final IneButton btn = new IneButton(IneButtonType.ACTION, IneFormI18n.OK());
 		
 		public DialogContent(ChangedCallback callback) {
 			this.callback=callback;
@@ -87,11 +88,11 @@ public class ChangeModuleLangPopup {
 	private class LangRelCheckbox extends HandlerAwareComposite{
 
 		private final Relation langRelation;
-		private final CheckBox cb;
+		private final IneCheckBox cb;
 		
 		public LangRelCheckbox(Relation langRelation) {
 			this.langRelation=langRelation;
-			this.cb=new CheckBox(langRelation.getDisplayName());
+			this.cb=new IneCheckBox(langRelation.getDisplayName());
 			cb.setValue(isModuleLang(langRelation.getId()));
 			cb.getElement().getStyle().setPadding(5, Unit.PX);
 			initWidget(cb);

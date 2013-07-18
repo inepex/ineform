@@ -75,4 +75,7 @@ public abstract class TextBoxFWBase extends StringFormWidget {
 		else textBox.setValue(value);
 	}
 
+	public TextBox getTextBox() {
+		return textBox;
+	}
 }

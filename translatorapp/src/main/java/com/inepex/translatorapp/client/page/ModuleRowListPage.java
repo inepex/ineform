@@ -12,9 +12,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.IneFormProperties;
@@ -29,8 +27,11 @@ import com.inepex.ineForm.client.form.events.RenderedEvent;
 import com.inepex.ineForm.client.form.events.SavedEvent;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
+import com.inepex.ineForm.client.form.widgets.TextBoxFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
@@ -75,9 +76,9 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 	private final RowListAction action;
 	
 	private Grid filterGrid;
-	private Button massUpload;
+	private IneButton massUpload;
 	private ListBoxFW moduleListBox;
-	private TextBox textBox;
+	private TextBoxFW textBox;
 	
 	@Inject
 	public ModuleRowListPage(ManipulatorFactory manipulatorFactory,
@@ -115,12 +116,12 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
 		filterGrid.setWidget(0, 1, moduleListBox);
 		
-		massUpload = new Button(translatorappI18n.massUpload());
+		massUpload = new IneButton(IneButtonType.ACTION, translatorappI18n.massUpload());
 		filterGrid.setWidget(0, 2, massUpload);
 		massUpload.setVisible(false);
 		
 		filterGrid.setHTML(1, 0, translatorappI18n.rowListPage_magicFilter());
-		textBox=new TextBox();
+		textBox=new TextBoxFW();
 		filterGrid.setWidget(1, 1, textBox);
 		
 		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
@@ -314,7 +315,7 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 			}
 		}));
 		
-		registerHandler(textBox.addKeyUpHandler(new KeyUpHandler() {
+		registerHandler(textBox.getTextBox().addKeyUpHandler(new KeyUpHandler() {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
@@ -370,8 +371,8 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		else
 			action.setModuleId(null);
 		
-		if(textBox.getValue()!=null && textBox.getValue().length()>0)
-			action.setMagicString(textBox.getValue());
+		if(textBox.getStringValue()!=null && textBox.getStringValue().length()>0)
+			action.setMagicString(textBox.getStringValue());
 		else
 			action.setMagicString(null);
 		

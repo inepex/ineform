@@ -15,7 +15,7 @@ import com.google.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
@@ -28,7 +28,7 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 	
 	private final FlexTable rowTable = new FlexTable();
 	
-	private final IneButton addBtn = new IneButton(IFButtonType.CONTROL, IneFormI18n.ADD());
+	private final IneButton addBtn = new IneButton(IneButtonType.CONTROL, IneFormI18n.ADD());
 	
 	private RemoveCallback removeCallback;
 	private AddCallback addCallback;

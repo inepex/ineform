@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IFButtonType;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.IFConsts;
@@ -40,7 +40,7 @@ public class FileUploadFw extends DenyingFormWidget {
 	private String uploadUrl = IFConsts.uploadServletUrl;
 	private Image preview = new Image();
 	private InlineLabel filename = new InlineLabel();
-	private IneButton upload = new IneButton(IFButtonType.ACTION, IneFormI18n.imageuploadBtn());
+	private IneButton upload = new IneButton(IneButtonType.ACTION, IneFormI18n.imageuploadBtn());
 	
 	private ImageUploadPopup popup;
 	
@@ -62,8 +62,8 @@ public class FileUploadFw extends DenyingFormWidget {
 		private FormPanel panelForm = new FormPanel();
 		private FlowPanel panelInsideForm = new FlowPanel();
 		private FileUpload fileupload = new FileUpload();
-		private IneButton btnSubmit = new IneButton(IFButtonType.ACTION, IneFormI18n.imageuploadBtn());
-		private IneButton btnCancel = new IneButton(IFButtonType.CANCEL, IneFormI18n.CANCEL());
+		private IneButton btnSubmit = new IneButton(IneButtonType.ACTION, IneFormI18n.imageuploadBtn());
+		private IneButton btnCancel = new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
 		private Label error = new Label();
 		
 		private FileUploadFw parent;

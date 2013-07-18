@@ -3,7 +3,6 @@ package com.inepex.translatorapp.client.page.popup;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -11,6 +10,8 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.inject.Inject;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase;
@@ -35,8 +36,8 @@ public class ModuleUploadPopup {
 		private final TextBox header;
 		private final TextArea rows;
 		
-		private final Button cancel;
-		private final Button ok;
+		private final IneButton cancel;
+		private final IneButton ok;
 		
 		DialogContent(ChangedCallback callback) {
 			this.callback=callback;
@@ -58,10 +59,10 @@ public class ModuleUploadPopup {
 			HorizontalPanel hp = new HorizontalPanel();
 			hp.setSpacing(10);
 			
-			cancel=new Button(IneFormI18n.CANCEL());
+			cancel=new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
 			hp.add(cancel);
 			
-			ok = new Button(IneFormI18n.OK());
+			ok = new IneButton(IneButtonType.ACTION, IneFormI18n.OK());
 			hp.add(ok);
 			
 			add(hp);

@@ -17,7 +17,7 @@ import com.inepex.ineForm.client.IneFormProperties;
 
 public class IneButton extends Composite implements IsWidget, HasEnabled, HasText, HasHTML {
 	
-	public static enum IFButtonType {
+	public static enum IneButtonType {
 		
 		/**
 		 * to jump to the next or previous page
@@ -64,12 +64,12 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 	@UiField
 	ButtonStyles style;
 	
-	public IneButton(IFButtonType type, String text) {
+	public IneButton(IneButtonType type, String text) {
 		this(type);
 		button.setText(text);
 	}
 	
-	public IneButton(IFButtonType type) {
+	public IneButton(IneButtonType type) {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
