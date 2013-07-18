@@ -38,7 +38,7 @@ public class RowCommandDataManipulator extends DataManipulator {
 			, TableFieldRenderer fieldRenderer) {
 		super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
 		
-		if(IneFormProperties.OLD_STYLE_COMPATIBILITY) {
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
 			editText = IneFormI18n.EDIT();
 			deleteText = IneFormI18n.DELETE();
 		} else {

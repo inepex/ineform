@@ -52,13 +52,13 @@ public class CustomKVOFWView extends HandlerAwareFlowPanel implements CustomKVOF
 		rowTable.getColumnFormatter().setStyleName(2, ResourceHelper.ineformRes().style().customKVOTableContent());
 		rowTable.getColumnFormatter().setStyleName(3, ResourceHelper.ineformRes().style().customKVOTableContent());
 		
-		if(!IneFormProperties.OLD_STYLE_COMPATIBILITY) {
+		if(!IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
 			addBtn.getElement().getStyle().setMarginTop(15, Unit.PX);
 		}
 	}
 	
 	private void createHeader() {
-		if(IneFormProperties.OLD_STYLE_COMPATIBILITY) {
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
 			int col=0;
 			rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
 			if(showType)

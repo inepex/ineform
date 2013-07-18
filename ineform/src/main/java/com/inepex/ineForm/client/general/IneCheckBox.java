@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
@@ -39,18 +40,33 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 		mainPanel.add(checkPanel);
 		mainPanel.add(textWidget);
 		
-		textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
-		checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
-		checkPanel.getElement().getStyle().setPosition(Position.STATIC);
-		mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
+			textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText_old());
+			checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox_old());
+			checkPanel.getElement().getStyle().setPosition(Position.STATIC);
+			mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+		} else {
+			textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
+			checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
+			checkPanel.getElement().getStyle().setPosition(Position.STATIC);
+			mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+		}
 	}
 	
 	
 	private void correctCheckboxStyle() {
-		if(checked){
-			checkPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
+			if(checked){
+				checkPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive_old());
+			} else {
+				checkPanel.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive_old());
+			}
 		} else {
-			checkPanel.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
+			if(checked){
+				checkPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
+			} else {
+				checkPanel.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
+			}
 		}
 	}
 
@@ -110,10 +126,17 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled=enabled;
-		if(enabled)
-			textWidget.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
-		else
-			textWidget.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
+			if(enabled)
+				textWidget.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled_old());
+			else
+				textWidget.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled_old());
+		} else {
+			if(enabled)
+				textWidget.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
+			else
+				textWidget.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
+		}
 	}
 
 	@Override

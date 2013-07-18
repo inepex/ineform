@@ -7,8 +7,8 @@
 	<ui:image field="radioButton" resource="{resources.radioButton}" />
 
 	<ui:style type="com.inepex.ineForm.client.general.IneRadioButton.MyStyle">
-			@sprite .rbIconStyle {
-				gwt-image: 'radioButton';
+			@sprite .rbIconStyle_old {
+				gwt-image: 'radioButton_old';
 				background-position: -15px 0px;
 				display: inline-block;
 				float: left;
@@ -16,7 +16,21 @@
 				height: 14px;
 				padding: 0px;
 				margin: 0px;
-				cursor: hand;
+				cursor: pointer;
+				position: relative;
+				top: 5px;
+				margin-right: 3px;
+			}
+			
+			@sprite .rbIconStyle {
+				gwt-image: 'radioButton';
+				background-position: -16px 0px;
+				display: inline-block;
+				float: left;
+				width: 15px;
+				height: 15px;
+				padding: 0px;
+				margin: 0px;
 				cursor: pointer;
 				position: relative;
 				top: 5px;
@@ -43,7 +57,7 @@
 			
 		</ui:style>
 	<g:HTMLPanel>
-		<g:FlowPanel ui:field="rbIcon" styleName="{style.rbIconStyle}"></g:FlowPanel>
+		<g:FlowPanel ui:field="rbIcon"></g:FlowPanel>
 		<g:RadioButton ui:field="rb" styleName="{style.rb}"></g:RadioButton>
 	</g:HTMLPanel>
 </ui:UiBinder> 

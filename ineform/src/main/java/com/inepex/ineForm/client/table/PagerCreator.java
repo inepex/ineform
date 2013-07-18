@@ -19,7 +19,7 @@ public class PagerCreator {
 
 	private static Resources getResources() {
 		if(resources==null) {
-			if(IneFormProperties.OLD_STYLE_COMPATIBILITY)
+			if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
 				resources = GWT.create(SimplePager.Resources.class);
 			else
 				resources = GWT.create(PagerResources.class);

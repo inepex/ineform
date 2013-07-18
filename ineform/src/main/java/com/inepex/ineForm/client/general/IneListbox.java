@@ -15,7 +15,7 @@ public class IneListbox implements IsWidget {
 	public IneListbox() {
 		mainPanel.add(listBox);
 		
-		if(IneFormProperties.OLD_STYLE_COMPATIBILITY)
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
 			mainPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().OLD_listBoxExtraDiv());
 		else
 			mainPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().listBoxExtraDiv());
@@ -28,7 +28,7 @@ public class IneListbox implements IsWidget {
 	}
 	
 	public void setWidthOfCosturction(int widhtInPx) {
-		if(IneFormProperties.OLD_STYLE_COMPATIBILITY) {
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
 			mainPanel.getElement().setAttribute("style",
 					"width: " +widhtInPx+"px; "+
 					"background-position: right -5px;");

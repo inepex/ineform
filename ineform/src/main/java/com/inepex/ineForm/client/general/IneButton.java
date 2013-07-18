@@ -72,7 +72,7 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 	public IneButton(IFButtonType type) {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		if(IneFormProperties.OLD_STYLE_COMPATIBILITY)
+		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
 			return;
 		
 		switch (type) {

@@ -8,7 +8,7 @@ public class IneFormProperties {
 	/**
 	 * temporary variable for button replacing 
 	 */
-	public static boolean OLD_STYLE_COMPATIBILITY = true;
+	public static boolean IN_OLD_STYLE_COMPATIBILITY_MODE = true;
 	
 	public static boolean showIds;
 
