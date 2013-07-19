@@ -246,7 +246,7 @@ public abstract class AbstractIneTable {
 			initTableColumns();
 			cellTable.redraw();
 
-			if (showPager && (pagerPos == PagerPosition.TOP || pagerPos == PagerPosition.BOTH)){
+			if (showPager && (pagerPos == PagerPosition.BOTTOM || pagerPos == PagerPosition.BOTH)){
 				addToMainPanel(pager);
 			}			
 
