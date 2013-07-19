@@ -117,12 +117,12 @@ public class TranslatedValueDao extends BaseDao<TranslatedValue> {
 				query.append("and tv2.row.id = tv.row.id and tv2.lastModTime > tv.lastModTime) ");
 			
 			query.append(") ");
-			query.append("order by tv.row.key DESC, tv.lang.isoName ASC");
+			query.append("order by tv.row.key ASC, tv.lang.isoName ASC");
 			break;
 			
 		case All:
 		default:
-			query.append("order by tv.row.key DESC, tv.lang.isoName ASC");
+			query.append("order by tv.row.key ASC, tv.lang.isoName ASC");
 			break;
 		}
 		
