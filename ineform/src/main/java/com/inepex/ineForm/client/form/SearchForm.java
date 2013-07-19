@@ -48,14 +48,23 @@ public class SearchForm extends IneForm {
 		mainPanel.add(buttons);
 		buttons.setWidget(0, 0, doSearch);
 		buttons.setWidget(0, 1, doReset);
-		buttons.setWidget(0, 2, message);		
+		buttons.setWidget(0, 2, message);
+		
+		doReset.setVisible(false);
 		
 		doSearch.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				setSearchParamsForDataConnector();
-				message.setText(IneFormI18n.searchForm_filtered());
+				AssistedObject searchParams =  getSearchParams();
+				if (!isEmpty(searchParams)){
+					doReset.setVisible(true);
+					message.setText(IneFormI18n.searchForm_filtered());	
+				} else {
+					doReset.setVisible(false);
+					message.setText("");	
+				}
+				setSearchParamsForDataConnector(searchParams);				
 			}
 		});
 		
@@ -65,6 +74,7 @@ public class SearchForm extends IneForm {
 			public void onClick(ClickEvent event) {
 				resetFieldsAndSendSearch();
 				message.setText("");
+				doReset.setVisible(false);
 			}
 		});
 		
@@ -75,16 +85,34 @@ public class SearchForm extends IneForm {
 		return mainPanel;
 	}
 	
-	private void setSearchParamsForDataConnector(){
+	private boolean isEmpty(AssistedObject searchParams){
+		for (String key : searchParams.getBooleanKeys()){
+			if (searchParams.getBooleanUnchecked(key) != null) return false;
+		}
+		for (String key : searchParams.getStringKeys()){
+			if (searchParams.getStringUnchecked(key) != null) return false;
+		}
+		for (String key : searchParams.getLongKeys()){
+			if (searchParams.getLongUnchecked(key) != null) return false;
+		}
+		
+		return true;
+	}
+	
+	private AssistedObject getSearchParams(){
 		AssistedObject currentState;
 		currentState = searchForm.getValues(searchForm.getInitialOrEmptyData());
-		dataConnector.setSearchParameters(currentState);
+		return currentState;
+	}
+	
+	private void setSearchParamsForDataConnector(AssistedObject searchParams){
+		dataConnector.setSearchParameters(searchParams);
 		dataConnector.update();
 	}
 	
 	private void resetFieldsAndSendSearch(){
-		searchForm.resetValuesToInitialData();
-		setSearchParamsForDataConnector();
+		searchForm.resetValuesToEmpty();
+		setSearchParamsForDataConnector(searchForm.getInitialOrEmptyData());
 	}
 
 }
