@@ -104,6 +104,7 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		
 		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
 		formCreationCallbacks();
+		manipulator.setPageSize(200);
 		manipulator.getIneTable().setPagerPosition(PagerPosition.BOTH);
 		manipulator.render();
 		setCellContentDisplayers();
