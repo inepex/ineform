@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.inepex.translatorapp.server.entity.TranslatedValue;
 import com.inepex.translatorapp.shared.Consts;
 
@@ -42,8 +40,7 @@ public class TranslatorAppUtil {
 		if(string==null || string.length()<1)
 			return true;
 		
-		return string.indexOf("\"")==-1
-				&& StringUtils.countMatches(string, "'")%2==0 
+		return string.indexOf("\"")==-1 
 				&& hasValidBrackets(string, '<', '>')
 				&& hasValidBrackets(string, '(', ')')
 				&& hasValidBrackets(string, '[', ']')

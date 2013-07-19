@@ -55,6 +55,8 @@
     position: relative;
     top: -4px;
     min-width: 45px;
+    
+    white-space: nowrap;
 }
 
 .clickable {

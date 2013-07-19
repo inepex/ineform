@@ -9,6 +9,17 @@ import static org.junit.Assert.*;
 public class TranslatorAppUtilTest {
 	
 	@Test
+	public void bugfix() {
+		assertTrue(TranslatorAppUtil.isWellFormatted(
+				"<a href='http://inetrack.hu/prices?category=hosszabbitas' target='_blank'>Sms sending won't work unless you buy credits. You can buy credits at IneTrack Webshop.</a>"));
+		assertTrue(TranslatorAppUtil.isWellFormatted(
+				"<a href='http://inetrack.hu/prices?category=hosszabbitas' target='_blank'>Az SMS értesítések használatához IneTrack SMS Crediteket kell vásárolnod az IneTrack Webshopjában.</a>"));
+		assertTrue(TranslatorAppUtil.areParamsOfTranslatedValid(
+				"<a href='http://inetrack.hu/prices?category=hosszabbitas' target='_blank'>Sms sending won't work unless you buy credits. You can buy credits at IneTrack Webshop.</a>", 
+				"<a href='http://inetrack.hu/prices?category=hosszabbitas' target='_blank'>Az SMS értesítések használatához IneTrack SMS Crediteket kell vásárolnod az IneTrack Webshopjában.</a>"));
+	}
+	
+	@Test
 	public void wellFormattedTest() {
 		assertTrue(TranslatorAppUtil.isWellFormatted(null));
 		assertTrue(TranslatorAppUtil.isWellFormatted(""));
@@ -19,7 +30,6 @@ public class TranslatorAppUtilTest {
 		
 		assertFalse(TranslatorAppUtil.isWellFormatted("....(.."));
 		assertFalse(TranslatorAppUtil.isWellFormatted("....(..(....))."));
-		assertFalse(TranslatorAppUtil.isWellFormatted("...'."));
 	}
 	
 
