@@ -87,7 +87,7 @@ public class SearchForm extends IneForm {
 	
 	private boolean isEmpty(AssistedObject searchParams){
 		for (String key : searchParams.getBooleanKeys()){
-			if (searchParams.getBooleanUnchecked(key) != null) return false;
+			if (searchParams.getBooleanUnchecked(key) != null && searchParams.getBooleanUnchecked(key)) return false;
 		}
 		for (String key : searchParams.getStringKeys()){
 			if (searchParams.getStringUnchecked(key) != null) return false;
