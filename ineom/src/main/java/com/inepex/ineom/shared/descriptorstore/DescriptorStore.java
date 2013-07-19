@@ -36,6 +36,10 @@ public abstract class DescriptorStore {
 		 * by auto download
 		 */
 		ondemand("red", "od"),
+		
+		/**
+		 * manually
+		 */
 		otherWay("gray", "other");
 		
 		public final String color;
