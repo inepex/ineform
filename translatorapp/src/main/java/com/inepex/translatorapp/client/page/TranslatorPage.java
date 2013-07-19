@@ -15,6 +15,7 @@ import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.client.table.AbstractIneTable.PagerPosition;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
@@ -71,7 +72,8 @@ public class TranslatorPage extends FlowPanelBasedPage {
 		connector.setAssociatedListAction(action);
 		
 		table = tableFactory.createSimple(TranslateTableRowConsts.descriptorName, connector);
-		table.setPageSize(200);
+		table.setPagerPosition(PagerPosition.BOTH);
+		table.setPageSize(2);
 		addCellContentDisplayers();
 		addUserCommands();
 		table.renderTable();

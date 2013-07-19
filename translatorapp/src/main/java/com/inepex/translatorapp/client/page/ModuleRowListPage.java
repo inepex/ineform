@@ -34,6 +34,7 @@ import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.client.table.AbstractIneTable.PagerPosition;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
@@ -103,7 +104,7 @@ public class ModuleRowListPage extends FlowPanelBasedPage {
 		
 		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
 		formCreationCallbacks();
-		manipulator.setPageSize(200);
+		manipulator.getIneTable().setPagerPosition(PagerPosition.BOTH);
 		manipulator.render();
 		setCellContentDisplayers();
 		mainPanel.add(manipulator);
