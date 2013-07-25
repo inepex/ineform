@@ -126,23 +126,23 @@ public class ByteConvertUtilTest {
 	public void byteArrayConstainsTest(){
 		byte[] container = {1, 2, 3, 4};
 		byte[] contained = {1, 2, 3};
-		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained));
+		Assert.assertTrue(ByteConvertUtil.byteArrayContains(container, contained));
 		byte[] contained2 = {1, 2 , 4, 5, 6};
-		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained2));
+		Assert.assertFalse(ByteConvertUtil.byteArrayContains(container, contained2));
 		byte[] contained3 = {1, 2 , 4};
-		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained3));
+		Assert.assertFalse(ByteConvertUtil.byteArrayContains(container, contained3));
 		byte[] contained4 = {2};
-		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained4));
+		Assert.assertTrue(ByteConvertUtil.byteArrayContains(container, contained4));
 		byte[] contained5 = {3, 4};
-		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained5));
+		Assert.assertTrue(ByteConvertUtil.byteArrayContains(container, contained5));
 		byte[] contained6 = {1, 2};
-		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained6));
+		Assert.assertTrue(ByteConvertUtil.byteArrayContains(container, contained6));
 		byte[] contained7 = {2, 3};
-		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained7));
+		Assert.assertTrue(ByteConvertUtil.byteArrayContains(container, contained7));
 		byte[] contained8 = {2, 4};
-		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained8));
+		Assert.assertFalse(ByteConvertUtil.byteArrayContains(container, contained8));
 		byte[] contained9 = {5, 6};
-		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained9));
+		Assert.assertFalse(ByteConvertUtil.byteArrayContains(container, contained9));
 	}
 }
 

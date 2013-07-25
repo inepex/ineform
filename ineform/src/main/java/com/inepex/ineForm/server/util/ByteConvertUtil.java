@@ -153,7 +153,7 @@ public class ByteConvertUtil {
 		return value;
 	}
 	
-	public static boolean byteArrayConstains(byte[] container, byte[] contained){
+	public static boolean byteArrayContains(byte[] container, byte[] contained){
 		if(contained.length == 0) return true;
 		if(contained.length > container.length) return false;
 		boolean firstFound = false;
