@@ -152,4 +152,27 @@ public class ByteConvertUtil {
 		}
 		return value;
 	}
+	
+	public static boolean byteArrayConstains(byte[] container, byte[] contained){
+		if(contained.length == 0) return true;
+		if(contained.length > container.length) return false;
+		boolean firstFound = false;
+		int i = 0;
+		for(byte containerByte : container){
+			if(contained[0] == containerByte){
+				firstFound = true;
+				break;
+			}
+			i++;
+		}
+		if(!firstFound) return false;
+		if(contained.length == 1) return true;
+		for(int j = 1; j < contained.length; j++){
+			if(container[j + i] != contained[j]){
+				return false;
+			}
+		}
+		return true;
+		
+	}
 }

@@ -1,6 +1,7 @@
 package com.inepex.ineForm.server.util;
 
 
+import org.eclipse.persistence.jpa.jpql.Assert.AssertException;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.junit.Assert;
@@ -119,6 +120,29 @@ public class ByteConvertUtilTest {
 		ChannelBufferInfo cb2Info = ChannelBufferInfo.createFromBuff(cb2);
 		cb2.readByte();
 		Assert.assertNotSame(cb2Info, ChannelBufferInfo.createFromBuff(cb2));
+	}
+	
+	@Test
+	public void byteArrayConstainsTest(){
+		byte[] container = {1, 2, 3, 4};
+		byte[] contained = {1, 2, 3};
+		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained));
+		byte[] contained2 = {1, 2 , 4, 5, 6};
+		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained2));
+		byte[] contained3 = {1, 2 , 4};
+		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained3));
+		byte[] contained4 = {2};
+		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained4));
+		byte[] contained5 = {3, 4};
+		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained5));
+		byte[] contained6 = {1, 2};
+		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained6));
+		byte[] contained7 = {2, 3};
+		Assert.assertTrue(ByteConvertUtil.byteArrayConstains(container, contained7));
+		byte[] contained8 = {2, 4};
+		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained8));
+		byte[] contained9 = {5, 6};
+		Assert.assertFalse(ByteConvertUtil.byteArrayConstains(container, contained9));
 	}
 }
 
