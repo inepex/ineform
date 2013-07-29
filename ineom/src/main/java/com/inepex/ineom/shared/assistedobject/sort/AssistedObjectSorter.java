@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -127,11 +124,9 @@ public class AssistedObjectSorter {
 		
 	}
 	
-	private static final Logger _logger = LoggerFactory.getLogger(AssistedObjectSorter.class);
-	
 	private final DescriptorStore descriptorStore;
 	private final AssistedObjectHandlerFactory aoHandlerFactory;
-	private Map<String, Comparator<AssistedObject>> customComparatorByKey = new HashMap<>();
+	private Map<String, Comparator<AssistedObject>> customComparatorByKey = new HashMap<String, Comparator<AssistedObject>>();
 	
 	@Inject
 	public AssistedObjectSorter(DescriptorStore descriptorStore,
@@ -147,13 +142,13 @@ public class AssistedObjectSorter {
 		
 		ObjectDesc objectDesc = descriptorStore.getOD(list.get(0).getDescriptorName());
 		if (objectDesc == null){
-			_logger.error("ObjectDesc not found: {}", list.get(0).getDescriptorName());
+			System.err.println("ObjectDesc not found: "+ list.get(0).getDescriptorName());
 			return list;
 		}
 		
 		FDesc fieldDesc = objectDesc.getField(key);
 		if (fieldDesc == null){
-			_logger.error("FieldDesc not found {} ({})", new String[] {list.get(0).getDescriptorName(), key});
+			System.err.println("FieldDesc not found odName: "+list.get(0).getDescriptorName()+", key: "+key);
 			return list;
 		}
 		
