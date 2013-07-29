@@ -13,15 +13,25 @@ public class ByteConvertUtil {
 	static final String HEXES = "0123456789ABCDEF";
 	public static final Charset ASCII = Charset.forName("ASCII");
 
-	public static String getHex(byte... raw) {
+	public static String getHex(byte[] raw, int length) {
 		if (raw == null) {
 			return null;
 		}
+		
+		if (raw.length < length)
+			length = raw.length;
+		
 		final StringBuilder hex = new StringBuilder(2 * raw.length);
-		for (final byte b : raw) {
-			hex.append(HEXES.charAt((b & 0xF0) >> 4)).append(HEXES.charAt((b & 0x0F)));
+		for (int i = 0; i < length; i++) {
+			byte b = raw[i];
+			hex.append(HEXES.charAt((b & 0xF0) >> 4)).append(HEXES.charAt((b & 0x0F)));	
 		}
-		return hex.toString();
+
+		return hex.toString();		
+	}
+	
+	public static String getHex(byte[] raw) {
+		return getHex(raw, raw.length);
 	}
 	
 	/**
