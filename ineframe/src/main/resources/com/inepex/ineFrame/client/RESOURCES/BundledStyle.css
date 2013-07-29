@@ -3,7 +3,9 @@
 .header {
 	height: 50px;
 	background-color: #333;
-	border-bottom: 3px solid #12ad2b;	
+	border-bottom: 3px solid #12ad2b;
+	z-index: 1500;
+	position: relative;	
 }
 .logo {
 	margin-left: 10px;

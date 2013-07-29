@@ -164,6 +164,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	public void setLanguageSelectorVisible(boolean visible) {
 	}
 	
+	@Override
 	public void setLoginClickLogic(OnClickedLogic logic){
 		this.loginClickLogic = logic;
 	}
