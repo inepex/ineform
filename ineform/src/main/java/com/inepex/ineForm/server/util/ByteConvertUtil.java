@@ -13,7 +13,7 @@ public class ByteConvertUtil {
 	static final String HEXES = "0123456789ABCDEF";
 	public static final Charset ASCII = Charset.forName("ASCII");
 
-	public static String getHex(byte[] raw, int length) {
+	public static String getHex(int length, byte... raw) {
 		if (raw == null) {
 			return null;
 		}
@@ -30,8 +30,8 @@ public class ByteConvertUtil {
 		return hex.toString();		
 	}
 	
-	public static String getHex(byte[] raw) {
-		return getHex(raw, raw.length);
+	public static String getHex(byte... raw) {
+		return getHex(raw.length, raw);
 	}
 	
 	/**
