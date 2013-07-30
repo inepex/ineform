@@ -87,5 +87,5 @@
 		}
 		
 	</ui:style>
-	<g:Button ui:field="button" styleName="{style.sharedStyles}"/>
+	<g:Button ui:field="button" addStyleNames="{style.sharedStyles}"/>
 </ui:UiBinder> 
