@@ -43,6 +43,7 @@ import com.inepex.ineForm.client.form.events.CheckBoxValueChangeListener;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
@@ -308,7 +309,7 @@ public abstract class AbstractIneTable {
 
 			ColRDesc colRenderDesc = (ColRDesc) columnNode.getNodeElement();
 
-			if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
+			if (!(IneFormProperties.showIds || tableRenderDescriptor.hasProp(FormRDescBase.prop_showIDs)) && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 				continue;
 
 			FDesc fieldDesc = null;

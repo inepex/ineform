@@ -16,6 +16,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
@@ -159,7 +160,7 @@ public class ExcelRenderer extends TableRenderer{
 					.getChildren()) {
 				renderFieldStart();	
 				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
-				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
+				if (!(IneFormProperties.showIds || tableRDesc.hasProp(FormRDescBase.prop_showIDs)) && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 					continue;
 				String key = columnNode.getNodeId();				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(

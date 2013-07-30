@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
@@ -71,7 +72,7 @@ public abstract class TableRenderer {
 			for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
 					.getChildren()) {
 				ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
-				if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
+				if (!(IneFormProperties.showIds || tableRDesc.hasProp(FormRDescBase.prop_showIDs)) && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 					continue;
 				renderFieldStart();
 				
@@ -110,7 +111,7 @@ public abstract class TableRenderer {
 		for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
 				.getChildren()) {
 			
-			if (!IneFormProperties.showIds && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
+			if (!(IneFormProperties.showIds || tableRDesc.hasProp(FormRDescBase.prop_showIDs)) && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
 				continue;
 			ColRDesc colRenderDesc = (ColRDesc)columnNode.getNodeElement();
 			FDesc fieldDesc = getFieldDescForColumn(columnNode);

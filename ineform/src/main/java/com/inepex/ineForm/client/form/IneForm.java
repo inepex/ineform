@@ -239,7 +239,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 				|| formdescNode.getChildren().size() == 0)
 			return;
 
-		AbstractFormUnit form = formCtx.formUnitFactory.createFormUnit(formCtx,
+		AbstractFormUnit form = formCtx.formUnitFactory.createFormUnit(formCtx, formRenderDescriptor,
 				(FormUnitRDesc) formdescNode.getNodeElement(), descriptorName,
 				formdescNode.getChildren());
 
@@ -257,7 +257,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		if (children == null || children.size() == 0)
 			return;
 
-		AbstractFormUnit form = formCtx.formUnitFactory.createFormUnit(formCtx,
+		AbstractFormUnit form = formCtx.formUnitFactory.createFormUnit(formCtx, formRenderDescriptor,
 				null, descriptorName, children);
 		putFormUnit(defaultNodeId + ++defaultNodeIdNum, form);
 		parentPanel.addToPanel(form);

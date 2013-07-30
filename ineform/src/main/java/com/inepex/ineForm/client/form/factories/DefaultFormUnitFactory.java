@@ -6,6 +6,7 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.formunits.SimpleTableFormUnit;
 import com.inepex.ineForm.client.form.formunits.UIBinderFormUnit;
+import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.descriptorext.FormUnitRDesc;
 import com.inepex.ineForm.shared.types.FormUnitT;
@@ -15,13 +16,14 @@ public class DefaultFormUnitFactory implements FormUnitFactory {
 
 	@Override
 	public AbstractFormUnit createFormUnit(FormContext formCtx,
-			FormUnitRDesc formDesc,
+			FormRDesc formRDesc,
+			FormUnitRDesc formUnitRDesc,
 			String objectDescriptorsName,
 			List<Node<FormRDescBase>> selectedFields) {
 		
-		if(formDesc==null || formDesc.getFormUnitType()==null || formDesc.getFormUnitType().equals(FormUnitT.SIMPLETABLEFORM)) {
-			return new SimpleTableFormUnit(formCtx, objectDescriptorsName, selectedFields);
-		} else if(formDesc.getFormUnitType().equals(FormUnitT.UIBINDERFORM)) { 
+		if(formUnitRDesc==null || formUnitRDesc.getFormUnitType()==null || formUnitRDesc.getFormUnitType().equals(FormUnitT.SIMPLETABLEFORM)) {
+			return new SimpleTableFormUnit(formCtx, formRDesc, objectDescriptorsName, selectedFields);
+		} else if(formUnitRDesc.getFormUnitType().equals(FormUnitT.UIBINDERFORM)) { 
 			return new UIBinderFormUnit(formCtx, objectDescriptorsName, selectedFields);
 		}
 		

@@ -54,6 +54,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	protected final ValueRangeProvider valueRangeProvider;
 	
 	public SimpleTableFormUnit(FormContext formCtx,
+						   FormRDesc formRDesc, 
 						   String objectDescriptorsName, 
 						   List<Node<FormRDescBase>> selectedFields) {
 		super(objectDescriptorsName, formCtx.descStore);
@@ -69,7 +70,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		mainTable.setCellPadding(5);
 		mainTable.setCellSpacing(0);
 		
-		renderForm(selectedFields);
+		renderForm(selectedFields, formRDesc);
 		
 		mainTable.getColumnFormatter().setWidth(0, IneFormProperties.DEFAULT_FormLabelWidth);
 	}
@@ -82,7 +83,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	 * Renders the widgets to the form. Either using the default {@link FormRDesc}
 	 * or a custom one if provided by {@link #setCustomRenderDescriptor(FormRDesc)}
 	 */
-	protected void renderForm(List<Node<FormRDescBase>> selectedNodes) {
+	protected void renderForm(List<Node<FormRDescBase>> selectedNodes, FormRDesc formRDesc) {
 		int row = 0;
 		boolean even = false;
 		
@@ -103,7 +104,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 				FDesc fDesc = getFieldDesct(descNode);
 				
 				if (!(fDesc == null  || 
-						(!IneFormProperties.showIds && IFConsts.KEY_ID.equals(descNode.getNodeId())) ||
+						(!(IneFormProperties.showIds || formRDesc.hasProp(FormRDescBase.prop_showIDs)) && IFConsts.KEY_ID.equals(descNode.getNodeId())) ||
 						IFConsts.KEY_ORDERNUM.equals(descNode.getNodeId()) ||
 						IFConsts.KEY_ISDELETED.equals(descNode.getNodeId()))) {
 				

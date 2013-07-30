@@ -5,6 +5,7 @@ import com.inepex.ineom.shared.descriptor.DescriptorBase;
 
 public class FormRDescBase extends DescriptorBase {
 
+	public static final String prop_showIDs = "prop_showIDs";
 	private static final long serialVersionUID = 1L;
 	
 	public FormRDescBase prop(String propkey, String value) {
