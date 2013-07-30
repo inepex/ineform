@@ -9,6 +9,8 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
+import com.inepex.ineFrame.client.navigation.header.DefaultHeaderViewLogo;
+import com.inepex.ineFrame.client.navigation.header.HeaderViewLogo;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeaderView;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
@@ -23,6 +25,7 @@ public class IneFrameGinModule extends AbstractGinModule {
 	private Class<? extends MasterPage.View> masterPageView = DefaultIneFrameMasterPageView.class;
 	private Class<? extends MenuRenderer.View> menuRendererView = MenuRendererView.class;
 	private Class<? extends IneFrameHeader.View> ineFrameHeaderView = IneFrameHeaderView.class;
+	private Class<? extends HeaderViewLogo> headerViewLogo = DefaultHeaderViewLogo.class;
 	
 	public IneFrameGinModule(
 			Class<? extends PlaceHierarchyProvider> placeHierarchyProvider,
@@ -41,6 +44,12 @@ public class IneFrameGinModule extends AbstractGinModule {
 		bind(MenuRenderer.View.class).to(menuRendererView).in(Singleton.class);
 		bind(IneFrameHeader.View.class).to(ineFrameHeaderView).in(Singleton.class);		
 		bind(AuthManager.class).to(authManager).in(Singleton.class);
+		bind(HeaderViewLogo.class).to(headerViewLogo).in(Singleton.class);
+	}
+	
+	public IneFrameGinModule setHeaderViewLogo(Class<? extends HeaderViewLogo> headerViewLogo) {
+		this.headerViewLogo = headerViewLogo;
+		return this;
 	}
 
 	public IneFrameGinModule setAuthManager(Class<? extends AuthManager> authManager) {

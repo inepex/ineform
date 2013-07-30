@@ -2,8 +2,10 @@ package com.inepex.ineFrame.client.navigation.header;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
@@ -17,7 +19,7 @@ import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 @Singleton
 public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFrameHeader.View {
 	
-	private Image logo;
+	private Widget logo;
 	private HTML userName;
 	private ClickableFlowPanel settingsPanel;
 	private Image settingsImg;
@@ -30,11 +32,10 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private OnClickedLogic loginClickLogic;
 	
 	@Inject
-	IneFrameHeaderView() {
+	IneFrameHeaderView(HeaderViewLogo logoCreator) {
 		setStyleName(ResourceHelper.getRes().style().header());
 		
-		logo = new Image(ResourceHelper.getRes().logo());
-		logo.setStyleName(ResourceHelper.getRes().style().logo());
+		logo = logoCreator.createLogo();
 		add(logo);
 		
 		settingsImg = new Image(ResourceHelper.getRes().settings());
@@ -92,16 +93,17 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 			}
 		}));
 		
-		
-		registerHandler(logo.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				if (logoClickedLogic != null) {
-					logoClickedLogic.doLogic();
+		if(logo instanceof HasClickHandlers) {
+			registerHandler(((HasClickHandlers)logo).addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					if (logoClickedLogic != null) {
+						logoClickedLogic.doLogic();
+					}
 				}
-			}
-		}));
+			}));
+		}
 		
 		registerHandler(login.addClickHandler(new ClickHandler() {
 				
