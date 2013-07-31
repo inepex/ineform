@@ -591,6 +591,17 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
 		return objectToFill;
 	}
+	
+	/**
+	 * @return the full form content in a new AssistedObject
+	 */
+	public AssistedObject getValues() {
+		AssistedObject objectToFill = new KeyValueObject(descriptorName);
+		for (AbstractFormUnit form : getRootPanelWidget().getFormUnits()) {
+			getValuesOfFormUnit(objectToFill, form);
+		}
+		return objectToFill;
+	}
 
 	public AbstractFormUnit getFormUnitByName(String name) {
 		return forms.get(name);
@@ -766,6 +777,16 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		
 		dealValidationResult(vr);
 		return vr;
+	}
+	
+	/**
+	 * Method to print validation messeges to the form
+	 * @return result of the validation
+	 */
+	public ValidationResult validateForm(){
+		ValidationResult result = doValidate(getValues());
+		dealValidationResult(result);
+		return result;
 	}
 	
 	/**
