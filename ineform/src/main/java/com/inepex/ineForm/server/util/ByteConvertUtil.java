@@ -166,23 +166,26 @@ public class ByteConvertUtil {
 	public static boolean byteArrayContains(byte[] container, byte[] contained){
 		if(contained.length == 0) return true;
 		if(contained.length > container.length) return false;
-		boolean firstFound = false;
-		int i = 0;
-		for(byte containerByte : container){
-			if(contained[0] == containerByte){
-				firstFound = true;
-				break;
+		for (int i = 0; i < container.length; i++) {
+			if (contained[0] != container[i])
+				continue;
+			
+			if(contained.length == 1) return true;
+			if(contained.length > container.length - i) return false;
+			
+			boolean equals = true;
+			for(int j = 1; j < contained.length; j++){
+				if(container[j + i] != contained[j]){
+					equals = false;
+					break;
+				}
 			}
-			i++;
+			if (equals)
+				return true;
+			
 		}
-		if(!firstFound) return false;
-		if(contained.length == 1) return true;
-		for(int j = 1; j < contained.length; j++){
-			if(container[j + i] != contained[j]){
-				return false;
-			}
-		}
-		return true;
+		
+		return false;
 		
 	}
 }
