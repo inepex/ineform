@@ -21,7 +21,7 @@ public class PlaceToken {
 		return this;
 	}
 	
-	public PlaceToken appendParam(String name, List<String> value) {
+	public PlaceToken appendParam(String name, List<? extends Object> value) {
 		token = PlaceHandlerHelper.appendParam(token, name, value);
 		return this;
 	}

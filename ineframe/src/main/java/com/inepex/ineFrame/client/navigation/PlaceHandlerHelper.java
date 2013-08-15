@@ -31,13 +31,13 @@ public class PlaceHandlerHelper {
 		return nameList;
 	}
 	
-	public static String appendParam(String hierarchicalToken, String paramToken, List<String> listValue) {
+	public static String appendParam(String hierarchicalToken, String paramToken, List<? extends Object> listValue) {
 		String value;
 		if(listValue==null || listValue.isEmpty())
 			value="";
 		else {
 			StringBuffer valSb = new StringBuffer();
-			for(String name : listValue){
+			for(Object name : listValue){
 				valSb.append(name);
 				valSb.append(listParamSeparator);
 			}
