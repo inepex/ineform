@@ -22,21 +22,21 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler>{
 	boolean needWindowReload = false;
 	
 	public PlaceRequestEvent() {
-		super();
 	}
 		
 	public PlaceRequestEvent(boolean openInNewWindow) {
-		super();
 		this.openInNewWindow = openInNewWindow;
 	}
 
+	public PlaceRequestEvent(PlaceToken placeToken) {
+		this(placeToken.toString());
+	}
+	
 	public PlaceRequestEvent(String hierarchicalTokensWithParam) {
-		super();
 		this.hierarchicalTokensWithParam=hierarchicalTokensWithParam;
 	}
 	
 	public PlaceRequestEvent(boolean openInNewWindow, String hierarchicalTokensWithParam) {
-		super();
 		this.openInNewWindow=openInNewWindow;
 		this.hierarchicalTokensWithParam=hierarchicalTokensWithParam;
 	}
