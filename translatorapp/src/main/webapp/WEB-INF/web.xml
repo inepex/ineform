@@ -32,6 +32,11 @@
 		<listener-class>com.inepex.translatorapp.server.AppServletConfig</listener-class>
 	</listener>
 	
+	<mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
+	
 	<session-config>
 		<session-timeout>480</session-timeout>
 	</session-config>
