@@ -49,6 +49,11 @@ public abstract class FormWidget extends HandlerAwareComposite {
 	protected void fireFormWidgetChanged() {
 		fireEvent(new FormWidgetChangeEvent(this));
 	}
+	
+	protected void fireFormWidgetChanged(boolean changeEnd) {
+		fireEvent(new FormWidgetChangeEvent(this).setChangeEnd(changeEnd));
+	}
+
 
 	public abstract boolean isFocusable();
 

@@ -31,7 +31,7 @@ public class CheckBoxFW extends DenyingFormWidget {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				fireFormWidgetChanged();
+				fireFormWidgetChanged(true);
 			}
 		}));
 	}

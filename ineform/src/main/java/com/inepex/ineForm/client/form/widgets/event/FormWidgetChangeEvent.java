@@ -11,6 +11,7 @@ public class FormWidgetChangeEvent extends GwtEvent<FormWidgetChangeHandler>{
 
 	public static Type<FormWidgetChangeHandler> TYPE = new Type<FormWidgetChangeHandler>();
 	private FormWidget sourceFormWidget;
+	private boolean isChangeEnd = false;
 	
 	public FormWidgetChangeEvent(FormWidget sourceFormWidget) {
 		this.sourceFormWidget=sourceFormWidget;
@@ -18,6 +19,15 @@ public class FormWidgetChangeEvent extends GwtEvent<FormWidgetChangeHandler>{
 	
 	public FormWidget getSourceFormWidget() {
 		return sourceFormWidget;
+	}
+	
+	public boolean isChangeEnd() {
+		return isChangeEnd;
+	}
+
+	public FormWidgetChangeEvent setChangeEnd(boolean isChangeEnd) {
+		this.isChangeEnd = isChangeEnd;
+		return this;
 	}
 
 	@Override

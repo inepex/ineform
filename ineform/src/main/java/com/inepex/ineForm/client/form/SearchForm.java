@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
+import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
@@ -56,15 +58,7 @@ public class SearchForm extends IneForm {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				AssistedObject searchParams =  getSearchParams();
-				if (!isEmpty(searchParams)){
-					doReset.setVisible(true);
-					message.setText(IneFormI18n.searchForm_filtered());	
-				} else {
-					doReset.setVisible(false);
-					message.setText("");	
-				}
-				setSearchParamsForDataConnector(searchParams);				
+				doSearch();		
 			}
 		});
 		
@@ -75,6 +69,16 @@ public class SearchForm extends IneForm {
 				resetFieldsAndSendSearch();
 				message.setText("");
 				doReset.setVisible(false);
+			}
+		});
+		
+		addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+			
+			@Override
+			public void onFormWidgetChange(FormWidgetChangeEvent e) {
+				if (e.isChangeEnd()){
+					doSearch();
+				}
 			}
 		});
 		
@@ -97,6 +101,18 @@ public class SearchForm extends IneForm {
 		}
 		
 		return true;
+	}
+	
+	private void doSearch(){
+		AssistedObject searchParams =  getSearchParams();
+		if (!isEmpty(searchParams)){
+			doReset.setVisible(true);
+			message.setText(IneFormI18n.searchForm_filtered());	
+		} else {
+			doReset.setVisible(false);
+			message.setText("");	
+		}
+		setSearchParamsForDataConnector(searchParams);
 	}
 	
 	private AssistedObject getSearchParams(){
