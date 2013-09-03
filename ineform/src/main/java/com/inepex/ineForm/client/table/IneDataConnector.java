@@ -273,7 +273,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	public void setSearchParameters(AssistedObject searchParameters){
 		this.searchParameters = searchParameters;
 	}
-	
+		
+	public AssistedObject getSearchParameters() {
+		return searchParameters;
+	}
+
 	private void updateDisplaysAndfireListChangedEvent() {
 		updateDisplayToLastResult();
 		eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));

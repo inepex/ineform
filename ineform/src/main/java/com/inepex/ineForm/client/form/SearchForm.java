@@ -116,8 +116,9 @@ public class SearchForm extends IneForm {
 	}
 	
 	private AssistedObject getSearchParams(){
-		AssistedObject currentState;
-		currentState = searchForm.getValues(searchForm.getInitialOrEmptyData());
+		AssistedObject currentState = dataConnector.getSearchParameters();
+		if (currentState == null) currentState = searchForm.getInitialOrEmptyData();
+		currentState = searchForm.getValues(currentState);
 		return currentState;
 	}
 	
