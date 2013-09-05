@@ -19,9 +19,11 @@ import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Image;
+import com.google.inject.Provider;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;
+import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 import com.inepex.ineFrame.client.navigation.places.DummyPageProvider;
 import com.inepex.ineFrame.client.navigation.places.SimpleCachingPlace;
@@ -38,7 +40,17 @@ public class MenuRendererAuthManagerTest {
 		
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
-		MenuRenderer.View view = mock(MenuRenderer.View.class);
+		final MenuRenderer.View view = mock(MenuRenderer.View.class);
+		
+		Provider<MenuRenderer.View> viewProv = new Provider<MenuRenderer.View>() {
+
+			@Override
+			public View get() {
+				return view;
+			}
+		};
+		
+		
 		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
@@ -54,7 +66,7 @@ public class MenuRendererAuthManagerTest {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, viewProv, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
@@ -128,7 +140,16 @@ public class MenuRendererAuthManagerTest {
 		
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
-		MenuRenderer.View view = mock(MenuRenderer.View.class);
+		final MenuRenderer.View view = mock(MenuRenderer.View.class);
+		
+		Provider<MenuRenderer.View> viewProv = new Provider<MenuRenderer.View>() {
+
+			@Override
+			public View get() {
+				return view;
+			}
+		};
+		
 		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
@@ -144,7 +165,7 @@ public class MenuRendererAuthManagerTest {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, viewProv, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);
@@ -199,7 +220,16 @@ public class MenuRendererAuthManagerTest {
 		
 		EventBus eventBus = mock(EventBus.class);
 		final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
-		MenuRenderer.View view = mock(MenuRenderer.View.class);
+		final MenuRenderer.View view = mock(MenuRenderer.View.class);
+		
+		Provider<MenuRenderer.View> viewProv = new Provider<MenuRenderer.View>() {
+
+			@Override
+			public View get() {
+				return view;
+			}
+		};
+		
 		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
 			int i = 0;
@@ -215,7 +245,7 @@ public class MenuRendererAuthManagerTest {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, authManager);
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, viewProv, authManager);
 		
 		phProvider.plainPlace1.setHierarchicalToken("MenuParent/place1");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace1, null);

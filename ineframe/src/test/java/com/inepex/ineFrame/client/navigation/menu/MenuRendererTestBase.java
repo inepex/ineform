@@ -14,8 +14,10 @@ import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Image;
+import com.google.inject.Provider;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
+import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View.Tab;
 
 public class MenuRendererTestBase {
@@ -25,6 +27,7 @@ public class MenuRendererTestBase {
 	MenuRenderer.View.Tab[] tabs;
 	String[] tabNames;
 	
+	Provider<MenuRenderer.View> viewProv;
 	int i = 0;
 	
 	public void initMocks(PlaceHierarchyProvider phProvider){
@@ -32,8 +35,16 @@ public class MenuRendererTestBase {
 		view = mock(MenuRenderer.View.class);
 		tabs = new MenuRenderer.View.Tab[5];
 		tabNames = new String[5];
+		viewProv = new Provider<MenuRenderer.View>() {
+
+			@Override
+			public View get() {
+				return view;
+			}
+		};
 		
-		renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
+		
+		renderer = new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
 		
 		when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 			

@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
@@ -58,15 +59,17 @@ public class MenuRenderer {
 	private final EventBus eventBus;
 	private final AuthManager authManager;
 	
-	private final View view;
+	private final Provider<View> view;
 	
 	private String lastTokenPlacePart = null;
 	
 	private List<String> lastTokenPartsFromMenuRoot = null;
 	
+	private MenuFilter filter;
+	
 	@Inject
 	public MenuRenderer(PlaceHierarchyProvider hierarchyProvider, EventBus eventBus,
-			View view, AuthManager authManager) {
+			Provider<View> view, AuthManager authManager) {
 		
 		this.hierarchyProvider= hierarchyProvider;
 		this.eventBus=eventBus;
@@ -94,7 +97,7 @@ public class MenuRenderer {
 		Node<InePlace> pointer = getRootNode(tokens); //also removes unneeded parts of tokens list
 		int levelOfChange = PlaceHandlerHelper.levelOfChange(lastTokenPartsFromMenuRoot, tokens);
 				
-		view.clearLevel(levelOfChange);
+		view.get().clearLevel(levelOfChange);
 		lastTokenPlacePart = newTokenPlacePart;
 		lastTokenPartsFromMenuRoot = tokens;
 		if (place.isWithoutMenu()){
@@ -117,6 +120,8 @@ public class MenuRenderer {
 			if(pointer.hasChildren()) {
 				for(Node<InePlace> node : pointer.getChildren()) {
 					if(userHasNoRight(node))
+						continue;
+					if (filter != null && filter.filter(node)) 
 						continue;
 					
 					if (handleWidgetPlace(node, urlParams, i)) 
@@ -181,9 +186,9 @@ public class MenuRenderer {
 		if(selectednode.getNodeElement()!=null && selectednode.getNodeElement() instanceof ParamPlace) {
 			ParamPlace place = ((ParamPlace) selectednode.getNodeElement());
 			if (place.isSelectorPage()){
-				view.showSelector(place.getAssociatedPage().asWidget(), level, false);
+				view.get().showSelector(place.getAssociatedPage().asWidget(), level, false);
 			} else {
-				view.showSelector(place.getAssociatedPage().asWidget(), level, true);
+				view.get().showSelector(place.getAssociatedPage().asWidget(), level, true);
 			}
 		}
 	}
@@ -197,7 +202,7 @@ public class MenuRenderer {
 		if(node.getNodeElement() instanceof WidgetPlace) {
 			WidgetPlace wp = (WidgetPlace) node.getNodeElement();
 			if(wp.isWidget(urlParams))
-				view.appendMenuWidget(wp.getWidget(urlParams), level);
+				view.get().appendMenuWidget(wp.getWidget(urlParams), level);
 			return true;
 		}
 		return false;
@@ -216,7 +221,7 @@ public class MenuRenderer {
 	
 	private void createTab(final Node<InePlace> node, List<String> tokens, boolean selected, boolean visible, int level){
 		if (node.getNodeElement().getMenuName() == null) return;
-		Tab tab = view.createTab(node.getNodeElement().getMenuName(), node.getNodeElement().getIcon(), level);
+		Tab tab = view.get().createTab(node.getNodeElement().getMenuName(), node.getNodeElement().getIcon(), level);
 		
 //		tab.setClickable((!selected || level!=tokens.size()-1) && visible);
 		tab.setClickable(visible);
@@ -240,8 +245,12 @@ public class MenuRenderer {
 		boolean isParamPlace = place instanceof ParamPlace;
 //		boolean isSelectorPage = ((ParamPlace)place).isSelectorPage(); 
 		if (!isParamPlace){
-			view.showPage(page);
+			view.get().showPage(page);
 		}
+	}
+
+	public void setFilter(MenuFilter filter) {
+		this.filter = filter;
 	}
 	
 	

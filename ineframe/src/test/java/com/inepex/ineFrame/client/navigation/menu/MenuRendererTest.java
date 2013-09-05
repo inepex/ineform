@@ -54,7 +54,7 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
 		
 		phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
 		renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
@@ -84,7 +84,7 @@ public class MenuRendererTest extends MenuRendererTestBase {
 		PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
 		phProvider.createPlaceHierarchy();
 		
-		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, view, new NoAuthManager());
+		MenuRenderer renderer = new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
 		
 		phProvider.onlyVisibleWhenActiveAndHasName.setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
 		renderer.realizeNewPlaceOnMenu(phProvider.onlyVisibleWhenActiveAndHasName, null);
