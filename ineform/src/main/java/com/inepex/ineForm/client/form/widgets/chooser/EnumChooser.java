@@ -130,8 +130,10 @@ public class EnumChooser implements Chooser {
 			} else {
 				item = valueRange.get(handlerFactory.createHandler(rel.getKvo()).getString(secondLevelJoin));
 			}
-			relationToItemId.put(item.getId(), rel);
-			select(item, false, false);
+			if (item != null){
+				relationToItemId.put(item.getId(), rel);
+				select(item, false, false);
+			}
 		}
 		updateOrders();
 		sortLists();
