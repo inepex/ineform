@@ -1,5 +1,6 @@
 package com.inepex.inei18n.util;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -9,7 +10,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.CharStreams;
 import com.inepex.inei18n.server.I18nModuleConverter;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.server.ModuleProperties;
@@ -61,8 +61,17 @@ public class LocalizationUtilLogic {
 		System.out.println("Downloading rows from: "+ downloadUrl);
 		try {
 			URL url = new URL(downloadUrl);
-			InputStream r = url.openStream();
-			String json = CharStreams.toString(new InputStreamReader(r));
+			InputStream is = url.openStream();
+			
+			StringBuilder inputStringBuilder = new StringBuilder();
+	        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+	        String line = bufferedReader.readLine();
+	        while(line != null){
+	            inputStringBuilder.append(line);
+	            inputStringBuilder.append(System.getProperty("line.separator"));
+	            line = bufferedReader.readLine();
+	        }
+			String json = inputStringBuilder.toString();
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			DownloadLocalizablesDto dto = objectMapper.readValue(json, DownloadLocalizablesDto.class);
