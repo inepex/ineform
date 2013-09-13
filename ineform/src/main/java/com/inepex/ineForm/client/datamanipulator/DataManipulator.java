@@ -59,6 +59,8 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 	//State
 	private boolean rendered = false;
 	
+	private String formRDesc = null;
+	
 	public DataManipulator(FormContext formCtx
 			, FormFactory formFactory
 			, String objectDescriptorName
@@ -152,11 +154,11 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 			}
 		});
 	}
-	
-	protected String getFRD() {
-		return null;
-	}
 
+	protected String getFRD() {
+		return formRDesc;
+	}
+	
 	protected void showObjectEditor(AssistedObject selectedValue) {
 		boolean isEditMode = selectedValue != null;
 
@@ -228,6 +230,10 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 
 	public void setFormCreationCallback(FormCreationCallback formCreationCallback) {
 		this.formCreationCallback = formCreationCallback;
+	}
+
+	public void setFormRDesc(String formRDesc) {
+		this.formRDesc = formRDesc;
 	}
 	
 }
