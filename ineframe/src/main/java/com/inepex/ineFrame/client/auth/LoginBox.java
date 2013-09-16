@@ -56,7 +56,10 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected final EventBus eventBus;
 	protected final IneDispatch ineDispatch;
 	
-	protected LoginBox(AuthManager authManager, HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
+	protected LoginBox(AuthManager authManager, 
+					   HistoryProvider historyProvider, 
+					   EventBus eventBus,
+					   IneDispatch ineDispatch) {
 		this.authManager = authManager;
 		this.historyProvider=historyProvider;
 		this.eventBus=eventBus;
@@ -117,9 +120,13 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
 				if(event.getValue()){
-					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_TRUE, new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
+					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, 
+									  IFConsts.COOKIE_TRUE, 
+									  new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
 				}else{
-					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_FALSE, new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
+					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, 
+									  IFConsts.COOKIE_FALSE, 
+									  new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
 				}
 			}
 		}));
