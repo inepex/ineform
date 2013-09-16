@@ -216,4 +216,12 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	public static native double getNavigationStartTime() /*-{
 	  return $wnd.performance.timing.navigationStart;
 	}-*/;
+	
+	public static native void setAnalyticsAccount(String accountID) /*-{
+	$wnd._gaq.push([ '_setAccount', accountID ]);
+	}-*/;
+	
+	public static native void trackPageview() /*-{
+	$wnd._gaq.push([ '_trackPageview' ]);
+	}-*/;
 }
