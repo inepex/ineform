@@ -109,7 +109,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 	 * 
 	 * @return - the selected authUser or null if password or userName is incorrect
 	 */
-	protected abstract U findByUserNameAndPassword(String userAuthString, String password);
+	protected abstract U findByUserNameAndPassword(String userAuthString, String password) throws DispatchException;
 
 	/**
 	 * @return an empty result base object

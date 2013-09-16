@@ -3,6 +3,7 @@ package com.inepex.ineFrame.client.auth;
 import java.util.Date;
 import java.util.Set;
 
+import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.UnsupportedActionException;
 
 import com.google.gwt.event.shared.EventBus;
@@ -70,7 +71,7 @@ public abstract class AbstractAuthManager implements AuthManager {
 		
 		@Override
 		public void onFailure(Throwable arg0) {
-			if(arg0 instanceof UnsupportedActionException)  {
+			if(arg0 instanceof UnsupportedActionException || arg0 instanceof ActionException)  {
 				Window.alert(arg0.getMessage());
 			}
 			
