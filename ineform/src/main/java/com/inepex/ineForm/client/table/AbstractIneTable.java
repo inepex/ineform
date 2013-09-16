@@ -232,8 +232,12 @@ public abstract class AbstractIneTable {
 	 * initialize inetable columns. To set or refresh table data, call dataConnector.update().
 	 */
 	public void renderTable() {
+		renderTable(true);		
+	}
+	
+	public void renderTable(boolean init) {
 		if (!rendered) {
-			initTable();
+			if (init) initTable();
 			if (showPager == true && (pagerPos == PagerPosition.TOP)){
 				addToMainPanel(pager);
 			}
@@ -255,7 +259,7 @@ public abstract class AbstractIneTable {
 		}
 	}
 
-	private void initTable() {
+	public void initTable() {
 
 		// Create a Pager to control the table.
 		if (showPager) {

@@ -14,6 +14,7 @@ import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
+import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class SearchForm extends IneForm {
@@ -23,6 +24,7 @@ public class SearchForm extends IneForm {
 	private IneButton doSearch = new IneButton(IneButtonType.ACTION, IneFormI18n.SEARCH());
 	private IneButton doReset = new IneButton(IneButtonType.ACTION, IneFormI18n.RESET());
 	private Label message = new Label();
+	private IneTable ineTable;
 	
 	private IneDataConnector dataConnector;
 
@@ -38,11 +40,14 @@ public class SearchForm extends IneForm {
 	public SearchForm(FormContext formCtx,
 			@Assisted("dn") String descriptorName,
 			@Assisted("frdn") String formRDescName,
-			@Assisted IneDataConnector ineDataConnector) {
+			@Assisted IneDataConnector ineDataConnector,
+			@Assisted IneTable ineTable) {
 		super(formCtx, descriptorName, formRDescName);
 		
 		searchForm = this;
 		dataConnector = ineDataConnector;
+		this.ineTable = ineTable;
+		ineTable.initTable();
 		
 		renderForm();
 		
@@ -104,6 +109,7 @@ public class SearchForm extends IneForm {
 	}
 	
 	private void doSearch(){
+		ineTable.renderTable(false);
 		AssistedObject searchParams =  getSearchParams();
 		if (!isEmpty(searchParams)){
 			doReset.setVisible(true);
