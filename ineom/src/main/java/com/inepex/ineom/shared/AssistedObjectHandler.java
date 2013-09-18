@@ -24,6 +24,15 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 		if (objectDescriptor == null)
 			throw new IllegalArgumentException("No object descriptor registered for '"+descriptorName+"'");
 	}
+	
+	protected AssistedObjectHandler(String descriptorName){
+		super(descriptorName);
+		this.descriptorStore = null;
+	}
+	
+	public static AssistedObjectHandler createUnchecked(String descName){
+		return new AssistedObjectHandler(descName);
+	}
 
 	// -------------------------------------------------------
 	// related methods
