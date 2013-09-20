@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.gwt.user.datepicker.client.DatePicker;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.date.DateProvider;
@@ -42,6 +43,9 @@ class YMD_OOField extends AbstractField {
 			img_calendar.setResource(ResourceHelper.ineformRes().calendar());
 			img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
 			img_calendar.getElement().getStyle().setPadding(5, Unit.PX);
+			if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE){
+				img_calendar.getElement().getStyle().setHeight(10, Unit.PX);
+			}
 		}
 		
 		if(showcalendar) panel_main.insert(img_calendar, 0);

@@ -66,6 +66,7 @@
 "imageuploadError";"";"Error during upload. See server log!";"Hiba a feltöltés során. Ellenőrizze a szerver beállításait.";"Greška prilikom otpremanja. Proverite podešavanje servera."
 "imageuploadInvalidFileFormat";"";"Invalid file format.";"Nem megfelelő fájlformátum";"Pogrešan format"
 "imageuploadTitle";"";"Upload";"Feltöltés";"Otpremanje"
+"inedate_notset";"";"Not set";"Nincs megadva";""
 "inetable_noresult";"";"No result found";"Nincs találat";"Nije pronađeno"
 "infoDialogTitle";"";"Message";"Üzenet";"Poruka"
 "loading";"";"Loading data...";"Adatok betöltése...";"Učitavanje podataka..."

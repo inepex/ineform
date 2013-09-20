@@ -5,6 +5,7 @@ import java.util.Date;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.inepex.ineForm.client.IneFormProperties;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 
 /*
  * A fieldek sokszinűsége miatt, meg egyébként is ez a nulldate lehet, hogy halott ötlet!
@@ -111,7 +112,12 @@ public class IneDateGWT {
 	 * @return
 	 */
 	public String getText(Precision precisionfortext) {
-		return precisionfortext.getFormatter().format(date);
+		if (isEmpty(precisionfortext)){
+			return IneFormI18n.inedate_notset();
+		} else {
+			return precisionfortext.getFormatter().format(date);
+		}
+		
 	}
 
 	/**
