@@ -133,7 +133,7 @@ public class IneDateGWT {
 			
 			//FIXME
 			case YMD_OO: return "0001.01.01".equals(precision.getFormatter().format(date)) ||
-									"0000.12.30".equals(precision.getFormatter().format(date)); //don't know what happends in compiled code
+									"0000.12.30".equals(precision.getFormatter().format(date)); //don't know what happens in compiled code
 			case YMD_HM: return CalendarUtil.isSameDate(date, new Date(NULLDATE));
 
 			case OMO_OO:
