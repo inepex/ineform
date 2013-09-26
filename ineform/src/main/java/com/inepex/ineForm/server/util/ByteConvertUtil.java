@@ -31,6 +31,8 @@ public class ByteConvertUtil {
 	}
 	
 	public static String getHex(byte... raw) {
+		if(raw==null)
+			return null;
 		return getHex(raw.length, raw);
 	}
 	
