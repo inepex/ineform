@@ -195,4 +195,12 @@ public class LazyArrayList<E> implements List<E>{
 		return list.subList(fromIndex, toIndex);
 	}
 
+	@Override
+	public String toString() {
+		if(list==null) {
+			return null;
+		}
+		
+		return list.toString();
+	}
 }
