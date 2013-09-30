@@ -1,7 +1,6 @@
 package com.inepex.ineForm.server.util;
 
 
-import org.eclipse.persistence.jpa.jpql.Assert.AssertException;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.junit.Assert;
@@ -24,12 +23,6 @@ public class ByteConvertUtilTest {
 			57, 49, 52, 44, 69, 44, 48, 46, 48, 48, 44, 48, 44, 50, 54, 48, 57, 49, 49, 44, 44, 42, 49, 57, 124, 48,
 			46, 48, 124, 49, 50, 55, 124, 48, 48, 48, 48, 124, 48, 48, 48, 56, 44, 48, 48, 48, 54, 124, 48, 48, 68, 56,
 			48, 48, 52, 54, 48, 48, 52, 50, 51, 48, 54, 49, 124, 48, 66, 124, 48, 48, 48, 48, 48, 48, 48, 48, 27, -87 };
-
-	private final String msg1WS = "$$B125,359231035755030,AAA,29,47.506316,19.049268,111205091713,V,"
-			+ "0,99,0,0,0,44,0,1652,0|0|0000|0000,0000,0007|0008||02D7|0101,*E3";
-	
-	private final String msg2WS = "$$.}........U141022.000,V,2242.0234,N,11359.0914,E,0.00,0,260911,,*19|0.0|127|0000|0008,"
-			+ "0006|00D8004600423061|0B|00000000..";
 	
 	private final String msg1Hexa = "2424423132352C3335393233313033353735353033302C4141412"
 			+ "C32392C34372E3530363331362C31392E3034393236382C3131313230353039313731332C56"
@@ -53,34 +46,6 @@ public class ByteConvertUtilTest {
 		Assert.assertEquals(msg2Hexa.length(), msg2.length * 2);
 		Assert.assertEquals(msg1Hexa, ByteConvertUtil.getHex(msg1));
 		Assert.assertEquals(msg2Hexa, ByteConvertUtil.getHex(msg2));
-	}
-	
-	@Test
-	public void testWSEscape() {
-		Assert.assertEquals(msg1WS.length(), msg1.length);
-		Assert.assertEquals(msg2WS.length(), msg2.length);
-		
-		Assert.assertEquals(msg1WS, ByteConvertUtil.wireSharkEscape(msg1));
-		Assert.assertEquals(msg1WS, new ByteConvertUtil.WSEscapedMsg(msg1).toString());
-		Assert.assertEquals(msg2WS, ByteConvertUtil.wireSharkEscape(msg2));
-		Assert.assertEquals(msg2WS, new ByteConvertUtil.WSEscapedMsg(msg2).toString());
-	}
-	
-	@Test
-	public void testWireSharkEscapeBeginOf() {
-		ChannelBuffer cb = ChannelBuffers.wrappedBuffer(msg0);
-		ChannelBufferInfo cbInfo = ChannelBufferInfo.createFromBuff(cb);
-		Assert.assertEquals(ByteConvertUtil.wireSharkEscape(msg0), ByteConvertUtil.wireSharkEscapeBeginOf(cb));
-		Assert.assertEquals(cbInfo, ChannelBufferInfo.createFromBuff(cb));
-		
-		ChannelBuffer cb1 = ChannelBuffers.wrappedBuffer(msg1);
-		ChannelBufferInfo cb1Info = ChannelBufferInfo.createFromBuff(cb1);
-		String res = ByteConvertUtil.wireSharkEscapeBeginOf(cb1);
-		String ws = ByteConvertUtil.wireSharkEscape(msg1);
-		Assert.assertEquals(cb1Info, ChannelBufferInfo.createFromBuff(cb1));
-		Assert.assertEquals(28, res.length());
-		Assert.assertEquals(ws.substring(0, 25), res.subSequence(0, 25));
-		Assert.assertEquals("...", res.subSequence(25, res.length()));
 	}
 	
 	@Test

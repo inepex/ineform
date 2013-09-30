@@ -1,7 +1,6 @@
 package com.inepex.ineForm.server.util;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -55,68 +54,6 @@ public class ByteConvertUtil {
 	    return data;
 	}
 	
-	/**
-	 * Gives a printable representation of byte array like in the Wireshark
-	 * program.
-	 * 
-	 * Printable ascii except space -> same character 
-	 * Other characters -> .
-	 */
-	public static String wireSharkEscape(byte[] message) {
-		if (message == null)
-			return null;
-
-		StringBuilder sb = new StringBuilder(message.length);
-		for (int i = 0; i < message.length; i++) {
-
-			// first and last printable ASCII chars except space
-			if (message[i] >= 33 && message[i] <= 126)
-				sb.append((char) message[i]);
-			else
-				sb.append('.');
-		}
-
-		return sb.toString();
-	}
-	
-	/**
-	 * Gives a printable representation of the <b>readable begin</b> of {@link ChannelBuffer} like in the Wireshark
-	 * program. It buffs size greater then 25 The end of response string will be: ...
-	 * 
-	 * Printable ascii except space -> same character 
-	 * Other characters -> .
-	 */
-	public static String wireSharkEscapeBeginOf(ChannelBuffer buf) {
-		final int cropSize=25;
-		int readableBytes = buf.readableBytes();
-		int length=Math.min(cropSize, readableBytes);
-		
-		StringBuilder sb = new StringBuilder(length+3);
-		
-		for (int i = buf.readerIndex(); i < buf.readerIndex()+length; i++) {
-
-			// first and last printable ASCII chars except space
-			byte b = buf.getByte(i);
-			if (b >= 33 && b <= 126)
-				sb.append((char) b);
-			else
-				sb.append('.');
-		}
-		
-		if(readableBytes>cropSize)
-			sb.append("...");
-		
-		return sb.toString();
-	}
-	
-	/**
-	 * Encodes the content of {@link ChannelBuffer} to Base64. 
-	 * WARNING: it read the content of buffer, after this method it will be empty!
-	 */
-	public static String base64EncodeEatChannelBuffer(ChannelBuffer buf) {
-		return Base64.encode(buf, false).toString(ASCII);
-	}
-	
 	public static byte[] base64ToByteArray(String base64Msg) {
 		ChannelBuffer buffer = Base64.decode(ChannelBuffers.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
 		byte[] msg = new byte[buffer.readableBytes()];
@@ -124,38 +61,7 @@ public class ByteConvertUtil {
 		
 		return msg;
 	}
-
-	/**
-	 * Lazy evaluation for logging.
-	 */
-	public static class WSEscapedMsg {
-
-		private final byte[] message;
-
-		public WSEscapedMsg(byte[] message) {
-			this.message = message;
-		}
-
-		@Override
-		public String toString() {
-			return wireSharkEscape(message);
-		}
-	}
 	
-	public static class Base64Msg{
-		
-		private final byte[] msg;
-		
-		public Base64Msg(byte[] msg) {
-			this.msg=msg;
-		}
-		
-		@Override
-		public String toString() {
-			ChannelBuffer ch = ChannelBuffers.wrappedBuffer(Arrays.copyOf(msg, msg.length));
-			return base64EncodeEatChannelBuffer(ch);
-		}
-	}
 	public static long getBigEndianValue(byte[] b){
 		long value = 0;
 		for (int i = 0; i < b.length; i++)
