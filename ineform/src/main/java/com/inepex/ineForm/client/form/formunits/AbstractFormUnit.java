@@ -123,7 +123,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	 */
 	public FDesc getFieldDesct(Node<FormRDescBase> node) {
 		if (SharedUtil.isMultilevelKey(node.getNodeId()))			
-			return descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, node.getNodeIdAsList());
+			return descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, SharedUtil.listFromDotSeparated(node.getNodeId()));
 		else
 			return objectDescriptor.getField(node.getNodeId());
 	}

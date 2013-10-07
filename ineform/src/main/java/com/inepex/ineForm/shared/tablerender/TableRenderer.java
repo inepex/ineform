@@ -148,7 +148,7 @@ public abstract class TableRenderer {
 	
 	protected FDesc getFieldDescForColumn(Node<TableRDescBase> columnNode){
 		FDesc fieldDesc = null;
-		List<String> nodeIdAsList = columnNode.getNodeIdAsList();
+		List<String> nodeIdAsList = SharedUtil.listFromDotSeparated(columnNode.getNodeId());
 
 		if (nodeIdAsList.size() == 1)
 			fieldDesc = objectDesc.getField(columnNode.getNodeId());

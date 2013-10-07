@@ -317,7 +317,7 @@ public abstract class AbstractIneTable {
 				continue;
 
 			FDesc fieldDesc = null;
-			List<String> nodeIdAsList = columnNode.getNodeIdAsList();
+			List<String> nodeIdAsList = SharedUtil.listFromDotSeparated(columnNode.getNodeId());
 
 			if (nodeIdAsList.size() == 1)
 				fieldDesc = objectDesc.getField(columnNode.getNodeId());

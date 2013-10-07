@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import com.inepex.ineom.shared.util.SharedUtil;
 
 /**
  * @author Istvan Szoboszlai
@@ -60,16 +59,6 @@ public class Node<T> implements Serializable, IsSerializable {
 	protected Node(T nodeElement) {
 		this(false, nodeElement);
 	}
-	
-	
-	/**
-	 * ATTENTION: use this method wisely! This method breaks the parent relations in a {@link Node} tree!
-	 * @param node
-	 */
-	public void addNode(Node<T> node){
-		if(children==null) children=new ArrayList<Node<T>>();
-		children.add(node);
-	}
 
 //------------------------- adding child
 //--------------------------------------------------------------------
@@ -98,11 +87,6 @@ public class Node<T> implements Serializable, IsSerializable {
 	public Node<T> addChild(String nodeName, T nodeElement) {
 		return addChildPrivate(nodeName, new Node<T>(nodeElement));
 	}
-
-	public Node<T> addChild(List<String> nodeNameList, T nodeElement) {
-		String nodeName = SharedUtil.Str(nodeNameList);
-		return addChildPrivate(nodeName, new Node<T>(nodeElement));
-	}
 	
 	public Node<T> addChild(T nodeElement) {
 		return addChildPrivate(null, new Node<T>(nodeElement));
@@ -110,11 +94,6 @@ public class Node<T> implements Serializable, IsSerializable {
 	
 	public Node<T> addChildGC(T nodeElement) {
 		return addChildGCPrivate(null, new Node<T>(nodeElement));
-	}
-
-	public Node<T> addChildGC(List<String> nodeNameList, T nodeElement) {
-		String nodeName = SharedUtil.Str(nodeNameList);
-		return addChildGCPrivate(nodeName, new Node<T>(nodeElement));
 	}
 	
 	public Node<T> addChildGC(String nodeName, T nodeElement) {
@@ -142,17 +121,6 @@ public class Node<T> implements Serializable, IsSerializable {
 		}
 
 		return token.toString();
-	}
-	
-	public static String toHierarchicalId(String... idList){
-		StringBuilder sb = new StringBuilder();
-		for (String string : idList) {
-			sb.append(string);
-			sb.append(ID_SEPARATOR);
-		}
-		
-		return sb.length() > 0 ? sb.substring(0, sb.length()-ID_SEPARATOR.length())
-							   : "";
 	}
 
 	public Node<T> getRootNode(){
@@ -221,22 +189,6 @@ public class Node<T> implements Serializable, IsSerializable {
 		return idList;
 	}
 	
-	/**
-	 * Gets the keys under a Node specified by a nodeId (not hierarchical)
-	 * If the node is not found an empty list will be returned
-	 * @param nodeIdid
-	 * @return
-	 */
-	public Collection<String> getKeysUnderNode(String nodeIdid){
-		Set<String> idList = new HashSet<String>();
-		Node<T> node = findNodeById(nodeIdid);
-		if (node == null)
-			return idList;
-		
-		addChildIdsRecursve(idList, node);
-		return idList;
-	}
-	
 	private Collection<String> addChildIdsRecursve(Set<String> idList, Node<T> parent) {
 		if (!parent.hasChildren())
 			return idList;
@@ -285,10 +237,6 @@ public class Node<T> implements Serializable, IsSerializable {
 	public String getNodeId() {
 		return nodeId;
 	}
-
-	public List<String> getNodeIdAsList() {
-		return SharedUtil.listFromDotSeparated(nodeId);
-	}
 	
 	public List<Node<T>> getChildren() {
 		return children;
@@ -306,17 +254,8 @@ public class Node<T> implements Serializable, IsSerializable {
 		return isRootNode;
 	}
 	
-//	public String getNodeIdOfFirstLevelNode(int serial){
-//		if (!IneFormProperties.showIds) serial++;
-//		return children.get(serial).getNodeId();
-//	}
-	
 	public Node<T> dummy(){
 		return this;
-	}
-
-	public static List<String> idToIdList(String string) {
-		return SharedUtil.listFromDotSeparated(string);
 	}
 	
 	public Node<T> removeChild(String id){
