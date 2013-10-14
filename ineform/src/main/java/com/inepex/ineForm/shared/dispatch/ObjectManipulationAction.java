@@ -1,5 +1,9 @@
 package com.inepex.ineForm.shared.dispatch;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 import com.inepex.ineFrame.shared.dispatch.Loggable;
@@ -24,6 +28,7 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	private AssistedObject object;
 	private Long idToRefresh;
 	private CustomKVOObjectDesc[] customOdescs;
+	private List<String> propGroups = new ArrayList<String>();
 	
 	public ObjectManipulationAction() {
 	}
@@ -39,6 +44,10 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 		this.manipulationType = manipulationType;
 		this.object = object;
 
+	}
+	
+	public ObjectManipulationAction(List<String> propGroups) {
+		this.propGroups = propGroups;
 	}
 
 	@Override
@@ -70,13 +79,13 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	public String getActionParamteres() {
 		return this.toString();
 	}
-
+	
 	@Override
 	public String toString() {
-		return "ObjectManipulationAction [manipulationType=" + manipulationType
-				+ ", object=" + object + ", idToRefresh=" + idToRefresh + "]";
+		return "ObjectManipulationAction [manipulationType=" + manipulationType + ", object=" + object + ", idToRefresh="
+				+ idToRefresh + ", propGroups=" + propGroups + "]";
 	}
-	
+
 	@Override
 	public Long getIdToRefresh() {
 		return idToRefresh;
@@ -95,5 +104,15 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	@Override
 	public void setCustomOdescs(CustomKVOObjectDesc[] customOdescs) {
 		this.customOdescs = customOdescs;
+	}
+
+	@Override
+	public void setPropGroups(String... propGroups) {
+		this.propGroups = Arrays.asList(propGroups);
+	}
+
+	@Override
+	public List<String> getPropGroups() {
+		return propGroups;
 	}
 }

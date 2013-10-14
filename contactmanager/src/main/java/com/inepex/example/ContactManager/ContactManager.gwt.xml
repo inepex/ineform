@@ -20,4 +20,5 @@
   <set-configuration-property name="CssResource.style"
 		value="pretty" />
 
+	<collapse-all-properties />
 </module>

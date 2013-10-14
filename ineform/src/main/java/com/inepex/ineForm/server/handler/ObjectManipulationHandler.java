@@ -51,7 +51,8 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 			return (ObjectManipulationActionResult) daoFinder.getDefaultDaoForDescriptor(descriptorName).manipulate(action);
 
 		} catch (Exception e) {
-			_logger.warn(e.getMessage(), e);
+			e.printStackTrace();
+			_logger.warn(e.getMessage());
 			throw new ActionException("Problem while performing manipulate action: " + e.getMessage());
 		}
 	}

@@ -2,6 +2,7 @@ package com.inepex.ineom.shared.assistedobject;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -101,4 +102,9 @@ public abstract class AssistedObject implements Serializable, IsSerializable {
 	public abstract void setId(Long id);
 
 	public abstract boolean isNew();
+
+	/** custom property **/
+	public abstract Map<String, String> getAllPropsJson();
+	public abstract String getPropsJson(String id);
+	public abstract void setPropsJson(String id, String json);
 }

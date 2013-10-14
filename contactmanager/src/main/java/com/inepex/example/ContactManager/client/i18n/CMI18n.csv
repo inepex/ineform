@@ -4,6 +4,7 @@
 "company_id";"";"Id";"Id"
 "company_name";"";"Name";"Néc"
 "company_phone";"";"Phone";"Telefon"
+"company_propsUser";"";"Properties";"Adatok"
 "company_webPage";"";"WebPage";"Honlap"
 "contact_company";"";"Company";"Cég"
 "contact_email";"";"Email";"Email"

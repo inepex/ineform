@@ -26,7 +26,7 @@ public class KeyValueObject extends AssistedObject {
 	protected Map<String, Long> longValues = new LazyHashMap<String, Long>();
 	protected Map<String, Relation> relationValues = new LazyHashMap<String, Relation>();
 	protected Map<String, String> stringValues = new LazyHashMap<String, String>();
-
+	protected Map<String, String> propJsons = new LazyHashMap<String, String>();
 	/**
 	 * Default constructor needed for the type to be searilizable, although the
 	 * other constructor that specifies descriptorName should be used
@@ -116,6 +116,7 @@ public class KeyValueObject extends AssistedObject {
 		sb.append(longValues).append("\n");
 		sb.append(relationValues).append("\n");
 		sb.append(stringValues).append("\n");
+		sb.append(propJsons).append("\n");
 
 		return sb.toString();
 	}
@@ -307,6 +308,10 @@ public class KeyValueObject extends AssistedObject {
 			String str = this.stringValues.get(key);
 			target.set(key, str == null ? null : new String(str));
 		}
+		
+		for (String key : propJsons.keySet()){
+			target.setPropsJson(key, propJsons.get(key));
+		}
 	}
 
 	/**
@@ -404,6 +409,21 @@ public class KeyValueObject extends AssistedObject {
 
 	public Map<String, String> getStringValues() {
 		return stringValues;
+	}
+
+	@Override
+	public String getPropsJson(String id) {
+		return propJsons.get(id);
+	}
+
+	@Override
+	public void setPropsJson(String id, String json) {
+		propJsons.put(id, json);
+	}
+
+	@Override
+	public Map<String, String> getAllPropsJson() {
+		return propJsons;
 	}
 
 }

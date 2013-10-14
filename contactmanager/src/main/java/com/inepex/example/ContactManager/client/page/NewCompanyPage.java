@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.ineForm.client.form.FormContext;
+import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
 import com.inepex.ineForm.client.form.events.CancelledEvent;
@@ -22,12 +23,13 @@ public class NewCompanyPage extends FlowPanelBasedPage implements SavedEvent.Han
 	private final SaveCancelForm form;
 	
 	@Inject
-	NewCompanyPage(FormContext formContext, PlaceHandler placeHandler) {
+	NewCompanyPage(FormContext formContext, PlaceHandler placeHandler,
+			FormFactory formFactory) {
 		this.formContext=formContext;
 		this.placeHandler=placeHandler;
 		
 		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, CompanyConsts.descriptorName);
-		form= new SaveCancelForm(formContext, CompanyConsts.descriptorName, null, connector, null);
+		form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());

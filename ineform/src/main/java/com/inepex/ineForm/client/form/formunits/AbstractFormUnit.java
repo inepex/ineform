@@ -10,6 +10,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
+import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
@@ -39,6 +40,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
 	protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey = new TreeMap<String, ErrorMessageManagerInterface>();
 	protected TreeMap<String, CustomKVOFW> customKvoFwsByKey = new TreeMap<String, CustomKVOFW>();
+	protected TreeMap<String, PropFW> propFwsByKey = new TreeMap<String, PropFW>();
 	
 	//gui behaviour
 	protected FormWidget firstFocusableWidget = null;
@@ -100,6 +102,9 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 		
 		if(widget instanceof CustomKVOFW)
 			customKvoFwsByKey.put(key, (CustomKVOFW) widget);
+		
+		if(widget instanceof PropFW)
+			propFwsByKey.put(key, (PropFW) widget);
 	}
 	
 	public void registerTitle(String key, HTML title) {
@@ -167,6 +172,10 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 			keys.addAll(customKvoFwsByKey.get(key).getModelKeys(key));
 		}
 			
+		for(String key : propFwsByKey.keySet()) {
+			keys.addAll(propFwsByKey.get(key).getModelKeys(key));
+		}
+			
 		return keys;
 	}
 	
@@ -177,6 +186,9 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 			ret.putAll(customKvoFwsByKey.get(key).getErrorManagers(key));
 		}
 		
+		for(String key : propFwsByKey.keySet()) {
+			ret.putAll(propFwsByKey.get(key).getErrorManagers(key));
+		}		
 		return ret;
 	}
 

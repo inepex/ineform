@@ -1,5 +1,7 @@
 package com.inepex.ineForm.shared.dispatch;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Action;
@@ -22,11 +24,18 @@ public class ObjectListAction extends AbstractSearchAction implements Action<Obj
 	 */
 	private static final long serialVersionUID = -5238110902341753891L;
 
+	private List<String> propGroups = new ArrayList<String>();
+	
 	public ObjectListAction() {
 	}
 
 	public ObjectListAction(String descriptorName) {
 		setDescriptorName(descriptorName); 
+	}
+	
+	public ObjectListAction(String descriptorName, List<String> propGroups) {
+		setDescriptorName(descriptorName); 
+		this.propGroups = propGroups;
 	}
 	
 	/**
@@ -42,6 +51,16 @@ public class ObjectListAction extends AbstractSearchAction implements Action<Obj
 	public ObjectListAction(String descriptorName, AssistedObject searchParameters,
 			int firstResult, int numMaxResult, boolean queryResultCount){
 		super(descriptorName, searchParameters, firstResult, numMaxResult, queryResultCount);
+	}
+
+	@Override
+	public void setPropGroups(String... propGroups) {
+		this.propGroups = Arrays.asList(propGroups);
+	}
+
+	@Override
+	public List<String> getPropGroups() {
+		return propGroups;
 	}
 
 

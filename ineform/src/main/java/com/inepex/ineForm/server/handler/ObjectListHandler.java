@@ -49,7 +49,8 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 			return (ObjectListActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).search(action);
 
 		} catch (Exception e) {
-			_logger.warn(e.getMessage(), e);
+			e.printStackTrace();
+			_logger.warn(e.getMessage());
 			throw new ActionException("Problem while performing search action: " + e.getMessage());
 		}
 	}

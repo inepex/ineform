@@ -39,6 +39,7 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
 
 		@Override
 		public void onFailure(Throwable caught) {
+			caught.printStackTrace();
 			if (isInvalid()){
 				pendingExecutions.remove(execution);
 				statusIndicator.onSuccess(null);

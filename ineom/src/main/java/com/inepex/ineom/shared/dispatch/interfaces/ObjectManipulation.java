@@ -1,5 +1,7 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
+import java.util.List;
+
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
@@ -21,4 +23,8 @@ public interface ObjectManipulation {
 	public CustomKVOObjectDesc[] getCustomObjectDescritors();
 
 	void setCustomOdescs(CustomKVOObjectDesc[] customOdescs);
+	
+	public void setPropGroups(String... propGroups);
+	
+	public List<String> getPropGroups();
 }

@@ -1,8 +1,9 @@
 package com.inepex.example.ContactManager.server.i18n;
-import com.google.inject.Provider;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
+
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.google.inject.Provider;
 
 public class ServerCMI18nProvider extends ServerI18nProvider<CMI18n> {
 

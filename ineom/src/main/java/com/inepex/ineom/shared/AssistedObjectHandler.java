@@ -6,6 +6,7 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
@@ -13,11 +14,11 @@ import com.inepex.ineom.shared.util.SharedUtil;
 public class AssistedObjectHandler extends AssistedObjectChecker {
 	
 	private final DescriptorStore descriptorStore;
-	
+
 	public AssistedObjectHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
 		super(assistedObject, assistedObject.getDescriptorName(), descriptorStore.getOD(assistedObject.getDescriptorName()));
 		this.descriptorStore=descriptorStore;
-		
+	
 		if (descriptorName == null)
 			throw new IllegalArgumentException("No desciptorName!");
 
@@ -111,142 +112,6 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
 		
 		return actual;
 	}
-
-	public AssistedObjectHandler getDifference(AssistedObjectHandler original) {
-		if (original == null)
-			return this;
-
-		if (!descriptorName.equals(original.getDescriptorName()))
-			throw new IllegalArgumentException();
-
-		AssistedObjectHandler difference =
-			new AssistedObjectHandler(new KeyValueObject(original.getDescriptorName(), original.getId()), descriptorStore);
-
-		for (String key : objectDescriptor.getFields().keySet()) {
-			FDesc fieldDesc = objectDescriptor.getFields().get(key);
-			
-			if(fieldDesc.getType()==IneT.RELATION &&
-					IFConsts.customDescriptorName.equals(((RelationFDesc) fieldDesc).getRelatedDescriptorName())) {
-				
-				Relation orig = original.getRelation(key);
-				Relation chng = getRelation(fieldDesc.getKey());
-				if (orig == null && chng == null) {
-					//nothing to do
-				} else {
-					if(orig==null || chng==null) {
-						difference.set(key, chng);
-					} else {
-						if(((KeyValueObject) orig.getKvo()).equals(chng.getKvo())) {
-							//nothing to do
-						} else 
-							difference.set(key, chng);
-					}
-				}
-				
-				continue;
-			}
-			
-			switch (fieldDesc.getType()) {
-			case BOOLEAN: {
-				Boolean orig = original.getBoolean(key);
-				Boolean chng = getBoolean(key);
-				if (orig == null) {
-					if (chng == null)
-						continue;
-					difference.set(key, chng);
-				} else {
-					if (!orig.equals(chng))
-						difference.set(key, chng);
-				}
-				break;
-			}
-			case DOUBLE: {
-				Double orig = original.getDouble(key);
-				Double chng = getDouble(key);
-				if (orig == null) {
-					if (chng == null)
-						continue;
-					difference.set(key, chng);
-				} else {
-					if (!orig.equals(chng))
-						difference.set(key, chng);
-				}
-				break;
-			}
-			case LIST: {
-				// IMPORTANT: IneList always just contains the difference
-				// after
-				// edited in a form!
-				IneList chng = getList(key);
-				if (chng == null || chng.getRelationList() == null
-						|| chng.getRelationList().size() == 0)
-					continue;
-				difference.set(key, chng);
-				break;
-			}
-			case LONG: {
-				Long orig = original.getLong(key);
-				Long chng = getLong(key);
-				if (orig == null) {
-					if (chng == null)
-						continue;
-					difference.set(key, chng);
-				} else {
-					if (!orig.equals(chng))
-						difference.set(key, chng);
-				}
-				break;
-			}
-			case RELATION: {
-				Relation orig = original.getRelation(key);
-				Relation chng = getRelation(key);
-				if (orig == null) {
-					if (chng == null)
-						continue;
-					difference.set(key, chng);
-				} else {
-					if (!orig.equals(chng)) {
-						if (chng == null)
-							difference.set(key, (Relation) null);
-						else {
-							// We should only add the fields to the
-							// relations kvo that differ!
-							Relation rel = new Relation(chng.getId(),
-									chng.getDisplayName());
-							if (chng.getKvo() != null) {
-								if(orig.getKvo() == null){
-									throw new RuntimeException("Corrupted widget. Dont modify the related object through the entity!");
-								}
-								AssistedObjectHandler hChng = new AssistedObjectHandler(chng
-										.getKvo(), descriptorStore);
-								AssistedObjectHandler hOrig = new AssistedObjectHandler(orig.getKvo(), descriptorStore);
-								rel.setKvo(hChng.getDifference(hOrig).getAssistedObject());
-							}
-							difference.set(key, rel);
-						}
-					}
-				}
-				break;
-			}
-			case STRING: {
-				String orig = original.getString(key);
-				String chng = getString(key);
-				if (orig == null) {
-					if (chng == null)
-						continue;
-					difference.set(key, chng);
-				} else {
-					if (!orig.equals(chng))
-						difference.set(key, chng);
-				}
-				break;
-			}
-			}
-
-		}
-		return difference;
-	}
-
 	
 	public <T extends Enum<T>> T getEnum(String key, Class<T> enumType) {
 		Long l = getLong(key);

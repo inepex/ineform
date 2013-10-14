@@ -10,7 +10,10 @@ public class ContactConsts {
 	public static final String k_name = "name";	
 	public static final String k_phone = "phone";	
 	public static final String k_email = "email";	
-	public static final String k_company = "company";	
+	public static final String k_company = "company";
+	public static final String k_propsUser = "propsUser";
+	public static final String k_note = "note";
+	public static final String props_user = "user";
 
 	public static String k_id() {
 		return k_id;

@@ -7,6 +7,7 @@ import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
+import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
@@ -14,6 +15,7 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.util.NumberUtil;
 import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.ineFrame.shared.util.date.DateProvider;
+import com.inepex.ineom.shared.AssistedObjectDifference;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 
@@ -40,8 +42,10 @@ public class FormContext {
 	public final CustomOdFinder odFinder;
 	public final ObjectFinder objectFinder;
 	public final Provider<CustomKVOFW.View> customKvoFwViewProvider;
+	public final Provider<PropFW.View> propFwViewProvider;
 	public final DateFormatter dateFormatter;
 	public final NumberUtil numberUtil;
+	public final AssistedObjectDifference aoDifference;
 	
 	/**
 	 * ValueRangeProvider can be overridden in a specific context. 
@@ -63,7 +67,9 @@ public class FormContext {
 			, ObjectFinder objectFinder
 			, Provider<CustomKVOFW.View> customKvoFwViewProvider
 			, DateFormatter dateFormatter
-			, NumberUtil numberUtil) {
+			, NumberUtil numberUtil
+			, Provider<PropFW.View> propFwViewProvider,
+			AssistedObjectDifference aoDifference) {
 		this.objectFinder=objectFinder;
 		this.customKvoFwViewProvider=customKvoFwViewProvider;
 		this.odFinder=odFinder;
@@ -78,6 +84,8 @@ public class FormContext {
 		this.dateProvider = dateProvider;
 		this.dateFormatter = dateFormatter;
 		this.numberUtil = numberUtil;
+		this.propFwViewProvider = propFwViewProvider;
+		this.aoDifference = aoDifference;
 	}	
 	
 }

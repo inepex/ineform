@@ -4,7 +4,6 @@ import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressConsts;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;
-import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.shared.descriptorext.Assist;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -15,6 +14,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
@@ -50,6 +50,7 @@ public class ContactAssist extends Assist {
 			, new ListFDesc(ContactConsts.k_email, /*hc:d4*/CMI18n.contact_email()/*hc*/,EmailAddressConsts.descriptorName)/*hc:d2_4*//*hc*/
 			, new RelationFDesc(ContactConsts.k_company, /*hc:d5*/CMI18n.contact_company()/*hc*/
 										, CompanyConsts.descriptorName)/*hc:d2_5*//*hc*/
+			, new PropFDesc(ContactConsts.k_propsUser, ContactConsts.k_propsUser, ContactConsts.props_user)
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -63,7 +64,8 @@ public class ContactAssist extends Assist {
 		tableRDesc.getRootNode()
 			.addChild(ContactConsts.k_name, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
 			.addChild(ContactConsts.k_phone, new ColRDesc(/*hc:tdr1_3*//*hc*/)/*hc:tdr2_3*//*hc*/)				
-			.addChild(ContactConsts.k_email, new ColRDesc(/*hc:tdr1_4*//*hc*/)/*hc:tdr2_4*//*hc*/)				
+			.addChild(ContactConsts.k_email, new ColRDesc(/*hc:tdr1_4*//*hc*/)/*hc:tdr2_4*//*hc*/)
+			.addChild(ContactConsts.k_note, new ColRDesc().setDisplayName("Note"))
 			;
 		return tableRDesc;
 	}
@@ -92,6 +94,7 @@ public class ContactAssist extends Assist {
 			.addChild(ContactConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/))
 			.addChild(ContactConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.RELATIONLIST/*hc*/))
 			.addChild(ContactConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.RELATIONLIST/*hc*/))
+			.addChild(ContactConsts.k_propsUser, new WidgetRDesc(FWTypes.PROPS))
 			;
 		return formRDesc;
 	}

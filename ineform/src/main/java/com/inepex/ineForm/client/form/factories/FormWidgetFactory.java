@@ -3,6 +3,7 @@ package com.inepex.ineForm.client.form.factories;
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
+import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
@@ -19,7 +20,8 @@ public interface FormWidgetFactory {
 			 , FDesc fieldDesc
 			 , WidgetRDesc wrDesc
 			 , CustomOdFinder odFinder
-			 , Provider<CustomKVOFW.View> customKvoView);
+			 , Provider<CustomKVOFW.View> customKvoView
+			 , Provider<PropFW.View> propView);
 	
 	FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc);
 }

@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
+import com.inepex.ineForm.client.form.prop.PropFW;
+import com.inepex.ineForm.client.form.prop.PropReadOnlyFW;
 import com.inepex.ineForm.client.form.widgets.CaptchaFW;
 import com.inepex.ineForm.client.form.widgets.CheckBoxFW;
 import com.inepex.ineForm.client.form.widgets.DummyFW;
@@ -42,6 +44,7 @@ import com.inepex.ineForm.shared.types.FWTypes;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class DefaultFormWidgetFactory implements FormWidgetFactory {
@@ -59,7 +62,8 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 								 , FDesc fieldDesc
 								 , WidgetRDesc wrDesc
 								 , CustomOdFinder odFinder
-								 , Provider<CustomKVOFW.View> customKvoView) {
+								 , Provider<CustomKVOFW.View> customKvoView
+								 , Provider<PropFW.View> propView) {
 		
 		FormWidget createdWidget = null;
 		
@@ -115,6 +119,12 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 
 		else if (widgetType.equals(FWTypes.CUSTOMKVOREADONLY))
 			createdWidget= new CustomKVOReadOnlyFW((RelationFDesc) fieldDesc, wrDesc, odFinder);
+		
+		else if (widgetType.equals(FWTypes.PROPS))
+			createdWidget= new PropFW((PropFDesc) fieldDesc, wrDesc, propView.get());
+
+		else if (widgetType.equals(FWTypes.PROPSREADONLY))
+			createdWidget= new PropReadOnlyFW((PropFDesc) fieldDesc, wrDesc);
 		
 		else if (widgetType.equals(FWTypes.CHECKBOX))
 			createdWidget = new CheckBoxFW(fieldDesc, wrDesc);

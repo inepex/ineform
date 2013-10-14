@@ -11,6 +11,7 @@ import com.inepex.example.ContactManager.entity.mapper.CompanyMapper;
 import com.inepex.ineForm.server.BaseDao;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineForm.server.CriteriaSelector;
+import com.inepex.ineForm.server.prop.mongo.PropDao;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -31,8 +32,10 @@ public class CompanyDao extends BaseDao<Company> {
 	@Inject
 	public CompanyDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
 		, AssistedObjectHandlerFactory handlerFactory
-		, DescriptorStore descStore){
+		, DescriptorStore descStore,
+		PropDao propDao){
 		super(em, objectFactory, handlerFactory);
+		setMongoDao(propDao);
 		this.descStore=descStore;
 	}
 

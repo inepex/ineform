@@ -1,7 +1,10 @@
 package com.inepex.example.ContactManager.client.page;
 
+import java.util.Arrays;
 import java.util.Map;
 
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
@@ -19,7 +22,12 @@ import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.AbstractIneTable.UserCommand;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.dispatch.ObjectListAction;
+import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
+import com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer;
+import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
@@ -39,10 +47,27 @@ public class CompanyContactEditPage extends ConnectorPage {
 		
 		ServerSideDataConnector connector = createConnector(formCtx.ineDispatch, formCtx.eventBus, ContactConsts.descriptorName);
 		connector.setSearchParameters(searchKVO.getAssistedObject());
-		
+		connector.setAssociatedListAction(new ObjectListAction(ContactConsts.descriptorName, Arrays.asList(ContactConsts.props_user)));
+		connector.setAssociatedManipulateAction(new ObjectManipulationAction(Arrays.asList(ContactConsts.props_user)));
 		DataManipulator dm = new CompanyDataManipulator(formCtx, formFactory, 
 				ContactConsts.descriptorName,connector, true, fieldRenderer);
 		dm.render();
+		dm.getIneTable().getFieldRenderer().setCustomFieldRenderer(ContactConsts.k_note, new CustomCellContentDisplayer() {
+			
+			@Override
+			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
+				String userProps = rowKvo.getAssistedObject().getPropsJson(ContactConsts.props_user);
+				if (userProps != null){
+					JSONObject userPropsJson = JSONParser.parseStrict(userProps).isObject();
+					if (userPropsJson != null){
+						if (userPropsJson.containsKey(ContactConsts.k_note)){
+							return userPropsJson.get(ContactConsts.k_note).isString().stringValue();
+						}
+					}
+				}
+				return "";
+			}
+		});
 		
 		mainPanel.add(dm);
 	}	

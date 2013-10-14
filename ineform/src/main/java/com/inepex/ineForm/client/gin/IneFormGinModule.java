@@ -28,6 +28,8 @@ import com.inepex.ineForm.client.form.factories.DefaultPanelWidgetFactory;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
+import com.inepex.ineForm.client.form.prop.PropFW;
+import com.inepex.ineForm.client.form.prop.PropFWView;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFWView;
 import com.inepex.ineForm.client.places.DefaultOneParamPresenter;
@@ -174,6 +176,7 @@ public class IneFormGinModule extends AbstractGinModule {
 		
 		
 		bind(CustomKVOFW.View.class).to(CustomKVOFWView.class);
+		bind(PropFW.View.class).to(PropFWView.class);
 
 		install(new GinFactoryModuleBuilder()
 	 	.implement(CsvRenderer.class, CsvRenderer.class)

@@ -50,6 +50,8 @@ public class FWTypes implements Serializable, IsSerializable {
 	public static final FWTypes TABLE = new FWTypes("TABLE", true);
 	public static final FWTypes CUSTOMKVO = new FWTypes("CUSTOMKVO", true);
 	public static final FWTypes CUSTOMKVOREADONLY = new FWTypes("CUSTOMKVOREADONLY", true);
+	public static final FWTypes PROPS = new FWTypes("PROPS", true);
+	public static final FWTypes PROPSREADONLY = new FWTypes("PROPSREADONLY", true);
 	
 	/**
 	 * A label that holds the value and a clickable label after it.

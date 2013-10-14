@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.client.page;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -8,6 +9,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
+import com.inepex.example.ContactManager.entity.assist.CompanyAssist;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.CompanyHandlerFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
@@ -45,7 +47,8 @@ public class CompanyWidgetPlace extends WidgetPlace {
 	public void update(Map<String, String> urlParams) {
 		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
 		
-		objectFinder.executeFind(CompanyConsts.descriptorName, id, new ObjectFinder.Callback() {
+		objectFinder.executeFind(CompanyConsts.descriptorName, id, Arrays.asList(CompanyConsts.propUser), 
+				new ObjectFinder.Callback() {
 
 					@Override
 					public void onObjectFound(AssistedObject foundObject) {

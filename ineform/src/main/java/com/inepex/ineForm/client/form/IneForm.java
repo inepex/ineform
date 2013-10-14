@@ -30,6 +30,7 @@ import com.inepex.ineForm.client.form.events.ResetEvent;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.panelwidgets.DisplayedFormUnitChangeHandler;
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
+import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.RelationList;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
@@ -51,7 +52,9 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidator;
@@ -430,16 +433,19 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 				String lastKey = null;
 				AssistedObjectHandler actual = null;
 				IneT type = null;
+				FDesc fDesc = null;
 				
 				if(SharedUtil.isMultilevelKey(key)) {
 					List<String> keyAsList = listFromDotSeparated(key);
 					lastKey = keyAsList.get(keyAsList.size() - 1);
 					actual = dataHandler.getRelatedKVOMultiLevel(keyAsList);
 					type = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
+					fDesc = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList);
 				} else {
 					lastKey = key;
 					actual = dataHandler;
 					type = objectDescriptor.getField(key).getType();
+					fDesc = objectDescriptor.getField(key); 
 				}
 
 				try {
@@ -467,6 +473,11 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 					case STRING:
 						if (widget.handlesString())
 							widget.setStringValue(actual.getString(lastKey));
+						break;
+					case PROP:
+						if (widget.handlesString()){
+							widget.setStringValue(actual.getAssistedObject().getPropsJson(((PropFDesc)fDesc).getId()));
+						}
 						break;
 					default:
 						break;
@@ -498,16 +509,19 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 			String lastKey = null;
 			AssistedObjectHandler actual = null;
 			IneT type = null;
+			FDesc fDesc = null;
 			
 			if(SharedUtil.isMultilevelKey(key)) {
 				List<String> keyAsList = listFromDotSeparated(key);
 				lastKey = keyAsList.get(keyAsList.size() - 1);
 				actual = dataHandler.getRelatedKVOMultiLevel(keyAsList);
 				type = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
+				fDesc = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList);
 			} else {
 				lastKey = key;
 				actual = dataHandler;
 				type = objectDescriptor.getField(key).getType();
+				fDesc = objectDescriptor.getField(key); 
 			}
 
 			try {
@@ -535,6 +549,11 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 				case STRING:
 					if (widget.handlesString() && actual.containsString(lastKey))
 						widget.setStringValue(actual.getString(lastKey));
+					break;
+				case PROP:
+					if (widget.handlesString()){
+						actual.getAssistedObject().getPropsJson(((PropFDesc)fDesc).getId());
+					}
 					break;
 				default:
 					break;
@@ -658,6 +677,10 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 					break;
 				case STRING:
 					actual.set(lastKey,
+							widget.getStringValue());
+					break;
+				case PROP:
+					actual.getAssistedObject().setPropsJson(((PropFDesc)widget.getFieldDescriptor()).getId(), 
 							widget.getStringValue());
 					break;
 				}
@@ -834,6 +857,16 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 					continue;
 				
 				boolean  valid = ((CustomKVOFW) unit.getWidgetByKey(s)).validateConsistence();
+				validsum = validsum && valid;
+			}
+		}
+		
+		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
+			for(String s : unit.getFormWidgetKeySet()) {
+				if(!(unit.getWidgetByKey(s) instanceof PropFW))
+					continue;
+				
+				boolean  valid = ((PropFW) unit.getWidgetByKey(s)).validateConsistence();
 				validsum = validsum && valid;
 			}
 		}

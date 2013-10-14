@@ -31,6 +31,7 @@ public class CMI18n extends I18nModule {
 	public String company_id = "Id";
 	public String company_name = "Name";
 	public String company_phone = "Phone";
+	public String company_propsUser = "Properties";
 	public String company_webPage = "WebPage";
 	public String contact_company = "Company";
 	public String contact_email = "Email";
@@ -129,6 +130,15 @@ public class CMI18n extends I18nModule {
 	*/
 	public static String company_phone() {
 		return moduleProvider.get().company_phone;
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Properties
+	* <u><i>Magyarul:</i></u> Adatok
+	*/
+	public static String company_propsUser() {
+		return moduleProvider.get().company_propsUser;
 	}
 	
 	/**

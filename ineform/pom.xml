@@ -159,6 +159,11 @@
 			<version>5.1.3</version>
 			<type>jar</type>
 		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongoJavaDriverVersion}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -205,6 +210,8 @@
 					<excludes>
 						<exclude>**/*ComplexTest*.java</exclude>
 						<exclude>**/*LearningTest*.java</exclude>
+						<exclude>**/MongoPerfTest.java</exclude>
+						<exclude>**/PropDaoTest.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

@@ -17,7 +17,10 @@ import com.inepex.inei18n.server.WebServerCurrentLang;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.ConcurrentDescStoreMapCreator;
 import com.inepex.ineom.server.DescStoreCreator;
+import com.inepex.ineom.server.JavaJsonDifference;
 import com.inepex.ineom.server.MultiLangDescStore;
+import com.inepex.ineom.shared.GwtJsonDifference;
+import com.inepex.ineom.shared.JsonDifference;
 import com.inepex.ineom.shared.descriptorstore.ClientDescStoreCreator;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
@@ -60,6 +63,7 @@ public class IneFrameBaseModule extends AbstractModule {
 		bind(DescriptorStoreMapCreator.class).to(ConcurrentDescStoreMapCreator.class).in(Singleton.class);
 		bind(DescStoreCreator.class).to(descStoreCreatorClass).in(Singleton.class);
 		if (jpa) bind(PersistInitializer.class).asEagerSingleton();
+		bind(JsonDifference.class).to(JavaJsonDifference.class);
 	}
 	
 	public IneFrameBaseModule setDescStoreInnerStructure(Class<? extends DescStoreCreator> descStoreCreatorClass) {

@@ -1,5 +1,7 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
+import java.util.List;
+
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 
@@ -32,4 +34,8 @@ public interface AbstractSearch {
 	public void setDescriptorName(String descriptorName);
 
 	public void setSearchParameters(AssistedObject searchParameters);
+	
+	public void setPropGroups(String... propGroups);
+	
+	public List<String> getPropGroups();
 }

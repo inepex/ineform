@@ -13,7 +13,9 @@ public class CompanyConsts {
 	public static final String k_webPage = "webPage";	
 	public static final String k_contacts = "contacts";	
 	public static final String k_extData = "extData";	
-
+	public static final String k_propsUser = "propsUser";
+	public static final String propUser = "user";
+	
 	public static String k_id() {
 		return k_id;
 	}	

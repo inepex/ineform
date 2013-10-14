@@ -10,6 +10,7 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
+import com.inepex.ineForm.server.prop.mongo.PropDao;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineForm.shared.ObjectManipulationException;
 import com.inepex.ineForm.shared.ObjectManipulationException.Reason;
@@ -31,6 +32,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	protected final Provider<EntityManager> em;
+	private PropDao mongoDao;
 	
 	protected ManipulationObjectFactory objectFactory;
 
@@ -38,6 +40,10 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		this.em = em;
 		this.objectFactory = objectFactory;
 		this.handlerFactory=handlerFactory;
+	}
+	
+	public void setMongoDao(PropDao mongoDao){
+		this.mongoDao = mongoDao;
 	}
 
 	public abstract BaseQuery<E> getQuery();
@@ -158,6 +164,11 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			try {
 				E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
 				AssistedObject kvo = getMapper().entityToKvo(newState);
+				action.getObject().setId(kvo.getId());
+				if (mongoDao != null){
+					mongoDao.doCreateOrEdit(action.getObject());
+					mongoDao.mapPropGroups(kvo, action.getPropGroups());	
+				}
 				result.setObjectsNewState(kvo);
 				break;
 			} catch (PersistenceException e) {
@@ -171,9 +182,16 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			}
 		case DELETE:
 			remove(action.getObject().getId());
+			if (mongoDao != null){
+				mongoDao.removeProps(getDescriptorName(), action.getObject().getId());
+			}
 			break;
 		case REFRESH:
-			result.setObjectsNewState(findKvoById(getIdFromAction(action)));
+			AssistedObject kvo = findKvoById(getIdFromAction(action));
+			if (mongoDao != null){
+				mongoDao.mapPropGroups(kvo, action.getPropGroups());
+			}
+			result.setObjectsNewState(kvo);
 			break;
 		default:
 			throw new Exception("Invalid manipulation type");
@@ -238,7 +256,11 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
 		if (action.getNumMaxResult() > 0)
-			res.setList(getMapper().entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder)));
+		{
+			List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder));
+			if (mongoDao != null) mongoDao.mapPropGroups(objects, action.getPropGroups());
+			res.setList(objects);
+		}
 		return res;
 	}
 
@@ -268,5 +290,8 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		callback.onResponse(searchAsRelation(action));
 	}
 	
+	public String getDescriptorName(){
+		return this.getClass().getName().replace("Dao", "");
+	}
 
 }

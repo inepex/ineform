@@ -39,6 +39,10 @@ public class IFConsts {
 	public static final String LANG = "lang";
 	public static final String FWIDPREFIX = "formwidget-";
 	
+	public static final String prop_mongoUrl = "mongoUrl";
+	public static final String prop_mongoUser = "mongoUser";
+	public static final String prop_mongoPass = "mongoPass";
+	
 	public static String buildEnumList(String ... items){
 		StringBuilder sb = new StringBuilder();
 		for (String item : items){

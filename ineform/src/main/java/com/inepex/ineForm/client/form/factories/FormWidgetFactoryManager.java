@@ -3,8 +3,9 @@ package com.inepex.ineForm.client.form.factories;
 import com.google.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
+import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW.View;
+import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
@@ -29,11 +30,12 @@ public class FormWidgetFactoryManager implements FormWidgetFactory {
 			FDesc fieldDesc,
 			WidgetRDesc wrDesc,
 			CustomOdFinder odFinder,
-			Provider<View> customKvoView) {
+			Provider<CustomKVOFW.View> customKvoView,
+			Provider<PropFW.View> propView) {
 		
 		FormWidget createdWidget = null;
 		for (FormWidgetFactory factory : factories){
-			createdWidget = factory.createWidget(formCtx, form, fieldDesc, wrDesc, odFinder, customKvoView);
+			createdWidget = factory.createWidget(formCtx, form, fieldDesc, wrDesc, odFinder, customKvoView, propView);
 			if (createdWidget != null) break;
 		}
 		

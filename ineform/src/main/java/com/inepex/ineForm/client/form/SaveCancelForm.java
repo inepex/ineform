@@ -22,6 +22,7 @@ import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
+import com.inepex.ineom.shared.AssistedObjectDifference;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
@@ -83,6 +84,8 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	
 	protected final SimpleEventBus ineformEventbus = new SimpleEventBus();
 	
+	protected final AssistedObjectDifference aoDifference;
+	
 	private IneDataConnector ineDataConnector;
 	
 	private AssistedObject originalData;
@@ -109,6 +112,7 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 						@Assisted IneDataConnector ineDataConnector,
 						@Assisted SaveCancelFormView view) {
 		super(formCtx, descriptorName, formRDescName);
+		this.aoDifference = formCtx.aoDifference;
 		this.ineDataConnector = ineDataConnector;
 		if (view == null) 
 			this.view = new DefaultSaveCancelFormView();
@@ -173,10 +177,10 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 		}
 		
 		// Send only the changes to the server 
-		AssistedObject difference = handlerFactory.createHandler(kvo).getDifference(
-				handlerFactory.createHandler(originalData)).getAssistedObject();
-		if (difference.getKeys().size() == 0 
-				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID)) {
+		AssistedObject difference = aoDifference.getDifference(originalData, kvo).getAssistedObject();
+		if ((difference.getKeys().size() == 0 
+				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
+				&& difference.getAllPropsJson() != null && difference.getAllPropsJson().size() == 0) {
 			
 			if(displayNothingToSaveMsg){
 				ValidationResult vr = new ValidationResult();

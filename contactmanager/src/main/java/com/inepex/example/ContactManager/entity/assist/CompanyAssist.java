@@ -13,6 +13,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
+import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
@@ -53,6 +54,7 @@ public class CompanyAssist extends Assist {
 			, new StringFDesc(CompanyConsts.k_webPage, /*hc:d5*/CMI18n.company_webPage()/*hc*/)/*hc:d2_5*//*hc*/
 					.mandatory()
 			, new ListFDesc(CompanyConsts.k_contacts, /*hc:d6*/CMI18n.company_contacts()/*hc*/,ContactConsts.descriptorName)/*hc:d2_6*//*hc*/
+			, new PropFDesc(CompanyConsts.k_propsUser, CMI18n.company_propsUser(), CompanyConsts.propUser)
 		);
 		
 		objDesc.setDefaultOrderKey(getOrderKey());
@@ -82,6 +84,7 @@ public class CompanyAssist extends Assist {
 				.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.LABEL/*hc*/))
 				.addChild(CompanyConsts.k_contacts, new WidgetRDesc(/*hc:f6*/FWTypes.LABEL/*hc*/))
 				.addChild(CompanyConsts.k_extData, new WidgetRDesc(FWTypes.CUSTOMKVOREADONLY, "showHeader:false"))
+				.addChild(CompanyConsts.k_propsUser, new WidgetRDesc(FWTypes.PROPSREADONLY, "showHeader:false"))
 			;
 		return formRDesc;
 	}
@@ -102,6 +105,7 @@ public class CompanyAssist extends Assist {
 			.addChild(CompanyConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
 			.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.TEXTBOX/*hc*/))
 			.addChild(CompanyConsts.k_extData, new WidgetRDesc(FWTypes.CUSTOMKVO))
+			.addChild(CompanyConsts.k_propsUser, new WidgetRDesc(FWTypes.PROPS))
 			;
 		return formRDesc;
 	}

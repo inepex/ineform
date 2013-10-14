@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.client.page;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -30,6 +31,7 @@ public class CompanyDetailsPage extends FlowPanelBasedPage {
 	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
 		formContext.objectFinder.executeFind(CompanyConsts.descriptorName
 				, Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY))
+				, Arrays.asList(CompanyConsts.propUser)
 				, new ObjectFinder.Callback() {
 
 						@Override

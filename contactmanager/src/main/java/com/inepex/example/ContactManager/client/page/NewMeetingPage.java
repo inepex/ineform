@@ -7,6 +7,7 @@ import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.ContactSearchHandler;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.form.FormContext;
+import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
 import com.inepex.ineForm.client.form.ServerSideValueRangeProvider;
@@ -36,7 +37,8 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 	private final ContactHandlerFactory contactHandlerFactory;
 	
 	@Inject
-	NewMeetingPage(FormContext formContext, PlaceHandler placeHandler, AuthManager authManager, ContactHandlerFactory contactHandlerFactory) {
+	NewMeetingPage(FormContext formContext, PlaceHandler placeHandler, AuthManager authManager, ContactHandlerFactory contactHandlerFactory,
+			FormFactory formFactory) {
 		this.formContext=formContext;
 		this.placeHandler=placeHandler;
 		this.authManager=authManager;
@@ -45,7 +47,7 @@ public class NewMeetingPage extends FlowPanelBasedPage implements SavedEvent.Han
 		formContext.valueRangeProvider=new MeetingValueRangeProvider(formContext.ineDispatch);
 		
 		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, MeetingConsts.descriptorName);
-		form= new SaveCancelForm(formContext, MeetingConsts.descriptorName, null, connector, null);
+		form = formFactory.createSaveCancel(MeetingConsts.descriptorName, null, connector, null);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());

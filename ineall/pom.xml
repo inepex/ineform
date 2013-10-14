@@ -47,6 +47,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumberVersion>1.1</buildNumberVersion>
 		<jacksonVersion>2.0.0-RC2</jacksonVersion>
+		<mongoJavaDriverVersion>2.11.3</mongoJavaDriverVersion>
 		<SVNConnBase>scm:svn:http://ineform.googlecode.com/svn/trunk</SVNConnBase>
 	</properties>
 

@@ -14,5 +14,6 @@ public enum IneT implements IsSerializable {
 	LONG,
 	RELATION,
 	STRING,
+	PROP,
 	UNDEFINED
 }
