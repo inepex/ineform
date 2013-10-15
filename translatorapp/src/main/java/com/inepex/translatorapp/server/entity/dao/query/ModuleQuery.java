@@ -14,6 +14,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.translatorapp.server.entity.Module;
 import com.inepex.translatorapp.server.entity.Module_;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
@@ -62,7 +63,7 @@ public class ModuleQuery extends BaseQuery<Module>{
 			//default order specified:
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		{
 			orderExpr = from.get(orderKey);

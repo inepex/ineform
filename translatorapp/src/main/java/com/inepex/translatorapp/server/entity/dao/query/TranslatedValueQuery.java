@@ -16,6 +16,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.Lang_;
 import com.inepex.translatorapp.server.entity.ModuleRow;
@@ -73,7 +74,7 @@ public class TranslatedValueQuery extends BaseQuery<TranslatedValue>{
 			//default order specified:
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		if(idList.get(0).equals(TranslatedValueConsts.k_lastModUser)){
 			if(idList.size()==1) {

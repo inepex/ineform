@@ -15,6 +15,7 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.server.entity.User;
 import com.inepex.translatorapp.server.entity.UserLang;
@@ -62,7 +63,7 @@ public class UserLangQuery extends BaseQuery<UserLang>{
 			//default order specified:
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		if(idList.get(0).equals(UserLangConsts.k_lang)){
 			if(idList.size()==1) {

@@ -16,6 +16,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 import com.inepex.translatorapp.server.entity.Module;
 import com.inepex.translatorapp.server.entity.ModuleRow;
 import com.inepex.translatorapp.server.entity.ModuleRow_;
@@ -74,7 +75,7 @@ public class ModuleRowQuery extends BaseQuery<ModuleRow>{
 			orderKey = ModuleRowConsts.k_key;		
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		if(idList.get(0).equals(ModuleRowConsts.k_module)){
 			if(idList.size()==1) {
