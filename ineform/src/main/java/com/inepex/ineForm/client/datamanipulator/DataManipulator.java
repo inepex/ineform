@@ -50,7 +50,6 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 
 	// Dependencies
 	protected final IneDataConnector ineDataConnector;
-	protected final ValueRangeProvider valueRangeProvider;
 	protected final EventBus eventBus;
 	protected final FormFactory formFactory;
 
@@ -70,7 +69,6 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 		
 		this.objectDescriptorName = objectDescriptorName;
 		this.ineDataConnector = ineDataConnector;
-		this.valueRangeProvider = formCtx.valueRangeProvider;
 		this.eventBus = formCtx.eventBus;
 		this.formFactory = formFactory;
 
