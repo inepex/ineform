@@ -32,7 +32,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	
 	protected final AssistedObjectHandlerFactory handlerFactory;
 	protected final Provider<EntityManager> em;
-	private PropDao mongoDao;
+	protected PropDao mongoDao;
 	
 	protected ManipulationObjectFactory objectFactory;
 
@@ -294,4 +294,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return this.getClass().getName().replace("Dao", "");
 	}
 
+	public PropDao getMongoDao() {
+		return mongoDao;
+	}
 }
