@@ -124,10 +124,8 @@ public class PropFW extends PropFWBase implements AddCallback, RemoveCallback, R
 				value = JSONBoolean.getInstance(Boolean.parseBoolean(row.getValue()));
 				break;
 			case DOUBLE:
-			case LONG:
 				value = new JSONNumber(Double.parseDouble(row.getValue()));
 				break;
-			case EMAIL:
 			case STRING:
 				value = new JSONString(row.getValue());
 				break;

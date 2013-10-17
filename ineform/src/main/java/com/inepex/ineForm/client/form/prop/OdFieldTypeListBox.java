@@ -4,7 +4,7 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.inepex.ineForm.client.general.IneListbox;
-import com.inepex.ineForm.shared.types.ODFieldType;
+import com.inepex.ineForm.shared.types.PropFieldType;
 
 public class OdFieldTypeListBox extends FlowPanel {
 
@@ -14,19 +14,19 @@ public class OdFieldTypeListBox extends FlowPanel {
 		listBox.setWidthOfCosturction(120);
 		add(listBox);
 		
-		for(ODFieldType type : ODFieldType.values()) {
+		for(PropFieldType type : PropFieldType.values()) {
 			listBox.getListBox().addItem(
-					ODFieldType.getODFieldTypeName(type),
+					PropFieldType.getName(type),
 					type.toString());
 		}
 	}
 	
-	public void setValue(ODFieldType type) {
+	public void setValue(PropFieldType type) {
 		listBox.getListBox().setSelectedIndex(type.ordinal());
 	}
 	
-	public ODFieldType getValue() {
-		return ODFieldType.values()[listBox.getListBox().getSelectedIndex()];
+	public PropFieldType getValue() {
+		return PropFieldType.values()[listBox.getListBox().getSelectedIndex()];
 	}
 	
 	public HandlerRegistration addChangeHandler(ChangeHandler handler) {

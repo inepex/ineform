@@ -7,7 +7,7 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
-import com.inepex.ineForm.shared.types.ODFieldType;
+import com.inepex.ineForm.shared.types.PropFieldType;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 
@@ -42,16 +42,16 @@ public abstract class PropFWBase extends DenyingFormWidget{
 			JSONObject propJson = JSONParser.parseStrict(value).isObject();
 			if (propJson != null){
 				for (String key : propJson.keySet()){
-					ODFieldType type = ODFieldType.STRING;
+					PropFieldType type = PropFieldType.STRING;
 					String rowValue = "";
 					if (propJson.get(key).isBoolean() != null){
-						type = ODFieldType.BOOLEAN;
+						type = PropFieldType.BOOLEAN;
 						rowValue = "" + propJson.get(key).isBoolean().booleanValue();
 					} else if (propJson.get(key).isNumber() != null){
-						type = ODFieldType.DOUBLE;
+						type = PropFieldType.DOUBLE;
 						rowValue = "" + propJson.get(key).isNumber().doubleValue();
 					} else if (propJson.get(key).isString() != null){
-						type = ODFieldType.STRING;
+						type = PropFieldType.STRING;
 						rowValue = propJson.get(key).isString().stringValue();
 					}
 					

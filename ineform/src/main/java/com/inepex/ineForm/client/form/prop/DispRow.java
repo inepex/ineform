@@ -24,7 +24,7 @@ import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
 import com.inepex.ineForm.client.general.IneCheckBox;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
-import com.inepex.ineForm.shared.types.ODFieldType;
+import com.inepex.ineForm.shared.types.PropFieldType;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 
 public class DispRow {
@@ -69,7 +69,7 @@ public class DispRow {
 		String val = row.getValue();
 		if(val==null) val="";
 		
-		if(ODFieldType.BOOLEAN.equals(row.getType())) {
+		if(PropFieldType.BOOLEAN.equals(row.getType())) {
 			valueBox.setVisible(false);
 			valueBox.setValue("");
 			
@@ -246,14 +246,11 @@ public class DispRow {
 			
 			if(r.getValue()!=null && r.getValue().length()>0) {
 				try {
-					switch (r.getType().ineT) {
+					switch (r.getType()) {
 					case BOOLEAN:
 						String v = r.getValue().toLowerCase().trim();
 						if(!"true".equals(v) && !"false".equals(v))
 							throw new NumberFormatException();
-						break;
-					case LONG:
-						Long.parseLong(r.getValue());
 						break;
 					case DOUBLE:
 						Double.parseDouble(r.getValue());

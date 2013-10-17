@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.form.prop;
 
-import com.inepex.ineForm.shared.types.ODFieldType;
+import com.inepex.ineForm.shared.types.PropFieldType;
 
 public class PropRow {
 	private static long nextId = 0L;
@@ -8,13 +8,13 @@ public class PropRow {
 	private Long innerId = nextId++;
 
 	private String key;
-	private ODFieldType type;
+	private PropFieldType type;
 	private String value;
 
 	/**
 	 * creating from existing values
 	 */
-	public PropRow(String key, ODFieldType type, String value) {
+	public PropRow(String key, PropFieldType type, String value) {
 		this.key = key;
 		this.type = type;
 		this.value = value;
@@ -25,7 +25,7 @@ public class PropRow {
 	 */
 	public PropRow() {
 		key = "";
-		type = ODFieldType.STRING;
+		type = PropFieldType.STRING;
 		value = "";
 	}
 
@@ -41,11 +41,11 @@ public class PropRow {
 		this.key = key;
 	}
 
-	public ODFieldType getType() {
+	public PropFieldType getType() {
 		return type;
 	}
 
-	public void setType(ODFieldType type) {
+	public void setType(PropFieldType type) {
 		this.type = type;
 	}
 
@@ -58,7 +58,7 @@ public class PropRow {
 	}
 
 	public void clearDataIfCanNotParse() {
-		if(type==ODFieldType.BOOLEAN) {
+		if(type==PropFieldType.BOOLEAN) {
 			try {
 				Boolean.parseBoolean(value);
 			} catch (NumberFormatException e) {
@@ -68,17 +68,8 @@ public class PropRow {
 			return;
 		}
 		
-		if(type==ODFieldType.LONG) {
-			try {
-				Long.parseLong(value);
-			} catch (NumberFormatException e) {
-				value="";
-			}
-			
-			return;
-		}
 		
-		if(type==ODFieldType.DOUBLE) {
+		if(type==PropFieldType.DOUBLE) {
 			try {
 				Double.parseDouble(value);
 			} catch (NumberFormatException e) {
