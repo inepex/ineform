@@ -58,7 +58,16 @@ public class PropDao {
 		if (mongoUser != null && !mongoUser.equals("")){
 			db.authenticate(mongoUser, mongoPass.toCharArray());
 		}
-		return db.getCollection(COLLECTION);
+		DBCollection collection = db.getCollection(COLLECTION);
+		checkDefaultIndex(collection);
+		return collection;
+	}
+	
+	private void checkDefaultIndex(DBCollection collection){
+		BasicDBObject index = new BasicDBObject();
+		index.append(k_objectType, 1);
+		index.append(k_objectId, 1);
+		collection.ensureIndex(index);
 	}
 	
 	public void doCreateOrEdit(AssistedObject objectWithChanges){
