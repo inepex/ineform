@@ -21,9 +21,9 @@ import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory.Contac
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
-import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class ContactQuery extends BaseQuery<Contact>{
 
@@ -69,7 +69,7 @@ public class ContactQuery extends BaseQuery<Contact>{
 			//default order specified:
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		if(idList.get(0).equals(ContactConsts.k_company)){
 			if(idList.size()==1) {

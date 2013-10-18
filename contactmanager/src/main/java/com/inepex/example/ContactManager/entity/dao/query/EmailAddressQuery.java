@@ -16,9 +16,9 @@ import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory;
 import com.inepex.example.ContactManager.entity.kvo.EmailAddressHandlerFactory.EmailAddressSearchHandler;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 
@@ -61,7 +61,7 @@ public class EmailAddressQuery extends BaseQuery<EmailAddress>{
 			//default order specified:
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		{
 			orderExpr = from.get(orderKey);

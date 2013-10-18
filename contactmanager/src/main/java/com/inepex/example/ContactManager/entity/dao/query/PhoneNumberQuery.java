@@ -24,6 +24,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
+import com.inepex.ineom.shared.util.SharedUtil;
 
 public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 
@@ -69,7 +70,7 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber>{
 			//default order specified:
 		}
 		Expression<?> orderExpr = null;
-		List<String> idList = Node.idToIdList(orderKey);
+		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
 			
 		if(idList.get(0).equals(PhoneNumberConsts.k_type)){
 			if(idList.size()==1) {
