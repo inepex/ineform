@@ -14,6 +14,27 @@ public class SharedUtil {
 		return Arrays.asList(strings);
 	}
 	
+	public static boolean isValidIP(String ip, boolean acceptEmpty) {
+		if(ip==null || ip.isEmpty()) {
+			return acceptEmpty;
+		}
+		
+		if(!ip.matches("(([0-9]){1,3}\\.){3}" +
+						"([0-9]){1,3}"))
+			return false;
+		
+		String[] parts = ip.split("\\.");
+		for(String part : parts) {
+			if(part.length()>1 && part.charAt(0)=='0')
+				return false;
+			int i = Integer.parseInt(part);
+			if(i<0 || i>255)
+				return false;
+		}
+		
+		return true;
+	}
+	
 	public static String Str(Collection<String> args) {
 		StringBuffer sb= new StringBuffer();
 		boolean first=true;
