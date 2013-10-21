@@ -21,7 +21,7 @@ import com.inepex.ineom.shared.util.SharedUtil;
 
 public class PropFW extends PropFWBase implements AddCallback, RemoveCallback, RowValueChangeCallback {
 
-	public static final String CUST_KVO_TOOLTIP_PROP = "CUST_KVO_TOOLTIP_PROP";
+	public static final String PROP_TOOLTIP_PROP = "CUST_KVO_TOOLTIP_PROP";
 	public static final String PROP_SEPARATOR = ";";
 	
 	public static interface View extends IsWidget {
@@ -56,8 +56,8 @@ public class PropFW extends PropFWBase implements AddCallback, RemoveCallback, R
 		this.view.setAddCallback(this);
 		this.view.setRemoveCallback(this);
 		this.view.setRowValueChangeCallback(this);
-		if (widgetRDesc.hasProp(CUST_KVO_TOOLTIP_PROP)){
-			view.setTooltipOptions(Arrays.asList(widgetRDesc.getPropValue(CUST_KVO_TOOLTIP_PROP).split(PROP_SEPARATOR)));
+		if (widgetRDesc.hasProp(PROP_TOOLTIP_PROP)){
+			view.setTooltipOptions(Arrays.asList(widgetRDesc.getPropValue(PROP_TOOLTIP_PROP).split(PROP_SEPARATOR)));
 		}
 		
 		//for pure java junit tests
