@@ -59,7 +59,12 @@ public class PropDao {
 			db.authenticate(mongoUser, mongoPass.toCharArray());
 		}
 		DBCollection collection = db.getCollection(COLLECTION);
-		checkDefaultIndex(collection);
+		try {
+			checkDefaultIndex(collection);
+		} catch (Exception e){
+			_logger.error("Mongodb not found on: " + mongoUrl);
+			return null;
+		}
 		return collection;
 	}
 	
