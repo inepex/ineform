@@ -11,6 +11,10 @@ public class KeyValueObjectSerializer {
 		public String serialize(Relation relation);
 	}
 	
+	public static interface StringEncoder {
+		public String encode(String value);
+	}
+	
 	AssistedObjectChecker checker;
 	String fieldSeparator;
 	String equalsSign;
@@ -18,6 +22,7 @@ public class KeyValueObjectSerializer {
 	boolean includeDescriptorName = false;
 	ListSerializer listSerializer;
 	RelationSerializer relationSerializer;
+	StringEncoder stringEncoder;
 	
 	boolean includeId = true;
 	boolean skipEmptyValues = false;
@@ -40,6 +45,11 @@ public class KeyValueObjectSerializer {
 	
 	public KeyValueObjectSerializer setIncludeDescriptorName(boolean includeDescriptorName) {
 		this.includeDescriptorName = includeDescriptorName;
+		return this;
+	}
+	
+	public KeyValueObjectSerializer setStringEncoder(StringEncoder stringEncoder) {
+		this.stringEncoder = stringEncoder;
 		return this;
 	}
 
@@ -103,7 +113,13 @@ public class KeyValueObjectSerializer {
 
 		case STRING:
 			o = checker.getString(key);
-			return o == null ? null : o.toString();
+			if(o == null) 
+				return null; 
+			
+			if(stringEncoder==null)
+				return o.toString();
+			
+			return stringEncoder.encode(o.toString());
 		}
 
 		return null;
