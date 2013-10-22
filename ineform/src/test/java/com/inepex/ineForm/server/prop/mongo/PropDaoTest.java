@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
-@Ignore
 public class PropDaoTest {
 
 	private static final String descriptor = "testObj";
@@ -17,6 +16,10 @@ public class PropDaoTest {
 	private static final String group1 = "group1";
 	private static final String group2 = "group2";
 	
+	static {
+		SLF4JBridgeHandler.removeHandlersForRootLogger(); 
+		SLF4JBridgeHandler.install();		
+	}
 	
 	PropDao propDao = new PropDao("localhost", "", "");
 
@@ -55,11 +58,37 @@ public class PropDaoTest {
 
 	}
 	
+//	private class PropRunnable implements Runnable {
+//
+//		private Long id;
+//	
+//		public PropRunnable(Long id) {
+//			super();
+//			this.id = id;
+//		}
+//
+//		@Override
+//		public void run() {
+//			propDao.setProp(descriptor, id, group1, "{ \"onRoad\" : true}");
+//		}
+//		
+//	}
+//	
+//	@Test
+//	public void testThreads() throws Exception {
+//		for (Long id = 1L; id<=100L; id++){
+//			new Thread(new PropRunnable(id)).start();
+//		}
+//		Thread.sleep(2000);
+//		System.out.println("check thread");
+//	}
+	
 	@After
 	public void clean(){
 		propDao.removeProps(descriptor, object1);
 		propDao.removeProps(descriptor, object2);
 		propDao.removeProps(descriptor, object3);
+		propDao.closeConnection();
 	}
 	
 }

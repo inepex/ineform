@@ -47,12 +47,19 @@ public class PropDao {
 	
 	public DBCollection getMongoDb(){
 		if (mongoClient == null){
-			try {
-				mongoClient = new MongoClient(mongoUrl);
-			} catch (UnknownHostException e) {
-				_logger.error("Could not connect to mongodb. Connection params: localhost");
-				return null;
+			synchronized (this) {
+				if (mongoClient == null){ //double check to avoid creating more than one instance
+					try {
+						_logger.info("Creating mongoclient");
+						mongoClient = new MongoClient(mongoUrl);
+					} catch (UnknownHostException e) {
+						_logger.error("Unknown host: " + mongoUrl);
+						return null;
+					}
+				}
 			}
+				
+
 		}
 		com.mongodb.DB db = mongoClient.getDB(DB);
 		if (mongoUser != null && !mongoUser.equals("")){
@@ -75,13 +82,24 @@ public class PropDao {
 		collection.ensureIndex(index);
 	}
 	
+	public void manipulate(AssistedObject objectWithChanges, AssistedObject objectToMap, List<String> groups){
+		if (getMongoDb() == null) return;
+		doCreateOrEdit(objectWithChanges);
+		mapPropGroups(objectToMap, groups);
+		closeConnection();
+	}
+	
 	public void doCreateOrEdit(AssistedObject objectWithChanges){
 		if (getMongoDb() == null || objectWithChanges.getAllPropsJson() == null) return;
 		for (Entry<String, String> entry : objectWithChanges.getAllPropsJson().entrySet()){
 			setProp(objectWithChanges.getDescriptorName(), objectWithChanges.getId(), 
 					entry.getKey(), entry.getValue());
 		}
-		
+	}
+	
+	public void mapPropGroupsAndCloseConn(AssistedObject object, List<String> groups){
+		mapPropGroups(object, groups);
+		closeConnection();
 	}
 	
 	public void mapPropGroups(AssistedObject object, List<String> groups){
@@ -96,6 +114,11 @@ public class PropDao {
 		}
 	}
 	
+	public void mapPropGroupsAndCloseConn(List<AssistedObject> objects, List<String> groups){
+		mapPropGroups(objects, groups);
+		closeConnection();
+	}
+	
 	public void mapPropGroups(List<AssistedObject> objects, List<String> groups){
 		if (getMongoDb() == null) return;
 		for (AssistedObject object : objects){
@@ -107,6 +130,7 @@ public class PropDao {
 	public void removeProps(String type, Long id){
 		if (getMongoDb() == null) return;
 		getMongoDb().remove(searchParamJson(type, id));
+		closeConnection();
 	}
 	
 	public void setProp(String type, Long id, String group, String changesJsonObj){
@@ -157,6 +181,7 @@ public class PropDao {
 	}
 	
 	public List<Long> findObjectIds(String type, String searchJson){
+		if (getMongoDb() == null) return null;
 		BasicDBObject searchObj = new BasicDBObject(k_objectType, type);
 		searchObj.putAll((BSONObject)JSON.parse(searchJson));
 		
@@ -178,14 +203,23 @@ public class PropDao {
 	}
 	
 	private BasicDBObject getDocument(String type, Long id){
+		if (getMongoDb() == null) return null;
 		Object o = getMongoDb().findOne(searchParamJson(type, id));
 		if (o == null) return null;
 		else return (BasicDBObject)o;
 	}
 	
 	private BasicDBObject createDocument(String type, Long id){
+		if (getMongoDb() == null) return null;
 		getMongoDb().insert(searchParamJson(type, id));
 		return getDocument(type, id);
+	}
+	
+	public synchronized void closeConnection(){
+		if (mongoClient != null){
+			mongoClient.close();
+			mongoClient = null;
+		}
 	}
 	
 }
