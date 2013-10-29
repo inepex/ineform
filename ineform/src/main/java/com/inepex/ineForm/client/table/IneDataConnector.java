@@ -319,9 +319,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
 
 		@Override
-		public void onSuccess(ObjectListResult result) {			
-			updateLastResult(result);			
-			updateDisplayToLastResult();
+		public void onSuccess(ObjectListResult result) {	
+			if(result.isSuccess()){
+				updateLastResult(result);			
+				updateDisplayToLastResult();
+			}
 			
 			//TODO: rethink the use of statusindicator
 			if (!result.isSuccess() && customListingStatusIndicator != null){

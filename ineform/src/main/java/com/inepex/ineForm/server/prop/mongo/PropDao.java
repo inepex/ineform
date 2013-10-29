@@ -2,7 +2,9 @@ package com.inepex.ineForm.server.prop.mongo;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bson.BSONObject;
@@ -14,6 +16,8 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+import com.inepex.ineom.shared.assistedobject.AssistedObjectUtil;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -85,7 +89,7 @@ public class PropDao {
 	public void manipulate(AssistedObject objectWithChanges, AssistedObject objectToMap, List<String> groups){
 		if (getMongoDb() == null) return;
 		doCreateOrEdit(objectWithChanges);
-		mapPropGroups(objectToMap, groups);
+		mapPropGroup(objectToMap, groups);
 		closeConnection();
 	}
 	
@@ -98,11 +102,11 @@ public class PropDao {
 	}
 	
 	public void mapPropGroupsAndCloseConn(AssistedObject object, List<String> groups){
-		mapPropGroups(object, groups);
+		mapPropGroup(object, groups);
 		closeConnection();
 	}
 	
-	public void mapPropGroups(AssistedObject object, List<String> groups){
+	public void mapPropGroup(AssistedObject object, List<String> groups){
 		if (getMongoDb() == null || groups == null) return;
 		
 		BasicDBObject document = getDocument(object.getDescriptorName(), object.getId());
@@ -114,17 +118,24 @@ public class PropDao {
 		}
 	}
 	
+	public void mapPropGroups(List<AssistedObject> objects, List<String> groups){
+		if (getMongoDb() == null || groups == null) return;
+		List<Long> ids = AssistedObjectUtil.getObjectIds(objects);
+		Map<Long, BasicDBObject> documentMap = getDocument(objects.get(0).getDescriptorName(), ids);
+		if (documentMap.size() == 0) return;
+		for(AssistedObject obj : objects){
+			for (String group : groups){
+				BasicDBObject document = documentMap.get(obj.getId());
+				if(document != null){
+					obj.setPropsJson(group, JSON.serialize(document.get(group)));
+				}
+			}
+		}
+	}
+	
 	public void mapPropGroupsAndCloseConn(List<AssistedObject> objects, List<String> groups){
 		mapPropGroups(objects, groups);
 		closeConnection();
-	}
-	
-	public void mapPropGroups(List<AssistedObject> objects, List<String> groups){
-		if (getMongoDb() == null) return;
-		for (AssistedObject object : objects){
-			mapPropGroups(object, groups);
-		}
-		
 	}
 	
 	public void removeProps(String type, Long id){
@@ -188,13 +199,13 @@ public class PropDao {
 		DBCursor cursor = getMongoDb().find(searchObj, new BasicDBObject(k_objectId, 1).append("_id", 0));
 		List<Long> result = new ArrayList<>();
 		try {
-			   while(cursor.hasNext()) {
-				   BasicDBObject o = (BasicDBObject)cursor.next();
-			       result.add(o.getLong(k_objectId));
-			   }
-			} finally {
-			   cursor.close();
-			}
+		   while(cursor.hasNext()) {
+			   BasicDBObject o = (BasicDBObject)cursor.next();
+		       result.add(o.getLong(k_objectId));
+		   }
+		} finally {
+		   cursor.close();
+		}
 		return result;
 	}
 	
@@ -207,6 +218,27 @@ public class PropDao {
 		Object o = getMongoDb().findOne(searchParamJson(type, id));
 		if (o == null) return null;
 		else return (BasicDBObject)o;
+	}
+	
+	private Map<Long, BasicDBObject> getDocument(String type, List<Long> ids){
+		if (getMongoDb() == null) return null;
+		BasicDBObject basicObj = new BasicDBObject(k_objectType, type);
+		BasicDBList orDbList = new BasicDBList();
+		for(Long id : ids){
+			orDbList.add(new BasicDBObject(k_objectId, id));
+		}
+		basicObj.append("$or", orDbList);
+		DBCursor cursor = getMongoDb().find(basicObj);
+		Map<Long, BasicDBObject> map = new HashMap<>();
+		try {
+			while (cursor.hasNext()) {
+				BasicDBObject obj = (BasicDBObject)cursor.next();
+				map.put(obj.getLong(k_objectId), obj);
+			}
+		} catch (Exception e) {
+			cursor.close();
+		}
+		return map;
 	}
 	
 	private BasicDBObject createDocument(String type, Long id){
