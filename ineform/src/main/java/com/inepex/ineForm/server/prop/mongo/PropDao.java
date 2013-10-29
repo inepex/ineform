@@ -220,7 +220,7 @@ public class PropDao {
 		else return (BasicDBObject)o;
 	}
 	
-	private Map<Long, BasicDBObject> getDocument(String type, List<Long> ids){
+	public Map<Long, BasicDBObject> getDocument(String type, List<Long> ids){
 		if (getMongoDb() == null) return null;
 		BasicDBObject basicObj = new BasicDBObject(k_objectType, type);
 		BasicDBList orDbList = new BasicDBList();

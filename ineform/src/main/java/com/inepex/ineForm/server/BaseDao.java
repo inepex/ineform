@@ -2,6 +2,7 @@ package com.inepex.ineForm.server;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -23,6 +24,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
+import com.mongodb.BasicDBObject;
 
 public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	
@@ -297,5 +299,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 
 	public PropDao getMongoDao() {
 		return mongoDao;
+	}
+	
+	public Map<Long, BasicDBObject> getProperties(String typeName, List<Long> entityIds){
+		return mongoDao.getDocument(typeName, entityIds);
 	}
 }
