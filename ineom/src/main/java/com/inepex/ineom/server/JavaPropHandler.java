@@ -1,8 +1,12 @@
 package com.inepex.ineom.server;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.DoubleNode;
@@ -136,5 +140,20 @@ public class JavaPropHandler implements PropHandler {
 		_logger.error(
 				"Failed to set prop ao: {} group: {} key: {}",
 				new Object[] { ao.getId(), group, key});
+	}
+
+	@Override
+	public String getStringPropFromGroupJson(String key, String json) {
+		ObjectMapper m = new ObjectMapper();
+		try {
+			JsonNode node = m.readTree(json);
+			JsonNode valueNode = node.get(key);
+			if(valueNode != null){
+				return valueNode.asText();
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
 	}
 }

@@ -51,7 +51,9 @@ public class GwtPropHandler implements PropHandler {
 	
 	private JSONObject getOrCreateJsonGroup(AssistedObject ao, String group){
 		JSONObject groupJSON = new JSONObject();
-		if (ao.getPropsJson(group) != null) groupJSON = JSONParser.parseStrict(ao.getPropsJson(group)).isObject();
+		if (ao.getPropsJson(group) != null){
+			groupJSON = JSONParser.parseStrict(ao.getPropsJson(group)).isObject();
+		}
 		return groupJSON;
 	}
 
@@ -95,5 +97,18 @@ public class GwtPropHandler implements PropHandler {
 		} else {
 			return null;	
 		}
+	}
+
+	@Override
+	public String getStringPropFromGroupJson(String key, String json) {
+		if(json == null) return null;
+		JSONObject obj = JSONParser.parseStrict(json).isObject();
+		if(obj != null){
+			JSONString value = obj.get(key).isString();
+			if(value != null){
+				return value.stringValue();
+			}
+		}
+		return null;
 	}
 }

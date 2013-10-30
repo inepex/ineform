@@ -16,4 +16,6 @@ public interface PropHandler {
 	
 	public String getStringProp(AssistedObject ao, String group, String key);
 	
+	public String getStringPropFromGroupJson(String key, String json);
+	
 }
