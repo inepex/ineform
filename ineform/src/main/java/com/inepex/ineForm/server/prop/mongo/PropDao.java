@@ -38,6 +38,7 @@ public class PropDao {
 	private final String mongoUser;
 	private final String mongoPass;
 	private MongoClient mongoClient;
+	private com.mongodb.DB db;
 	
 	@Inject
 	public PropDao(@Named(IFConsts.prop_mongoUrl) String mongoUrl,
@@ -49,7 +50,7 @@ public class PropDao {
 		this.mongoPass = mongoPass;
 	}
 	
-	public DBCollection getMongoDb(){
+	private DBCollection getMongoDb(){
 		if (mongoClient == null){
 			synchronized (this) {
 				if (mongoClient == null){ //double check to avoid creating more than one instance
@@ -63,12 +64,13 @@ public class PropDao {
 				}
 			}
 				
-
 		}
-		com.mongodb.DB db = mongoClient.getDB(DB);
+		db = mongoClient.getDB(DB);
+
 		if (mongoUser != null && !mongoUser.equals("")){
 			db.authenticate(mongoUser, mongoPass.toCharArray());
 		}
+		
 		DBCollection collection = db.getCollection(COLLECTION);
 		try {
 			checkDefaultIndex(collection);
@@ -90,20 +92,14 @@ public class PropDao {
 		if (getMongoDb() == null) return;
 		doCreateOrEdit(objectWithChanges);
 		mapPropGroup(objectToMap, groups);
-		closeConnection();
 	}
 	
-	public void doCreateOrEdit(AssistedObject objectWithChanges){
+	private void doCreateOrEdit(AssistedObject objectWithChanges){
 		if (getMongoDb() == null || objectWithChanges.getAllPropsJson() == null) return;
 		for (Entry<String, String> entry : objectWithChanges.getAllPropsJson().entrySet()){
 			setProp(objectWithChanges.getDescriptorName(), objectWithChanges.getId(), 
 					entry.getKey(), entry.getValue());
 		}
-	}
-	
-	public void mapPropGroupsAndCloseConn(AssistedObject object, List<String> groups){
-		mapPropGroup(object, groups);
-		closeConnection();
 	}
 	
 	public void mapPropGroup(AssistedObject object, List<String> groups){
@@ -133,15 +129,12 @@ public class PropDao {
 		}
 	}
 	
-	public void mapPropGroupsAndCloseConn(List<AssistedObject> objects, List<String> groups){
-		mapPropGroups(objects, groups);
-		closeConnection();
-	}
-	
 	public void removeProps(String type, Long id){
 		if (getMongoDb() == null) return;
+		db.requestStart();
+		db.requestEnsureConnection();
 		getMongoDb().remove(searchParamJson(type, id));
-		closeConnection();
+		db.requestDone();
 	}
 	
 	public void setProp(String type, Long id, String group, String changesJsonObj){
@@ -166,7 +159,10 @@ public class PropDao {
 				groupJson.append(key, changes.get(key));
 			}
 		}
+		db.requestStart();
+		db.requestEnsureConnection();
 		getMongoDb().save(document);
+		db.requestDone();
 	}
 	
 	public String getPropGroup(String type, Long id, String group){
@@ -196,6 +192,8 @@ public class PropDao {
 		BasicDBObject searchObj = new BasicDBObject(k_objectType, type);
 		searchObj.putAll((BSONObject)JSON.parse(searchJson));
 		
+		db.requestStart();
+		db.requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(searchObj, new BasicDBObject(k_objectId, 1).append("_id", 0));
 		List<Long> result = new ArrayList<>();
 		try {
@@ -205,6 +203,7 @@ public class PropDao {
 		   }
 		} finally {
 		   cursor.close();
+		   db.requestDone();
 		}
 		return result;
 	}
@@ -215,7 +214,10 @@ public class PropDao {
 	
 	private BasicDBObject getDocument(String type, Long id){
 		if (getMongoDb() == null) return null;
+		db.requestStart();
+		db.requestEnsureConnection();
 		Object o = getMongoDb().findOne(searchParamJson(type, id));
+		db.requestDone();
 		if (o == null) return null;
 		else return (BasicDBObject)o;
 	}
@@ -228,6 +230,8 @@ public class PropDao {
 			orDbList.add(new BasicDBObject(k_objectId, id));
 		}
 		basicObj.append("$or", orDbList);
+		db.requestStart();
+		db.requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(basicObj);
 		Map<Long, BasicDBObject> map = new HashMap<>();
 		try {
@@ -236,22 +240,20 @@ public class PropDao {
 				map.put(obj.getLong(k_objectId), obj);
 			}
 		} catch (Exception e) {
+		} finally {
 			cursor.close();
-		}
+			db.requestDone();
+		}		
 		return map;
 	}
 	
 	private BasicDBObject createDocument(String type, Long id){
 		if (getMongoDb() == null) return null;
+		db.requestStart();
+		db.requestEnsureConnection();
 		getMongoDb().insert(searchParamJson(type, id));
+		db.requestDone();
 		return getDocument(type, id);
-	}
-	
-	public synchronized void closeConnection(){
-		if (mongoClient != null){
-			mongoClient.close();
-			mongoClient = null;
-		}
 	}
 	
 }

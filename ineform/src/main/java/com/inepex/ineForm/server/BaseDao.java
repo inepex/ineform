@@ -190,7 +190,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		case REFRESH:
 			AssistedObject kvo = findKvoById(getIdFromAction(action));
 			if (mongoDao != null){
-				mongoDao.mapPropGroupsAndCloseConn(kvo, action.getPropGroups());
+				mongoDao.mapPropGroup(kvo, action.getPropGroups());
 			}
 			result.setObjectsNewState(kvo);
 			break;
@@ -260,7 +260,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		{
 			List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder));
 			if (mongoDao != null) {
-				mongoDao.mapPropGroupsAndCloseConn(objects, action.getPropGroups());
+				mongoDao.mapPropGroups(objects, action.getPropGroups());
 			}
 			res.setList(objects);
 		}

@@ -58,37 +58,36 @@ public class PropDaoTest {
 
 	}
 	
-//	private class PropRunnable implements Runnable {
-//
-//		private Long id;
-//	
-//		public PropRunnable(Long id) {
-//			super();
-//			this.id = id;
-//		}
-//
-//		@Override
-//		public void run() {
-//			propDao.setProp(descriptor, id, group1, "{ \"onRoad\" : true}");
-//		}
-//		
-//	}
-//	
+	private class PropRunnable implements Runnable {
+
+		private Long id;
+	
+		public PropRunnable(Long id) {
+			super();
+			this.id = id;
+		}
+
+		@Override
+		public void run() {
+			propDao.setProp(descriptor, id, group1, "{ \"onRoad\" : true}");
+		}
+		
+	}
+	
 //	@Test
-//	public void testThreads() throws Exception {
-//		for (Long id = 1L; id<=100L; id++){
-//			new Thread(new PropRunnable(id)).start();
-//		}
-//		Thread.sleep(2000);
-//		System.out.println("check thread");
-//	}
+	public void testThreads() throws Exception {
+		for (Long id = 1L; id<=100L; id++){
+			new Thread(new PropRunnable(id)).start();
+		}
+		Thread.sleep(2000);
+		System.out.println("check thread");
+	}
 	
 	@After
 	public void clean(){
 		propDao.removeProps(descriptor, object1);
 		propDao.removeProps(descriptor, object2);
 		propDao.removeProps(descriptor, object3);
-		propDao.closeConnection();
 	}
 	
 }
