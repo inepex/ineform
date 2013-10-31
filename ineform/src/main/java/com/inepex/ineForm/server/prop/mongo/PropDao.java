@@ -38,7 +38,6 @@ public class PropDao {
 	private final String mongoUser;
 	private final String mongoPass;
 	private MongoClient mongoClient;
-	private com.mongodb.DB db;
 	
 	@Inject
 	public PropDao(@Named(IFConsts.prop_mongoUrl) String mongoUrl,
@@ -65,7 +64,7 @@ public class PropDao {
 			}
 				
 		}
-		db = mongoClient.getDB(DB);
+		com.mongodb.DB db = mongoClient.getDB(DB);
 
 		if (mongoUser != null && !mongoUser.equals("")){
 			db.authenticate(mongoUser, mongoPass.toCharArray());
@@ -131,10 +130,10 @@ public class PropDao {
 	
 	public void removeProps(String type, Long id){
 		if (getMongoDb() == null) return;
-		db.requestStart();
-		db.requestEnsureConnection();
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
 		getMongoDb().remove(searchParamJson(type, id));
-		db.requestDone();
+		mongoClient.getDB(DB).requestDone();
 	}
 	
 	public void setProp(String type, Long id, String group, String changesJsonObj){
@@ -159,10 +158,10 @@ public class PropDao {
 				groupJson.append(key, changes.get(key));
 			}
 		}
-		db.requestStart();
-		db.requestEnsureConnection();
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
 		getMongoDb().save(document);
-		db.requestDone();
+		mongoClient.getDB(DB).requestDone();
 	}
 	
 	public String getPropGroup(String type, Long id, String group){
@@ -192,8 +191,8 @@ public class PropDao {
 		BasicDBObject searchObj = new BasicDBObject(k_objectType, type);
 		searchObj.putAll((BSONObject)JSON.parse(searchJson));
 		
-		db.requestStart();
-		db.requestEnsureConnection();
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(searchObj, new BasicDBObject(k_objectId, 1).append("_id", 0));
 		List<Long> result = new ArrayList<>();
 		try {
@@ -203,7 +202,7 @@ public class PropDao {
 		   }
 		} finally {
 		   cursor.close();
-		   db.requestDone();
+		   mongoClient.getDB(DB).requestDone();
 		}
 		return result;
 	}
@@ -214,10 +213,10 @@ public class PropDao {
 	
 	private BasicDBObject getDocument(String type, Long id){
 		if (getMongoDb() == null) return null;
-		db.requestStart();
-		db.requestEnsureConnection();
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
 		Object o = getMongoDb().findOne(searchParamJson(type, id));
-		db.requestDone();
+		mongoClient.getDB(DB).requestDone();
 		if (o == null) return null;
 		else return (BasicDBObject)o;
 	}
@@ -230,8 +229,8 @@ public class PropDao {
 			orDbList.add(new BasicDBObject(k_objectId, id));
 		}
 		basicObj.append("$or", orDbList);
-		db.requestStart();
-		db.requestEnsureConnection();
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(basicObj);
 		Map<Long, BasicDBObject> map = new HashMap<>();
 		try {
@@ -242,17 +241,17 @@ public class PropDao {
 		} catch (Exception e) {
 		} finally {
 			cursor.close();
-			db.requestDone();
+			mongoClient.getDB(DB).requestDone();
 		}		
 		return map;
 	}
 	
 	private BasicDBObject createDocument(String type, Long id){
 		if (getMongoDb() == null) return null;
-		db.requestStart();
-		db.requestEnsureConnection();
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
 		getMongoDb().insert(searchParamJson(type, id));
-		db.requestDone();
+		mongoClient.getDB(DB).requestDone();
 		return getDocument(type, id);
 	}
 	

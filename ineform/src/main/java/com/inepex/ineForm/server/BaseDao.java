@@ -1,8 +1,11 @@
 package com.inepex.ineForm.server;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -25,6 +28,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 import com.mongodb.BasicDBObject;
+import com.mongodb.util.JSON;
 
 public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	
@@ -184,7 +188,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		case DELETE:
 			remove(action.getObject().getId());
 			if (mongoDao != null){
-				mongoDao.removeProps(getDescriptorName(), action.getObject().getId());
+				mongoDao.removeProps(action.getObject().getDescriptorName(), action.getObject().getId());
 			}
 			break;
 		case REFRESH:
@@ -256,15 +260,45 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		if (action.isQueryResultCount()) {
 			res.setAllResultCount(count(action, customizer, useDefaultQuery));
 		}
-		if (action.getNumMaxResult() > 0)
-		{
-			List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, customizer, useDefaultQuery, useDefaultOrder));
+		if (action.getNumMaxResult() > 0){
+			List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, 
+																			    customizer, 
+																			    useDefaultQuery, 
+																			    useDefaultOrder));
 			if (mongoDao != null) {
-				mongoDao.mapPropGroups(objects, action.getPropGroups());
+				filterByProps(objects, action);
+				if(objects.size() > 0){
+					mongoDao.mapPropGroups(objects, action.getPropGroups());
+				}
+
 			}
 			res.setList(objects);
 		}
 		return res;
+	}
+
+	private void filterByProps(List<AssistedObject> objects,
+							   AbstractSearch action) {
+		Iterator<AssistedObject> iterator = objects.iterator();
+		Map<String, String> jsonMap = action.getSearchParameters().getAllPropsJson();
+		if(jsonMap.isEmpty()) return;
+		Set<Long> idSet = new HashSet<>();
+		for(String group : jsonMap.keySet()){
+			String keyValue = jsonMap.get(group);
+			BasicDBObject search = new BasicDBObject();
+			BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
+			for(String key : obj.keySet()){
+				search.append(group + "." + key, obj.get(key));
+			}
+			List<Long> ids = mongoDao.findObjectIds(action.getDescriptorName(), JSON.serialize(search));
+			idSet.addAll(ids);
+		}
+		while(iterator.hasNext()){
+			AssistedObject obj = iterator.next();
+			if(!idSet.contains(obj.getId())){
+				iterator.remove();
+			}
+		}
 	}
 
 	@Override
