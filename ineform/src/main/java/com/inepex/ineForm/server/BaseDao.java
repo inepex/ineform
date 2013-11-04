@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -288,7 +289,12 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			BasicDBObject search = new BasicDBObject();
 			BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
 			for(String key : obj.keySet()){
-				search.append(group + "." + key, obj.get(key));
+				Object value = obj.get(key);
+				if(value instanceof String){
+					search.append(group + "." + key, Pattern.compile(value+""));
+				}else{
+					search.append(group + "." + key, value);
+				}
 			}
 			List<Long> ids = mongoDao.findObjectIds(action.getDescriptorName(), JSON.serialize(search));
 			idSet.addAll(ids);

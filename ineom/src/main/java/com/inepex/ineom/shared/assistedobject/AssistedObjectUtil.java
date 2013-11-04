@@ -13,4 +13,15 @@ public class AssistedObjectUtil {
 		return idList;
 	}
 
+	public static String getObjectIdsString(List<AssistedObject> objList) {
+		String idString = "";
+		for(AssistedObject obj : objList){
+			idString += obj.getId() + ";";
+		}
+		if(objList.size() != 0){
+			idString = idString.substring(0, idString.length() - 1);
+		}
+		return idString;
+	}
+
 }
