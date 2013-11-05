@@ -49,7 +49,7 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 				filenameForCsvKey
 				, action.getFileName());
 		
-		requestProvider.get().getSession().setAttribute(
+		request.getSession().setAttribute(
 				appendDateToFileName
 				, action.isAppendDate());
 		
@@ -67,7 +67,7 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 				rendererForCsvKey
 				, action.getRenderer());
 		
-		requestProvider.get().getSession().setAttribute(
+		request.getSession().setAttribute(
 				rendererLanguage
 				, currLangProvider.get().getCurrentLang());
 		
