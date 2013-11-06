@@ -1,6 +1,7 @@
 package com.inepex.ineom.shared.assistedobject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class AssistedObjectUtil {
@@ -12,16 +13,20 @@ public class AssistedObjectUtil {
 		}
 		return idList;
 	}
-
-	public static String getObjectIdsString(List<AssistedObject> objList) {
-		String idString = "";
-		for(AssistedObject obj : objList){
-			idString += obj.getId() + ";";
+	
+	public static String createIdListString(List<AssistedObject> objList) {
+		return createIdListString(getObjectIds(objList));
+	}
+	
+	public static String createIdListString(Collection<Long> ids) {
+		StringBuffer sb = new StringBuffer();
+		for(Long l : ids) {
+			if(sb.length()>0)
+				sb.append(";");
+			sb.append(l);
 		}
-		if(objList.size() != 0){
-			idString = idString.substring(0, idString.length() - 1);
-		}
-		return idString;
+			
+		return sb.toString();
 	}
 
 }
