@@ -18,57 +18,63 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 	}
 	
 	
-	ObjectList actionForCsvServlet;
-	String fileName = "export";
-	String tableRDescName = null;
-	boolean withHeader = false;
-	Renderer renderer = Renderer.CSV;
-	boolean appendDate = false;
+	private ObjectList objectList;
+	private String fileName = "export";
+	private String tableRDescName = null;
+	private boolean withHeader = false;
+	private Renderer renderer = Renderer.CSV;
+	private boolean appendDate = false;
+	private String responseDescriptorName;
 	
 	public SetActionForExportServletAction() {
 	}
 	
 	public SetActionForExportServletAction(
-			ObjectListAction actionForCsvServlet
+			ObjectListAction objectList
 			, String fileName
 			, boolean withHeader
 	) {
 		super();
-		this.actionForCsvServlet = actionForCsvServlet;
+		this.objectList = objectList;
 		this.fileName = fileName;
 		this.withHeader = withHeader;
 	}
 
 	public SetActionForExportServletAction(
-			ObjectList actionForCsvServlet
+			ObjectList objectList
 			, String fileName
 			, String tableRDescName
 			, boolean withHeader) {
 		super();
-		this.actionForCsvServlet = actionForCsvServlet;
+		this.objectList = objectList;
 		this.fileName = fileName;
 		this.tableRDescName = tableRDescName;
 		this.withHeader = withHeader;
 	}
 	
-	public SetActionForExportServletAction(ObjectList actionForCsvServlet,
-			String fileName, String tableRDescName, boolean withHeader,
-			Renderer renderer, boolean appendDate) {
+	public SetActionForExportServletAction(ObjectList objectList,
+										   String fileName, 
+										   String tableRDescName, 
+										   boolean withHeader,
+										   Renderer renderer, 
+										   boolean appendDate,
+										   String responseDescriptorName) {
 		super();
-		this.actionForCsvServlet = actionForCsvServlet;
+		this.objectList = objectList;
 		this.fileName = fileName;
 		this.tableRDescName = tableRDescName;
 		this.withHeader = withHeader;
 		this.renderer = renderer;
 		this.appendDate=appendDate;
+		this.responseDescriptorName = responseDescriptorName;
 	}
 
 	public ObjectList getActionForCsvServlet() {
-		return actionForCsvServlet;
+		return objectList;
 	}
 
 	public void setActionForCsvServlet(ObjectListAction actionForCsvServlet) {
-		this.actionForCsvServlet = actionForCsvServlet;
+		this.objectList = actionForCsvServlet;
 	}
 
 	public String getFileName() {
@@ -109,5 +115,13 @@ public class SetActionForExportServletAction implements Action<GenericActionResu
 	
 	public boolean isAppendDate() {
 		return appendDate;
+	}
+
+	public String getResponseDescriptorName() {
+		return responseDescriptorName;
+	}
+
+	public void setResponseDescriptorName(String responseDescriptorName) {
+		this.responseDescriptorName = responseDescriptorName;
 	}
 }

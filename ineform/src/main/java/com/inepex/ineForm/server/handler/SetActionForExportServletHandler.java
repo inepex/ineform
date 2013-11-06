@@ -22,6 +22,7 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 	public static final String withHeaderForCsvKey = "withHeaderForCsvKey";
 	public static final String rendererForCsvKey = "rendererForCsvKey";
 	public static final String rendererLanguage = "rendererLanguage";
+	public static final String responseDescriptorName = "responseDescriptorName";
 	
 	private final Provider<HttpServletRequest> requestProvider;
 	final Provider<CurrentLang> currLangProvider;
@@ -42,34 +43,31 @@ public class SetActionForExportServletHandler extends AbstractIneHandler<SetActi
 			ExecutionContext context) throws AuthenticationException, DispatchException {
 		
 		HttpServletRequest request = requestProvider.get();
-		request.getSession().setAttribute(
-				actionForCsvKey
-				, action.getActionForCsvServlet());
-		request.getSession().setAttribute(
-				filenameForCsvKey
-				, action.getFileName());
+		request.getSession().setAttribute(actionForCsvKey,
+									      action.getActionForCsvServlet());
+		request.getSession().setAttribute(filenameForCsvKey,
+										  action.getFileName());
 		
-		request.getSession().setAttribute(
-				appendDateToFileName
-				, action.isAppendDate());
+		request.getSession().setAttribute(appendDateToFileName,
+										  action.isAppendDate());
+
+		request.getSession().setAttribute(withHeaderForCsvKey,
+										  action.isWithHeader());
 		
-		if (action.getTableRDescName() != null){
-			request.getSession().setAttribute(
-					tableRDescForCsvKey
-					, action.getTableRDescName());
+		request.getSession().setAttribute(rendererForCsvKey,
+										  action.getRenderer());
+		
+		request.getSession().setAttribute(rendererLanguage,
+										  currLangProvider.get().getCurrentLang());
+		
+		if(action.getResponseDescriptorName() != null){
+			request.getSession().setAttribute(responseDescriptorName, 
+											  action.getResponseDescriptorName());
 		}
-		
-		request.getSession().setAttribute(
-				withHeaderForCsvKey
-				, action.isWithHeader());
-		
-		request.getSession().setAttribute(
-				rendererForCsvKey
-				, action.getRenderer());
-		
-		request.getSession().setAttribute(
-				rendererLanguage
-				, currLangProvider.get().getCurrentLang());
+		if (action.getTableRDescName() != null){
+			request.getSession().setAttribute(tableRDescForCsvKey,
+											  action.getTableRDescName());
+		}
 		
 		return new GenericActionResult();
 	}

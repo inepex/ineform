@@ -109,41 +109,41 @@ public abstract class AbstractExportServlet extends HttpServlet{
 			ByteArrayOutputStream baos;
 			switch (rendererType) {
 			case CSV:
-				renderer = csvRendererFactory.create(action.getDescriptorName(), tableRDescName);
+				renderer = csvRendererFactory.create(getResultDescName(req, action), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				resp.setContentType("text/csv");
 				resp.setCharacterEncoding("UTF-8");
 				extension = ".csv";
 				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
-				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				exportCustomizerStore.customize(getResultDescName(req, action), renderer.getFieldRenderer());
 				resp.getWriter().write(renderer.render(listResult.getList()));
 				resp.getWriter().close();
 				break;
 			case HTML:
-				renderer = htmlRendererFactory.create(action.getDescriptorName(), tableRDescName);
+				renderer = htmlRendererFactory.create(getResultDescName(req, action), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				resp.setContentType("text/html");
 				resp.setCharacterEncoding("UTF-8");
 				extension = ".html";
 				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
-				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				exportCustomizerStore.customize(getResultDescName(req, action), renderer.getFieldRenderer());
 				resp.getWriter().write(renderer.render(listResult.getList()));
 				resp.getWriter().close();
 				break;				
 			case TRTD:
-				renderer = trtdRendererFactory.create(action.getDescriptorName(), tableRDescName);
+				renderer = trtdRendererFactory.create(getResultDescName(req, action), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				resp.setContentType("text/html");
 				resp.setCharacterEncoding("UTF-8");
 				extension = ".html";
 				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
-				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				exportCustomizerStore.customize(getResultDescName(req, action), renderer.getFieldRenderer());
 				resp.getWriter().write(renderer.render(listResult.getList()));
 				resp.getWriter().close();
 				break;
 				
 			case PDF:
-				renderer = pdfRendererFactory.create(action.getDescriptorName(), tableRDescName);
+				renderer = pdfRendererFactory.create(getResultDescName(req, action), tableRDescName);
 				renderer.setRenderHeader(withHeader);
 				resp.setContentType("application/octet-stream");
 				extension = ".pdf";
@@ -152,7 +152,7 @@ public abstract class AbstractExportServlet extends HttpServlet{
 				baos = new ByteArrayOutputStream();
 				PdfWriter.getInstance(document, baos);
 				document.open();
-				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				exportCustomizerStore.customize(getResultDescName(req, action), renderer.getFieldRenderer());
 				renderer.render(listResult.getList());
 				document.add(((PdfRenderer)renderer).getTable());
 				document.close();
@@ -163,13 +163,13 @@ public abstract class AbstractExportServlet extends HttpServlet{
 			case EXCEL:
 				Workbook wb = new HSSFWorkbook();
 				Sheet sheet = wb.createSheet(fileName);
-				renderer = excelRendererFactory.create(action.getDescriptorName(), tableRDescName, sheet, true);
+				renderer = excelRendererFactory.create(getResultDescName(req, action), tableRDescName, sheet, true);
 				renderer.setRenderHeader(withHeader);
 				resp.setContentType("application/vnd.ms-excel");
 				resp.setCharacterEncoding("UTF-8");
 				extension = ".xls";
 				resp.addHeader("Content-Disposition", "attachment; filename=" + fileName + extension);
-				exportCustomizerStore.customize(action.getDescriptorName(), renderer.getFieldRenderer());
+				exportCustomizerStore.customize(getResultDescName(req, action), renderer.getFieldRenderer());
 				renderer.render(listResult.getList());
 				baos = new ByteArrayOutputStream();
 				wb.write(baos);
@@ -191,7 +191,13 @@ public abstract class AbstractExportServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
-		
+	}
+	
+	private String getResultDescName(HttpServletRequest req, ObjectList action){
+		String respDescName = (String)req.getSession()
+				.getAttribute(SetActionForExportServletHandler.responseDescriptorName);
+		if(respDescName != null) return respDescName;
+		return action.getDescriptorName();
 	}
 
 }

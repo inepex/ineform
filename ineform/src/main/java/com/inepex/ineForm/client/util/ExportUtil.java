@@ -89,7 +89,46 @@ public class ExportUtil {
 				, tableRDescName
 				, withHeader
 				, rendererType
-				, appendDateToFileName)
+				, appendDateToFileName,
+				null)
+		, new SuccessCallback<GenericActionResult>(){
+
+			@Override
+			public void onSuccess(GenericActionResult result) {
+				if (Window.Navigator.getUserAgent().contains("MSIE")){
+					
+					new InfoDialog(IneFormI18n.CSVEXPORT(), IneFormI18n.csvComment() + "<a href = '"+ IFConsts.exportServletUrl +"'>" + IneFormI18n.csvDownload() + "</a>");
+				} else {
+					Window.open(IFConsts.exportServletUrl, "CSV export", "_blank");
+				}
+			}
+			
+		});
+	}
+	
+	/**
+	 * 
+	 * @param dispatcher
+	 * @param action
+	 * @param fileName
+	 * @param tableRDescName set null to use default tablerenderdescriptor
+	 * @param withHeader
+	 */
+	public static void setActionForExportAndOpenDownloadDialog(IneDispatch dispatcher,
+															   ObjectList action,
+															   String fileName,
+															   String tableRDescName,
+															   boolean withHeader,
+															   Renderer rendererType,
+															   boolean appendDateToFileName,
+															   String responseDescriptorName){
+		dispatcher.execute(new SetActionForExportServletAction(action,
+															   fileName,
+															   tableRDescName,
+															   withHeader,
+															   rendererType,
+															   appendDateToFileName,
+															   responseDescriptorName)
 		, new SuccessCallback<GenericActionResult>(){
 
 			@Override
