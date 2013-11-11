@@ -89,6 +89,7 @@ public class PropDao {
 	
 	public void manipulate(AssistedObject objectWithChanges, AssistedObject objectToMap, List<String> groups){
 		if (getMongoDb() == null) return;
+		objectWithChanges.setId(objectToMap.getId());
 		doCreateOrEdit(objectWithChanges);
 		mapPropGroup(objectToMap, groups);
 	}

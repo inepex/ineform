@@ -171,7 +171,6 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			try {
 				E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
 				AssistedObject kvo = getMapper().entityToKvo(newState);
-				action.getObject().setId(kvo.getId());
 				if (mongoDao != null){
 					mongoDao.manipulate(action.getObject(), kvo, action.getPropGroups());	
 				}
