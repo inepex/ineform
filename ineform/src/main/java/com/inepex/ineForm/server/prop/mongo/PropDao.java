@@ -128,7 +128,9 @@ public class PropDao {
 	}
 	
 	public void mapPropGroups(List<AssistedObject> objects, List<String> groups){
-		if (getMongoDb() == null || groups == null) return;
+		if (getMongoDb() == null || groups == null || objects.isEmpty())
+			return;
+		
 		List<Long> ids = AssistedObjectUtil.getObjectIds(objects);
 		Map<Long, BasicDBObject> documentMap = getDocument(objects.get(0).getDescriptorName(), ids);
 		if (documentMap.size() == 0) return;
