@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gwt.user.client.rpc.IsSerializable;
+import com.inepex.ineom.shared.HasProp;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 
@@ -19,7 +20,7 @@ import com.inepex.ineom.shared.Relation;
  */
 @JsonDeserialize(as=KeyValueObject.class)
 @SuppressWarnings("serial")
-public abstract class AssistedObject implements Serializable, IsSerializable {
+public abstract class AssistedObject implements Serializable, IsSerializable, HasProp {
 
 	/******** ADD methods ********/
 	protected abstract void set(String key, Boolean value);

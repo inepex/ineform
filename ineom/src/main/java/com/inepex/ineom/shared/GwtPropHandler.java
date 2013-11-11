@@ -8,7 +8,6 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.inject.Inject;
-import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class GwtPropHandler implements PropHandler {
 
@@ -17,50 +16,50 @@ public class GwtPropHandler implements PropHandler {
 	}
 	
 	@Override
-	public void setProp(AssistedObject ao, String group, String key, Boolean value) {
-		JSONObject groupJSON = getOrCreateJsonGroup(ao, group);
+	public void setProp(HasProp o, String group, String key, Boolean value) {
+		JSONObject groupJSON = getOrCreateJsonGroup(o, group);
 		if (value == null) {
 			groupJSON.put(key, JSONNull.getInstance());
 		} else {
 			groupJSON.put(key, JSONBoolean.getInstance(value));
 		}
-		ao.setPropsJson(group, groupJSON.toString());
+		o.setPropsJson(group, groupJSON.toString());
 	}
 
 	@Override
-	public void setProp(AssistedObject ao, String group, String key, Double value) {
-		JSONObject groupJSON = getOrCreateJsonGroup(ao, group);
+	public void setProp(HasProp o, String group, String key, Double value) {
+		JSONObject groupJSON = getOrCreateJsonGroup(o, group);
 		if (value == null) {
 			groupJSON.put(key, JSONNull.getInstance());
 		} else {
 			groupJSON.put(key, new JSONNumber(value));
 		}
-		ao.setPropsJson(group, groupJSON.toString());
+		o.setPropsJson(group, groupJSON.toString());
 	}
 
 	@Override
-	public void setProp(AssistedObject ao, String group, String key, String value) {
-		JSONObject groupJSON = getOrCreateJsonGroup(ao, group);
+	public void setProp(HasProp o, String group, String key, String value) {
+		JSONObject groupJSON = getOrCreateJsonGroup(o, group);
 		if (value == null) {
 			groupJSON.put(key, JSONNull.getInstance());
 		} else {
 			groupJSON.put(key, new JSONString(value));
 		}
-		ao.setPropsJson(group, groupJSON.toString());
+		o.setPropsJson(group, groupJSON.toString());
 	}
 	
-	private JSONObject getOrCreateJsonGroup(AssistedObject ao, String group){
+	private JSONObject getOrCreateJsonGroup(HasProp o, String group){
 		JSONObject groupJSON = new JSONObject();
-		if (ao.getPropsJson(group) != null){
-			groupJSON = JSONParser.parseStrict(ao.getPropsJson(group)).isObject();
+		if (o.getPropsJson(group) != null){
+			groupJSON = JSONParser.parseStrict(o.getPropsJson(group)).isObject();
 		}
 		return groupJSON;
 	}
 
 	@Override
-	public Boolean getBooleanProp(AssistedObject ao, String group, String key) {
+	public Boolean getBooleanProp(HasProp o, String group, String key) {
 		try {
-			return getProp(ao, group, key).isBoolean().booleanValue();
+			return getProp(o, group, key).isBoolean().booleanValue();
 		} catch (Exception e){
 			return null;
 		}
@@ -68,7 +67,7 @@ public class GwtPropHandler implements PropHandler {
 	}
 
 	@Override
-	public Double getNumberProp(AssistedObject ao, String group, String key) {
+	public Double getNumberProp(HasProp ao, String group, String key) {
 		try {
 			return getProp(ao, group, key).isNumber().doubleValue();
 		} catch (Exception e){
@@ -77,7 +76,7 @@ public class GwtPropHandler implements PropHandler {
 	}
 
 	@Override
-	public String getStringProp(AssistedObject ao, String group, String key) {
+	public String getStringProp(HasProp ao, String group, String key) {
 		try {
 			return getProp(ao, group, key).isString().stringValue();
 		} catch (Exception e){
@@ -85,7 +84,7 @@ public class GwtPropHandler implements PropHandler {
 		}
 	}
 
-	private JSONValue getProp(AssistedObject ao, String group, String key){
+	private JSONValue getProp(HasProp ao, String group, String key){
 		if (ao.getPropsJson(group) == null) return null;
 		JSONObject groupJSON = getOrCreateJsonGroup(ao, group);
 		if (groupJSON.containsKey(key)){
