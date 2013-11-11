@@ -22,6 +22,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.WriteConcern;
 import com.mongodb.util.JSON;
 
 @Singleton
@@ -47,6 +49,8 @@ public class PropDao {
 		this.mongoUrl = mongoUrl;
 		this.mongoUser = mongoUser;
 		this.mongoPass = mongoPass;
+//		System.setProperty("DEBUG.MONGO", "true");
+//		System.setProperty("DB.TRACE", "true");
 	}
 	
 	private DBCollection getMongoDb(){
@@ -55,7 +59,11 @@ public class PropDao {
 				if (mongoClient == null){ //double check to avoid creating more than one instance
 					try {
 						_logger.info("Creating mongoclient");
-						mongoClient = new MongoClient(mongoUrl);
+						MongoClientOptions options = MongoClientOptions.builder()
+								.writeConcern(WriteConcern.FSYNCED)
+								.build();
+						mongoClient = new MongoClient(mongoUrl, options);
+						
 					} catch (UnknownHostException e) {
 						_logger.error("Unknown host: " + mongoUrl);
 						return null;
@@ -85,6 +93,11 @@ public class PropDao {
 		index.append(k_objectType, 1);
 		index.append(k_objectId, 1);
 		collection.ensureIndex(index);
+	}
+	
+	
+	public void ensureIndex(String field){
+		getMongoDb().ensureIndex(field);
 	}
 	
 	public void manipulate(AssistedObject objectWithChanges, AssistedObject objectToMap, List<String> groups){
@@ -134,6 +147,14 @@ public class PropDao {
 		mongoClient.getDB(DB).requestStart();
 		mongoClient.getDB(DB).requestEnsureConnection();
 		getMongoDb().remove(searchParamJson(type, id));
+		mongoClient.getDB(DB).requestDone();
+	}
+	
+	public void remove(BasicDBObject criteria){
+		if (getMongoDb() == null) return;
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
+		getMongoDb().remove(criteria);
 		mongoClient.getDB(DB).requestDone();
 	}
 	
@@ -254,6 +275,25 @@ public class PropDao {
 		getMongoDb().insert(searchParamJson(type, id));
 		mongoClient.getDB(DB).requestDone();
 		return getDocument(type, id);
+	}
+	
+	
+	/**
+	 * don't use for update! Only for creating new document.
+	 */
+	public void createDocumentWithProperties(String type, Long id, Map<String, String> props){
+		if (getMongoDb() == null) return;
+		if (props == null || props.size() == 0) return;
+		BasicDBObject doc = new BasicDBObject(k_objectType, type).append(k_objectId, id);
+		for (Entry<String, String> propEntry : props.entrySet()){
+			String group = propEntry.getKey();
+			String jsonValue = propEntry.getValue();
+			doc.append(group, (BasicDBObject)JSON.parse(jsonValue));
+		}
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
+		getMongoDb().save(doc);
+		mongoClient.getDB(DB).requestDone();
 	}
 	
 }
