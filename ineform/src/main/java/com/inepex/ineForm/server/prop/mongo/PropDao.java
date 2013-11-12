@@ -23,7 +23,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import com.mongodb.WriteConcern;
 import com.mongodb.util.JSON;
 
 @Singleton
@@ -60,7 +59,7 @@ public class PropDao {
 					try {
 						_logger.info("Creating mongoclient");
 						MongoClientOptions options = MongoClientOptions.builder()
-								.writeConcern(WriteConcern.FSYNCED)
+//								.writeConcern(WriteConcern.FSYNCED)
 								.build();
 						mongoClient = new MongoClient(mongoUrl, options);
 						
@@ -252,7 +251,7 @@ public class PropDao {
 		for(Long id : ids){
 			orDbList.add(new BasicDBObject(k_objectId, id));
 		}
-		basicObj.append("$or", orDbList);
+		basicObj.append("$in", orDbList);
 		mongoClient.getDB(DB).requestStart();
 		mongoClient.getDB(DB).requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(basicObj);
