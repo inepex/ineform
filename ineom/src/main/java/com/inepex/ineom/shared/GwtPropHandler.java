@@ -9,7 +9,7 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.inject.Inject;
 
-public class GwtPropHandler implements PropHandler {
+public class GwtPropHandler extends PropHandler {
 
 	@Inject
 	public GwtPropHandler() {
@@ -109,5 +109,12 @@ public class GwtPropHandler implements PropHandler {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void setProp(HasProp hasProp, String group, String key,
+			String value, boolean strictMatch) {
+		setProp(hasProp, group, key, value);
+		setProp(hasProp, group, getStrictMatchKey(key), strictMatch);
 	}
 }

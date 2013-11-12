@@ -21,6 +21,7 @@ import com.inepex.ineForm.shared.ObjectManipulationException;
 import com.inepex.ineForm.shared.ObjectManipulationException.Reason;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
+import com.inepex.ineom.shared.PropHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
@@ -288,9 +289,15 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			BasicDBObject search = new BasicDBObject();
 			BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
 			for(String key : obj.keySet()){
+				if(key.startsWith("#")) continue;
 				Object value = obj.get(key);
 				if(value instanceof String){
-					search.append(group + "." + key, Pattern.compile(value+""));
+					boolean strictMatch = obj.getBoolean(PropHandler.getStrictMatchKey(key));
+					if(strictMatch){
+						search.append(group + "." + key, value);
+					}else{
+						search.append(group + "." + key, Pattern.compile(value+""));
+					}
 				}else{
 					search.append(group + "." + key, value);
 				}

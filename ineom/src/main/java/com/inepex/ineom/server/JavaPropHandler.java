@@ -14,7 +14,7 @@ import com.google.inject.Inject;
 import com.inepex.ineom.shared.HasProp;
 import com.inepex.ineom.shared.PropHandler;
 
-public class JavaPropHandler implements PropHandler {
+public class JavaPropHandler extends PropHandler {
 
 	private static final Logger _logger = LoggerFactory.getLogger(JavaPropHandler.class);
 
@@ -152,5 +152,15 @@ public class JavaPropHandler implements PropHandler {
 			return null;
 		}
 		return null;
+	}
+
+	@Override
+	public void setProp(HasProp hasProp, 
+						String group, 
+						String key,
+						String value, 
+						boolean strictMatch) {
+		setProp(hasProp, group, key, value);
+		setProp(hasProp, group, getStrictMatchKey(key), strictMatch);
 	}
 }

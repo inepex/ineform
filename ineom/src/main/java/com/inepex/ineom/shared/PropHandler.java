@@ -1,20 +1,25 @@
 package com.inepex.ineom.shared;
 
 
-public interface PropHandler {
+public abstract class PropHandler {
 	
-	public void setProp(HasProp hasProp, String group, String key, Boolean value);
+	public abstract void setProp(HasProp hasProp, String group, String key, Boolean value);
 	
-	public void setProp(HasProp hasProp, String group, String key, Double value);
+	public abstract void setProp(HasProp hasProp, String group, String key, Double value);
 	
-	public void setProp(HasProp hasProp, String group, String key, String value);
+	public abstract void setProp(HasProp hasProp, String group, String key, String value, boolean strictMatch);
 	
-	public Boolean getBooleanProp(HasProp hasProp, String group, String key);
+	public abstract void setProp(HasProp hasProp, String group, String key, String value);
 	
-	public Double getNumberProp(HasProp hasProp, String group, String key);
+	public abstract Boolean getBooleanProp(HasProp hasProp, String group, String key);
 	
-	public String getStringProp(HasProp hasProp, String group, String key);
+	public abstract Double getNumberProp(HasProp hasProp, String group, String key);
 	
-	public String getStringPropFromGroupJson(String key, String json);
+	public abstract String getStringProp(HasProp hasProp, String group, String key);
 	
+	public abstract String getStringPropFromGroupJson(String key, String json);
+	
+	public static String getStrictMatchKey(String key){
+		return "#" + key;
+	}
 }
