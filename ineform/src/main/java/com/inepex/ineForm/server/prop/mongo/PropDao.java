@@ -251,7 +251,7 @@ public class PropDao {
 		for(Long id : ids){
 			orDbList.add(new BasicDBObject(k_objectId, id));
 		}
-		basicObj.append("$in", orDbList);
+		basicObj.append("$or", orDbList);
 		mongoClient.getDB(DB).requestStart();
 		mongoClient.getDB(DB).requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(basicObj);
