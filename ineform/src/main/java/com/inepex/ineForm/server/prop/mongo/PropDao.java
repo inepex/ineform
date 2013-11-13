@@ -48,8 +48,8 @@ public class PropDao {
 		this.mongoUrl = mongoUrl;
 		this.mongoUser = mongoUser;
 		this.mongoPass = mongoPass;
-		System.setProperty("DEBUG.MONGO", "true");
-		System.setProperty("DB.TRACE", "true");
+//		System.setProperty("DEBUG.MONGO", "true");
+//		System.setProperty("DB.TRACE", "true");
 	}
 	
 	private DBCollection getMongoDb(){
