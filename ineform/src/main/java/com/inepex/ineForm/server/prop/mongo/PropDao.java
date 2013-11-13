@@ -48,8 +48,8 @@ public class PropDao {
 		this.mongoUrl = mongoUrl;
 		this.mongoUser = mongoUser;
 		this.mongoPass = mongoPass;
-//		System.setProperty("DEBUG.MONGO", "true");
-//		System.setProperty("DB.TRACE", "true");
+		System.setProperty("DEBUG.MONGO", "true");
+		System.setProperty("DB.TRACE", "true");
 	}
 	
 	private DBCollection getMongoDb(){
@@ -247,11 +247,10 @@ public class PropDao {
 	public Map<Long, BasicDBObject> getDocument(String type, List<Long> ids){
 		if (getMongoDb() == null) return null;
 		BasicDBObject basicObj = new BasicDBObject(k_objectType, type);
-		BasicDBList orDbList = new BasicDBList();
-		for(Long id : ids){
-			orDbList.add(new BasicDBObject(k_objectId, id));
-		}
-		basicObj.append("$or", orDbList);
+		BasicDBList entityIds = new BasicDBList();
+		entityIds.addAll(ids);
+		BasicDBObject inClause = new BasicDBObject("$in", entityIds);
+		basicObj.append(k_objectId, inClause);
 		mongoClient.getDB(DB).requestStart();
 		mongoClient.getDB(DB).requestEnsureConnection();
 		DBCursor cursor = getMongoDb().find(basicObj);
