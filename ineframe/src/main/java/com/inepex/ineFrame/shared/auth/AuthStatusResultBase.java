@@ -1,5 +1,6 @@
 package com.inepex.ineFrame.shared.auth;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
@@ -16,6 +17,8 @@ public class AuthStatusResultBase extends GenericActionResult {
 	// these two variables are for the stay signed in functionality
 	protected String userEmail = null;
 	protected String userUUID = null;
+	
+	protected Map<String, String> userPropJsons;
 
 	public AuthStatusResultBase() {
 	}
@@ -88,6 +91,14 @@ public class AuthStatusResultBase extends GenericActionResult {
 
 	public void setUserUUID(String userUUID) {
 		this.userUUID = userUUID;
+	}
+
+	public Map<String, String> getUserPropJsons() {
+		return userPropJsons;
+	}
+
+	public void setUserPropJsons(Map<String, String> userPropJsons) {
+		this.userPropJsons = userPropJsons;
 	}
 
 	@Override
