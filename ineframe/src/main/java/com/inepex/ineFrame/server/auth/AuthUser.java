@@ -1,5 +1,6 @@
 package com.inepex.ineFrame.server.auth;
 
+import java.util.Map;
 import java.util.Set;
 
 public interface AuthUser {
@@ -17,5 +18,7 @@ public interface AuthUser {
 	 * role set of user
 	 */
 	Set<String> getAllowedRoles();
+	
+	Map<String, String> getUserJsonProps();
 
 }

@@ -91,6 +91,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 		result.setRoles(user.getAllowedRoles());
 		result.setUserId(user.getUserId());
 		result.setUserEmail(email);
+		result.setUserPropJsons(user.getUserJsonProps());
 		
 		mapAdditional(user, result);
 		onLogin(user);

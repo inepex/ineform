@@ -160,14 +160,19 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected abstract void doLoggedinLogic(AuthStatusResultBase result);
 	
 	protected void doRedirectLogic(AuthStatusResultBase result) {
+		PlaceRequestEvent pre = getRedirectPlaceReqEvt();
+		modifiyRedirectPlaceRequestEvent(result, pre);
+		eventBus.fireEvent(pre);
+	}
+	
+	protected PlaceRequestEvent getRedirectPlaceReqEvt(){
 		PlaceRequestEvent pre = new PlaceRequestEvent();
 		pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
 				historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
 					+NavigationProperties.REDIRECT.length()
 					+PlaceHandler.EQUALS_SIGN.length()
 				, historyProvider.getToken().length()));
-		modifiyRedirectPlaceRequestEvent(result, pre);
-		eventBus.fireEvent(pre);
+		return pre;
 	}
 
 	protected void modifiyRedirectPlaceRequestEvent(AuthStatusResultBase result, PlaceRequestEvent pre) {
