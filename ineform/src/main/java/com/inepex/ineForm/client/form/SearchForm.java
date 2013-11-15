@@ -108,7 +108,7 @@ public class SearchForm extends IneForm {
 		return true;
 	}
 	
-	private void doSearch(){
+	public void doSearch(){
 		ineTable.renderTable(false);
 		AssistedObject searchParams =  getSearchParams();
 		if (!isEmpty(searchParams)){
