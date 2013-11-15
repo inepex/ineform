@@ -102,7 +102,7 @@ public class GwtPropHandler extends PropHandler {
 	public String getStringPropFromGroupJson(String key, String json) {
 		if(json == null) return null;
 		JSONObject obj = JSONParser.parseStrict(json).isObject();
-		if(obj != null){
+		if(obj != null && obj.get(key) != null){
 			JSONString value = obj.get(key).isString();
 			if(value != null){
 				return value.stringValue();

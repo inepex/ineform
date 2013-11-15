@@ -296,7 +296,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 					if(strictMatch){
 						search.append(group + "." + key, value);
 					}else{
-						search.append(group + "." + key, Pattern.compile(value+""));
+						search.append(group + "." + key, Pattern.compile(value+"", Pattern.CASE_INSENSITIVE));
 					}
 				}else{
 					search.append(group + "." + key, value);
