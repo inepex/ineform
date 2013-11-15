@@ -157,10 +157,10 @@ public class ${classname}Assist extends Assist {
 			, new StringFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/)
 #elseif($attr.list == true)
 			, new ListFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/
-										, ${attr.fistGenType}Consts.searchDescriptor)
+										, ${attr.fistGenType}Consts.descriptorName)
 #else 
 			, new RelationFDesc(${classname}Consts.s_${attr.name}, /*hc:ds${velocityCount}*/"${attr.nameU1}"/*hc*/
-										, ${attr.type}Consts.searchDescriptor)
+										, ${attr.type}Consts.descriptorName)
 #end
 #end
 #end
