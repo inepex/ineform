@@ -106,12 +106,27 @@ public class PropDao {
 		mapPropGroup(objectToMap, groups);
 	}
 	
+	public void manipulate(String descriptorName, List<Long> ids, Map<String, String> propJson){
+		for(Long id: ids){
+			doCreateOrEdit(descriptorName, id, propJson);
+		}
+		
+	}
+	
 	private void doCreateOrEdit(AssistedObject objectWithChanges){
 		if (getMongoDb() == null || objectWithChanges.getAllPropsJson() == null) return;
 		for (Entry<String, String> entry : objectWithChanges.getAllPropsJson().entrySet()){
 			setProp(objectWithChanges.getDescriptorName(), objectWithChanges.getId(), 
 					entry.getKey(), entry.getValue());
 		}
+	}
+	
+	private void doCreateOrEdit(String descriptorName, Long id, Map<String, String> propJson){
+		if (getMongoDb() == null || propJson == null || propJson.isEmpty()) return;
+		for(String group : propJson.keySet()){
+			setProp(descriptorName, id,	group, propJson.get(group));
+		}
+		
 	}
 	
 	public void mapPropGroup(AssistedObject object, List<String> groups){
