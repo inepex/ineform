@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 import org.bson.BSONObject;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.PropHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectUtil;
 import com.mongodb.BasicDBList;
@@ -308,6 +310,29 @@ public class PropDao {
 		mongoClient.getDB(DB).requestStart();
 		mongoClient.getDB(DB).requestEnsureConnection();
 		getMongoDb().save(doc);
+		mongoClient.getDB(DB).requestDone();
+	}	
+
+	public void deleteProps(String objectType, List<Long> idLists,
+			Map<String, String> propsToDeleteJson) {
+		if (getMongoDb() == null) return;
+		BasicDBObject updateQuery = new BasicDBObject();
+		for(String group : propsToDeleteJson.keySet()){
+			String keyValue = propsToDeleteJson.get(group);
+			BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
+			for(String key : obj.keySet()){
+				Object value = propsToDeleteJson.get(key);
+				updateQuery.append("$unset", new BasicDBObject().append(group + "." + key, value));
+			}
+		}
+		BasicDBObject searchObj = new BasicDBObject(k_objectType, objectType);
+		BasicDBList entityIds = new BasicDBList();
+		entityIds.addAll(idLists);
+		BasicDBObject inClause = new BasicDBObject("$in", entityIds);
+		searchObj.append(k_objectId, inClause);
+		mongoClient.getDB(DB).requestStart();
+		mongoClient.getDB(DB).requestEnsureConnection();
+		getMongoDb().updateMulti(searchObj, updateQuery);
 		mongoClient.getDB(DB).requestDone();
 	}
 	
