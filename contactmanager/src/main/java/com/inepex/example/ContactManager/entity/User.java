@@ -1,5 +1,6 @@
 package com.inepex.example.ContactManager.entity;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -115,5 +116,10 @@ public class User implements AuthUser{
 	
 	public String getLastName() {
 		return lastName;
+	}
+
+	@Override
+	public Map<String, String> getUserJsonProps() {
+		return null;
 	}
 }

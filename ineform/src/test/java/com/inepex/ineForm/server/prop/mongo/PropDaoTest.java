@@ -54,8 +54,6 @@ public class PropDaoTest {
 		
 		List<Long> ids = propDao.findObjectIds(descriptor, "{\"" + group1 + ".onRoad\" : true }");
 		Assert.assertEquals(2, ids.size());
-		
-
 	}
 	
 	private class PropRunnable implements Runnable {

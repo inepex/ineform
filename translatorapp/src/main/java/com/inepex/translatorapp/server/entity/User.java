@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -124,5 +125,10 @@ public class User implements AuthUser{
 	
 	public void setTranslates(List<UserLang> translates) {
 		this.translates = translates;
+	}
+
+	@Override
+	public Map<String, String> getUserJsonProps() {
+		return null;
 	}
 }
