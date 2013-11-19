@@ -315,7 +315,11 @@ public class PropDao {
 
 	public void deleteProps(String objectType, List<Long> idLists,
 			Map<String, String> propsToDeleteJson) {
-		if (getMongoDb() == null) return;
+		if (getMongoDb() == null || 
+			propsToDeleteJson.isEmpty() ||
+			idLists.isEmpty()) {
+			return;
+		}
 		BasicDBObject updateQuery = new BasicDBObject();
 		for(String group : propsToDeleteJson.keySet()){
 			String keyValue = propsToDeleteJson.get(group);
