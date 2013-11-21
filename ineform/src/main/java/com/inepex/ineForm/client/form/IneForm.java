@@ -274,6 +274,22 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	public PanelWidget getRootPanelWidget() {
 		return rootPanel;
 	}
+	
+	/**
+	 * returns first form unit
+	 */
+	public AbstractFormUnit getFormUnit(){
+		return rootPanel.getFormUnits().get(0);
+	}
+	
+	/**
+	 * get form widget from first form unit
+	 * @param key
+	 * @return
+	 */
+	public FormWidget getFormWidget(String key){
+		return getFormUnit().getWidgetByKey(key);
+	}
 
 	public void setCustomCode(CustomCode code) {
 		this.custCode = code;
