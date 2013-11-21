@@ -65,7 +65,10 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	public abstract Class<E> getClazz();
 
 	public abstract E newInstance();
-
+	
+	protected void afterSearch(AbstractSearch action, ObjectListResult res) {
+	}
+	
 	@Transactional
 	public void persistTrans(E entity) {
 		persist(entity);
@@ -275,6 +278,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			}
 			res.setList(objects);
 		}
+		afterSearch(action, res);
 		return res;
 	}
 
