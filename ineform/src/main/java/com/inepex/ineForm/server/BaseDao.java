@@ -69,6 +69,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	protected void afterSearch(AbstractSearch action, ObjectListResult res) {
 	}
 	
+	protected void beforeManipulate(ObjectManipulation action, ObjectManipulationResult result) {
+	}
+	
 	@Transactional
 	public void persistTrans(E entity) {
 		persist(entity);
@@ -170,43 +173,48 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
 		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
-		switch (action.getManipulationType()) {
-		case CREATE_OR_EDIT_REQUEST:
-			try {
-				E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
-				AssistedObject kvo = getMapper().entityToKvo(newState);
+		beforeManipulate(action, result);
+		if (result.getValidationResult() != null && !result.getValidationResult().isValid()){
+			return result;			
+		} else {
+			switch (action.getManipulationType()) {
+			case CREATE_OR_EDIT_REQUEST:
+				try {
+					E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
+					AssistedObject kvo = getMapper().entityToKvo(newState);
+					if (mongoDao != null){
+						mongoDao.manipulate(action.getObject(), kvo, action.getPropGroups());	
+					}
+					result.setObjectsNewState(kvo);
+					break;
+				} catch (PersistenceException e) {
+					if(e.getCause()!=null 
+						&& e.getCause() instanceof DatabaseException 
+						&& e.getCause().getCause()!=null && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+							//device can not be manipulated because devicetype and nativeid is not unique
+							throw new ObjectManipulationException(Reason.ConstraintViolationFailed); 
+					} else
+						throw e;
+				}
+			case DELETE:
+				remove(action.getObject().getId());
 				if (mongoDao != null){
-					mongoDao.manipulate(action.getObject(), kvo, action.getPropGroups());	
+					mongoDao.removeProps(action.getObject().getDescriptorName(), action.getObject().getId());
+				}
+				break;
+			case REFRESH:
+				AssistedObject kvo = findKvoById(getIdFromAction(action));
+				if (mongoDao != null){
+					mongoDao.mapPropGroup(kvo, action.getPropGroups());
 				}
 				result.setObjectsNewState(kvo);
 				break;
-			} catch (PersistenceException e) {
-				if(e.getCause()!=null 
-					&& e.getCause() instanceof DatabaseException 
-					&& e.getCause().getCause()!=null && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-						//device can not be manipulated because devicetype and nativeid is not unique
-						throw new ObjectManipulationException(Reason.ConstraintViolationFailed); 
-				} else
-					throw e;
+			default:
+				throw new Exception("Invalid manipulation type");
 			}
-		case DELETE:
-			remove(action.getObject().getId());
-			if (mongoDao != null){
-				mongoDao.removeProps(action.getObject().getDescriptorName(), action.getObject().getId());
-			}
-			break;
-		case REFRESH:
-			AssistedObject kvo = findKvoById(getIdFromAction(action));
-			if (mongoDao != null){
-				mongoDao.mapPropGroup(kvo, action.getPropGroups());
-			}
-			result.setObjectsNewState(kvo);
-			break;
-		default:
-			throw new Exception("Invalid manipulation type");
+	
+			return result;
 		}
-
-		return result;
 	}
 
 	protected Long getIdFromAction(ObjectManipulation action) {
