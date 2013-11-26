@@ -30,12 +30,20 @@ public class ObjectListAction extends AbstractSearchAction implements Action<Obj
 	}
 
 	public ObjectListAction(String descriptorName) {
-		setDescriptorName(descriptorName); 
+		setDescriptorName(descriptorName);
+		setDefaults();
+	}
+	
+	private void setDefaults(){
+		queryResultCount = false;
+		numMaxResult = 1000;
+		firstResult = 0;
 	}
 	
 	public ObjectListAction(String descriptorName, List<String> propGroups) {
 		setDescriptorName(descriptorName); 
 		this.propGroups = propGroups;
+		setDefaults();
 	}
 	
 	/**
