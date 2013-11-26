@@ -72,6 +72,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	protected void beforeManipulate(ObjectManipulation action, ObjectManipulationResult result) {
 	}
 	
+	protected void afterManipulate(ObjectManipulation action, ObjectManipulationResult result) {
+	}
+	
 	@Transactional
 	public void persistTrans(E entity) {
 		persist(entity);
@@ -212,7 +215,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			default:
 				throw new Exception("Invalid manipulation type");
 			}
-	
+			afterManipulate(action, result);
 			return result;
 		}
 	}
