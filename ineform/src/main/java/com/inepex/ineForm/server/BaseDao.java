@@ -112,6 +112,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	 */
 	public void remove(Long id) {
 		em.get().remove(em.get().find(getClazz(), id));
+		if (mongoDao != null){
+			mongoDao.removeProps(getDescriptorName(), id);
+		}
 	}
 
 	public List<E> find(AbstractSearch action) {
@@ -201,9 +204,6 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 				}
 			case DELETE:
 				remove(action.getObject().getId());
-				if (mongoDao != null){
-					mongoDao.removeProps(action.getObject().getDescriptorName(), action.getObject().getId());
-				}
 				break;
 			case REFRESH:
 				AssistedObject kvo = findKvoById(getIdFromAction(action));
@@ -355,7 +355,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	}
 	
 	public String getDescriptorName(){
-		return this.getClass().getName().replace("Dao", "");
+		return this.getClass().getName().replace("Dao", "") + "Descriptor";
 	}
 
 	public PropDao getMongoDao() {

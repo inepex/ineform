@@ -1,5 +1,8 @@
 package com.inepex.ineom.shared;
 
+import java.util.Map;
+
+
 
 public abstract class PropHandler {
 	
@@ -19,7 +22,26 @@ public abstract class PropHandler {
 	
 	public abstract String getStringPropFromGroupJson(String key, String json);
 	
+	public abstract Map<String, Object> getPropMap(HasProp hasProp, String id);
+	
+	public abstract void setProp(HasProp o, String group, String key, Object value);
+	
 	public static String getStrictMatchKey(String key){
 		return "#" + key;
 	}
+	
+	public void mergeProps(HasProp from, HasProp to) {
+		for(String id : from.getAllPropsJson().keySet()){
+			String toPropsJson = to.getPropsJson(id);
+			if(toPropsJson == null){
+				to.getAllPropsJson().put(id, from.getPropsJson(id));
+			}else{
+				Map<String, Object> propMap = getPropMap(from, id);
+				for(String key : propMap.keySet()){
+					setProp(to, id, key, propMap.get(key));
+				}
+			}
+		}
+	}
+
 }
