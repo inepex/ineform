@@ -9,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
+import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 
 @Singleton
 public class ObjectManipulationHandler implements ActionHandler<ObjectManipulationAction, ObjectManipulationActionResult> {
@@ -22,6 +24,8 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 	
 	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
+	
+	@Inject Provider<SessionScopedAuthStat> authProv;
 	
 	@Inject
 	ObjectManipulationHandler(DaoFinder daoFinder) {
@@ -38,6 +42,13 @@ public class ObjectManipulationHandler implements ActionHandler<ObjectManipulati
 		String descriptorName = action.getObject().getDescriptorName();
 
 //		System.out.printf("Manipulating object type '{}', id '{}'", descriptorName, action.getObject().getId());
+		
+		SessionScopedAuthStat stat = authProv.get();
+		Long userId;
+		synchronized (stat) {
+			userId = stat.getUserId();
+		}
+		action.setExecutingUser(userId);
 		
 		try {
 			ObjectManipulationActionResult result;

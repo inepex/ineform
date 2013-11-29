@@ -29,6 +29,7 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	private Long idToRefresh;
 	private CustomKVOObjectDesc[] customOdescs;
 	private List<String> propGroups = new ArrayList<String>();
+	private Long executingUser;
 	
 	public ObjectManipulationAction() {
 	}
@@ -115,4 +116,13 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	public List<String> getPropGroups() {
 		return propGroups;
 	}
+
+	public Long getExecutingUser() {
+		return executingUser;
+	}
+
+	public void setExecutingUser(Long executingUser) {
+		this.executingUser = executingUser;
+	}
+
 }

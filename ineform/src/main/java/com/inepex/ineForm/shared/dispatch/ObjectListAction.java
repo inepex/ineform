@@ -26,6 +26,8 @@ public class ObjectListAction extends AbstractSearchAction implements Action<Obj
 
 	private List<String> propGroups = new ArrayList<String>();
 	
+	private Long executingUser;
+	
 	public ObjectListAction() {
 	}
 
@@ -71,6 +73,12 @@ public class ObjectListAction extends AbstractSearchAction implements Action<Obj
 		return propGroups;
 	}
 
+	public Long getExecutingUser() {
+		return executingUser;
+	}
 
+	public void setExecutingUser(Long executingUser) {
+		this.executingUser = executingUser;
+	}
 
 }

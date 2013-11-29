@@ -8,10 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;
+import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
@@ -24,6 +26,7 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 
 	private final DaoFinder daoFinder;
 	private CustomActionHandler customActionHandler = null;
+	@Inject Provider<SessionScopedAuthStat> authProv;
 	
 	@Inject
 	ObjectListHandler(DaoFinder daoFinder) {
@@ -38,6 +41,12 @@ public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, Obje
 	public ObjectListActionResult doExecute(ObjectListAction action, ExecutionContext context)
 							throws AuthenticationException, DispatchException {
 		String descriptorName = action.getDescriptorName();
+		SessionScopedAuthStat stat = authProv.get();
+		Long userId;
+		synchronized (stat) {
+			userId = stat.getUserId();
+		}
+		action.setExecutingUser(userId);
 		try {
 			ObjectListActionResult result;
 			if (customActionHandler !=null) {
