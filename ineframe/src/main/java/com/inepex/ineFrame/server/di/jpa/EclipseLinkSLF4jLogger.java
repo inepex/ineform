@@ -33,7 +33,7 @@ public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements Sessio
 		case SEVERE:
 			if(LOG.isErrorEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.error("exeption"+sessionLogEntry.getException());
+					LOG.error("exeption", sessionLogEntry.getException());
 				else
 					LOG.error(formatMessage(sessionLogEntry));
 			}
@@ -41,7 +41,7 @@ public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements Sessio
 		case WARNING:
 			if(LOG.isWarnEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.warn("exeption"+sessionLogEntry.getException());
+					LOG.warn("exeption", sessionLogEntry.getException());
 				else
 					LOG.warn(formatMessage(sessionLogEntry));
 			}
@@ -49,7 +49,7 @@ public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements Sessio
 		case INFO:
 			if(LOG.isInfoEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.info("exeption"+sessionLogEntry.getException());
+					LOG.info("exeption", sessionLogEntry.getException());
 				else
 					LOG.info(formatMessage(sessionLogEntry));
 			}
@@ -57,7 +57,7 @@ public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements Sessio
 		default:
 			if(LOG.isDebugEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.debug("exeption"+sessionLogEntry.getException());
+					LOG.debug("exeption", sessionLogEntry.getException());
 				else
 					LOG.debug(formatMessage(sessionLogEntry));
 			}
