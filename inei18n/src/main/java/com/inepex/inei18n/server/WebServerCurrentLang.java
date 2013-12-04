@@ -9,7 +9,7 @@ import com.google.inject.Singleton;
 import com.inepex.inei18n.shared.CurrentLang;
 
 @Singleton
-public class WebServerCurrentLang implements CurrentLang {
+public class WebServerCurrentLang extends CurrentLang {
 	
 	private final static Logger logger = LoggerFactory.getLogger(WebServerCurrentLang.class);
 	

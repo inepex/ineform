@@ -6,13 +6,13 @@ package com.inepex.inei18n.shared;
  * @author istvan
  *
  */
-public interface CurrentLang {
+public abstract class CurrentLang {
 	
-	public static final String DEFAULT_LANG = "en";
+	public static String DEFAULT_LANG = "en";
 	
-	String getCurrentLang();
-	void setSessionLang(String lang);
+	public abstract String getCurrentLang();
+	public abstract void setSessionLang(String lang);
 	
-	void setLangOverride(String langOverride);
-	void resetLangOverride();
+	public abstract void setLangOverride(String langOverride);
+	public abstract void resetLangOverride();
 }

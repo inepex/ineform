@@ -3,7 +3,7 @@ package com.inepex.ineFrame.server;
 import com.inepex.inei18n.shared.CurrentLang;
 
 
-public class MockCurrentLang implements CurrentLang {
+public class MockCurrentLang extends CurrentLang {
 	String overriddenLang = null;
 	@Override
 	public void setLangOverride(String langOverride) {
