@@ -235,5 +235,10 @@ public class NumberTextBoxFW extends DenyingFormWidget {
 	public void setNegativeNumEnabled() {
 		this.negativeNumEnabled  = true;
 	}
+	
+	@Override
+	public boolean handlesString() {
+		return true;
+	}
     
 }
