@@ -240,5 +240,10 @@ public class NumberTextBoxFW extends DenyingFormWidget {
 	public boolean handlesString() {
 		return true;
 	}
+	
+	@Override
+	public void setFocus(boolean focused) {
+		textBox.setFocus(focused);
+	}
     
 }
