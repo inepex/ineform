@@ -16,7 +16,16 @@ public class PhoneNumberLogic {
 		if(value==null || value.length()==0)
 			return null;
 		
-		String[] parts = value.split("["+PART_SEPARATOR+"]");
+		String[] parts;
+		if(value.matches("\\+([0-9]){11,14}")) {
+			parts = new String[]{
+					value.substring(0, 3),
+					value.substring(3, 5),
+					value.substring(5)};
+		} else {
+			parts=value.split("["+PART_SEPARATOR+"]");
+		}
+		
 		if(!parts[0].startsWith(PLUS_SIGN))
 			return null;
 		
