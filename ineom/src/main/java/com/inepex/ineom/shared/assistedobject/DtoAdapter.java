@@ -159,6 +159,11 @@ public abstract class DtoAdapter extends AssistedObject {
 	public void setUnchecked(String key, Boolean value) {
 		set(key, value);
 	}
+	
+	@Override
+	public void setUnchecked(String key, Double value) {
+		set(key, value);
+	}
 
 	@Override
 	public Boolean getBooleanUnchecked(String key) {

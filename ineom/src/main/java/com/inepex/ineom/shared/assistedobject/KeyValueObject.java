@@ -192,6 +192,11 @@ public class KeyValueObject extends AssistedObject {
 	}
 	
 	@Override
+	public void setUnchecked(String key, Double value) {
+		doubleValues.put(key, value);
+	}
+	
+	@Override
 	public void setUnchecked(String key, Boolean value) {
 		booleanValues.put(key, value);
 	}
@@ -425,5 +430,4 @@ public class KeyValueObject extends AssistedObject {
 	public Map<String, String> getAllPropsJson() {
 		return propJsons;
 	}
-
 }
