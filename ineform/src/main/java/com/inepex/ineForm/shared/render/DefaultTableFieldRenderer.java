@@ -153,15 +153,35 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 	
 				// Crop result
 				int usingCropsLeng = colRdesc.getCropWidth();
-				if (usingCropsLeng != 0) {
-					result = result.length() > usingCropsLeng ? result.substring(
-							0, usingCropsLeng) + "..." : result;
-				}
+				int whiteSpaceCropsLeng = colRdesc.getWithSpaceCropWidth();
+				result = cropText(usingCropsLeng, whiteSpaceCropsLeng, result);
 				return result;
 				
 			} catch (Exception e) {
 				logException(e, key);
 				return "";
+			}
+		}
+	}
+	
+	private String cropText(int usingCropsLeng, int whiteSpaceCropsLeng, String text){
+		if(text.contains(" ")){
+			if(whiteSpaceCropsLeng == 0 && usingCropsLeng != 0){
+				return text.length() > usingCropsLeng ? text.substring(
+						0, usingCropsLeng) + "..." : text;
+			}else if(whiteSpaceCropsLeng != 0){
+				return text.length() > whiteSpaceCropsLeng ? text.substring(
+						0, whiteSpaceCropsLeng) + "..." : text;
+			}else{
+				return text;
+			}
+		}else{
+			if(usingCropsLeng != 0 || whiteSpaceCropsLeng != 0){
+				int crop = usingCropsLeng == 0 ? whiteSpaceCropsLeng : usingCropsLeng; 
+				return text.length() > crop ? text.substring(
+						0, crop) + "..." : text;
+			}else{
+				return text;
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public class ColRDesc extends TableRDescBase {
 	public static final String AS_FRACTIALDIGITCOUNT = "AS_SHOWFRACTIAL";
 	public static final String AS_GROUPTHOUSANDS = "AS_GROUPTHOUSANDS";
 	public static final String AS_FORMATTEDDOUBLE = "AS_FORMATTEDDOUBLE";
+	public static final String CROP_WITH_SPACE = "CROP_WITH_SPACE";
 	/**
 	 * display as checkbox
 	 */
@@ -121,6 +122,16 @@ public class ColRDesc extends TableRDescBase {
 		return cropWidth;
 	}
 	
+	public Integer getWithSpaceCropWidth() {
+		String prop = getPropValue(CROP_WITH_SPACE);
+		if(prop == null) return 0;
+		try {
+			return Integer.parseInt(prop);
+		} catch (Exception e) {
+			return 0;
+		} 
+	}
+
 	public int getColumnWidth() {
 		return columnWidth;
 	}
@@ -134,6 +145,18 @@ public class ColRDesc extends TableRDescBase {
 	 */
 	public ColRDesc cropWidth(int customCorpsWidth) {
 		this.cropWidth = customCorpsWidth;
+		return this;
+	}
+	
+	/**
+	 * Sets how many characters is the maximum that can be rendered if there is space in the text in a specific column. Default is DEF_CROP_WIDTH.
+	 * If set to 0, than the string will not be cropped at all.
+	 * 
+	 * @param customCorpsWidth
+	 * @return
+	 */
+	public ColRDesc withSpaceCropWidth(int customCorpsWidth) {
+		addProp(CROP_WITH_SPACE, customCorpsWidth+"");
 		return this;
 	}
 	
