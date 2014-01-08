@@ -321,6 +321,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		@Override
 		public void onSuccess(ObjectListResult result) {	
 			if(result.isSuccess()){
+				setIdsIfNotSet(result);
 				updateLastResult(result);			
 				updateDisplayToLastResult();
 			}
@@ -332,6 +333,18 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 			
 			if (callback != null)
 				callback.ready();
+		}
+		
+		/**
+		 * without ids, table commands won't work
+		 */
+		private void setIdsIfNotSet(ObjectListResult result){
+			if (result.getList() != null) {
+				long counter = 0L;
+				for (AssistedObject ao : result.getList()){
+					ao.setId(counter++);
+				}
+			}
 		}
 		
 		
