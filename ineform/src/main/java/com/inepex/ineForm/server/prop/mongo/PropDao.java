@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Pattern;
 
 import org.bson.BSONObject;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.inepex.ineom.shared.IFConsts;
-import com.inepex.ineom.shared.PropHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectUtil;
 import com.mongodb.BasicDBList;
@@ -50,8 +48,8 @@ public class PropDao {
 		this.mongoUrl = mongoUrl;
 		this.mongoUser = mongoUser;
 		this.mongoPass = mongoPass;
-//		System.setProperty("DEBUG.MONGO", "true");
-//		System.setProperty("DB.TRACE", "true");
+		System.setProperty("DEBUG.MONGO", "true");
+		System.setProperty("DB.TRACE", "true");
 	}
 	
 	private DBCollection getMongoDb(){
