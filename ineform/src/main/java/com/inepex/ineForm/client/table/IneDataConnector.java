@@ -342,7 +342,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 			if (result.getList() != null) {
 				long counter = 0L;
 				for (AssistedObject ao : result.getList()){
-					ao.setId(counter++);
+					if (ao.getId() == null) {
+						ao.setId(counter++);
+					}
 				}
 			}
 		}
