@@ -43,4 +43,6 @@ public interface SaveCancelFormView extends IsWidget{
 	public void setFormValidationSuccess(boolean isSuccess);
 
 	public void dataReseted();
+	
+	public void forceLoadingOnSaveBtn(boolean loading);
 }

@@ -323,4 +323,8 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 			AfterUnsuccessfulSaveEvent.Handler handler) {
 		return addAfterUnsuccesfulSaveHandler(handler);
 	}
+	
+	public void forceLoadingOnSaveBtn(boolean loading){
+		view.forceLoadingOnSaveBtn(loading);
+	}
 }
