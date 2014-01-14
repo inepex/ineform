@@ -290,6 +290,15 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	public FormWidget getFormWidget(String key){
 		return getFormUnit().getWidgetByKey(key);
 	}
+	
+	/**
+	 * work only for first form unit
+	 * @param key
+	 * @param visible
+	 */
+	public void setFWVisible(String key, boolean visible){
+		getFormUnit().setFWVisible(key, visible);
+	}
 
 	public void setCustomCode(CustomCode code) {
 		this.custCode = code;
