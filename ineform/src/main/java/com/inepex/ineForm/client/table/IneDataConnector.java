@@ -12,6 +12,7 @@ import com.inepex.ineForm.client.datamanipulator.events.KeyValueObjectListModifi
 import com.inepex.ineForm.client.table.ServerSideDataConnector.DataConnectorReadyCallback;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
@@ -342,7 +343,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 			if (result.getList() != null) {
 				long counter = 0L;
 				for (AssistedObject ao : result.getList()){
-					if (ao.getId() == null) {
+					if (ao.getId() == null || ao.getId() == IFConsts.NEW_ITEM_ID) {
 						ao.setId(counter++);
 					}
 				}
