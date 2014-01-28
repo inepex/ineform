@@ -69,7 +69,8 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	protected void afterSearch(AbstractSearch action, ObjectListResult res) {
 	}
 	
-	protected void beforeManipulate(ObjectManipulation action, ObjectManipulationResult result) {
+	protected boolean beforeManipulate(ObjectManipulation action, ObjectManipulationResult result) throws Exception {
+		return true;
 	}
 	
 	protected void afterManipulate(ObjectManipulation action, ObjectManipulationResult result) {
@@ -179,7 +180,8 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
 		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
-		beforeManipulate(action, result);
+		boolean continuemanipulation = beforeManipulate(action, result);
+		if(!continuemanipulation) return result;
 		if (result.getValidationResult() != null && !result.getValidationResult().isValid()){
 			return result;			
 		} else {
