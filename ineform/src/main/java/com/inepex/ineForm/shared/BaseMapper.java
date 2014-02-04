@@ -35,5 +35,18 @@ public abstract class BaseMapper<E> {
 		}
 		return result;
 	}	
+	
+	public ArrayList<AssistedObject> entityListToKvoList(List<E> entityList, boolean addId){
+		ArrayList<AssistedObject> result = new ArrayList<AssistedObject>();
+		Long id = 0l;
+		for (E o: entityList){
+			AssistedObject kvo = entityToKvo(o);
+			if(addId){
+				kvo.setId(id++);
+			}
+			result.add(kvo);
+		}
+		return result;
+	}	
 
 }
