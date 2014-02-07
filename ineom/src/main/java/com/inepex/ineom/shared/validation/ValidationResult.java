@@ -76,6 +76,11 @@ public class ValidationResult implements Serializable, IsSerializable {
 		this.isValid = isValid;
 	}
 	
+	public ValidationResult setValidAndRet(boolean isValid) {
+		this.isValid = isValid;
+		return this;
+	}
+	
 	public List<String> getGeneralErrors() {
 		return generalErrors;
 	}
