@@ -180,6 +180,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	@Transactional
 	public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
 		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
+		beforeManipulate(action, result);
 		if (result.getValidationResult() != null && !result.getValidationResult().isValid()){
 			return result;			
 		} else {
