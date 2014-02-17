@@ -389,8 +389,7 @@ public abstract class AbstractIneTable {
 		}
 
 	}
-
-	@SuppressWarnings("unused") 
+ 
 	protected Header<String> createHeader(
 			boolean sortable,
 			String text,
