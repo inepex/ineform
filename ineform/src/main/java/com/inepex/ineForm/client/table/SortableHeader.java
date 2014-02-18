@@ -20,6 +20,7 @@ import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
+import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;

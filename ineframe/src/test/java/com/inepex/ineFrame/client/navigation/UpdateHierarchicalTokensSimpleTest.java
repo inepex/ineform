@@ -1,7 +1,6 @@
 package com.inepex.ineFrame.client.navigation;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 

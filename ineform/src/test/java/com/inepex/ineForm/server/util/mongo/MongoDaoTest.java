@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.inepex.ineForm.server.prop.mongo.PropDao;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;

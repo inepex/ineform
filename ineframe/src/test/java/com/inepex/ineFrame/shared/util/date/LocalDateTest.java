@@ -1,9 +1,10 @@
 package com.inepex.ineFrame.shared.util.date;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class LocalDateTest {

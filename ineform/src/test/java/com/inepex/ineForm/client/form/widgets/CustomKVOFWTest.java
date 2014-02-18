@@ -1,10 +1,7 @@
 package com.inepex.ineForm.client.form.widgets;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 import junit.framework.Assert;
 
 import org.junit.After;

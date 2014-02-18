@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.BooleanFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.DoubleFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
@@ -15,9 +16,8 @@ import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
 public class KVOTest {
 	

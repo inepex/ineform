@@ -20,7 +20,6 @@ import com.inepex.ineom.server.DescStoreCreator;
 import com.inepex.ineom.server.JavaJsonDifference;
 import com.inepex.ineom.server.JavaPropHandler;
 import com.inepex.ineom.server.MultiLangDescStore;
-import com.inepex.ineom.shared.GwtJsonDifference;
 import com.inepex.ineom.shared.JsonDifference;
 import com.inepex.ineom.shared.PropHandler;
 import com.inepex.ineom.shared.descriptorstore.ClientDescStoreCreator;

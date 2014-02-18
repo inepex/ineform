@@ -2,8 +2,8 @@ package com.inepex.ineFrame.client.misc;
 
 import java.util.List;
 
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
  * this abstract class is for manage handlerregistrations (auto remove on detach)

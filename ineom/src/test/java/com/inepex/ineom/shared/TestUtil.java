@@ -5,15 +5,15 @@ import junit.framework.Assert;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
+import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.ListFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
-import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
+import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
 public class TestUtil {
 	

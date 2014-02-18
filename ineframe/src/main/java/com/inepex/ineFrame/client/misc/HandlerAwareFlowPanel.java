@@ -2,8 +2,8 @@ package com.inepex.ineFrame.client.misc;
 
 import java.util.List;
 
-import com.google.web.bindery.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
 public class HandlerAwareFlowPanel extends FlowPanel {
     private List<HandlerRegistration> handlerRegistrations = new java.util.ArrayList<HandlerRegistration>(5);

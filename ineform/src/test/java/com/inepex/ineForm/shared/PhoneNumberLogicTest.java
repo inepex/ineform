@@ -1,7 +1,8 @@
 package com.inepex.ineForm.shared;
 
-import org.junit.Test;
 import static junit.framework.Assert.*;
+
+import org.junit.Test;
 
 public class PhoneNumberLogicTest {
 
