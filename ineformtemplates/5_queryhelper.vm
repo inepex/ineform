@@ -43,8 +43,14 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 		, CriteriaBuilder cb
 		, Root<${classname}> from
 		, Expression<Boolean> base){
-			
+
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})	
 		${classname}SearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
+		#break
+#end
+#end
+		
 #foreach( $attr in $attrs )
 #if(${attr.hasAnnotation("Kvo_SearchParam")})
 #if($attr.type == "Date" || $attr.type == "Long")
@@ -125,7 +131,14 @@ public class ${classname}Query extends BaseQuery<${classname}>{
 #end				
 		}
 		Expression<?> orderExpr = null;
+#foreach( $attr in $attrs )			
+#if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic
+	&& $attr.type != "Date" && $attr.type != "Long" && $attr.type != "String" && $attr.type != "Double" && $attr.type != "Boolean"
+	&& !$attr.enum && !$attr.hasAnnotation("Transient") && $attr.type!='CustomKVO')		
 		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
+	#break
+#end
+#end
 			
 #foreach( $attr in $attrs )			
 #if(!$attr.hasAnnotation("Kvo_Transparent") && !$attr.static && !$attr.generic
