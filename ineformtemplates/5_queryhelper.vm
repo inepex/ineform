@@ -27,14 +27,24 @@ import ${package}.kvo.${classname}HandlerFactory.${classname}SearchHandler;
 
 public class ${classname}Query extends BaseQuery<${classname}>{
 
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
 	private final ${classname}HandlerFactory handlerFactory;
+	#break
+#end
+#end
 	
 	private final DescriptorStore descriptorStore;
 	
 	@Inject
 	public ${classname}Query(DescriptorStore descriptorStore) {
 		this.descriptorStore = descriptorStore;
+#foreach( $attr in $attrs )
+#if(${attr.hasAnnotation("Kvo_SearchParam")})
 		this.handlerFactory= new ${classname}HandlerFactory(descriptorStore);
+	#break
+#end
+#end
 	}
 	
 	@Override
