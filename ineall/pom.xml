@@ -19,13 +19,13 @@
 	</modules>
 
 	<properties>
-		<gwtVersion>2.5.1</gwtVersion>
+		<gwtVersion>2.6.0</gwtVersion>
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.9.0</mockitoVersion>
 		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
-		<ginVersion>2.0.0</ginVersion>
+		<ginVersion>2.1.2</ginVersion>
 		<guiceVersion>3.0</guiceVersion>
-		<gwtDndVersion>3.1.1</gwtDndVersion>
+		<gwtDndVersion>3.3.0</gwtDndVersion>
 		<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
 		<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
 		<commonsIoVersion>2.0.1</commonsIoVersion>
@@ -42,7 +42,7 @@
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
 		<jukitoVersion>1.1</jukitoVersion>
-		<googleGuavaVersion>13.0.1</googleGuavaVersion>
+		<googleGuavaVersion>16.0.1</googleGuavaVersion>
 		<buildHelperVersion>1.7</buildHelperVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumberVersion>1.1</buildNumberVersion>

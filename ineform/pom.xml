@@ -105,7 +105,7 @@
 			<version>${guiceVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.allen_sauer.gwt.dnd</groupId>
+			<groupId>com.allen-sauer.gwt.dnd</groupId>
 			<artifactId>gwt-dnd</artifactId>
 			<version>${gwtDndVersion}</version>
 		</dependency>
