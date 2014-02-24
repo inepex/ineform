@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<gwtVersion>2.5.1</gwtVersion>
+		<gwtVersion>2.6.0</gwtVersion>
 		<slf4j.version>1.6.6</slf4j.version>
 		<ineformVersion>1.0.18</ineformVersion>
 		<draftCompile>true</draftCompile>
