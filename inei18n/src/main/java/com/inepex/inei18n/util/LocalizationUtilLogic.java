@@ -97,12 +97,12 @@ public class LocalizationUtilLogic {
 		return converter.getLocalizablesMap();
 	}
 
-	public void generateHelperForEnums(List<Class<Enum<?>>> enums) {
+	public void generateHelperForEnums(List<Class<?>> enums) {
 		if(enums==null || enums.size()==0)
 			return;
 		
 		List<EnumI18nExtractor.EnumClassWithPostfix> enumList = new ArrayList<EnumI18nExtractor.EnumClassWithPostfix>(enums.size());
-		for(Class<Enum<?>> e : enums)
+		for(Class<?> e : enums)
 			enumList.add(new EnumI18nExtractor.EnumClassWithPostfix(e));
 
 		EnumI18nExtractor.generateI18nAccessHelpersForEnums(Thread
