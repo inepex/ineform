@@ -94,5 +94,10 @@ public class FWTypes implements Serializable, IsSerializable {
 	public boolean isRenderIntoTwoColumn() {
 		return renderIntoTwoColumn;
 	}
+
+	@Override
+	public String toString() {
+		return "FWTypes [typeName=" + typeName + "]";
+	}
 	
 }
