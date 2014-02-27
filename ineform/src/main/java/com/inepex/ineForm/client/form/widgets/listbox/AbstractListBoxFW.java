@@ -43,7 +43,7 @@ public class AbstractListBoxFW extends DenyingFormWidget {
 			
 			@Override
 			public void onChange(ChangeEvent event) {
-				fireFormWidgetChanged();
+				fireFormWidgetChanged(true);
 			}
 		}));
 	}

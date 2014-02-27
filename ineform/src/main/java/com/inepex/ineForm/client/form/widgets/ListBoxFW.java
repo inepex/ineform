@@ -50,13 +50,13 @@ public class ListBoxFW extends AbstractListBoxFW {
 	}
 	
 	@Override
-	protected void fireFormWidgetChanged() {
+	protected void fireFormWidgetChanged(boolean changeEnd) {
 		int selected = getListBox().getSelectedIndex();
 		
 		if(selected==-1 || selected==0 &&  allowsNull) value = null;
 		else value = new Relation(Long.parseLong(getListBox().getValue(selected)), getListBox().getItemText(selected));
 		
-		super.fireFormWidgetChanged();
+		super.fireFormWidgetChanged(changeEnd);
 	}
 	
 	public void reLoadListAndKeepSelectedOrSetToNull() {

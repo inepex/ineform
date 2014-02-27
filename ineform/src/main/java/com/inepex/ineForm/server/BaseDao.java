@@ -66,6 +66,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 
 	public abstract E newInstance();
 	
+	protected void beforeSearch(AbstractSearch action, ObjectListResult result){
+	}
+	
 	protected void afterSearch(AbstractSearch action, ObjectListResult res) {
 	}
 	
@@ -273,25 +276,31 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			SelectorCustomizer customizer) {
 		ObjectListResult res = objectFactory.getNewObjectListResult();
 		res.setDescriptorName(action.getDescriptorName());
-		if (action.isQueryResultCount()) {
-			res.setAllResultCount(count(action, customizer, useDefaultQuery));
-		}
-		if (action.getNumMaxResult() > 0){
-			List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, 
-																			    customizer, 
-																			    useDefaultQuery, 
-																			    useDefaultOrder));
-			if (mongoDao != null) {
-				filterByProps(objects, action);
-				if(objects.size() > 0){
-					mongoDao.mapPropGroups(objects, action.getPropGroups());
-				}
-
+		beforeSearch(action, res);
+		if (res.isSuccess() != null && !res.isSuccess()){
+			afterSearch(action, res);
+			return res;			
+		} else {
+			if (action.isQueryResultCount()) {
+				res.setAllResultCount(count(action, customizer, useDefaultQuery));
 			}
-			res.setList(objects);
+			if (action.getNumMaxResult() > 0){
+				List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, 
+																				    customizer, 
+																				    useDefaultQuery, 
+																				    useDefaultOrder));
+				if (mongoDao != null) {
+					filterByProps(objects, action);
+					if(objects.size() > 0){
+						mongoDao.mapPropGroups(objects, action.getPropGroups());
+					}
+	
+				}
+				res.setList(objects);
+			}
+			afterSearch(action, res);
+			return res;
 		}
-		afterSearch(action, res);
-		return res;
 	}
 
 	private void filterByProps(List<AssistedObject> objects,

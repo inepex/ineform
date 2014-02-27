@@ -27,6 +27,8 @@ public class SearchForm extends IneForm {
 	private IneTable ineTable;
 	
 	private IneDataConnector dataConnector;
+	
+	private boolean buttonsDisplayed = true;
 
 	/**
 	 * a SimpleTableForm with a search and reset button...  
@@ -136,6 +138,11 @@ public class SearchForm extends IneForm {
 	private void resetFieldsAndSendSearch(){
 		searchForm.resetValuesToEmpty();
 		setSearchParamsForDataConnector(searchForm.getInitialOrEmptyData());
+	}
+
+	public void setButtonsDisplayed(boolean buttonsDisplayed) {
+		this.buttonsDisplayed = buttonsDisplayed;
+		buttons.setVisible(buttonsDisplayed);
 	}
 
 }
