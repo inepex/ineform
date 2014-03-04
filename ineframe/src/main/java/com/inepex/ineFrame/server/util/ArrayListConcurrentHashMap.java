@@ -84,4 +84,8 @@ public class ArrayListConcurrentHashMap<T, K> {
 	public boolean isEmpty() {
 		return map.isEmpty();
 	}
+
+	public int size() {
+		return map.size();
+	}
 }
