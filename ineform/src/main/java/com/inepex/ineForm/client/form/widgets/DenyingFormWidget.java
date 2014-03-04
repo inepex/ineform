@@ -44,10 +44,20 @@ public abstract class DenyingFormWidget extends FormWidget {
 	}
 
 	@Override
+	public boolean handlesString() {
+		return false;
+	}
+	
+	@Override
 	public String getStringValue() {
 		return null;
 	}
 
+	@Override
+	public void setStringValue(String value) {
+
+	}
+	
 	@Override
 	public boolean handlesBoolean() {
 		return false;
@@ -70,11 +80,6 @@ public abstract class DenyingFormWidget extends FormWidget {
 
 	@Override
 	public boolean handlesRelation() {
-		return false;
-	}
-
-	@Override
-	public boolean handlesString() {
 		return false;
 	}
 
@@ -115,11 +120,6 @@ public abstract class DenyingFormWidget extends FormWidget {
 
 	@Override
 	public void setRelationValue(Relation value) {
-
-	}
-
-	@Override
-	public void setStringValue(String value) {
 
 	}
 	
