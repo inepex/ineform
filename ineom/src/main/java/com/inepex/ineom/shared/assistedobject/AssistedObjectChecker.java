@@ -74,6 +74,11 @@ public class AssistedObjectChecker {
 		checker.checkDescriptorCheckKey(key, IneT.STRING);
 		assistedObject.set(key, value);
 	}
+	
+	public void unSetString(String key) {
+		checker.checkDescriptorCheckKey(key, IneT.STRING);
+		assistedObject.unsetField(key);
+	}
 
 	public Boolean getBoolean(String key) {
 		checker.checkDescriptorCheckKey(key, IneT.BOOLEAN);

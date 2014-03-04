@@ -150,6 +150,16 @@ public class KeyValueObject extends AssistedObject {
 	protected void set(String key, String value) {
 		stringValues.put(key, value);
 	}
+	
+	@Override
+	protected void unsetField(String key) {
+		booleanValues.remove(key);
+		doubleValues.remove(key);
+		listValues.remove(key);
+		longValues.remove(key);
+		relationValues.remove(key);
+		stringValues.remove(key);
+	}
 
 	@Override
 	protected Boolean getBoolean(String key) {

@@ -34,6 +34,8 @@ public abstract class AssistedObject implements Serializable, IsSerializable, Ha
 	protected abstract void set(String key, Relation value);
 
 	protected abstract void set(String key, String value);
+	
+	protected abstract void unsetField(String key);
 
 	/******** GET methods ********/
 	protected abstract Boolean getBoolean(String key);
