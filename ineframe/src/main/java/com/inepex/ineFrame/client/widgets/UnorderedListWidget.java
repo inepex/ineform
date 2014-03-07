@@ -27,6 +27,7 @@ public class UnorderedListWidget extends ComplexPanel implements HasClickHandler
 		((UListElement) getElement().cast()).setDir(dir);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void add(Widget w)
 	{
