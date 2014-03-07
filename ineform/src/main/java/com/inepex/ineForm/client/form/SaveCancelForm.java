@@ -88,8 +88,8 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 	
 	private IneDataConnector ineDataConnector;
 	
-	private AssistedObject originalData;
-	private AssistedObject kvo;
+	protected AssistedObject originalData;
+	protected AssistedObject kvo;
 	
 	public enum ValidateMode {
 		ALL, PARTIAL, NONE;
