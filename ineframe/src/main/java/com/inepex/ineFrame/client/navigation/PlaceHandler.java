@@ -372,4 +372,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 		event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createSameLevelMenuToken(currentFullToken, subMenuTokens));
 		return event;
 	}
+
+	public PlaceHierarchyProvider getPlaceHierarchyProvider() {
+		return placeHierarchyProvider;
+	}
+	
 }
