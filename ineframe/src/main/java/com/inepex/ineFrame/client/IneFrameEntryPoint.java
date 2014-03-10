@@ -56,9 +56,9 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	
 	protected final DescriptorStore descStore;
 
-	private final QueryCounter queryCounter = new QueryCounter();
+	protected final QueryCounter queryCounter = new QueryCounter();
 	
-	private final HistoryProvider historyProvider;
+	protected final HistoryProvider historyProvider;
 	
 	private IneDispatch dispatch;
 	
@@ -113,7 +113,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		getIneDispatch().execute(getDescriptorStore, new GetDescriptorStoreCallback());
 	}
 
-	private void queryI18nAndInvokeOnIneModuleLoad(boolean loadLangFromCookie) {
+	protected void queryI18nAndInvokeOnIneModuleLoad(boolean loadLangFromCookie) {
 		queryCounter.incQueries();
 		
 		// query i18n		
@@ -122,14 +122,14 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		getIneDispatch().execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
 	}
 	
-	private IneDispatch getIneDispatch(){
+	protected IneDispatch getIneDispatch(){
 		if (dispatch == null)
 			dispatch = new IneDispatch(dispatchAsync, new InitialStatusIndicator(), eventBus,
 				new DefaultFailedHandler());
 		return dispatch;
 	}
 	
-	private class GetDescriptorStoreCallback extends SuccessCallback<GetDescStoreResult>{
+	protected class GetDescriptorStoreCallback extends SuccessCallback<GetDescStoreResult>{
 		@Override
 		public void onSuccess(GetDescStoreResult result) {
 			registerDescriptors(Marker.precached, result);
@@ -141,7 +141,11 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		}
 	}
 
-	private class I18nCallback extends SuccessCallback<GetI18nModulesAndSetCurrentLangFromCookieResult> {
+	protected class I18nCallback extends SuccessCallback<GetI18nModulesAndSetCurrentLangFromCookieResult> {
+		
+		public I18nCallback() {
+		}
+		
 		@Override
 		public void onSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
 			clientI18nStore.onModulesQueriedSuccess(result);
@@ -168,7 +172,11 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		}
 	}
 
-	class InitialStatusIndicator extends SimpleFailureStatusIndicator {
+	protected class InitialStatusIndicator extends SimpleFailureStatusIndicator {
+		
+		public InitialStatusIndicator() {
+		}
+		
 		@Override
 		protected void onAnyFailure(String message) {
 			Window.alert("IneFormEntryPoint:InitialStatusIndicator:"+message);
@@ -191,7 +199,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		}
 	}
 	
-	private class QueryCounter{
+	protected class QueryCounter{
 		private int queryCounter = 0;
 		
 		public QueryCounter() {
