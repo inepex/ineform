@@ -103,5 +103,10 @@ public class AssistedObjectBuilderFactoryBase{
 			propHandler.setProp(ao.getAssistedObject(), group, key, value);
 			return object;
 		}
+		
+		public T prop(String group, String key, Boolean value){
+			propHandler.setProp(ao.getAssistedObject(), group, key, value);
+			return object;
+		}
 	}
 }
