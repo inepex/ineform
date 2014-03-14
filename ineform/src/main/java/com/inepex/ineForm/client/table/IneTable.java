@@ -95,4 +95,9 @@ public class IneTable extends AbstractIneTable implements IsWidget {
 	public Widget asWidget() {
 		return mainPanel;
 	}
+
+	public FlowPanel getMainPanel() {
+		return mainPanel;
+	}
+	
 }
