@@ -97,7 +97,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 	}
 	
 	private void printLoadTimeAndCallModuleLoad(){
-		if (!GWT.isProdMode())
+		if (!GWT.isProdMode() && !Window.Navigator.getUserAgent().contains("IE") )
 		{
 			long appLoadTimeMillis = System.currentTimeMillis() - new Double(getNavigationStartTime()).longValue();		
 			System.out.println("App loaded in " + appLoadTimeMillis + " ms");
