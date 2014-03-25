@@ -17,6 +17,7 @@ import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import com.inepex.ineForm.server.prop.mongo.PropDao;
 import com.inepex.ineForm.shared.BaseMapper;
+import com.inepex.ineForm.shared.IneformAsyncCallback;
 import com.inepex.ineForm.shared.ObjectManipulationException;
 import com.inepex.ineForm.shared.ObjectManipulationException.Reason;
 import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;

@@ -1,6 +1,7 @@
 package com.inepex.ineForm.server;
 
 
+import com.inepex.ineForm.shared.IneformAsyncCallback;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;

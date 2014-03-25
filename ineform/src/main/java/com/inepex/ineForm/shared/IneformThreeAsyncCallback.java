@@ -1,4 +1,5 @@
-package com.inepex.ineForm.server;
+package com.inepex.ineForm.shared;
+
 
 public abstract class IneformThreeAsyncCallback <First, Second, Third> {
 
