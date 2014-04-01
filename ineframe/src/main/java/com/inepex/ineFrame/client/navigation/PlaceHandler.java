@@ -236,7 +236,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 				if(needWindowReload) {
 					connectionFailedHandler.shutdown();
 					Window.Location.reload();			
-				} else {			
+				} else {
+					eventBus.fireEvent(new PlaceChangedEvent(currentFullToken));
 					if (specificAdjustPlaceShouldReturn(place))
 						return;
 					Document.get().setTitle(NavigationProperties.defaultWindowTitle);					
