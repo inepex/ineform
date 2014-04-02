@@ -7,7 +7,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class AnalyticsHandler implements PlaceChangedHandler {
 
-	private boolean accountSet = false;
+	private String accountId;
+	private String universalAccountId;
 	
 	@Inject
 	public AnalyticsHandler(EventBus eventBus) {
@@ -16,14 +17,17 @@ public class AnalyticsHandler implements PlaceChangedHandler {
 
 	@Override
 	public void onPlaceChange(PlaceChangedEvent e) {
-		if (!accountSet) {
-			return;
-		}
-		trackPageview(e.getTokenWithoutParams());
+		if (accountId != null) 	trackPageview(e.getTokenWithoutParams());
+		if (universalAccountId != null) trackUniversalPageview(e.getTokenWithoutParams());
+	}
+	
+	public void setUniversalAnalyticsAccount(String accountId){
+		this.universalAccountId = accountId;
+		setUniversalAccount(accountId);
 	}
 	
 	public void setAccount(String accountId){
-		accountSet = true;
+		this.accountId = accountId;
 		setAnalyticsAccount(accountId);
 	}
 	
@@ -34,5 +38,13 @@ public class AnalyticsHandler implements PlaceChangedHandler {
 	
 	public native void trackPageview(String page) /*-{
 	$wnd._gaq.push([ '_trackPageview', page ]);
+	}-*/;
+	
+	private native void setUniversalAccount(String accountId) /*-{
+	$wnd.ga('create', accountId, 'auto');
+	}-*/;
+	
+	public native void trackUniversalPageview(String page) /*-{
+	$wnd.ga('send', 'pageview', page);
 	}-*/;
 }
