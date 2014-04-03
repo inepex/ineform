@@ -11,6 +11,14 @@ public class PlaceToken {
 		this.token = token;
 	}
 	
+	/**
+	 * short form for appendChild
+	 * @return
+	 */
+	public PlaceToken cld(String childToken){
+		return appendChild(childToken);
+	}
+	
 	public PlaceToken appendChild(String childToken){
 		token = PlaceHandlerHelper.appendChild(token, childToken);
 		return this;
