@@ -743,5 +743,10 @@ public abstract class AbstractIneTable {
 
 	public IneDataConnector getDataConnector() {
 		return dataConnector;
+	}
+
+	public boolean isRendered() {
+		return rendered;
 	}	
+	
 }
