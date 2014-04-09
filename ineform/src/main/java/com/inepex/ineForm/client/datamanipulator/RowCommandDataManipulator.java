@@ -79,12 +79,12 @@ public class RowCommandDataManipulator extends DataManipulator {
 		}
 	}
 
-	public class EditCommand implements UserCommand {
+	public class EditCommand extends UserCommand {
 		public EditCommand() {
 		}
 
 		@Override
-		public String getCommandCellText() {
+		public String getCommandCellText(AssistedObject kvoOfRow) {
 			return editText;
 		}
 
@@ -99,12 +99,12 @@ public class RowCommandDataManipulator extends DataManipulator {
 		}
 	}
 
-	public class DeleteCommand implements UserCommand {
+	public class DeleteCommand extends UserCommand {
 		public DeleteCommand() {
 		}
 		
 		@Override
-		public String getCommandCellText() {
+		public String getCommandCellText(AssistedObject kvoOfRow) {
 			return deleteText;
 		}
 

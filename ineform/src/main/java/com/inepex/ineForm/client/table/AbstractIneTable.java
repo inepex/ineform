@@ -379,7 +379,7 @@ public abstract class AbstractIneTable {
 			List<HasCell<AssistedObject, ?>> commandList = new ArrayList<HasCell<AssistedObject, ?>>();
 
 			for (int i = 0; i < commands.size(); i++) {
-				commandList.add(new UserCommandColumnPart(new LinkActionCell(commands.get(i).getCommandCellText(), commands
+				commandList.add(new UserCommandColumnPart(new LinkActionCell(commands
 						.get(i), i != commands.size() - 1)));
 			}
 
@@ -575,12 +575,16 @@ public abstract class AbstractIneTable {
 	public static interface RowStylesProvider extends RowStyles<AssistedObject> {
 	}
 
-	public static interface UserCommand {
-		public String getCommandCellText();
+	public static abstract class UserCommand {
+		public abstract String getCommandCellText(AssistedObject kvoOfRow);
 
-		public void onCellClicked(AssistedObject kvoOfRow);
+		public abstract void onCellClicked(AssistedObject kvoOfRow);
 
-		public boolean visible(AssistedObject kvoOfRow);
+		public abstract boolean visible(AssistedObject kvoOfRow);
+		
+		public Boolean overrideDefaultSeparatorUsage(){
+			return null;
+		}
 	}
 
 	private class UserCommandColumn extends Column<AssistedObject, AssistedObject> {
@@ -613,21 +617,13 @@ public abstract class AbstractIneTable {
 
 	private class LinkActionCell extends AbstractCell<String> {
 
-		private final SafeHtml html;
 		private final UserCommand userCommand;
+		private boolean isNotLast;
 
-		public LinkActionCell(String message, UserCommand userCommand, boolean appendSeparator) {
+		public LinkActionCell(UserCommand userCommand, boolean isNotLast) {
 			super("click");
 			this.userCommand = userCommand;
-			SafeHtmlBuilder hmtlBuilder = new SafeHtmlBuilder()
-					.appendHtmlConstant("<a class = 'ineTable-ActionCell'>")
-					.appendHtmlConstant(message)
-					.appendHtmlConstant("</a>");
-			if (appendSeparator) {
-				hmtlBuilder.appendHtmlConstant("&nbsp;|&nbsp;").toSafeHtml();
-			}
-
-			this.html = hmtlBuilder.toSafeHtml();
+			this.isNotLast = isNotLast;
 		}
 
 		@Override
@@ -644,9 +640,28 @@ public abstract class AbstractIneTable {
 
 		@Override
 		public void render(Context context, String value, SafeHtmlBuilder sb) {
-			if (userCommand.visible(getDisplayedKvoById((Long) context.getKey())))
-				sb.append(html);
+			AssistedObject kvoOfRow = getDisplayedKvoById((Long) context.getKey());
+			if (userCommand.visible(kvoOfRow))
+			{					
+				sb.append(buildHtml(userCommand.getCommandCellText(kvoOfRow), needsSeparator()));
+			}
+		}
+		
+		private SafeHtml buildHtml(String message, boolean needsSeparator){
+			SafeHtmlBuilder htmlBuilder = new SafeHtmlBuilder()
+			.appendHtmlConstant("<a class = 'ineTable-ActionCell'>")
+			.appendHtmlConstant(message)
+			.appendHtmlConstant("</a>");
+			if (needsSeparator) {
+				htmlBuilder.appendHtmlConstant("&nbsp;|&nbsp;").toSafeHtml();
+			}
 
+			return htmlBuilder.toSafeHtml();
+		}
+		
+		private boolean needsSeparator(){
+			if (userCommand.overrideDefaultSeparatorUsage() == null) return isNotLast;
+			else return userCommand.overrideDefaultSeparatorUsage();
 		}
 
 	}
