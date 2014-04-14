@@ -179,13 +179,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 	}
 
 	private void realizePlaceChange(final boolean needWindowReload) {
-		String currentFullTokenWithoutRedirect;
-		if(currentFullToken.contains(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT))
-			currentFullTokenWithoutRedirect=currentFullToken.substring(0,
-					currentFullToken.indexOf(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT));
-		else
-			currentFullTokenWithoutRedirect=currentFullToken;
-		
+		String currentFullTokenWithoutRedirect = PlaceHandlerHelper.removeRedirect(currentFullToken);		
 		
 		Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
 				PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));

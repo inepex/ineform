@@ -320,4 +320,17 @@ public class PlaceHandlerHelper {
 		return splittedToken;
 		
 	}
+	
+	/*
+	 * redirection parameter has to be handled specially because it contains '/'
+	 */
+	public static String removeRedirect(String token){
+		String tokenWithoutRedirect;
+		if(token.contains(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT))
+			tokenWithoutRedirect=token.substring(0,
+					token.indexOf(PlaceHandler.QUESTION_MARK+NavigationProperties.REDIRECT));
+		else
+			tokenWithoutRedirect=token;
+		return tokenWithoutRedirect;
+	}
 }
