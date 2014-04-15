@@ -273,6 +273,7 @@ public class KeyValueObject extends AssistedObject {
 		allKeys.addAll(longValues.keySet());
 		allKeys.addAll(relationValues.keySet());
 		allKeys.addAll(stringValues.keySet());
+		allKeys.addAll(propJsons.keySet());
 
 		return allKeys;
 	}
