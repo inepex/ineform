@@ -60,6 +60,11 @@ public class OMABuilderFactory extends AssistedObjectBuilderFactoryBase {
 			return this;
 		}
 		
+		public Builder setIdToRefresh(Long id){
+			manipulation.setIdToRefresh(id);
+			return this;
+		}
+		
 	}
 
 }

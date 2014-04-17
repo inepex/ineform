@@ -133,10 +133,10 @@ public class CompanyContactEditPage extends ConnectorPage {
 			}
 		}
 		
-		class DetailsCommand implements UserCommand {
+		class DetailsCommand extends UserCommand {
 
 			@Override
-			public String getCommandCellText() {
+			public String getCommandCellText(AssistedObject kvoOfRow) {
 				return CMI18n.details();
 			}
 
