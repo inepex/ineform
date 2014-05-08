@@ -36,7 +36,7 @@ public class MultiLangDescStore extends DescriptorStore {
 		} else {		
 			synchronized (storeByLang) {
 				if (!storeByLang.containsKey(lang)){
-					_logger.info("MultiDescStore has just created desc store for lang: {}", lang);
+					_logger.debug("MultiDescStore has just created desc store for lang: {}", lang);
 					ClientDescriptorStore localizedDescStore = descStoreCreator.createDescStore(lang);
 					storeByLang.put(lang, localizedDescStore);
 				}

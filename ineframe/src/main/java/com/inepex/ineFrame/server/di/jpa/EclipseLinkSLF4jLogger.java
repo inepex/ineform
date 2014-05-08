@@ -26,40 +26,45 @@ import org.slf4j.LoggerFactory;
 public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements SessionLog {
 
 	public static final Logger LOG = LoggerFactory.getLogger("EclipseLink");
+	public static final Logger SQLLOG = LoggerFactory.getLogger("EclipseLinkSQL");
 
 	@Override
 	public void log(SessionLogEntry sessionLogEntry) {
+		Logger logger = LOG;
+		if (sessionLogEntry.getNameSpace() != null && sessionLogEntry.getNameSpace().equals("sql")) {
+			logger = SQLLOG;
+		}
 		switch (sessionLogEntry.getLevel()) {
 		case SEVERE:
-			if(LOG.isErrorEnabled()) {
+			if(logger.isErrorEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.error("exeption", sessionLogEntry.getException());
+					logger.error("exeption", sessionLogEntry.getException());
 				else
-					LOG.error(formatMessage(sessionLogEntry));
+					logger.error(formatMessage(sessionLogEntry));
 			}
 			break;
 		case WARNING:
-			if(LOG.isWarnEnabled()) {
+			if(logger.isWarnEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.warn("exeption", sessionLogEntry.getException());
+					logger.warn("exeption", sessionLogEntry.getException());
 				else
-					LOG.warn(formatMessage(sessionLogEntry));
+					logger.warn(formatMessage(sessionLogEntry));
 			}
 			break;
 		case INFO:
-			if(LOG.isInfoEnabled()) {
+			if(logger.isInfoEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.info("exeption", sessionLogEntry.getException());
+					logger.info("exeption", sessionLogEntry.getException());
 				else
-					LOG.info(formatMessage(sessionLogEntry));
+					logger.info(formatMessage(sessionLogEntry));
 			}
 			break;
 		default:
-			if(LOG.isDebugEnabled()) {
+			if(logger.isDebugEnabled()) {
 				if(sessionLogEntry.getException()!=null)
-					LOG.debug("exeption", sessionLogEntry.getException());
+					logger.debug("exeption", sessionLogEntry.getException());
 				else
-					LOG.debug(formatMessage(sessionLogEntry));
+					logger.debug(formatMessage(sessionLogEntry));
 			}
 		}
 	}

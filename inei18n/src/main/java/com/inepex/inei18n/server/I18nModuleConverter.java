@@ -210,7 +210,7 @@ public class I18nModuleConverter {
 				}
 			}
 			
-			logger.info("Loading of I18n module '{}' finished succesfully", moduleName);
+			logger.debug("Loading of I18n module '{}' finished succesfully", moduleName);
 			
 			if (!duplicates.equals("")) {
 				logger.info("Duplicated keys: \n{}", duplicates);
