@@ -98,6 +98,8 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	private DataConnectorReadyCallback callback;	
 	
 	private boolean firstCall = true;
+	
+	private boolean callCallbackAfterPageChange = false;
 
 	public IneDataConnector(EventBus eventBus, String descriptorName) {
 		this.eventBus = eventBus;
@@ -224,7 +226,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
 	@Override
 	protected void onRangeChanged(HasData<AssistedObject> display) {
-		update();
+		if (callCallbackAfterPageChange){
+			update(callback);
+		} else {
+			update();
+		}
 	}
 	
 	public List<AssistedObject> getResultList(){
@@ -351,6 +357,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 		}
 		
 		
+	}
+
+	public void setCallCallbackAfterPageChange(boolean callCallbackAfterPageChange) {
+		this.callCallbackAfterPageChange = callCallbackAfterPageChange;
 	}
 
 }
