@@ -117,4 +117,14 @@ public class ValidationResult implements Serializable, IsSerializable {
 		return sB.toString();
 	}
 	
+	public ValidationResult generalError(String error) {
+		addGeneralError(error);
+		return this;
+	}
+
+	public ValidationResult fieldError(String fieldKey, String error) {
+		addFieldError(fieldKey, error);
+		return this;
+	}
+	
 }
