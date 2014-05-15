@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AssistedObjectUtil {
 	
-	public static List<Long> getObjectIds(List<AssistedObject> objList){
+	public static List<Long> getObjectIds(Collection<AssistedObject> objList){
 		List<Long> idList = new ArrayList<Long>();
 		for(AssistedObject obj : objList){
 			idList.add(obj.getId());
@@ -14,16 +14,27 @@ public class AssistedObjectUtil {
 		return idList;
 	}
 	
-	public static String createIdListString(List<AssistedObject> objList) {
-		return createIdListString(getObjectIds(objList));
+	public static String getObjectIdsAsString(Collection<AssistedObject> objList){
+		StringBuffer sb = new StringBuffer();
+		int i = 0;
+		for(AssistedObject obj : objList) {
+			sb.append(obj.getId());
+			if(i < objList.size() - 1)
+				sb.append(";");
+			i++;
+		}
+		return sb.toString();
 	}
+
 	
 	public static String createIdListString(Collection<Long> ids) {
 		StringBuffer sb = new StringBuffer();
+		int i = 0;
 		for(Long l : ids) {
-			if(sb.length()>0)
-				sb.append(";");
 			sb.append(l);
+			if(i < ids.size() - 1)
+				sb.append(";");
+			i++;
 		}
 			
 		return sb.toString();
