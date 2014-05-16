@@ -1,7 +1,9 @@
 package com.inepex.ineForm.client.general;
 
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -13,6 +15,7 @@ import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Image;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
@@ -21,6 +24,7 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 	HasHTML, HasEnabled {
 
 	private final FlowPanel mainPanel = new FlowPanel();
+	private final Image icon = new Image();
 	private final ClickableFlowPanel checkPanel = new ClickableFlowPanel();
 	private final HTML textWidget = new HTML("");
 	private Boolean checked = false;
@@ -37,20 +41,23 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 	}
 
 	private void createUI() {
+		mainPanel.add(icon);
+		icon.setVisible(false);
 		mainPanel.add(checkPanel);
 		mainPanel.add(textWidget);
 		
 		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
 			textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText_old());
 			checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox_old());
-			checkPanel.getElement().getStyle().setPosition(Position.STATIC);
-			mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+
 		} else {
 			textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
 			checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
-			checkPanel.getElement().getStyle().setPosition(Position.STATIC);
-			mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
 		}
+		checkPanel.getElement().getStyle().setPosition(Position.STATIC);
+		mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
+		icon.getElement().getStyle().setFloat(Float.LEFT);
+		icon.getElement().getStyle().setPaddingRight(6.0, Unit.PX);
 	}
 	
 	
@@ -109,7 +116,12 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 	protected void onAttach() {
 		super.onAttach();
 		
-		registerHandler(checkPanel.addClickHandler(new ClickHandler() {
+		registerHandler(checkPanel.addClickHandler(clickHandler()));
+		registerHandler(icon.addClickHandler(clickHandler()));
+	}
+	
+	private ClickHandler clickHandler(){
+		return new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -120,7 +132,7 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 				ValueChangeEvent.fire(IneCheckBox.this, checked);
 				correctCheckboxStyle();
 			}
-		}));
+		};
 	}
 
 	@Override
@@ -162,5 +174,10 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 	@Override
 	public void setText(String arg0) {
 		textWidget.setText(arg0);
+	}
+	
+	public void setIconUrl(String iconUrl){
+		icon.setUrl(iconUrl);
+		icon.setVisible(true);
 	}
 }

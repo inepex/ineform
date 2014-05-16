@@ -22,27 +22,32 @@ public abstract class DenyingFormWidget extends FormWidget {
 	public Boolean getBooleanValue() {
 		return null;
 	}
+	
+	@Override
+	public boolean handlesBoolean() {
+		return false;
+	}
 
+	@Override
+	public void setBooleanValue(Boolean value) {
+
+	}
+	
 	@Override
 	public Double getDoubleValue() {
 		return null;
 	}
-
+	
 	@Override
-	public IneList getListValue() {
-		return null;
+	public boolean handlesDouble() {
+		return false;
 	}
-
+	
 	@Override
-	public Long getLongValue() {
-		return null;
-	}
+	public void setDoubleValue(Double value) {
 
-	@Override
-	public Relation getRelationValue() {
-		return null;
 	}
-
+	
 	@Override
 	public boolean handlesString() {
 		return false;
@@ -57,27 +62,39 @@ public abstract class DenyingFormWidget extends FormWidget {
 	public void setStringValue(String value) {
 
 	}
+
+	@Override
+	public IneList getListValue() {
+		return null;
+	}
+
+	@Override
+	public Long getLongValue() {
+		return null;
+	}
 	
-	@Override
-	public boolean handlesBoolean() {
-		return false;
-	}
-
-	@Override
-	public boolean handlesDouble() {
-		return false;
-	}
-
-	@Override
-	public boolean handlesList() {
-		return false;
-	}
-
 	@Override
 	public boolean handlesLong() {
 		return false;
 	}
 
+
+	@Override
+	public void setLongValue(Long value) {
+
+	}
+
+	@Override
+	public Relation getRelationValue() {
+		return null;
+	}
+
+
+	@Override
+	public boolean handlesList() {
+		return false;
+	}
+	
 	@Override
 	public boolean handlesRelation() {
 		return false;
@@ -86,16 +103,6 @@ public abstract class DenyingFormWidget extends FormWidget {
 	@Override
 	public boolean isFocusable() {
 		return false;
-	}
-
-	@Override
-	public void setBooleanValue(Boolean value) {
-
-	}
-
-	@Override
-	public void setDoubleValue(Double value) {
-
 	}
 
 	@Override
@@ -110,11 +117,6 @@ public abstract class DenyingFormWidget extends FormWidget {
 
 	@Override
 	public void setListValue(IneList value) {
-
-	}
-
-	@Override
-	public void setLongValue(Long value) {
 
 	}
 

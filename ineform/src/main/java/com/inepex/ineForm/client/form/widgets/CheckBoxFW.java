@@ -10,6 +10,7 @@ public class CheckBoxFW extends DenyingFormWidget {
 
 	public static final String CHECKBOXTEXT = "checkBoxText";
 	public static final String CHECKBOXHTML = "checkBoxHTML";
+	public static final String CHECKBOXICONURL = "checkboxIconUrl";
 	
 	private IneCheckBox checkBox = new IneCheckBox();
 	
@@ -21,6 +22,9 @@ public class CheckBoxFW extends DenyingFormWidget {
 			checkBox.setText(wrDesc.getPropValue(CHECKBOXTEXT));
 		}else if(wrDesc.getPropValue(CHECKBOXHTML) != null){
 			checkBox.setHTML(wrDesc.getPropValue(CHECKBOXHTML));
+		}
+		if (wrDesc.getPropValue(CHECKBOXICONURL) != null){
+			checkBox.setIconUrl(wrDesc.getPropValue(CHECKBOXICONURL));
 		}
 	}
 	
