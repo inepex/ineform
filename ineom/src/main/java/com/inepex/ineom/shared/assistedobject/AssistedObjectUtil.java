@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.inepex.ineom.shared.Relation;
+
 public class AssistedObjectUtil {
 	
 	public static List<Long> getObjectIds(Collection<AssistedObject> objList){
@@ -38,6 +40,14 @@ public class AssistedObjectUtil {
 		}
 			
 		return sb.toString();
+	}
+	
+	public static List<Relation> mapObjectsToRelation(Collection<AssistedObject> objList){
+		List<Relation> relations = new ArrayList<>();
+		for(AssistedObject obj : objList){
+			relations.add(new Relation(obj));
+		}
+		return relations;
 	}
 
 }
