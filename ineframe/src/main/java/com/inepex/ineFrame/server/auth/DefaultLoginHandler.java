@@ -48,4 +48,8 @@ public class DefaultLoginHandler extends AbstractLoginHandler<AuthUser,AuthStatu
 		return null;
 	}
 
+	@Override
+	public void refresh(AuthStatusResultBase result) {
+	}
+
 }

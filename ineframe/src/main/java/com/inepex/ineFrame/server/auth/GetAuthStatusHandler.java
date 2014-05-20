@@ -42,16 +42,21 @@ public class GetAuthStatusHandler extends
 			DispatchException {
 
 		SessionScopedAuthStat authStat = authStatProvider.get();
-
+		
 		synchronized (authStat) {
 			AuthStatusResultBase  result = authStat.getAuthStatusResultBase();
 
 			String userEmail = action.getUserEmail();
 			String userUUID = action.getUserUUID();
 			
+			if (result != null && result.getUserId() != null){
+				loginHandler.refresh(result);
+			}
+			
 			// user is already logged in or no staysignedin logic
-			if (result != null || userEmail==null || userUUID==null)
+			if (result != null || userEmail==null || userUUID==null){
 				return result;
+			}				
 
 			//updating auth stat
 			result = loginHandler.createResultBase();

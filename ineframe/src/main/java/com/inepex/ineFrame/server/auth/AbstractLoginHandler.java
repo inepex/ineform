@@ -126,4 +126,6 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 	// needs to be implemented in the derived classes, because of the user handling
 	protected abstract void setUserStaySignedInUUID(Long userId, String UUIDString);
 	public abstract AuthUser checkSignedInUUIDForUserAndLogUserIntoIfCorrect(String userEmail, String userUUID, AuthStatusResultBase result);
+	public abstract void refresh(AuthStatusResultBase result);
+	
 }
