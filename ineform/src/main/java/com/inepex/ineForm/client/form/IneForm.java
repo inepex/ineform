@@ -967,4 +967,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		}
 		forms.put(nodeId, formUnit);
 	}
+	
+	
+	public void clearMainPanel(){
+		mainPanel.clear();
+	}
 }
