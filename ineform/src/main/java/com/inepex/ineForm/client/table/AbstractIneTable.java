@@ -347,6 +347,9 @@ public abstract class AbstractIneTable {
 					columnNode.getNodeId(),
 					colRenderDesc.hasProp(ColRDesc.DEFAULTSORT),
 					colRenderDesc.hasProp(ColRDesc.DEFAULTSORTREVERSE));
+			if (colRenderDesc.hasProp(ColRDesc.COLSPAN)) {
+				header = headers.get(colRenderDesc.getPropValue("colspan"));
+			} 
 			headers.put(columnNode.getNodeId(), header);
 			cellTable.addColumn(column, header);
 

@@ -18,6 +18,7 @@ public class ColRDesc extends TableRDescBase {
 	public static final String AS_GROUPTHOUSANDS = "AS_GROUPTHOUSANDS";
 	public static final String AS_FORMATTEDDOUBLE = "AS_FORMATTEDDOUBLE";
 	public static final String CROP_WITH_SPACE = "CROP_WITH_SPACE";
+	public static final String COLSPAN = "COLSPAN";
 	/**
 	 * display as checkbox
 	 */
