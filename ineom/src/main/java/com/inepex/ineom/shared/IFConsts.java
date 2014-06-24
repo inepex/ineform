@@ -43,6 +43,8 @@ public class IFConsts {
 	public static final String prop_mongoUser = "mongoUser";
 	public static final String prop_mongoPass = "mongoPass";
 	
+	public static final String jsonIgnore = "jsonIgnore";
+	
 	public static final String comma = ",";
 	
 	public static String buildEnumList(String ... items){
