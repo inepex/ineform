@@ -146,7 +146,7 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		if (formRDescChildren == null || formRDescChildren.size() == 0 
 			|| formRDescChildren.get(0).getNodeElement() == null) {
 			throw new RuntimeException(
-					"Ineform:renderForm: invalid FormRenderDescriptor");
+					"Ineform:renderForm: invalid FormRenderDescriptor(descriptor: "+descriptorName+", frD "+formRenderDescName+")");
 		}
 
 		if (formRDescChildren.size() == 1
