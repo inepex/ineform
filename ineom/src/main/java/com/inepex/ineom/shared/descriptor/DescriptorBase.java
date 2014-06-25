@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @SuppressWarnings("serial")
-public class DescriptorBase implements Serializable, IsSerializable {
+public abstract class DescriptorBase implements Serializable, IsSerializable {
 	
 	public static final String separator = ":";
 	
