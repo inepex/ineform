@@ -15,39 +15,7 @@
 	<packaging>jar</packaging>
 	<version>1.0.18</version>
 	<name>ineom</name>
-	<url>http://maven.apache.org</url>
-
-	<scm>
-		<connection>${SVNConnBase}/${project.artifactId}</connection>
-	</scm>
-
-	<profiles>
-		<profile>
-			<id>buildnum</id>
-			<build>
-				<plugins>
-					<plugin>
-					<groupId>org.codehaus.mojo</groupId>		
-					<artifactId>buildnumber-maven-plugin</artifactId>		
-					<version>${buildNumberVersion}</version>		
-					<executions>		
-						<execution>		
-							<phase>validate</phase>		
-							<goals>		
-								<goal>create</goal>		
-							</goals>		
-						</execution>		
-					</executions>		
-					<configuration>		
-						<doCheck>true</doCheck>		
-						<doUpdate>false</doUpdate>		
-					</configuration>	
-					</plugin>		
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	
+	<url>http://maven.apache.org</url>	
 
 	<dependencies>
 		<dependency>
