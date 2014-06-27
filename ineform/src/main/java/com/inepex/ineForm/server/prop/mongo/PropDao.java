@@ -213,6 +213,19 @@ public class PropDao {
 		return "{}";
 	}
 	
+	public BasicDBObject getPropGroupBasicDbObject(String type, Long id, String group){
+		if (getMongoDb() == null)
+			return new BasicDBObject();
+		
+		BasicDBObject document = getDocument(type, id);
+		if (document != null){
+			if (document.keySet().contains(group)){
+				return (BasicDBObject) document.get(group);
+			}
+		}
+		return new BasicDBObject();
+	}
+	
 	public List<String> getPropGroup(String type, List<Long> ids, String group){
 		if (getMongoDb() == null) return new ArrayList<>();
 		
