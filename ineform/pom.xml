@@ -36,8 +36,8 @@
 		</dependency>
 		<dependency>
 			<groupId>io.netty</groupId>
-			<artifactId>netty</artifactId>
-			<version>${nettyVersion}</version>
+			<artifactId>netty-all</artifactId>
+			<version>4.0.20.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
