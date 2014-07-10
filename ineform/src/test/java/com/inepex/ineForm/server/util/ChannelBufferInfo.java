@@ -2,10 +2,10 @@ package com.inepex.ineForm.server.util;
 
 import java.util.Arrays;
 
-import org.jboss.netty.buffer.ChannelBuffer;
+import io.netty.buffer.ByteBuf;
 
 /**
- * Class to test the changing of {@link ChannelBuffer}.
+ * Class to test the changing of {@link io.netty.buffer.ByteBuf}.
  * 
  * Example:
  * <pre>
@@ -17,7 +17,7 @@ import org.jboss.netty.buffer.ChannelBuffer;
  * Assert.assertEquals(cbInfo, ChannelBufferInfo.createFromBuff(channelBuffer));
  * </pre>
  */
-public class ChannelBufferInfo{
+public class ChannelBufferInfo {
 	
 	private int readableBytes;
 	private int readerIndex;
@@ -27,7 +27,7 @@ public class ChannelBufferInfo{
 	private ChannelBufferInfo(){
 	}
 	
-	public static ChannelBufferInfo createFromBuff(ChannelBuffer buff) {
+	public static ChannelBufferInfo createFromBuff(ByteBuf buff) {
 		ChannelBufferInfo i = new ChannelBufferInfo();
 		i.readableBytes=buff.readableBytes();
 		i.readerIndex=buff.readerIndex();
