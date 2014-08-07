@@ -1,8 +1,8 @@
 package com.inepex.ineForm.server.util;
 
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -73,7 +73,7 @@ public class ByteConvertUtilTest {
 	@Test 
 	public void testChannelBufferInfo(){
 		//unmod test
-		ChannelBuffer cb = ChannelBuffers.wrappedBuffer(msg0);
+		ByteBuf cb = Unpooled.wrappedBuffer(msg0);
 		ChannelBufferInfo cbInfo = ChannelBufferInfo.createFromBuff(cb);
 		cb.getByte(cb.readerIndex()+1);
 		cb.getByte(cb.readerIndex()+2);
@@ -81,7 +81,7 @@ public class ByteConvertUtilTest {
 		Assert.assertEquals(cbInfo, ChannelBufferInfo.createFromBuff(cb));
 		
 		//mod test
-		ChannelBuffer cb2 = ChannelBuffers.wrappedBuffer(msg0);
+		ByteBuf cb2 = Unpooled.wrappedBuffer(msg0);
 		ChannelBufferInfo cb2Info = ChannelBufferInfo.createFromBuff(cb2);
 		cb2.readByte();
 		Assert.assertNotSame(cb2Info, ChannelBufferInfo.createFromBuff(cb2));

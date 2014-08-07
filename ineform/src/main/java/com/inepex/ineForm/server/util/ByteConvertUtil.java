@@ -1,10 +1,10 @@
 package com.inepex.ineForm.server.util;
 
-import java.nio.charset.Charset;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.handler.codec.base64.Base64;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.handler.codec.base64.Base64;
+import java.nio.charset.Charset;
 
 
 public class ByteConvertUtil {
@@ -37,7 +37,6 @@ public class ByteConvertUtil {
 	
 	/**
 	 * It converts hex string to byte array. If the input param's length is odd than "0" will concetanated to <b>before<b> input string!
-	 * @param hexDigits The input hex digits ie.: "12A3559B" or as space spearated "12 A3 55 9B"
 	 * @return Converted byte array. ie.: 0x12, 0xA3, 0x55, 0x9B
 	 */
 	public static byte[] hexStringToByteArray(String s) {
@@ -55,7 +54,7 @@ public class ByteConvertUtil {
 	}
 	
 	public static byte[] base64ToByteArray(String base64Msg) {
-		ChannelBuffer buffer = Base64.decode(ChannelBuffers.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
+		ByteBuf buffer = Base64.decode(Unpooled.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
 		byte[] msg = new byte[buffer.readableBytes()];
 		buffer.readBytes(msg);
 		
