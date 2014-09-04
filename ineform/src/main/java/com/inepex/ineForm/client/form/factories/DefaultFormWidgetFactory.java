@@ -180,7 +180,7 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.LABELBOOL)) {
 			createdWidget=new LabelBoolFW(fieldDesc, wrDesc.getPropValue("true"), wrDesc.getPropValue("false"));
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.THREEWAYBOOL)) {
-			createdWidget=new ThreeWayBoolFw(fieldDesc, wrDesc.getPropValue("null"), wrDesc.getPropValue("true"), wrDesc.getPropValue("false"));
+			createdWidget=new ThreeWayBoolFw(fieldDesc, wrDesc.getPropValue(ThreeWayBoolFw.NULL), wrDesc.getPropValue(ThreeWayBoolFw.TRUE), wrDesc.getPropValue(ThreeWayBoolFw.FALSE));
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.RICHTEXTAREA)) {
 			createdWidget = new RichTextAreaFW(fieldDesc, wrDesc);
 		} else if(wrDesc.getFormWidgetType().equals(FWTypes.STRINGLISTBOX)) {

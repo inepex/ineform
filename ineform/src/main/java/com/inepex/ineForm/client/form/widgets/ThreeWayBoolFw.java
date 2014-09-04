@@ -7,6 +7,9 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class ThreeWayBoolFw extends DenyingFormWidget {
 	
+	public static final String TRUE = "true";
+	public static final String FALSE = "false";
+	public static final String NULL = "null";
 	private final ListBox listBox = new ListBox(false);
 
 	public ThreeWayBoolFw(FDesc fieldDescriptor, String nullText, String trueText, String falseText) {
