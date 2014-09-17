@@ -27,6 +27,18 @@ public class AssistedObjectUtil {
 		}
 		return sb.toString();
 	}
+	
+	public static String getIdFieldAsString(Collection<AssistedObject> objList, String idDescName){
+		StringBuffer sb = new StringBuffer();
+		int i = 0;
+		for(AssistedObject obj : objList) {
+			sb.append(obj.getLongUnchecked(idDescName));
+			if(i < objList.size() - 1)
+				sb.append(";");
+			i++;
+		}
+		return sb.toString();
+	}
 
 	
 	public static String createIdListString(Collection<Long> ids) {
