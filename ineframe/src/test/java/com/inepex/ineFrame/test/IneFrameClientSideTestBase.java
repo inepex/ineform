@@ -6,10 +6,10 @@ import com.google.gwt.junit.GWTMockUtilities;
 import com.google.inject.Provider;
 import com.inepex.ineFrame.server.IneInitializer;
 import com.inepex.ineFrame.server.MockCurrentLang;
+import com.inepex.ineFrame.server.MockI18n;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.I18nModule;
-import com.inepex.ineom.TestI18nModuleProvider;
 import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
@@ -54,7 +54,7 @@ public abstract class IneFrameClientSideTestBase implements IneInitializer {
 		List<Class<? extends I18nModule>> modules = listUsedI18nClasses();
 		if(modules!=null) {
 			for(Class<? extends I18nModule> mod : modules) {
-				serverI18n.registerModule(TestI18nModuleProvider.createTestI18nProvider(mod));
+				serverI18n.registerModule(MockI18n.mock(mod));
 			}
 		}
 		

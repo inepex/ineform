@@ -12,13 +12,15 @@ public class MockI18n {
 
 	private static final Logger _logger = LoggerFactory.getLogger(MockI18n.class);
 	
-	public static <T extends I18nModule> void mock(Class<T> clazz){
+	public static <T extends I18nModule> T mock(Class<T> clazz){
 		try {
 		ServerI18nProvider<T> i18nProvider = Mockito.mock(ServerI18nProvider.class);
 		clazz.getConstructor(I18nModuleProvider.class).newInstance(i18nProvider);
 		Mockito.when(i18nProvider.get()).thenReturn(clazz.newInstance());
+		return i18nProvider.get();
 		} catch (Exception e){
 			_logger.error("Exception", e);
+			return null;
 		}
 	}
 }
