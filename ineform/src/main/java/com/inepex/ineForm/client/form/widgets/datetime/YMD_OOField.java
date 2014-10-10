@@ -37,6 +37,7 @@ class YMD_OOField extends AbstractField {
 			img_calendar=new Image();
 			datepicker= new I18nDatePicker();
 			popup=new PopupPanel();
+			popup.getElement().getStyle().setZIndex(1010); //front of ActionPopup
 			popup.setWidget(datepicker);
 			popup.setAutoHideEnabled(true);
 			
