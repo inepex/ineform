@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.Relation;
 
 public class AssistedObjectUtil {
@@ -67,9 +68,14 @@ public class AssistedObjectUtil {
 	}
 	
 	public static List<Relation> mapObjectsToRelation(Collection<AssistedObject> objList){
+		return mapObjectsToRelation(objList, IFConsts.KEY_ID);
+		
+	}
+	
+	public static List<Relation> mapObjectsToRelation(Collection<AssistedObject> objList, String displayNameKey){
 		List<Relation> relations = new ArrayList<>();
 		for(AssistedObject obj : objList){
-			relations.add(new Relation(obj));
+			relations.add(new Relation(obj.getStringUnchecked(displayNameKey), obj));
 		}
 		return relations;
 	}
