@@ -57,6 +57,7 @@ public class ByteConvertUtil {
 		ByteBuf buffer = Base64.decode(Unpooled.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
 		byte[] msg = new byte[buffer.readableBytes()];
 		buffer.readBytes(msg);
+		buffer.release();
 		
 		return msg;
 	}
