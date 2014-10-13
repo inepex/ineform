@@ -11,11 +11,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -240,7 +240,7 @@ public class I18nModuleConverter {
 		// TODO: now one parameter cannot appear twice in the description 
 		Map<String, Set<String>> map_paramstmp = new LinkedHashMap<String, Set<String>>();
 		for (String key : localizables.keySet()){
-			Set<String> params = new HashSet<String>();
+			Set<String> params = new TreeSet<String>();
 			String description = localizables.get(key).getLocalizedMap().get(CurrentLang.DEFAULT_LANG);
 			if (description == null)
 				continue;
@@ -248,6 +248,7 @@ public class I18nModuleConverter {
 			while (m.find()) {
 			   params.add(m.group().replace("{","").replace("}",""));
 			}
+			
 			
 			map_paramstmp.put(key, params);
 		}
