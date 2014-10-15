@@ -3,6 +3,7 @@ package com.inepex.ineForm.client.form.widgets.datetime;
 import java.util.Date;
 
 import com.google.gwt.dom.client.Style.Cursor;
+import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -45,7 +46,8 @@ class YMD_OOField extends AbstractField {
 			img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
 			img_calendar.getElement().getStyle().setPadding(5, Unit.PX);
 			if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE){
-				img_calendar.getElement().getStyle().setHeight(10, Unit.PX);
+				img_calendar.getElement().getStyle().setHeight(17, Unit.PX);
+				img_calendar.getElement().getStyle().setFloat(Float.LEFT);
 			}
 		}
 		
