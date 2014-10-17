@@ -24,6 +24,19 @@ public class DateI18nHelper {
 		}
 	}
 	
+	public static String getNumberOrdinalSuffix(int dayNum){
+		switch (dayNum) {
+		case 1:
+			return IneFormI18n.st();
+		case 2:
+			return IneFormI18n.nd();
+		case 3:
+			return IneFormI18n.rd();
+		default:
+			return IneFormI18n.th();
+		}
+	}
+	
 	public static String shortFormatDayOfWeek(int dayOfWeek, int letterCount) {
 		String res = formatDayOfWeek(dayOfWeek);
 		return sub(res, letterCount);

@@ -110,6 +110,8 @@ public class IneFormI18n extends I18nModule {
 	public String month_november = "November";
 	public String month_october = "October";
 	public String month_september = "September";
+	public String nd = "nd";
+	public String rd = "rd";
 	public String reallyWantToDelete = "Do you really want to delete the selected element?";
 	public String restRequestError = "Request error";
 	public String searchForm_filtered = "Result is filtered!";
@@ -120,6 +122,8 @@ public class IneFormI18n extends I18nModule {
 	public String shortday_thursday = "Th";
 	public String shortday_tuesday = "Tu";
 	public String shortday_wednesday = "W";
+	public String st = "st";
+	public String th = "th";
 	public String trueText = "true";
 	public String validationEmail = "This is not valid e-mail address!";
 	public String validationFieldError = "Field error";
@@ -903,6 +907,24 @@ public class IneFormI18n extends I18nModule {
 	}
 	
 	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> nd
+	* <u><i>Magyarul:</i></u>  
+	*/
+	public static String nd() {
+		return moduleProvider.get().nd;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> rd
+	* <u><i>Magyarul:</i></u>   
+	*/
+	public static String rd() {
+		return moduleProvider.get().rd;
+	}
+	
+	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Do you really want to delete the selected element?
 	* <u><i>Magyarul:</i></u> Biztosan törölni kívánja a kiválaszott sort?
@@ -990,6 +1012,24 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String shortday_wednesday() {
 		return moduleProvider.get().shortday_wednesday;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> st
+	* <u><i>Magyarul:</i></u>  
+	*/
+	public static String st() {
+		return moduleProvider.get().st;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> th
+	* <u><i>Magyarul:</i></u>  
+	*/
+	public static String th() {
+		return moduleProvider.get().th;
 	}
 	
 	/**
@@ -1114,8 +1154,8 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>In English:</i></u> The {i}th and the {j}th items are equal.
 	* <u><i>Magyarul:</i></u> A listában a {i}. és a {j}. elem megegyezik.
 	*/
-	public static String validatorUniqueRelList(String j, String i) {
-		return moduleProvider.get().validatorUniqueRelList.replace("{j}", j).replace("{i}", i);
+	public static String validatorUniqueRelList(String i, String j) {
+		return moduleProvider.get().validatorUniqueRelList.replace("{i}", i).replace("{j}", j);
 	}
 	
 	/**
