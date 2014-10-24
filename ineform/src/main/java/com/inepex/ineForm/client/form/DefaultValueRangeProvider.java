@@ -59,7 +59,7 @@ public abstract class DefaultValueRangeProvider implements ValueRangeProvider {
 		
 	protected class RelationListResultCallback extends SuccessCallback<RelationListResult> {
 		
-		final ValueRangeResultCallback valueRagecallback;
+		protected final ValueRangeResultCallback valueRagecallback;
 		
 		public RelationListResultCallback(ValueRangeResultCallback valueRagecallback) {
 			this.valueRagecallback = valueRagecallback;
