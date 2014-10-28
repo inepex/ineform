@@ -22,5 +22,8 @@ public interface IneFrameStyle extends CssResource {
 	String arrow();
 	String item();
 	String content();
+	String slider();
+	String closed();
+	
 }
 

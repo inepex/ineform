@@ -1,6 +1,7 @@
 package com.inepex.ineFrame.client.navigation.defaults;
 
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
@@ -11,6 +12,10 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu) {
+	
+		Notification notification = new DefaultIneFrameNotification();
+		notification.setContent(new Label("test"));
+		//add(notification.asWidget());
 		add(header.asWidget());
 		add(menu.asWidget());
 	}
