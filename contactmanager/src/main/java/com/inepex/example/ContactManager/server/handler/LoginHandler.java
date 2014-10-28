@@ -61,4 +61,11 @@ public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResul
 		return null;
 	}
 
+
+	@Override
+	public void refresh(AuthStatusResultBase result) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
