@@ -16,6 +16,7 @@
 		<module>../ineom</module>
 		<module>../ineframe</module>
 		<module>../ineform</module>
+		<module>../contactmanager</module>
 	</modules>
 
 	<properties>
