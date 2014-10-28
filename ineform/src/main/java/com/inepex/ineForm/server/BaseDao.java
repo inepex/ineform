@@ -307,6 +307,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	private void filterByProps(List<AssistedObject> objects,
 							   AbstractSearch action) {
 		Iterator<AssistedObject> iterator = objects.iterator();
+		if (action.getSearchParameters() == null) return;
 		Map<String, String> jsonMap = action.getSearchParameters().getAllPropsJson();
 		if(jsonMap.isEmpty()) return;
 		Set<Long> idSet = new HashSet<>();
