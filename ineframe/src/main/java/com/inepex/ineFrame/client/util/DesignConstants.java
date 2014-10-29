@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.client.util;
 
-public class ProportionConstants {
+public class DesignConstants {
 	
 	public static int base = 48;
 	
@@ -14,7 +14,13 @@ public class ProportionConstants {
 	public static int b1d5 = (int) (base * 1.5);
 	
 	public static int b5 = (int) (base * 5);
-
+	
+	public static String backgroundColor = "#2B2B2B";
+	public static String ineColor1 = "#12AD2B";
+	public static String menuSeparatorColor = "#494949";
+	public static String menuFontColor = "#CACACA";
+	
+	
 	public static String base() {
 		return base + "px";
 	}
@@ -46,4 +52,22 @@ public class ProportionConstants {
 	public static String b5() {
 		return b5 + "px";
 	}
+
+	public static String getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	public static String getIneColor1() {
+		return ineColor1;
+	}
+
+	public static String getMenuSeparatorColor() {
+		return menuSeparatorColor;
+	}
+
+	public static String getMenuFontColor() {
+		return menuFontColor;
+	}
+	
+	 
 }
