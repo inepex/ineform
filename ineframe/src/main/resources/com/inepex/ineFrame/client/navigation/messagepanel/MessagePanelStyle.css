@@ -1,0 +1,30 @@
+.messageStyle {
+	background: #ffcc00;
+}
+
+.errorStyle {
+	background: #b24b4b;
+}
+
+.messageIcon {
+	margin-left: 5px;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.messageCloseIcon {
+	padding: 0px 5px 0px 5px;
+	cursor: pointer;
+}
+
+.messagebox {
+	text-align: center;
+	height: 30px;
+	color: white;
+	font-weight: bold;
+	margin: 0 auto 0 auto;
+}
+
+.messagebox td {
+	font-size: 12px;
+}
