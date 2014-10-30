@@ -8,12 +8,14 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
+import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 
 public class MessagePanelWidget extends Grid implements MessagePanel {
 	
 	private Label messageLabel = new Label();
 	private Label closeLabel = new Label("X");
 	private Timer timer;
+	private DefaultIneFrameMasterPageView parent;
 	private HandlerRegistration closeHandlerReg;
 	
 	private boolean isInitialized = false;
@@ -34,7 +36,7 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 					
 				}
 			}; 
-			timer.schedule(delayMillis);						
+			timer.schedule(delayMillis);	
 		}
 		if(isError){
 			Image img = new Image(Res.INST.get().system_alert_icon());
@@ -57,13 +59,16 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 			messageLabel.setText(messageLabel.getText() + " | " + message);
 		}
 	}
-	
+	public double getHeight(){
+		return Double.valueOf(getElement().getStyle().getHeight());
+	}
 	@Override
 	public void hideMessage(){
 		if(timer != null)
 			timer.cancel();
 		messageLabel.setText("");
-		setVisible(false);
+		addStyleName(Res.INST.get().style().closed());
+		//setVisible(false);
 	}
 	@Override
 	protected void onAttach() {
@@ -99,10 +104,15 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	public int defaultDelay() {
 		return 5000;
 	}
-
 	@Override
 	public void showMessage(String message, boolean isError) {
 		showMessage(message, isError, defaultDelay());
+	}
+	public void setParent(DefaultIneFrameMasterPageView parent) {
+		this.parent = parent;
+	}
+	public DefaultIneFrameMasterPageView getParent() {
+		return parent;
 	}
 
 }

@@ -18,13 +18,18 @@
 }
 
 .messagebox {
-	text-align: center;
-	height: 30px;
-	color: white;
-	font-weight: bold;
-	margin: 0 auto 0 auto;
+	overflow-y: hidden;
+	max-height: 500px; /* approximate max height */
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
 .messagebox td {
 	font-size: 12px;
+}
+
+
+.closed {
+	height: 0;
 }

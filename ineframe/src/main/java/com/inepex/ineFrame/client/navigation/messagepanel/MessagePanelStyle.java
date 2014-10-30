@@ -13,4 +13,7 @@ public interface MessagePanelStyle extends CssResource {
 	String messageStyle();
 
 	String messagebox();
+
+	String closed();
+	
 }
