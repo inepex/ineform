@@ -1,3 +1,6 @@
+@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
+@eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
+
 .messageStyle {
 	background: #ffcc00;
 }
@@ -18,6 +21,7 @@
 }
 
 .messagebox {
+	height: base;
 	overflow-y: hidden;
 	max-height: 500px; /* approximate max height */
 	transition-property: all;
@@ -31,5 +35,5 @@
 
 
 .closed {
-	height: 0;
+	margin-top: baseNegative;
 }

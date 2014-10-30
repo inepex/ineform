@@ -69,5 +69,9 @@ public class DesignConstants {
 		return menuFontColor;
 	}
 	
+	
+	public static String baseNegative() {
+		return -1 * base + "px";
+	}
 	 
 }
