@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.inepex.example.ContactManager.client.gin.AppGinjector;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
@@ -40,7 +41,7 @@ public class App extends IneFrameEntryPoint {
 		
 		registerDescriptors();
 		
-		RootPanel.get().add(INJECTOR.getMasterPageView());
+		RootLayoutPanel.get().add(INJECTOR.getMasterPageView());
 		INJECTOR.gePlaceHandler().fireInitialPlace();
 	}
 	

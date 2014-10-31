@@ -8,6 +8,12 @@ public interface MasterPage {
 	
 	public static interface View {
 		public IsWidget asWidget();
+		public void toggleNavigationDrawer();
+		public void openNavigationDrawer();
+		public void closeNavigationDrawer();
+		public void toggleMessagePanel();
+		public void showMessagePanel();
+		public void hideMessagePanel();
 	}
 	
 	void render(InePlace place, Map<String, String> urlParams);

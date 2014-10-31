@@ -18,10 +18,9 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 
 public class LoginPage extends FlowPanelBasedPage {
-
+	
 	@Inject
-	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
-		
+	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {		
 		mainPanel.add(new CMLoginBox(authManager, historyProvider, eventBus, ineDispatch));
 		mainPanel.add(new HTML("<h2>To log in select one user:</h2>"));
 		mainPanel.add(new HTML("<b>john.black@inepex.com</b><br /><i>pass123</i><br /><br />"));

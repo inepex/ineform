@@ -5,10 +5,12 @@ import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.DefaultAuthManager;
 import com.inepex.ineFrame.client.navigation.MasterPage;
+import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
+import com.inepex.ineFrame.client.navigation.defaults.DefaultNavigationDrawer;
 import com.inepex.ineFrame.client.navigation.header.DefaultHeaderViewLogo;
 import com.inepex.ineFrame.client.navigation.header.HeaderViewLogo;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
@@ -30,6 +32,7 @@ public class IneFrameGinModule extends AbstractGinModule {
 	private Class<? extends MenuRenderer.View> menuRendererView = MenuRendererView.class;
 	private Class<? extends IneFrameHeader.View> ineFrameHeaderView = IneFrameHeaderView.class;
 	private Class<? extends HeaderViewLogo> headerViewLogo = DefaultHeaderViewLogo.class;
+	private Class<? extends NavigationDrawer> navigationDrawer = DefaultNavigationDrawer.class;
 	
 	public IneFrameGinModule(
 			Class<? extends PlaceHierarchyProvider> placeHierarchyProvider,
@@ -49,8 +52,9 @@ public class IneFrameGinModule extends AbstractGinModule {
 		bind(IneFrameHeader.View.class).to(ineFrameHeaderView).in(Singleton.class);		
 		bind(AuthManager.class).to(authManager).in(Singleton.class);
 		bind(HeaderViewLogo.class).to(headerViewLogo).in(Singleton.class);
+		bind(NavigationDrawer.class).to(navigationDrawer).in(Singleton.class);
 		bind(JsonDifference.class).to(GwtJsonDifference.class);
-		bind(PropHandler.class).to(GwtPropHandler.class);
+		bind(PropHandler.class).to(GwtPropHandler.class);		
 	}
 	
 	public IneFrameGinModule setHeaderViewLogo(Class<? extends HeaderViewLogo> headerViewLogo) {
@@ -83,8 +87,8 @@ public class IneFrameGinModule extends AbstractGinModule {
 		return this;
 	}
 	
-	
-	
-	
-	
+	public IneFrameGinModule setIneFrameNavigationDrawer(Class<? extends NavigationDrawer> navigationDrawer) {
+		this.navigationDrawer = navigationDrawer;
+		return this;
+	}
 }

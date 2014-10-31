@@ -6,27 +6,36 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineFrame.client.util.DesignConstants;
 
 @Singleton
-public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultIneFrameMasterPage.View{
+public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultIneFrameMasterPage.View {
+	
+	private MessagePanelWidget messagePanel;
+	private ResizeLayoutPanel headerAndPageRoot;
 
 	@Inject
-	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel) {
+	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
+		this.messagePanel = messagePanel;
+		
+		
 		getElement().setId("MasterPage");
 		setSize("100%", "100%");
 	
 		messagePanel.setVisible(false);
 		
-		ResizeLayoutPanel resizeLayoutPanel = new ResizeLayoutPanel();
-		resizeLayoutPanel.getElement().setId("ResizeLayout");
-		resizeLayoutPanel.setSize("100%", "100%");
+		headerAndPageRoot = new ResizeLayoutPanel();
+		headerAndPageRoot.getElement().setId("HeaderAndPageRoot");
+		headerAndPageRoot.setSize("100%", "100%");
+		headerAndPageRoot.setStyleName(Res.INST.get().style().HeaderAndPageRoot());
 		
 		LayoutPanel headerAndPage = new LayoutPanel();
 		headerAndPage.getElement().setId("HeaderAndPage");
+		headerAndPage.setStyleName(Res.INST.get().style().HeaderAndPage());
 		
 		headerAndPage.add(header.asWidget());
 		headerAndPage.add(menu.asWidget());
@@ -36,10 +45,50 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base, Unit.PX);
 		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base, Unit.PX, 0, Unit.PX);
 		
-		resizeLayoutPanel.setWidget(headerAndPage);
+		headerAndPageRoot.setWidget(headerAndPage);
 		add(messagePanel);
-		add(resizeLayoutPanel);
+		add(navigationDrawer);
+		add(headerAndPageRoot);		
 		
-		messagePanel.showMessage("fadsfasdf", false);
+		messagePanel.showMessage("MessagePanel Text MessagePanel Text MessagePanel Text MessagePanel Text", false);
+		
+	}
+	
+	public void toggleNavigationDrawer() {
+		if (headerAndPageRoot.getStyleName().contains(
+				Res.INST.get().style().navigationDrawerOpened())) {
+			closeNavigationDrawer();
+		} else {
+			openNavigationDrawer();
+		}
+	}
+	
+	public void openNavigationDrawer() {
+		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerClosed());
+		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerOpened());
+	}
+	
+	public void closeNavigationDrawer() {
+		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerOpened());
+		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerClosed());
+	}
+	
+	public void toggleMessagePanel() {
+		if (messagePanel.getStyleName().contains(
+				Res.INST.get().style().messagePanelOpened())) {
+			hideMessagePanel();
+		} else {
+			showMessagePanel();
+		}
+	}
+	
+	public void showMessagePanel() {
+		messagePanel.removeStyleName(Res.INST.get().style().messagePanelClosed());
+		messagePanel.setStyleName(Res.INST.get().style().messagePanelOpened());
+	}
+	
+	public void hideMessagePanel() {
+		messagePanel.removeStyleName(Res.INST.get().style().messagePanelOpened());
+		messagePanel.setStyleName(Res.INST.get().style().messagePanelClosed());
 	}
 }

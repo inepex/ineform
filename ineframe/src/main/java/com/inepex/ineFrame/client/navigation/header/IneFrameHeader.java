@@ -15,6 +15,8 @@ import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.PlaceRequestHandler;
+import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
+import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineom.shared.descriptor.Node;
 
@@ -71,21 +73,24 @@ public class IneFrameHeader implements PlaceRequestHandler {
 		
 		@Override
 		public void doLogic() {
-			eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
+//			eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
+			masterPageView.toggleNavigationDrawer();
 		}
 	};
 	
 	private boolean showLoginLinkWhenLoggedOut = false;
+	private com.inepex.ineFrame.client.navigation.MasterPage.View masterPageView;
 	
 	@Inject
 	public IneFrameHeader(AuthManager authManager,
 			PlaceHierarchyProvider placeHierarchyProvider,
-			Provider<View> view, EventBus eventBus) {
+			Provider<View> view, EventBus eventBus, DefaultIneFrameMasterPage.View masterPageView) {
 		super();
 		this.authManager = authManager;
 		this.placeHierarchyProvider = placeHierarchyProvider;
 		this.viewProv = view;
 		this.eventBus=eventBus;
+		this.masterPageView = masterPageView;
 		
 		eventBus.addHandler(PlaceRequestEvent.TYPE, this);
 		
