@@ -2,6 +2,10 @@
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
 @eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.navigationDrawerWidth();
 
+.MasterPage {
+	overflow: hidden;
+}
+
 .HeaderAndPageRoot {
 	-webkit-box-shadow: -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow:    -5px 10px 25px 0px rgba(50, 50, 50, 0.75);

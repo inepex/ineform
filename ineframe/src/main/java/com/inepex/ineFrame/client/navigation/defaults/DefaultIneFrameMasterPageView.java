@@ -24,6 +24,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		
 		getElement().setId("MasterPage");
 		setSize("100%", "100%");
+		setStyleName(Res.INST.get().style().MasterPage());
 		
 		headerAndPageRoot = new ResizeLayoutPanel();
 		headerAndPageRoot.getElement().setId("HeaderAndPageRoot");
