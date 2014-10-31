@@ -41,7 +41,7 @@ public class App extends IneFrameEntryPoint {
 		
 		registerDescriptors();
 		
-		RootLayoutPanel.get().add(INJECTOR.getMasterPageView());
+		RootPanel.get().add(INJECTOR.getMasterPageView());
 		INJECTOR.gePlaceHandler().fireInitialPlace();
 	}
 	
