@@ -1,6 +1,6 @@
 @eval base com.inepex.ineFrame.client.util.DesignConstants.base();
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
-@eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.navigationDrawerWidth();
+@eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.b5();
 
 .MasterPage {
 	overflow: hidden;
@@ -29,7 +29,6 @@
 }
 
 .NavigationDrawer {
-	background-color: #999;
 	float: left;
 }
 

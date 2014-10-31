@@ -44,6 +44,11 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base, Unit.PX, 0, Unit.PX);
 		
 		headerAndPageRoot.setWidget(headerAndPage);
+		
+		navigationDrawer.asWidget().setSize(DesignConstants.b5(), "100%");
+		navigationDrawer.asWidget().getElement().setId("NavigationDrawer");
+		navigationDrawer.asWidget().addStyleName(Res.INST.get().style().NavigationDrawer());
+		
 		add(messagePanel);
 		add(navigationDrawer);
 		add(headerAndPageRoot);	

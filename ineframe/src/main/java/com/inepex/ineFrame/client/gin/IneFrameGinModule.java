@@ -10,7 +10,7 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
-import com.inepex.ineFrame.client.navigation.defaults.DefaultNavigationDrawer;
+import com.inepex.ineFrame.client.navigation.defaults.IneMenu;
 import com.inepex.ineFrame.client.navigation.header.DefaultHeaderViewLogo;
 import com.inepex.ineFrame.client.navigation.header.HeaderViewLogo;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
@@ -32,7 +32,7 @@ public class IneFrameGinModule extends AbstractGinModule {
 	private Class<? extends MenuRenderer.View> menuRendererView = MenuRendererView.class;
 	private Class<? extends IneFrameHeader.View> ineFrameHeaderView = IneFrameHeaderView.class;
 	private Class<? extends HeaderViewLogo> headerViewLogo = DefaultHeaderViewLogo.class;
-	private Class<? extends NavigationDrawer> navigationDrawer = DefaultNavigationDrawer.class;
+	private Class<? extends NavigationDrawer> navigationDrawer = IneMenu.class;
 	
 	public IneFrameGinModule(
 			Class<? extends PlaceHierarchyProvider> placeHierarchyProvider,

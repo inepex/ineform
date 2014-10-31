@@ -1,4 +1,4 @@
-package com.inepex.ineForm.shared;
+package com.inepex.ineFrame.shared;
 
 public interface IneformAsyncCallback<R> {
 

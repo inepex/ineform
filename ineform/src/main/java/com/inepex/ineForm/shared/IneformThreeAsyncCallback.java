@@ -1,5 +1,7 @@
 package com.inepex.ineForm.shared;
 
+import com.inepex.ineFrame.shared.IneformAsyncCallback;
+
 
 public abstract class IneformThreeAsyncCallback <First, Second, Third> {
 

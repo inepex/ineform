@@ -1,0 +1,68 @@
+@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
+@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
+@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d25();
+@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166();
+@eval b0d125 com.inepex.ineFrame.client.util.DesignConstants.b0d125();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
+@eval b1d5 com.inepex.ineFrame.client.util.DesignConstants.b1d5();
+@eval b5 com.inepex.ineFrame.client.util.DesignConstants.b5();
+
+@eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
+@eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
+@eval menuSeparatorColor com.inepex.ineFrame.client.util.DesignConstants.getMenuSeparatorColor();
+@eval menuFontColor com.inepex.ineFrame.client.util.DesignConstants.getMenuFontColor();
+
+.ineMenu {
+	width: b5;
+	background-color: backgroundColor;
+	font-size: b0d333;
+	color: menuFontColor;
+}
+
+.userProfile{
+	height: b1d5;
+	width: s100%
+}
+
+.userProfileImg{
+	padding: b0d166;
+}
+
+.userProfileEmail{
+	font-size: b0d25;
+}
+
+.userProfileName{
+	height: 50%;
+	font-weight: bold;
+}
+
+.menuSeparatorLbl{
+	padding: 0 b0d125;
+}
+
+.menuSeparatorPanel{
+	width: 100%;
+	height: b0d666;
+	line-height: b0d666;
+	background-color: menuSeparatorColor;
+	vertical-align: middle;
+}
+
+.menuElementRow{
+	width: 100%;
+	height: base;
+	cursor: pointer;
+}
+
+.menuElementRow:hover{
+	background-color: ineColor1;
+}
+
+.menuElementIcon{
+	text-align: center;
+	width: base;
+}
+.menuElementTable{
+	width: 100%
+}

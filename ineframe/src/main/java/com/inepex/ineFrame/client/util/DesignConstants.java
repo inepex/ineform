@@ -15,8 +15,6 @@ public class DesignConstants {
 	
 	public static int b5 = (int) (base * 5);
 	
-	public static int navigationDrawerWidth = 250;
-	
 	public static String backgroundColor = "#2B2B2B";
 	public static String ineColor1 = "#12AD2B";
 	public static String menuSeparatorColor = "#494949";
@@ -73,10 +71,6 @@ public class DesignConstants {
 	
 	public static String baseNegative() {
 		return -1 * base + "px";
-	}
-	
-	public static String navigationDrawerWidth() {
-		return navigationDrawerWidth + "px";
 	}
 	 
 }
