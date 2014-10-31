@@ -3,24 +3,30 @@ package com.inepex.ineFrame.client.navigation.defaults;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.auth.UserLoggedInEvent;
 import com.inepex.ineFrame.client.auth.UserLoggedOutEvent;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
+import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanel;
+import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
 public class IneMenu implements NavigationDrawer {
 
 	private IneMenuView view;
 	private AuthManager authManager;
+	private Provider<MessagePanel> messagePanel;
 
 	@Inject
 	public IneMenu(
 			IneMenuView view, 
 			EventBus eventBus,
-			AuthManager authManager) {
+			AuthManager authManager,
+			final Provider<MessagePanel> messagePanel) {
 		this.view = view;
 		this.authManager = authManager;
+		this.messagePanel = messagePanel;
 		
 		refresh();
 		
@@ -38,6 +44,15 @@ public class IneMenu implements NavigationDrawer {
 			public void onUserLoggedOut() {
 				refresh();
 			}	
+		});
+		
+		//for test only
+		view.setHelpHandler(new IneformAsyncCallback<Void>() {
+			
+			@Override
+			public void onResponse(Void response) {
+				messagePanel.get().showMessage("Helló új design és animációk", false);
+			}
 		});
 	}
 

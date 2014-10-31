@@ -148,7 +148,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Cell cell = appsTbl.getCellForEvent(event);
+				Cell cell = helpAndSettingsTable.getCellForEvent(event);
 				int rowIndex = cell.getRowIndex();
 				if(rowIndex == 0 && helpHandler != null){
 					helpHandler.onResponse(null);
