@@ -44,9 +44,8 @@
 }
 
 .messagePanelOpened {
-	height: base;
+	margin-top: base;
 	overflow-y: hidden;
-	max-height: 500px;
 	transition-property: all;
 	transition-duration: .5s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
@@ -54,4 +53,8 @@
 
 .messagePanelClosed {
 	margin-top: baseNegative;
+	overflow-y: hidden;
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }

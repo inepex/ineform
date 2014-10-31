@@ -8,6 +8,9 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.inepex.ineFrame.client.navigation.MasterPage.View;
+import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 
 public class MessagePanelWidget extends Grid implements MessagePanel {
@@ -15,14 +18,15 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	private Label messageLabel = new Label();
 	private Label closeLabel = new Label("X");
 	private Timer timer;
-	private DefaultIneFrameMasterPageView parent;
 	private HandlerRegistration closeHandlerReg;
 	
 	private boolean isInitialized = false;
+	private Provider<DefaultIneFrameMasterPage.View> masterPageView;
 	
 	@Inject
-	public MessagePanelWidget() {
+	public MessagePanelWidget(Provider<DefaultIneFrameMasterPage.View> masterPageView) {
 		super(1, 3);
+		this.masterPageView = masterPageView;
 	}
 	
 	@Override
@@ -32,8 +36,7 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 				
 				@Override
 				public void run() {
-					hideMessage();
-					
+					hideMessage();					
 				}
 			}; 
 			timer.schedule(delayMillis);	
@@ -52,12 +55,13 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 			removeStyleName(Res.INST.get().style().errorStyle());
 			addStyleName(Res.INST.get().style().messageStyle());
 		}
-		setVisible(true);
 		if(messageLabel.getText().equals("")){
 			messageLabel.setText(message);
 		}else{
 			messageLabel.setText(messageLabel.getText() + " | " + message);
 		}
+		
+		masterPageView.get().showMessagePanel();
 	}
 	public double getHeight(){
 		return Double.valueOf(getElement().getStyle().getHeight());
@@ -66,9 +70,8 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	public void hideMessage(){
 		if(timer != null)
 			timer.cancel();
+		masterPageView.get().hideMessagePanel();
 		messageLabel.setText("");
-		addStyleName(Res.INST.get().style().closed());
-		//setVisible(false);
 	}
 	@Override
 	protected void onAttach() {
@@ -108,11 +111,4 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	public void showMessage(String message, boolean isError) {
 		showMessage(message, isError, defaultDelay());
 	}
-	public void setParent(DefaultIneFrameMasterPageView parent) {
-		this.parent = parent;
-	}
-	public DefaultIneFrameMasterPageView getParent() {
-		return parent;
-	}
-
 }

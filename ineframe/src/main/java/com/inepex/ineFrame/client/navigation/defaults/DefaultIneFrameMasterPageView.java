@@ -22,11 +22,8 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
 		this.messagePanel = messagePanel;
 		
-		
 		getElement().setId("MasterPage");
 		setSize("100%", "100%");
-	
-		messagePanel.setVisible(false);
 		
 		headerAndPageRoot = new ResizeLayoutPanel();
 		headerAndPageRoot.getElement().setId("HeaderAndPageRoot");
