@@ -48,10 +48,9 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		headerAndPageRoot.setWidget(headerAndPage);
 		add(messagePanel);
 		add(navigationDrawer);
-		add(headerAndPageRoot);		
+		add(headerAndPageRoot);	
 		
 		messagePanel.showMessage("MessagePanel Text MessagePanel Text MessagePanel Text MessagePanel Text", false);
-		
 	}
 	
 	public void toggleNavigationDrawer() {

@@ -1,10 +1,11 @@
 @eval base com.inepex.ineFrame.client.util.DesignConstants.base();
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
+@eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.navigationDrawerWidth();
 
 .HeaderAndPageRoot {
-	-webkit-box-shadow: -5px 0px 25px 0px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    -5px 0px 25px 0px rgba(50, 50, 50, 0.75);
-	box-shadow:         -5px 0px 25px 0px rgba(50, 50, 50, 0.75);
+	-webkit-box-shadow: -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
 }
 
 .HeaderAndPage {
@@ -29,7 +30,7 @@
 }
 
 .navigationDrawerOpened {
-	margin-left: 200px;
+	margin-left: navigationDrawerWidth;
 	transition-property: all;
 	transition-duration: .5s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);

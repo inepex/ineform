@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
+import com.inepex.ineFrame.client.util.DesignConstants;
 
 public class DefaultNavigationDrawer extends FlowPanel implements NavigationDrawer {
 
@@ -14,7 +15,7 @@ public class DefaultNavigationDrawer extends FlowPanel implements NavigationDraw
 
 	public DefaultNavigationDrawer() {
 		add(new Label("NavigationDrawer"));
-		setSize("250px", "100%");
+		setSize(DesignConstants.navigationDrawerWidth(), "100%");
 		asWidget().getElement().setId("NavigationDrawer");
 		setStyleName(Res.INST.get().style().NavigationDrawer());
 	}
