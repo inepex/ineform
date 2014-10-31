@@ -46,13 +46,10 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		add(messagePanel);
 		add(navigationDrawer);
 		add(headerAndPageRoot);	
-		
-		messagePanel.showMessage("MessagePanel Text MessagePanel Text MessagePanel Text MessagePanel Text", false);
 	}
 	
 	public void toggleNavigationDrawer() {
-		if (headerAndPageRoot.getStyleName().contains(
-				Res.INST.get().style().navigationDrawerOpened())) {
+		if (isNavigationDrawerOpen()) {
 			closeNavigationDrawer();
 		} else {
 			openNavigationDrawer();
@@ -69,9 +66,12 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerClosed());
 	}
 	
+	public boolean isNavigationDrawerOpen() {
+		return headerAndPageRoot.getStyleName().contains(Res.INST.get().style().navigationDrawerOpened());
+	}
+	
 	public void toggleMessagePanel() {
-		if (messagePanel.getStyleName().contains(
-				Res.INST.get().style().messagePanelOpened())) {
+		if (isMessagePanelShown()) {
 			hideMessagePanel();
 		} else {
 			showMessagePanel();
@@ -86,5 +86,9 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	public void hideMessagePanel() {
 		messagePanel.removeStyleName(Res.INST.get().style().messagePanelOpened());
 		messagePanel.setStyleName(Res.INST.get().style().messagePanelClosed());
+	}
+	
+	public boolean isMessagePanelShown() {
+		return messagePanel.getStyleName().contains(Res.INST.get().style().messagePanelOpened());
 	}
 }

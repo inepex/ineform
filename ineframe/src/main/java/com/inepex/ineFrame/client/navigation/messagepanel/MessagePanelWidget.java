@@ -9,9 +9,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.inepex.ineFrame.client.navigation.MasterPage.View;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
-import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 
 public class MessagePanelWidget extends Grid implements MessagePanel {
 	

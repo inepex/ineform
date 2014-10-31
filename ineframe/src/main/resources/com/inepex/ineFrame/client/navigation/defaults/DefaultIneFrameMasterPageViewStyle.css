@@ -44,7 +44,8 @@
 }
 
 .messagePanelOpened {
-	margin-top: base;
+	height: base;
+	margin-top: 0px;
 	overflow-y: hidden;
 	transition-property: all;
 	transition-duration: .5s;
@@ -52,6 +53,7 @@
 }
 
 .messagePanelClosed {
+	height: base;
 	margin-top: baseNegative;
 	overflow-y: hidden;
 	transition-property: all;

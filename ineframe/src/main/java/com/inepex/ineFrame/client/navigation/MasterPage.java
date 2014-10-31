@@ -11,9 +11,11 @@ public interface MasterPage {
 		public void toggleNavigationDrawer();
 		public void openNavigationDrawer();
 		public void closeNavigationDrawer();
+		public boolean isNavigationDrawerOpen();
 		public void toggleMessagePanel();
 		public void showMessagePanel();
 		public void hideMessagePanel();
+		public boolean isMessagePanelShown();
 	}
 	
 	void render(InePlace place, Map<String, String> urlParams);

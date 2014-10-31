@@ -22,8 +22,8 @@
 
 .messagebox {
 	height: base;
+	margin-top: baseNegative;
 	overflow-y: hidden;
-	max-height: 500px;
 }
 
 .messagebox td {
