@@ -4,11 +4,11 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.auth.UserLoggedInEvent;
 import com.inepex.ineFrame.client.auth.UserLoggedOutEvent;
-import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
@@ -18,16 +18,15 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 public class IneMenu implements NavigationDrawer {
 
-	private IneMenuView view;
-	private AuthManager authManager;
+	protected IneMenuView view;
+	protected AuthManager authManager;
 	private Provider<MessagePanel> messagePanel;
 
 	@Inject
-	public IneMenu(
-			IneMenuView view, 
-			final EventBus eventBus,
-			final AuthManager authManager,
-			final Provider<MessagePanel> messagePanel) {
+	public IneMenu(IneMenuView view, 
+				   final EventBus eventBus,
+				   final AuthManager authManager,
+				   final Provider<MessagePanel> messagePanel) {
 		this.view = view;
 		this.authManager = authManager;
 		this.messagePanel = messagePanel;
@@ -83,9 +82,14 @@ public class IneMenu implements NavigationDrawer {
 		if(!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
 			view.setUser(authManager.getLastAuthStatusResult().getDisplayName(), 
 					authManager.getLastAuthStatusResult().getUserEmail());
+			showApps();
+			
 		} else {
 			view.setUser(null, null);
 		}
 	}
 	
+	protected void showApps(){ 
+		view.clearApps();
+	}
 }

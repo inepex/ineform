@@ -1,6 +1,8 @@
 package com.inepex.ineFrame.client.navigation.defaults;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -12,28 +14,44 @@ import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineFrame.client.util.DesignConstants;
+import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton
 public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultIneFrameMasterPage.View {
 	
 	private MessagePanelWidget messagePanel;
 	private ResizeLayoutPanel headerAndPageRoot;
+	private ClickableFlowPanel clickHandlerLayout;
+	private LayoutPanel headerAndPage;
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
 		setBase();
 		this.messagePanel = messagePanel;
 		messagePanel.getElement().setId("MessagePanel");
+		messagePanel.setStyleName(Res.INST.get().style().MessagePanel());
 		getElement().setId("MasterPage");
 		setSize("100%", "100%");
 		setStyleName(Res.INST.get().style().MasterPage());
+		
+		clickHandlerLayout = new ClickableFlowPanel();
+		clickHandlerLayout.getElement().setId("ClickHandler");
+		clickHandlerLayout.setSize("100%", "100%");
+		
+		clickHandlerLayout.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				closeNavigationDrawer();
+			}
+		});
 		
 		headerAndPageRoot = new ResizeLayoutPanel();
 		headerAndPageRoot.getElement().setId("HeaderAndPageRoot");
 		headerAndPageRoot.setSize("100%", "100%");
 		headerAndPageRoot.setStyleName(Res.INST.get().style().HeaderAndPageRoot());
 		
-		LayoutPanel headerAndPage = new LayoutPanel();
+		headerAndPage = new LayoutPanel();
 		headerAndPage.getElement().setId("HeaderAndPage");
 		headerAndPage.setStyleName(Res.INST.get().style().HeaderAndPage());
 		
@@ -74,11 +92,13 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	public void openNavigationDrawer() {
 		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerClosed());
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerOpened());
+		headerAndPage.add(clickHandlerLayout);
 	}
 	
 	public void closeNavigationDrawer() {
 		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerOpened());
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerClosed());
+		headerAndPage.remove(clickHandlerLayout);
 	}
 	
 	public boolean isNavigationDrawerOpen() {

@@ -28,11 +28,12 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	private FlexTable appsTbl = new FlexTable();
 	private FlexTable helpAndSettingsTable = new FlexTable();
 	
-	private Map<Integer, String> appTokemMap = new HashMap<>();
+	private Map<Integer, String> appIdMap = new HashMap<>();
 	private EventBus eventBus;
 	private IneformAsyncCallback<Void> logoutHandler;
 	private IneformAsyncCallback<Void> accountSettingsHandler;
 	private IneformAsyncCallback<Void> helpHandler;
+	private IneformAsyncCallback<String> appCbk;
 	
 	@Inject
 	public IneMenuView(EventBus eventBus) {
@@ -41,9 +42,9 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		setStyles();
 	}
 	
-	public void addApp(ImageResource icon, String appName, String token){
+	public void addApp(ImageResource icon, String appName, String appId){
 		int row = appsTbl.getRowCount();
-		appTokemMap.put(row, token);
+		appIdMap.put(row, appId);
 		appsTbl.setWidget(row, 0, new Image(icon));
 		appsTbl.setText(row, 1, appName);
 		
@@ -61,7 +62,6 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 			usertable.setText(0, 1, userName);
 			usertable.setText(1, 0, email);
 		}
-		
 	}
 	
 	public void setLogoutHandler(IneformAsyncCallback<Void> logoutHandler){
@@ -74,6 +74,10 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	
 	public void setHelpHandler(IneformAsyncCallback<Void> helpHandler){
 		this.helpHandler = helpHandler;
+	}
+	
+	public void setAppCbk(IneformAsyncCallback<String> appCbk){
+		this.appCbk = appCbk;
 	}
 
 	private void setStyles() {
@@ -138,9 +142,9 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 			public void onClick(ClickEvent event) {
 				Cell cell = appsTbl.getCellForEvent(event);
 				int rowIndex = cell.getRowIndex();
-				String token = appTokemMap.get(rowIndex);
-				if(token != null){
-					eventBus.fireEvent(new PlaceRequestEvent(token));
+				String appId = appIdMap.get(rowIndex);
+				if(appId != null){
+					appCbk.onResponse(appId);
 				}
 			}
 		}));
@@ -163,8 +167,13 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	
 	@Override
 	protected void onLoad() {
+		appsPanel.setVisible(appsTbl.getRowCount() != 0);
 		registerHandlers();
 		super.onLoad();
 	}
 
+	public void clearApps() {
+		appsTbl.removeAllRows();
+		appsLbl.setVisible(false);
+	}
 }

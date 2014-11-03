@@ -1,5 +1,7 @@
 @eval base com.inepex.ineFrame.client.util.DesignConstants.base();
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
+@eval b0d50 com.inepex.ineFrame.client.util.DesignConstants.b0d50();
+@eval b0d50Negative com.inepex.ineFrame.client.util.DesignConstants.b0d50Negative();
 
 .messageStyle {
 	background: #ffcc00;
@@ -21,9 +23,12 @@
 }
 
 .messagebox {
-	height: base;
-	margin-top: baseNegative;
+	height: b0d50;
+	margin-top: b0d50Negative;
 	overflow-y: hidden;
+	font-size: 11px;
+	margin: auto;
+	font-weight: bold;
 }
 
 .messagebox td {
