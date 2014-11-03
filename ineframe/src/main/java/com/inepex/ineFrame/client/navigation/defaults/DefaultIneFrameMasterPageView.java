@@ -1,6 +1,7 @@
 package com.inepex.ineFrame.client.navigation.defaults;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
@@ -20,6 +21,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
+		setBase();
 		this.messagePanel = messagePanel;
 		messagePanel.getElement().setId("MessagePanel");
 		getElement().setId("MasterPage");
@@ -54,6 +56,13 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		add(headerAndPageRoot);	
 	}
 	
+	private void setBase() {
+		String userAgent = Navigator.getUserAgent();
+		if(userAgent.contains("mobile") || Navigator.getPlatform().contains("iPhone")){
+			DesignConstants.setBase(72);
+		}
+	}
+
 	public void toggleNavigationDrawer() {
 		if (isNavigationDrawerOpen()) {
 			closeNavigationDrawer();

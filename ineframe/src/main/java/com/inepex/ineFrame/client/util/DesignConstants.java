@@ -76,4 +76,8 @@ public class DesignConstants {
 	public static String defaultAnimationLength() {
 		return defaultAnimationLength + "s";
 	}
+	
+	public static void setBase(int base) {
+		DesignConstants.base = base;
+	}
 }
