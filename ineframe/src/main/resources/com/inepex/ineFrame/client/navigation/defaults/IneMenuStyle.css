@@ -21,7 +21,8 @@
 
 .userProfile{
 	height: b1d5;
-	width: s100%
+	width: s100%;
+	text-overflow : ellipsis;
 }
 
 .userProfileImg{
