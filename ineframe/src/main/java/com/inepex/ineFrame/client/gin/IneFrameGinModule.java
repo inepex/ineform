@@ -17,6 +17,8 @@ import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeaderView;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.menu.MenuRendererView;
+import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanel;
+import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineom.shared.GwtJsonDifference;
 import com.inepex.ineom.shared.GwtPropHandler;
 import com.inepex.ineom.shared.JsonDifference;
@@ -55,6 +57,8 @@ public class IneFrameGinModule extends AbstractGinModule {
 		bind(NavigationDrawer.class).to(navigationDrawer).in(Singleton.class);
 		bind(JsonDifference.class).to(GwtJsonDifference.class);
 		bind(PropHandler.class).to(GwtPropHandler.class);		
+		bind(MessagePanelWidget.class).in(Singleton.class);
+		bind(MessagePanel.class).to(MessagePanelWidget.class);
 	}
 	
 	public IneFrameGinModule setHeaderViewLogo(Class<? extends HeaderViewLogo> headerViewLogo) {
