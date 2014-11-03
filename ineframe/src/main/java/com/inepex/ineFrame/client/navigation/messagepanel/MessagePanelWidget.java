@@ -1,8 +1,11 @@
 package com.inepex.ineFrame.client.navigation.messagepanel;
 
+import java.util.LinkedList;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
@@ -10,13 +13,16 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
+import com.inepex.ineFrame.client.util.DesignConstants;
 
 public class MessagePanelWidget extends Grid implements MessagePanel {
 	
+	private LinkedList<Message> messages;
 	private Label messageLabel = new Label();
 	private Label closeLabel = new Label("X");
 	private Timer timer;
 	private HandlerRegistration closeHandlerReg;
+	private boolean isShowing;
 	
 	private boolean isInitialized = false;
 	private Provider<DefaultIneFrameMasterPage.View> masterPageView;
@@ -24,11 +30,26 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	@Inject
 	public MessagePanelWidget(Provider<DefaultIneFrameMasterPage.View> masterPageView) {
 		super(1, 3);
+		isShowing = false;
+		messages = new LinkedList<>();
 		this.masterPageView = masterPageView;
 	}
 	
 	@Override
 	public void showMessage(String message, boolean isError, int delayMillis){
+		if(isShowing){
+			messages.addLast(new Message(message, isError, delayMillis));
+			return;
+		}else{
+			displayMessage(message, isError, delayMillis);
+		}
+	}
+	public void displayMessage(Message message){
+		displayMessage(message.getMessage(), message.isError(), message.getDelayMillisec());
+	}
+	public void displayMessage(String message, boolean isError, int delayMillis){
+		message = message+Random.nextDouble();
+		isShowing = true;
 		if(delayMillis > 0){
 			timer = new Timer() {
 				
@@ -70,6 +91,17 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 			timer.cancel();
 		masterPageView.get().hideMessagePanel();
 		messageLabel.setText("");
+		new Timer(){
+			@Override
+			public void run() {
+				if(messages.size()>0){
+					displayMessage(messages.removeFirst());
+				}else{
+					isShowing = false;
+				}					
+			}
+		}.schedule((int)(DesignConstants.defaultAnimationLength*1000));
+		
 	}
 	@Override
 	protected void onAttach() {
@@ -108,5 +140,9 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	@Override
 	public void showMessage(String message, boolean isError) {
 		showMessage(message, isError, defaultDelay());
+	}
+
+	public void showMessage(Message message) {
+		showMessage(message.getMessage(), message.isError(), message.getDelayMillisec());
 	}
 }
