@@ -109,11 +109,11 @@
 }
 
 /* menu*/
-.menu,.submenu {
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+.menu {
+	border-bottom: 2px solid rgba(0, 0, 0, .15);
 }
 
-.menu ul,.submenu ul {
+.menu ul {
 	height: 50px;
 	width: 100%;
 	margin: 0;
@@ -121,12 +121,12 @@
 	list-style: none;
 }
 
-.menu li,.submenu li {
+.menu li {
 	float: left;
 	height: 50px;
 }
 
-.menu ul li div,.submenu ul li div {
+.menu ul li div {
 	float: left;
 	margin-right: 10px;
 	margin-left: 5px;
@@ -134,7 +134,7 @@
 	height: 50px;
 }
 
-.menu a,.menu a:active,.menu a:link,.menu a:visited,.submenu a,.submenu a:link,.submenu a:active,.submenu a:visited
+.menu a,.menu a:active,.menu a:link,.menu a:visited
 	{
 	float: left;
 	color: #666;
@@ -145,7 +145,7 @@
 	border-left: 1px solid #f0f0f0;
 }
 
-.menu a:hover,.menu .current_page_item a,.submenu a:hover,.submenu .current_page_item a
+.menu a:hover,.menu .current_page_item a
 	{
 	text-decoration: none;
 	color: white;
@@ -153,37 +153,8 @@
 	background-color: #12ad2b;
 }
 
-.menu li:first-child a,.submenu li:first-child a {
+.menu li:first-child a {
 	border-left: 0 !important;
-}
-
-/* menu3 */
-.menu3 {
-	height: 30px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
-}
-
-.menu3 ul {
-	width: 100%;
-	margin: 0;
-	padding: 0px;
-	list-style: none;
-	line-height: normal;
-}
-
-.menu3 li {
-	float: left;
-}
-
-.menu3 a:hover {
-	color: white;
-	border-right: 1px solid #12ad2b;
-	background-color: #12ad2b;
-}
-
-.menu3 .current_page_item a {
-	color: white;
-	border-right: 1px solid #12ad2b;
 }
 
 .selector {

@@ -15,11 +15,14 @@ import com.inepex.ineFrame.client.widgets.ListItemWidget;
 @Singleton
 public class MenuRendererView extends LayoutPanel implements MenuRenderer.View {
 
-	private List<MenuOneLevelView> levels = new ArrayList<MenuOneLevelView>(); 
+	protected List<MenuOneLevelView> levels = new ArrayList<MenuOneLevelView>(); 
 	
 	@Inject
 	public MenuRendererView() {
-		levels.add(new MenuOneLevelView(this, 0));
+		levels.add(new MenuOneLevelView(this, 0, false));
+	}
+	
+	public MenuRendererView(Boolean dummy){
 	}
 
 	@Override
@@ -30,7 +33,7 @@ public class MenuRendererView extends LayoutPanel implements MenuRenderer.View {
 		}
 		
 		if (level == 0){
-			levels.get(level).init(level);	
+			levels.get(level).init();	
 		} 
 		for (int i = level; i < levels.size(); i++){
 			if (i != 0){
@@ -43,7 +46,7 @@ public class MenuRendererView extends LayoutPanel implements MenuRenderer.View {
 	
 	private MenuOneLevelView getOneLevel(int level){
 		if (levels.size() <= level){
-			levels.add(new MenuOneLevelView(getOneLevel(level - 1).getTarget(), level));
+			levels.add(new MenuOneLevelView(getOneLevel(level - 1).getTarget(), level, false));
 		}
 		return levels.get(level);
 	}

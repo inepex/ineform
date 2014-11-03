@@ -8,8 +8,6 @@ public interface IneFrameStyle extends CssResource {
 	String menuRendererWidgetContainer();
 	
 	String menu();
-	String submenu();
-	String menu3();
 	String current_page_item();
 	
 	String header();
