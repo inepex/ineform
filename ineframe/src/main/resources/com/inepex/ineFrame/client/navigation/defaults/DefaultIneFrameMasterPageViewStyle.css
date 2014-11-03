@@ -1,5 +1,7 @@
 @eval base com.inepex.ineFrame.client.util.DesignConstants.base();
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
+@eval b0d50 com.inepex.ineFrame.client.util.DesignConstants.b0d50();
+@eval b0d50Negative com.inepex.ineFrame.client.util.DesignConstants.b0d50Negative();
 @eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.b5();
 @eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLength();
 
@@ -26,7 +28,11 @@
 }
 
 .MessagePanel {
-	
+	font-size: 11px;
+	font-weight: bold;
+	height: b0d50;
+	margin-top: b0d50Negative;
+	margin: auto;	
 }
 
 .NavigationDrawer {
@@ -48,18 +54,14 @@
 }
 
 .messagePanelOpened {
-	height: base;
 	margin-top: 0px;
-	overflow-y: hidden;
 	transition-property: all;
 	transition-duration: defaultAnimationLength;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
 .messagePanelClosed {
-	height: base;
-	margin-top: baseNegative;
-	overflow-y: hidden;
+	margin-top: b0d50Negative;
 	transition-property: all;
 	transition-duration: defaultAnimationLength;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);

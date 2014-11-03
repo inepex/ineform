@@ -6,6 +6,7 @@ public class DesignConstants {
 	
 	public static int b0d333 = (int) (base * 1.0/3.0);
 	public static int b0d25 = (int) (base * 1.0/4.0);
+	public static int b0d50 = (int) (base * 1.0/2.0);
 	public static int b0d166 = (int) (base * 1.0/6.0);
 	public static int b0d125 = (int) (base * 1.0/8.0);
 	
@@ -31,6 +32,10 @@ public class DesignConstants {
 
 	public static String b0d25() {
 		return b0d25 + "px";
+	}
+	
+	public static String b0d50() {
+		return b0d50 + "px";
 	}
 
 	public static String b0d166() {
@@ -71,6 +76,38 @@ public class DesignConstants {
 	
 	public static String baseNegative() {
 		return -1 * base + "px";
+	}
+	
+	public static String b0d333Negative() {
+		return -1 * b0d333+"px";
+	}
+
+	public static String b0d25Negative() {
+		return -1 * b0d25 + "px";
+	}
+	
+	public static String b0d50Negative() {
+		return -1 * b0d50 + "px";
+	}
+
+	public static String b0d166Negative() {
+		return -1 * b0d166 + "px";
+	}
+
+	public static String b0d125Negative() {
+		return -1 * b0d125 + "px";
+	}
+
+	public static String b0d666Negative() {
+		return -1 * b0d666 + "px";
+	}
+
+	public static String b1d5Negative() {
+		return -1 * b1d5 + "px";
+	}
+
+	public static String b5Negative() {
+		return -1 * b5 + "px";
 	}
 	
 	public static String defaultAnimationLength() {
