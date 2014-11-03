@@ -14,6 +14,7 @@ import com.inepex.ineFrame.client.widgets.UnorderedListWidget;
 public class MenuOneLevelView extends LayoutPanel {
 	private LayoutPanel target = new LayoutPanel();
 	private FlowPanel menu = new FlowPanel();
+	private FlowPanel menuBorder = new FlowPanel();
 	private UnorderedListWidget menuUL;
 	private boolean selectorRendered = false;
 	private boolean hiddenMenu = false;
@@ -23,6 +24,7 @@ public class MenuOneLevelView extends LayoutPanel {
 		getElement().setId("OneLevel-" + level);
 		parent.add(this);
 		menu.addStyleName(ResourceHelper.getRes().style().menu());
+		menuBorder.addStyleName(ResourceHelper.getRes().style().menuBorder());
 		menu.getElement().setId("OneLevel-" + level + "-Menu");
 		getElement().getStyle().setOverflow(Overflow.VISIBLE);
 		init();
@@ -38,12 +40,15 @@ public class MenuOneLevelView extends LayoutPanel {
 			menu.add(menuUL);
 		}
 		add(menu);
+		add(menuBorder);
 		add(target);
 		if (!hiddenMenu){
 			setWidgetTopHeight(menu, 0, Unit.PX, DesignConstants.base, Unit.PX);
-			setWidgetTopBottom(target, DesignConstants.base, Unit.PX, 0, Unit.PX);	
+			setWidgetTopHeight(menuBorder, DesignConstants.base, Unit.PX, DesignConstants.b0d125, Unit.PX);
+			setWidgetTopBottom(target, DesignConstants.base + DesignConstants.b0d125, Unit.PX, 0, Unit.PX);	
 		} else { 
 			setWidgetTopHeight(menu, 0, Unit.PX, 0, Unit.PX);
+			setWidgetTopHeight(menuBorder, 0, Unit.PX, 0, Unit.PX);
 			setWidgetTopBottom(target, 0, Unit.PX, 0, Unit.PX);
 		}
 	}
@@ -66,13 +71,16 @@ public class MenuOneLevelView extends LayoutPanel {
 		grid.setWidget(0, 0, selector.asWidget());
 		clear();
 		add(menu);
+		add(menuBorder);
 		add(grid);
 		
 		if (!hiddenMenu){
 			setWidgetTopHeight(menu, 0, Unit.PX, DesignConstants.base, Unit.PX);
-			setWidgetTopBottom(grid, DesignConstants.base, Unit.PX, 0, Unit.PX);	
+			setWidgetTopHeight(menuBorder, DesignConstants.base, Unit.PX, DesignConstants.b0d125, Unit.PX);
+			setWidgetTopBottom(grid, DesignConstants.base + DesignConstants.b0d125, Unit.PX, 0, Unit.PX);	
 		} else { 
 			setWidgetTopHeight(menu, 0, Unit.PX, 0, Unit.PX);
+			setWidgetTopHeight(menuBorder, 0, Unit.PX, 0, Unit.PX);
 			setWidgetTopBottom(grid, 0, Unit.PX, 0, Unit.PX);
 		}
 		

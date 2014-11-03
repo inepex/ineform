@@ -5,6 +5,11 @@
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
 
+@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
+@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
+
+
 .header {
 	height: base;
 	background-color: backgroundColor;
@@ -110,11 +115,16 @@
 
 /* menu*/
 .menu {
-	border-bottom: 2px solid rgba(0, 0, 0, .15);
+	
+}
+
+.menuBorder {
+/* 	border-bottom: 1px solid #EDEDED; */
+	background: linear-gradient(to bottom, #D1D1D1 , #F5F5F5);
+	border-top: 1px solid #EDEDED;
 }
 
 .menu ul {
-	height: 50px;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -123,7 +133,6 @@
 
 .menu li {
 	float: left;
-	height: 50px;
 }
 
 .menu ul li div {
@@ -138,19 +147,22 @@
 	{
 	float: left;
 	color: #666;
-	padding: 17px;
+	line-height: base;
 	text-decoration: none;
 	display: block;
-	font-size: 14px;
+	font-size: b0d333;
 	border-left: 1px solid #f0f0f0;
+	padding-left: b0d666;
+	padding-right: b0d666;
 }
 
 .menu a:hover,.menu .current_page_item a
 	{
 	text-decoration: none;
-	color: white;
-	border-left: 1px solid #12ad2b;
-	background-color: #12ad2b;
+	color: #333333;
+	border-left: 1px solid #EDEDED;
+	background-color: #EDEDED;
+	font-weight: bold;
 }
 
 .menu li:first-child a {

@@ -24,6 +24,7 @@ public interface IneFrameStyle extends CssResource {
 	String closed();
 	String menuTable();
 	String menuCell();
+	String menuBorder();
 	
 }
 
