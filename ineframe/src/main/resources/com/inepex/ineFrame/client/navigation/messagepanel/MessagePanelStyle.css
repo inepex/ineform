@@ -4,33 +4,35 @@
 @eval b0d50Negative com.inepex.ineFrame.client.util.DesignConstants.b0d50Negative();
 
 .messageStyle {
-	background: #ffcc00;
+	background-color: #ffcc33;
 }
 
 .errorStyle {
-	background: #b24b4b;
+	background-color: #b24b4b;
+	color: #ffffff;
 }
 
 .messageIcon {
+	width: 14px;
+	height: 14px;
 	margin-left: 5px;
-	margin-right: 5px;
+	margin-right: 10px;
 	vertical-align: middle;
 }
 
 .messageCloseIcon {
-	padding: 0px 5px 0px 5px;
 	cursor: pointer;
+	padding: 0px 5px 0px 5px;
 }
 
 .messagebox {
-	height: b0d50;
-	margin-top: b0d50Negative;
-	overflow-y: hidden;
-	font-size: 11px;
-	margin: auto;
-	font-weight: bold;
+	width: 100%;
+	text-align: center;
 }
 
 .messagebox td {
-	font-size: 12px;
+	font-size: 11px;
+	font-weight: bold;
+	vertical-align: middle;
+	width: 100%;
 }
