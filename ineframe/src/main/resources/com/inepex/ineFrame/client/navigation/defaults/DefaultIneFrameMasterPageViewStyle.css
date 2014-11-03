@@ -10,9 +10,9 @@
 }
 
 .HeaderAndPageRoot {
-	-webkit-box-shadow: -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
-	box-shadow:         -5px 10px 25px 0px rgba(50, 50, 50, 0.75);
+	-webkit-box-shadow: -5px 15px 45px 0px rgba(0, 0, 0, 0.95);
+	-moz-box-shadow:    -5px 15px 45px 0px rgba(0, 0, 0, 0.95);
+	box-shadow:         -5px 15px 45px 0px rgba(0, 0, 0, 0.95);
 }
 
 .HeaderAndPage {
@@ -28,11 +28,8 @@
 }
 
 .MessagePanel {
-	font-size: 11px;
-	font-weight: bold;
 	height: b0d50;
 	margin-top: b0d50Negative;
-	margin: auto;	
 }
 
 .NavigationDrawer {

@@ -5,10 +5,11 @@ import java.util.LinkedList;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -18,8 +19,9 @@ import com.inepex.ineFrame.client.util.DesignConstants;
 public class MessagePanelWidget extends Grid implements MessagePanel {
 	
 	private LinkedList<Message> messages;
-	private Label messageLabel = new Label();
+	private InlineLabel messageLabel = new InlineLabel();
 	private Label closeLabel = new Label("X");
+	private FlowPanel imageAndMessagePanel = new FlowPanel();
 	private Timer timer;
 	private HandlerRegistration closeHandlerReg;
 	private boolean isShowing;
@@ -29,7 +31,7 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	
 	@Inject
 	public MessagePanelWidget(Provider<DefaultIneFrameMasterPage.View> masterPageView) {
-		super(1, 3);
+		super(1, 2);
 		isShowing = false;
 		messages = new LinkedList<>();
 		this.masterPageView = masterPageView;
@@ -48,8 +50,9 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 		displayMessage(message.getMessage(), message.isError(), message.getDelayMillisec());
 	}
 	public void displayMessage(String message, boolean isError, int delayMillis){
-		message = message+Random.nextDouble();
 		isShowing = true;
+		imageAndMessagePanel.clear();
+		messageLabel.setText("");
 		if(delayMillis > 0){
 			timer = new Timer() {
 				
@@ -63,14 +66,16 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 		if(isError){
 			Image img = new Image(Res.INST.get().system_alert_icon());
 			img.setStyleName(Res.INST.get().style().messageIcon());
-			setWidget(0, 0, img);
+//			setWidget(0, 0, img);
+			imageAndMessagePanel.add(img);
 			removeStyleName(Res.INST.get().style().messageStyle());
 			addStyleName(Res.INST.get().style().errorStyle());
 		}
 		else{
 			Image img = new Image(Res.INST.get().system_alert_icon());
 			img.setStyleName(Res.INST.get().style().messageIcon());
-			setWidget(0, 0, img);
+//			setWidget(0, 0, img);
+			imageAndMessagePanel.add(img);
 			removeStyleName(Res.INST.get().style().errorStyle());
 			addStyleName(Res.INST.get().style().messageStyle());
 		}
@@ -79,6 +84,9 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 		}else{
 			messageLabel.setText(messageLabel.getText() + " | " + message);
 		}
+		
+		imageAndMessagePanel.add(messageLabel);
+		setWidget(0, 0, imageAndMessagePanel);
 		
 		masterPageView.get().showMessagePanel();
 	}
@@ -90,7 +98,6 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 		if(timer != null)
 			timer.cancel();
 		masterPageView.get().hideMessagePanel();
-		messageLabel.setText("");
 		new Timer(){
 			@Override
 			public void run() {
@@ -106,15 +113,16 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	@Override
 	protected void onAttach() {
 		if (!isInitialized){
-			setWidget(0, 1, messageLabel);
-			setWidget(0, 2, closeLabel);
+			imageAndMessagePanel.add(messageLabel);
+			setWidget(0, 0, imageAndMessagePanel);
+			setWidget(0, 1, closeLabel);
 			setCellPadding(0);
 			setCellSpacing(0);
 			setBorderWidth(0);
-			getColumnFormatter().setWidth(0, "1px");
-			getColumnFormatter().setWidth(2, "1px");
-			getCellFormatter().setStyleName(0, 2, Res.INST.get().style().messageCloseIcon());
-			setStyleName(Res.INST.get().style().messagebox());
+//			getColumnFormatter().setWidth(0, "1px");
+//			getColumnFormatter().setWidth(1, "1px");
+			getCellFormatter().setStyleName(0, 1, Res.INST.get().style().messageCloseIcon());
+			addStyleName(Res.INST.get().style().messagebox());
 			isInitialized = true;
 		}
 		closeHandlerReg = closeLabel.addClickHandler(new ClickHandler() {

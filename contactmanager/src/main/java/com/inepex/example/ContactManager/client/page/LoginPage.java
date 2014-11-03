@@ -16,7 +16,7 @@ import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.LoginBox;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
+import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
@@ -24,18 +24,17 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 public class LoginPage extends FlowPanelBasedPage {
 	
 	@Inject
-	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch, final DefaultIneFrameMasterPage.View masterPage) {		
-		
-		
-		final Button btn = new Button("show messagePanel");
+	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch, final DefaultIneFrameMasterPageView masterPage) {		
+		final CheckBox cb = new CheckBox("isError");		
+		final Button btn = new Button("show message");
 		btn.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				masterPage.toggleMessagePanel();
-				btn.setText(masterPage.isMessagePanelShown() ? "hide messagePanel" : "show MessagePanel");
+				masterPage.showMessage(cb.getValue());
+				
 			}
-		});
+		});		
 		
 		mainPanel.add(new CMLoginBox(authManager, historyProvider, eventBus, ineDispatch));
 		mainPanel.add(new HTML("<h2>To log in select one user:</h2>"));
@@ -43,6 +42,7 @@ public class LoginPage extends FlowPanelBasedPage {
 		mainPanel.add(new HTML("<b>barbara.green@inepex.com</b><br /><i>pass123</i><br /><br />"));
 		mainPanel.add(new HTML("<b>adam.white@inepex.com</b><br /><i>pass123</i><br /><br />"));
 		mainPanel.add(btn);
+		mainPanel.add(cb);
 	}
 	
 	@Override
