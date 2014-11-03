@@ -1,19 +1,28 @@
 @CHARSET 'UTF-8';
+@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
+@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166();
+
+@eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
+@eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
 
 .header {
-	height: 50px;
-	background-color: #333;
-	border-bottom: 3px solid #12ad2b;
+	height: base;
+	background-color: backgroundColor;
+	border-bottom: 3px solid ineColor1;
 	z-index: 1500;
 	position: relative;
 }
 
 .logo {
-	margin-left: 10px;
-	padding-right: 0px;
-	margin-top: 13px;
-	float: left;
-	cursor: pointer;
+
+}
+
+.menuTable {
+	height: base;
+}
+
+.menuCell {
+	vertical-align: middle;
 }
 
 .settingsUserName {

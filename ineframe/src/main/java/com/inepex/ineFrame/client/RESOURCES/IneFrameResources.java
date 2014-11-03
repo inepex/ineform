@@ -54,4 +54,6 @@ public interface IneFrameResources extends ClientBundle {
 	
 	@Source("selector_down_arrow.gif")
 	ImageResource selector_down_arrow();
+	
+	ImageResource headerDrawerIcon();
 }

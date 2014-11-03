@@ -9,7 +9,7 @@ import com.google.gwt.resources.client.ImageResource;
  * @author SoTi
  *
  */
-interface Res extends ClientBundle {
+public interface Res extends ClientBundle {
 	
 	public static class INST {
 		static Res INST;

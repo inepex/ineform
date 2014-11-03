@@ -14,6 +14,7 @@ public class DesignConstants {
 	public static int b1d5 = (int) (base * 1.5);
 	
 	public static int b5 = (int) (base * 5);
+	public static int b4 = (int) (base * 4);
 	
 	public static String backgroundColor = "#2B2B2B";
 	public static String ineColor1 = "#12AD2B";
@@ -51,6 +52,10 @@ public class DesignConstants {
 
 	public static String b5() {
 		return b5 + "px";
+	}
+	
+	public static String b4() {
+		return b4 + "px";
 	}
 
 	public static String getBackgroundColor() {

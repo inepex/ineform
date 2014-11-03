@@ -17,6 +17,8 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	
 	private MessagePanelWidget messagePanel;
 	private ResizeLayoutPanel headerAndPageRoot;
+	
+	private static final int borderWidth = 3;
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
@@ -40,7 +42,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		header.asWidget().asWidget().getElement().setId("Header");
 		menu.asWidget().asWidget().getElement().setId("Menu");
 		
-		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base, Unit.PX);
+		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base + borderWidth, Unit.PX);
 		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base, Unit.PX, 0, Unit.PX);
 		
 		headerAndPageRoot.setWidget(headerAndPage);
