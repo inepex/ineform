@@ -19,7 +19,7 @@ public class DesignConstants {
 	public static String ineColor1 = "#12AD2B";
 	public static String menuSeparatorColor = "#494949";
 	public static String menuFontColor = "#CACACA";
-	
+	public static float defaultAnimationLength = 0.5f;
 	
 	public static String base() {
 		return base + "px";
@@ -72,5 +72,8 @@ public class DesignConstants {
 	public static String baseNegative() {
 		return -1 * base + "px";
 	}
-	 
+	
+	public static String defaultAnimationLength() {
+		return defaultAnimationLength + "s";
+	}
 }
