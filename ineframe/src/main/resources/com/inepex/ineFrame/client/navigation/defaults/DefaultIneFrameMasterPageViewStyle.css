@@ -9,6 +9,11 @@
 	overflow: hidden;
 }
 
+.ClickHandlerLayout {
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: all defaultAnimationLength ease-out;
+}
+
 .HeaderAndPageRoot {
 	-webkit-box-shadow: -5px 15px 45px 0px rgba(0, 0, 0, 0.95);
 	-moz-box-shadow:    -5px 15px 45px 0px rgba(0, 0, 0, 0.95);
@@ -24,7 +29,8 @@
 }
 
 .Page {
-	
+	background-color: rgba(0, 0, 0, 0);
+	transition: all defaultAnimationLength ease-out;
 }
 
 .MessagePanel {
