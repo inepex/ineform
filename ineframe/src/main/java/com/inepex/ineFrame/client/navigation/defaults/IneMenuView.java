@@ -28,8 +28,8 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	
 	private Map<Integer, String> appIdMap = new HashMap<>();
 	private IneformAsyncCallback<Void> logoutHandler;
-	private IneformAsyncCallback<Void> accountSettingsHandler;
-	private IneformAsyncCallback<Void> helpHandler;
+	private IneformAsyncCallback<Void> accountSettingsCbk;
+	private IneformAsyncCallback<Void> helpCbk;
 	private IneformAsyncCallback<String> appCbk;
 	
 	@Inject
@@ -60,16 +60,16 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		}
 	}
 	
-	public void setLogoutHandler(IneformAsyncCallback<Void> logoutHandler){
-		this.logoutHandler = logoutHandler;
+	public void setLogoutCbk(IneformAsyncCallback<Void> logoutCbk){
+		this.logoutHandler = logoutCbk;
 	}
 	
-	public void setAccountSettingsHandler(IneformAsyncCallback<Void> accountSettingsHandler){
-		this.accountSettingsHandler = accountSettingsHandler;
+	public void setAccountSettingsCbk(IneformAsyncCallback<Void> accountSettingsCbk){
+		this.accountSettingsCbk = accountSettingsCbk;
 	}
 	
-	public void setHelpHandler(IneformAsyncCallback<Void> helpHandler){
-		this.helpHandler = helpHandler;
+	public void setHelpCallback(IneformAsyncCallback<Void> helpCbk){
+		this.helpCbk = helpCbk;
 	}
 	
 	public void setAppCbk(IneformAsyncCallback<String> appCbk){
@@ -149,10 +149,10 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 			public void onClick(ClickEvent event) {
 				Cell cell = helpAndSettingsTable.getCellForEvent(event);
 				int rowIndex = cell.getRowIndex();
-				if(rowIndex == 0 && helpHandler != null){
-					helpHandler.onResponse(null);
-				}else if(rowIndex == 1 && accountSettingsHandler != null){
-					accountSettingsHandler.onResponse(null);
+				if(rowIndex == 0 && helpCbk != null){
+					helpCbk.onResponse(null);
+				}else if(rowIndex == 1 && accountSettingsCbk != null){
+					accountSettingsCbk.onResponse(null);
 				}else if(rowIndex == 2 && logoutHandler != null){
 					logoutHandler.onResponse(null);
 				}
