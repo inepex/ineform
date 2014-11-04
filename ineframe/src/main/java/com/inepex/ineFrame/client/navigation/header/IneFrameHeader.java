@@ -32,8 +32,6 @@ public class IneFrameHeader {
 	
 	private final Provider<View> viewProv;
 	private View view;
-	
-	
 
 	private OnClickedLogic menuIconClickLogic = new OnClickedLogic() {
 		

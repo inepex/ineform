@@ -50,7 +50,7 @@ public class IneMenu implements NavigationDrawer {
 		});
 		
 		//for test only
-		view.setHelpHandler(new IneformAsyncCallback<Void>() {
+		view.setHelpCallback(new IneformAsyncCallback<Void>() {
 			
 			@Override
 			public void onResponse(Void response) {
@@ -59,7 +59,7 @@ public class IneMenu implements NavigationDrawer {
 		});
 		
 		//for test only
-		view.setLogoutHandler(new IneformAsyncCallback<Void>() {
+		view.setLogoutCbk(new IneformAsyncCallback<Void>() {
 
 			@Override
 			public void onResponse(Void response) {
@@ -71,6 +71,10 @@ public class IneMenu implements NavigationDrawer {
 				});
 			}
 		});
+	}
+	
+	public void setAccountSettingsCallback(IneformAsyncCallback<Void> cbk){
+		view.setAccountSettingsCbk(cbk);
 	}
 
 	@Override
