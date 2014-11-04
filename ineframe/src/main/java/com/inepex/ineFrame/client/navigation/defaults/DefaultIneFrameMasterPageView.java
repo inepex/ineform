@@ -92,7 +92,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	private void setBase() {
 		String userAgent = Navigator.getUserAgent();
 		if(userAgent.contains("mobile") || Navigator.getPlatform().contains("iPhone")){
-			DesignConstants.setBase((int)(DesignConstants.base*1.5));
+			DesignConstants.setBase((int)(DesignConstants.base*3));
 		}
 	}
 
