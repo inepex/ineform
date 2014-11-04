@@ -11,6 +11,7 @@ public interface DefaultIneFrameMasterPageStyle extends CssResource {
 	String messagePanelClosed();
 	
 	String MasterPage();
+	String ClickHandlerLayout();
 	String HeaderAndPageRoot();
 	String HeaderAndPage();
 	String Header();
