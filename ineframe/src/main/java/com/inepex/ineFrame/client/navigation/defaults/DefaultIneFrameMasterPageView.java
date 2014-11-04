@@ -19,6 +19,9 @@ import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 @Singleton
 public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultIneFrameMasterPage.View {
 	
+	
+	private static final int borderWidth = 3;
+	
 	private MessagePanelWidget messagePanel;
 	private ResizeLayoutPanel headerAndPageRoot;
 	private ClickableFlowPanel clickHandlerLayout;
@@ -29,7 +32,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		setBase();
 		this.messagePanel = messagePanel;
 		messagePanel.getElement().setId("MessagePanel");
-		messagePanel.setStyleName(Res.INST.get().style().MessagePanel());
+		messagePanel.addStyleName(Res.INST.get().style().MessagePanel());
 		getElement().setId("MasterPage");
 		setSize("100%", "100%");
 		setStyleName(Res.INST.get().style().MasterPage());
@@ -60,7 +63,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		header.asWidget().asWidget().getElement().setId("Header");
 		menu.asWidget().asWidget().getElement().setId("Menu");
 		
-		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base, Unit.PX);
+		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base + borderWidth, Unit.PX);
 		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base, Unit.PX, 0, Unit.PX);
 		
 		headerAndPageRoot.setWidget(headerAndPage);
@@ -71,7 +74,13 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		
 		add(messagePanel);
 		add(navigationDrawer);
-		add(headerAndPageRoot);	
+		add(headerAndPageRoot);
+		
+
+	}
+	
+	public void showMessage(boolean isError) {
+		messagePanel.showMessage("ez egy message", isError, 2500);
 	}
 	
 	private void setBase() {
@@ -115,12 +124,12 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	
 	public void showMessagePanel() {
 		messagePanel.removeStyleName(Res.INST.get().style().messagePanelClosed());
-		messagePanel.setStyleName(Res.INST.get().style().messagePanelOpened());
+		messagePanel.addStyleName(Res.INST.get().style().messagePanelOpened());
 	}
 	
 	public void hideMessagePanel() {
 		messagePanel.removeStyleName(Res.INST.get().style().messagePanelOpened());
-		messagePanel.setStyleName(Res.INST.get().style().messagePanelClosed());
+		messagePanel.addStyleName(Res.INST.get().style().messagePanelClosed());
 	}
 	
 	public boolean isMessagePanelShown() {

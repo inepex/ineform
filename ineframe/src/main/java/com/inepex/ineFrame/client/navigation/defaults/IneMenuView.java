@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -15,7 +14,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
-import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
 public class IneMenuView extends HandlerAwareFlowPanel {
@@ -29,15 +27,13 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	private FlexTable helpAndSettingsTable = new FlexTable();
 	
 	private Map<Integer, String> appIdMap = new HashMap<>();
-	private EventBus eventBus;
 	private IneformAsyncCallback<Void> logoutHandler;
 	private IneformAsyncCallback<Void> accountSettingsHandler;
 	private IneformAsyncCallback<Void> helpHandler;
 	private IneformAsyncCallback<String> appCbk;
 	
 	@Inject
-	public IneMenuView(EventBus eventBus) {
-		this.eventBus = eventBus;
+	public IneMenuView() {
 		buildStructure();
 		setStyles();
 	}

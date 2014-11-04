@@ -1,19 +1,33 @@
 @CHARSET 'UTF-8';
+@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
+@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166();
+
+@eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
+@eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
+
+@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
+@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
+
 
 .header {
-	height: 50px;
-	background-color: #333;
-	border-bottom: 3px solid #12ad2b;
+	height: base;
+	background-color: backgroundColor;
+	border-bottom: 3px solid ineColor1;
 	z-index: 1500;
 	position: relative;
 }
 
 .logo {
-	margin-left: 10px;
-	padding-right: 0px;
-	margin-top: 13px;
-	float: left;
-	cursor: pointer;
+
+}
+
+.menuTable {
+	height: base;
+}
+
+.menuCell {
+	vertical-align: middle;
 }
 
 .settingsUserName {
@@ -100,24 +114,28 @@
 }
 
 /* menu*/
-.menu,.submenu {
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+.menu {
+	
 }
 
-.menu ul,.submenu ul {
-	height: 50px;
+.menuBorder {
+/* 	border-bottom: 1px solid #EDEDED; */
+	background: linear-gradient(to bottom, #D1D1D1 , #F5F5F5);
+	border-top: 1px solid #EDEDED;
+}
+
+.menu ul {
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
-.menu li,.submenu li {
+.menu li {
 	float: left;
-	height: 50px;
 }
 
-.menu ul li div,.submenu ul li div {
+.menu ul li div {
 	float: left;
 	margin-right: 10px;
 	margin-left: 5px;
@@ -125,56 +143,30 @@
 	height: 50px;
 }
 
-.menu a,.menu a:active,.menu a:link,.menu a:visited,.submenu a,.submenu a:link,.submenu a:active,.submenu a:visited
+.menu a,.menu a:active,.menu a:link,.menu a:visited
 	{
 	float: left;
 	color: #666;
-	padding: 17px;
+	line-height: base;
 	text-decoration: none;
 	display: block;
-	font-size: 14px;
+	font-size: b0d333;
 	border-left: 1px solid #f0f0f0;
+	padding-left: b0d666;
+	padding-right: b0d666;
 }
 
-.menu a:hover,.menu .current_page_item a,.submenu a:hover,.submenu .current_page_item a
+.menu a:hover,.menu .current_page_item a
 	{
 	text-decoration: none;
-	color: white;
-	border-left: 1px solid #12ad2b;
-	background-color: #12ad2b;
+	color: #333333;
+	border-left: 1px solid #EDEDED;
+	background-color: #EDEDED;
+	font-weight: bold;
 }
 
-.menu li:first-child a,.submenu li:first-child a {
+.menu li:first-child a {
 	border-left: 0 !important;
-}
-
-/* menu3 */
-.menu3 {
-	height: 30px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
-}
-
-.menu3 ul {
-	width: 100%;
-	margin: 0;
-	padding: 0px;
-	list-style: none;
-	line-height: normal;
-}
-
-.menu3 li {
-	float: left;
-}
-
-.menu3 a:hover {
-	color: white;
-	border-right: 1px solid #12ad2b;
-	background-color: #12ad2b;
-}
-
-.menu3 .current_page_item a {
-	color: white;
-	border-right: 1px solid #12ad2b;
 }
 
 .selector {

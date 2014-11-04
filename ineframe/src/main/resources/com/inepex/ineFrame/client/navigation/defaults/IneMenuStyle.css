@@ -6,6 +6,7 @@
 @eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
 @eval b1d5 com.inepex.ineFrame.client.util.DesignConstants.b1d5();
 @eval b5 com.inepex.ineFrame.client.util.DesignConstants.b5();
+@eval b4 com.inepex.ineFrame.client.util.DesignConstants.b4();
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
@@ -21,8 +22,7 @@
 
 .userProfile{
 	height: b1d5;
-	width: s100%;
-	text-overflow : ellipsis;
+	width: 100%;
 }
 
 .userProfileImg{
@@ -31,11 +31,19 @@
 
 .userProfileEmail{
 	font-size: b0d25;
+	max-width: b4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .userProfileName{
 	height: 50%;
 	font-weight: bold;
+	max-width: b4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .menuSeparatorLbl{
