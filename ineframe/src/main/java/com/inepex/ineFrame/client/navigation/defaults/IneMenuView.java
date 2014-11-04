@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
+import com.inepex.ineFrame.client.GreenScrollPanel;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
@@ -25,6 +26,8 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	private Label helpAndSettingsLbl = new Label("HELP & SETTINGS");
 	private FlexTable appsTbl = new FlexTable();
 	private FlexTable helpAndSettingsTable = new FlexTable();
+	private final GreenScrollPanel scrollPanel = new GreenScrollPanel();
+	private FlowPanel scrollContent = new FlowPanel();
 	
 	private Map<Integer, String> appIdMap = new HashMap<>();
 	private IneformAsyncCallback<Void> logoutHandler;
@@ -77,7 +80,8 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 
 	private void setStyles() {
-		addStyleName(Res.INST.get().ineMenuStyle().ineMenu());
+		scrollPanel.asWidget().setStyleName(Res.INST.get().ineMenuStyle().ineMenuScrollPanel());
+		scrollContent.addStyleName(Res.INST.get().ineMenuStyle().ineMenu());
 		usertable.setStyleName(Res.INST.get().ineMenuStyle().userProfile());
 		appsLbl.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorLbl());
 		helpAndSettingsLbl.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorLbl());
@@ -95,11 +99,13 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 
 	private void buildStructure(){
-		add(usertable);
-		add(appsPanel);
-		add(appsTbl);
-		add(helpAndSettingsPanel);
-		add(helpAndSettingsTable);
+		add(scrollPanel);
+		scrollPanel.setScrollContent(scrollContent);
+		scrollContent.add(usertable);
+		scrollContent.add(appsPanel);
+		scrollContent.add(appsTbl);
+		scrollContent.add(helpAndSettingsPanel);
+		scrollContent.add(helpAndSettingsTable);
 		appsPanel.add(appsLbl);
 		helpAndSettingsPanel.add(helpAndSettingsLbl);
 		helpAndSettingsTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelpCenter()));

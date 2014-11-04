@@ -57,7 +57,9 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	}
 	
 	public void clearApp(){
-		menuTable.removeCells(0, 2, 3);
+		menuTable.clearCell(0, 2);
+		menuTable.clearCell(0, 3);
+		menuTable.clearCell(0, 4);
 	}
 
 	

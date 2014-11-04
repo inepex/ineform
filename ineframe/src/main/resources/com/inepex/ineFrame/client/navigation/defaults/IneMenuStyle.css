@@ -20,6 +20,11 @@
 	color: menuFontColor;
 }
 
+.ineMenuScrollPanel {
+	width: b5;
+	height: 100%;
+}
+
 .userProfile{
 	height: b1d5;
 	width: 100%;

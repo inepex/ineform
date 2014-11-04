@@ -23,5 +23,7 @@ public interface IneMenuStyle extends CssResource{
 	public String menuElementIcon();
 	
 	public String menuElementTable();
+	
+	public String ineMenuScrollPanel();
 
 }
