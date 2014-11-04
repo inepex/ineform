@@ -21,9 +21,6 @@ public class MenuRendererView extends LayoutPanel implements MenuRenderer.View {
 	public MenuRendererView() {
 		levels.add(new MenuOneLevelView(this, 0, false));
 	}
-	
-	public MenuRendererView(Boolean dummy){
-	}
 
 	@Override
 	public void clearLevel(int level) {

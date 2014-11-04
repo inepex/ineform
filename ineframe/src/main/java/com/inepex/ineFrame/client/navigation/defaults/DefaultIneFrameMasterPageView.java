@@ -1,8 +1,11 @@
 package com.inepex.ineFrame.client.navigation.defaults;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -105,12 +108,28 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerClosed());
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerOpened());
 		headerAndPage.add(clickHandlerLayout);
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+			
+			@Override
+			public void execute() {
+				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayout());		
+			}
+		});
 	}
 	
 	public void closeNavigationDrawer() {
 		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerOpened());
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerClosed());
-		headerAndPage.remove(clickHandlerLayout);
+		clickHandlerLayout.setStyleName(Res.INST.get().style().Page());
+		Timer timer = new Timer() {
+			
+			@Override
+			public void run() {
+				headerAndPage.remove(clickHandlerLayout);
+			}
+		};
+		
+		timer.schedule((int) (DesignConstants.defaultAnimationLength*1000));
 	}
 	
 	public boolean isNavigationDrawerOpen() {
