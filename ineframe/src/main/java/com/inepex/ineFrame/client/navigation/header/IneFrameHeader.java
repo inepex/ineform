@@ -1,5 +1,6 @@
 package com.inepex.ineFrame.client.navigation.header;
 
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -22,6 +23,10 @@ public class IneFrameHeader {
 		
 		public void setLogoClickedLogic(OnClickedLogic logic);
 		
+		public void setApp(ImageResource img, String appName);
+		
+		public void clearApp();
+		
 		public IsWidget asWidget();
 	}
 	
@@ -30,7 +35,7 @@ public class IneFrameHeader {
 	
 	
 
-	private OnClickedLogic logoClickLogic = new OnClickedLogic() {
+	private OnClickedLogic menuIconClickLogic = new OnClickedLogic() {
 		
 		@Override
 		public void doLogic() {
@@ -52,12 +57,12 @@ public class IneFrameHeader {
 	public void refresh() {
 		boolean showLangSelector = true;
 		getOrCreateView().setLanguageSelectorVisible(showLangSelector);
-		getOrCreateView().setMenuIconClickedLogic(logoClickLogic);
+		getOrCreateView().setMenuIconClickedLogic(menuIconClickLogic);
 	
 	}
 	
-	public void setLogoNameClickedLogic(OnClickedLogic logic) {
-		this.logoClickLogic = logic;		
+	public void setMenuIconClickedLogic(OnClickedLogic logic) {
+		this.menuIconClickLogic = logic;		
 	}
 	
 	private View getOrCreateView(){

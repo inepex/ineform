@@ -4,9 +4,11 @@
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
+@eval menuFontColor com.inepex.ineFrame.client.util.DesignConstants.getMenuFontColor();
 
 @eval base com.inepex.ineFrame.client.util.DesignConstants.base();
 @eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
+@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
 @eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
 
 
@@ -16,6 +18,8 @@
 	border-bottom: 3px solid ineColor1;
 	z-index: 1500;
 	position: relative;
+	font-size: b0d333;
+	color: menuFontColor;
 }
 
 .logo {
@@ -28,6 +32,11 @@
 
 .menuCell {
 	vertical-align: middle;
+	padding-right: b0d25
+}
+
+.menuIcon {
+	cursor: pointer;
 }
 
 .settingsUserName {
