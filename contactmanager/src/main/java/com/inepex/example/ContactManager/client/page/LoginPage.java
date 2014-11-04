@@ -18,6 +18,7 @@ import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.shared.IneformAsyncCallback;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 
@@ -35,6 +36,38 @@ public class LoginPage extends FlowPanelBasedPage {
 				
 			}
 		});		
+		final Button btn2 = new Button("Alias mode");
+		btn2.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				masterPage.enableAliasMode(new IneformAsyncCallback<Void>() {
+					
+					@Override
+					public void onResponse(Void response) {
+						// TODO Auto-generated method stub
+						
+					}
+				},"","");
+				
+			}
+		});		
+		final Button btn3 = new Button("Normal mode");
+		btn3.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				masterPage.disableAliasMode(new IneformAsyncCallback<Void>() {
+					
+					@Override
+					public void onResponse(Void response) {
+						// TODO Auto-generated method stub
+						
+					}
+				}, "","");
+				
+			}
+		});		
 		
 		mainPanel.add(new CMLoginBox(authManager, historyProvider, eventBus, ineDispatch));
 		mainPanel.add(new HTML("<h2>To log in select one user:</h2>"));
@@ -42,6 +75,8 @@ public class LoginPage extends FlowPanelBasedPage {
 		mainPanel.add(new HTML("<b>barbara.green@inepex.com</b><br /><i>pass123</i><br /><br />"));
 		mainPanel.add(new HTML("<b>adam.white@inepex.com</b><br /><i>pass123</i><br /><br />"));
 		mainPanel.add(btn);
+		mainPanel.add(btn2);
+		mainPanel.add(btn3);
 		mainPanel.add(cb);
 	}
 	

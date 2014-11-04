@@ -35,6 +35,8 @@ public interface Res extends ClientBundle {
 	ImageResource drawerHelpCenter();
 	
 	ImageResource drawerLogout();
+
+	ImageResource drawerLeaveAlias();
 	
 	ImageResource drawerProfile();
 }

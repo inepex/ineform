@@ -15,6 +15,7 @@ import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineFrame.client.util.DesignConstants;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
+import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
 @Singleton
 public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultIneFrameMasterPage.View {
@@ -26,9 +27,11 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	private ResizeLayoutPanel headerAndPageRoot;
 	private ClickableFlowPanel clickHandlerLayout;
 	private LayoutPanel headerAndPage;
+	private NavigationDrawer navigationDrawer;
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
+		this.navigationDrawer = navigationDrawer;
 		setBase();
 		this.messagePanel = messagePanel;
 		messagePanel.getElement().setId("MessagePanel");
@@ -86,7 +89,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	private void setBase() {
 		String userAgent = Navigator.getUserAgent();
 		if(userAgent.contains("mobile") || Navigator.getPlatform().contains("iPhone")){
-			DesignConstants.setBase(72);
+			DesignConstants.setBase((int)(DesignConstants.base*1.5));
 		}
 	}
 
@@ -134,5 +137,15 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	
 	public boolean isMessagePanelShown() {
 		return messagePanel.getStyleName().contains(Res.INST.get().style().messagePanelOpened());
+	}
+	
+	@Override
+	public void enableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
+		navigationDrawer.enableAliasMode(callback, name, email);
+	}
+	
+	@Override
+	public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
+		navigationDrawer.disableAliasMode(callback, name, email);
 	}
 }

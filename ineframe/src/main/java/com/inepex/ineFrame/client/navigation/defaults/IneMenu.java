@@ -20,7 +20,6 @@ public class IneMenu implements NavigationDrawer {
 
 	protected IneMenuView view;
 	protected AuthManager authManager;
-	private Provider<MessagePanel> messagePanel;
 
 	@Inject
 	public IneMenu(IneMenuView view, 
@@ -29,7 +28,6 @@ public class IneMenu implements NavigationDrawer {
 				   final Provider<MessagePanel> messagePanel) {
 		this.view = view;
 		this.authManager = authManager;
-		this.messagePanel = messagePanel;
 		
 		refresh();
 		
@@ -91,5 +89,12 @@ public class IneMenu implements NavigationDrawer {
 	
 	protected void showApps(){ 
 		view.clearApps();
+	}
+	
+	public void enableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
+		view.enableAliasMode(callback, name, email);
+	}
+	public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
+		view.disableAliasMode(callback, name, email);
 	}
 }

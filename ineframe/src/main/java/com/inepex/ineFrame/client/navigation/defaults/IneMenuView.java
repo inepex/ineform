@@ -119,7 +119,6 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		
 		buildUserPanel();
 	}
-	
 	private void buildUserPanel(){
 		Image userImg = new Image(Res.INST.get().drawerProfile());
 		userImg.setStyleName(Res.INST.get().ineMenuStyle().userProfileImg());
@@ -167,7 +166,20 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		registerHandlers();
 		super.onLoad();
 	}
-
+	public void enableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
+		this.logoutHandler = logoutHandler;
+		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLeaveAlias()));
+		helpAndSettingsTable.setText(2, 1, "Leave alias mode");
+		usertable.setText(0, 1, name);
+		usertable.setText(1, 0, email);
+	}
+	public void disableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
+		this.logoutHandler = logoutHandler;
+		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLogout()));
+		helpAndSettingsTable.setText(2, 1, "Logout");
+		usertable.setText(0, 1, name);
+		usertable.setText(1, 0, email);
+	}
 	public void clearApps() {
 		appsTbl.removeAllRows();
 		appsLbl.setVisible(false);
