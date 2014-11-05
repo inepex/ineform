@@ -115,7 +115,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 			
 			@Override
 			public void execute() {
-				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayout());		
+				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayoutFaded());		
 			}
 		});
 	}
@@ -123,7 +123,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	public void closeNavigationDrawer() {
 		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerOpened());
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerClosed());
-		clickHandlerLayout.setStyleName(Res.INST.get().style().Page());
+		clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayout());
 		Timer timer = new Timer() {
 			
 			@Override

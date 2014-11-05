@@ -10,6 +10,11 @@
 }
 
 .ClickHandlerLayout {
+	background-color: rgba(0, 0, 0, 0);
+	transition: all defaultAnimationLength ease-out;
+}
+
+.ClickHandlerLayoutFaded {
 	background-color: rgba(0, 0, 0, 0.15);
 	transition: all defaultAnimationLength ease-out;
 }
@@ -29,8 +34,7 @@
 }
 
 .Page {
-	background-color: rgba(0, 0, 0, 0);
-	transition: all defaultAnimationLength ease-out;
+	
 }
 
 .MessagePanel {

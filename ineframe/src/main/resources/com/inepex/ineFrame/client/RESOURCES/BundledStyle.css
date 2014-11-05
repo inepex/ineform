@@ -244,4 +244,5 @@
 
 .inAliasMode {
 	border-bottom: 3px solid ineColor2;
+	transition: all defaultAnimationLength ease-out;
 }
