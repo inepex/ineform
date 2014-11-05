@@ -14,6 +14,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
+import com.inepex.ineFrame.client.navigation.header.IneFrameHeader.View;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineFrame.client.util.DesignConstants;
@@ -31,9 +32,11 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	private ClickableFlowPanel clickHandlerLayout;
 	private LayoutPanel headerAndPage;
 	private NavigationDrawer navigationDrawer;
+	private View header;
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
+		this.header = header;
 		this.navigationDrawer = navigationDrawer;
 		setBase();
 		this.messagePanel = messagePanel;
@@ -86,7 +89,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	}
 	
 	public void showMessage(boolean isError) {
-		messagePanel.showMessage("ez egy message", isError, 2500);
+		messagePanel.showMessage("ez egy message", isError, 0);
 	}
 	
 	private void setBase() {
@@ -112,7 +115,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 			
 			@Override
 			public void execute() {
-				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayout());		
+				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayoutFaded());		
 			}
 		});
 	}
@@ -120,7 +123,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	public void closeNavigationDrawer() {
 		headerAndPageRoot.removeStyleName(Res.INST.get().style().navigationDrawerOpened());
 		headerAndPageRoot.addStyleName(Res.INST.get().style().navigationDrawerClosed());
-		clickHandlerLayout.setStyleName(Res.INST.get().style().Page());
+		clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayout());
 		Timer timer = new Timer() {
 			
 			@Override
@@ -161,10 +164,12 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	@Override
 	public void enableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
 		navigationDrawer.enableAliasMode(callback, name, email);
+		header.enableAliasMode();
 	}
 	
 	@Override
 	public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
 		navigationDrawer.disableAliasMode(callback, name, email);
+		header.disableAliasMode();
 	}
 }

@@ -2,6 +2,8 @@
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
 @eval b0d50 com.inepex.ineFrame.client.util.DesignConstants.b0d50();
 @eval b0d50Negative com.inepex.ineFrame.client.util.DesignConstants.b0d50Negative();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
+@eval b0d666Negative com.inepex.ineFrame.client.util.DesignConstants.b0d666Negative();
 @eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.b5();
 @eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLength();
 
@@ -10,7 +12,12 @@
 }
 
 .ClickHandlerLayout {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0);
+	transition: all defaultAnimationLength ease-out;
+}
+
+.ClickHandlerLayoutFaded {
+	background-color: rgba(0, 0, 0, 0.15);
 	transition: all defaultAnimationLength ease-out;
 }
 
@@ -29,13 +36,12 @@
 }
 
 .Page {
-	background-color: rgba(0, 0, 0, 0);
-	transition: all defaultAnimationLength ease-out;
+	
 }
 
 .MessagePanel {
-	height: b0d50;
-	margin-top: b0d50Negative;
+	height: b0d666;
+	margin-top: b0d666Negative;
 }
 
 .NavigationDrawer {
@@ -64,7 +70,7 @@
 }
 
 .messagePanelClosed {
-	margin-top: b0d50Negative;
+	margin-top: b0d666Negative;
 	transition-property: all;
 	transition-duration: defaultAnimationLength;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);

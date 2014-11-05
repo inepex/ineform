@@ -4,6 +4,7 @@
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
+@eval ineColor2 com.inepex.ineFrame.client.util.DesignConstants.getIneColor2();
 @eval menuFontColor com.inepex.ineFrame.client.util.DesignConstants.getMenuFontColor();
 
 @eval base com.inepex.ineFrame.client.util.DesignConstants.base();
@@ -140,9 +141,7 @@
 }
 
 .menuBorder {
-/* 	border-bottom: 1px solid #EDEDED; */
 	background: linear-gradient(to bottom, #D1D1D1 , #F5F5F5);
-	border-top: 1px solid #EDEDED;
 }
 
 .menu ul {
@@ -180,9 +179,12 @@
 .menu a:hover,.menu .current_page_item a
 	{
 	text-decoration: none;
-	color: #333333;
-	border-left: 1px solid #EDEDED;
-	background-color: #EDEDED;
+	color: #fff;
+	border-left: 1px solid ineColor1;
+	background-color: ineColor1;
+}
+
+.menu .current_page_item a {
 	font-weight: bold;
 }
 
@@ -201,8 +203,7 @@
 	padding: 0;
 }
 
-@
-sprite .arrow {
+@sprite .arrow {
 	gwt-image: 'selector_arrow_bg';
 	height: 13px;
 	width: 100%;
@@ -214,8 +215,7 @@ sprite .arrow {
 	margin-bottom: 5px;
 }
 
-@
-sprite .item {
+@sprite .item {
 	gwt-image: 'selector_item_bg';
 	height: 28px;
 	width: 100%;
@@ -239,4 +239,9 @@ sprite .item {
 .closed {
 	max-height: 0;
 	visibility: hidden;
+}
+
+.inAliasMode {
+	border-bottom: 3px solid ineColor2;
+	transition: all defaultAnimationLength ease-out;
 }

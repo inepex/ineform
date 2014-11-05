@@ -24,6 +24,7 @@ public class DesignConstants {
 	
 	public static String backgroundColor = "#2B2B2B";
 	public static String ineColor1 = "#12AD2B";
+	public static String ineColor2 = "#A80000";
 	public static String menuSeparatorColor = "#494949";
 	public static String menuFontColor = "#CACACA";
 	public static float defaultAnimationLength = 0.5f;
@@ -82,6 +83,10 @@ public class DesignConstants {
 
 	public static String getIneColor1() {
 		return ineColor1;
+	}
+	
+	public static String getIneColor2() {
+		return ineColor2;
 	}
 
 	public static String getMenuSeparatorColor() {

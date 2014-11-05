@@ -27,7 +27,12 @@ public class IneFrameHeader {
 		
 		public void clearApp();
 		
+		public void enableAliasMode();
+		
+		public void disableAliasMode();
+		
 		public IsWidget asWidget();
+		
 	}
 	
 	private final Provider<View> viewProv;

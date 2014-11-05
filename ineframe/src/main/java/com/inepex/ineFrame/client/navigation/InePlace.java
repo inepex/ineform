@@ -28,6 +28,7 @@ public abstract class InePlace {
 	private boolean onlyVisibleWhenActive = false;
 	private boolean showChildreWhenActive = false;
 	private boolean withoutMenu = false;
+	private boolean hideWhenLoggedIn = false;
 	
 	public abstract InePage getAssociatedPage();
 	
@@ -172,5 +173,14 @@ public abstract class InePlace {
 	public boolean isWithoutMenu() {
 		return withoutMenu;
 	}
-	
+
+	public boolean isHideWhenLoggedIn() {
+		return hideWhenLoggedIn;
+	}
+
+	public InePlace setHideWhenLoggedIn(boolean hideWhenLoggedIn) {
+		this.hideWhenLoggedIn = hideWhenLoggedIn;
+		return this;
+	}
+
 }

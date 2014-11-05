@@ -119,6 +119,8 @@ public class MenuRenderer {
 			
 			if(pointer.hasChildren()) {
 				for(Node<InePlace> node : pointer.getChildren()) {
+					if (node.getNodeElement().isHideWhenLoggedIn() && authManager.isUserLoggedIn()) 
+						continue;
 					if(userHasNoRight(node))
 						continue;
 					if (filter != null && filter.filter(node)) 

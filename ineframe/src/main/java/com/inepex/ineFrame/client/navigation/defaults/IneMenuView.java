@@ -3,6 +3,7 @@ package com.inepex.ineFrame.client.navigation.defaults;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
@@ -80,7 +81,8 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 
 	private void setStyles() {
-		scrollPanel.asWidget().setStyleName(Res.INST.get().ineMenuStyle().ineMenuScrollPanel());
+		getElement().getStyle().setHeight(100.0, Unit.PCT);
+		scrollPanel.asWidget().addStyleName(Res.INST.get().ineMenuStyle().ineMenuScrollPanel());
 		scrollContent.addStyleName(Res.INST.get().ineMenuStyle().ineMenu());
 		usertable.setStyleName(Res.INST.get().ineMenuStyle().userProfile());
 		appsLbl.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorLbl());
@@ -178,6 +180,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		helpAndSettingsTable.setText(2, 1, "Leave alias mode");
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
+		usertable.addStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
 	}
 	public void disableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
 		this.logoutHandler = logoutHandler;
@@ -185,6 +188,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		helpAndSettingsTable.setText(2, 1, "Logout");
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
+		usertable.removeStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
 	}
 	public void clearApps() {
 		appsTbl.removeAllRows();

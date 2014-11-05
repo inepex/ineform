@@ -56,7 +56,6 @@ public class IneMenu implements NavigationDrawer {
 			}
 		});
 		
-		//for test only
 		view.setLogoutCbk(new IneformAsyncCallback<Void>() {
 
 			@Override
@@ -64,7 +63,9 @@ public class IneMenu implements NavigationDrawer {
 				authManager.doLogout(new AuthActionCallback() {
 					@Override
 					public void onAuthCheckDone(AuthStatusResultBase result) {
-						eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
+						PlaceRequestEvent event = new PlaceRequestEvent(NavigationProperties.defaultPlace);
+						event.setNeedWindowReload(true);
+						eventBus.fireEvent(event);
 					}
 				});
 			}
