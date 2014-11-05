@@ -10,7 +10,7 @@
 }
 
 .ClickHandlerLayout {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.15);
 	transition: all defaultAnimationLength ease-out;
 }
 
