@@ -89,6 +89,16 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	}
 	
 	@Override
+	public void enableAliasMode() {
+		addStyleName(ResourceHelper.getRes().style().inAliasMode());		
+	}
+	
+	@Override
+	public void disableAliasMode() {
+		removeStyleName(ResourceHelper.getRes().style().inAliasMode());		
+	}
+	
+	@Override
 	public void setMenuIconClickedLogic(OnClickedLogic logic) {
 		menuIconClickedLogic = logic;
 	}

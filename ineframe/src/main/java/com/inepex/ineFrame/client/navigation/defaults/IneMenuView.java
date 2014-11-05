@@ -178,6 +178,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		helpAndSettingsTable.setText(2, 1, "Leave alias mode");
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
+		usertable.addStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
 	}
 	public void disableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
 		this.logoutHandler = logoutHandler;
@@ -185,6 +186,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		helpAndSettingsTable.setText(2, 1, "Logout");
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
+		usertable.removeStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
 	}
 	public void clearApps() {
 		appsTbl.removeAllRows();

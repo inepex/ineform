@@ -10,6 +10,7 @@
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
+@eval ineColor2 com.inepex.ineFrame.client.util.DesignConstants.getIneColor2();
 @eval menuSeparatorColor com.inepex.ineFrame.client.util.DesignConstants.getMenuSeparatorColor();
 @eval menuFontColor com.inepex.ineFrame.client.util.DesignConstants.getMenuFontColor();
 
@@ -25,37 +26,37 @@
 	height: 100%;
 }
 
-.userProfile{
+.userProfile {
 	height: b1d5;
 	width: 100%;
 }
 
-.userProfileImg{
+.userProfileImg {
 	padding: b0d166;
 }
 
-.userProfileEmail{
+.userProfileEmail {
 	font-size: b0d25;
 	max-width: b4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.userProfileName{
+.userProfileName {
 	height: 50%;
 	font-weight: bold;
 	max-width: b4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.menuSeparatorLbl{
+.menuSeparatorLbl {
 	padding: 0 b0d125;
 }
 
-.menuSeparatorPanel{
+.menuSeparatorPanel {
 	width: 100%;
 	height: b0d666;
 	line-height: b0d666;
@@ -63,20 +64,25 @@
 	vertical-align: middle;
 }
 
-.menuElementRow{
+.menuElementRow {
 	width: 100%;
 	height: base;
 	cursor: pointer;
 }
 
-.menuElementRow:hover{
+.menuElementRow:hover {
 	background-color: ineColor1;
 }
 
-.menuElementIcon{
+.menuElementIcon {
 	text-align: center;
 	width: base;
 }
-.menuElementTable{
-	width: 100%
+
+.menuElementTable {
+	width: 100%;
+}
+
+.inAliasMode {
+	color: ineColor2;
 }
