@@ -180,9 +180,12 @@
 .menu a:hover,.menu .current_page_item a
 	{
 	text-decoration: none;
-	color: #333333;
-	border-left: 1px solid #EDEDED;
-	background-color: #EDEDED;
+	color: #fff;
+	border-left: 1px solid ineColor1;
+	background-color: ineColor1;
+}
+
+.menu .current_page_item a {
 	font-weight: bold;
 }
 

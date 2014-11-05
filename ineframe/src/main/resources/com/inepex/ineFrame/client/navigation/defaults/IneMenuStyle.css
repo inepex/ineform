@@ -16,6 +16,7 @@
 
 .ineMenu {
 	width: b5;
+	height: 100%;
 	background-color: backgroundColor;
 	font-size: b0d333;
 	color: menuFontColor;
@@ -24,6 +25,7 @@
 .ineMenuScrollPanel {
 	width: b5;
 	height: 100%;
+	background-color: backgroundColor;
 }
 
 .userProfile {

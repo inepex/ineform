@@ -3,6 +3,7 @@ package com.inepex.ineFrame.client.navigation.defaults;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
@@ -80,7 +81,8 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 
 	private void setStyles() {
-		scrollPanel.asWidget().setStyleName(Res.INST.get().ineMenuStyle().ineMenuScrollPanel());
+		getElement().getStyle().setHeight(100.0, Unit.PCT);
+		scrollPanel.asWidget().addStyleName(Res.INST.get().ineMenuStyle().ineMenuScrollPanel());
 		scrollContent.addStyleName(Res.INST.get().ineMenuStyle().ineMenu());
 		usertable.setStyleName(Res.INST.get().ineMenuStyle().userProfile());
 		appsLbl.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorLbl());
