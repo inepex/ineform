@@ -39,6 +39,7 @@
 
 .menuTable {
 	height: base;
+	float: left;
 }
 
 .menuCell {

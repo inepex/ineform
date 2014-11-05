@@ -5,12 +5,17 @@ public class DesignConstants {
 	public static int base = 48;
 	
 	public static int b0d333 = (int) (base * 1.0/3.0);
+	
+	public static int b0d315 = (int) (base * 12.0/48.0);
+	
 	public static int b0d25 = (int) (base * 1.0/4.0);
 	public static int b0d50 = (int) (base * 1.0/2.0);
 	public static int b0d166 = (int) (base * 1.0/6.0);
 	public static int b0d125 = (int) (base * 1.0/8.0);
 	
 	public static int b0d666 = (int) (base * 2.0/3.0);
+	
+	public static int b0d75 = (int) (base * 3.0/4.0);
 	
 	public static int b1d5 = (int) (base * 1.5);
 	
@@ -25,6 +30,10 @@ public class DesignConstants {
 	
 	public static String base() {
 		return base + "px";
+	}
+	
+	public static String b0d315() {
+		return b0d315+"px";
 	}
 
 	public static String b0d333() {
@@ -49,6 +58,10 @@ public class DesignConstants {
 
 	public static String b0d666() {
 		return b0d666 + "px";
+	}
+	
+	public static String b0d75() {
+		return b0d75 + "px";
 	}
 
 	public static String b1d5() {

@@ -24,7 +24,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	
 	@Inject
-	IneFrameHeaderView(HeaderViewLogo logoCreator) {
+	public IneFrameHeaderView(HeaderViewLogo logoCreator) {
 		logo = logoCreator.createLogo();
 		buildStructure();
 		setStyleNames();
@@ -34,14 +34,13 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		add(menuTable);
 		menuTable.setWidget(0, 0, menuIcon);
 		menuTable.setWidget(0, 1, logo);
-		
 	}
 	
 	private void setStyleNames(){
 		setStyleName(ResourceHelper.getRes().style().header());
 		menuTable.setCellPadding(0);
 		menuTable.setCellSpacing(0);
-		menuTable.setStyleName( ResourceHelper.getRes().style().menuTable());
+		menuTable.setStyleName(ResourceHelper.getRes().style().menuTable());
 		menuTable.getFlexCellFormatter().setStyleName(0, 0, ResourceHelper.getRes().style().menuCell());
 		menuTable.getFlexCellFormatter().setStyleName(0, 1, ResourceHelper.getRes().style().menuCell());
 		menuTable.getFlexCellFormatter().setStyleName(0, 2, ResourceHelper.getRes().style().menuCell());
