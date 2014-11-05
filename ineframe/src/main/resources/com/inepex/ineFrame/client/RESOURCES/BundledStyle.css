@@ -140,9 +140,7 @@
 }
 
 .menuBorder {
-/* 	border-bottom: 1px solid #EDEDED; */
 	background: linear-gradient(to bottom, #D1D1D1 , #F5F5F5);
-	border-top: 1px solid #EDEDED;
 }
 
 .menu ul {
