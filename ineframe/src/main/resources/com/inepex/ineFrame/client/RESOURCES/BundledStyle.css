@@ -35,7 +35,7 @@
 }
 
 .logo {
-
+	cursor: pointer;
 }
 
 .menuTable {
@@ -242,6 +242,10 @@
 }
 
 .inAliasMode {
-	border-bottom: 3px solid ineColor2;
-	transition: all defaultAnimationLength ease-out;
+	background: -webkit-linear-gradient(backgroundColor 50%, ineColor2 110%);
+	background: -o-linear-gradient(backgroundColor 50%, ineColor2 110%);
+	background: -moz-linear-gradient(backgroundColor 50%, ineColor2 110%);
+	background: linear-gradient(backgroundColor 50%, ineColor2 110%);
+	
+	border-bottom: 3px solid #FF6500;
 }

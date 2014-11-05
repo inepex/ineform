@@ -50,6 +50,14 @@ public class IneFrameHeader {
 		}
 	};
 	
+	private OnClickedLogic logoClickLogic = new OnClickedLogic() {
+		
+		@Override
+		public void doLogic() {
+			masterPageView.get().toggleNavigationDrawer();
+		}
+	};
+	
 	private Provider<MasterPage.View> masterPageView;
 	
 	@Inject
@@ -65,11 +73,16 @@ public class IneFrameHeader {
 		boolean showLangSelector = true;
 		getOrCreateView().setLanguageSelectorVisible(showLangSelector);
 		getOrCreateView().setMenuIconClickedLogic(menuIconClickLogic);
+		getOrCreateView().setLogoClickedLogic(logoClickLogic);
 	
 	}
 	
 	public void setMenuIconClickedLogic(OnClickedLogic logic) {
 		this.menuIconClickLogic = logic;		
+	}
+	
+	public void setLogoClickedLogic(OnClickedLogic logic) {
+		this.logoClickLogic = logic;
 	}
 	
 	private View getOrCreateView(){
