@@ -89,7 +89,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	}
 	
 	public void showMessage(boolean isError) {
-		messagePanel.showMessage("ez egy message", isError, 2500);
+		messagePanel.showMessage("ez egy message", isError, 0);
 	}
 	
 	private void setBase() {
