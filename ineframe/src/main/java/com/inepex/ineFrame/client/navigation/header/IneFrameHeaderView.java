@@ -110,5 +110,15 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	@Override
 	public void setLogoClickedLogic(OnClickedLogic logic) {
 		this.logoClickedLogic = logic;
+	}
+
+	@Override
+	public void hideMenuIcon() {
+		menuIcon.setVisible(false);
+	}
+
+	@Override
+	public void showMenuIcon() {
+		menuIcon.setVisible(true);
 	}	
 }

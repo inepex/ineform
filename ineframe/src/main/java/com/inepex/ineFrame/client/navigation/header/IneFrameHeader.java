@@ -33,6 +33,10 @@ public class IneFrameHeader {
 		
 		public IsWidget asWidget();
 		
+		public void hideMenuIcon();
+		
+		public void showMenuIcon();
+		
 	}
 	
 	private final Provider<View> viewProv;
