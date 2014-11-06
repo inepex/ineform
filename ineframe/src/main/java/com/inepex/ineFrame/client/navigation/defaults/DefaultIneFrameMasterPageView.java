@@ -97,14 +97,9 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	private void setBase() {
 		Window.Navigator.getUserAgent();
 		String userAgent = Navigator.getUserAgent();
-		
-		showMessage(userAgent, true);
-		showMessage("első:"+DesignConstants.b0d333(), true);
 		if(userAgent.toLowerCase().contains("mobile") || Navigator.getPlatform().toLowerCase().contains("iphone")){
 			DesignConstants.setBase((int)(DesignConstants.base()*3));
 		}
-		//DesignConstants.setBase((int)(DesignConstants.base()));
-		showMessage("masodik:"+DesignConstants.b0d333(), true);
 	}
 
 	public void toggleNavigationDrawer() {
