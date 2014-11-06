@@ -2,81 +2,180 @@ package com.inepex.ineFrame.client.util;
 
 public class DesignConstants {
 	
-	public static int base = 48;
+	private static int base = 48;
 	
-	public static int b0d333 = (int) (base * 1.0/3.0);
+	private static double b0d333 = 1.0/3.0;
 	
-	public static int b0d315 = (int) (base * 12.0/48.0);
+	private static double b0d315 = 12.0/48.0;
 	
-	public static int b0d25 = (int) (base * 1.0/4.0);
-	public static int b0d50 = (int) (base * 1.0/2.0);
-	public static int b0d166 = (int) (base * 1.0/6.0);
-	public static int b0d125 = (int) (base * 1.0/8.0);
+	private static double b0d25 = 1.0/4.0;
+	private static double b0d50 = 1.0/2.0;
+	private static double b0d166 = 1.0/6.0;
+	private static double b0d125 = 1.0/8.0;
 	
-	public static int b0d666 = (int) (base * 2.0/3.0);
+	private static double b0d666 = 2.0/3.0;
 	
-	public static int b0d75 = (int) (base * 3.0/4.0);
+	private static double b0d75 = 3.0/4.0;
 	
-	public static int b1d5 = (int) (base * 1.5);
+	private static double b1d5 = 1.5;
 	
-	public static int b5 = (int) (base * 5);
-	public static int b4 = (int) (base * 4);
+	private static double b5 = 5;
+	private static double b4 = 4;
 	
-	public static String backgroundColor = "#2B2B2B";
-	public static String ineColor1 = "#12AD2B";
-	public static String ineColor2 = "#A80000";
-	public static String menuSeparatorColor = "#494949";
-	public static String menuFontColor = "#CACACA";
-	public static float defaultAnimationLength = 0.5f;
+	private static String backgroundColor = "#2B2B2B";
+	private static String ineColor1 = "#12AD2B";
+	private static String ineColor2 = "#A80000";
+	private static String menuSeparatorColor = "#494949";
+	private static String menuFontColor = "#CACACA";
+	private static float defaultAnimationLength = 0.5f;
 	
-	public static String base() {
-		return base + "px";
+	public static int base() {
+		return base;
+	}
+	public static String baseWithUnit() {
+		return base()+"px";
 	}
 	
-	public static String b0d315() {
-		return b0d315+"px";
+	public static int b0d315() {
+		return getRelativeProperty(b0d315);
 	}
-
-	public static String b0d333() {
-		return b0d333+"px";
-	}
-
-	public static String b0d25() {
-		return b0d25 + "px";
-	}
-	
-	public static String b0d50() {
-		return b0d50 + "px";
+	public static String b0d315WithUnit() {
+		return b0d315()+"px";
 	}
 
-	public static String b0d166() {
-		return b0d166 + "px";
+	public static int b0d333() {
+		return getRelativeProperty(b0d333);
+	}
+	public static String b0d333WithUnit() {
+		return b0d333()+"px";
 	}
 
-	public static String b0d125() {
-		return b0d125 + "px";
+	public static int b0d25() {
+		return getRelativeProperty(b0d25);
 	}
-
-	public static String b0d666() {
-		return b0d666 + "px";
+	public static String b0d25WithUnit() {
+		return b0d25()+"px";
 	}
 	
-	public static String b0d75() {
-		return b0d75 + "px";
+	public static int b0d50() {
+		return getRelativeProperty(b0d50);
+	}
+	public static String b0d50WithUnit() {
+		return b0d50()+"px";
 	}
 
-	public static String b1d5() {
-		return b1d5 + "px";
+	public static int b0d166() {
+		return getRelativeProperty(b0d50);
+	}
+	public static String b0d166WithUnit() {
+		return b0d166()+"px";
 	}
 
-	public static String b5() {
-		return b5 + "px";
+	public static int b0d125() {
+		return getRelativeProperty(b0d125);
+	}
+	public static String b0d125WithUnit() {
+		return b0d125()+"px";
+	}
+
+	public static int b0d666() {
+		return getRelativeProperty(b0d666);
+	}
+	public static String b0d666WithUnit() {
+		return b0d666()+"px";
 	}
 	
-	public static String b4() {
-		return b4 + "px";
+	public static int b0d75() {
+		return getRelativeProperty(b0d75);
+	}
+	public static String b0d75WithUnit() {
+		return b0d75()+"px";
 	}
 
+	public static int b1d5() {
+		return getRelativeProperty(b1d5);
+	}
+	public static String b1d5WithUnit() {
+		return b1d5()+"px";
+	}
+
+	public static int b5() {
+		return getRelativeProperty(b5);
+	}
+	public static String b5WithUnit() {
+		return b5()+"px";
+	}
+	
+	public static int b4() {
+		return getRelativeProperty(b4);
+	}
+	public static String b4WithUnit() {
+		return b4()+"px";
+	}	
+	
+	public static int baseNegative() {
+		return -1 * base;
+	}
+	public static String baseNegativeWithUnit() {
+		return (-1 * base())+"px";
+	}
+	
+	public static int b0d333Negative() {
+		return -1 * b0d333();
+	}
+	public static String b0d333NegativeWithUnit() {
+		return (-1 * b0d333())+"px";
+	}
+
+	public static int b0d25Negative() {
+		return -1 * b0d25();
+	}
+	public static String b0d25NegativeWithUnit() {
+		return (-1 * b0d25())+"px";
+	}
+	
+	public static int b0d50Negative() {
+		return -1 * b0d50();
+	}
+	public static String b0d50NegativeWithUnit() {
+		return (-1 * base())+"px";
+	}
+
+	public static int b0d166Negative() {
+		return -1 * b0d166();
+	}
+	public static String b0d166NegativeWithUnit() {
+		return (-1 * b0d166())+"px";
+	}
+
+	public static int b0d125Negative() {
+		return -1 * b0d125();
+	}
+	public static String b0d125NegativeWithUnit() {
+		return (-1 * b0d125())+"px";
+	}
+
+	public static int b0d666Negative() {
+		return -1 * b0d666();
+	}
+	public static String b0d666NegativeWithUnit() {
+		return (-1 * b0d666())+"px";
+	}
+
+	public static int b1d5Negative() {
+		return -1 * b1d5();
+	}
+	public static String b1d5NegativeWithUnit() {
+		return (-1 * b1d5())+"px";
+	}
+
+	public static int b5Negative() {
+		return -1 * b5();
+	}
+	public static String b5NegativeWithUnit() {
+		return (-1 * b5())+"px";
+	}
+	
 	public static String getBackgroundColor() {
 		return backgroundColor;
 	}
@@ -96,48 +195,20 @@ public class DesignConstants {
 	public static String getMenuFontColor() {
 		return menuFontColor;
 	}
-	
-	public static String baseNegative() {
-		return -1 * base + "px";
+	public static float defaultAnimationLength() {
+		return defaultAnimationLength;
 	}
-	
-	public static String b0d333Negative() {
-		return -1 * b0d333+"px";
-	}
-
-	public static String b0d25Negative() {
-		return -1 * b0d25 + "px";
-	}
-	
-	public static String b0d50Negative() {
-		return -1 * b0d50 + "px";
-	}
-
-	public static String b0d166Negative() {
-		return -1 * b0d166 + "px";
-	}
-
-	public static String b0d125Negative() {
-		return -1 * b0d125 + "px";
-	}
-
-	public static String b0d666Negative() {
-		return -1 * b0d666 + "px";
-	}
-
-	public static String b1d5Negative() {
-		return -1 * b1d5 + "px";
-	}
-
-	public static String b5Negative() {
-		return -1 * b5 + "px";
-	}
-	
-	public static String defaultAnimationLength() {
+	public static String defaultAnimationLengthWithUnit() {
 		return defaultAnimationLength + "s";
 	}
 	
 	public static void setBase(int base) {
 		DesignConstants.base = base;
+	}
+	public static int getRelativeProperty(double value){
+		return (int)(base()*value);
+	}
+	public static String getRelativePropertyWithUnit(double value,String unit){
+		return getRelativeProperty(value)+unit;
 	}
 }

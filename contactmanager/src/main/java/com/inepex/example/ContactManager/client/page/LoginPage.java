@@ -32,7 +32,7 @@ public class LoginPage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				masterPage.showMessage(cb.getValue());
+				masterPage.showMessage("Error message", cb.getValue());
 				
 			}
 		});		

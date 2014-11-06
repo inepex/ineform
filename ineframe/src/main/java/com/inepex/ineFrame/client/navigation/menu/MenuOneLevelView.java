@@ -43,9 +43,9 @@ public class MenuOneLevelView extends LayoutPanel {
 		add(menuBorder);
 		add(target);
 		if (!hiddenMenu){
-			setWidgetTopHeight(menu, 0, Unit.PX, DesignConstants.base, Unit.PX);
-			setWidgetTopHeight(menuBorder, DesignConstants.base, Unit.PX, DesignConstants.b0d125, Unit.PX);
-			setWidgetTopBottom(target, DesignConstants.base + DesignConstants.b0d125, Unit.PX, 0, Unit.PX);	
+			setWidgetTopHeight(menu, 0, Unit.PX, DesignConstants.base(), Unit.PX);
+			setWidgetTopHeight(menuBorder, DesignConstants.base(), Unit.PX, DesignConstants.b0d125(), Unit.PX);
+			setWidgetTopBottom(target, DesignConstants.base() + DesignConstants.b0d125(), Unit.PX, 0, Unit.PX);	
 		} else { 
 			setWidgetTopHeight(menu, 0, Unit.PX, 0, Unit.PX);
 			setWidgetTopHeight(menuBorder, 0, Unit.PX, 0, Unit.PX);
@@ -75,9 +75,9 @@ public class MenuOneLevelView extends LayoutPanel {
 		add(grid);
 		
 		if (!hiddenMenu){
-			setWidgetTopHeight(menu, 0, Unit.PX, DesignConstants.base, Unit.PX);
-			setWidgetTopHeight(menuBorder, DesignConstants.base, Unit.PX, DesignConstants.b0d125, Unit.PX);
-			setWidgetTopBottom(grid, DesignConstants.base + DesignConstants.b0d125, Unit.PX, 0, Unit.PX);	
+			setWidgetTopHeight(menu, 0, Unit.PX, DesignConstants.base(), Unit.PX);
+			setWidgetTopHeight(menuBorder, DesignConstants.base(), Unit.PX, DesignConstants.b0d125(), Unit.PX);
+			setWidgetTopBottom(grid, DesignConstants.base() + DesignConstants.b0d125(), Unit.PX, 0, Unit.PX);	
 		} else { 
 			setWidgetTopHeight(menu, 0, Unit.PX, 0, Unit.PX);
 			setWidgetTopHeight(menuBorder, 0, Unit.PX, 0, Unit.PX);

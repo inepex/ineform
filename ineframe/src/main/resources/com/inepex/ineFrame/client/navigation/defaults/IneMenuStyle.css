@@ -1,12 +1,12 @@
-@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
-@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
-@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d25();
-@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166();
-@eval b0d125 com.inepex.ineFrame.client.util.DesignConstants.b0d125();
-@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
-@eval b1d5 com.inepex.ineFrame.client.util.DesignConstants.b1d5();
-@eval b5 com.inepex.ineFrame.client.util.DesignConstants.b5();
-@eval b4 com.inepex.ineFrame.client.util.DesignConstants.b4();
+@eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
+@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit();
+@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d25WithUnit();
+@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166WithUnit();
+@eval b0d125 com.inepex.ineFrame.client.util.DesignConstants.b0d125WithUnit();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit();
+@eval b1d5 com.inepex.ineFrame.client.util.DesignConstants.b1d5WithUnit();
+@eval b5 com.inepex.ineFrame.client.util.DesignConstants.b5WithUnit();
+@eval b4 com.inepex.ineFrame.client.util.DesignConstants.b4WithUnit();
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();

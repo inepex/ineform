@@ -6,6 +6,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -73,12 +74,12 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		header.asWidget().asWidget().getElement().setId("Header");
 		menu.asWidget().asWidget().getElement().setId("Menu");
 		
-		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base + borderWidth, Unit.PX);
-		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base, Unit.PX, 0, Unit.PX);
+		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base() + borderWidth, Unit.PX);
+		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base(), Unit.PX, 0, Unit.PX);
 		
 		headerAndPageRoot.setWidget(headerAndPage);
 		
-		navigationDrawer.asWidget().setSize(DesignConstants.b5(), "100%");
+		navigationDrawer.asWidget().setSize(DesignConstants.b5WithUnit(), "100%");
 		navigationDrawer.asWidget().getElement().setId("NavigationDrawer");
 		navigationDrawer.asWidget().addStyleName(Res.INST.get().style().NavigationDrawer());
 		
@@ -94,11 +95,16 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	}
 	
 	private void setBase() {
+		Window.Navigator.getUserAgent();
 		String userAgent = Navigator.getUserAgent();
+		
 		showMessage(userAgent, true);
+		showMessage("első:"+DesignConstants.b0d333(), true);
 		if(userAgent.toLowerCase().contains("mobile") || Navigator.getPlatform().toLowerCase().contains("iphone")){
-			DesignConstants.setBase((int)(DesignConstants.base*3));
+			DesignConstants.setBase((int)(DesignConstants.base()*3));
 		}
+		//DesignConstants.setBase((int)(DesignConstants.base()));
+		showMessage("masodik:"+DesignConstants.b0d333(), true);
 	}
 
 	public void toggleNavigationDrawer() {
@@ -134,7 +140,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 			}
 		};
 		
-		timer.schedule((int) (DesignConstants.defaultAnimationLength*1000));
+		timer.schedule((int) (DesignConstants.defaultAnimationLength()*1000));
 	}
 	
 	public boolean isNavigationDrawerOpen() {

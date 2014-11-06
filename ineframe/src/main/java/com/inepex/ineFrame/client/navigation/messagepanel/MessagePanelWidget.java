@@ -107,7 +107,7 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 					isShowing = false;
 				}					
 			}
-		}.schedule((int)(DesignConstants.defaultAnimationLength*1000));
+		}.schedule((int)(DesignConstants.defaultAnimationLength()*1000));
 		
 	}
 	@Override
