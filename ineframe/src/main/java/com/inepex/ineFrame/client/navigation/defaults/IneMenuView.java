@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 import com.inepex.ineFrame.client.GreenScrollPanel;
+import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
@@ -24,7 +25,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	private FlowPanel appsPanel = new FlowPanel();
 	private FlowPanel helpAndSettingsPanel = new FlowPanel();
 	private Label appsLbl = new Label("APPS");
-	private Label helpAndSettingsLbl = new Label("HELP & SETTINGS");
+	private Label helpAndSettingsLbl = new Label(IneFrameI18n.inemenu_helpsettings());
 	private FlexTable appsTbl = new FlexTable();
 	private FlexTable helpAndSettingsTable = new FlexTable();
 	private final GreenScrollPanel scrollPanel = new GreenScrollPanel();
@@ -111,11 +112,11 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		appsPanel.add(appsLbl);
 		helpAndSettingsPanel.add(helpAndSettingsLbl);
 		helpAndSettingsTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelpCenter()));
-		helpAndSettingsTable.setText(0, 1, "Help");
+		helpAndSettingsTable.setText(0, 1, IneFrameI18n.inemenu_help());
 		helpAndSettingsTable.setWidget(1, 0, new Image(Res.INST.get().drawerAccountSettings()));
-		helpAndSettingsTable.setText(1, 1, "Account settings");
+		helpAndSettingsTable.setText(1, 1, IneFrameI18n.inemenu_settings());
 		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLogout()));
-		helpAndSettingsTable.setText(2, 1, "Logout");
+		helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_logout());
 		
 		helpAndSettingsTable.getRowFormatter().setStyleName(0, Res.INST.get().ineMenuStyle().menuElementRow());
 		helpAndSettingsTable.getRowFormatter().setStyleName(1, Res.INST.get().ineMenuStyle().menuElementRow());
@@ -177,7 +178,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	public void enableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
 		this.logoutHandler = logoutHandler;
 		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLeaveAlias()));
-		helpAndSettingsTable.setText(2, 1, "Leave alias mode");
+		helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_leavealias());
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
 		usertable.addStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
@@ -185,7 +186,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	public void disableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
 		this.logoutHandler = logoutHandler;
 		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLogout()));
-		helpAndSettingsTable.setText(2, 1, "Logout");
+		helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_logout());
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
 		usertable.removeStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
@@ -193,5 +194,13 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	public void clearApps() {
 		appsTbl.removeAllRows();
 		appsLbl.setVisible(false);
+	}
+	
+	public void onDisplayed(){
+		scrollPanel.scrollToTop();
+	}
+	
+	public void onHidden(){
+		
 	}
 }

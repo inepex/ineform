@@ -108,4 +108,14 @@ public class IneMenu implements NavigationDrawer {
 	public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
 		view.disableAliasMode(callback, name, email);
 	}
+
+	@Override
+	public void onDisplayed() {
+		view.onDisplayed();
+	}
+
+	@Override
+	public void onHidden() {
+		view.onHidden();
+	}
 }

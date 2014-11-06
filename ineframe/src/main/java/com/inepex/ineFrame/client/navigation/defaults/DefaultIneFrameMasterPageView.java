@@ -118,7 +118,8 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 			
 			@Override
 			public void execute() {
-				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayoutFaded());		
+				clickHandlerLayout.setStyleName(Res.INST.get().style().ClickHandlerLayoutFaded());
+				navigationDrawer.onDisplayed();
 			}
 		});
 	}
@@ -132,6 +133,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 			@Override
 			public void run() {
 				headerAndPage.remove(clickHandlerLayout);
+				navigationDrawer.onHidden();
 			}
 		};
 		timer.schedule((int) (DesignConstants.defaultAnimationLength()*1000));

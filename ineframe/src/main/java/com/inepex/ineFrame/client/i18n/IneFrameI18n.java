@@ -42,6 +42,11 @@ public class IneFrameI18n extends I18nModule {
 	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
 	public String hourShort = "h";
 	public String hoursAgo = "{number} hours ago";
+	public String inemenu_help = "Help";
+	public String inemenu_helpsettings = "HELP & SETTINGS";
+	public String inemenu_leavealias = "Leave alias";
+	public String inemenu_logout = "Logout";
+	public String inemenu_settings = "Settings";
 	public String loading = "Loading data...";
 	public String minShort = "m";
 	public String minsAgo = "{number} mins ago";
@@ -212,6 +217,51 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Help
+	* <u><i>Magyarul:</i></u> Súgó
+	*/
+	public static String inemenu_help() {
+		return moduleProvider.get().inemenu_help;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> HELP & SETTINGS
+	* <u><i>Magyarul:</i></u> SÚGÓ, BEÁLLÍTÁSOK
+	*/
+	public static String inemenu_helpsettings() {
+		return moduleProvider.get().inemenu_helpsettings;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Leave alias
+	* <u><i>Magyarul:</i></u> Alias mód elhagyása
+	*/
+	public static String inemenu_leavealias() {
+		return moduleProvider.get().inemenu_leavealias;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Logout
+	* <u><i>Magyarul:</i></u> Kijelentkezés
+	*/
+	public static String inemenu_logout() {
+		return moduleProvider.get().inemenu_logout;
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Settings
+	* <u><i>Magyarul:</i></u> Beállítások
+	*/
+	public static String inemenu_settings() {
+		return moduleProvider.get().inemenu_settings;
+	}
+	
+	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Loading data...
 	* <u><i>Magyarul:</i></u> Adatok betöltése...
@@ -279,8 +329,8 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>In English:</i></u> No network connection. Reconnect in {delay} ({reconnectionTime}).
 	* <u><i>Magyarul:</i></u> Nincs kapcsolat. Újracsatlakozás {delay} múlva ({reconnectionTime}).
 	*/
-	public static String reconnection(String reconnectionTime, String delay) {
-		return moduleProvider.get().reconnection.replace("{reconnectionTime}", reconnectionTime).replace("{delay}", delay);
+	public static String reconnection(String delay, String reconnectionTime) {
+		return moduleProvider.get().reconnection.replace("{delay}", delay).replace("{reconnectionTime}", reconnectionTime);
 	}
 	
 	/**
