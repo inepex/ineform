@@ -14,6 +14,7 @@ import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProv
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.LoginBox;
+import com.inepex.ineFrame.client.auth.UserLoggedInEvent;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
@@ -97,8 +98,15 @@ public class LoginPage extends FlowPanelBasedPage {
 
 		@Override
 		protected void doLoggedinLogic(AuthStatusResultBase base) {
-			eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));
+			eventBus.fireEvent(new UserLoggedInEvent());
+			eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));			
 		}
+		
+		protected void doRedirectLogic(AuthStatusResultBase result) {
+			eventBus.fireEvent(new UserLoggedInEvent());
+			super.doRedirectLogic(result);
+		}
+		
 
 		@Override
 		protected HasValue<Boolean> getCheckBox() {

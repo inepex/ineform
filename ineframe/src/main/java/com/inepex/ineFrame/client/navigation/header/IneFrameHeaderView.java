@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
+import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
@@ -22,10 +23,14 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private OnClickedLogic menuIconClickedLogic;
 	private OnClickedLogic logoClickedLogic;
 	private FlexTable menuTable = new FlexTable();
+	private AuthManager authManager;
 
 	
 	@Inject
-	public IneFrameHeaderView(HeaderViewLogo logoCreator) {
+	public IneFrameHeaderView(
+			HeaderViewLogo logoCreator, 
+			AuthManager authManager) {
+		this.authManager = authManager;
 		logo = logoCreator.createLogo();
 		buildStructure();
 		setStyleNames();
@@ -35,7 +40,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		add(menuTable);
 		menuTable.setWidget(0, 0, menuIcon);
 		menuTable.setWidget(0, 1, logo);
-		menuIcon.setVisible(false);
+		menuIcon.setVisible(authManager.isUserLoggedIn());
 	}
 	
 	private void setStyleNames(){
