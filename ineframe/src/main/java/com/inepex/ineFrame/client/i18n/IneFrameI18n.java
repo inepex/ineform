@@ -42,6 +42,7 @@ public class IneFrameI18n extends I18nModule {
 	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
 	public String hourShort = "h";
 	public String hoursAgo = "{number} hours ago";
+	public String inemenu_apps = "Apps";
 	public String inemenu_help = "Help";
 	public String inemenu_helpsettings = "HELP & SETTINGS";
 	public String inemenu_leavealias = "Leave alias";
@@ -214,6 +215,15 @@ public class IneFrameI18n extends I18nModule {
 	*/
 	public static String hoursAgo(String number) {
 		return moduleProvider.get().hoursAgo.replace("{number}", number);
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Apps
+	* <u><i>Magyarul:</i></u> Appok
+	*/
+	public static String inemenu_apps() {
+		return moduleProvider.get().inemenu_apps;
 	}
 	
 	/**

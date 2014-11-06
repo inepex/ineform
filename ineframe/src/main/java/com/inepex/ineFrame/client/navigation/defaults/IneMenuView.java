@@ -24,7 +24,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	private FlexTable usertable = new FlexTable();
 	private FlowPanel appsPanel = new FlowPanel();
 	private FlowPanel helpAndSettingsPanel = new FlowPanel();
-	private Label appsLbl = new Label("APPS");
+	private Label appsLbl = new Label(IneFrameI18n.inemenu_apps());
 	private Label helpAndSettingsLbl = new Label(IneFrameI18n.inemenu_helpsettings());
 	private FlexTable appsTbl = new FlexTable();
 	private FlexTable helpAndSettingsTable = new FlexTable();
@@ -44,6 +44,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 	
 	public void addApp(ImageResource icon, String appName, String appId){
+		appsLbl.setVisible(true);
 		int row = appsTbl.getRowCount();
 		appIdMap.put(row, appId);
 		appsTbl.setWidget(row, 0, new Image(icon));
