@@ -36,10 +36,6 @@ public class IneFrameHeader {
 		
 		public IsWidget asWidget();
 		
-		public void hideMenuIcon();
-		
-		public void showMenuIcon();
-		
 		public void toggleMenuIcon(boolean isNavigationDrawerOpen);
 		
 		public void onLogin();

@@ -35,6 +35,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		add(menuTable);
 		menuTable.setWidget(0, 0, menuIcon);
 		menuTable.setWidget(0, 1, logo);
+		menuIcon.setVisible(false);
 	}
 	
 	private void setStyleNames(){
@@ -112,16 +113,6 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	public void setLogoClickedLogic(OnClickedLogic logic) {
 		this.logoClickedLogic = logic;
 	}
-
-	@Override
-	public void hideMenuIcon() {
-		menuIcon.setVisible(false);
-	}
-
-	@Override
-	public void showMenuIcon() {
-		menuIcon.setVisible(true);
-	}
 	
 	@Override
 	public void toggleMenuIcon(boolean isNavigationDrawerOpen) {
@@ -138,13 +129,11 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 
 	@Override
 	public void onLogin() {
-		// TODO Auto-generated method stub
-		
+		menuIcon.setVisible(true);
 	}
 
 	@Override
 	public void onLogout() {
-		// TODO Auto-generated method stub
-		
+		menuIcon.setVisible(false);		
 	}
 }
