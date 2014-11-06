@@ -60,7 +60,7 @@ public class DesignConstants {
 	public static int b0d5() {
 		return getRelativeProperty(b0d5);
 	}
-	public static String b0d50WithUnit() {
+	public static String b0d5WithUnit() {
 		return b0d5()+"px";
 	}
 
