@@ -23,8 +23,9 @@ public class DesignConstants {
 	private static double b4 = 4;
 	
 	private static String backgroundColor = "#2B2B2B";
-	private static String ineColor1 = "#12AD2B";
-	private static String ineColor2 = "#A80000";
+	private static String ineColor1 = "#12AD2B";  //"ine green2
+	private static String ineColor2 = "#A80000"; //"ine red"
+	private static String ineColor3 = "#33ccff"; //"ine blue"
 	private static String menuSeparatorColor = "#494949";
 	private static String menuFontColor = "#CACACA";
 	private static float defaultAnimationLength = 0.5f;
@@ -187,6 +188,10 @@ public class DesignConstants {
 	public static String getIneColor2() {
 		return ineColor2;
 	}
+	
+	public static String getIneColor3() {
+		return ineColor3;
+	}
 
 	public static String getMenuSeparatorColor() {
 		return menuSeparatorColor;
@@ -218,5 +223,9 @@ public class DesignConstants {
 	
 	public static void setIneColor2(String color){
 		ineColor2 = color;
+	}
+	
+	public static void setIneColor3(String color){
+		ineColor3 = color;
 	}
 }
