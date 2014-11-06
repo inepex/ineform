@@ -37,6 +37,8 @@ public class IneFrameHeader {
 		
 		public void showMenuIcon();
 		
+		public void toggleMenuIcon(boolean isNavigationDrawerOpen);
+		
 	}
 	
 	private final Provider<View> viewProv;
@@ -47,6 +49,7 @@ public class IneFrameHeader {
 		@Override
 		public void doLogic() {
 			masterPageView.get().toggleNavigationDrawer();
+			getOrCreateView().toggleMenuIcon(masterPageView.get().isNavigationDrawerOpen());
 		}
 	};
 	
@@ -55,6 +58,7 @@ public class IneFrameHeader {
 		@Override
 		public void doLogic() {
 			masterPageView.get().toggleNavigationDrawer();
+			getOrCreateView().toggleMenuIcon(masterPageView.get().isNavigationDrawerOpen());
 		}
 	};
 	
@@ -78,7 +82,7 @@ public class IneFrameHeader {
 	}
 	
 	public void setMenuIconClickedLogic(OnClickedLogic logic) {
-		this.menuIconClickLogic = logic;		
+		this.menuIconClickLogic = logic;
 	}
 	
 	public void setLogoClickedLogic(OnClickedLogic logic) {
