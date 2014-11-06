@@ -120,5 +120,17 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	@Override
 	public void showMenuIcon() {
 		menuIcon.setVisible(true);
+	}
+
+	@Override
+	public void onLogin() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLogout() {
+		// TODO Auto-generated method stub
+		
 	}	
 }
