@@ -38,8 +38,9 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
 		this.header = header;
 		this.navigationDrawer = navigationDrawer;
-		setBase();
 		this.messagePanel = messagePanel;
+		setBase();
+		
 		messagePanel.getElement().setId("MessagePanel");
 		messagePanel.addStyleName(Res.INST.get().style().MessagePanel());
 		getElement().setId("MasterPage");
@@ -88,13 +89,14 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 
 	}
 	
-	public void showMessage(boolean isError) {
-		messagePanel.showMessage("ez egy message", isError, 0);
+	public void showMessage(String message, boolean isError) {
+		messagePanel.showMessage(message, isError, 0);
 	}
 	
 	private void setBase() {
 		String userAgent = Navigator.getUserAgent();
-		if(userAgent.contains("mobile") || Navigator.getPlatform().contains("iPhone")){
+		showMessage(userAgent, true);
+		if(userAgent.toLowerCase().contains("mobile") || Navigator.getPlatform().toLowerCase().contains("iphone")){
 			DesignConstants.setBase((int)(DesignConstants.base*3));
 		}
 	}

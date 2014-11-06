@@ -78,6 +78,7 @@ public class MenuRendererView extends LayoutPanel implements MenuRenderer.View {
 	@Override
 	public void showPage(InePage page) {
 		MenuOneLevelView oneLevel = levels.get(levels.size() - 1);
+		oneLevel.getTarget().clear();
 		oneLevel.getTarget().add(page.asWidget());
 	}
 

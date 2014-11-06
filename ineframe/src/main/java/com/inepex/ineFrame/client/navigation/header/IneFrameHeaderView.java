@@ -135,4 +135,16 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 			menuIcon.addStyleName(ResourceHelper.getRes().style().menuIcon());
 		}
 	}
+
+	@Override
+	public void onLogin() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLogout() {
+		// TODO Auto-generated method stub
+		
+	}
 }

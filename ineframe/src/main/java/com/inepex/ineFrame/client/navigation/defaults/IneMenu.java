@@ -12,6 +12,7 @@ import com.inepex.ineFrame.client.auth.UserLoggedOutEvent;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
+import com.inepex.ineFrame.client.navigation.MasterPage.View;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
@@ -20,14 +21,17 @@ public class IneMenu implements NavigationDrawer {
 
 	protected IneMenuView view;
 	protected AuthManager authManager;
+	protected Provider<View> masterPageView;
 
 	@Inject
 	public IneMenu(IneMenuView view, 
 				   final EventBus eventBus,
 				   final AuthManager authManager,
-				   final Provider<MessagePanel> messagePanel) {
+				   final Provider<MessagePanel> messagePanel,
+				   final Provider<View> masterPageView) {
 		this.view = view;
 		this.authManager = authManager;
+		this.masterPageView = masterPageView;
 		
 		refresh();
 		
@@ -52,6 +56,7 @@ public class IneMenu implements NavigationDrawer {
 			
 			@Override
 			public void onResponse(Void response) {
+				masterPageView.get().toggleNavigationDrawer();
 				messagePanel.get().showMessage("Helló új design és animációk", false);
 			}
 		});
@@ -60,6 +65,7 @@ public class IneMenu implements NavigationDrawer {
 
 			@Override
 			public void onResponse(Void response) {
+				masterPageView.get().toggleNavigationDrawer();
 				authManager.doLogout(new AuthActionCallback() {
 					@Override
 					public void onAuthCheckDone(AuthStatusResultBase result) {
