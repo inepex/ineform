@@ -1,18 +1,18 @@
 @CHARSET 'UTF-8';
-@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
-@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166();
+@eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
+@eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166WithUnit();
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
 @eval ineColor2 com.inepex.ineFrame.client.util.DesignConstants.getIneColor2();
 @eval menuFontColor com.inepex.ineFrame.client.util.DesignConstants.getMenuFontColor();
 
-@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
-@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
-@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
-@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
+@eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
+@eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit();
+@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit();
 
-@eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLength();
+@eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLengthWithUnit();
 
 
 .scrollPane {

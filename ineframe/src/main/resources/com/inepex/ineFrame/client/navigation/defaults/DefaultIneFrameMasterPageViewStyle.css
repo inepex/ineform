@@ -1,11 +1,11 @@
-@eval base com.inepex.ineFrame.client.util.DesignConstants.base();
-@eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegative();
-@eval b0d50 com.inepex.ineFrame.client.util.DesignConstants.b0d50();
-@eval b0d50Negative com.inepex.ineFrame.client.util.DesignConstants.b0d50Negative();
-@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
-@eval b0d666Negative com.inepex.ineFrame.client.util.DesignConstants.b0d666Negative();
-@eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.b5();
-@eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLength();
+@eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
+@eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegativeWithUnit();
+@eval b0d50 com.inepex.ineFrame.client.util.DesignConstants.b0d50WithUnit();
+@eval b0d50Negative com.inepex.ineFrame.client.util.DesignConstants.b0d50NegativeWithUnit();
+@eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit();
+@eval b0d666Negative com.inepex.ineFrame.client.util.DesignConstants.b0d666NegativeWithUnit();
+@eval navigationDrawerWidth com.inepex.ineFrame.client.util.DesignConstants.b5WithUnit();
+@eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLengthWithUnit();
 
 .MasterPage {
 	overflow: hidden;
