@@ -22,7 +22,7 @@ public class NoAuthManager implements AuthManager {
 
 	@Override
 	public boolean isUserLoggedIn() {
-		throw new RuntimeException();
+		return false;
 	}
 
 	@Override

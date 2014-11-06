@@ -6,8 +6,6 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
@@ -40,7 +38,6 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		this.header = header;
 		this.navigationDrawer = navigationDrawer;
 		this.messagePanel = messagePanel;
-		setBase();
 		
 		messagePanel.getElement().setId("MessagePanel");
 		messagePanel.addStyleName(Res.INST.get().style().MessagePanel());
@@ -92,14 +89,6 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	
 	public void showMessage(String message, boolean isError) {
 		messagePanel.showMessage(message, isError, 0);
-	}
-	
-	private void setBase() {
-		Window.Navigator.getUserAgent();
-		String userAgent = Navigator.getUserAgent();
-		if(userAgent.toLowerCase().contains("mobile") || Navigator.getPlatform().toLowerCase().contains("iphone")){
-			DesignConstants.setBase((int)(DesignConstants.base()*3));
-		}
 	}
 
 	public void toggleNavigationDrawer() {
