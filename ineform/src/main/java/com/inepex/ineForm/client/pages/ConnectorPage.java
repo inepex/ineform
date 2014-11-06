@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
+import com.inepex.ineFrame.client.GreenScrollPanel;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.InePlace;
@@ -33,10 +35,14 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
 	private final List<ServerSideDataConnector> connectors = new ArrayList<ServerSideDataConnector>();
 	protected InePlace currentPlace;
 	
+	protected final GreenScrollPanel scrollPanel = new GreenScrollPanel();
 	protected final FlowPanel mainPanel = new FlowPanel(); 
 	
 	public ConnectorPage() {
-		initWidget(mainPanel);
+		initWidget(scrollPanel.asWidget());
+		scrollPanel.asWidget().setHeight("100%");
+		scrollPanel.setScrollContent(mainPanel);
+		mainPanel.getElement().getStyle().setPadding(10.0, Unit.PX);
 	}
 	
 	public ServerSideDataConnector createConnector(IneDispatch dispatcher, EventBus eventBus, String descriptorName) {

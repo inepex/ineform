@@ -12,12 +12,13 @@ import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
+import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton
 public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFrameHeader.View {
 	
 	private Widget logo;
-	private Image menuIcon = new Image(ResourceHelper.getRes().headerDrawerIcon());
+	private ClickableFlowPanel menuIcon = new ClickableFlowPanel();
 	private OnClickedLogic menuIconClickedLogic;
 	private OnClickedLogic logoClickedLogic;
 	private FlexTable menuTable = new FlexTable();
@@ -120,5 +121,30 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	@Override
 	public void showMenuIcon() {
 		menuIcon.setVisible(true);
-	}	
+	}
+	
+	@Override
+	public void toggleMenuIcon(boolean isNavigationDrawerOpen) {
+		if (isNavigationDrawerOpen) {
+			menuIcon.addStyleName(ResourceHelper.getRes().style().backIcon());
+			menuIcon.removeStyleName(ResourceHelper.getRes().style().menuIcon());
+		} 
+		
+		else {
+			menuIcon.removeStyleName(ResourceHelper.getRes().style().backIcon());
+			menuIcon.addStyleName(ResourceHelper.getRes().style().menuIcon());
+		}
+	}
+
+	@Override
+	public void onLogin() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLogout() {
+		// TODO Auto-generated method stub
+		
+	}
 }

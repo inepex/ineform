@@ -12,6 +12,8 @@
 @eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d333();
 @eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666();
 
+@eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLength();
+
 
 .scrollPane {
 	width: 100%;
@@ -26,16 +28,23 @@
 
 .header {
 	height: base;
-	background-color: backgroundColor;
+	background: backgroundColor;
 	border-bottom: 3px solid ineColor1;
 	z-index: 1500;
 	position: relative;
 	font-size: b0d333;
 	color: menuFontColor;
+	
+	-webkit-transition: all ease defaultAnimationLength;
+	-moz-transition: all ease defaultAnimationLength;
+	-o-transition: all ease defaultAnimationLength;
+	-ms-transition: all ease defaultAnimationLength;
+	transition: all ease defaultAnimationLength;
 }
 
 .logo {
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 .menuTable {
@@ -48,8 +57,34 @@
 	padding-right: b0d25
 }
 
-.menuIcon {
+@sprite .menuIcon {
 	cursor: pointer;
+	gwt-image: 'headerDrawerIcon';
+	margin-left: 15px;
+	
+	-webkit-transition: all ease defaultAnimationLength;
+	-moz-transition: all ease defaultAnimationLength;
+	-o-transition: all ease defaultAnimationLength;
+	-ms-transition: all ease defaultAnimationLength;
+	transition: all ease defaultAnimationLength;
+}
+
+@sprite .backIcon {
+	cursor: pointer;
+	gwt-image: 'headerBackIcon';
+	margin-left: 15px;
+	
+	-webkit-transition: all ease defaultAnimationLength;
+	-moz-transition: all ease defaultAnimationLength;
+	-o-transition: all ease defaultAnimationLength;
+	-ms-transition: all ease defaultAnimationLength;
+	transition: all ease defaultAnimationLength;
+		
+	-webkit-transform:rotate(360deg);
+	-moz-transform:rotate(360deg);
+	-o-transform:rotate(360deg);
+	-ms-transform:rotate(360deg);
+	transform:rotate(360deg);
 }
 
 .settingsUserName {
@@ -242,10 +277,13 @@
 }
 
 .inAliasMode {
-	background: -webkit-linear-gradient(backgroundColor 50%, ineColor2 110%);
-	background: -o-linear-gradient(backgroundColor 50%, ineColor2 110%);
-	background: -moz-linear-gradient(backgroundColor 50%, ineColor2 110%);
-	background: linear-gradient(backgroundColor 50%, ineColor2 110%);
+	background-color: ineColor2;
+	border-bottom: 3px solid #FF0000;
+	box-shadow: 0px 28px 60px 0px rgba(0, 0, 0, 1) inset;
 	
-	border-bottom: 3px solid #FF6500;
+	-webkit-transition: all ease defaultAnimationLength;
+	-moz-transition: all ease defaultAnimationLength;
+	-o-transition: all ease defaultAnimationLength;
+	-ms-transition: all ease defaultAnimationLength;
+	transition: all ease defaultAnimationLength;
 }

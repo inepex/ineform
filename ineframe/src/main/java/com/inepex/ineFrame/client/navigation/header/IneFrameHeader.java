@@ -1,11 +1,14 @@
 package com.inepex.ineFrame.client.navigation.header;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AuthManager;
+import com.inepex.ineFrame.client.auth.UserLoggedInEvent;
+import com.inepex.ineFrame.client.auth.UserLoggedOutEvent;
 import com.inepex.ineFrame.client.navigation.MasterPage;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
 
@@ -37,6 +40,11 @@ public class IneFrameHeader {
 		
 		public void showMenuIcon();
 		
+		public void toggleMenuIcon(boolean isNavigationDrawerOpen);
+		
+		public void onLogin();
+		
+		public void onLogout();		
 	}
 	
 	private final Provider<View> viewProv;
@@ -47,6 +55,7 @@ public class IneFrameHeader {
 		@Override
 		public void doLogic() {
 			masterPageView.get().toggleNavigationDrawer();
+			getOrCreateView().toggleMenuIcon(masterPageView.get().isNavigationDrawerOpen());
 		}
 	};
 	
@@ -55,18 +64,23 @@ public class IneFrameHeader {
 		@Override
 		public void doLogic() {
 			masterPageView.get().toggleNavigationDrawer();
+			getOrCreateView().toggleMenuIcon(masterPageView.get().isNavigationDrawerOpen());
 		}
 	};
 	
 	private Provider<MasterPage.View> masterPageView;
+	private EventBus eventBus;
 	
 	@Inject
 	public IneFrameHeader(AuthManager authManager,
 						  Provider<View> view, 
-						  Provider<MasterPage.View> masterPageView) {
+						  Provider<MasterPage.View> masterPageView,
+						  EventBus eventBus) {
 		super();
 		this.viewProv = view;
 		this.masterPageView = masterPageView;
+		this.eventBus = eventBus;
+		registerEvents();
 	}
 	
 	public void refresh() {
@@ -77,8 +91,26 @@ public class IneFrameHeader {
 	
 	}
 	
+	private void registerEvents() {
+		eventBus.addHandler(UserLoggedInEvent.TYPE, new UserLoggedInEvent.Handler() {
+			
+			@Override
+			public void onUserLoggedIn() {
+				getOrCreateView().onLogin();
+			}
+		});
+		
+		eventBus.addHandler(UserLoggedOutEvent.TYPE, new UserLoggedOutEvent.Handler() {
+
+			@Override
+			public void onUserLoggedOut() {
+				getOrCreateView().onLogout();
+			}	
+		});
+	}
+	
 	public void setMenuIconClickedLogic(OnClickedLogic logic) {
-		this.menuIconClickLogic = logic;		
+		this.menuIconClickLogic = logic;
 	}
 	
 	public void setLogoClickedLogic(OnClickedLogic logic) {

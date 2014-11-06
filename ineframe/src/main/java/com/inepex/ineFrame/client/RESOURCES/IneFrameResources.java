@@ -40,7 +40,6 @@ public interface IneFrameResources extends ClientBundle {
 	@Source("settings.png")
 	ImageResource settings();
 
-
 	@Source("selector_arrow_bg.gif")
 	@ImageOptions(repeatStyle=RepeatStyle.Horizontal)
 	ImageResource selector_arrow_bg();
@@ -56,4 +55,5 @@ public interface IneFrameResources extends ClientBundle {
 	ImageResource selector_down_arrow();
 	
 	ImageResource headerDrawerIcon();
+	ImageResource headerBackIcon();
 }

@@ -139,8 +139,8 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 				headerAndPage.remove(clickHandlerLayout);
 			}
 		};
-		
 		timer.schedule((int) (DesignConstants.defaultAnimationLength()*1000));
+		header.toggleMenuIcon(isNavigationDrawerOpen());
 	}
 	
 	public boolean isNavigationDrawerOpen() {
