@@ -141,10 +141,6 @@ public class MenuRenderer {
 			}
 			
 			pointer=selectednode;
-			
-			if(pointer != null) {
-				renderSelectorWidget(pointer, level);
-			}
 		}
 		
 		if(pointer != null) {
