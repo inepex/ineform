@@ -211,4 +211,12 @@ public class DesignConstants {
 	public static String getRelativePropertyWithUnit(double value,String unit){
 		return getRelativeProperty(value)+unit;
 	}
+	
+	public static void setIneColor1(String color){
+		ineColor1 = color;
+	}
+	
+	public static void setIneColor2(String color){
+		ineColor2 = color;
+	}
 }
