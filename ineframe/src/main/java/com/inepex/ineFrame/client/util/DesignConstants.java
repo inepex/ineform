@@ -9,7 +9,7 @@ public class DesignConstants {
 	private static double b0d315 = 12.0/48.0;
 	
 	private static double b0d25 = 1.0/4.0;
-	private static double b0d50 = 1.0/2.0;
+	private static double b0d5 = 1.0/2.0;
 	private static double b0d166 = 1.0/6.0;
 	private static double b0d125 = 1.0/8.0;
 	
@@ -57,15 +57,15 @@ public class DesignConstants {
 		return b0d25()+"px";
 	}
 	
-	public static int b0d50() {
-		return getRelativeProperty(b0d50);
+	public static int b0d5() {
+		return getRelativeProperty(b0d5);
 	}
 	public static String b0d50WithUnit() {
-		return b0d50()+"px";
+		return b0d5()+"px";
 	}
 
 	public static int b0d166() {
-		return getRelativeProperty(b0d50);
+		return getRelativeProperty(b0d166);
 	}
 	public static String b0d166WithUnit() {
 		return b0d166()+"px";
@@ -135,7 +135,7 @@ public class DesignConstants {
 	}
 	
 	public static int b0d50Negative() {
-		return -1 * b0d50();
+		return -1 * b0d5();
 	}
 	public static String b0d50NegativeWithUnit() {
 		return (-1 * base())+"px";
