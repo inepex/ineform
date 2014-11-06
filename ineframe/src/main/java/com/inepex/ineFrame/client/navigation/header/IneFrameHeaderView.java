@@ -24,6 +24,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private OnClickedLogic logoClickedLogic;
 	private FlexTable menuTable = new FlexTable();
 	private AuthManager authManager;
+	private boolean logoClickEnabled = false;
 
 	
 	@Inject
@@ -86,7 +87,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					if(logoClickedLogic != null){
+					if(logoClickedLogic != null && logoClickEnabled){
 						logoClickedLogic.doLogic();
 					}
 				}
@@ -135,10 +136,12 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	@Override
 	public void onLogin() {
 		menuIcon.setVisible(true);
+		logoClickEnabled = true;
 	}
 
 	@Override
 	public void onLogout() {
-		menuIcon.setVisible(false);		
+		menuIcon.setVisible(false);
+		logoClickEnabled = false;
 	}
 }
