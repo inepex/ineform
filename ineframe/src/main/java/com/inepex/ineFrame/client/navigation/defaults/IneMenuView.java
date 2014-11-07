@@ -44,7 +44,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 	
 	public void addApp(ImageResource icon, String appName, String appId){
-		appsLbl.setVisible(true);
+		appsPanel.setVisible(true);
 		int row = appsTbl.getRowCount();
 		appIdMap.put(row, appId);
 		appsTbl.setWidget(row, 0, new Image(icon));
@@ -104,13 +104,14 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 
 	private void buildStructure(){
 		add(scrollPanel);
+		appsPanel.add(appsLbl);
+		appsPanel.setVisible(false);
 		scrollPanel.setScrollContent(scrollContent);
 		scrollContent.add(usertable);
 		scrollContent.add(appsPanel);
 		scrollContent.add(appsTbl);
 		scrollContent.add(helpAndSettingsPanel);
-		scrollContent.add(helpAndSettingsTable);
-		appsPanel.add(appsLbl);
+		scrollContent.add(helpAndSettingsTable);		
 		helpAndSettingsPanel.add(helpAndSettingsLbl);
 		helpAndSettingsTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelpCenter()));
 		helpAndSettingsTable.setText(0, 1, IneFrameI18n.inemenu_help());
@@ -172,7 +173,6 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	
 	@Override
 	protected void onLoad() {
-		appsPanel.setVisible(appsTbl.getRowCount() != 0);
 		registerHandlers();
 		super.onLoad();
 	}
@@ -194,7 +194,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 	}
 	public void clearApps() {
 		appsTbl.removeAllRows();
-		appsLbl.setVisible(false);
+		appsPanel.setVisible(false);
 	}
 	
 	public void onDisplayed(){
