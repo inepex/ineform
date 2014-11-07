@@ -15,4 +15,5 @@ public interface MessagePanel {
 	
 	public int defaultDelay();
 
+	public void clearAllAndHide();
 }

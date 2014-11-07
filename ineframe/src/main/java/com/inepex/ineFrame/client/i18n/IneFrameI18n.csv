@@ -28,7 +28,7 @@
 "oneHourAgo";"in singular, must be short";"one hour ago";"egy órája";"pre sat vremena"
 "oneMinAgo";"in singular, must be short";"one min ago";"egy perce";"pre jedan minut"
 "reconnected";"";"Connected";"Csatlakozva";"Povezan"
-"reconnection";"";"No network connection. Reconnect in {delay} ({reconnectionTime}).";"Nincs kapcsolat. Újracsatlakozás {delay} múlva ({reconnectionTime}).";"Ne postoji veza. Ponovo povezivanje posle {delay} ({reconnectionTime})."
+"reconnection";"";"No network connection. We will try to reconnect in a few seconds.";"Nincs kapcsolat. Néhány másodperc múlva újrapróbálkozunk.";"Ne postoji veza."
 "saveError";"";"Error occurred during save: <br /> {error}";"A mentés során az alábbi hiba történt: <br /> {error}";"Sledeća greška prilikom memorisanja: <br /> {error}"
 "saveSuccessful";"";"Save successful.";"Sikeresen elmentve";"Uspešno memorisanje"
 "saveUnknownError";"";"Unknown error occurred during save!";"A mentés során ismeretlen hiba történt.";"Nepoznate greške prilikom memorisanja."

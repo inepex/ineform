@@ -153,4 +153,10 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 	public void showMessage(Message message) {
 		showMessage(message.getMessage(), message.isError(), message.getDelayMillisec());
 	}
+
+	@Override
+	public void clearAllAndHide() {
+		messages.clear();
+		hideMessage();
+	}
 }

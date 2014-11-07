@@ -104,7 +104,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 		Window.Navigator.getUserAgent();
 		String userAgent = Navigator.getUserAgent();
 		if(userAgent.toLowerCase().contains("mobile") || Navigator.getPlatform().toLowerCase().contains("iphone")){
-			DesignConstants.setBase((int)(DesignConstants.base()*1.5));
+			DesignConstants.setBase((int)(DesignConstants.base()*2));
 		}
 	}
 	
