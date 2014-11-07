@@ -24,10 +24,11 @@ public interface IneFrameStyle extends CssResource {
 	String closed();
 	String menuTable();
 	String menuCell();
+	String menuCellImg();
 	String menuBorder();
 	String menuIcon();
 	String backIcon();
-	String scrollPane();
+	String scrollPanel();
 	
 	String inAliasMode();
 }

@@ -30,7 +30,7 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 	/**
 	 * the green rectangle (which can be dragged)
 	 */
-	private final FlowPanel scrollPane;
+	private final FlowPanel scrollPanel;
 	
 	/**
 	 * one pixel step on scroll bar should be 'd' pixel step on scroll content
@@ -59,9 +59,9 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 		this.scrollableContent=scrollableContent;
 		this.greenScroll=greenScroll;
 		
-		scrollPane=new FlowPanel();
-		scrollPane.setStyleName(ResourceHelper.getRes().style().scrollPane());
-		add(scrollPane);
+		scrollPanel=new FlowPanel();
+		scrollPanel.setStyleName(ResourceHelper.getRes().style().scrollPanel());
+		add(scrollPanel);
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 
 	@Override
 	public void setVerticalScrollPosition(int position) {
-		scrollPane.getElement().getStyle().setTop(position/d, Unit.PX);
+		scrollPanel.getElement().getStyle().setTop(position/d, Unit.PX);
 		vPos=position;
 	}
 
@@ -104,18 +104,18 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 			scrollPaneSize=getElement().getClientHeight()-Math.round((getMaximumVerticalScrollPosition()/d));
 		}
 		
-		scrollPane.getElement().getStyle().setHeight(scrollPaneSize, Unit.PX);
+		scrollPanel.getElement().getStyle().setHeight(scrollPaneSize, Unit.PX);
 	}
 	
 	public void setScrollPaneVisible(boolean visible) {
-		scrollPane.setVisible(visible);
+		scrollPanel.setVisible(visible);
 	}
 	
 	@Override
 	protected void onAttach() {
 		super.onAttach();
 		
-		registerHandler(scrollPane.addDomHandler(new MouseDownHandler() {
+		registerHandler(scrollPanel.addDomHandler(new MouseDownHandler() {
 			
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
@@ -124,22 +124,22 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 				previosVPos=vPos;
 				event.preventDefault();
 				event.stopPropagation();
-				DOM.setCapture(scrollPane.getElement());
+				DOM.setCapture(scrollPanel.getElement());
 			}
 		}, MouseDownEvent.getType()));
 		
-		registerHandler(scrollPane.addDomHandler(new MouseUpHandler() {
+		registerHandler(scrollPanel.addDomHandler(new MouseUpHandler() {
 			
 			@Override
 			public void onMouseUp(MouseUpEvent event) {
 				isDragging=false;
 				previousMouseY=-1;
 				previosVPos=-1;
-				DOM.releaseCapture(scrollPane.getElement());
+				DOM.releaseCapture(scrollPanel.getElement());
 			}
 		}, MouseUpEvent.getType()));
 		
-		registerHandler(scrollPane.addDomHandler(new MouseMoveHandler() {
+		registerHandler(scrollPanel.addDomHandler(new MouseMoveHandler() {
 			
 			@Override
 			public void onMouseMove(MouseMoveEvent event) {

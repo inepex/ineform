@@ -1,6 +1,8 @@
 @eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
 @eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit();
 @eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d25WithUnit();
+@eval b0d27 com.inepex.ineFrame.client.util.DesignConstants.b0d27WithUnit();
+@eval b0d291 com.inepex.ineFrame.client.util.DesignConstants.b0d291WithUnit();
 @eval b0d166 com.inepex.ineFrame.client.util.DesignConstants.b0d166WithUnit();
 @eval b0d125 com.inepex.ineFrame.client.util.DesignConstants.b0d125WithUnit();
 @eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit();
@@ -9,6 +11,7 @@
 @eval b4 com.inepex.ineFrame.client.util.DesignConstants.b4WithUnit();
 
 @eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
+@eval userProfileBackgroundColor com.inepex.ineFrame.client.util.DesignConstants.getUserProfileBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
 @eval ineColor2 com.inepex.ineFrame.client.util.DesignConstants.getIneColor2();
 @eval menuSeparatorColor com.inepex.ineFrame.client.util.DesignConstants.getMenuSeparatorColor();
@@ -31,6 +34,7 @@
 .userProfile {
 	height: b1d5;
 	width: 100%;
+	background-color: userProfileBackgroundColor;
 }
 
 .userProfileImg {
@@ -56,12 +60,14 @@
 
 .menuSeparatorLbl {
 	padding: 0 b0d125;
+	text-transform: uppercase;
 }
 
 .menuSeparatorPanel {
 	width: 100%;
 	height: b0d666;
 	line-height: b0d666;
+	font-size: b0d27;
 	background-color: menuSeparatorColor;
 	vertical-align: middle;
 }
@@ -70,6 +76,7 @@
 	width: 100%;
 	height: base;
 	cursor: pointer;
+	font-size: b0d291;
 }
 
 .menuElementRow:hover {
@@ -79,6 +86,7 @@
 .menuElementIcon {
 	text-align: center;
 	width: base;
+	line-height: 0px;
 }
 
 .menuElementTable {

@@ -4,24 +4,23 @@ public class DesignConstants {
 	
 	private static int base = 48;
 	
-	private static double b0d333 = 1.0/3.0;
-	
-	private static double b0d315 = 12.0/48.0;
-	
-	private static double b0d25 = 1.0/4.0;
-	private static double b0d5 = 1.0/2.0;
-	private static double b0d166 = 1.0/6.0;
 	private static double b0d125 = 1.0/8.0;
+	private static double b0d166 = 1.0/6.0;
+	private static double b0d25 = 1.0/4.0;
+	private static double b0d333 = 1.0/3.0;	
+	private static double b0d315 = 0.315;
+	private static double b0d27 = 13.0/48.0;
+	private static double b0d291 = 14.0/48.0;
 	
-	private static double b0d666 = 2.0/3.0;
-	
+	private static double b0d5 = 1.0/2.0;	
+	private static double b0d666 = 2.0/3.0;	
 	private static double b0d75 = 3.0/4.0;
-	
-	private static double b1d5 = 1.5;
-	
+	private static double b1d08 = 52.0/48.0;
+	private static double b1d5 = 1.5;	
 	private static double b5 = 5;
 	private static double b4 = 4;
 	
+	private static String userProfileBackgroundColor = "#1B1B1B";
 	private static String backgroundColor = "#2B2B2B";
 	private static String ineColor1 = "#12AD2B";  //"ine green2
 	private static String ineColor2 = "#A80000"; //"ine red"
@@ -49,6 +48,20 @@ public class DesignConstants {
 	}
 	public static String b0d333WithUnit() {
 		return b0d333()+"px";
+	}
+	
+	public static int b0d291() {
+		return getRelativeProperty(b0d291);
+	}
+	public static String b0d291WithUnit() {
+		return b0d291()+"px";
+	}
+	
+	public static int b0d27() {
+		return getRelativeProperty(b0d27);
+	}
+	public static String b0d27WithUnit() {
+		return b0d27()+"px";
 	}
 
 	public static int b0d25() {
@@ -98,6 +111,13 @@ public class DesignConstants {
 	}
 	public static String b1d5WithUnit() {
 		return b1d5()+"px";
+	}
+	
+	public static int b1d08() {
+		return getRelativeProperty(b1d08);
+	}
+	public static String b1d08WithUnit() {
+		return b1d08()+"px";
 	}
 
 	public static int b5() {
@@ -179,6 +199,10 @@ public class DesignConstants {
 	
 	public static String getBackgroundColor() {
 		return backgroundColor;
+	}
+	
+	public static String getUserProfileBackgroundColor() {
+		return userProfileBackgroundColor;
 	}
 
 	public static String getIneColor1() {

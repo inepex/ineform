@@ -9,13 +9,14 @@
 
 @eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
 @eval b0d333 com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit();
-@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit();
+@eval b0d291 com.inepex.ineFrame.client.util.DesignConstants.b0d291WithUnit();
+@eval b0d25 com.inepex.ineFrame.client.util.DesignConstants.b0d025WithUnit();
 @eval b0d666 com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit();
 
 @eval defaultAnimationLength com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLengthWithUnit();
 
 
-.scrollPane {
+.scrollPanel {
 	width: 100%;
 	position: relative;
 	background-color: #000;
@@ -32,7 +33,7 @@
 	border-bottom: 3px solid ineColor1;
 	z-index: 1500;
 	position: relative;
-	font-size: b0d333;
+	font-size: b0d291;
 	color: menuFontColor;
 	
 	-webkit-transition: all ease defaultAnimationLength;
@@ -45,6 +46,7 @@
 .logo {
 	cursor: pointer;
 	vertical-align: middle;
+	height: 25px;
 }
 
 .menuTable {
@@ -58,10 +60,17 @@
 	line-height: b0d166;
 }
 
+.menuCellImg {
+	background: rgba(255, 255, 255, 0.15);
+	border-radius: 50px;
+	padding: 8px;
+}
+
 @sprite .menuIcon {
 	cursor: pointer;
 	gwt-image: 'headerDrawerIcon';
-	margin-left: 15px;
+	margin-left: 12px;
+	margin-right: 6px;
 	
 	-webkit-transition: all ease defaultAnimationLength;
 	-moz-transition: all ease defaultAnimationLength;
@@ -73,7 +82,8 @@
 @sprite .backIcon {
 	cursor: pointer;
 	gwt-image: 'headerBackIcon';
-	margin-left: 15px;
+	margin-left: 12px;
+	margin-right: 6px;
 	
 	-webkit-transition: all ease defaultAnimationLength;
 	-moz-transition: all ease defaultAnimationLength;
