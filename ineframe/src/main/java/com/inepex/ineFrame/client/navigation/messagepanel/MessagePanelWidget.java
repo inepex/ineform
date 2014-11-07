@@ -72,7 +72,7 @@ public class MessagePanelWidget extends Grid implements MessagePanel {
 			addStyleName(Res.INST.get().style().errorStyle());
 		}
 		else{
-			Image img = new Image(Res.INST.get().system_alert_icon());
+			Image img = new Image(Res.INST.get().system_info_icon());
 			img.setStyleName(Res.INST.get().style().messageIcon());
 //			setWidget(0, 0, img);
 			imageAndMessagePanel.add(img);

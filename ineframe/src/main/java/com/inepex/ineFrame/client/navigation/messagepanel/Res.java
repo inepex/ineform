@@ -26,5 +26,6 @@ interface Res extends ClientBundle {
 	MessagePanelStyle style();
 	
 	ImageResource system_alert_icon();
+	ImageResource system_info_icon();
 	
 }
