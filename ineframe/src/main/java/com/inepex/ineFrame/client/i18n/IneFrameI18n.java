@@ -44,7 +44,7 @@ public class IneFrameI18n extends I18nModule {
 	public String hoursAgo = "{number} hours ago";
 	public String inemenu_apps = "Apps";
 	public String inemenu_help = "Help";
-	public String inemenu_helpsettings = "HELP & SETTINGS";
+	public String inemenu_helpsettings = "Help & Settings";
 	public String inemenu_leavealias = "Leave alias";
 	public String inemenu_logout = "Logout";
 	public String inemenu_settings = "Settings";
@@ -237,8 +237,8 @@ public class IneFrameI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u> $loc.getDescription() <br />
-	* <u><i>In English:</i></u> HELP & SETTINGS
-	* <u><i>Magyarul:</i></u> SÚGÓ, BEÁLLÍTÁSOK
+	* <u><i>In English:</i></u> Help & Settings
+	* <u><i>Magyarul:</i></u> Súgó, beállítások
 	*/
 	public static String inemenu_helpsettings() {
 		return moduleProvider.get().inemenu_helpsettings;

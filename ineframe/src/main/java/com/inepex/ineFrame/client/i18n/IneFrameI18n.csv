@@ -17,7 +17,7 @@
 "hoursAgo";"in plural, must be short";"{number} hours ago";"{number} órája";"pre {number} časova"
 "inemenu_apps";"";"Apps";"Appok";""
 "inemenu_help";"";"Help";"Súgó";""
-"inemenu_helpsettings";"";"HELP & SETTINGS";"SÚGÓ, BEÁLLÍTÁSOK";""
+"inemenu_helpsettings";"";"Help & Settings";"Súgó, beállítások";""
 "inemenu_leavealias";"";"Leave alias";"Alias mód elhagyása";""
 "inemenu_logout";"";"Logout";"Kijelentkezés";""
 "inemenu_settings";"";"Settings";"Beállítások";""
