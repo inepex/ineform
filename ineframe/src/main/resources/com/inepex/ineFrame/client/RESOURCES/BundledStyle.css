@@ -54,7 +54,8 @@
 
 .menuCell {
 	vertical-align: middle;
-	padding-right: b0d25
+	padding-right: b0d166;
+	line-height: b0d166;
 }
 
 @sprite .menuIcon {

@@ -56,4 +56,5 @@ public interface IneFrameResources extends ClientBundle {
 	
 	ImageResource headerDrawerIcon();
 	ImageResource headerBackIcon();
+	ImageResource headerBreadcrumbIcon();
 }

@@ -13,6 +13,7 @@ import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
+import com.inepex.ineFrame.client.navigation.defaults.Res;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton
@@ -58,7 +59,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	}
 	
 	public void setApp(ImageResource img, String appName){
-		menuTable.setText(0, 2, ">");
+		menuTable.setWidget(0, 2, new Image(ResourceHelper.getRes().headerBreadcrumbIcon()));
 		menuTable.setWidget(0, 3, new Image(img));
 		menuTable.setText(0, 4, appName);
 	}
@@ -68,7 +69,6 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		menuTable.clearCell(0, 3);
 		menuTable.clearCell(0, 4);
 	}
-
 	
 	@Override
 	protected void onAttach() {
