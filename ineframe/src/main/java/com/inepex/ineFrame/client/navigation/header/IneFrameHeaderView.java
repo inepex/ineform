@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -62,11 +63,13 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		
 		Image breadCrumb = new Image(ResourceHelper.getRes().headerBreadcrumbIcon());
 		
+		FlowPanel appImageWrapper = new FlowPanel();
 		Image appImage = new Image(img);
-		appImage.addStyleName(ResourceHelper.getRes().style().menuCellImg());
+		appImageWrapper.addStyleName(ResourceHelper.getRes().style().menuCellImg());
+		appImageWrapper.add(appImage);
 		
 		menuTable.setWidget(0, 2, breadCrumb);
-		menuTable.setWidget(0, 3, appImage);
+		menuTable.setWidget(0, 3, appImageWrapper);
 		menuTable.setText(0, 4, appName);
 	}
 	
