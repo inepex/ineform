@@ -55,7 +55,7 @@ public class IneFrameI18n extends I18nModule {
 	public String oneHourAgo = "one hour ago";
 	public String oneMinAgo = "one min ago";
 	public String reconnected = "Connected";
-	public String reconnection = "No network connection. Reconnect in {delay} ({reconnectionTime}).";
+	public String reconnection = "No network connection. We will try to reconnect in a few seconds.";
 	public String saveError = "Error occurred during save: <br /> {error}";
 	public String saveSuccessful = "Save successful.";
 	public String saveUnknownError = "Unknown error occurred during save!";
@@ -336,11 +336,11 @@ public class IneFrameI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> No network connection. Reconnect in {delay} ({reconnectionTime}).
-	* <u><i>Magyarul:</i></u> Nincs kapcsolat. Újracsatlakozás {delay} múlva ({reconnectionTime}).
+	* <u><i>In English:</i></u> No network connection. We will try to reconnect in a few seconds.
+	* <u><i>Magyarul:</i></u> Nincs kapcsolat. Néhány másodperc múlva újrapróbálkozunk.
 	*/
-	public static String reconnection(String delay, String reconnectionTime) {
-		return moduleProvider.get().reconnection.replace("{delay}", delay).replace("{reconnectionTime}", reconnectionTime);
+	public static String reconnection() {
+		return moduleProvider.get().reconnection;
 	}
 	
 	/**
