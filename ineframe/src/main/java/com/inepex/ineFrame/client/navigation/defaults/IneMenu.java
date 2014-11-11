@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AbstractAuthManager.AuthActionCallback;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
@@ -17,6 +18,7 @@ import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
+@Singleton
 public class IneMenu implements NavigationDrawer {
 
 	protected IneMenuView view;
@@ -80,6 +82,10 @@ public class IneMenu implements NavigationDrawer {
 	
 	public void setAccountSettingsCallback(IneformAsyncCallback<Void> cbk){
 		view.setAccountSettingsCbk(cbk);
+	}
+	
+	public void setHelpCallback(IneformAsyncCallback<Void> cbk){
+		view.setHelpCallback(cbk);
 	}
 
 	@Override

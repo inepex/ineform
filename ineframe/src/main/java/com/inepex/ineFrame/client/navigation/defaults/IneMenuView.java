@@ -14,11 +14,13 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.GreenScrollPanel;
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
+@Singleton
 public class IneMenuView extends HandlerAwareFlowPanel {
 	
 	private FlexTable usertable = new FlexTable();
