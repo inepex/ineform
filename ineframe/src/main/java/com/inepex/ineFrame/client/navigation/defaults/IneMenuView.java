@@ -176,16 +176,14 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		registerHandlers();
 		super.onLoad();
 	}
-	public void enableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
-		this.logoutHandler = logoutHandler;
+	public void enableAliasMode(String name, String email){
 		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLeaveAlias()));
 		helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_leavealias());
 		usertable.setText(0, 1, name);
 		usertable.setText(1, 0, email);
 		usertable.addStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
 	}
-	public void disableAliasMode(IneformAsyncCallback<Void> logoutHandler, String name, String email){
-		this.logoutHandler = logoutHandler;
+	public void disableAliasMode(String name, String email){
 		helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLogout()));
 		helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_logout());
 		usertable.setText(0, 1, name);

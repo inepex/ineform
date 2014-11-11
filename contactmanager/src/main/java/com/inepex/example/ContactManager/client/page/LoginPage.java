@@ -19,7 +19,6 @@ import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPageView;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
-import com.inepex.ineFrame.shared.IneformAsyncCallback;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 
@@ -42,14 +41,7 @@ public class LoginPage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				masterPage.enableAliasMode(new IneformAsyncCallback<Void>() {
-					
-					@Override
-					public void onResponse(Void response) {
-						// TODO Auto-generated method stub
-						
-					}
-				},"","");
+				masterPage.enableAliasMode("","");
 				
 			}
 		});		
@@ -58,14 +50,7 @@ public class LoginPage extends FlowPanelBasedPage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				masterPage.disableAliasMode(new IneformAsyncCallback<Void>() {
-					
-					@Override
-					public void onResponse(Void response) {
-						// TODO Auto-generated method stub
-						
-					}
-				}, "","");
+				masterPage.disableAliasMode("","");
 				
 			}
 		});		

@@ -9,10 +9,10 @@ import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.auth.UserLoggedInEvent;
 import com.inepex.ineFrame.client.auth.UserLoggedOutEvent;
+import com.inepex.ineFrame.client.navigation.MasterPage.View;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.navigation.MasterPage.View;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
@@ -102,11 +102,11 @@ public class IneMenu implements NavigationDrawer {
 		view.clearApps();
 	}
 	
-	public void enableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
-		view.enableAliasMode(callback, name, email);
+	public void enableAliasMode(String name, String email){
+		view.enableAliasMode(name, email);
 	}
-	public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
-		view.disableAliasMode(callback, name, email);
+	public void disableAliasMode(String name, String email){
+		view.disableAliasMode(name, email);
 	}
 
 	@Override

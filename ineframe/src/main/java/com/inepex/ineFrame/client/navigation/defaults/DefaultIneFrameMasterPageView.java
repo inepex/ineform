@@ -156,14 +156,14 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	}
 	
 	@Override
-	public void enableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
-		navigationDrawer.enableAliasMode(callback, name, email);
+	public void enableAliasMode(String name, String email){
+		navigationDrawer.enableAliasMode(name, email);
 		header.enableAliasMode();
 	}
 	
 	@Override
-	public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email){
-		navigationDrawer.disableAliasMode(callback, name, email);
+	public void disableAliasMode(String name, String email){
+		navigationDrawer.disableAliasMode(name, email);
 		header.disableAliasMode();
 	}
 }

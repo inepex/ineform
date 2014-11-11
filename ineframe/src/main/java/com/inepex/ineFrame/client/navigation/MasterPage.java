@@ -3,7 +3,6 @@ package com.inepex.ineFrame.client.navigation;
 import java.util.Map;
 
 import com.google.gwt.user.client.ui.IsWidget;
-import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
 public interface MasterPage {
 	
@@ -17,8 +16,8 @@ public interface MasterPage {
 		public void showMessagePanel();
 		public void hideMessagePanel();
 		public boolean isMessagePanelShown();
-		public void disableAliasMode(IneformAsyncCallback<Void> callback, String name, String email);
-		public void enableAliasMode(IneformAsyncCallback<Void> callback, String name, String email);
+		public void disableAliasMode(String name, String email);
+		public void enableAliasMode(String name, String email);
 	}
 	
 	void render(InePlace place, Map<String, String> urlParams);
