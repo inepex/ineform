@@ -10,7 +10,7 @@
 @eval b5 com.inepex.ineFrame.client.util.DesignConstants.b5WithUnit();
 @eval b4 com.inepex.ineFrame.client.util.DesignConstants.b4WithUnit();
 
-@eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
+@eval navigationDrawerBackgroundColor com.inepex.ineFrame.client.util.DesignConstants.getNavigationDrawerBackgroundColor();
 @eval userProfileBackgroundColor com.inepex.ineFrame.client.util.DesignConstants.getUserProfileBackgroundColor();
 @eval ineColor1 com.inepex.ineFrame.client.util.DesignConstants.getIneColor1();
 @eval ineColor2 com.inepex.ineFrame.client.util.DesignConstants.getIneColor2();
@@ -20,7 +20,7 @@
 .ineMenu {
 	width: b5;
 	height: 100%;
-	background-color: backgroundColor;
+	background-color: navigationDrawerBackgroundColor;
 	font-size: b0d333;
 	color: menuFontColor;
 }
@@ -28,7 +28,7 @@
 .ineMenuScrollPanel {
 	width: b5;
 	height: 100%;
-	background-color: backgroundColor;
+	background-color: navigationDrawerBackgroundColor;
 }
 
 .userProfile {

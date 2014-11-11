@@ -1,6 +1,5 @@
 @eval base com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit();
 @eval baseNegative com.inepex.ineFrame.client.util.DesignConstants.baseNegativeWithUnit();
-@eval backgroundColor com.inepex.ineFrame.client.util.DesignConstants.getBackgroundColor();
 
 .messageStyle {
 	background-color: rgba(104, 178, 83, 0.6);

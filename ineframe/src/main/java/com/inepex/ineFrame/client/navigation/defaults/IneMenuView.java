@@ -14,11 +14,13 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.GreenScrollPanel;
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
+@Singleton
 public class IneMenuView extends HandlerAwareFlowPanel {
 	
 	private FlexTable usertable = new FlexTable();
@@ -113,7 +115,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 		scrollContent.add(helpAndSettingsPanel);
 		scrollContent.add(helpAndSettingsTable);		
 		helpAndSettingsPanel.add(helpAndSettingsLbl);
-		helpAndSettingsTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelpCenter()));
+		helpAndSettingsTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelp()));
 		helpAndSettingsTable.setText(0, 1, IneFrameI18n.inemenu_help());
 		helpAndSettingsTable.setWidget(1, 0, new Image(Res.INST.get().drawerAccountSettings()));
 		helpAndSettingsTable.setText(1, 1, IneFrameI18n.inemenu_settings());

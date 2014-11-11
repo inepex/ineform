@@ -187,7 +187,8 @@
 }
 
 .menuBorder {
-	background: linear-gradient(to bottom, #D1D1D1 , #F5F5F5);
+	background: linear-gradient(to bottom, #000, #fff);
+	opacity: 0.24
 }
 
 .menu ul {
@@ -228,10 +229,6 @@
 	color: #fff;
 	border-left: 1px solid ineColor1;
 	background-color: ineColor1;
-}
-
-.menu .current_page_item a {
-	font-weight: bold;
 }
 
 .menu li:first-child a {
