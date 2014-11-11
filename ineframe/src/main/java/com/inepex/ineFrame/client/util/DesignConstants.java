@@ -20,13 +20,14 @@ public class DesignConstants {
 	private static double b5 = 5;
 	private static double b4 = 4;
 	
-	private static String userProfileBackgroundColor = "#1B1B1B";
-	private static String backgroundColor = "#2B2B2B";
-	private static String ineColor1 = "#12AD2B";  //"ine green2
+	private static String userProfileBackgroundColor = "#303233";
+	private static String backgroundColor = "#303233";
+	private static String navigationDrawerBackgroundColor = "#3C3F40";
+	private static String ineColor1 = "#12AD2B";  //"ine green
 	private static String ineColor2 = "#A80000"; //"ine red"
 	private static String ineColor3 = "#33ccff"; //"ine blue"
-	private static String menuSeparatorColor = "#494949";
-	private static String menuFontColor = "#CACACA";
+	private static String menuSeparatorColor = "#484C4D";
+	private static String menuFontColor = "#BFC9CC";
 	private static float defaultAnimationLength = 0.5f;
 	
 	public static int base() {
@@ -251,5 +252,8 @@ public class DesignConstants {
 	
 	public static void setIneColor3(String color){
 		ineColor3 = color;
+	}
+	public static String getNavigationDrawerBackgroundColor() {
+		return navigationDrawerBackgroundColor;
 	}
 }

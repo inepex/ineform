@@ -72,7 +72,7 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 		menu.asWidget().asWidget().getElement().setId("Menu");
 		
 		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base() + borderWidth, Unit.PX);
-		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base(), Unit.PX, 0, Unit.PX);
+		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base() + borderWidth, Unit.PX, 0, Unit.PX);
 		
 		headerAndPageRoot.setWidget(headerAndPage);
 		
