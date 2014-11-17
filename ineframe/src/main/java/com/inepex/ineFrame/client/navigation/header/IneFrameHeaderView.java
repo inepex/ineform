@@ -14,7 +14,6 @@ import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
-import com.inepex.ineFrame.client.navigation.defaults.Res;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton

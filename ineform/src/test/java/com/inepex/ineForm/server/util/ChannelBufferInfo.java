@@ -1,8 +1,8 @@
 package com.inepex.ineForm.server.util;
 
-import java.util.Arrays;
-
 import io.netty.buffer.ByteBuf;
+
+import java.util.Arrays;
 
 /**
  * Class to test the changing of {@link io.netty.buffer.ByteBuf}.

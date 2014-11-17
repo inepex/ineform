@@ -18,7 +18,6 @@ import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineFrame.client.util.DesignConstants;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
-import com.inepex.ineFrame.shared.IneformAsyncCallback;
 
 @Singleton
 public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultIneFrameMasterPage.View {
