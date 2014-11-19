@@ -24,6 +24,7 @@ public class IneMenu implements NavigationDrawer {
 	protected IneMenuView view;
 	protected AuthManager authManager;
 	protected Provider<View> masterPageView;
+	private boolean appsDisplayed = false;
 
 	@Inject
 	public IneMenu(IneMenuView view, 
@@ -34,8 +35,6 @@ public class IneMenu implements NavigationDrawer {
 		this.view = view;
 		this.authManager = authManager;
 		this.masterPageView = masterPageView;
-		
-		refresh();
 		
 		eventBus.addHandler(UserLoggedInEvent.TYPE, new UserLoggedInEvent.Handler() {
 			
@@ -117,6 +116,10 @@ public class IneMenu implements NavigationDrawer {
 
 	@Override
 	public void onDisplayed() {
+		if (!appsDisplayed){
+			refresh();
+			appsDisplayed = true;
+		}
 		view.onDisplayed();
 	}
 
