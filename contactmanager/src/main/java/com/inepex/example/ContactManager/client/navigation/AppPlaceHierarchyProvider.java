@@ -10,7 +10,7 @@ import com.inepex.example.ContactManager.client.page.CompanyContactEditPage;
 import com.inepex.example.ContactManager.client.page.CompanyDeletePage;
 import com.inepex.example.ContactManager.client.page.CompanyDetailsPage;
 import com.inepex.example.ContactManager.client.page.CompanyEditPage;
-import com.inepex.example.ContactManager.client.page.CompanyWidgetPlace;
+import com.inepex.example.ContactManager.client.page.CompanyListPage;
 import com.inepex.example.ContactManager.client.page.ContactDetailsPage;
 import com.inepex.example.ContactManager.client.page.ContactSelectorPage;
 import com.inepex.example.ContactManager.client.page.ContactWidgetPlace;
@@ -21,7 +21,6 @@ import com.inepex.example.ContactManager.client.page.MeetingWidgetPlace;
 import com.inepex.example.ContactManager.client.page.NewCompanyPage;
 import com.inepex.example.ContactManager.client.page.NewMeetingPage;
 import com.inepex.example.ContactManager.client.page.PageNotFoundPage;
-import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.places.DefaultOneParamPresenter;
@@ -64,9 +63,9 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 	
 	@Inject Provider<LoginPage> loginProvider;
 	
-	@Inject CompanyWidgetPlace companyWidgetPlace;
 	@Inject MeetingWidgetPlace meetingWidgetPlace;
 	
+	@Inject Provider<CompanyListPage> companyListProvider;
 	@Inject Provider<DefaultOneParamPresenter> oneParamPresenter;
 	@Inject Provider<NewCompanyPage> companyNewProvider;	
 	@Inject Provider<CompanyDetailsPage> companyDetials;
@@ -89,19 +88,11 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 		placeRoot.addChild(LOGIN, new SimpleCachingPlace(loginProvider))
 				 .addChildGC(LOGGEDIN, usr(new ChildRedirectPlace(COMPANIES)))
 				 	.addChild(PAGENOTFOUND, new SimpleCachingPlace(pageNotFoundProvider))
-					.addChildGC(COMPANIES, usr(new OneParamPlace(COMPANIES, CompanyConsts.descriptorName, PARAM_COMPANY, 
-							COMPDETAILS, true, oneParamPresenter)
-						.setMenuName(CMI18n.menu_COMPANIES())))
-						.addChild(companyWidgetPlace)
-						.addChild(COMPDETAILS, usr(new SimpleCachingPlace(companyDetials))
-							.setMenuName(CMI18n.menu_COMPDETAILS()))
-						.addChild(COMPEDIT, usr(new SimpleCachingPlace(companyEdit))
-							.setMenuName(CMI18n.menu_COMPEDIT()))
-						.addChild(COMPCONTEDIT, usr(new SimpleCachingPlace(companyContactEditProvider))
-							.setMenuName(CMI18n.menu_COMPCONTEDIT()))	
-						.addChild(COMPDELETE, usr(new SimpleCachingPlace(companyDelete))
-							.setMenuName(CMI18n.menu_COMPDELETE()))
-						.getParent()
+				 	.addChild(COMPANIES, usr(new SimpleCachingPlace(companyListProvider).setMenuName(CMI18n.menu_COMPANIES())))
+				 	.addChild(COMPEDIT, usr(new SimpleCachingPlace(companyEdit)))
+				 	.addChild(COMPDETAILS, usr(new SimpleCachingPlace(companyDetials)))
+				 	.addChild(COMPDELETE, usr(new SimpleCachingPlace(companyDelete)))
+				 	.addChild(COMPCONTEDIT, usr(new SimpleCachingPlace(companyContactEditProvider)))
 					.addChildGC(CONTACTS, usr(new OneParamPlace(CONTACTS, ContactConsts.descriptorName, PARAM_CONTACT, 
 							CONTACTDETAILS, true, contactSelectorPage)
 						.setMenuName(CMI18n.menu_CONTACTS())))

@@ -20,7 +20,7 @@ public class Company {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam
+	@Kvo_SearchParam //1
 	private Long id;
 	
 	@Kvo_SearchParam
@@ -39,7 +39,7 @@ public class Company {
 	@Column(nullable=false)
 	private String webPage;
 	
-	@OneToMany(mappedBy="company", cascade={CascadeType.ALL} )
+	@OneToMany(mappedBy="company", cascade={CascadeType.ALL} ) //2
 	private List<Contact> contacts;
 	
 	@JoinColumn(nullable=false)

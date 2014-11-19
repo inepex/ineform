@@ -19,7 +19,8 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
-public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
+public class CompanyEditPage extends FlowPanelBasedPage 
+	implements SavedEvent.Handler, CancelledEvent.Handler {
 	
 	private final FormContext formContext;
 	private final PlaceHandler placeHandler;
@@ -33,20 +34,33 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 		this.formContext=formContext;
 		this.placeHandler=placeHandler;
 		
-		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, CompanyConsts.descriptorName);
-		connector.setAssociatedManipulateAction(new ObjectManipulationAction(Arrays.asList(CompanyConsts.propUser)));
-		form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
+		connector = new ServerSideDataConnector(
+				formContext.ineDispatch, 
+				formContext.eventBus, 
+				CompanyConsts.descriptorName);
+		connector.setAssociatedManipulateAction(
+				new ObjectManipulationAction(
+						Arrays.asList(CompanyConsts.propUser)));
+		form = formFactory.createSaveCancel(
+				CompanyConsts.descriptorName, 
+				null, 
+				connector, 
+				null);
 		form.setValidateData(ValidateMode.PARTIAL);
 		form.renderForm();
 		mainPanel.add(form.asWidget());
 	}
 	
 	@Override
-	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
-		formContext.objectFinder.executeFind(CompanyConsts.descriptorName
-				, Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY))
-				, Arrays.asList(CompanyConsts.propUser)
-				, new ObjectFinder.Callback() {
+	public void setUrlParameters(
+			Map<String, String> urlParams, 
+			final UrlParamsParsedCallback callback) throws Exception {
+		formContext.objectFinder.executeFind(
+				CompanyConsts.descriptorName,
+				Long.parseLong(
+						urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)), 
+				Arrays.asList(CompanyConsts.propUser), 
+				new ObjectFinder.Callback() {
 
 						@Override
 						public void onObjectFound(AssistedObject foundObject) {
@@ -62,9 +76,8 @@ public class CompanyEditPage extends FlowPanelBasedPage implements SavedEvent.Ha
 	}
 	
 	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
+	protected void onLoad() {
+		super.onLoad();		
 		registerHandler(form.addSavedHandler(this));
 		registerHandler(form.addCancelledHandler(this));
 	}
