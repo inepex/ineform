@@ -67,4 +67,14 @@ public class NumberUtilSrv implements NumberUtil {
 		
 		return new DecimalFormat(format.toString()).format(val).replace('.', ',');
 	}
+
+	@Override
+	public String toFract(Number val, int fractial) {
+		return formatNumberToFractial(val, fractial);
+	}
+
+	@Override
+	public String toFract(Number val) {
+		return formatNumberToFractial(val);
+	}
 }

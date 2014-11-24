@@ -68,4 +68,14 @@ public class NumberUtilCln implements NumberUtil {
 		
 		return NumberFormat.getFormat(format).format(val).replace('.', ',');
 	}
+
+	@Override
+	public String toFract(Number val, int fractial) {
+		return formatNumberToFractial(val, fractial);
+	}
+
+	@Override
+	public String toFract(Number val) {
+		return formatNumberToFractial(val);
+	}
 }
