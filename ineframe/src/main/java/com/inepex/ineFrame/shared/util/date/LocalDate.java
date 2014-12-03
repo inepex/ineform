@@ -93,9 +93,8 @@ public abstract class LocalDate<T extends LocalDate<T>> extends LocalDateBase {
 	}
 	
 	@SuppressWarnings({ "deprecation", "unchecked" })
-	public T setToNextWeekend(){
-		addDaysSafe(1);
-		while (date().getDay() != 6){
+	public T setToWeekEnd(){
+		while (date().getDay() != 0){
 			addDaysSafe(1);
 		}
 		
