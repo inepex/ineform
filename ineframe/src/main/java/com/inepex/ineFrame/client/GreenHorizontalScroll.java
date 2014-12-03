@@ -13,17 +13,13 @@ import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.VerticalScrollbar;
+import com.google.gwt.user.client.ui.HorizontalScrollbar;
 import com.inepex.ineFrame.client.GreenScrollPanel.GreenScrollImpl;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 
-/**
- * 
- * cheat: http://www.google.com/codesearch#A1edwVHBClQ/user/src/com/google/gwt/user/client/ui/NativeVerticalScrollbar.java 
- */
-public class GreenVerticalScroll extends HandlerAwareFlowPanel implements VerticalScrollbar {
-	
+public class GreenHorizontalScroll extends HandlerAwareFlowPanel implements HorizontalScrollbar {
+
 	private final Element scrollableContent;
 	private final GreenScrollImpl greenScroll;
 	
@@ -45,44 +41,44 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 	/**
 	 * for 'dragging'
 	 */
-	private int previousMouseY=-1;
-	private int previosVPos=-1;
+	private int previousMouseX=-1;
+	private int previosHPos=-1;
 	
 	/**
 	 * for 'dragging'
 	 */
 	private boolean isDragging=false;
 	
-	int vPos = 0;
+	int hPos = 0;
 	
-	public GreenVerticalScroll(GreenScrollImpl greenScroll, Element scrollableContent) {
+	public GreenHorizontalScroll(GreenScrollImpl greenScroll, Element scrollableContent) {
 		this.scrollableContent=scrollableContent;
 		this.greenScroll=greenScroll;
 		
 		scrollPanel=new FlowPanel();
-		scrollPanel.setStyleName(ResourceHelper.getRes().style().scrollPanel());
+		scrollPanel.setStyleName(ResourceHelper.getRes().style().horizontalScrollPanel());
 		add(scrollPanel);
 	}
 	
 	@Override
-	public int getMaximumVerticalScrollPosition() {
-		return scrollableContent.getOffsetHeight() - getElement().getOffsetHeight();
+	public int getHorizontalScrollPosition() {
+		return hPos;
 	}
 
 	@Override
-	public int getMinimumVerticalScrollPosition() {
+	public int getMaximumHorizontalScrollPosition() {
+		return scrollableContent.getOffsetWidth() - getElement().getOffsetWidth();
+	}
+
+	@Override
+	public int getMinimumHorizontalScrollPosition() {
 		return 0;
 	}
 
 	@Override
-	public int getVerticalScrollPosition() {
-		return vPos;
-	}
-
-	@Override
-	public void setVerticalScrollPosition(int position) {
-		scrollPanel.getElement().getStyle().setTop(position/d, Unit.PX);
-		vPos=position;
+	public void setHorizontalScrollPosition(int position) {
+		scrollPanel.getElement().getStyle().setLeft(position/d, Unit.PX);
+		hPos=position;
 	}
 
 	@Override
@@ -91,22 +87,22 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 	}
 
 	@Override
-	public int getScrollHeight() {
-		return getElement().getClientHeight();
+	public int getScrollWidth() {
+		return getElement().getClientWidth();
 	}
 
 	@Override
-	public void setScrollHeight(int height) {
-		if(getMaximumVerticalScrollPosition()<1 || getElement().getClientHeight() < 1)
+	public void setScrollWidth(int width) {
+		if(getMaximumHorizontalScrollPosition()<1 || getElement().getClientWidth() < 1)
 			scrollPaneSize=0;
 		else {
-			d=1.0f+(float) scrollableContent.getScrollHeight()/getElement().getClientHeight();
-			System.out.println("vd: " + d + ", vScrollablecontent:" + scrollableContent.getScrollHeight() + " , element: " + getElement().getClientHeight());
-			scrollPaneSize=getElement().getClientHeight()-Math.round((getMaximumVerticalScrollPosition()/d));
-			System.out.println("Max vertical scroll:" + getMaximumVerticalScrollPosition());
+			d=1.0f+(float) scrollableContent.getScrollWidth()/getElement().getClientWidth();
+			System.out.println("d:" + d + ", Scrollablecontent:" + scrollableContent.getScrollWidth() + " , element: " + getElement().getClientWidth());
+			scrollPaneSize=getElement().getClientWidth()-Math.round((getMaximumHorizontalScrollPosition()/d));
+			System.out.println("Max horizontal scroll:" + getMaximumHorizontalScrollPosition());
 		}
 		
-		scrollPanel.getElement().getStyle().setHeight(scrollPaneSize, Unit.PX);
+		scrollPanel.getElement().getStyle().setWidth(scrollPaneSize, Unit.PX);
 	}
 	
 	public void setScrollPaneVisible(boolean visible) {
@@ -122,8 +118,8 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
 				isDragging=true;
-				previousMouseY=event.getScreenY();
-				previosVPos=vPos;
+				previousMouseX=event.getScreenX();
+				previosHPos=hPos;
 				event.preventDefault();
 				event.stopPropagation();
 				DOM.setCapture(scrollPanel.getElement());
@@ -135,8 +131,8 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 			@Override
 			public void onMouseUp(MouseUpEvent event) {
 				isDragging=false;
-				previousMouseY=-1;
-				previosVPos=-1;
+				previousMouseX=-1;
+				previosHPos=-1;
 				DOM.releaseCapture(scrollPanel.getElement());
 			}
 		}, MouseUpEvent.getType()));
@@ -148,20 +144,21 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 				if(!isDragging)
 					return;
 				
-				if(previousMouseY==-1)
+				if(previousMouseX==-1)
 					throw new IllegalStateException();
 				
-				int newY = event.getScreenY();
-				int newPos = previosVPos + Math.round((newY - previousMouseY)*d);
-				if(newPos<getMinimumVerticalScrollPosition())
-					newPos=getMinimumVerticalScrollPosition();
+				int newX = event.getScreenX();
+				int newPos = previosHPos + Math.round((newX - previousMouseX)*d);
+				if(newPos<getMinimumHorizontalScrollPosition())
+					newPos=getMinimumHorizontalScrollPosition();
 				
-				if(newPos>getMaximumVerticalScrollPosition())
-					newPos=getMaximumVerticalScrollPosition();
+				if(newPos>getMaximumHorizontalScrollPosition())
+					newPos=getMaximumHorizontalScrollPosition();
 				
-				if(newPos!=getVerticalScrollPosition())
-					greenScroll.setVerticalScrollPosition(newPos);
+				if(newPos!=getHorizontalScrollPosition())
+					greenScroll.setHorizontalScrollPosition(newPos);
 			}
 		}, MouseMoveEvent.getType()));
 	}
+
 }

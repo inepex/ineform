@@ -2,7 +2,6 @@ package com.inepex.ineFrame.client;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -181,11 +180,10 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
 		private HandlerRegistration hr_out;
 
 		public GreenScrollImpl() {
-			setHorizontalScrollbar(null, 0);
+			setHorizontalScrollbar(new GreenHorizontalScroll(this, getContainerElement()), 8);
 			setVerticalScrollbar(new GreenVerticalScroll(this, getContainerElement()), 8);
 			setAlwaysShowScrollBars(true);
 			setScrollVisible(false);
-			getContainerElement().getStyle().setWidth(100, Unit.PCT);
 		}
 
 		@Override
@@ -239,6 +237,7 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
 
 		private void setScrollVisible(boolean visible) {
 			((GreenVerticalScroll) getVerticalScrollbar()).setScrollPaneVisible(visible);
+			((GreenHorizontalScroll) getHorizontalScrollbar()).setScrollPaneVisible(visible);
 		}
 	}
 }

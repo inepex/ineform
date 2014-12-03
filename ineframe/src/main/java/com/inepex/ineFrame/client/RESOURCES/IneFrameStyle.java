@@ -29,6 +29,7 @@ public interface IneFrameStyle extends CssResource {
 	String menuIcon();
 	String backIcon();
 	String scrollPanel();
+	String horizontalScrollPanel();
 	
 	String inAliasMode();
 }
