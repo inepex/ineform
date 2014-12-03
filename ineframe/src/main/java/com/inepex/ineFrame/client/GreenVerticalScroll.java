@@ -101,9 +101,7 @@ public class GreenVerticalScroll extends HandlerAwareFlowPanel implements Vertic
 			scrollPaneSize=0;
 		else {
 			d=1.0f+(float) scrollableContent.getScrollHeight()/getElement().getClientHeight();
-			System.out.println("vd: " + d + ", vScrollablecontent:" + scrollableContent.getScrollHeight() + " , element: " + getElement().getClientHeight());
 			scrollPaneSize=getElement().getClientHeight()-Math.round((getMaximumVerticalScrollPosition()/d));
-			System.out.println("Max vertical scroll:" + getMaximumVerticalScrollPosition());
 		}
 		
 		scrollPanel.getElement().getStyle().setHeight(scrollPaneSize, Unit.PX);
