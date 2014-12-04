@@ -2,6 +2,7 @@ package com.inepex.ineFrame.client;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -15,6 +16,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CustomScrollPanel;
 import com.google.gwt.user.client.ui.HasScrolling;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.NativeHorizontalScrollbar;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -29,6 +31,10 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
 	private final ResizeLayoutPanel mainPanel;
 
 	public GreenScrollPanel() {
+		this(false);
+	}
+	
+	public GreenScrollPanel(boolean withHorizontalScroll) {
 		mainPanel = new ResizeLayoutPanel() {
 			@Override
 			protected void onAttach() {
@@ -49,7 +55,7 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
 		if (hasMacNanoScrollBar()) {
 			this.impl = new ScrollPanel();
 		} else {
-			this.impl = new GreenScrollImpl();
+			this.impl = new GreenScrollImpl(withHorizontalScroll);
 		}
 		
 		mainPanel.setWidget(impl);
@@ -178,12 +184,21 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
 	protected static class GreenScrollImpl extends CustomScrollPanel {
 		private HandlerRegistration hr_over;
 		private HandlerRegistration hr_out;
+		private boolean withHorizontalScroll;
 
-		public GreenScrollImpl() {
-			setHorizontalScrollbar(new GreenHorizontalScroll(this, getContainerElement()), 8);
+		public GreenScrollImpl(boolean withHorizontalScroll) {
+			this.withHorizontalScroll = withHorizontalScroll;
+			if (withHorizontalScroll) {
+				setHorizontalScrollbar(new GreenHorizontalScroll(this, getContainerElement()), 8);
+			} else {
+				setHorizontalScrollbar(new NativeHorizontalScrollbar(), 0);
+			}
 			setVerticalScrollbar(new GreenVerticalScroll(this, getContainerElement()), 8);
 			setAlwaysShowScrollBars(true);
 			setScrollVisible(false);
+			if (!withHorizontalScroll) { //important hack to avoid random scrollbars
+				getContainerElement().getStyle().setWidth(100, Unit.PCT);
+			}
 		}
 
 		@Override
@@ -237,7 +252,9 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
 
 		private void setScrollVisible(boolean visible) {
 			((GreenVerticalScroll) getVerticalScrollbar()).setScrollPaneVisible(visible);
-			((GreenHorizontalScroll) getHorizontalScrollbar()).setScrollPaneVisible(visible);
+			if (withHorizontalScroll){
+				((GreenHorizontalScroll) getHorizontalScrollbar()).setScrollPaneVisible(visible);
+			}
 		}
 	}
 }
