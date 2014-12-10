@@ -30,6 +30,8 @@ public class DesignConstants {
 	private static String menuFontColor = "#BFC9CC";
 	private static float defaultAnimationLength = 0.5f;
 	
+	public static final String appMenuIconId = "appMenuIcon";
+	
 	public static int base() {
 		return base;
 	}

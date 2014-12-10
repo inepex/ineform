@@ -14,6 +14,7 @@ import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineFrame.client.navigation.OnClickedLogic;
+import com.inepex.ineFrame.client.util.DesignConstants;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton
@@ -43,6 +44,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		menuTable.setWidget(0, 0, menuIcon);
 		menuTable.setWidget(0, 1, logo);
 		menuIcon.setVisible(authManager.isUserLoggedIn());
+		menuIcon.getElement().setId(DesignConstants.appMenuIconId);
 	}
 	
 	private void setStyleNames(){
