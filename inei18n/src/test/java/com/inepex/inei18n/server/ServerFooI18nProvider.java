@@ -1,6 +1,9 @@
 package com.inepex.inei18n.server;
-import com.google.inject.Provider;
+import com.inepex.inei18n.server.FooI18n;
+
+import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
+import com.google.inject.Provider;
 
 public class ServerFooI18nProvider extends ServerI18nProvider<FooI18n> {
 
