@@ -25,120 +25,122 @@ public class IneFormI18n extends I18nModule {
 		return moduleProvider;
 	}
 	
-	public String ADD = "+";
-	public String CANCEL = "Cancel";
-	public String CSVEXPORT = "Export ";
-	public String DELETE = "Delete";
-	public String DESELECT = "Deselect";
-	public String DESELECTALL = "Deselect all";
-	public String DOWN = "Down";
-	public String EDIT = "Edit";
-	public String ERR_CouldNotRenderWidget = "Could not render widget";
-	public String FILTER = "Filter";
-	public String FINISH = "Finish";
-	public String MOVEDOWN = "Down";
-	public String MOVEUP = "Up";
-	public String NEW = "New";
-	public String NEXT = "Next page";
-	public String ODFieldType_BOOLEAN = "Checkbox";
-	public String ODFieldType_DOUBLE = "Fraction";
-	public String ODFieldType_EMAIL = "E-mail";
-	public String ODFieldType_LONG = "Number";
-	public String ODFieldType_STRING = "Text";
-	public String OK = "Ok";
-	public String PREVIOUS = "Previous page";
-	public String REMOVE = "-";
-	public String RESET = "Reset";
-	public String SAVE = "Save";
-	public String SEARCH = "Search";
-	public String SELECT = "Select";
-	public String SELECTALL = "Select all";
-	public String UP = "Up";
-	public String cantDisplay = "can't display";
-	public String change = "Change";
-	public String csvComment = "Click here to download:";
-	public String csvDownload = "Download";
-	public String csvError = "Something went wrong. See server log!";
-	public String csvInvalid = "Invalid request. Try to refresh!";
-	public String custKVOValidateDot = "Name should not contain dot!";
-	public String custKVOValidateDuplicate = "Duplicated name!";
-	public String custKVOValidateEmpty = "Empty name!";
-	public String custKVOValidateParse = "Value can not be parsed!";
-	public String custKVOValidateSet = "Type must be set!";
-	public String customKVO_key = "Name";
-	public String customKVO_type = "Type";
-	public String customKVO_value = "Value";
-	public String day_friday = "Friday";
-	public String day_monday = "Monday";
-	public String day_saturday = "Saturday";
-	public String day_sunday = "Sunday";
-	public String day_thursday = "Thursday";
-	public String day_tuesday = "Tuesday";
-	public String day_wednesday = "Wednesday";
-	public String dialogEditTitle = "Edit entry";
-	public String dialogNewTitle = "New entry";
-	public String falseText = "false";
-	public String hours = "hours";
-	public String imagefinderChoosefromgoogle = "Choose images from Google image search";
-	public String imagefinderDowloading = "Downloading...";
-	public String imagefinderFailed = "Failed to download...";
-	public String imagefinderNoimage = "No file";
-	public String imagefinderNoresult = "0 image found";
-	public String imagefinderPage = "Page";
-	public String imagefinderSuccess = "Downloaded";
-	public String imagefinderUploadimage = "Upload";
-	public String imagefinderUse = "Use";
-	public String imageuploadBtn = "Upload";
-	public String imageuploadBtn_change = "Change";
-	public String imageuploadError = "Error during upload. See server log!";
-	public String imageuploadInvalidFileFormat = "Invalid file format.";
-	public String imageuploadTitle = "Upload";
-	public String inedate_notset = "Not set";
-	public String inetable_noresult = "No result found";
-	public String infoDialogTitle = "Message";
-	public String loading = "Loading data...";
-	public String minutes = "minutes";
-	public String month_april = "April";
-	public String month_august = "August";
-	public String month_december = "December";
-	public String month_february = "Februar";
-	public String month_january = "Januar";
-	public String month_july = "July";
-	public String month_june = "June";
-	public String month_march = "March";
-	public String month_may = "May";
-	public String month_november = "November";
-	public String month_october = "October";
-	public String month_september = "September";
-	public String nd = "nd";
-	public String rd = "rd";
-	public String reallyWantToDelete = "Do you really want to delete the selected element?";
-	public String restRequestError = "Request error";
-	public String searchForm_filtered = "Result is filtered!";
-	public String shortday_friday = "F";
-	public String shortday_monday = "M";
-	public String shortday_saturday = "Sa";
-	public String shortday_sunday = "Su";
-	public String shortday_thursday = "Th";
-	public String shortday_tuesday = "Tu";
-	public String shortday_wednesday = "W";
-	public String st = "st";
-	public String th = "th";
-	public String trueText = "true";
-	public String validationEmail = "This is not valid e-mail address!";
-	public String validationFieldError = "Field error";
-	public String validationGeneralError = "Error:";
-	public String validationNothingToSave = "Nothing to save";
-	public String validatorEQ = "The number entered into field {fieldName} must be equal to {constvalAsString}!";
-	public String validatorGE = "The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!";
-	public String validatorGT = "The number entered into field {fieldName} must be greater then {constvalAsString}!";
-	public String validatorLE = "The number entered into field {fieldName} must be less then or equal to {constvalAsString}!";
-	public String validatorLT = "he number entered into field {fieldName} must be less then {constvalAsString}!";
-	public String validatorLength = "Maximum {maxLength} characters can be entered!";
-	public String validatorShouldAfter = "This date should be after {otherFieldsName}!";
-	public String validatorShouldBefore = "This date should be before {otherFieldsName}!";
-	public String validatorUniqueRelList = "The {i}th and the {j}th items are equal.";
-	public String validator_mandatory = "This field is required!";
+	public void init(){
+		textMap.put("ADD", "+");
+		textMap.put("CANCEL", "Cancel");
+		textMap.put("CSVEXPORT", "Export ");
+		textMap.put("DELETE", "Delete");
+		textMap.put("DESELECT", "Deselect");
+		textMap.put("DESELECTALL", "Deselect all");
+		textMap.put("DOWN", "Down");
+		textMap.put("EDIT", "Edit");
+		textMap.put("ERR_CouldNotRenderWidget", "Could not render widget");
+		textMap.put("FILTER", "Filter");
+		textMap.put("FINISH", "Finish");
+		textMap.put("MOVEDOWN", "Down");
+		textMap.put("MOVEUP", "Up");
+		textMap.put("NEW", "New");
+		textMap.put("NEXT", "Next page");
+		textMap.put("ODFieldType_BOOLEAN", "Checkbox");
+		textMap.put("ODFieldType_DOUBLE", "Fraction");
+		textMap.put("ODFieldType_EMAIL", "E-mail");
+		textMap.put("ODFieldType_LONG", "Number");
+		textMap.put("ODFieldType_STRING", "Text");
+		textMap.put("OK", "Ok");
+		textMap.put("PREVIOUS", "Previous page");
+		textMap.put("REMOVE", "-");
+		textMap.put("RESET", "Reset");
+		textMap.put("SAVE", "Save");
+		textMap.put("SEARCH", "Search");
+		textMap.put("SELECT", "Select");
+		textMap.put("SELECTALL", "Select all");
+		textMap.put("UP", "Up");
+		textMap.put("cantDisplay", "can't display");
+		textMap.put("change", "Change");
+		textMap.put("csvComment", "Click here to download:");
+		textMap.put("csvDownload", "Download");
+		textMap.put("csvError", "Something went wrong. See server log!");
+		textMap.put("csvInvalid", "Invalid request. Try to refresh!");
+		textMap.put("custKVOValidateDot", "Name should not contain dot!");
+		textMap.put("custKVOValidateDuplicate", "Duplicated name!");
+		textMap.put("custKVOValidateEmpty", "Empty name!");
+		textMap.put("custKVOValidateParse", "Value can not be parsed!");
+		textMap.put("custKVOValidateSet", "Type must be set!");
+		textMap.put("customKVO_key", "Name");
+		textMap.put("customKVO_type", "Type");
+		textMap.put("customKVO_value", "Value");
+		textMap.put("day_friday", "Friday");
+		textMap.put("day_monday", "Monday");
+		textMap.put("day_saturday", "Saturday");
+		textMap.put("day_sunday", "Sunday");
+		textMap.put("day_thursday", "Thursday");
+		textMap.put("day_tuesday", "Tuesday");
+		textMap.put("day_wednesday", "Wednesday");
+		textMap.put("dialogEditTitle", "Edit entry");
+		textMap.put("dialogNewTitle", "New entry");
+		textMap.put("falseText", "false");
+		textMap.put("hours", "hours");
+		textMap.put("imagefinderChoosefromgoogle", "Choose images from Google image search");
+		textMap.put("imagefinderDowloading", "Downloading...");
+		textMap.put("imagefinderFailed", "Failed to download...");
+		textMap.put("imagefinderNoimage", "No file");
+		textMap.put("imagefinderNoresult", "0 image found");
+		textMap.put("imagefinderPage", "Page");
+		textMap.put("imagefinderSuccess", "Downloaded");
+		textMap.put("imagefinderUploadimage", "Upload");
+		textMap.put("imagefinderUse", "Use");
+		textMap.put("imageuploadBtn", "Upload");
+		textMap.put("imageuploadBtn_change", "Change");
+		textMap.put("imageuploadError", "Error during upload. See server log!");
+		textMap.put("imageuploadInvalidFileFormat", "Invalid file format.");
+		textMap.put("imageuploadTitle", "Upload");
+		textMap.put("inedate_notset", "Not set");
+		textMap.put("inetable_noresult", "No result found");
+		textMap.put("infoDialogTitle", "Message");
+		textMap.put("loading", "Loading data...");
+		textMap.put("minutes", "minutes");
+		textMap.put("month_april", "April");
+		textMap.put("month_august", "August");
+		textMap.put("month_december", "December");
+		textMap.put("month_february", "Februar");
+		textMap.put("month_january", "Januar");
+		textMap.put("month_july", "July");
+		textMap.put("month_june", "June");
+		textMap.put("month_march", "March");
+		textMap.put("month_may", "May");
+		textMap.put("month_november", "November");
+		textMap.put("month_october", "October");
+		textMap.put("month_september", "September");
+		textMap.put("nd", "nd");
+		textMap.put("rd", "rd");
+		textMap.put("reallyWantToDelete", "Do you really want to delete the selected element?");
+		textMap.put("restRequestError", "Request error");
+		textMap.put("searchForm_filtered", "Result is filtered!");
+		textMap.put("shortday_friday", "F");
+		textMap.put("shortday_monday", "M");
+		textMap.put("shortday_saturday", "Sa");
+		textMap.put("shortday_sunday", "Su");
+		textMap.put("shortday_thursday", "Th");
+		textMap.put("shortday_tuesday", "Tu");
+		textMap.put("shortday_wednesday", "W");
+		textMap.put("st", "st");
+		textMap.put("th", "th");
+		textMap.put("trueText", "true");
+		textMap.put("validationEmail", "This is not valid e-mail address!");
+		textMap.put("validationFieldError", "Field error");
+		textMap.put("validationGeneralError", "Error:");
+		textMap.put("validationNothingToSave", "Nothing to save");
+		textMap.put("validatorEQ", "The number entered into field {fieldName} must be equal to {constvalAsString}!");
+		textMap.put("validatorGE", "The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!");
+		textMap.put("validatorGT", "The number entered into field {fieldName} must be greater then {constvalAsString}!");
+		textMap.put("validatorLE", "The number entered into field {fieldName} must be less then or equal to {constvalAsString}!");
+		textMap.put("validatorLT", "he number entered into field {fieldName} must be less then {constvalAsString}!");
+		textMap.put("validatorLength", "Maximum {maxLength} characters can be entered!");
+		textMap.put("validatorShouldAfter", "This date should be after {otherFieldsName}!");
+		textMap.put("validatorShouldBefore", "This date should be before {otherFieldsName}!");
+		textMap.put("validatorUniqueRelList", "The {i}th and the {j}th items are equal.");
+		textMap.put("validator_mandatory", "This field is required!");
+	}
 
 	
 	/**
@@ -147,7 +149,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> +
 	*/
 	public static String ADD() {
-		return moduleProvider.get().ADD;
+		return moduleProvider.get().getTextMap().get("ADD");
 	}
 	
 	/**
@@ -156,7 +158,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Mégse
 	*/
 	public static String CANCEL() {
-		return moduleProvider.get().CANCEL;
+		return moduleProvider.get().getTextMap().get("CANCEL");
 	}
 	
 	/**
@@ -165,7 +167,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Excel export
 	*/
 	public static String CSVEXPORT() {
-		return moduleProvider.get().CSVEXPORT;
+		return moduleProvider.get().getTextMap().get("CSVEXPORT");
 	}
 	
 	/**
@@ -174,7 +176,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Töröl
 	*/
 	public static String DELETE() {
-		return moduleProvider.get().DELETE;
+		return moduleProvider.get().getTextMap().get("DELETE");
 	}
 	
 	/**
@@ -183,7 +185,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Eltávolít
 	*/
 	public static String DESELECT() {
-		return moduleProvider.get().DESELECT;
+		return moduleProvider.get().getTextMap().get("DESELECT");
 	}
 	
 	/**
@@ -192,7 +194,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Mindet eltávolít
 	*/
 	public static String DESELECTALL() {
-		return moduleProvider.get().DESELECTALL;
+		return moduleProvider.get().getTextMap().get("DESELECTALL");
 	}
 	
 	/**
@@ -201,7 +203,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Le
 	*/
 	public static String DOWN() {
-		return moduleProvider.get().DOWN;
+		return moduleProvider.get().getTextMap().get("DOWN");
 	}
 	
 	/**
@@ -210,7 +212,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Módosít
 	*/
 	public static String EDIT() {
-		return moduleProvider.get().EDIT;
+		return moduleProvider.get().getTextMap().get("EDIT");
 	}
 	
 	/**
@@ -219,7 +221,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba, nem lehet megjeleníteni a mezőt
 	*/
 	public static String ERR_CouldNotRenderWidget() {
-		return moduleProvider.get().ERR_CouldNotRenderWidget;
+		return moduleProvider.get().getTextMap().get("ERR_CouldNotRenderWidget");
 	}
 	
 	/**
@@ -228,7 +230,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Szűrés
 	*/
 	public static String FILTER() {
-		return moduleProvider.get().FILTER;
+		return moduleProvider.get().getTextMap().get("FILTER");
 	}
 	
 	/**
@@ -237,7 +239,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Befejez
 	*/
 	public static String FINISH() {
-		return moduleProvider.get().FINISH;
+		return moduleProvider.get().getTextMap().get("FINISH");
 	}
 	
 	/**
@@ -246,7 +248,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Le
 	*/
 	public static String MOVEDOWN() {
-		return moduleProvider.get().MOVEDOWN;
+		return moduleProvider.get().getTextMap().get("MOVEDOWN");
 	}
 	
 	/**
@@ -255,7 +257,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Fel
 	*/
 	public static String MOVEUP() {
-		return moduleProvider.get().MOVEUP;
+		return moduleProvider.get().getTextMap().get("MOVEUP");
 	}
 	
 	/**
@@ -264,7 +266,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Új
 	*/
 	public static String NEW() {
-		return moduleProvider.get().NEW;
+		return moduleProvider.get().getTextMap().get("NEW");
 	}
 	
 	/**
@@ -273,7 +275,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Következő oldal
 	*/
 	public static String NEXT() {
-		return moduleProvider.get().NEXT;
+		return moduleProvider.get().getTextMap().get("NEXT");
 	}
 	
 	/**
@@ -282,7 +284,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Igaz-Hamis
 	*/
 	public static String ODFieldType_BOOLEAN() {
-		return moduleProvider.get().ODFieldType_BOOLEAN;
+		return moduleProvider.get().getTextMap().get("ODFieldType_BOOLEAN");
 	}
 	
 	/**
@@ -291,7 +293,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Tört szám
 	*/
 	public static String ODFieldType_DOUBLE() {
-		return moduleProvider.get().ODFieldType_DOUBLE;
+		return moduleProvider.get().getTextMap().get("ODFieldType_DOUBLE");
 	}
 	
 	/**
@@ -300,7 +302,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> E-mail
 	*/
 	public static String ODFieldType_EMAIL() {
-		return moduleProvider.get().ODFieldType_EMAIL;
+		return moduleProvider.get().getTextMap().get("ODFieldType_EMAIL");
 	}
 	
 	/**
@@ -309,7 +311,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Szám
 	*/
 	public static String ODFieldType_LONG() {
-		return moduleProvider.get().ODFieldType_LONG;
+		return moduleProvider.get().getTextMap().get("ODFieldType_LONG");
 	}
 	
 	/**
@@ -318,7 +320,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Szöveg
 	*/
 	public static String ODFieldType_STRING() {
-		return moduleProvider.get().ODFieldType_STRING;
+		return moduleProvider.get().getTextMap().get("ODFieldType_STRING");
 	}
 	
 	/**
@@ -327,7 +329,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Ok
 	*/
 	public static String OK() {
-		return moduleProvider.get().OK;
+		return moduleProvider.get().getTextMap().get("OK");
 	}
 	
 	/**
@@ -336,7 +338,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Előző oldal
 	*/
 	public static String PREVIOUS() {
-		return moduleProvider.get().PREVIOUS;
+		return moduleProvider.get().getTextMap().get("PREVIOUS");
 	}
 	
 	/**
@@ -345,7 +347,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> -
 	*/
 	public static String REMOVE() {
-		return moduleProvider.get().REMOVE;
+		return moduleProvider.get().getTextMap().get("REMOVE");
 	}
 	
 	/**
@@ -354,7 +356,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Visszaállít
 	*/
 	public static String RESET() {
-		return moduleProvider.get().RESET;
+		return moduleProvider.get().getTextMap().get("RESET");
 	}
 	
 	/**
@@ -363,7 +365,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Mentés
 	*/
 	public static String SAVE() {
-		return moduleProvider.get().SAVE;
+		return moduleProvider.get().getTextMap().get("SAVE");
 	}
 	
 	/**
@@ -372,7 +374,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Keres
 	*/
 	public static String SEARCH() {
-		return moduleProvider.get().SEARCH;
+		return moduleProvider.get().getTextMap().get("SEARCH");
 	}
 	
 	/**
@@ -381,7 +383,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Kiválaszt
 	*/
 	public static String SELECT() {
-		return moduleProvider.get().SELECT;
+		return moduleProvider.get().getTextMap().get("SELECT");
 	}
 	
 	/**
@@ -390,7 +392,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Mindet kiválaszt
 	*/
 	public static String SELECTALL() {
-		return moduleProvider.get().SELECTALL;
+		return moduleProvider.get().getTextMap().get("SELECTALL");
 	}
 	
 	/**
@@ -399,7 +401,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Fel
 	*/
 	public static String UP() {
-		return moduleProvider.get().UP;
+		return moduleProvider.get().getTextMap().get("UP");
 	}
 	
 	/**
@@ -408,7 +410,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> nem megjeleníthető
 	*/
 	public static String cantDisplay() {
-		return moduleProvider.get().cantDisplay;
+		return moduleProvider.get().getTextMap().get("cantDisplay");
 	}
 	
 	/**
@@ -417,7 +419,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Megváltoztat
 	*/
 	public static String change() {
-		return moduleProvider.get().change;
+		return moduleProvider.get().getTextMap().get("change");
 	}
 	
 	/**
@@ -426,7 +428,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Az adatok letölthetőek: 
 	*/
 	public static String csvComment() {
-		return moduleProvider.get().csvComment;
+		return moduleProvider.get().getTextMap().get("csvComment");
 	}
 	
 	/**
@@ -435,7 +437,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Letöltés
 	*/
 	public static String csvDownload() {
-		return moduleProvider.get().csvDownload;
+		return moduleProvider.get().getTextMap().get("csvDownload");
 	}
 	
 	/**
@@ -444,7 +446,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba történt, 
 	*/
 	public static String csvError() {
-		return moduleProvider.get().csvError;
+		return moduleProvider.get().getTextMap().get("csvError");
 	}
 	
 	/**
@@ -453,7 +455,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hibás kérés, próbálja meg frissíteni az oldalt!
 	*/
 	public static String csvInvalid() {
-		return moduleProvider.get().csvInvalid;
+		return moduleProvider.get().getTextMap().get("csvInvalid");
 	}
 	
 	/**
@@ -462,7 +464,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A név ne tartalmazzon pontot!
 	*/
 	public static String custKVOValidateDot() {
-		return moduleProvider.get().custKVOValidateDot;
+		return moduleProvider.get().getTextMap().get("custKVOValidateDot");
 	}
 	
 	/**
@@ -471,7 +473,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Egy név csak egyszer használható
 	*/
 	public static String custKVOValidateDuplicate() {
-		return moduleProvider.get().custKVOValidateDuplicate;
+		return moduleProvider.get().getTextMap().get("custKVOValidateDuplicate");
 	}
 	
 	/**
@@ -480,7 +482,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A név mezőt ki kell tölteni!
 	*/
 	public static String custKVOValidateEmpty() {
-		return moduleProvider.get().custKVOValidateEmpty;
+		return moduleProvider.get().getTextMap().get("custKVOValidateEmpty");
 	}
 	
 	/**
@@ -489,7 +491,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Az érték mező nem megfelelő formátumú!
 	*/
 	public static String custKVOValidateParse() {
-		return moduleProvider.get().custKVOValidateParse;
+		return moduleProvider.get().getTextMap().get("custKVOValidateParse");
 	}
 	
 	/**
@@ -498,7 +500,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A mező típusát be kell állítani!
 	*/
 	public static String custKVOValidateSet() {
-		return moduleProvider.get().custKVOValidateSet;
+		return moduleProvider.get().getTextMap().get("custKVOValidateSet");
 	}
 	
 	/**
@@ -507,7 +509,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Név
 	*/
 	public static String customKVO_key() {
-		return moduleProvider.get().customKVO_key;
+		return moduleProvider.get().getTextMap().get("customKVO_key");
 	}
 	
 	/**
@@ -516,7 +518,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Típus
 	*/
 	public static String customKVO_type() {
-		return moduleProvider.get().customKVO_type;
+		return moduleProvider.get().getTextMap().get("customKVO_type");
 	}
 	
 	/**
@@ -525,7 +527,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Érték
 	*/
 	public static String customKVO_value() {
-		return moduleProvider.get().customKVO_value;
+		return moduleProvider.get().getTextMap().get("customKVO_value");
 	}
 	
 	/**
@@ -534,7 +536,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> péntek
 	*/
 	public static String day_friday() {
-		return moduleProvider.get().day_friday;
+		return moduleProvider.get().getTextMap().get("day_friday");
 	}
 	
 	/**
@@ -543,7 +545,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> hétfő
 	*/
 	public static String day_monday() {
-		return moduleProvider.get().day_monday;
+		return moduleProvider.get().getTextMap().get("day_monday");
 	}
 	
 	/**
@@ -552,7 +554,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> szombat
 	*/
 	public static String day_saturday() {
-		return moduleProvider.get().day_saturday;
+		return moduleProvider.get().getTextMap().get("day_saturday");
 	}
 	
 	/**
@@ -561,7 +563,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> vasárnap
 	*/
 	public static String day_sunday() {
-		return moduleProvider.get().day_sunday;
+		return moduleProvider.get().getTextMap().get("day_sunday");
 	}
 	
 	/**
@@ -570,7 +572,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> csütörtök
 	*/
 	public static String day_thursday() {
-		return moduleProvider.get().day_thursday;
+		return moduleProvider.get().getTextMap().get("day_thursday");
 	}
 	
 	/**
@@ -579,7 +581,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> kedd
 	*/
 	public static String day_tuesday() {
-		return moduleProvider.get().day_tuesday;
+		return moduleProvider.get().getTextMap().get("day_tuesday");
 	}
 	
 	/**
@@ -588,7 +590,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> szerda
 	*/
 	public static String day_wednesday() {
-		return moduleProvider.get().day_wednesday;
+		return moduleProvider.get().getTextMap().get("day_wednesday");
 	}
 	
 	/**
@@ -597,7 +599,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Sor módosítása
 	*/
 	public static String dialogEditTitle() {
-		return moduleProvider.get().dialogEditTitle;
+		return moduleProvider.get().getTextMap().get("dialogEditTitle");
 	}
 	
 	/**
@@ -606,7 +608,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Új sor
 	*/
 	public static String dialogNewTitle() {
-		return moduleProvider.get().dialogNewTitle;
+		return moduleProvider.get().getTextMap().get("dialogNewTitle");
 	}
 	
 	/**
@@ -615,7 +617,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> nem
 	*/
 	public static String falseText() {
-		return moduleProvider.get().falseText;
+		return moduleProvider.get().getTextMap().get("falseText");
 	}
 	
 	/**
@@ -624,7 +626,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> óra
 	*/
 	public static String hours() {
-		return moduleProvider.get().hours;
+		return moduleProvider.get().getTextMap().get("hours");
 	}
 	
 	/**
@@ -633,7 +635,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Kép választása a Google képkereső segítségével
 	*/
 	public static String imagefinderChoosefromgoogle() {
-		return moduleProvider.get().imagefinderChoosefromgoogle;
+		return moduleProvider.get().getTextMap().get("imagefinderChoosefromgoogle");
 	}
 	
 	/**
@@ -642,7 +644,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Letöltés folyamatban...
 	*/
 	public static String imagefinderDowloading() {
-		return moduleProvider.get().imagefinderDowloading;
+		return moduleProvider.get().getTextMap().get("imagefinderDowloading");
 	}
 	
 	/**
@@ -651,7 +653,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba a letöltés során
 	*/
 	public static String imagefinderFailed() {
-		return moduleProvider.get().imagefinderFailed;
+		return moduleProvider.get().getTextMap().get("imagefinderFailed");
 	}
 	
 	/**
@@ -660,7 +662,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> nincs fájl
 	*/
 	public static String imagefinderNoimage() {
-		return moduleProvider.get().imagefinderNoimage;
+		return moduleProvider.get().getTextMap().get("imagefinderNoimage");
 	}
 	
 	/**
@@ -669,7 +671,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> 0 találat
 	*/
 	public static String imagefinderNoresult() {
-		return moduleProvider.get().imagefinderNoresult;
+		return moduleProvider.get().getTextMap().get("imagefinderNoresult");
 	}
 	
 	/**
@@ -678,7 +680,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Oldal
 	*/
 	public static String imagefinderPage() {
-		return moduleProvider.get().imagefinderPage;
+		return moduleProvider.get().getTextMap().get("imagefinderPage");
 	}
 	
 	/**
@@ -687,7 +689,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Letöltve
 	*/
 	public static String imagefinderSuccess() {
-		return moduleProvider.get().imagefinderSuccess;
+		return moduleProvider.get().getTextMap().get("imagefinderSuccess");
 	}
 	
 	/**
@@ -696,7 +698,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Válassza ki a feltöltendő fájlt
 	*/
 	public static String imagefinderUploadimage() {
-		return moduleProvider.get().imagefinderUploadimage;
+		return moduleProvider.get().getTextMap().get("imagefinderUploadimage");
 	}
 	
 	/**
@@ -705,7 +707,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Kiválaszt
 	*/
 	public static String imagefinderUse() {
-		return moduleProvider.get().imagefinderUse;
+		return moduleProvider.get().getTextMap().get("imagefinderUse");
 	}
 	
 	/**
@@ -714,7 +716,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Feltöltés
 	*/
 	public static String imageuploadBtn() {
-		return moduleProvider.get().imageuploadBtn;
+		return moduleProvider.get().getTextMap().get("imageuploadBtn");
 	}
 	
 	/**
@@ -723,7 +725,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Csere
 	*/
 	public static String imageuploadBtn_change() {
-		return moduleProvider.get().imageuploadBtn_change;
+		return moduleProvider.get().getTextMap().get("imageuploadBtn_change");
 	}
 	
 	/**
@@ -732,7 +734,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba a feltöltés során. Ellenőrizze a szerver beállításait.
 	*/
 	public static String imageuploadError() {
-		return moduleProvider.get().imageuploadError;
+		return moduleProvider.get().getTextMap().get("imageuploadError");
 	}
 	
 	/**
@@ -741,7 +743,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Nem megfelelő fájlformátum
 	*/
 	public static String imageuploadInvalidFileFormat() {
-		return moduleProvider.get().imageuploadInvalidFileFormat;
+		return moduleProvider.get().getTextMap().get("imageuploadInvalidFileFormat");
 	}
 	
 	/**
@@ -750,7 +752,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Feltöltés
 	*/
 	public static String imageuploadTitle() {
-		return moduleProvider.get().imageuploadTitle;
+		return moduleProvider.get().getTextMap().get("imageuploadTitle");
 	}
 	
 	/**
@@ -759,7 +761,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Nincs megadva
 	*/
 	public static String inedate_notset() {
-		return moduleProvider.get().inedate_notset;
+		return moduleProvider.get().getTextMap().get("inedate_notset");
 	}
 	
 	/**
@@ -768,7 +770,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Nincs találat
 	*/
 	public static String inetable_noresult() {
-		return moduleProvider.get().inetable_noresult;
+		return moduleProvider.get().getTextMap().get("inetable_noresult");
 	}
 	
 	/**
@@ -777,7 +779,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Üzenet
 	*/
 	public static String infoDialogTitle() {
-		return moduleProvider.get().infoDialogTitle;
+		return moduleProvider.get().getTextMap().get("infoDialogTitle");
 	}
 	
 	/**
@@ -786,7 +788,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Adatok betöltése...
 	*/
 	public static String loading() {
-		return moduleProvider.get().loading;
+		return moduleProvider.get().getTextMap().get("loading");
 	}
 	
 	/**
@@ -795,7 +797,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> perc
 	*/
 	public static String minutes() {
-		return moduleProvider.get().minutes;
+		return moduleProvider.get().getTextMap().get("minutes");
 	}
 	
 	/**
@@ -804,7 +806,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Április
 	*/
 	public static String month_april() {
-		return moduleProvider.get().month_april;
+		return moduleProvider.get().getTextMap().get("month_april");
 	}
 	
 	/**
@@ -813,7 +815,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Augusztus
 	*/
 	public static String month_august() {
-		return moduleProvider.get().month_august;
+		return moduleProvider.get().getTextMap().get("month_august");
 	}
 	
 	/**
@@ -822,7 +824,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> December
 	*/
 	public static String month_december() {
-		return moduleProvider.get().month_december;
+		return moduleProvider.get().getTextMap().get("month_december");
 	}
 	
 	/**
@@ -831,7 +833,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Február
 	*/
 	public static String month_february() {
-		return moduleProvider.get().month_february;
+		return moduleProvider.get().getTextMap().get("month_february");
 	}
 	
 	/**
@@ -840,7 +842,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Január
 	*/
 	public static String month_january() {
-		return moduleProvider.get().month_january;
+		return moduleProvider.get().getTextMap().get("month_january");
 	}
 	
 	/**
@@ -849,7 +851,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Július
 	*/
 	public static String month_july() {
-		return moduleProvider.get().month_july;
+		return moduleProvider.get().getTextMap().get("month_july");
 	}
 	
 	/**
@@ -858,7 +860,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Június
 	*/
 	public static String month_june() {
-		return moduleProvider.get().month_june;
+		return moduleProvider.get().getTextMap().get("month_june");
 	}
 	
 	/**
@@ -867,7 +869,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Március
 	*/
 	public static String month_march() {
-		return moduleProvider.get().month_march;
+		return moduleProvider.get().getTextMap().get("month_march");
 	}
 	
 	/**
@@ -876,7 +878,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Május
 	*/
 	public static String month_may() {
-		return moduleProvider.get().month_may;
+		return moduleProvider.get().getTextMap().get("month_may");
 	}
 	
 	/**
@@ -885,7 +887,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> November
 	*/
 	public static String month_november() {
-		return moduleProvider.get().month_november;
+		return moduleProvider.get().getTextMap().get("month_november");
 	}
 	
 	/**
@@ -894,7 +896,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Október
 	*/
 	public static String month_october() {
-		return moduleProvider.get().month_october;
+		return moduleProvider.get().getTextMap().get("month_october");
 	}
 	
 	/**
@@ -903,7 +905,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Szeptember
 	*/
 	public static String month_september() {
-		return moduleProvider.get().month_september;
+		return moduleProvider.get().getTextMap().get("month_september");
 	}
 	
 	/**
@@ -912,7 +914,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u>  
 	*/
 	public static String nd() {
-		return moduleProvider.get().nd;
+		return moduleProvider.get().getTextMap().get("nd");
 	}
 	
 	/**
@@ -921,7 +923,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u>   
 	*/
 	public static String rd() {
-		return moduleProvider.get().rd;
+		return moduleProvider.get().getTextMap().get("rd");
 	}
 	
 	/**
@@ -930,7 +932,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Biztosan törölni kívánja a kiválaszott sort?
 	*/
 	public static String reallyWantToDelete() {
-		return moduleProvider.get().reallyWantToDelete;
+		return moduleProvider.get().getTextMap().get("reallyWantToDelete");
 	}
 	
 	/**
@@ -939,7 +941,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba a kérés során
 	*/
 	public static String restRequestError() {
-		return moduleProvider.get().restRequestError;
+		return moduleProvider.get().getTextMap().get("restRequestError");
 	}
 	
 	/**
@@ -948,7 +950,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Az eredmények szűrve vannak.
 	*/
 	public static String searchForm_filtered() {
-		return moduleProvider.get().searchForm_filtered;
+		return moduleProvider.get().getTextMap().get("searchForm_filtered");
 	}
 	
 	/**
@@ -957,7 +959,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> P
 	*/
 	public static String shortday_friday() {
-		return moduleProvider.get().shortday_friday;
+		return moduleProvider.get().getTextMap().get("shortday_friday");
 	}
 	
 	/**
@@ -966,7 +968,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> H
 	*/
 	public static String shortday_monday() {
-		return moduleProvider.get().shortday_monday;
+		return moduleProvider.get().getTextMap().get("shortday_monday");
 	}
 	
 	/**
@@ -975,7 +977,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Szo
 	*/
 	public static String shortday_saturday() {
-		return moduleProvider.get().shortday_saturday;
+		return moduleProvider.get().getTextMap().get("shortday_saturday");
 	}
 	
 	/**
@@ -984,7 +986,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> V
 	*/
 	public static String shortday_sunday() {
-		return moduleProvider.get().shortday_sunday;
+		return moduleProvider.get().getTextMap().get("shortday_sunday");
 	}
 	
 	/**
@@ -993,7 +995,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Cs
 	*/
 	public static String shortday_thursday() {
-		return moduleProvider.get().shortday_thursday;
+		return moduleProvider.get().getTextMap().get("shortday_thursday");
 	}
 	
 	/**
@@ -1002,7 +1004,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> K
 	*/
 	public static String shortday_tuesday() {
-		return moduleProvider.get().shortday_tuesday;
+		return moduleProvider.get().getTextMap().get("shortday_tuesday");
 	}
 	
 	/**
@@ -1011,7 +1013,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Sze
 	*/
 	public static String shortday_wednesday() {
-		return moduleProvider.get().shortday_wednesday;
+		return moduleProvider.get().getTextMap().get("shortday_wednesday");
 	}
 	
 	/**
@@ -1020,7 +1022,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u>  
 	*/
 	public static String st() {
-		return moduleProvider.get().st;
+		return moduleProvider.get().getTextMap().get("st");
 	}
 	
 	/**
@@ -1029,7 +1031,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u>  
 	*/
 	public static String th() {
-		return moduleProvider.get().th;
+		return moduleProvider.get().getTextMap().get("th");
 	}
 	
 	/**
@@ -1038,7 +1040,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> igen
 	*/
 	public static String trueText() {
-		return moduleProvider.get().trueText;
+		return moduleProvider.get().getTextMap().get("trueText");
 	}
 	
 	/**
@@ -1047,7 +1049,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Nem megfelelő az e-mail cím!
 	*/
 	public static String validationEmail() {
-		return moduleProvider.get().validationEmail;
+		return moduleProvider.get().getTextMap().get("validationEmail");
 	}
 	
 	/**
@@ -1056,7 +1058,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hibás mező - 
 	*/
 	public static String validationFieldError() {
-		return moduleProvider.get().validationFieldError;
+		return moduleProvider.get().getTextMap().get("validationFieldError");
 	}
 	
 	/**
@@ -1065,7 +1067,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba: 
 	*/
 	public static String validationGeneralError() {
-		return moduleProvider.get().validationGeneralError;
+		return moduleProvider.get().getTextMap().get("validationGeneralError");
 	}
 	
 	/**
@@ -1074,7 +1076,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Nincs változás a formon
 	*/
 	public static String validationNothingToSave() {
-		return moduleProvider.get().validationNothingToSave;
+		return moduleProvider.get().getTextMap().get("validationNothingToSave");
 	}
 	
 	/**
@@ -1083,7 +1085,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt szám értéke {constvalAsString} kell, hogy legyen!
 	*/
 	public static String validatorEQ(String constvalAsString, String fieldName) {
-		return moduleProvider.get().validatorEQ.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
+		return moduleProvider.get().getTextMap().get("validatorEQ").replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -1092,7 +1094,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak nagyobb-egyenlőnek kell lennie, mint {constvalAsString}!
 	*/
 	public static String validatorGE(String constvalAsString, String fieldName) {
-		return moduleProvider.get().validatorGE.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
+		return moduleProvider.get().getTextMap().get("validatorGE").replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -1101,7 +1103,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak nagyobbnak kell lennie, mint {constvalAsString}!
 	*/
 	public static String validatorGT(String constvalAsString, String fieldName) {
-		return moduleProvider.get().validatorGT.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
+		return moduleProvider.get().getTextMap().get("validatorGT").replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -1110,7 +1112,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak kisebb-egyenlőnek kell lennie, mint {constvalAsString}!
 	*/
 	public static String validatorLE(String constvalAsString, String fieldName) {
-		return moduleProvider.get().validatorLE.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
+		return moduleProvider.get().getTextMap().get("validatorLE").replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -1119,7 +1121,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A {fieldName} mezőbe beírt számnak kisebbnek kell lennie, mint {constvalAsString}!
 	*/
 	public static String validatorLT(String constvalAsString, String fieldName) {
-		return moduleProvider.get().validatorLT.replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
+		return moduleProvider.get().getTextMap().get("validatorLT").replace("{constvalAsString}", constvalAsString).replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -1128,7 +1130,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Legfeljebb {maxLength} karaktert lehet írni a mezőbe!
 	*/
 	public static String validatorLength(String maxLength) {
-		return moduleProvider.get().validatorLength.replace("{maxLength}", maxLength);
+		return moduleProvider.get().getTextMap().get("validatorLength").replace("{maxLength}", maxLength);
 	}
 	
 	/**
@@ -1137,7 +1139,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A dámum {otherFieldsName} után kell, hogy legyen!
 	*/
 	public static String validatorShouldAfter(String otherFieldsName) {
-		return moduleProvider.get().validatorShouldAfter.replace("{otherFieldsName}", otherFieldsName);
+		return moduleProvider.get().getTextMap().get("validatorShouldAfter").replace("{otherFieldsName}", otherFieldsName);
 	}
 	
 	/**
@@ -1146,7 +1148,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A dámum {otherFieldsName} előtt kell, hogy legyen!
 	*/
 	public static String validatorShouldBefore(String otherFieldsName) {
-		return moduleProvider.get().validatorShouldBefore.replace("{otherFieldsName}", otherFieldsName);
+		return moduleProvider.get().getTextMap().get("validatorShouldBefore").replace("{otherFieldsName}", otherFieldsName);
 	}
 	
 	/**
@@ -1155,7 +1157,7 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A listában a {i}. és a {j}. elem megegyezik.
 	*/
 	public static String validatorUniqueRelList(String i, String j) {
-		return moduleProvider.get().validatorUniqueRelList.replace("{i}", i).replace("{j}", j);
+		return moduleProvider.get().getTextMap().get("validatorUniqueRelList").replace("{i}", i).replace("{j}", j);
 	}
 	
 	/**
@@ -1164,6 +1166,6 @@ public class IneFormI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A mező kitöltése kötelező!
 	*/
 	public static String validator_mandatory() {
-		return moduleProvider.get().validator_mandatory;
+		return moduleProvider.get().getTextMap().get("validator_mandatory");
 	}
 }
