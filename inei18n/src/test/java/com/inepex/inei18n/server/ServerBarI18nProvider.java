@@ -19,7 +19,14 @@ public class ServerBarI18nProvider extends ServerI18nProvider<BarI18n> {
 	}
 
 	@Override
-	protected BarI18n getVirgineI18nModule() {
-		return new BarI18n(this);
+	public BarI18n getVirgineI18nModule() {
+		BarI18n module = new BarI18n(this);
+		initTexts(module);
+		return module;
+	}
+	
+	public void initTexts(BarI18n module){
+		module.getTextMap().put("bar1", "bar1_EN");
+		module.getTextMap().put("bar2", "bar2_EN");
 	}
 }

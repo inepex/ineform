@@ -55,6 +55,6 @@ public abstract class ServerI18nProvider<T extends I18nModule> implements I18nMo
 	
 	protected abstract Class<T> getModuleClass();
 	
-	protected abstract T getVirgineI18nModule();
+	public abstract T getVirgineI18nModule();
 	
 }

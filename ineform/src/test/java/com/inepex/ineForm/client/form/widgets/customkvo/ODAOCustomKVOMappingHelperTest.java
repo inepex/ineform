@@ -8,10 +8,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
 import com.inepex.ineForm.shared.customkvo.CreatedFdesc;
 import com.inepex.ineForm.shared.types.ODFieldType;
 import com.inepex.ineForm.test.DefaultIneFormClientSideTestBase;
+import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
@@ -24,9 +25,10 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTestBase {
 
 	@Override
-	public List<Class<? extends I18nModule>> listUsedI18nClasses() {
-		ArrayList<Class<? extends I18nModule>> list = new ArrayList<Class<? extends I18nModule>>();
-		list.add(IneFormI18n.class);
+	public List<Class<? extends ServerI18nProvider<? extends I18nModule>>> listUsedI18nClasses() {
+		List<Class<? extends ServerI18nProvider<? extends I18nModule>>> list =
+				new ArrayList<Class<? extends ServerI18nProvider<? extends I18nModule>>>();
+		list.add(ServerIneFormI18nProvider.class);
 		return list;
 	}
 	

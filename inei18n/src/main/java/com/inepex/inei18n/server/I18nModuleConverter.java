@@ -276,6 +276,7 @@ public class I18nModuleConverter {
 		context.put("package", props.serverPackage);
 		context.put("className", moduleName);
 		context.put("modulePackage", moduleCalss.getPackage().getName());
+		context.put("localizables", localizables.values());
 		return context;
 	}	
 	

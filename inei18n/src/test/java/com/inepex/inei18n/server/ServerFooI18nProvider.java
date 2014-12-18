@@ -19,7 +19,14 @@ public class ServerFooI18nProvider extends ServerI18nProvider<FooI18n> {
 	}
 
 	@Override
-	protected FooI18n getVirgineI18nModule() {
-		return new FooI18n(this);
+	public FooI18n getVirgineI18nModule() {
+		FooI18n module = new FooI18n(this);
+		initTexts(module);
+		return module;
+	}
+	
+	public void initTexts(FooI18n module){
+		module.getTextMap().put("foo1", "foo1_EN");
+		module.getTextMap().put("foo2", "foo2_EN");
 	}
 }

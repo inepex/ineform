@@ -2,6 +2,7 @@ package com.inepex.ineFrame.test;
 
 import java.util.List;
 
+import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
@@ -16,8 +17,8 @@ public class DefaultIneFrameClientSideTestBase extends IneFrameClientSideTestBas
 	}
 
 	@Override
-	public List<Class<? extends I18nModule>> listUsedI18nClasses() {
+	public List<Class<? extends ServerI18nProvider<? extends I18nModule>>> listUsedI18nClasses() {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

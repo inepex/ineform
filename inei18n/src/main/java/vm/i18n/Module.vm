@@ -24,12 +24,6 @@ public class ${className} extends I18nModule {
 	public I18nModuleProvider<?> getI18nProvider() {
 		return moduleProvider;
 	}
-	
-	public void init(){
-#foreach($loc in $localizables )
-		textMap.put("${loc.getKey()}", "$loc.getString("en")");
-#end
-	}
 
 #foreach($loc in $localizables ) #set($key = ${loc.getKey()})
 	
@@ -40,11 +34,11 @@ public class ${className} extends I18nModule {
 	*/
 #if ($paramsbykey.get($key).size() > 0)
 	public static String $key(#foreach($param in $paramsbykey.get($key))String $param#if($velocityHasNext), #end#end) {
-		return moduleProvider.get().getTextMap().get("$key")#foreach($param in $paramsbykey.get($key)).replace("{$param}", $param)#end;
+		return moduleProvider.get().getText("$key")#foreach($param in $paramsbykey.get($key)).replace("{$param}", $param)#end;
 	}
 #else
 	public static String ${loc.getKey()}() {
-		return moduleProvider.get().getTextMap().get("$key");
+		return moduleProvider.get().getText("$key");
 	}
 #end
 #end

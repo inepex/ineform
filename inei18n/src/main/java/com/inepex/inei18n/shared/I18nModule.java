@@ -33,6 +33,10 @@ public abstract class I18nModule implements Serializable, IsSerializable {
 		return textMap;
 	}
 	
+	public String getText(String key) {
+		return textMap.get(key);
+	}
+	
 	public abstract I18nModuleProvider<?> getI18nProvider();
 	
 }

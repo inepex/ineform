@@ -19,7 +19,15 @@ public class Server${className}Provider extends ServerI18nProvider<${className}>
 	}
 
 	@Override
-	protected ${className} getVirgineI18nModule() {
-		return new ${className}(this);
+	public ${className} getVirgineI18nModule() {
+		${className} module = new ${className}(this);
+		initTexts(module);
+		return module;
+	}
+	
+	public void initTexts(${className} module){
+#foreach($loc in $localizables )
+		module.getTextMap().put("${loc.getKey()}", "$loc.getString("en")");
+#end
 	}
 }

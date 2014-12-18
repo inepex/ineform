@@ -8,13 +8,14 @@ import com.inepex.ineFrame.server.IneInitializer;
 import com.inepex.ineFrame.server.MockCurrentLang;
 import com.inepex.ineFrame.server.MockI18n;
 import com.inepex.inei18n.server.I18nStore_Server;
+import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
 public abstract class IneFrameClientSideTestBase implements IneInitializer {
-	public class MockCurrentLangProvider implements Provider<CurrentLang> {
+	public static class MockCurrentLangProvider implements Provider<CurrentLang> {
 		@Override
 		public CurrentLang get() {
 			return new MockCurrentLang();
@@ -46,14 +47,14 @@ public abstract class IneFrameClientSideTestBase implements IneInitializer {
 			.doInitialize();
 	}
 	
-	public abstract List<Class<? extends I18nModule>> listUsedI18nClasses();
+	public abstract List<Class<? extends ServerI18nProvider<? extends I18nModule>>> listUsedI18nClasses();
 	
 	@Override
 	public final void registerAdditionalI18nModules(I18nStore_Server serverI18n,
 			Provider<CurrentLang> currentLangProvider) {
-		List<Class<? extends I18nModule>> modules = listUsedI18nClasses();
+		List<Class<? extends ServerI18nProvider<? extends I18nModule>>> modules = listUsedI18nClasses();
 		if(modules!=null) {
-			for(Class<? extends I18nModule> mod : modules) {
+			for(Class<? extends ServerI18nProvider<? extends I18nModule>> mod : modules) {
 				serverI18n.registerModule(MockI18n.mock(mod));
 			}
 		}

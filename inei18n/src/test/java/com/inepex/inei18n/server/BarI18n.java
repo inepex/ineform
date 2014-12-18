@@ -24,9 +24,6 @@ public class BarI18n extends I18nModule {
 	public I18nModuleProvider<?> getI18nProvider() {
 		return moduleProvider;
 	}
-	
-	public String bar1 = "bar1_EN";
-	public String bar2 = "bar2_EN";
 
 	
 	/**
@@ -35,7 +32,7 @@ public class BarI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> bar1_HU
 	*/
 	public static String bar1() {
-		return moduleProvider.get().bar1;
+		return moduleProvider.get().getText("bar1");
 	}
 	
 	/**
@@ -44,6 +41,6 @@ public class BarI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> bar2_HU
 	*/
 	public static String bar2() {
-		return moduleProvider.get().bar2;
+		return moduleProvider.get().getText("bar2");
 	}
 }
