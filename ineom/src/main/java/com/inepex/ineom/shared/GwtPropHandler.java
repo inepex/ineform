@@ -136,6 +136,32 @@ public class GwtPropHandler extends PropHandler {
 	}
 
 	@Override
+	public Boolean getBooleanPropFromGroupJson(String key, String json) {
+		if(json == null) return null;
+		JSONObject obj = JSONParser.parseStrict(json).isObject();
+		if(obj != null && obj.get(key) != null){
+			JSONBoolean value = obj.get(key).isBoolean();
+			if(value != null){
+				return value.booleanValue();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Double getNumberPropFromGroupJson(String key, String json) {
+		if(json == null) return null;
+		JSONObject obj = JSONParser.parseStrict(json).isObject();
+		if(obj != null && obj.get(key) != null){
+			JSONNumber value = obj.get(key).isNumber();
+			if(value != null){
+				return value.doubleValue();
+			}
+		}
+		return null;
+	}
+	
+	@Override
 	public void setProp(HasProp hasProp, String group, String key,
 			String value, boolean strictMatch) {
 		setProp(hasProp, group, key, value);
@@ -167,4 +193,5 @@ public class GwtPropHandler extends PropHandler {
 		}
 		return map;
 	}
+
 }

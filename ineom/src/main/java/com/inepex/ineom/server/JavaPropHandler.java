@@ -160,6 +160,36 @@ public class JavaPropHandler extends PropHandler {
 		}
 		return null;
 	}
+	
+	@Override
+	public Boolean getBooleanPropFromGroupJson(String key, String json) {
+		ObjectMapper m = new ObjectMapper();
+		try {
+			JsonNode node = m.readTree(json);
+			JsonNode valueNode = node.get(key);
+			if(valueNode != null){
+				return valueNode.asBoolean();
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
+	}
+
+	@Override
+	public Double getNumberPropFromGroupJson(String key, String json) {
+		ObjectMapper m = new ObjectMapper();
+		try {
+			JsonNode node = m.readTree(json);
+			JsonNode valueNode = node.get(key);
+			if(valueNode != null){
+				return valueNode.asDouble();
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
+	}
 
 	@Override
 	public void setProp(HasProp hasProp, 
@@ -228,4 +258,5 @@ public class JavaPropHandler extends PropHandler {
 			logSetProp(hasProp, group, key, value);
 		}
 	}
+
 }

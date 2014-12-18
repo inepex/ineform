@@ -22,6 +22,10 @@ public abstract class PropHandler {
 	
 	public abstract String getStringPropFromGroupJson(String key, String json);
 	
+	public abstract Boolean getBooleanPropFromGroupJson(String key, String json);
+	
+	public abstract Double getNumberPropFromGroupJson(String key, String json);
+	
 	public abstract Map<String, Object> getPropMap(HasProp hasProp, String id);
 	
 	public abstract void setProp(HasProp o, String group, String key, Object value);
