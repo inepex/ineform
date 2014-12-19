@@ -47,5 +47,20 @@ public abstract class PropHandler {
 			}
 		}
 	}
+	
+	public String getStringPropOverride(String group, String key, HasProp tracker, HasProp user, String defaultValue){
+		String value = defaultValue;
+		
+		String trackerValue = getStringProp(tracker, group, key);
+		if (trackerValue != null && !trackerValue.equals("")){
+			value = trackerValue;
+		} else {
+			String userValue = getStringProp(user, group, key);
+			if (userValue != null && !userValue.equals("")){
+				value = userValue;
+			}
+		}
+		return value;
+	}
 
 }
