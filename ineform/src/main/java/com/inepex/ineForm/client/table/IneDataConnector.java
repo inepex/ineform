@@ -15,7 +15,6 @@ import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
@@ -188,10 +187,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	private void setManipulateActionDetails(
 			ObjectManipulation objectManipulation,
 			ManipulationTypes manipulationType,
-			AssistedObject kvo, CustomKVOObjectDesc... customObjectDescs) {
+			AssistedObject kvo) {
 		objectManipulation.setManipulationType(manipulationType);
 		objectManipulation.setObject(kvo);
-		objectManipulation.setCustomOdescs(customObjectDescs);
 	}
 
 	/**
@@ -199,9 +197,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 	 * 
 	 * @param object
 	 */
-	public void objectCreateOrEditRequested(AssistedObject object, ManipulateResultCallback callback, CustomKVOObjectDesc... customObjectDescs ) {
+	public void objectCreateOrEditRequested(AssistedObject object, ManipulateResultCallback callback) {
 		createDefaultManipulateActionIfNUll();
-		setManipulateActionDetails(objectManipulation, ManipulationTypes.CREATE_OR_EDIT_REQUEST, object, customObjectDescs);
+		setManipulateActionDetails(objectManipulation, ManipulationTypes.CREATE_OR_EDIT_REQUEST, object);
 		executeManipulation(
 				objectManipulation,
 				new ObjectManipulationCallback(objectManipulation, callback),

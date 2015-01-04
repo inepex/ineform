@@ -20,9 +20,6 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.DescriptorStore;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
-import com.inepex.ineForm.shared.customkvo.CustomKVOObjectDesc;
-import com.inepex.ineForm.server.customkvo.CustomKVO;
-import com.inepex.ineForm.server.customkvo.CustomKVOMapperHelper;
 
 public class ${classname}Mapper extends BaseMapper<${classname}>{
 	
@@ -36,7 +33,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 	}
 
 	@Override
-	public ${classname} kvoToEntity(AssistedObject fromKvo, ${classname} to, CustomKVOObjectDesc... descs) {
+	public ${classname} kvoToEntity(AssistedObject fromKvo, ${classname} to) {
 		${classname}Handler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -61,28 +58,6 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 #elseif($attr.type == "String")
 		if (fromHandler.containsString(${classname}Consts.k_${attr.name})) 
 			to.set${attr.nameU1}(fromHandler.get${attr.nameU1}());
-#elseif($attr.type == "CustomKVO")
-    	if(fromHandler.containsRelation(${classname}Consts.k_${attr.name})) {
-			    if(fromHandler.get${attr.nameU1}()==null) {
-					to.set${attr.nameU1}(null);
-				} else {
-        			CustomKVO custKvo = to.get${attr.nameU1}();
-        			if(custKvo==null) {
-        				custKvo=new CustomKVO();
-        				to.set${attr.nameU1}(custKvo);
-        			}
-        			
-        			ObjectDesc od = null;
-        			for(CustomKVOObjectDesc desc : descs) { 
-        				if(${classname}Consts.k_${attr.name}.equals(desc.getKey())) {
-        						od=desc;
-    							break;
-    					}
-    				}
-        				
-        			CustomKVOMapperHelper.mapIntoCustomKVO(custKvo, fromHandler.get${attr.nameU1}().getKvo(), od);
-				}
-    		}
 #elseif($attr.enum)
  		if (fromHandler.containsLong(${classname}Consts.k_${attr.name})) 
 			to.set${attr.nameU1}(${attr.type}.values()[new Long(fromHandler.get${attr.nameU1}()).intValue()]);
@@ -106,7 +81,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 					continue;
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					${attr.fistGenTypeU1} entity = new ${attr.fistGenTypeU1}(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(rel.getKvo(), entity, descs);
+					mapper.kvoToEntity(rel.getKvo(), entity);
 					entity.set${utils.getU1($attr.getAnnotationParamValue("OneToMany","mappedBy"))}(to);
 					to.get${attr.nameU1}().add(entity);
 				} else {
@@ -114,7 +89,7 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 					if (rel.getKvo() == null) { 			    // delete item
 						to.get${attr.nameU1}().remove(origItem);
 					} else {									// edit item
-						mapper.kvoToEntity(rel.getKvo(), origItem, descs);
+						mapper.kvoToEntity(rel.getKvo(), origItem);
 					}
 				}
 			}
@@ -127,13 +102,13 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 			} else {
 #if($attr.hasAnnotation("ManyToOne"))
 				to.set${attr.nameU1}(new ${attr.typeU1}(fromHandler.get${attr.nameU1}().getId()));
-#elseif($attr.hasAnnotation("OneToOne") && $attr!="CustomKVO")
+#elseif($attr.hasAnnotation("OneToOne"))
 				${attr.typeU1} relatedEntity = to.get${attr.nameU1}();
     			if (relatedEntity == null) {
 					relatedEntity = new ${attr.typeU1}(IFConsts.NEW_ITEM_ID);
 				}
 				new ${attr.typeU1}Mapper(descriptorStore)
-					.kvoToEntity(fromHandler.get${attr.nameU1}().getKvo(), relatedEntity, descs);
+					.kvoToEntity(fromHandler.get${attr.nameU1}().getKvo(), relatedEntity);
 				to.set${attr.nameU1}(relatedEntity);
 #end
 			}
@@ -164,9 +139,6 @@ public class ${classname}Mapper extends BaseMapper<${classname}>{
 #elseif($attr.type == "String")
 		if (entity.get${attr.nameU1}() != null && !"".equals(entity.get${attr.nameU1}())) 
 			handler.set${attr.nameU1}(entity.get${attr.nameU1}());
-#elseif($attr.type == "CustomKVO")
-		if(entity.get${attr.nameU1}() != null)
-			handler.set${attr.nameU1}(new Relation(CustomKVOMapperHelper.getKVOFromCustomKVO(entity.get${attr.nameU1}())));
 #elseif($attr.enum)
 		if (entity.get${attr.nameU1}() != null){
 			handler.set${attr.nameU1}(new Long(entity.get${attr.nameU1}().ordinal()));

@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
-import com.inepex.ineForm.server.customkvo.CustomKVO;
 
 @Entity
 public class Company {

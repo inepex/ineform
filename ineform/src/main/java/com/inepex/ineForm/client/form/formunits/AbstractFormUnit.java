@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
@@ -39,7 +38,6 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	protected TreeMap<String, HTML> titlesByKey = new TreeMap<String, HTML>();
 	protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
 	protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey = new TreeMap<String, ErrorMessageManagerInterface>();
-	protected TreeMap<String, CustomKVOFW> customKvoFwsByKey = new TreeMap<String, CustomKVOFW>();
 	protected TreeMap<String, PropFW> propFwsByKey = new TreeMap<String, PropFW>();
 	
 	//gui behaviour
@@ -99,9 +97,6 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 
 	public void registerWidgetToDataFlow(String key, FormWidget widget) {
 		widgetsByKey.put(key, widget);
-		
-		if(widget instanceof CustomKVOFW)
-			customKvoFwsByKey.put(key, (CustomKVOFW) widget);
 		
 		if(widget instanceof PropFW)
 			propFwsByKey.put(key, (PropFW) widget);
@@ -168,10 +163,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	public Set<String> getErrorManagerKeySet() {
 		Set<String> keys = new TreeSet<String>();
 		keys.addAll(errormanagersByKey.keySet());
-		for(String key : customKvoFwsByKey.keySet()) {
-			keys.addAll(customKvoFwsByKey.get(key).getModelKeys(key));
-		}
-			
+
 		for(String key : propFwsByKey.keySet()) {
 			keys.addAll(propFwsByKey.get(key).getModelKeys(key));
 		}
@@ -182,9 +174,6 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
 	public TreeMap<String, ErrorMessageManagerInterface> getErrormanagersByKey() {
 		TreeMap<String, ErrorMessageManagerInterface> ret = new TreeMap<String, ErrorMessageManagerInterface>();
 		ret.putAll(errormanagersByKey);
-		for(String key : customKvoFwsByKey.keySet()) {
-			ret.putAll(customKvoFwsByKey.get(key).getErrorManagers(key));
-		}
 		
 		for(String key : propFwsByKey.keySet()) {
 			ret.putAll(propFwsByKey.get(key).getErrorManagers(key));

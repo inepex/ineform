@@ -7,8 +7,6 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 public interface ManipulationObjectFactory {
 	
-	public CustomObjectDescResultInterface getNewObjectDescResult();
-
 	public ObjectManipulationResult getNewObjectManipulationResult();
 
 	public ObjectListResult getNewObjectListResult();

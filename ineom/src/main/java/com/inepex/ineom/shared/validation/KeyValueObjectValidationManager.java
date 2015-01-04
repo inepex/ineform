@@ -12,7 +12,6 @@ import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
-import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -185,10 +184,6 @@ public class KeyValueObjectValidationManager {
 			if(fDesc==null) continue;
 			
 			if(fDesc instanceof RelationFDesc) {
-				if(IFConsts.customDescriptorName.equals(((RelationFDesc) fDesc).getRelatedDescriptorName()))
-					//TODO
-					continue;
-				
 				AssistedObjectHandler checker = objectHandlerFactory.createHandler(kvo);
 				Relation rel = checker.getRelation(fDesc.getKey());
 				if (rel != null && rel.getKvo()!=null) {

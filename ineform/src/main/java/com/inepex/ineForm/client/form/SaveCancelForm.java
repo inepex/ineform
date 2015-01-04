@@ -1,8 +1,5 @@
 package com.inepex.ineForm.client.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -17,15 +14,12 @@ import com.inepex.ineForm.client.form.events.DeletedEvent;
 import com.inepex.ineForm.client.form.events.FormLifecycleEventBase;
 import com.inepex.ineForm.client.form.events.ResetEvent;
 import com.inepex.ineForm.client.form.events.SavedEvent;
-import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineom.shared.AssistedObjectDifference;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.validation.ValidationResult;
@@ -192,18 +186,7 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 			return;
 		}
 		
-		List<CustomKVOObjectDesc> descs = new ArrayList<CustomKVOObjectDesc>();
-		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
-			for(String s : unit.getFormWidgetKeySet()) {
-				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW))
-					continue;
-				
-				descs.add(((CustomKVOFW)unit.getWidgetByKey(s)).getOdFromRows());
-			}
-		}
-		
-		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback(), 
-				descs.size()>0 ? descs.toArray(new CustomKVOObjectDesc[descs.size()]) : null);
+		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback());
 	}
 	
 	public HandlerRegistration addBeforeSaveHandler(BeforeSaveEvent.Handler handler) {

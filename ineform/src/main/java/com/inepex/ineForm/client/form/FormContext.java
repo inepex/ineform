@@ -8,8 +8,6 @@ import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
 import com.inepex.ineForm.client.form.prop.PropFW;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
-import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.shared.util.NumberUtil;
@@ -39,9 +37,7 @@ public class FormContext {
 	public final PanelWidgetFactory panelWidgetFactory;
 	public final KeyValueObjectValidationManager validatorManager;
 	public final DateProvider dateProvider;
-	public final CustomOdFinder odFinder;
 	public final ObjectFinder objectFinder;
-	public final Provider<CustomKVOFW.View> customKvoFwViewProvider;
 	public final Provider<PropFW.View> propFwViewProvider;
 	public final DateFormatter dateFormatter;
 	public final NumberUtil numberUtil;
@@ -63,16 +59,12 @@ public class FormContext {
 			, PanelWidgetFactory panelWidgetFactory
 			, KeyValueObjectValidationManager validatorManager
 			, DateProvider dateProvider
-			, CustomOdFinder odFinder
 			, ObjectFinder objectFinder
-			, Provider<CustomKVOFW.View> customKvoFwViewProvider
 			, DateFormatter dateFormatter
 			, NumberUtil numberUtil
 			, Provider<PropFW.View> propFwViewProvider,
 			AssistedObjectDifference aoDifference) {
 		this.objectFinder=objectFinder;
-		this.customKvoFwViewProvider=customKvoFwViewProvider;
-		this.odFinder=odFinder;
 		this.descStore = descStore;
 		this.eventBus = eventBus;
 		this.valueRangeProvider = defaultValueRangeProvider;

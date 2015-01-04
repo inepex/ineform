@@ -5,8 +5,6 @@ import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
-import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
@@ -19,8 +17,6 @@ public interface FormWidgetFactory {
 			 , AbstractFormUnit form
 			 , FDesc fieldDesc
 			 , WidgetRDesc wrDesc
-			 , CustomOdFinder odFinder
-			 , Provider<CustomKVOFW.View> customKvoView
 			 , Provider<PropFW.View> propView);
 	
 	FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc);

@@ -24,7 +24,6 @@ import com.inepex.ineFrame.shared.IneformAsyncCallback;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.PropHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
@@ -191,7 +190,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 			switch (action.getManipulationType()) {
 			case CREATE_OR_EDIT_REQUEST:
 				try {
-					E newState = doCreateOrEdit(action.getObject(), action.getCustomObjectDescritors());
+					E newState = doCreateOrEdit(action.getObject());
 					AssistedObject kvo = getMapper().entityToKvo(newState);
 					if (mongoDao != null){
 						mongoDao.manipulate(action.getObject(), kvo, action.getPropGroups());	
@@ -232,7 +231,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		return action.getObject().getId();
 	}
 
-	public E doCreateOrEdit(AssistedObject kvo, CustomKVOObjectDesc... custOds) throws Exception {
+	public E doCreateOrEdit(AssistedObject kvo) throws Exception {
 		E entity = null;
 
 		if (kvo.isNew())
@@ -240,7 +239,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 		else
 			entity = findById(kvo.getId());
 
-		getMapper().kvoToEntity(kvo, entity, custOds);
+		getMapper().kvoToEntity(kvo, entity);
 		if (kvo.isNew())
 			persist(entity);
 		else

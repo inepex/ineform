@@ -5,12 +5,11 @@ import java.util.List;
 
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 
 
 public abstract class BaseMapper<E> {
 	
-	public abstract E kvoToEntity(AssistedObject from, E to, CustomKVOObjectDesc... descs) throws Exception;
+	public abstract E kvoToEntity(AssistedObject from, E to) throws Exception;
 	
 	public abstract AssistedObject entityToKvo(E entity);
 	

@@ -1,9 +1,7 @@
 package com.inepex.ineom.shared;
 
 public class IFConsts {
-	
-	public final static String customDescriptorName = "***";
-	
+		
 	public static final String KEY_ID = "id";
 	public static final String KEY_ISDELETED = "isDeleted";
 	public static final String KEY_ORDERNUM = "orderNum";

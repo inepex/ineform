@@ -11,7 +11,6 @@ import com.inepex.example.ContactManager.entity.EmailAddress;
 import com.inepex.example.ContactManager.entity.PhoneNumber;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.User;
-import com.inepex.ineForm.server.customkvo.CustomKVO;
 
 public class DbCreator extends EntityManagerInitializier {
 	

@@ -12,7 +12,6 @@ import com.inepex.example.ContactManager.shared.MeetingType;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class MeetingMapper extends BaseMapper<Meeting>{
@@ -26,7 +25,7 @@ public class MeetingMapper extends BaseMapper<Meeting>{
 		this.handlerFactory=new MeetingHandlerFactory(descriptorStore);
 	}
 
-	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to, CustomKVOObjectDesc... descs) {
+	public Meeting kvoToEntity(AssistedObject fromKvo, Meeting to) {
 		MeetingHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)

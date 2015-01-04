@@ -9,7 +9,6 @@ import net.customware.gwt.dispatch.shared.Action;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 
@@ -27,7 +26,6 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	private ManipulationTypes manipulationType;
 	private AssistedObject object;
 	private Long idToRefresh;
-	private CustomKVOObjectDesc[] customOdescs;
 	private List<String> propGroups = new ArrayList<String>();
 	private Long executingUser;
 	
@@ -95,16 +93,6 @@ public class ObjectManipulationAction implements Action<ObjectManipulationAction
 	@Override
 	public void setIdToRefresh(Long idToRefresh) {
 		this.idToRefresh = idToRefresh;
-	}
-
-	@Override
-	public CustomKVOObjectDesc[] getCustomObjectDescritors() {
-		return customOdescs;
-	}
-	
-	@Override
-	public void setCustomOdescs(CustomKVOObjectDesc[] customOdescs) {
-		this.customOdescs = customOdescs;
 	}
 
 	@Override

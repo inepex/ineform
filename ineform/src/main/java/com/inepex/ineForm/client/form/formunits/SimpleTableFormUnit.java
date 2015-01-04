@@ -109,7 +109,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 						IFConsts.KEY_ISDELETED.equals(descNode.getNodeId()))) {
 				
 						FormWidget createdWidget = formWidgetFactory.createWidget(formCtx, this, fDesc
-								,(WidgetRDesc) nodeElement, formCtx.odFinder, formCtx.customKvoFwViewProvider,
+								,(WidgetRDesc) nodeElement,
 								formCtx.propFwViewProvider);
 						createdWidget = formWidgetFactory.createDecorator(createdWidget, fDesc, (WidgetRDesc) nodeElement);
 						

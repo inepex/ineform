@@ -34,7 +34,6 @@ import com.inepex.ineForm.client.form.prop.PropFW;
 import com.inepex.ineForm.client.form.widgets.FormWidget;
 import com.inepex.ineForm.client.form.widgets.RelationList;
 import com.inepex.ineForm.client.form.widgets.RelationListFW;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
@@ -811,13 +810,11 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		case ALL:
 			vr = formCtx.validatorManager.validate(kvo, customValidators);
 			validateRelationLists(vr, null);
-			validateCustKVOs(vr, null);
 			break;
 		case PARTIAL:
 			Collection<String> fields = formRenderDescriptor.getRootNode().getKeysUnderNode();
 			vr = formCtx.validatorManager.validatePartial(kvo, fields, customValidators);
 			validateRelationLists(vr, fields);
-			validateCustKVOs(vr, fields);
 			break;
 		case NONE:
 			break;
@@ -836,38 +833,6 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 		dealValidationResult(result);
 		return result;
 	}
-	
-	/**
-	 * 
-	 * @param vr
-	 * @param fields null = all field
-	 */
-	private void validateCustKVOs(ValidationResult vr, Collection<String> fields) {
-		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
-			for(String s : unit.getFormWidgetKeySet()) {
-				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW) || (fields!=null && !fields.contains(s)))
-					continue;
-				
-				CustomKVOFW fw = (CustomKVOFW) unit.getWidgetByKey(s);
-				
-				if(fw.getRelationValue()==null || fw.getRelationValue().getKvo()==null)
-					continue;
-				
-				ValidationResult tmpRes = formCtx.validatorManager.validate(fw.getRelationValue().getKvo(), fw.getOdFromRows(), customValidators);
-				
-				if(!tmpRes.isValid()) {
-					vr.setValid(false);
-					if(vr.getFieldErrors()==null)
-						vr.setFieldErrors(new HashMap<String, List<String>>());
-					
-					for(String key : tmpRes.getFieldErrors().keySet()) {
-						vr.getFieldErrors().put(s+SharedUtil.ID_PART_SEPARATOR+key, tmpRes.getFieldErrors().get(key));
-					}
-				}
-				
-			}
-		}
-	}
 
 	/**
 	 * @return true = all of CustomKVO are valid, can continue the saving
@@ -875,16 +840,6 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 	 */
 	private boolean validateConsistenceOfCustomKVOFWS() {
 		boolean validsum = true;
-		
-		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
-			for(String s : unit.getFormWidgetKeySet()) {
-				if(!(unit.getWidgetByKey(s) instanceof CustomKVOFW))
-					continue;
-				
-				boolean  valid = ((CustomKVOFW) unit.getWidgetByKey(s)).validateConsistence();
-				validsum = validsum && valid;
-			}
-		}
 		
 		for(AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
 			for(String s : unit.getFormWidgetKeySet()) {

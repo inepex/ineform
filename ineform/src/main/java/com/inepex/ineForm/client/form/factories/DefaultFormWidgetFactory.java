@@ -33,12 +33,9 @@ import com.inepex.ineForm.client.form.widgets.TextAreaFW;
 import com.inepex.ineForm.client.form.widgets.TextBoxFW;
 import com.inepex.ineForm.client.form.widgets.ThreeWayBoolFw;
 import com.inepex.ineForm.client.form.widgets.chooser.ChooserFw;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOReadOnlyFW;
 import com.inepex.ineForm.client.form.widgets.datetime.DateTimeFW;
 import com.inepex.ineForm.client.form.widgets.richtextarea.RichTextAreaFW;
 import com.inepex.ineForm.client.form.widgets.upload.FileUploadFw;
-import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
 import com.inepex.ineom.shared.IneT;
@@ -61,8 +58,6 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 								 , AbstractFormUnit form
 								 , FDesc fieldDesc
 								 , WidgetRDesc wrDesc
-								 , CustomOdFinder odFinder
-								 , Provider<CustomKVOFW.View> customKvoView
 								 , Provider<PropFW.View> propView) {
 		
 		FormWidget createdWidget = null;
@@ -113,12 +108,6 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 
 		else if (widgetType.equals(FWTypes.RELATEDFORM))
 			createdWidget = new RelationFW(formCtx, (RelationFDesc) fieldDesc, wrDesc.getPropValue(RelationFW.FRD));
-		
-		else if (widgetType.equals(FWTypes.CUSTOMKVO))
-			createdWidget= new CustomKVOFW((RelationFDesc) fieldDesc, wrDesc, odFinder,  customKvoView.get());
-
-		else if (widgetType.equals(FWTypes.CUSTOMKVOREADONLY))
-			createdWidget= new CustomKVOReadOnlyFW((RelationFDesc) fieldDesc, wrDesc, odFinder);
 		
 		else if (widgetType.equals(FWTypes.PROPS))
 			createdWidget= new PropFW((PropFDesc) fieldDesc, wrDesc, propView.get());

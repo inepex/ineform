@@ -29,15 +29,11 @@ import com.inepex.ineForm.client.form.factories.DefaultPanelWidgetFactory;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.factories.PanelWidgetFactory;
-import com.inepex.ineForm.client.form.widgets.customkvo.ActionBasedCustomOdFinder;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFW;
-import com.inepex.ineForm.client.form.widgets.customkvo.CustomKVOFWView;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
 import com.inepex.ineForm.client.util.GwtRequestBuilderFactory;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
-import com.inepex.ineForm.shared.customkvoeditor.CustomOdFinder;
 import com.inepex.ineForm.shared.dispatch.ActionBasedObjectFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
@@ -53,7 +49,6 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 public class TestIneFormClientGuiceModule extends AbstractModule {
 	@Override
 	protected void configure() {
-		bind(CustomOdFinder.class).to(ActionBasedCustomOdFinder.class);
 		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
 		
 		bind(HistoryProvider.class).in(Singleton.class);
@@ -89,8 +84,6 @@ public class TestIneFormClientGuiceModule extends AbstractModule {
 				 	.implement(DataManipulator.class, Names.named("rowCommand"), RowCommandDataManipulator.class)
 				 	.implement(DataManipulator.class, Names.named("singleSelect"), SingleSelectDataManipulator.class)
 					.build(ManipulatorFactory.class));
-		
-		bind(CustomKVOFW.View.class).to(CustomKVOFWView.class);
 		
 	}
 	

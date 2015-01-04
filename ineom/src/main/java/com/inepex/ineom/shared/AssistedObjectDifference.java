@@ -5,7 +5,6 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
-import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class AssistedObjectDifference {
@@ -42,28 +41,7 @@ public class AssistedObjectDifference {
 
 		for (String key : modified.objectDescriptor.getFields().keySet()) {
 			FDesc fieldDesc = modified.objectDescriptor.getFields().get(key);
-			
-			if(fieldDesc.getType()==IneT.RELATION &&
-					IFConsts.customDescriptorName.equals(((RelationFDesc) fieldDesc).getRelatedDescriptorName())) {
-				
-				Relation orig = original.getRelation(key);
-				Relation chng = modified.getRelation(fieldDesc.getKey());
-				if (orig == null && chng == null) {
-					//nothing to do
-				} else {
-					if(orig==null || chng==null) {
-						difference.set(key, chng);
-					} else {
-						if(((KeyValueObject) orig.getKvo()).equals(chng.getKvo())) {
-							//nothing to do
-						} else 
-							difference.set(key, chng);
-					}
-				}
-				
-				continue;
-			}
-			
+						
 			switch (fieldDesc.getType()) {
 			case BOOLEAN: {
 				Boolean orig = original.getBoolean(key);
