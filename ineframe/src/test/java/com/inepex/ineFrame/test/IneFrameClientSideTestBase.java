@@ -10,7 +10,6 @@ import com.inepex.ineFrame.server.MockI18n;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
