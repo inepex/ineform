@@ -25,9 +25,9 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 public class ODAOCustomKVOMappingHelperTest extends DefaultIneFormClientSideTestBase {
 
 	@Override
-	public List<Class<? extends ServerI18nProvider<? extends I18nModule>>> listUsedI18nClasses() {
-		List<Class<? extends ServerI18nProvider<? extends I18nModule>>> list =
-				new ArrayList<Class<? extends ServerI18nProvider<? extends I18nModule>>>();
+	public List<Class<? extends ServerI18nProvider>> listUsedI18nClasses() {
+		List<Class<? extends ServerI18nProvider>> list =
+				new ArrayList<Class<? extends ServerI18nProvider>>();
 		list.add(ServerIneFormI18nProvider.class);
 		return list;
 	}

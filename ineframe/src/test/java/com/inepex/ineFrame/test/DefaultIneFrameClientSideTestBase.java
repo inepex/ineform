@@ -17,7 +17,7 @@ public class DefaultIneFrameClientSideTestBase extends IneFrameClientSideTestBas
 	}
 
 	@Override
-	public List<Class<? extends ServerI18nProvider<? extends I18nModule>>> listUsedI18nClasses() {
+	public List<Class<? extends ServerI18nProvider>> listUsedI18nClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -47,14 +47,14 @@ public abstract class IneFrameClientSideTestBase implements IneInitializer {
 			.doInitialize();
 	}
 	
-	public abstract List<Class<? extends ServerI18nProvider<? extends I18nModule>>> listUsedI18nClasses();
+	public abstract List<Class<? extends ServerI18nProvider>> listUsedI18nClasses();
 	
 	@Override
 	public final void registerAdditionalI18nModules(I18nStore_Server serverI18n,
 			Provider<CurrentLang> currentLangProvider) {
-		List<Class<? extends ServerI18nProvider<? extends I18nModule>>> modules = listUsedI18nClasses();
+		List<Class<? extends ServerI18nProvider>> modules = listUsedI18nClasses();
 		if(modules!=null) {
-			for(Class<? extends ServerI18nProvider<? extends I18nModule>> mod : modules) {
+			for(Class<? extends ServerI18nProvider> mod : modules) {
 				serverI18n.registerModule(MockI18n.mock(mod));
 			}
 		}
