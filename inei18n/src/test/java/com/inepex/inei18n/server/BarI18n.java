@@ -19,6 +19,10 @@ public class BarI18n extends I18nModule {
 		super(MODULE_NAME);
 		BarI18n.moduleProvider = moduleProvider;
 	}
+	
+	public static String getI18nText(String key){
+		return moduleProvider.get().getText(key);
+	}
 
 	@Override
 	public I18nModuleProvider<?> getI18nProvider() {
