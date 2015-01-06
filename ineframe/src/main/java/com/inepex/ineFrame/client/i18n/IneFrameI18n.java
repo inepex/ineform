@@ -24,44 +24,6 @@ public class IneFrameI18n extends I18nModule {
 	public I18nModuleProvider<?> getI18nProvider() {
 		return moduleProvider;
 	}
-	
-	public String CAPTCHA = "Captcha:";
-	public String LOGGINGIN = "Logging in...";
-	public String LOGIN = "Login";
-	public String LOGOUT = "Log out";
-	public String OK = "Ok";
-	public String PASSWORD = "Password:";
-	public String USERNAME = "User name:";
-	public String confirmDialogTitle = "Question";
-	public String dayShort = "d";
-	public String daysAgo = "{number} days ago";
-	public String dialogCancelButton = "Cancel";
-	public String dialogOkButton = "Ok";
-	public String dummyPageText = "not implemented yet...";
-	public String errorDialogTitle = "Error";
-	public String generalError = "Unexpected error occurred. Please try refreshing the page. If the error persist, contact the administrator!";
-	public String hourShort = "h";
-	public String hoursAgo = "{number} hours ago";
-	public String inemenu_apps = "Apps";
-	public String inemenu_help = "Help";
-	public String inemenu_helpsettings = "Help & Settings";
-	public String inemenu_leavealias = "Leave alias";
-	public String inemenu_logout = "Logout";
-	public String inemenu_settings = "Settings";
-	public String loading = "Loading data...";
-	public String minShort = "m";
-	public String minsAgo = "{number} mins ago";
-	public String oneDayAgo = "one day ago";
-	public String oneHourAgo = "one hour ago";
-	public String oneMinAgo = "one min ago";
-	public String reconnected = "Connected";
-	public String reconnection = "No network connection. We will try to reconnect in a few seconds.";
-	public String saveError = "Error occurred during save: <br /> {error}";
-	public String saveSuccessful = "Save successful.";
-	public String saveUnknownError = "Unknown error occurred during save!";
-	public String savingInProgress = "Saving of {savedThing} in progress";
-	public String secSAgo = "{number} secs ago";
-	public String secShort = "s";
 
 	
 	/**
@@ -70,7 +32,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Captcha:
 	*/
 	public static String CAPTCHA() {
-		return moduleProvider.get().CAPTCHA;
+		return moduleProvider.get().getText("CAPTCHA");
 	}
 	
 	/**
@@ -79,7 +41,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Belépés...
 	*/
 	public static String LOGGINGIN() {
-		return moduleProvider.get().LOGGINGIN;
+		return moduleProvider.get().getText("LOGGINGIN");
 	}
 	
 	/**
@@ -88,7 +50,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Belépés
 	*/
 	public static String LOGIN() {
-		return moduleProvider.get().LOGIN;
+		return moduleProvider.get().getText("LOGIN");
 	}
 	
 	/**
@@ -97,7 +59,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Kijelentkezés
 	*/
 	public static String LOGOUT() {
-		return moduleProvider.get().LOGOUT;
+		return moduleProvider.get().getText("LOGOUT");
 	}
 	
 	/**
@@ -106,7 +68,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Ok
 	*/
 	public static String OK() {
-		return moduleProvider.get().OK;
+		return moduleProvider.get().getText("OK");
 	}
 	
 	/**
@@ -115,7 +77,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Jelszó:
 	*/
 	public static String PASSWORD() {
-		return moduleProvider.get().PASSWORD;
+		return moduleProvider.get().getText("PASSWORD");
 	}
 	
 	/**
@@ -124,7 +86,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Felhasználó név:
 	*/
 	public static String USERNAME() {
-		return moduleProvider.get().USERNAME;
+		return moduleProvider.get().getText("USERNAME");
 	}
 	
 	/**
@@ -133,7 +95,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Kérdés
 	*/
 	public static String confirmDialogTitle() {
-		return moduleProvider.get().confirmDialogTitle;
+		return moduleProvider.get().getText("confirmDialogTitle");
 	}
 	
 	/**
@@ -142,7 +104,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> n
 	*/
 	public static String dayShort() {
-		return moduleProvider.get().dayShort;
+		return moduleProvider.get().getText("dayShort");
 	}
 	
 	/**
@@ -151,7 +113,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> {number} napja
 	*/
 	public static String daysAgo(String number) {
-		return moduleProvider.get().daysAgo.replace("{number}", number);
+		return moduleProvider.get().getText("daysAgo").replace("{number}", number);
 	}
 	
 	/**
@@ -160,7 +122,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Mégse
 	*/
 	public static String dialogCancelButton() {
-		return moduleProvider.get().dialogCancelButton;
+		return moduleProvider.get().getText("dialogCancelButton");
 	}
 	
 	/**
@@ -169,7 +131,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Ok
 	*/
 	public static String dialogOkButton() {
-		return moduleProvider.get().dialogOkButton;
+		return moduleProvider.get().getText("dialogOkButton");
 	}
 	
 	/**
@@ -178,7 +140,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> készülőben...
 	*/
 	public static String dummyPageText() {
-		return moduleProvider.get().dummyPageText;
+		return moduleProvider.get().getText("dummyPageText");
 	}
 	
 	/**
@@ -187,7 +149,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Hiba
 	*/
 	public static String errorDialogTitle() {
-		return moduleProvider.get().errorDialogTitle;
+		return moduleProvider.get().getText("errorDialogTitle");
 	}
 	
 	/**
@@ -196,7 +158,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A szerveren nem várt hiba lépett fel! Próbálja meg újratölteni az oldalt. Ha a hibajelenséget továbbra is tapasztalja kérem értesítse a rendszergazdát!
 	*/
 	public static String generalError() {
-		return moduleProvider.get().generalError;
+		return moduleProvider.get().getText("generalError");
 	}
 	
 	/**
@@ -205,7 +167,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> ó
 	*/
 	public static String hourShort() {
-		return moduleProvider.get().hourShort;
+		return moduleProvider.get().getText("hourShort");
 	}
 	
 	/**
@@ -214,7 +176,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> {number} órája
 	*/
 	public static String hoursAgo(String number) {
-		return moduleProvider.get().hoursAgo.replace("{number}", number);
+		return moduleProvider.get().getText("hoursAgo").replace("{number}", number);
 	}
 	
 	/**
@@ -223,7 +185,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Appok
 	*/
 	public static String inemenu_apps() {
-		return moduleProvider.get().inemenu_apps;
+		return moduleProvider.get().getText("inemenu_apps");
 	}
 	
 	/**
@@ -232,7 +194,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Súgó
 	*/
 	public static String inemenu_help() {
-		return moduleProvider.get().inemenu_help;
+		return moduleProvider.get().getText("inemenu_help");
 	}
 	
 	/**
@@ -241,7 +203,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Súgó, beállítások
 	*/
 	public static String inemenu_helpsettings() {
-		return moduleProvider.get().inemenu_helpsettings;
+		return moduleProvider.get().getText("inemenu_helpsettings");
 	}
 	
 	/**
@@ -250,7 +212,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Alias mód elhagyása
 	*/
 	public static String inemenu_leavealias() {
-		return moduleProvider.get().inemenu_leavealias;
+		return moduleProvider.get().getText("inemenu_leavealias");
 	}
 	
 	/**
@@ -259,7 +221,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Kijelentkezés
 	*/
 	public static String inemenu_logout() {
-		return moduleProvider.get().inemenu_logout;
+		return moduleProvider.get().getText("inemenu_logout");
 	}
 	
 	/**
@@ -268,7 +230,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Beállítások
 	*/
 	public static String inemenu_settings() {
-		return moduleProvider.get().inemenu_settings;
+		return moduleProvider.get().getText("inemenu_settings");
 	}
 	
 	/**
@@ -277,7 +239,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Adatok betöltése...
 	*/
 	public static String loading() {
-		return moduleProvider.get().loading;
+		return moduleProvider.get().getText("loading");
 	}
 	
 	/**
@@ -286,7 +248,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> p
 	*/
 	public static String minShort() {
-		return moduleProvider.get().minShort;
+		return moduleProvider.get().getText("minShort");
 	}
 	
 	/**
@@ -295,7 +257,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> {number} perce
 	*/
 	public static String minsAgo(String number) {
-		return moduleProvider.get().minsAgo.replace("{number}", number);
+		return moduleProvider.get().getText("minsAgo").replace("{number}", number);
 	}
 	
 	/**
@@ -304,7 +266,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> egy napja
 	*/
 	public static String oneDayAgo() {
-		return moduleProvider.get().oneDayAgo;
+		return moduleProvider.get().getText("oneDayAgo");
 	}
 	
 	/**
@@ -313,7 +275,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> egy órája
 	*/
 	public static String oneHourAgo() {
-		return moduleProvider.get().oneHourAgo;
+		return moduleProvider.get().getText("oneHourAgo");
 	}
 	
 	/**
@@ -322,7 +284,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> egy perce
 	*/
 	public static String oneMinAgo() {
-		return moduleProvider.get().oneMinAgo;
+		return moduleProvider.get().getText("oneMinAgo");
 	}
 	
 	/**
@@ -331,7 +293,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Csatlakozva
 	*/
 	public static String reconnected() {
-		return moduleProvider.get().reconnected;
+		return moduleProvider.get().getText("reconnected");
 	}
 	
 	/**
@@ -340,7 +302,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Nincs kapcsolat. Néhány másodperc múlva újrapróbálkozunk.
 	*/
 	public static String reconnection() {
-		return moduleProvider.get().reconnection;
+		return moduleProvider.get().getText("reconnection");
 	}
 	
 	/**
@@ -349,7 +311,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A mentés során az alábbi hiba történt: <br /> {error}
 	*/
 	public static String saveError(String error) {
-		return moduleProvider.get().saveError.replace("{error}", error);
+		return moduleProvider.get().getText("saveError").replace("{error}", error);
 	}
 	
 	/**
@@ -358,7 +320,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> Sikeresen elmentve
 	*/
 	public static String saveSuccessful() {
-		return moduleProvider.get().saveSuccessful;
+		return moduleProvider.get().getText("saveSuccessful");
 	}
 	
 	/**
@@ -367,7 +329,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A mentés során ismeretlen hiba történt.
 	*/
 	public static String saveUnknownError() {
-		return moduleProvider.get().saveUnknownError;
+		return moduleProvider.get().getText("saveUnknownError");
 	}
 	
 	/**
@@ -376,7 +338,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> A(z) {savedThing} mentése folyamatban
 	*/
 	public static String savingInProgress(String savedThing) {
-		return moduleProvider.get().savingInProgress.replace("{savedThing}", savedThing);
+		return moduleProvider.get().getText("savingInProgress").replace("{savedThing}", savedThing);
 	}
 	
 	/**
@@ -385,7 +347,7 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> {number} másodperce
 	*/
 	public static String secSAgo(String number) {
-		return moduleProvider.get().secSAgo.replace("{number}", number);
+		return moduleProvider.get().getText("secSAgo").replace("{number}", number);
 	}
 	
 	/**
@@ -394,6 +356,6 @@ public class IneFrameI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> mp
 	*/
 	public static String secShort() {
-		return moduleProvider.get().secShort;
+		return moduleProvider.get().getText("secShort");
 	}
 }

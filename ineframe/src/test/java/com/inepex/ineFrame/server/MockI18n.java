@@ -1,23 +1,26 @@
 package com.inepex.ineFrame.server;
 
-import org.mockito.Mockito;
+import java.lang.reflect.Constructor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Provider;
+import com.inepex.ineFrame.test.IneFrameClientSideTestBase.MockCurrentLangProvider;
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.I18nModule;
-import com.inepex.inei18n.shared.I18nModuleProvider;
 
 public class MockI18n {
 
 	private static final Logger _logger = LoggerFactory.getLogger(MockI18n.class);
 	
-	public static <T extends I18nModule> T mock(Class<T> clazz){
+	public static <T extends I18nModule, K extends ServerI18nProvider<T>> T mock(Class<K> serverClazz){
 		try {
-		ServerI18nProvider<T> i18nProvider = Mockito.mock(ServerI18nProvider.class);
-		clazz.getConstructor(I18nModuleProvider.class).newInstance(i18nProvider);
-		Mockito.when(i18nProvider.get()).thenReturn(clazz.newInstance());
-		return i18nProvider.get();
+			Constructor<K> constructor = serverClazz.getConstructor(Provider.class);
+			ServerI18nProvider<T> i18nProvider = constructor.newInstance(new MockCurrentLangProvider());
+			T module = i18nProvider.getVirgineI18nModule();
+			i18nProvider.addI18nForLang("en", module);
+			return module;
 		} catch (Exception e){
 			_logger.error("Exception", e);
 			return null;

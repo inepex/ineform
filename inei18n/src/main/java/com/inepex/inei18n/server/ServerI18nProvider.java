@@ -1,9 +1,7 @@
 package com.inepex.inei18n.server;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,6 @@ public abstract class ServerI18nProvider<T extends I18nModule> implements I18nMo
 	private final Map<String, T> i18nsByLang = new HashMap<String, T>();
 	
 	private Provider<CurrentLang> currentLangProvider;
-	private TreeMap<String, Field> fieldsByName = null;
 	
 	public ServerI18nProvider() {
 	}
@@ -52,33 +49,12 @@ public abstract class ServerI18nProvider<T extends I18nModule> implements I18nMo
 			logger.warn("setByKeyAndLang called with invalid properties lang: {}, key: {}, value: {}", new Object[]{lang, key, value});
 			return;
 		}
-		try {
-			T module = getI18nForLang(lang);
-			Field field = getFieldsTreeMap().get(key);
-			field.set(module, value);
-		} catch (IllegalArgumentException e) {
-			logger.warn("IllegalArgumentException when setByKeyAndLang called with invalid properties lang: {}, key: {}, value: {}", new Object[]{lang, key, value});
-		} catch (IllegalAccessException e) {
-			logger.warn("IllegalAccessException when setByKeyAndLang called with invalid properties lang: {}, key: {}, value: {}", new Object[]{lang, key, value});
-		} catch (Exception e) {
-			logger.warn(e.getClass().getName() +
-					" when setByKeyAndLang called with invalid properties lang: {}, key: {}, value: {}", new Object[]{lang, key, value});
-		}
-	}
-	
-	protected TreeMap<String, Field> getFieldsTreeMap() {
-		if (fieldsByName == null) {
-			fieldsByName = new TreeMap<String, Field>();
-			for (Field field : getModuleClass().getFields()) {
-				fieldsByName.put(field.getName(), field);
-			}
-		}
-		
-		return fieldsByName;
+		T module = getI18nForLang(lang);
+		module.getTextMap().put(key, value);
 	}
 	
 	protected abstract Class<T> getModuleClass();
 	
-	protected abstract T getVirgineI18nModule();
+	public abstract T getVirgineI18nModule();
 	
 }

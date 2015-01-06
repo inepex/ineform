@@ -22,9 +22,9 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestBuilder.Method;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
-import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector.ManipulateResultCallback;
 import com.inepex.ineForm.client.util.RequestBuilderFactory;
+import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.server.MockI18n;
@@ -51,7 +51,7 @@ public class RestDataConnectorComplexTest {
 
 	@Before
 	public void init() throws Exception {
-		MockI18n.mock(IneFormI18n.class);
+		MockI18n.mock(ServerIneFormI18nProvider.class);
 		MockitoAnnotations.initMocks(this);
 		descriptorStore = TestUtil.descriptorStore;
 		testKvo = (KeyValueObject) TestUtil.getTestKvo().getAssistedObject();		

@@ -19,14 +19,15 @@ public class FooI18n extends I18nModule {
 		super(MODULE_NAME);
 		FooI18n.moduleProvider = moduleProvider;
 	}
+	
+	public static String getI18nText(String key){
+		return moduleProvider.get().getText(key);
+	}
 
 	@Override
 	public I18nModuleProvider<?> getI18nProvider() {
 		return moduleProvider;
 	}
-	
-	public String foo1 = "foo1_EN";
-	public String foo2 = "foo2_EN";
 
 	
 	/**
@@ -35,7 +36,7 @@ public class FooI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> foo1_HU
 	*/
 	public static String foo1() {
-		return moduleProvider.get().foo1;
+		return moduleProvider.get().getText("foo1");
 	}
 	
 	/**
@@ -44,6 +45,6 @@ public class FooI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> foo2_HU
 	*/
 	public static String foo2() {
-		return moduleProvider.get().foo2;
+		return moduleProvider.get().getText("foo2");
 	}
 }
