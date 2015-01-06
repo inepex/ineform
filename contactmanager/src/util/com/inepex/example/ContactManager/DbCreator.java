@@ -54,7 +54,7 @@ public class DbCreator extends EntityManagerInitializier {
 								new PhoneNumber("+23-3854-9554", work),
 								new PhoneNumber("+22-2345-4385", other))
 						, list(new EmailAddress("john.blue@blueeagle.com"),
-								new EmailAddress("jack.the.ripper@hotmail.com")))), new CustomKVO());
+								new EmailAddress("jack.the.ripper@hotmail.com")))));
 		
 		linkCompany(blueEagle);
 		em.persist(blueEagle);
@@ -74,7 +74,7 @@ public class DbCreator extends EntityManagerInitializier {
 							, list(new PhoneNumber("+10-153-2522", home),
 									new PhoneNumber("+10-323-25223", work),
 									new PhoneNumber("+10-126-2473", other))
-							, null)), new CustomKVO());
+							, null)));
 		
 		linkCompany(redYellow);
 		em.persist(redYellow);
@@ -88,7 +88,7 @@ public class DbCreator extends EntityManagerInitializier {
 							, list(new EmailAddress("szabolcs.csincsi@inclust.com"))),
 					new Contact("Gabor Madi"
 							, null
-							, list(new EmailAddress("gabor.madi@inclust.com")))), new CustomKVO());
+							, list(new EmailAddress("gabor.madi@inclust.com")))));
 		
 		linkCompany(inclust);
 		em.persist(inclust);
@@ -103,7 +103,7 @@ public class DbCreator extends EntityManagerInitializier {
 										new PhoneNumber("+1-323-25223", work),
 										new PhoneNumber("+1-126-2473", other))
 								, list(new EmailAddress("borbala.lantos@mail.bme.hu"),
-									new EmailAddress("titkarsag.ppke@mail.bme.hu")))), new CustomKVO());
+									new EmailAddress("titkarsag.ppke@mail.bme.hu")))));
 			
 		linkCompany(bme);
 		em.persist(bme);
@@ -122,7 +122,7 @@ public class DbCreator extends EntityManagerInitializier {
 										new PhoneNumber("+34-323-25223", work),
 										new PhoneNumber("+34-126-2473", other))
 								, list(new EmailAddress("borbala.lakatos@sfc.hu"),
-									new EmailAddress("titkarsag@sfc.hu")))), new CustomKVO());
+									new EmailAddress("titkarsag@sfc.hu")))));
 			
 		linkCompany(friedCheeseCorp);
 		em.persist(friedCheeseCorp);
@@ -130,7 +130,7 @@ public class DbCreator extends EntityManagerInitializier {
 		Company CAndC = new Company("Cow and Chichen Ltd", "+9-063-1811", "mail@candc.com", "http://candc.co.uk/",
 				list(new Contact("Chicken"
 								, list(new PhoneNumber("+9-153-2522", work))
-								, null)), new CustomKVO());
+								, null)));
 			
 		linkCompany(CAndC);
 		em.persist(CAndC);
@@ -138,7 +138,7 @@ public class DbCreator extends EntityManagerInitializier {
 		Company dexter = new Company("Dexter Labs Inc.", "+2-142-234", "dexter@dexterlabs.com", "http://dexterlabs.com/",
 				list(new Contact("Dexter"
 								, list(new PhoneNumber("+34-153-2522", work))
-								, list(new EmailAddress("dexter@dexterlabs.com")))), new CustomKVO());
+								, list(new EmailAddress("dexter@dexterlabs.com")))));
 			
 		linkCompany(dexter);
 		em.persist(dexter);
@@ -152,7 +152,7 @@ public class DbCreator extends EntityManagerInitializier {
 							, list(new EmailAddress("edd@eeetoys.com")))
 					,new Contact("Edddy"
 							, list(new PhoneNumber("+43-153-2556", work))
-							, list(new EmailAddress("eddy@eeetoys.com")))), new CustomKVO());
+							, list(new EmailAddress("eddy@eeetoys.com")))));
 			
 		linkCompany(eee);
 		em.persist(eee);
@@ -166,7 +166,7 @@ public class DbCreator extends EntityManagerInitializier {
 								, null)
 					,new Contact("Roy"
 							, list(new PhoneNumber("+1-153-2556", work))
-							, null)), new CustomKVO());
+							, null)));
 			
 		linkCompany(gRex);
 		em.persist(gRex);

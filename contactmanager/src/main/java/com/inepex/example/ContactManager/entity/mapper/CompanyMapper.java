@@ -16,7 +16,6 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class CompanyMapper extends BaseMapper<Company>{
@@ -72,20 +71,6 @@ public class CompanyMapper extends BaseMapper<Company>{
 				}
 			}
 		}
-    	if(fromHandler.containsRelation(CompanyConsts.k_extData)) {
-    			CustomKVO custKvo = to.getExtData();
-    			if(custKvo==null) {
-    				custKvo=new CustomKVO();
-    				to.setExtData(custKvo);
-    			}
-    			
-    			ObjectDesc od = null;
-    			for(CustomKVOObjectDesc desc : descs) 
-    				if(CompanyConsts.k_extData.equals(desc.getKey()))
-    						od=desc;
-    				
-    			CustomKVOMapperHelper.mapIntoCustomKVO(custKvo, fromHandler.getExtData().getKvo(), od);
-    		}
 
 		/*hc:customToEntity*/
 		//custom mappings to Entity comes here.
@@ -119,8 +104,6 @@ public class CompanyMapper extends BaseMapper<Company>{
     			handler.setContacts(ineList);
     		}
 		}
-		if(entity.getExtData() != null)
-			handler.setExtData(new Relation(CustomKVOMapperHelper.getKVOFromCustomKVO(entity.getExtData())));
 
 		/*hc:customToKvo*/
 		//custom mappings to Kvo comes here. Eg. when some properties should not be sent to the UI

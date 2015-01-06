@@ -8,9 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
@@ -41,20 +39,15 @@ public class Company {
 	@OneToMany(mappedBy="company", cascade={CascadeType.ALL} ) //2
 	private List<Contact> contacts;
 	
-	@JoinColumn(nullable=false)
-	@OneToOne(cascade={CascadeType.ALL})
-	private CustomKVO extData = new CustomKVO();
-	
 	public Company(){
 	}
 	
-	public Company(String name, String phone, String email, String webPage, List<Contact> contacts, CustomKVO extData) {
+	public Company(String name, String phone, String email, String webPage, List<Contact> contacts) {
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
 		this.webPage = webPage;
 		this.contacts = contacts;
-		this.extData = extData;
 	}
 	
 	@Override
@@ -114,11 +107,4 @@ public class Company {
 		this.contacts = contacts;
 	}
 	
-	public CustomKVO getExtData() {
-		return extData;
-	}
-	
-	public void setExtData(CustomKVO extData) {
-		this.extData = extData;
-	}
 }
