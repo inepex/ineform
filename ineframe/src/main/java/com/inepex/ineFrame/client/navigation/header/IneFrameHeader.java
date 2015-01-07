@@ -40,7 +40,7 @@ public class IneFrameHeader {
 		
 		public void onLogin();
 		
-		public void onLogout();		
+		public void onLogout();	
 	}
 	
 	private final Provider<View> viewProv;

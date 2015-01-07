@@ -15,6 +15,8 @@ public interface MasterPage {
 		public void toggleMessagePanel();
 		public void showMessagePanel();
 		public void hideMessagePanel();
+		public void showHeader();		
+		public void hideHeader();
 		public boolean isMessagePanelShown();
 		public void disableAliasMode(String name, String email);
 		public void enableAliasMode(String name, String email);

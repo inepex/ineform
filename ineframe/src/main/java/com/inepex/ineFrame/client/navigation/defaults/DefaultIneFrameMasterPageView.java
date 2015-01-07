@@ -13,7 +13,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.navigation.NavigationDrawer;
 import com.inepex.ineFrame.client.navigation.header.IneFrameHeader;
-import com.inepex.ineFrame.client.navigation.header.IneFrameHeader.View;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.navigation.messagepanel.MessagePanelWidget;
 import com.inepex.ineFrame.client.util.DesignConstants;
@@ -30,11 +29,13 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	private ClickableFlowPanel clickHandlerLayout;
 	private LayoutPanel headerAndPage;
 	private NavigationDrawer navigationDrawer;
-	private View header;
+	private IneFrameHeader.View header;
+	private MenuRenderer.View menu;
 
 	@Inject
 	DefaultIneFrameMasterPageView(IneFrameHeader.View header, MenuRenderer.View menu, MessagePanelWidget messagePanel, NavigationDrawer navigationDrawer) {
 		this.header = header;
+		this.menu = menu;
 		this.navigationDrawer = navigationDrawer;
 		this.messagePanel = messagePanel;
 		
@@ -164,5 +165,17 @@ public class DefaultIneFrameMasterPageView extends FlowPanel implements DefaultI
 	public void disableAliasMode(String name, String email){
 		navigationDrawer.disableAliasMode(name, email);
 		header.disableAliasMode();
+	}
+
+	@Override
+	public void showHeader() {
+		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base() + borderWidth, Unit.PX);
+		headerAndPage.setWidgetTopBottom(menu.asWidget(), DesignConstants.base() + borderWidth, Unit.PX, 0, Unit.PX);
+	}
+
+	@Override
+	public void hideHeader() {
+		headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, 0, Unit.PX);
+		headerAndPage.setWidgetTopBottom(menu.asWidget(), 0, Unit.PX, 0, Unit.PX);
 	}
 }
