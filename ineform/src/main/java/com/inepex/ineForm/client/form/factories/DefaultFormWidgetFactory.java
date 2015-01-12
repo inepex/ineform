@@ -19,6 +19,7 @@ import com.inepex.ineForm.client.form.widgets.LabelFW;
 import com.inepex.ineForm.client.form.widgets.LabelledFW;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.NumberTextBoxFW;
+import com.inepex.ineForm.client.form.widgets.PasswordTextBoxByDomId;
 import com.inepex.ineForm.client.form.widgets.PasswordTextBoxFW;
 import com.inepex.ineForm.client.form.widgets.PhoneFW;
 import com.inepex.ineForm.client.form.widgets.PlaceForSomethingFW;
@@ -30,6 +31,7 @@ import com.inepex.ineForm.client.form.widgets.StringListBoxFw;
 import com.inepex.ineForm.client.form.widgets.StringListFw;
 import com.inepex.ineForm.client.form.widgets.SuggestBoxFw;
 import com.inepex.ineForm.client.form.widgets.TextAreaFW;
+import com.inepex.ineForm.client.form.widgets.TextBoxByDomIdFW;
 import com.inepex.ineForm.client.form.widgets.TextBoxFW;
 import com.inepex.ineForm.client.form.widgets.ThreeWayBoolFw;
 import com.inepex.ineForm.client.form.widgets.chooser.ChooserFw;
@@ -176,6 +178,10 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 			createdWidget = new StringListBoxFw(fieldDesc, wrDesc);
 		} else  if(wrDesc.getFormWidgetType().equals(FWTypes.SUGGESTBOX)) {
 			createdWidget = new SuggestBoxFw(formCtx, fieldDesc);
+		} else if (wrDesc.getFormWidgetType().equals(FWTypes.TEXTBOXBYDOMID)){
+			createdWidget = new TextBoxByDomIdFW(fieldDesc, wrDesc);
+		} else if (wrDesc.getFormWidgetType().equals(FWTypes.PASSWORDTEXTBOXBYDOMID)){
+			createdWidget = new PasswordTextBoxByDomId(fieldDesc, wrDesc);
 		}
 		
 

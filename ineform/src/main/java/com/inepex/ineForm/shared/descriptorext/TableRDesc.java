@@ -3,6 +3,7 @@ package com.inepex.ineForm.shared.descriptorext;
 import com.inepex.ineom.shared.descriptor.Node;
 
 
+
 public class TableRDesc extends TableRDescBase {
 	
 	private static final long serialVersionUID = -2624519376818046268L;

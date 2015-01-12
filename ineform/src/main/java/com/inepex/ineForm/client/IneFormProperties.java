@@ -11,6 +11,8 @@ public class IneFormProperties {
 	public static boolean IN_OLD_STYLE_COMPATIBILITY_MODE = true;
 	
 	public static boolean showIds;
+	
+	public static final String domId = "domId";
 
 	public static String DEFAULT_TextBoxWidth = "585px";
 	public static String DEFAULT_TextAreaHeigth = "150px";

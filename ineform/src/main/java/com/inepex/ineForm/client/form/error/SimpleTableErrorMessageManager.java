@@ -2,8 +2,8 @@ package com.inepex.ineForm.client.form.error;
 
 import java.util.List;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Visibility;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTML;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 
