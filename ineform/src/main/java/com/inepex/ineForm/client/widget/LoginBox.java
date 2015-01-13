@@ -269,4 +269,5 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	// these helper methods are used for assigning functionality to the checkbox in the derived class
 	protected abstract HasValue<Boolean> getCheckBox();
 	protected abstract IsWidget getCheckBoxAsWidget();
+
 }
