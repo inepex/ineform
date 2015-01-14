@@ -174,9 +174,6 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 				
 					cf.setStyleName(row, 1, ResourceHelper.ineformRes().style().mandatorySign());
 					if(mandatory && displayTitle) mainTable.setText(row, 1, "*");
-					else {
-						mainTable.getCellFormatter().setVisible(row, 1, false);
-					}
 				
 					cf.setStyleName(row, 2, ResourceHelper.ineformRes().style().cellContent());
 					cf.addStyleName(row, 2, getRowStyleName(even));
@@ -232,9 +229,14 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	public void setFWVisible(String key, boolean visible) {
 		Integer row = rowsByKeys.get(key);
 		if(row==null) return;
-		
+		FDesc fDesc = objectDescriptor.getField(key);
+		boolean mandatory = fDesc.hasValidator(KeyValueObjectValidationManager.MANDATORY);
 		cf.setVisible(row, 0, visible);
-		cf.setVisible(row, 1, visible);
+		if(!mandatory && visible){
+			cf.setVisible(row, 1, false);
+		}else{
+			cf.setVisible(row, 1, visible);
+		}
 		cf.setVisible(row, 2, visible);
 		
 		cf.setVisible(row, 3, visible);
