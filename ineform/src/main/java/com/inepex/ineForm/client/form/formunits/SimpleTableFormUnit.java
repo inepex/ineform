@@ -44,6 +44,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	public static final String WIDTH="width";
 	public static final String putNextWidgetIntoThisLineToo="putNextWidgetIntoThisLineToo";
 	public static final String DISPLAYTITLE="displayTitle";
+	public static final String TITLESTYLE="titleStyle";
 	
 	protected final Grid mainTable = new Grid();
 	protected final CellFormatter cf = mainTable.getCellFormatter();
@@ -54,6 +55,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	protected final EventBus eventBus;
 	protected final ValueRangeProvider valueRangeProvider;
 	protected boolean displayTitle = true;
+	protected String titleStyle = null;
 	
 	public SimpleTableFormUnit(FormContext formCtx,
 						   FormRDesc formRDesc, 
@@ -66,6 +68,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		this.formCtx = formCtx;
 		if (formRDesc.hasProp(DISPLAYTITLE)){
 			displayTitle = Boolean.parseBoolean(formRDesc.getPropValue(DISPLAYTITLE));
+		}
+		if (formRDesc.hasProp(TITLESTYLE)){
+			titleStyle = formRDesc.getPropValue(TITLESTYLE);
 		}
 		
 		insert(mainTable,0);
@@ -160,6 +165,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 					registerTitle(modelNameKeySet.get(0), titleWidget);
 					if (displayTitle) {
 						mainTable.setWidget(row, 0, titleWidget);
+						if (titleStyle != null){
+							titleWidget.addStyleName(titleStyle);
+						}
 					} else {
 						mainTable.getCellFormatter().setVisible(row, 0, false);
 					}
