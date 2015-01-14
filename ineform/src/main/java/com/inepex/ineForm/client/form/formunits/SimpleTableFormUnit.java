@@ -174,9 +174,6 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 				
 					cf.setStyleName(row, 1, ResourceHelper.ineformRes().style().mandatorySign());
 					if(mandatory && displayTitle) mainTable.setText(row, 1, "*");
-					else {
-						mainTable.getCellFormatter().setVisible(row, 1, false);
-					}
 				
 					cf.setStyleName(row, 2, ResourceHelper.ineformRes().style().cellContent());
 					cf.addStyleName(row, 2, getRowStyleName(even));
