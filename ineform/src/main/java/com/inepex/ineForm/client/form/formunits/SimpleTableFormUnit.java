@@ -42,7 +42,8 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 public class SimpleTableFormUnit extends AbstractFormUnit {
 
 	public static final String WIDTH="width";
-	public static final String putNextWidgetIntoThisLineToo="putNextWidgetIntoThisLineToo"; 
+	public static final String putNextWidgetIntoThisLineToo="putNextWidgetIntoThisLineToo";
+	public static final String DISPLAYTITLE="displayTitle";
 	
 	protected final Grid mainTable = new Grid();
 	protected final CellFormatter cf = mainTable.getCellFormatter();
@@ -52,6 +53,7 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	protected final FormWidgetFactory formWidgetFactory;
 	protected final EventBus eventBus;
 	protected final ValueRangeProvider valueRangeProvider;
+	protected boolean displayTitle = true;
 	
 	public SimpleTableFormUnit(FormContext formCtx,
 						   FormRDesc formRDesc, 
@@ -62,6 +64,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		this.eventBus=formCtx.eventBus;
 		this.formWidgetFactory = formCtx.formWidgetFactory;
 		this.formCtx = formCtx;
+		if (formRDesc.hasProp(DISPLAYTITLE)){
+			displayTitle = Boolean.parseBoolean(formRDesc.getPropValue(DISPLAYTITLE));
+		}
 		
 		insert(mainTable,0);
 		
@@ -72,7 +77,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 		
 		renderForm(selectedFields, formRDesc);
 		
-		mainTable.getColumnFormatter().setWidth(0, IneFormProperties.DEFAULT_FormLabelWidth);
+		if (displayTitle){
+			mainTable.getColumnFormatter().setWidth(0, IneFormProperties.DEFAULT_FormLabelWidth);
+		}
 	}
 
 	private String getRowStyleName(boolean even) {
@@ -151,10 +158,17 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 					
 					HTML titleWidget = new HTML(titleText);
 					registerTitle(modelNameKeySet.get(0), titleWidget);
-					mainTable.setWidget(row, 0, titleWidget);
+					if (displayTitle) {
+						mainTable.setWidget(row, 0, titleWidget);
+					} else {
+						mainTable.getCellFormatter().setVisible(row, 0, false);
+					}
 				
 					cf.setStyleName(row, 1, ResourceHelper.ineformRes().style().mandatorySign());
-					if(mandatory) mainTable.setText(row, 1, "*");
+					if(mandatory && displayTitle) mainTable.setText(row, 1, "*");
+					else {
+						mainTable.getCellFormatter().setVisible(row, 1, false);
+					}
 				
 					cf.setStyleName(row, 2, ResourceHelper.ineformRes().style().cellContent());
 					cf.addStyleName(row, 2, getRowStyleName(even));
