@@ -19,12 +19,12 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.IneForm;
+import com.inepex.ineForm.client.form.widgets.CaptchaFW;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
@@ -38,7 +38,6 @@ import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.widgets.CaptchaWidget;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoAction;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoResult;
@@ -54,13 +53,12 @@ public abstract class LoginBox extends HandlerAwareComposite {
 
 	protected final static String email = "email";
 	protected final static String pass = "pass";
+	protected final static String captcha = "captcha";
 	protected final static String loginObjectDesc = "loginObjectDesc";
 
 	protected final VerticalPanel vp = new VerticalPanel();
 	protected FormPanel formPanel;
 	protected final VerticalPanel formContent = new VerticalPanel();
-	protected Label captchaLabel;
-	protected CaptchaWidget captchaWidget;
 	protected Button loginButton;
 	
 	protected IneForm ineForm;
@@ -71,6 +69,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected final IneDispatch ineDispatch;
 	protected final DescriptorStore descriptorStore;
 	protected final FormFactory formFactory;
+	
 	
 	protected LoginBox(AuthManager authManager, 
 					   HistoryProvider historyProvider, 
@@ -97,13 +96,16 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected void createUI() {
 		ObjectDesc desc = new ObjectDesc(loginObjectDesc, 
 				 						 new StringFDesc(email, IneFrameI18n.USERNAME()),
-				 						 new StringFDesc(pass, IneFrameI18n.PASSWORD()));
+				 						 new StringFDesc(pass, IneFrameI18n.PASSWORD()),
+				 						 new StringFDesc(captcha, IneFrameI18n.CAPTCHA()));
 		descriptorStore.registerObjectDesc(Marker.registered, desc);
 		FormRDesc fDesc = new FormRDesc(loginObjectDesc);
 		fDesc.getRootNode().addChild(email, new WidgetRDesc(FWTypes.TEXTBOXBYDOMID)
 					.prop(IneFormProperties.domId, "username"));
 		fDesc.getRootNode().addChild(pass, new WidgetRDesc(FWTypes.PASSWORDTEXTBOXBYDOMID)
 					.prop(IneFormProperties.domId, "password"));
+		fDesc.getRootNode().addChild(captcha, new WidgetRDesc(FWTypes.CAPTCHA).width(100)
+				.prop(CaptchaFW.PROP_RENDERING, CaptchaFW.HORIZONTAL));
 		descriptorStore.addDefaultTypedDesc(Marker.registered, loginObjectDesc, fDesc);
 		
 		ineForm = formFactory.createSimple(loginObjectDesc, null);
@@ -114,10 +116,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		loginButton = (submitEl == null ? new SubmitButton() : Button.wrap(submitEl));
 		loginButton.setText(IneFrameI18n.LOGIN());
 		
-		captchaLabel=new Label(IneFrameI18n.CAPTCHA());
-		formContent.add(captchaLabel);
-		captchaWidget=new CaptchaWidget();
-		formContent.add(captchaWidget);
+
 		formContent.add(loginButton);
 		
 		formPanel = (formEl == null ? new FormPanel() : FormPanel.wrap(formEl));
@@ -162,11 +161,9 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			@Override
 			public void onSuccess(CaptchaInfoResult result) {
 				if(result.isNeedCaptcha()) {
-					captchaLabel.setVisible(true);
-					captchaWidget.setVisible(true);
+					ineForm.setFWVisible(captcha, true);
 				} else {
-					captchaLabel.setVisible(false);
-					captchaWidget.setVisible(false);
+					ineForm.setFWVisible(captcha, false);
 				}
 				
 				setVisible(true);
@@ -180,7 +177,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		loginButton.setText(IneFrameI18n.LOGGINGIN());
 		String userName = ineForm.getValues().getStringUnchecked(email);
 		String passWord = ineForm.getValues().getStringUnchecked(pass);
-		authManager.doLogin(userName, passWord, captchaWidget.getCaptchaText(),
+		authManager.doLogin(userName, passWord, ineForm.getValues().getStringUnchecked(captcha),
 				new LoginCallback());
 	}
 	
@@ -228,9 +225,8 @@ public abstract class LoginBox extends HandlerAwareComposite {
 					@Override
 					public void execute() {
 						ineForm.resetValuesToEmpty();
-						captchaWidget.reloadCaptcha();
-						captchaLabel.setVisible(false);
-						captchaWidget.setVisible(false);
+						ineForm.setFWVisible(captcha, false);
+						((CaptchaFW)ineForm.getFormWidget(captcha)).getCaptchaWidget().reloadCaptcha();
 						loginButton.setEnabled(true);
 						loginButton.setText(IneFrameI18n.LOGIN());
 						setTextBoxesEnabled(true);
@@ -239,14 +235,12 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				
 			} else {
 				ineForm.getFormWidget(pass).setStringValue("");
-				captchaWidget.reloadCaptcha();
+				((CaptchaFW)ineForm.getFormWidget(captcha)).getCaptchaWidget().reloadCaptcha();
 				
 				if(result!=null && result.isNeedCaptcha()) {
-					captchaLabel.setVisible(true);
-					captchaWidget.setVisible(true);
+					ineForm.setFWVisible(captcha, true);
 				} else {
-					captchaLabel.setVisible(false);
-					captchaWidget.setVisible(false);
+					ineForm.setFWVisible(captcha, false);
 				}
 				
 				loginButton.setEnabled(true);
@@ -259,7 +253,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	
 	private void setTextBoxesEnabled(boolean enabled){
 		ineForm.setEnabled(enabled);
-		captchaWidget.getTextBox().setEnabled(enabled);
+		((CaptchaFW)ineForm.getFormWidget(captcha)).getCaptchaWidget().getTextBox().setEnabled(enabled);
 	}
 	
 	public void init(){
