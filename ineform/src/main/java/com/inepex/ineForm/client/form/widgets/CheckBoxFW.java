@@ -59,4 +59,8 @@ public class CheckBoxFW extends DenyingFormWidget {
 	public Boolean getBooleanValue() {
 		return checkBox.getValue();
 	}
+	
+	public IneCheckBox getIneCheckBox() {
+		return checkBox;
+	}
 }

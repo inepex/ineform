@@ -176,6 +176,10 @@ public class IneCheckBox extends HandlerAwareComposite implements HasValue<Boole
 		textWidget.setText(arg0);
 	}
 	
+	public HTML getTextWidget() {
+		return textWidget;
+	}
+	
 	public void setIconUrl(String iconUrl){
 		icon.setUrl(iconUrl);
 		icon.setVisible(true);

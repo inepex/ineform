@@ -19,6 +19,10 @@ public class IneFrameI18n extends I18nModule {
 		super(MODULE_NAME);
 		IneFrameI18n.moduleProvider = moduleProvider;
 	}
+	
+	public static String getI18nText(String key){
+		return moduleProvider.get().getText(key);
+	}
 
 	@Override
 	public I18nModuleProvider<?> getI18nProvider() {
@@ -83,7 +87,7 @@ public class IneFrameI18n extends I18nModule {
 	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> User name:
-	* <u><i>Magyarul:</i></u> Felhasználó név:
+	* <u><i>Magyarul:</i></u> E-mail cím:
 	*/
 	public static String USERNAME() {
 		return moduleProvider.get().getText("USERNAME");
