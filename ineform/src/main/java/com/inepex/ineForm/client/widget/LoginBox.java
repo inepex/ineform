@@ -56,7 +56,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	protected final static String captcha = "captcha";
 	protected final static String loginObjectDesc = "loginObjectDesc";
 
-	protected final VerticalPanel vp = new VerticalPanel();
+	protected final VerticalPanel mainPanel = new VerticalPanel();
 	protected FormPanel formPanel;
 	protected final VerticalPanel formContent = new VerticalPanel();
 	protected Button loginButton;
@@ -85,7 +85,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		this.formFactory = formFactory;
 	
 		createUI();
-		initWidget(vp);	
+		initWidget(mainPanel);	
 		if(IFConsts.COOKIE_TRUE.equals(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN)))
 			getCheckBox().setValue(true);	
 	}
@@ -122,7 +122,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		formPanel = (formEl == null ? new FormPanel() : FormPanel.wrap(formEl));
 		formEl.getStyle().setDisplay(Display.BLOCK);
 		formPanel.add(formContent);
-		vp.add(formPanel);
+		mainPanel.add(formPanel);
 	}
 	
 
