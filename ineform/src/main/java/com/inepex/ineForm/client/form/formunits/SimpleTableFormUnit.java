@@ -229,16 +229,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
 	public void setFWVisible(String key, boolean visible) {
 		Integer row = rowsByKeys.get(key);
 		if(row==null) return;
-		FDesc fDesc = objectDescriptor.getField(key);
-		boolean mandatory = fDesc.hasValidator(KeyValueObjectValidationManager.MANDATORY);
 		cf.setVisible(row, 0, visible);
-		if(!mandatory && visible){
-			cf.setVisible(row, 1, false);
-		}else{
-			cf.setVisible(row, 1, visible);
-		}
+		cf.setVisible(row, 1, visible);
 		cf.setVisible(row, 2, visible);
-		
 		cf.setVisible(row, 3, visible);
 		errormanagersByKey.get(key).setVisible(visible);
 	}
