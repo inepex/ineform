@@ -189,7 +189,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 		eventBus.fireEvent(pre);
 	}
 	
-	protected PlaceRequestEvent getRedirectPlaceReqEvt(){
+	public PlaceRequestEvent getRedirectPlaceReqEvt(){
 		PlaceRequestEvent pre = new PlaceRequestEvent();
 		pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
 				historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
