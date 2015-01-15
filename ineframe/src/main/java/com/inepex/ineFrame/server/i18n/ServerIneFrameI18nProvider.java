@@ -32,7 +32,7 @@ public class ServerIneFrameI18nProvider extends ServerI18nProvider<IneFrameI18n>
 		module.getTextMap().put("LOGOUT", "Log out");
 		module.getTextMap().put("OK", "Ok");
 		module.getTextMap().put("PASSWORD", "Password:");
-		module.getTextMap().put("USERNAME", "User name:");
+		module.getTextMap().put("USERNAME", "E-mail:");
 		module.getTextMap().put("confirmDialogTitle", "Question");
 		module.getTextMap().put("dayShort", "d");
 		module.getTextMap().put("daysAgo", "{number} days ago");

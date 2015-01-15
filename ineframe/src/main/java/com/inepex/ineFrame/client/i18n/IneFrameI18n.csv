@@ -4,7 +4,7 @@
 "LOGOUT";"";"Log out";"Kijelentkezés";"Odjava"
 "OK";"";"Ok";"Ok";"Ok"
 "PASSWORD";"";"Password:";"Jelszó:";"Lozinka:"
-"USERNAME";"";"User name:";"E-mail cím:";"Korisničko ime:"
+"USERNAME";"";"E-mail:";"E-mail cím:";"Korisničko ime:"
 "confirmDialogTitle";"";"Question";"Kérdés";"Pitanja"
 "dayShort";"";"d";"n";"d"
 "daysAgo";"in plural, must be short";"{number} days ago";"{number} napja";"pre {number} dana"
