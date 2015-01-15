@@ -17,6 +17,8 @@ public class IneFormProperties {
 	public static String DEFAULT_TextBoxWidth = "585px";
 	public static String DEFAULT_TextAreaHeigth = "150px";
 	
+	public static String DEFAULT_CaptchaTextBoxWidth = "58px";
+	
 	public static String DEFAULT_RichTextBoxWidth = "500px";
 	public static String DEFAULT_RichTextAreaHeigth = "350px";
 	

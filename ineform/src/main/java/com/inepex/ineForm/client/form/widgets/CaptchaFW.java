@@ -23,7 +23,7 @@ public class CaptchaFW extends StringFormWidget {
 		if(wrDesc.hasProp(PROP_RENDERING) && HORIZONTAL.equals(wrDesc.getPropValue(PROP_RENDERING))) {
 			captchaWidget = new CaptchaWidget(Rendering.HORIZONTAL);
 			if(!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
-				captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+				captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_CaptchaTextBoxWidth);
 			else
 				captchaWidget.getTextBox().setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
 			

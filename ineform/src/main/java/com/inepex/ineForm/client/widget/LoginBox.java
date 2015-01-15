@@ -258,6 +258,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 	
 	public void init(){
 		ineForm.resetValuesToEmpty();
+		ineForm.setFWVisible(captcha, false);
 	}
 	
 	// these helper methods are used for assigning functionality to the checkbox in the derived class
