@@ -18,7 +18,9 @@ public class DesignConstants {
 	private static double b1d08 = 52.0/48.0;
 	private static double b1d5 = 1.5;	
 	private static double b5 = 5;
-	private static double b4 = 4;
+	private static double b4 = 4;	
+	private static double b3d5 = 3.5;
+
 	
 	private static String userProfileBackgroundColor = "#303233";
 	private static String backgroundColor = "#303233";
@@ -137,6 +139,13 @@ public class DesignConstants {
 		return b4()+"px";
 	}	
 	
+	public static int b3d5() {
+		return getRelativeProperty(b3d5);
+	}
+	public static String b3d5WithUnit() {
+		return b3d5()+"px";
+	}	
+	
 	public static int baseNegative() {
 		return -1 * base;
 	}
@@ -219,6 +228,18 @@ public class DesignConstants {
 	public static String getIneColor3() {
 		return ineColor3;
 	}
+	
+	public static String getIneColor1Dark() {
+		return colorLuminance(ineColor1, -0.1);
+	}
+	
+	public static String getIneColor2Dark() {
+		return colorLuminance(ineColor2, -0.1);
+	}
+	
+	public static String getIneColor3Dark() {
+		return colorLuminance(ineColor3, -0.1);
+	}
 
 	public static String getMenuSeparatorColor() {
 		return menuSeparatorColor;
@@ -257,5 +278,21 @@ public class DesignConstants {
 	}
 	public static String getNavigationDrawerBackgroundColor() {
 		return navigationDrawerBackgroundColor;
+	}
+	
+	public static String colorLuminance(String hex, double lum) {
+		hex = hex.replace("#", "");
+		
+		// convert to decimal and change luminosity
+		String rgb = "#";
+		Integer c = 0;
+		for (int i = 0; i < 3; i++) {
+			c = Integer.parseInt(hex.substring(i*2, i*2 + 2), 16);
+			c = (int) Math.round(Math.min(Math.max(0, c + (c * lum)), 255));
+			String stringVal = Integer.toHexString(c);
+			rgb += ("00"+stringVal).substring(stringVal.length());
+		}
+
+		return rgb;
 	}
 }
