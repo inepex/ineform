@@ -19,4 +19,8 @@ public class TextBoxFW extends TextBoxFWBase {
 		initWidget(textBox);
 		textBox.addStyleName(ResourceHelper.ineformRes().style().textBoxFW());
 	}
+	
+	public TextBox getTextBox() {
+		return textBox;
+	}
 }
