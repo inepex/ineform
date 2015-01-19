@@ -18,7 +18,9 @@ public class DesignConstants {
 	private static double b1d08 = 52.0/48.0;
 	private static double b1d5 = 1.5;	
 	private static double b5 = 5;
-	private static double b4 = 4;
+	private static double b4 = 4;	
+	private static double b3d5 = 3.5;
+
 	
 	private static String userProfileBackgroundColor = "#303233";
 	private static String backgroundColor = "#303233";
@@ -135,6 +137,13 @@ public class DesignConstants {
 	}
 	public static String b4WithUnit() {
 		return b4()+"px";
+	}	
+	
+	public static int b3d5() {
+		return getRelativeProperty(b3d5);
+	}
+	public static String b3d5WithUnit() {
+		return b3d5()+"px";
 	}	
 	
 	public static int baseNegative() {
