@@ -219,6 +219,18 @@ public class DesignConstants {
 	public static String getIneColor3() {
 		return ineColor3;
 	}
+	
+	public static String getIneColor1Dark() {
+		return colorLuminance(ineColor1, -0.1);
+	}
+	
+	public static String getIneColor2Dark() {
+		return colorLuminance(ineColor2, -0.1);
+	}
+	
+	public static String getIneColor3Dark() {
+		return colorLuminance(ineColor3, -0.1);
+	}
 
 	public static String getMenuSeparatorColor() {
 		return menuSeparatorColor;
@@ -257,5 +269,21 @@ public class DesignConstants {
 	}
 	public static String getNavigationDrawerBackgroundColor() {
 		return navigationDrawerBackgroundColor;
+	}
+	
+	public static String colorLuminance(String hex, double lum) {
+		hex = hex.replace("#", "");
+		
+		// convert to decimal and change luminosity
+		String rgb = "#";
+		Integer c = 0;
+		for (int i = 0; i < 3; i++) {
+			c = Integer.parseInt(hex.substring(i*2, i*2 + 2), 16);
+			c = (int) Math.round(Math.min(Math.max(0, c + (c * lum)), 255));
+			String stringVal = Integer.toHexString(c);
+			rgb += ("00"+stringVal).substring(stringVal.length());
+		}
+
+		return rgb;
 	}
 }
