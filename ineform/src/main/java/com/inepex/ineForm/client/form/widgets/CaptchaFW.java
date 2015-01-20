@@ -1,5 +1,6 @@
 package com.inepex.ineForm.client.form.widgets;
 
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -53,7 +54,11 @@ public class CaptchaFW extends StringFormWidget {
 			
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				fireFormWidgetChanged();
+				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
+					fireFormWidgetChanged(true);
+				} else {
+					fireFormWidgetChanged();
+				}
 			}
 		}));
 
