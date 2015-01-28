@@ -1,0 +1,26 @@
+outpath:${class.workspaceRelativePath}auth/${classname}Auth.java
+package ${package}.auth;
+
+import com.inepex.core.command.base.AuthRuleSet;
+import com.inepex.core.module.authorization.AuthRuleProvider;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
+import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
+import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
+
+public class ${classname}Auth implements AuthRuleProvider {
+
+	@Override
+	public boolean authorize(Long userId, ObjectManipulation objectManipulation, AuthRuleSet authRuleSet) {
+		return false; 
+	}
+
+	@Override
+	public boolean authorize(Long userId, ObjectList objectList, AuthRuleSet authRuleSet) {
+		return false;
+	}
+
+	@Override
+	public boolean authorize(Long userId, RelationList relationList, AuthRuleSet authRuleSet) {
+		return false;
+	}
+}
