@@ -29,6 +29,18 @@ public class AssistedObjectUtil {
 		return sb.toString();
 	}
 	
+	public static String getObjectIdsAsStringWithCustomDelimeter(Collection<AssistedObject> objList, String delimeter){
+		StringBuffer sb = new StringBuffer();
+		int i = 0;
+		for(AssistedObject obj : objList) {
+			sb.append(obj.getId());
+			if(i < objList.size() - 1)
+				sb.append(delimeter);
+			i++;
+		}
+		return sb.toString();
+	}
+	
 	public static String getIdFieldAsString(Collection<AssistedObject> objList, String idDescName){
 		StringBuffer sb = new StringBuffer();
 		int i = 0;

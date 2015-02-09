@@ -376,5 +376,4 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 	public Map<Long, BasicDBObject> getProperties(String typeName, List<Long> entityIds){
 		return mongoDao.getDocument(typeName, entityIds);
 	}
-
 }
