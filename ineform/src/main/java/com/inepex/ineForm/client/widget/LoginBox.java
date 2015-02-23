@@ -141,15 +141,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 			
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				if(event.getValue()){
-					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, 
-									  IFConsts.COOKIE_TRUE, 
-									  new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
-				}else{
-					Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, 
-									  IFConsts.COOKIE_FALSE, 
-									  new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
-				}
+				setStaySignedInCookie(event.getValue());
 			}
 		}));
 		
@@ -167,6 +159,18 @@ public abstract class LoginBox extends HandlerAwareComposite {
 				setVisible(true);
 			}
 		});
+	}
+	
+	protected void setStaySignedInCookie(boolean staySignedIn){
+		if(staySignedIn){
+			Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, 
+							  IFConsts.COOKIE_TRUE, 
+							  new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
+		}else{
+			Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, 
+							  IFConsts.COOKIE_FALSE, 
+							  new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
+		}
 	}
 	
 	private void doLogin(){
