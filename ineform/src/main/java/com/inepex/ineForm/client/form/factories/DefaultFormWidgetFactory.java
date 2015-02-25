@@ -128,7 +128,9 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 
 		else if (widgetType.equals(FWTypes.NUMBERTEXTBOX)){
 			NumberTextBoxFW numberTextbox = new NumberTextBoxFW(fieldDesc);
-			if (fieldDesc.getType() == IneT.DOUBLE) numberTextbox.setHasDecimalPoint(true);
+			if (fieldDesc.getType() == IneT.DOUBLE || 
+					(wrDesc.hasProp(NumberTextBoxFW.HASDECIMALPOINT))) 
+				numberTextbox.setHasDecimalPoint(true);
 			if(wrDesc.getPropValue(NumberTextBoxFW.FRACTIONALDIGITCONT)!=null) {
 				numberTextbox.setMaxFractDigits(Integer.parseInt(wrDesc.getPropValue(NumberTextBoxFW.FRACTIONALDIGITCONT)));
 			}

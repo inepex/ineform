@@ -12,6 +12,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class NumberTextBoxFW extends DenyingFormWidget {
 	
+	public static final String HASDECIMALPOINT = "hasdecimalpoint";
 	public static final String FRACTIONALDIGITCONT = "fractdigitcount";
 	public static final String WHOLEDIGITCONT = "wholedigitcount";
 	public static final String ENABLE_NEGATIVE_NUMBER = "negativeNumber";
