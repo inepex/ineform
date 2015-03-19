@@ -19,12 +19,12 @@ import com.inepex.ineFrame.client.dialog.ErrorDialogBox;
 import com.inepex.ineFrame.client.dialog.InfoDialog;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.client.page.FlowPanelBasedPageWithScroll;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.action.RegAction;
 import com.inepex.translatorapp.shared.kvo.RegConsts;
 
-public class RegPage extends FlowPanelBasedPage {
+public class RegPage extends FlowPanelBasedPageWithScroll {
 	
 	private final EventBus eventBus;
 	private final IneDispatch ineDispatch;

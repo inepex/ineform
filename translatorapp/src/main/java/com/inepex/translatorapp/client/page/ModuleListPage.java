@@ -9,7 +9,7 @@ import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator.Delet
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
-import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.client.page.FlowPanelBasedPageWithScroll;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -19,7 +19,7 @@ import com.inepex.translatorapp.client.page.popup.ChangedCallback;
 import com.inepex.translatorapp.client.page.popup.ModuleUploadPopup;
 import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 
-public class ModuleListPage extends FlowPanelBasedPage {
+public class ModuleListPage extends FlowPanelBasedPageWithScroll {
 
 	private final ServerSideDataConnector connector;
 	
@@ -52,8 +52,8 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			}
 			
 			@Override
-			public String getCommandCellText() {
-				return origDeletCmd.getCommandCellText();
+			public String getCommandCellText(AssistedObject kvoOfRow) {
+				return origDeletCmd.getCommandCellText(kvoOfRow);
 			}
 		});
 		
@@ -76,7 +76,7 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			}
 			
 			@Override
-			public String getCommandCellText() {
+			public String getCommandCellText(AssistedObject kvoOfRow) {
 				return translatorappI18n.moduleListPage_changeLangCmd();
 			}
 		});
@@ -101,7 +101,7 @@ public class ModuleListPage extends FlowPanelBasedPage {
 			}
 			
 			@Override
-			public String getCommandCellText() {
+			public String getCommandCellText(AssistedObject kvoOfRow) {
 				return translatorappI18n.upladRows();
 			}
 		});

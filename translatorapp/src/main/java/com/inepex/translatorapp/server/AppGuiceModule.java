@@ -3,12 +3,10 @@ package com.inepex.translatorapp.server;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import com.google.inject.matcher.Matchers;
-import com.inepex.ineForm.server.customkvo.CustomObjectDescHandler;
 import com.inepex.ineForm.server.guice.IneFormActionHanlderModule;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseModule;
 import com.inepex.ineFrame.server.di.guice.IneFrameBaseServletModule;
-import com.inepex.ineFrame.shared.CustomObjectDescAction;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.translatorapp.server.entity.dao.ModuleRowDao;
@@ -37,7 +35,6 @@ public class AppGuiceModule  extends ActionHandlerModule {
 			.setAppLangs(TranslatorAppLangs.class));
 		install(new IneFormActionHanlderModule());
 		
-		bindHandler(CustomObjectDescAction.class, CustomObjectDescHandler.class);
 		bindHandler(RegAction.class, RegActionHandler.class);
 		bindHandler(TransTableListAction.class, TransTableListActionHandler.class);
 		bindHandler(RowListAction.class, RowListActionHandler.class);

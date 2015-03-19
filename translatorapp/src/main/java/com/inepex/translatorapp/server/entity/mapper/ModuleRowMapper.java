@@ -11,7 +11,6 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.Module;
 import com.inepex.translatorapp.server.entity.ModuleRow;
@@ -32,7 +31,7 @@ public class ModuleRowMapper extends BaseMapper<ModuleRow>{
 	}
 
 	@Override
-	public ModuleRow kvoToEntity(AssistedObject fromKvo, ModuleRow to, CustomKVOObjectDesc... descs) {
+	public ModuleRow kvoToEntity(AssistedObject fromKvo, ModuleRow to) {
 		ModuleRowHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -65,7 +64,7 @@ public class ModuleRowMapper extends BaseMapper<ModuleRow>{
 					continue;
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					TranslatedValue entity = new TranslatedValue(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(rel.getKvo(), entity, descs);
+					mapper.kvoToEntity(rel.getKvo(), entity);
 					entity.setRow(to);
 					to.getValues().add(entity);
 				} else {
@@ -73,7 +72,7 @@ public class ModuleRowMapper extends BaseMapper<ModuleRow>{
 					if (rel.getKvo() == null) { 			    // delete item
 						to.getValues().remove(origItem);
 					} else {									// edit item
-						mapper.kvoToEntity(rel.getKvo(), origItem, descs);
+						mapper.kvoToEntity(rel.getKvo(), origItem);
 					}
 				}
 			}

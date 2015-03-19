@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.Lang;
 import com.inepex.translatorapp.shared.kvo.LangConsts;
@@ -23,7 +22,7 @@ public class LangMapper extends BaseMapper<Lang>{
 	}
 
 	@Override
-	public Lang kvoToEntity(AssistedObject fromKvo, Lang to, CustomKVOObjectDesc... descs) {
+	public Lang kvoToEntity(AssistedObject fromKvo, Lang to) {
 		LangHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)

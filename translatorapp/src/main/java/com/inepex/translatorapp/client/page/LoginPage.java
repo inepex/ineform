@@ -12,14 +12,17 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
+import com.inepex.ineForm.client.form.FormFactory;
+import com.inepex.ineForm.client.widget.LoginBox;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.auth.AuthManager;
-import com.inepex.ineFrame.client.auth.LoginBox;
+import com.inepex.ineFrame.client.auth.UserLoggedInEvent;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
 import com.inepex.ineFrame.client.navigation.PlaceToken;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
+import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.translatorapp.shared.Consts;
@@ -32,7 +35,8 @@ public class LoginPage extends FlowPanelBasedPage {
 	private final EventBus eventBus;
 	
 	@Inject
-	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
+	LoginPage(AuthManager authManager,HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch,
+			DescriptorStore descStore, FormFactory formFactory) {
 		this.eventBus=eventBus;
 		
 		FlowPanel leftPanel = new FlowPanel();
@@ -47,7 +51,8 @@ public class LoginPage extends FlowPanelBasedPage {
 		
 		mainPanel.add(leftPanel);
 		
-		mainPanel.add(new TranslatorLoginBox(authManager, historyProvider, eventBus, ineDispatch));
+		mainPanel.add(new TranslatorLoginBox(authManager, historyProvider, eventBus, ineDispatch,
+				descStore, formFactory));
 	}
 	
 	@Override
@@ -67,28 +72,40 @@ public class LoginPage extends FlowPanelBasedPage {
 	@Override
 	protected void onShow(boolean isFirstShow) {
 	}
-
+	
+	
 	private class TranslatorLoginBox extends LoginBox {
 
 		// TODO: stay signed in functionality not fully implemented yet!
 		private CheckBox staySignedIn = new CheckBox("Stay signed in");
 		
-		protected TranslatorLoginBox(AuthManager authManager,
-				HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
-			super(authManager, historyProvider, eventBus, ineDispatch);
+		protected TranslatorLoginBox(AuthManager authManager, 
+				   HistoryProvider historyProvider, 
+				   EventBus eventBus,
+				   IneDispatch ineDispatch,
+				   DescriptorStore descriptorStore,
+				   FormFactory formFactory) {
+			super(authManager, historyProvider, eventBus, ineDispatch, descriptorStore, formFactory);
 			getElement().getStyle().setFloat(Float.RIGHT);
 		}
 
 		@Override
 		protected void doLoggedinLogic(AuthStatusResultBase base) {
+			eventBus.fireEvent(new UserLoggedInEvent());
 			if(authManager.getLastAuthStatusResult().getRoles().contains(Consts.Roles.developer)
 					|| authManager.getLastAuthStatusResult().getRoles().contains(Consts.Roles.translator))
 				eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));
 			else
 				eventBus.fireEvent(new PlaceRequestEvent(
 					new PlaceToken(AppPlaceHierarchyProvider.LOGGEDIN)
-					.appendChild(AppPlaceHierarchyProvider.INACTIVE).toString()));
+					.appendChild(AppPlaceHierarchyProvider.INACTIVE).toString()));			
 		}
+		
+		protected void doRedirectLogic(AuthStatusResultBase result) {
+			eventBus.fireEvent(new UserLoggedInEvent());
+			super.doRedirectLogic(result);
+		}
+		
 
 		@Override
 		protected HasValue<Boolean> getCheckBox() {
@@ -101,4 +118,38 @@ public class LoginPage extends FlowPanelBasedPage {
 		}
 		
 	}
+//
+//	private class TranslatorLoginBox extends LoginBox {
+//
+//		// TODO: stay signed in functionality not fully implemented yet!
+//		private CheckBox staySignedIn = new CheckBox("Stay signed in");
+//		
+//		protected TranslatorLoginBox(AuthManager authManager,
+//				HistoryProvider historyProvider, EventBus eventBus, IneDispatch ineDispatch) {
+//			super(authManager, historyProvider, eventBus, ineDispatch);
+//			getElement().getStyle().setFloat(Float.RIGHT);
+//		}
+//
+//		@Override
+//		protected void doLoggedinLogic(AuthStatusResultBase base) {
+//			if(authManager.getLastAuthStatusResult().getRoles().contains(Consts.Roles.developer)
+//					|| authManager.getLastAuthStatusResult().getRoles().contains(Consts.Roles.translator))
+//				eventBus.fireEvent(new PlaceRequestEvent(AppPlaceHierarchyProvider.LOGGEDIN));
+//			else
+//				eventBus.fireEvent(new PlaceRequestEvent(
+//					new PlaceToken(AppPlaceHierarchyProvider.LOGGEDIN)
+//					.appendChild(AppPlaceHierarchyProvider.INACTIVE).toString()));
+//		}
+//
+//		@Override
+//		protected HasValue<Boolean> getCheckBox() {
+//			return staySignedIn;
+//		}
+//
+//		@Override
+//		protected IsWidget getCheckBoxAsWidget() {
+//			return staySignedIn;
+//		}
+//		
+//	}
 }

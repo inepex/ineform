@@ -32,9 +32,9 @@ import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.table.AbstractIneTable.PagerPosition;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
-import com.inepex.ineForm.client.table.AbstractIneTable.PagerPosition;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
@@ -43,7 +43,7 @@ import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineFrame.client.async.IneDispatchBase;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceRequestEvent;
-import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.client.page.FlowPanelBasedPageWithScroll;
 import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -64,7 +64,7 @@ import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory.TranslatedValueHandler;
 
-public class ModuleRowListPage extends FlowPanelBasedPage {
+public class ModuleRowListPage extends FlowPanelBasedPageWithScroll {
 	
 	private final TranslatedValueHandlerFactory translatedValueHandlerFactory;
 	private final DateFormatter dateFormatter;

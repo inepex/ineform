@@ -11,7 +11,6 @@ import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
-import com.inepex.ineom.shared.descriptor.CustomKVOObjectDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.translatorapp.server.entity.User;
 import com.inepex.translatorapp.server.entity.UserLang;
@@ -31,7 +30,7 @@ public class UserMapper extends BaseMapper<User>{
 	}
 
 	@Override
-	public User kvoToEntity(AssistedObject fromKvo, User to, CustomKVOObjectDesc... descs) {
+	public User kvoToEntity(AssistedObject fromKvo, User to) {
 		UserHandler fromHandler = handlerFactory.createHandler(fromKvo);
 		
 		if (to == null)
@@ -57,7 +56,7 @@ public class UserMapper extends BaseMapper<User>{
 					continue;
 				if (rel.getId().equals(IFConsts.NEW_ITEM_ID)) { // create new item
 					UserLang entity = new UserLang(IFConsts.NEW_ITEM_ID);
-					mapper.kvoToEntity(rel.getKvo(), entity, descs);
+					mapper.kvoToEntity(rel.getKvo(), entity);
 					entity.setUser(to);
 					to.getTranslates().add(entity);
 				} else {
@@ -65,7 +64,7 @@ public class UserMapper extends BaseMapper<User>{
 					if (rel.getKvo() == null) { 			    // delete item
 						to.getTranslates().remove(origItem);
 					} else {									// edit item
-						mapper.kvoToEntity(rel.getKvo(), origItem, descs);
+						mapper.kvoToEntity(rel.getKvo(), origItem);
 					}
 				}
 			}

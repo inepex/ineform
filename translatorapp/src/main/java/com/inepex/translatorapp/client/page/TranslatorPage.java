@@ -11,11 +11,11 @@ import com.inepex.ineForm.client.form.widgets.RadioEnumSelectorFW;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
+import com.inepex.ineForm.client.table.AbstractIneTable.PagerPosition;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.IneTable;
 import com.inepex.ineForm.client.table.IneTableFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
-import com.inepex.ineForm.client.table.AbstractIneTable.PagerPosition;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
@@ -23,7 +23,7 @@ import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase;
-import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.client.page.FlowPanelBasedPageWithScroll;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.Relation;
@@ -42,7 +42,7 @@ import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 import com.inepex.translatorapp.shared.kvo.TranslateTableRowConsts;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
-public class TranslatorPage extends FlowPanelBasedPage {
+public class TranslatorPage extends FlowPanelBasedPageWithScroll {
 
 	private RadioEnumSelectorFW listTypeRadioButton;
 	private ListBoxFW moduleListBox;
@@ -111,7 +111,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			}
 			
 			@Override
-			public String getCommandCellText() {
+			public String getCommandCellText(AssistedObject kvoOfRow) {
 				return translatorappI18n.showEditpopup();
 			}
 		});
@@ -129,7 +129,7 @@ public class TranslatorPage extends FlowPanelBasedPage {
 			}
 
 			@Override
-			public String getCommandCellText() {
+			public String getCommandCellText(AssistedObject kvoOfRow) {
 				return IneFormI18n.SAVE();
 			}
 		});

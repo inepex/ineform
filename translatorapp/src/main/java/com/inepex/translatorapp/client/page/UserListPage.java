@@ -9,11 +9,11 @@ import com.inepex.ineForm.client.form.events.RenderedEvent;
 import com.inepex.ineForm.client.form.widgets.StringListBoxFw;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineForm.client.table.ServerSideDataConnector;
-import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
+import com.inepex.ineFrame.client.page.FlowPanelBasedPageWithScroll;
 import com.inepex.translatorapp.shared.Consts;
 import com.inepex.translatorapp.shared.kvo.UserConsts;
 
-public class UserListPage extends FlowPanelBasedPage{
+public class UserListPage extends FlowPanelBasedPageWithScroll {
 
 	private final ServerSideDataConnector connector;
 	private final RowCommandDataManipulator manipulator;

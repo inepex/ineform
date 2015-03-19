@@ -19,88 +19,15 @@ public class translatorappI18n extends I18nModule {
 		super(MODULE_NAME);
 		translatorappI18n.moduleProvider = moduleProvider;
 	}
+	
+	public static String getI18nText(String key){
+		return moduleProvider.get().getText(key);
+	}
 
 	@Override
 	public I18nModuleProvider<?> getI18nProvider() {
 		return moduleProvider;
 	}
-	
-	public String all = "All";
-	public String appname = "Translator Application";
-	public String inactiveAccount = "Your account is currently inactive. Please ask the administrator for roles!";
-	public String invalid = "Special parts of translated value (or original) are invalid";
-	public String lang_id = "Id";
-	public String lang_isoName = "Iso name";
-	public String massUpload = "Mass upload";
-	public String massUploadAlert = "Error happened or module hasn't got languages. Please check it.";
-	public String modRow_engModTime = "English mod. time";
-	public String modRow_engVal = "English value";
-	public String moduleLangDelQuestion = "This module contains <b>{emptyCount}</b> empty strings and <b>{translatedCount}</b> translated strings for the selected language. Do you really want remove this language?";
-	public String moduleLang_id = "Id";
-	public String moduleLang_lang = "Lang";
-	public String moduleLang_module = "Module";
-	public String moduleListPage = "I18n modules";
-	public String moduleListPage_changeLangCmd = "Change langs";
-	public String moduleListTitle = "<br />Module can be deleted, only after you remove all its languages.<br /><br />";
-	public String moduleRow_description = "Description";
-	public String moduleRow_id = "Id";
-	public String moduleRow_key = "Key";
-	public String moduleRow_module = "Module";
-	public String moduleRow_values = "Values";
-	public String module_id = "Id";
-	public String module_langs = "Langs";
-	public String module_name = "Name";
-	public String module_rows = "Rows";
-	public String nonMatchingPws = "The password and this value are not the same!";
-	public String outdated = "Need to be translated";
-	public String pageNotFound = "Page not found";
-	public String recent = "From last 7 days";
-	public String regAnchor = "Click me for registration";
-	public String regError = "Some error has occurred! Tray again later!";
-	public String regPageTitle = "Registration";
-	public String reg_email = "E-mail";
-	public String reg_id = "Id";
-	public String reg_password = "Password";
-	public String reg_passwordAgain = "Password again";
-	public String registeredEmail = "There is already an account for this e-mail address!";
-	public String rowListPage = "Rows";
-	public String rowListPage_magicFilter = "<b>Free text search:</b>";
-	public String rowUpload_extraColumn = "extra column: '{name}';?;?";
-	public String rowUpload_invalidLine = "The line number {number} is invalid.";
-	public String rowUpload_notForEveryLang = "There aren't column for every languages in header";
-	public String rowUpload_notInHeader = "There is not '{fieladName}' in the header row.";
-	public String rowUpload_rowDuplication = "Maybe row duplication by upload.";
-	public String rowUpload_wasTwice = "'{fieldName}' is in header was twice";
-	public String showEditpopup = "Popup editor";
-	public String succesfulRegistration = "Successful registration. Your account will be activated soon.";
-	public String transPage_listmodeSelect = "<b>Show:</b>";
-	public String transPage_moduleSelect = "<b>Of module:</b>";
-	public String translateTableRow_description = "Description";
-	public String translateTableRow_engModTime = "Eng. last mod.";
-	public String translateTableRow_engVal = "In English";
-	public String translateTableRow_id = "Id";
-	public String translateTableRow_key = "Key";
-	public String translateTableRow_translatedValue = "TranslatedValue";
-	public String translatedValue_id = "Id";
-	public String translatedValue_lang = "Language";
-	public String translatedValue_lastModTime = "LastModTime";
-	public String translatedValue_lastModUser = "LastModUser";
-	public String translatedValue_row = "Row";
-	public String translatedValue_value = "Translated value";
-	public String translatorPage = "Translator page";
-	public String upladRows = "Upload rows";
-	public String upload_header = "<h3>Csv content order</h3>";
-	public String upload_rows = "<h3>Rows</h3>";
-	public String userLang_id = "Id";
-	public String userLang_lang = "Lang";
-	public String userLang_user = "User";
-	public String userListPage = "User list";
-	public String user_email = "E-mail";
-	public String user_id = "Id";
-	public String user_role = "Role";
-	public String user_translates = "Translates";
-	public String weakPassword = "Password should be at least 6 characters long. It should be contain both letters and digits!";
-	public String welcomeText = "<h2>Welcome to our Translator application!</h2><br />If you have an account, just log in with the panel on right.<br /><br />If not, you should register: <b>click</b> the link below!<br /><br />";
 
 	
 	/**
@@ -109,16 +36,16 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String all() {
-		return moduleProvider.get().all;
+		return moduleProvider.get().getText("all");
 	}
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
-	* <u><i>In English:</i></u> Translator Application
+	* <u><i>In English:</i></u> Translator App
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String appname() {
-		return moduleProvider.get().appname;
+		return moduleProvider.get().getText("appname");
 	}
 	
 	/**
@@ -127,7 +54,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String inactiveAccount() {
-		return moduleProvider.get().inactiveAccount;
+		return moduleProvider.get().getText("inactiveAccount");
 	}
 	
 	/**
@@ -136,7 +63,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String invalid() {
-		return moduleProvider.get().invalid;
+		return moduleProvider.get().getText("invalid");
 	}
 	
 	/**
@@ -145,7 +72,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String lang_id() {
-		return moduleProvider.get().lang_id;
+		return moduleProvider.get().getText("lang_id");
 	}
 	
 	/**
@@ -154,7 +81,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String lang_isoName() {
-		return moduleProvider.get().lang_isoName;
+		return moduleProvider.get().getText("lang_isoName");
 	}
 	
 	/**
@@ -163,7 +90,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String massUpload() {
-		return moduleProvider.get().massUpload;
+		return moduleProvider.get().getText("massUpload");
 	}
 	
 	/**
@@ -172,7 +99,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String massUploadAlert() {
-		return moduleProvider.get().massUploadAlert;
+		return moduleProvider.get().getText("massUploadAlert");
 	}
 	
 	/**
@@ -181,7 +108,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String modRow_engModTime() {
-		return moduleProvider.get().modRow_engModTime;
+		return moduleProvider.get().getText("modRow_engModTime");
 	}
 	
 	/**
@@ -190,7 +117,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String modRow_engVal() {
-		return moduleProvider.get().modRow_engVal;
+		return moduleProvider.get().getText("modRow_engVal");
 	}
 	
 	/**
@@ -198,8 +125,8 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>In English:</i></u> This module contains <b>{emptyCount}</b> empty strings and <b>{translatedCount}</b> translated strings for the selected language. Do you really want remove this language?
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
-	public static String moduleLangDelQuestion(String translatedCount, String emptyCount) {
-		return moduleProvider.get().moduleLangDelQuestion.replace("{translatedCount}", translatedCount).replace("{emptyCount}", emptyCount);
+	public static String moduleLangDelQuestion(String emptyCount, String translatedCount) {
+		return moduleProvider.get().getText("moduleLangDelQuestion").replace("{emptyCount}", emptyCount).replace("{translatedCount}", translatedCount);
 	}
 	
 	/**
@@ -208,7 +135,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleLang_id() {
-		return moduleProvider.get().moduleLang_id;
+		return moduleProvider.get().getText("moduleLang_id");
 	}
 	
 	/**
@@ -217,7 +144,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleLang_lang() {
-		return moduleProvider.get().moduleLang_lang;
+		return moduleProvider.get().getText("moduleLang_lang");
 	}
 	
 	/**
@@ -226,7 +153,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleLang_module() {
-		return moduleProvider.get().moduleLang_module;
+		return moduleProvider.get().getText("moduleLang_module");
 	}
 	
 	/**
@@ -235,7 +162,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleListPage() {
-		return moduleProvider.get().moduleListPage;
+		return moduleProvider.get().getText("moduleListPage");
 	}
 	
 	/**
@@ -244,7 +171,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleListPage_changeLangCmd() {
-		return moduleProvider.get().moduleListPage_changeLangCmd;
+		return moduleProvider.get().getText("moduleListPage_changeLangCmd");
 	}
 	
 	/**
@@ -253,7 +180,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleListTitle() {
-		return moduleProvider.get().moduleListTitle;
+		return moduleProvider.get().getText("moduleListTitle");
 	}
 	
 	/**
@@ -262,7 +189,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleRow_description() {
-		return moduleProvider.get().moduleRow_description;
+		return moduleProvider.get().getText("moduleRow_description");
 	}
 	
 	/**
@@ -271,7 +198,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleRow_id() {
-		return moduleProvider.get().moduleRow_id;
+		return moduleProvider.get().getText("moduleRow_id");
 	}
 	
 	/**
@@ -280,7 +207,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleRow_key() {
-		return moduleProvider.get().moduleRow_key;
+		return moduleProvider.get().getText("moduleRow_key");
 	}
 	
 	/**
@@ -289,7 +216,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleRow_module() {
-		return moduleProvider.get().moduleRow_module;
+		return moduleProvider.get().getText("moduleRow_module");
 	}
 	
 	/**
@@ -298,7 +225,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String moduleRow_values() {
-		return moduleProvider.get().moduleRow_values;
+		return moduleProvider.get().getText("moduleRow_values");
 	}
 	
 	/**
@@ -307,7 +234,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String module_id() {
-		return moduleProvider.get().module_id;
+		return moduleProvider.get().getText("module_id");
 	}
 	
 	/**
@@ -316,7 +243,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String module_langs() {
-		return moduleProvider.get().module_langs;
+		return moduleProvider.get().getText("module_langs");
 	}
 	
 	/**
@@ -325,7 +252,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String module_name() {
-		return moduleProvider.get().module_name;
+		return moduleProvider.get().getText("module_name");
 	}
 	
 	/**
@@ -334,7 +261,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String module_rows() {
-		return moduleProvider.get().module_rows;
+		return moduleProvider.get().getText("module_rows");
 	}
 	
 	/**
@@ -343,7 +270,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String nonMatchingPws() {
-		return moduleProvider.get().nonMatchingPws;
+		return moduleProvider.get().getText("nonMatchingPws");
 	}
 	
 	/**
@@ -352,7 +279,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String outdated() {
-		return moduleProvider.get().outdated;
+		return moduleProvider.get().getText("outdated");
 	}
 	
 	/**
@@ -361,7 +288,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String pageNotFound() {
-		return moduleProvider.get().pageNotFound;
+		return moduleProvider.get().getText("pageNotFound");
 	}
 	
 	/**
@@ -370,7 +297,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String recent() {
-		return moduleProvider.get().recent;
+		return moduleProvider.get().getText("recent");
 	}
 	
 	/**
@@ -379,7 +306,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String regAnchor() {
-		return moduleProvider.get().regAnchor;
+		return moduleProvider.get().getText("regAnchor");
 	}
 	
 	/**
@@ -388,7 +315,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String regError() {
-		return moduleProvider.get().regError;
+		return moduleProvider.get().getText("regError");
 	}
 	
 	/**
@@ -397,7 +324,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String regPageTitle() {
-		return moduleProvider.get().regPageTitle;
+		return moduleProvider.get().getText("regPageTitle");
 	}
 	
 	/**
@@ -406,7 +333,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String reg_email() {
-		return moduleProvider.get().reg_email;
+		return moduleProvider.get().getText("reg_email");
 	}
 	
 	/**
@@ -415,7 +342,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String reg_id() {
-		return moduleProvider.get().reg_id;
+		return moduleProvider.get().getText("reg_id");
 	}
 	
 	/**
@@ -424,7 +351,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String reg_password() {
-		return moduleProvider.get().reg_password;
+		return moduleProvider.get().getText("reg_password");
 	}
 	
 	/**
@@ -433,7 +360,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String reg_passwordAgain() {
-		return moduleProvider.get().reg_passwordAgain;
+		return moduleProvider.get().getText("reg_passwordAgain");
 	}
 	
 	/**
@@ -442,7 +369,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String registeredEmail() {
-		return moduleProvider.get().registeredEmail;
+		return moduleProvider.get().getText("registeredEmail");
 	}
 	
 	/**
@@ -451,7 +378,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowListPage() {
-		return moduleProvider.get().rowListPage;
+		return moduleProvider.get().getText("rowListPage");
 	}
 	
 	/**
@@ -460,7 +387,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowListPage_magicFilter() {
-		return moduleProvider.get().rowListPage_magicFilter;
+		return moduleProvider.get().getText("rowListPage_magicFilter");
 	}
 	
 	/**
@@ -469,7 +396,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowUpload_extraColumn(String name) {
-		return moduleProvider.get().rowUpload_extraColumn.replace("{name}", name);
+		return moduleProvider.get().getText("rowUpload_extraColumn").replace("{name}", name);
 	}
 	
 	/**
@@ -478,7 +405,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowUpload_invalidLine(String number) {
-		return moduleProvider.get().rowUpload_invalidLine.replace("{number}", number);
+		return moduleProvider.get().getText("rowUpload_invalidLine").replace("{number}", number);
 	}
 	
 	/**
@@ -487,7 +414,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowUpload_notForEveryLang() {
-		return moduleProvider.get().rowUpload_notForEveryLang;
+		return moduleProvider.get().getText("rowUpload_notForEveryLang");
 	}
 	
 	/**
@@ -496,7 +423,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowUpload_notInHeader(String fieladName) {
-		return moduleProvider.get().rowUpload_notInHeader.replace("{fieladName}", fieladName);
+		return moduleProvider.get().getText("rowUpload_notInHeader").replace("{fieladName}", fieladName);
 	}
 	
 	/**
@@ -505,7 +432,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowUpload_rowDuplication() {
-		return moduleProvider.get().rowUpload_rowDuplication;
+		return moduleProvider.get().getText("rowUpload_rowDuplication");
 	}
 	
 	/**
@@ -514,7 +441,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String rowUpload_wasTwice(String fieldName) {
-		return moduleProvider.get().rowUpload_wasTwice.replace("{fieldName}", fieldName);
+		return moduleProvider.get().getText("rowUpload_wasTwice").replace("{fieldName}", fieldName);
 	}
 	
 	/**
@@ -523,7 +450,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String showEditpopup() {
-		return moduleProvider.get().showEditpopup;
+		return moduleProvider.get().getText("showEditpopup");
 	}
 	
 	/**
@@ -532,7 +459,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String succesfulRegistration() {
-		return moduleProvider.get().succesfulRegistration;
+		return moduleProvider.get().getText("succesfulRegistration");
 	}
 	
 	/**
@@ -541,7 +468,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String transPage_listmodeSelect() {
-		return moduleProvider.get().transPage_listmodeSelect;
+		return moduleProvider.get().getText("transPage_listmodeSelect");
 	}
 	
 	/**
@@ -550,7 +477,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String transPage_moduleSelect() {
-		return moduleProvider.get().transPage_moduleSelect;
+		return moduleProvider.get().getText("transPage_moduleSelect");
 	}
 	
 	/**
@@ -559,7 +486,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translateTableRow_description() {
-		return moduleProvider.get().translateTableRow_description;
+		return moduleProvider.get().getText("translateTableRow_description");
 	}
 	
 	/**
@@ -568,7 +495,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translateTableRow_engModTime() {
-		return moduleProvider.get().translateTableRow_engModTime;
+		return moduleProvider.get().getText("translateTableRow_engModTime");
 	}
 	
 	/**
@@ -577,7 +504,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translateTableRow_engVal() {
-		return moduleProvider.get().translateTableRow_engVal;
+		return moduleProvider.get().getText("translateTableRow_engVal");
 	}
 	
 	/**
@@ -586,7 +513,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translateTableRow_id() {
-		return moduleProvider.get().translateTableRow_id;
+		return moduleProvider.get().getText("translateTableRow_id");
 	}
 	
 	/**
@@ -595,7 +522,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translateTableRow_key() {
-		return moduleProvider.get().translateTableRow_key;
+		return moduleProvider.get().getText("translateTableRow_key");
 	}
 	
 	/**
@@ -604,7 +531,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translateTableRow_translatedValue() {
-		return moduleProvider.get().translateTableRow_translatedValue;
+		return moduleProvider.get().getText("translateTableRow_translatedValue");
 	}
 	
 	/**
@@ -613,7 +540,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatedValue_id() {
-		return moduleProvider.get().translatedValue_id;
+		return moduleProvider.get().getText("translatedValue_id");
 	}
 	
 	/**
@@ -622,7 +549,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatedValue_lang() {
-		return moduleProvider.get().translatedValue_lang;
+		return moduleProvider.get().getText("translatedValue_lang");
 	}
 	
 	/**
@@ -631,7 +558,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatedValue_lastModTime() {
-		return moduleProvider.get().translatedValue_lastModTime;
+		return moduleProvider.get().getText("translatedValue_lastModTime");
 	}
 	
 	/**
@@ -640,7 +567,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatedValue_lastModUser() {
-		return moduleProvider.get().translatedValue_lastModUser;
+		return moduleProvider.get().getText("translatedValue_lastModUser");
 	}
 	
 	/**
@@ -649,7 +576,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatedValue_row() {
-		return moduleProvider.get().translatedValue_row;
+		return moduleProvider.get().getText("translatedValue_row");
 	}
 	
 	/**
@@ -658,7 +585,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatedValue_value() {
-		return moduleProvider.get().translatedValue_value;
+		return moduleProvider.get().getText("translatedValue_value");
 	}
 	
 	/**
@@ -667,7 +594,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String translatorPage() {
-		return moduleProvider.get().translatorPage;
+		return moduleProvider.get().getText("translatorPage");
 	}
 	
 	/**
@@ -676,7 +603,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String upladRows() {
-		return moduleProvider.get().upladRows;
+		return moduleProvider.get().getText("upladRows");
 	}
 	
 	/**
@@ -685,7 +612,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String upload_header() {
-		return moduleProvider.get().upload_header;
+		return moduleProvider.get().getText("upload_header");
 	}
 	
 	/**
@@ -694,7 +621,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String upload_rows() {
-		return moduleProvider.get().upload_rows;
+		return moduleProvider.get().getText("upload_rows");
 	}
 	
 	/**
@@ -703,7 +630,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String userLang_id() {
-		return moduleProvider.get().userLang_id;
+		return moduleProvider.get().getText("userLang_id");
 	}
 	
 	/**
@@ -712,7 +639,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String userLang_lang() {
-		return moduleProvider.get().userLang_lang;
+		return moduleProvider.get().getText("userLang_lang");
 	}
 	
 	/**
@@ -721,7 +648,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String userLang_user() {
-		return moduleProvider.get().userLang_user;
+		return moduleProvider.get().getText("userLang_user");
 	}
 	
 	/**
@@ -730,7 +657,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String userListPage() {
-		return moduleProvider.get().userListPage;
+		return moduleProvider.get().getText("userListPage");
 	}
 	
 	/**
@@ -739,7 +666,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String user_email() {
-		return moduleProvider.get().user_email;
+		return moduleProvider.get().getText("user_email");
 	}
 	
 	/**
@@ -748,7 +675,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String user_id() {
-		return moduleProvider.get().user_id;
+		return moduleProvider.get().getText("user_id");
 	}
 	
 	/**
@@ -757,7 +684,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String user_role() {
-		return moduleProvider.get().user_role;
+		return moduleProvider.get().getText("user_role");
 	}
 	
 	/**
@@ -766,7 +693,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String user_translates() {
-		return moduleProvider.get().user_translates;
+		return moduleProvider.get().getText("user_translates");
 	}
 	
 	/**
@@ -775,7 +702,7 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String weakPassword() {
-		return moduleProvider.get().weakPassword;
+		return moduleProvider.get().getText("weakPassword");
 	}
 	
 	/**
@@ -784,6 +711,6 @@ public class translatorappI18n extends I18nModule {
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/
 	public static String welcomeText() {
-		return moduleProvider.get().welcomeText;
+		return moduleProvider.get().getText("welcomeText");
 	}
 }
