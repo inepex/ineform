@@ -84,6 +84,7 @@
 "month_october";"";"October";"Október";"Oktobar"
 "month_september";"";"September";"Szeptember";"Septembar"
 "nd";"";"nd";" ";" "
+"notSetText";"";"Not set";"Nincs beállítva";""
 "rd";"";"rd";"  ";" "
 "reallyWantToDelete";"";"Do you really want to delete the selected element?";"Biztosan törölni kívánja a kiválaszott sort?";"Sigurno želite da izbrišete izabrani red?"
 "restRequestError";"";"Request error";"Hiba a kérés során";"Greška prilikom zahteva"

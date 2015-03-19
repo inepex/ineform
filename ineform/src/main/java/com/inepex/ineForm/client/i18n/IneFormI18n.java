@@ -19,6 +19,10 @@ public class IneFormI18n extends I18nModule {
 		super(MODULE_NAME);
 		IneFormI18n.moduleProvider = moduleProvider;
 	}
+	
+	public static String getI18nText(String key){
+		return moduleProvider.get().getText(key);
+	}
 
 	@Override
 	public I18nModuleProvider<?> getI18nProvider() {
@@ -798,6 +802,15 @@ public class IneFormI18n extends I18nModule {
 	*/
 	public static String nd() {
 		return moduleProvider.get().getText("nd");
+	}
+	
+	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Not set
+	* <u><i>Magyarul:</i></u> Nincs beállítva
+	*/
+	public static String notSetText() {
+		return moduleProvider.get().getText("notSetText");
 	}
 	
 	/**

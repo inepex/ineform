@@ -3,6 +3,7 @@ package com.inepex.ineForm.client.form.widgets;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.ListBox;
+import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class ThreeWayBoolFw extends DenyingFormWidget {
@@ -14,6 +15,10 @@ public class ThreeWayBoolFw extends DenyingFormWidget {
 
 	public ThreeWayBoolFw(FDesc fieldDescriptor, String nullText, String trueText, String falseText) {
 		super(fieldDescriptor);
+		if (nullText == null) nullText = IneFormI18n.notSetText();
+		if (trueText == null) trueText = IneFormI18n.trueText();
+		if (falseText == null) falseText = IneFormI18n.falseText();
+				
 		initWidget(listBox);
 		listBox.addItem(nullText);
 		listBox.addItem(trueText);

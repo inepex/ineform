@@ -112,6 +112,7 @@ public class ServerIneFormI18nProvider extends ServerI18nProvider<IneFormI18n> {
 		module.getTextMap().put("month_october", "October");
 		module.getTextMap().put("month_september", "September");
 		module.getTextMap().put("nd", "nd");
+		module.getTextMap().put("notSetText", "Not set");
 		module.getTextMap().put("rd", "rd");
 		module.getTextMap().put("reallyWantToDelete", "Do you really want to delete the selected element?");
 		module.getTextMap().put("restRequestError", "Request error");
