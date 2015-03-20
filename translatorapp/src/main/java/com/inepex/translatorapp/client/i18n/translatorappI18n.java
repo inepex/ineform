@@ -464,6 +464,15 @@ public class translatorappI18n extends I18nModule {
 	
 	/**
 	* <u><i>Description:</i></u>  <br />
+	* <u><i>In English:</i></u> Popup editor
+	* <u><i>Magyarul:</i></u> $loc.getString("hu")
+	*/
+	public static String textBoxWithPopupLabel() {
+		return moduleProvider.get().getText("textBoxWithPopupLabel");
+	}
+	
+	/**
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> <b>Show:</b>
 	* <u><i>Magyarul:</i></u> $loc.getString("hu")
 	*/

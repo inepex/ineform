@@ -34,16 +34,18 @@ public class TransRowEditPopup {
 			VerticalPanel vp = new VerticalPanel();
 			initWidget(vp);
 			
-			vp.add(new Label(translatorappI18n.translateTableRow_engVal()));
-			HTML lbl = new HTML(perNToBr(SafeHtmlUtils.htmlEscape(brToPerN(engVal))));
-			lbl.getElement().getStyle().setBackgroundColor("#f2f2f2");
-			lbl.getElement().getStyle().setWidth(blockWidth, Unit.PX);
-			lbl.getElement().getStyle().setHeight(blockHeight, Unit.PX);
-			lbl.getElement().getStyle().setOverflowY(Overflow.AUTO);
-			lbl.getElement().getStyle().setBorderColor("#d0d0d0");
-			lbl.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-			lbl.getElement().getStyle().setBorderWidth(2, Unit.PX);
-			vp.add(lbl);
+			if (engVal != null && !engVal.equals("")){
+				vp.add(new Label(translatorappI18n.translateTableRow_engVal()));
+				HTML lbl = new HTML(perNToBr(SafeHtmlUtils.htmlEscape(brToPerN(engVal))));
+				lbl.getElement().getStyle().setBackgroundColor("#f2f2f2");
+				lbl.getElement().getStyle().setWidth(blockWidth, Unit.PX);
+				lbl.getElement().getStyle().setHeight(blockHeight, Unit.PX);
+				lbl.getElement().getStyle().setOverflowY(Overflow.AUTO);
+				lbl.getElement().getStyle().setBorderColor("#d0d0d0");
+				lbl.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+				lbl.getElement().getStyle().setBorderWidth(2, Unit.PX);
+				vp.add(lbl);
+			}
 			
 			vp.add(new Label(translatorappI18n.translatedValue_value()));
 			textArea = new TextArea();

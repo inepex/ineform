@@ -74,6 +74,7 @@ public class ServertranslatorappI18nProvider extends ServerI18nProvider<translat
 		module.getTextMap().put("rowUpload_wasTwice", "'{fieldName}' is in header was twice");
 		module.getTextMap().put("showEditpopup", "Popup editor");
 		module.getTextMap().put("succesfulRegistration", "Successful registration. Your account will be activated soon.");
+		module.getTextMap().put("textBoxWithPopupLabel", "Popup editor");
 		module.getTextMap().put("transPage_listmodeSelect", "<b>Show:</b>");
 		module.getTextMap().put("transPage_moduleSelect", "<b>Of module:</b>");
 		module.getTextMap().put("translateTableRow_description", "Description");

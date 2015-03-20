@@ -46,6 +46,7 @@
 "rowUpload_wasTwice";"";"'{fieldName}' is in header was twice"
 "showEditpopup";"";"Popup editor"
 "succesfulRegistration";"";"Successful registration. Your account will be activated soon."
+"textBoxWithPopupLabel";"";"Popup editor"
 "transPage_listmodeSelect";"";"<b>Show:</b>"
 "transPage_moduleSelect";"";"<b>Of module:</b>"
 "translateTableRow_description";"";"Description"

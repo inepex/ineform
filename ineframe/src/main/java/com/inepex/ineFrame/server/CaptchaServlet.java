@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import nl.captcha.Captcha;
 import nl.captcha.backgrounds.FlatColorBackgroundProducer;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
-import nl.captcha.gimpy.DropShadowGimpyRenderer;
 import nl.captcha.servlet.CaptchaServletUtil;
 import nl.captcha.servlet.SimpleCaptchaServlet;
 
@@ -31,7 +30,7 @@ public class CaptchaServlet extends SimpleCaptchaServlet {
 		final Captcha captcha = new Captcha.Builder(_width , _height)
 		.addText()
 		.addBackground(new GradiatedBackgroundProducer())
-		.gimp(new DropShadowGimpyRenderer(3, 65))
+		.gimp()
 		.addBackground(new FlatColorBackgroundProducer(new Color(238, 238, 238)))
 		.addBorder()
 		.addNoise()

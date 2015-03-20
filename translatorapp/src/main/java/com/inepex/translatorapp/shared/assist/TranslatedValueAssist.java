@@ -10,6 +10,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.StringFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+import com.inepex.translatorapp.client.TranslatorAppFwTypes;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 import com.inepex.translatorapp.shared.kvo.LangConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleRowConsts;
@@ -68,7 +69,7 @@ public class TranslatedValueAssist extends Assist {
 			.addChild(TranslatedValueConsts.k_lang, new WidgetRDesc(/*hc:f5*/FWTypes.LABEL/*hc*/))
 			.addChild(TranslatedValueConsts.k_lastModTime, new WidgetRDesc(/*hc:f2*/FWTypes.LABEL, FWTypes.p_asDate/*hc*/))
 			.addChild(TranslatedValueConsts.k_lastModUser, new WidgetRDesc(/*hc:f3*/FWTypes.LABEL/*hc*/))
-			.addChild(TranslatedValueConsts.k_value, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
+			.addChild(TranslatedValueConsts.k_value, new WidgetRDesc(/*hc:f4*/TranslatorAppFwTypes.TEXTBOXWITHPOPUPEDITOR/*hc*/))
 			;
 		return formRDesc;
 	}

@@ -6,6 +6,7 @@ import com.inepex.ineForm.client.gin.IneFormDispatcherGinModule;
 import com.inepex.ineForm.client.gin.IneFormGinModule;
 import com.inepex.ineFrame.client.async.ExponentialBackoffHandler;
 import com.inepex.ineFrame.client.gin.IneFrameGinModule;
+import com.inepex.translatorapp.client.TranslatorAppFormWidgetFactoryManager;
 import com.inepex.translatorapp.client.navigation.AppPlaceHandler;
 import com.inepex.translatorapp.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.translatorapp.client.page.popup.ChangeModuleLangPopup;
@@ -15,7 +16,9 @@ public class AppGinModule extends AbstractGinModule {
 
 	@Override
 	protected void configure() {
-		install(new IneFormGinModule().setConnectionFailedHandler(ExponentialBackoffHandler.class));
+		install(new IneFormGinModule()
+			.setConnectionFailedHandler(ExponentialBackoffHandler.class)
+			.setFormWidgetFactory(TranslatorAppFormWidgetFactoryManager.class));
 		install(new IneFormDispatcherGinModule());
 		install(new IneFrameGinModule(AppPlaceHierarchyProvider.class, AppPlaceHandler.class));
 		
