@@ -94,6 +94,5 @@ public class ByteConvertUtil {
 		}
 		
 		return false;
-		
 	}
 }
