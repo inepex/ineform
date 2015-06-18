@@ -4,10 +4,11 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
-import com.inepex.ineFrame.shared.GetDescStore;
-import com.inepex.ineFrame.shared.GetDescStoreResult;
+import com.inepex.ineFrame.shared.PingAction;
+import com.inepex.ineFrame.shared.PingResult;
 
 public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 
@@ -20,7 +21,7 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 		
 	}
 	
-	private AsyncCallback<GetDescStoreResult> callback = new AsyncCallback<GetDescStoreResult>() {
+	private AsyncCallback<PingResult> callback = new AsyncCallback<PingResult>() {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -28,8 +29,12 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 		}
 
 		@Override
-		public void onSuccess(GetDescStoreResult result) {
-			ExponentialBackoffHandler.this.onSuccess();
+		public void onSuccess(PingResult result) {
+			if (result != null && result.isSessionAlive()){
+				ExponentialBackoffHandler.this.onSuccess();
+			} else {
+				Window.Location.reload();
+			}
 		}
 	};
 	
@@ -90,7 +95,7 @@ public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 	}
 	
 	private void doConnectionCheck(){
-		dispatcher.execute(new GetDescStore(), callback);
+		dispatcher.execute(new PingAction(), callback);
 	}
 
 	@Override

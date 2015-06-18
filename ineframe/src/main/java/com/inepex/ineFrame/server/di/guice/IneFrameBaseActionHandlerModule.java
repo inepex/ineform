@@ -15,8 +15,10 @@ import com.inepex.ineFrame.server.auth.GetAuthStatusHandler;
 import com.inepex.ineFrame.server.auth.LogoutHandler;
 import com.inepex.ineFrame.server.handler.GetDescriptorStoreHandler;
 import com.inepex.ineFrame.server.handler.GetTimeZoneNamesHandler;
+import com.inepex.ineFrame.server.handler.PingActionHandler;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetTimeZoneNamesAction;
+import com.inepex.ineFrame.shared.PingAction;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.CaptchaInfoAction;
 import com.inepex.ineFrame.shared.auth.GetAuthStatusAction;
@@ -60,7 +62,7 @@ public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
 		bindHandler(CaptchaInfoAction.class, CaptchaInfoHandler.class);
 		bind(new TypeLiteral<AbstractLoginHandler<AuthUser,AuthStatusResultBase>>(){}).to(loginHandler).in(Singleton.class);
 		bindHandler(LoginAction.class, loginHandler);
-		
+		bindHandler(PingAction.class, PingActionHandler.class);
 		
 	}
 }
