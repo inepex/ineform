@@ -32,7 +32,7 @@ public class PingActionHandler extends AbstractIneHandler<PingAction, PingResult
 		PingResult pingResult = new PingResult();
 		synchronized (authStat) {
 			AuthStatusResultBase  result = authStat.getAuthStatusResultBase();
-			pingResult.setSessionAlive(result.getUserId() != null);
+			pingResult.setSessionAlive(result != null && result.getUserId() != null);
 		}
 		return pingResult;
 	}
