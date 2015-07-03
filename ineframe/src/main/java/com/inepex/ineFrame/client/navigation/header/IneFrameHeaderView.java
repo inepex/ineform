@@ -25,7 +25,7 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 	private OnClickedLogic menuIconClickedLogic;
 	private OnClickedLogic logoClickedLogic;
 	private FlexTable menuTable = new FlexTable();
-	private AuthManager authManager;
+	protected AuthManager authManager;
 	private boolean logoClickEnabled = false;
 
 	
