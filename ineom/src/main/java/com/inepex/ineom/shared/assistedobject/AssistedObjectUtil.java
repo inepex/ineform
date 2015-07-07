@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 
 public class AssistedObjectUtil {
@@ -90,6 +91,14 @@ public class AssistedObjectUtil {
 			relations.add(new Relation(obj.getStringUnchecked(displayNameKey), obj));
 		}
 		return relations;
+	}
+
+	public static List<Long> getObjectIds(IneList ineList) {
+		List<Long> idList = new ArrayList<Long>();
+		for(Relation rel : ineList.getRelationList()) {
+			idList.add(rel.getId());
+		}
+		return idList;
 	}
 
 }
