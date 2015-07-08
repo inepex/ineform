@@ -11,7 +11,6 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.Window.Navigator;
 import com.inepex.ineFrame.client.async.DefaultFailedHandler;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
@@ -23,7 +22,6 @@ import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.misc.WindowResizeEvent;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
-import com.inepex.ineFrame.client.util.DesignConstants;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetDescStoreResult;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
@@ -80,9 +78,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 			throw new RuntimeException("dispatchAsync is not set! Set it in the contsructor of the derived class," + " or use GIN!");
 		clientI18nStore.registerModule(new IneFrameI18n(new ClientI18nProvider<IneFrameI18n>()));
 		registerAdditionalI18nModules();
-
-		setBase();
-
+		
 		// query auth status
 		if (!(authManager instanceof NoAuthManager)){
 			queryCounter.incQueries();
@@ -99,15 +95,7 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 			}
 		});
 	}
-	
-	private void setBase() {
-		Window.Navigator.getUserAgent();
-		String userAgent = Navigator.getUserAgent();
-		if(userAgent.toLowerCase().contains("mobile") || Navigator.getPlatform().toLowerCase().contains("iphone")){
-			DesignConstants.setBase((int)(DesignConstants.base()*2));
-		}
-	}
-	
+		
 	private void printLoadTimeAndCallModuleLoad(){
 		if (!GWT.isProdMode() && !Window.Navigator.getUserAgent().contains("IE") )
 		{
