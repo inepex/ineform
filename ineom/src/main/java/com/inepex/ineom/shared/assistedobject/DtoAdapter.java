@@ -174,6 +174,11 @@ public abstract class DtoAdapter extends AssistedObject {
 	public Relation getRelationUnchecked(String key) {
 		return getRelation(key);
 	}
+	
+	@Override
+	public Double getDoubleUnchecked(String key) {
+		return getDouble(key);
+	}
 
 	@Override
 	public void setDescriptorName(String descriptorName) {

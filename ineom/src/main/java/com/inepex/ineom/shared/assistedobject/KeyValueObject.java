@@ -231,6 +231,11 @@ public class KeyValueObject extends AssistedObject {
 	public Relation getRelationUnchecked(String key) {
 		return relationValues.get(key);
 	}
+	
+	@Override
+	public Double getDoubleUnchecked(String key) {
+		return doubleValues.get(key);
+	}
 
 	@Override
 	protected boolean containsString(String key) {
