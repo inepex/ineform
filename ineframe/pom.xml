@@ -70,6 +70,11 @@
 			<version>${eclipselinkVersion}</version>
 		</dependency>
 		<dependency>
+		  	<groupId>org.eclipse.persistence</groupId>
+		 	<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+		 	<version>${eclipselinkVersion}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
 			<version>${javaxPersistenceVersion}</version>

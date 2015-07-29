@@ -32,13 +32,13 @@
 		<commonsIoVersion>2.0.1</commonsIoVersion>
 		<javaxServletVersion>3.1.0</javaxServletVersion>
 		<nettyVersion>3.5.7.Final</nettyVersion>
-		<javaxPersistenceVersion>2.0.0</javaxPersistenceVersion>
+		<javaxPersistenceVersion>2.1.0</javaxPersistenceVersion>
 		<mavenCompilerVersion>3.2</mavenCompilerVersion>
 		<mavenCompilerSourceVersion>1.8</mavenCompilerSourceVersion>
 		<mavenCompilerTargetVersion>1.8</mavenCompilerTargetVersion>
 		<mavenJarVersion>2.4</mavenJarVersion>
 		<mavenSureFireVersion>2.16</mavenSureFireVersion>
-		<eclipselinkVersion>2.4.2</eclipselinkVersion>
+		<eclipselinkVersion>2.6.0</eclipselinkVersion>
 		<slf4jVersion>1.6.6</slf4jVersion>
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
@@ -49,6 +49,8 @@
 		<buildNumberVersion>1.3</buildNumberVersion>
 		<jacksonVersion>2.4.0</jacksonVersion>
 		<mongoJavaDriverVersion>2.11.3</mongoJavaDriverVersion>
+		<bouncyCastelVersion>1.46</bouncyCastelVersion>
+		<bouncyCastelProvVersion>1.49</bouncyCastelProvVersion>
 	</properties>
 
 	<profiles>
