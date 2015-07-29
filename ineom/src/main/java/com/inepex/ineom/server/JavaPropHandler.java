@@ -94,7 +94,9 @@ public class JavaPropHandler extends PropHandler {
 		if (o.getPropsJson(group) == null) return null;
 		try {
 			ObjectMapper m = new ObjectMapper();
-			ObjectNode groupJSON = (ObjectNode) m.readTree(o.getPropsJson(group));
+			JsonNode node = m.readTree(o.getPropsJson(group));
+			if (node.isNull()) return null;
+			ObjectNode groupJSON = (ObjectNode)node;
 			if (groupJSON.has(key)){
 				return groupJSON.get(key).asBoolean();
 			} else {
@@ -111,7 +113,9 @@ public class JavaPropHandler extends PropHandler {
 		if (o.getPropsJson(group) == null) return null;
 		try {
 			ObjectMapper m = new ObjectMapper();
-			ObjectNode groupJSON = (ObjectNode) m.readTree(o.getPropsJson(group));
+			JsonNode node = m.readTree(o.getPropsJson(group));
+			if (node.isNull()) return null;
+			ObjectNode groupJSON = (ObjectNode)node;
 			if (groupJSON.has(key)){
 				return groupJSON.get(key).asDouble();
 			} else {
@@ -128,7 +132,9 @@ public class JavaPropHandler extends PropHandler {
 		if (o.getPropsJson(group) == null) return null;
 		try {
 			ObjectMapper m = new ObjectMapper();
-			ObjectNode groupJSON = (ObjectNode) m.readTree(o.getPropsJson(group));
+			JsonNode node = m.readTree(o.getPropsJson(group));
+			if (node.isNull()) return null;
+			ObjectNode groupJSON = (ObjectNode)node;
 			if (groupJSON.has(key)){
 				return groupJSON.get(key).asText();
 			} else {
