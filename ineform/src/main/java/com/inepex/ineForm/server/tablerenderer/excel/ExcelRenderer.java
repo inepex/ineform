@@ -241,6 +241,7 @@ public class ExcelRenderer extends TableRenderer{
 		if(!definedStyles.containsKey(format)){
 			CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
 			CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+			cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 			cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(format));
 			definedStyles.put(format, cellStyle);
 		}
