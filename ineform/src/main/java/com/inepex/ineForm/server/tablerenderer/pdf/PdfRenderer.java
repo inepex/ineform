@@ -30,6 +30,8 @@ public class PdfRenderer extends TableRenderer {
 	protected PdfStyle pdfStyle;
 	protected PdfPTable table;
 	protected int[] colWidthPctgs;
+	protected boolean withNoBorders = true;
+	private float[] colRelativeWidths;
 	
 	@Inject
 	public PdfRenderer(DescriptorStore descStore,
@@ -46,6 +48,15 @@ public class PdfRenderer extends TableRenderer {
 	public void setColWidthPctgs(int[] colWidthPctgs) {
 		this.colWidthPctgs = colWidthPctgs;
 	}
+	
+	public void setColWidthRelative(float[] colRelativeWidths) {
+		this.colRelativeWidths = colRelativeWidths;
+		
+	}
+	
+	public void setWithNoBorders(boolean withNoBorders) {
+		this.withNoBorders = withNoBorders;
+	}
 
 	@Override
 	protected void renderStart() {
@@ -54,6 +65,14 @@ public class PdfRenderer extends TableRenderer {
 		if (colWidthPctgs != null){
 			try {
 				table.setWidths(colWidthPctgs);
+			} catch (DocumentException e){
+				_logger.info("Exception:", e);
+			}
+		}
+		
+		if (colRelativeWidths != null){
+			try {
+				table.setWidths(colRelativeWidths);
 			} catch (DocumentException e){
 				_logger.info("Exception:", e);
 			}
@@ -85,7 +104,9 @@ public class PdfRenderer extends TableRenderer {
 		
 		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		cell.setBorder(Rectangle.NO_BORDER);
+		if (withNoBorders) {
+			cell.setBorder(Rectangle.NO_BORDER);			
+		}
 		customizeFieldCell(cell);
 		table.addCell(cell);
 	}
