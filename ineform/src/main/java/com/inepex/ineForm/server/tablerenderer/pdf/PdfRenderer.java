@@ -51,7 +51,6 @@ public class PdfRenderer extends TableRenderer {
 	
 	public void setColWidthRelative(float[] colRelativeWidths) {
 		this.colRelativeWidths = colRelativeWidths;
-		
 	}
 	
 	public void setWithNoBorders(boolean withNoBorders) {
