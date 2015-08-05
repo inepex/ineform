@@ -91,7 +91,7 @@ public class CsvRenderer extends TableRenderer{
 		
 	}
 	@Override
-	protected void renderField(String content){
+	protected void renderField(String content, ColRDesc colRdesc){
 		sb.append("\"" + content + "\"");
 	}
 	@Override

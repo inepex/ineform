@@ -98,12 +98,32 @@ public class PdfRenderer extends TableRenderer {
 	}
 	
 	@Override
-	protected void renderField(String content){
+	protected void renderField(String content, ColRDesc colRDesc){
 		PdfPCell cell = new PdfPCell(new Paragraph(content, pdfStyle.getDataCellFont()));
 		cell.setColspan(1);
 		
-		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		
+		if (colRDesc != null && colRDesc.getHAlign() != null) {
+			int alignment = Element.ALIGN_CENTER;
+			switch (colRDesc.getHAlign()) {
+			case LEFT:
+				alignment = Element.ALIGN_LEFT;
+				break;
+			case RIGHT:
+				alignment = Element.ALIGN_RIGHT;
+				break;
+			case CENTER:
+				alignment = Element.ALIGN_CENTER;
+				break;
+			default:
+				break;
+			}
+			
+			cell.setHorizontalAlignment(alignment);
+		}
+		
 		if (withNoBorders) {
 			cell.setBorder(Rectangle.NO_BORDER);			
 		}

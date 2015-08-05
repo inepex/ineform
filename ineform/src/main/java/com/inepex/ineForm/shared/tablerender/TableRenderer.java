@@ -78,7 +78,7 @@ public abstract class TableRenderer {
 				
 				AssistedObjectHandler kvoOrRelatedKvoChecker = factory.createHandler(kvo).getRelatedKVOMultiLevel(
 						SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
-				renderField(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker));
+				renderField(renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker), colRenderDesc);
 								
 				if (renderLastFieldEnd 
 						|| !columnNode.equals(tableRDesc.getRootNode().getChildren().get(tableRDesc.getRootNode().getChildren().size()-1)))
@@ -102,7 +102,7 @@ public abstract class TableRenderer {
 	 * ovveride when you need the content in descendant
 	 * @param content
 	 */
-	protected void renderField(String content){
+	protected void renderField(String content, ColRDesc colRdesc){
 		sb.append(content);
 	}
 	

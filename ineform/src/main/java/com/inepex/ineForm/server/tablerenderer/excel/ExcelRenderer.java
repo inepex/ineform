@@ -107,7 +107,7 @@ public class ExcelRenderer extends TableRenderer{
 	}
 
 	@Override
-	protected void renderField(String content){
+	protected void renderField(String content, ColRDesc colRdesc){
 		actualCell.setCellValue(content);
 	}
 
@@ -128,7 +128,7 @@ public class ExcelRenderer extends TableRenderer{
 
 	@Override
 	protected void renderHeaderField(String key, String content){
-		renderField(content);
+		actualCell.setCellValue(content);
 	}
 
 	@Override

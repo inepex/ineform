@@ -39,10 +39,12 @@ public class ColRDesc extends TableRDescBase {
 	private int cropWidth=DEF_CROP_WITH;
 	
 	public ColRDesc() {
+		hAlign(ColRDescHAlign.CENTER);
 	}
 		
 	public ColRDesc(boolean sortable) {
 		this.sortable = sortable;
+		hAlign(ColRDescHAlign.CENTER);
 	}
 	
 	@Override
