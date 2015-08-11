@@ -80,6 +80,10 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
 		menuTable.clearCell(0, 4);
 	}
 	
+	public String getCurrentApp() {
+		return menuTable.getText(0, 4);
+	}
+	
 	@Override
 	protected void onAttach() {
 		super.onAttach();
