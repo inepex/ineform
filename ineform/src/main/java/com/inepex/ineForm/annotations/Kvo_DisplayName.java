@@ -8,5 +8,4 @@ import java.lang.annotation.RetentionPolicy;
  * TODO rename to "default order key"
  * 
  */
-public @interface Kvo_DisplayName {
-}
+public @interface Kvo_DisplayName {}

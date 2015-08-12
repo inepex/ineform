@@ -19,38 +19,46 @@ import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 public class App extends IneFrameEntryPoint {
 
-	public static AppGinjector INJECTOR = GWT.create(AppGinjector.class);
-	
-	static {
-		IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE=false;
-		Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, "en", new Date(System.currentTimeMillis()+DateHelper.dayInMs*50));
-	}
-	
-	public App() {
-		super(INJECTOR.getDispatchAsync(), INJECTOR.getEventBus(), INJECTOR.getAuthManager(), INJECTOR.getDescriptorStore(),
-				INJECTOR.getHistoryProvider(), INJECTOR.getI18nStore_Client());
-	}
-	
-	@Override
-	public void onIneModuleLoad() {
-		NavigationProperties.defaultPlace=AppPlaceHierarchyProvider.LOGGEDIN;
-		NavigationProperties.noRightPlace=AppPlaceHierarchyProvider.LOGIN;
-		NavigationProperties.wrongTokenPlace=AppPlaceHierarchyProvider.LOGGEDIN + "/" + AppPlaceHierarchyProvider.PAGENOTFOUND;
-		NavigationProperties.loginPlace = AppPlaceHierarchyProvider.LOGIN;
-		
-		registerDescriptors();
-		
-		RootPanel.get().add(INJECTOR.getMasterPageView());
-		INJECTOR.gePlaceHandler().fireInitialPlace();
-	}
-	
-	private void registerDescriptors() {
-	}
+    public static AppGinjector INJECTOR = GWT.create(AppGinjector.class);
 
-	@Override
-	protected void registerAdditionalI18nModules() {
-		clientI18nStore.registerModule(new IneOmI18n(new ClientI18nProvider<IneOmI18n>()));
-		clientI18nStore.registerModule(new IneFormI18n(new ClientI18nProvider<IneFormI18n>()));
-		clientI18nStore.registerModule(new CMI18n(new ClientI18nProvider<CMI18n>()));
-	}
+    static {
+        IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE = false;
+        Cookies.setCookie(
+            I18nStore_Client.LANG_COOKIE_ID,
+            "en",
+            new Date(System.currentTimeMillis() + DateHelper.dayInMs * 50));
+    }
+
+    public App() {
+        super(
+            INJECTOR.getDispatchAsync(),
+            INJECTOR.getEventBus(),
+            INJECTOR.getAuthManager(),
+            INJECTOR.getDescriptorStore(),
+            INJECTOR.getHistoryProvider(),
+            INJECTOR.getI18nStore_Client());
+    }
+
+    @Override
+    public void onIneModuleLoad() {
+        NavigationProperties.defaultPlace = AppPlaceHierarchyProvider.LOGGEDIN;
+        NavigationProperties.noRightPlace = AppPlaceHierarchyProvider.LOGIN;
+        NavigationProperties.wrongTokenPlace =
+            AppPlaceHierarchyProvider.LOGGEDIN + "/" + AppPlaceHierarchyProvider.PAGENOTFOUND;
+        NavigationProperties.loginPlace = AppPlaceHierarchyProvider.LOGIN;
+
+        registerDescriptors();
+
+        RootPanel.get().add(INJECTOR.getMasterPageView());
+        INJECTOR.gePlaceHandler().fireInitialPlace();
+    }
+
+    private void registerDescriptors() {}
+
+    @Override
+    protected void registerAdditionalI18nModules() {
+        clientI18nStore.registerModule(new IneOmI18n(new ClientI18nProvider<IneOmI18n>()));
+        clientI18nStore.registerModule(new IneFormI18n(new ClientI18nProvider<IneFormI18n>()));
+        clientI18nStore.registerModule(new CMI18n(new ClientI18nProvider<CMI18n>()));
+    }
 }

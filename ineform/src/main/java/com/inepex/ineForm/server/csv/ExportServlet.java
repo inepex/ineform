@@ -23,35 +23,41 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectListResult;
 @Singleton
 public class ExportServlet extends AbstractExportServlet {
 
-	private final Dispatch dispatcher;
-	
-	@Inject
-	public ExportServlet(
-			Provider<CurrentLang> currLangProvider,
-			Dispatch dispatcher,
-			TrtdRendererFactory trtdRendererFactory,
-			HtmlRendererFactory htmlRendererFactory,
-			CsvRendererFactory csvRendererFactory,
-			PdfRendererFactory pdfRendererFactory,
-			ExcelRendererFactory excelRendererFactory,
-			ExportCustomizerStore exportCustomizerStore) {
-		super(currLangProvider, trtdRendererFactory, htmlRendererFactory, csvRendererFactory,
-				excelRendererFactory, pdfRendererFactory, exportCustomizerStore);
-		this.dispatcher = dispatcher;
-	}
+    private final Dispatch dispatcher;
 
-	@Override
-	protected void customizeAction(HttpServletRequest req, ObjectList action) {
-		currLangProvider.get().setLangOverride((String) req.getSession()
-				.getAttribute(SetActionForExportServletHandler.rendererLanguage));
-			
-	}
+    @Inject
+    public ExportServlet(
+        Provider<CurrentLang> currLangProvider,
+        Dispatch dispatcher,
+        TrtdRendererFactory trtdRendererFactory,
+        HtmlRendererFactory htmlRendererFactory,
+        CsvRendererFactory csvRendererFactory,
+        PdfRendererFactory pdfRendererFactory,
+        ExcelRendererFactory excelRendererFactory,
+        ExportCustomizerStore exportCustomizerStore) {
+        super(
+            currLangProvider,
+            trtdRendererFactory,
+            htmlRendererFactory,
+            csvRendererFactory,
+            excelRendererFactory,
+            pdfRendererFactory,
+            exportCustomizerStore);
+        this.dispatcher = dispatcher;
+    }
 
-	@Override
-	protected ObjectListResult getResult(ObjectList action) throws Exception {
-		ObjectListActionResult listResult = dispatcher.execute((ObjectListAction)action);
-		return listResult;
-	}
-	
-	
+    @Override
+    protected void customizeAction(HttpServletRequest req, ObjectList action) {
+        currLangProvider.get().setLangOverride(
+            (String) req.getSession().getAttribute(
+                SetActionForExportServletHandler.rendererLanguage));
+
+    }
+
+    @Override
+    protected ObjectListResult getResult(ObjectList action) throws Exception {
+        ObjectListActionResult listResult = dispatcher.execute((ObjectListAction) action);
+        return listResult;
+    }
+
 }

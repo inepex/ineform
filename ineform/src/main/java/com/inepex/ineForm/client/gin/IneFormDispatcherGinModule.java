@@ -12,12 +12,12 @@ import com.inepex.ineFrame.client.async.IneDispatch;
 
 public class IneFormDispatcherGinModule extends AbstractGinModule {
 
-	@Override
-	protected void configure() {
-		bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
-		bind(ManipulationObjectFactory.class).to(ActionObjectFactory.class);
-		bind(IneDispatch.class).in(Singleton.class);
-		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
-	}
+    @Override
+    protected void configure() {
+        bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
+        bind(ManipulationObjectFactory.class).to(ActionObjectFactory.class);
+        bind(IneDispatch.class).in(Singleton.class);
+        bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
+    }
 
 }

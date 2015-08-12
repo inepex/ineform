@@ -8,50 +8,52 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
  */
 @SessionScoped
 public class SessionScopedAuthStat {
-	
-	private Long userId=null;
-	private AuthStatusResultBase authStatusResultBase=null;
 
-	/**
-	 * USE ONLY in synchronized blocks!!!!!
-	 */
-	public void clearState() {
-		setUserId(null);
-		setAuthStatusResultBase(null);
-	}
-	
-	/**
-	 * USE ONLY in synchronized blocks!!!!!
-	 */
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-	
-	/**
-	 * USE ONLY in synchronized blocks!!!!!
-	 */
-	public void setAuthStatusResultBase(
-			AuthStatusResultBase authStatusResultBase) {
-		this.authStatusResultBase = authStatusResultBase;
-	}
-	
-	/**
-	 * USE ONLY in synchronized blocks!!!!!
-	 */
-	public Long getUserId() {
-		return userId;
-	}
-	
-	/**
-	 * USE ONLY in synchronized blocks!!!!!
-	 */
-	public AuthStatusResultBase getAuthStatusResultBase() {
-		return authStatusResultBase;
-	}
+    private Long userId = null;
+    private AuthStatusResultBase authStatusResultBase = null;
 
-	@Override
-	public String toString() {
-		return "SessionScopedAuthStat [userId=" + userId
-				+ ", authStatusResultBase=" + authStatusResultBase + "]";
-	}
+    /**
+     * USE ONLY in synchronized blocks!!!!!
+     */
+    public void clearState() {
+        setUserId(null);
+        setAuthStatusResultBase(null);
+    }
+
+    /**
+     * USE ONLY in synchronized blocks!!!!!
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * USE ONLY in synchronized blocks!!!!!
+     */
+    public void setAuthStatusResultBase(AuthStatusResultBase authStatusResultBase) {
+        this.authStatusResultBase = authStatusResultBase;
+    }
+
+    /**
+     * USE ONLY in synchronized blocks!!!!!
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * USE ONLY in synchronized blocks!!!!!
+     */
+    public AuthStatusResultBase getAuthStatusResultBase() {
+        return authStatusResultBase;
+    }
+
+    @Override
+    public String toString() {
+        return "SessionScopedAuthStat [userId="
+            + userId
+            + ", authStatusResultBase="
+            + authStatusResultBase
+            + "]";
+    }
 }

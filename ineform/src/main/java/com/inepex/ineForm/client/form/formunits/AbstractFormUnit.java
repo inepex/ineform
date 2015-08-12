@@ -29,213 +29,226 @@ import com.inepex.ineom.shared.util.SharedUtil;
  *
  */
 public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
-	
-	//initial
-	protected final String objectDescriptorsName;
-	protected final ObjectDesc objectDescriptor;
-	
-	//data flow
-	protected TreeMap<String, HTML> titlesByKey = new TreeMap<String, HTML>();
-	protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
-	protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey = new TreeMap<String, ErrorMessageManagerInterface>();
-	protected TreeMap<String, PropFW> propFwsByKey = new TreeMap<String, PropFW>();
-	
-	//gui behaviour
-	protected FormWidget firstFocusableWidget = null;
-	protected List<FormWidget> 	renderedWidgets = new ArrayList<FormWidget>();
-	
-	private final FormWidgetChangeHandler formChangeHandler = new FormWidgetChangeHandler() {
-		@Override
-		public void onFormWidgetChange(FormWidgetChangeEvent e) {
-			fireEvent(e);
-		}
-	};
-	
-//********************* join methods
-	
-	public void joinToDataFlow(String key, FormWidget fw) {
-		widgetsByKey.put(key, fw);
-	}
-	
-	public void joinAndAddToMainPanel(String key, FormWidget fw) {
-		joinToDataFlow(key, fw);
-		add(fw);
-	}
-	
-	public void addToMainPanel(Widget w) {
-		add(w);
-	}
-	
-	public void insertIntoMainPanel(Widget w, int beforeIndex) {
-		insert(w, beforeIndex);
-	}
-	
-	public void joinToDataFlow(String key, FormWidget fw, ErrorMessageManagerInterface errorMessageManager) {
-		widgetsByKey.put(key, fw);
-		
-		errormanagersByKey.put(key, errorMessageManager);
-	}
-	
-	public void joinAndAddToMainPanel(String key, FormWidget fw, ErrorMessageManagerInterface errorMessageManager) {
-		joinToDataFlow(key, fw, errorMessageManager);
-		add(fw);
-	}
 
-//********************* initialize form
-	
-	DescriptorStore descStore;
-	
-	public AbstractFormUnit(String objectDescriptorsName, DescriptorStore ds) {
-		this.objectDescriptorsName=objectDescriptorsName;
-		this.descStore = ds;
-		this.objectDescriptor=ds.getOD(objectDescriptorsName);
-	}
+    // initial
+    protected final String objectDescriptorsName;
+    protected final ObjectDesc objectDescriptor;
 
-	public void registerErrorMessegeManager(String key, ErrorMessageManagerInterface errorMessageManager) {
-		errormanagersByKey.put(key, errorMessageManager);
-	}
+    // data flow
+    protected TreeMap<String, HTML> titlesByKey = new TreeMap<String, HTML>();
+    protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
+    protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey =
+        new TreeMap<String, ErrorMessageManagerInterface>();
+    protected TreeMap<String, PropFW> propFwsByKey = new TreeMap<String, PropFW>();
 
-	public void registerWidgetToDataFlow(String key, FormWidget widget) {
-		widgetsByKey.put(key, widget);
-		
-		if(widget instanceof PropFW)
-			propFwsByKey.put(key, (PropFW) widget);
-	}
-	
-	public void registerTitle(String key, HTML title) {
-		titlesByKey.put(key, title);
-	}
-	
-	public void registerRenderedWidget(FormWidget widget) {
-		renderedWidgets.add(widget);
+    // gui behaviour
+    protected FormWidget firstFocusableWidget = null;
+    protected List<FormWidget> renderedWidgets = new ArrayList<FormWidget>();
 
-		if (firstFocusableWidget == null && widget.isFocusable())
-			firstFocusableWidget = widget;
+    private final FormWidgetChangeHandler formChangeHandler = new FormWidgetChangeHandler() {
+        @Override
+        public void onFormWidgetChange(FormWidgetChangeEvent e) {
+            fireEvent(e);
+        }
+    };
 
-		widget.addFormWidgetChangeHandler(formChangeHandler);
-	}
-	
-//********************* for rendering
-	
-	/**
-	 * @param nodeName - the name of node
-	 * @return - a fielddescriptor belongs to the name or null
-	 */
-	public FDesc getFieldDesct(Node<FormRDescBase> node) {
-		if (SharedUtil.isMultilevelKey(node.getNodeId()))			
-			return descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, SharedUtil.listFromDotSeparated(node.getNodeId()));
-		else
-			return objectDescriptor.getField(node.getNodeId());
-	}
-	
-//********************* gui behaviour
- 
-	/**
-	 * to handle change of form (and subforms, and sub-subforms...)
-	 */
-	public HandlerRegistration addFormWidgetChangeHandler(FormWidgetChangeHandler h) {
-		return addHandler(h, FormWidgetChangeEvent.TYPE);
-	}
-	
-	public void focusFirstWidget() {
-		if (firstFocusableWidget != null)
-			firstFocusableWidget.setFocus(true);
-	}
+    // ********************* join methods
 
-	public void setEnabled(boolean enabled) {
-		for (FormWidget widget : renderedWidgets) {
-			widget.setEnabled(enabled);
-		}
-	}
-	
-	public abstract void setFWVisible(String key, boolean visible);
-	
-	public void setRowTitle(String key, String titleText) {
-		if(titlesByKey.get(key)!=null) 
-			titlesByKey.get(key).setHTML(titleText);
-	}
+    public void joinToDataFlow(String key, FormWidget fw) {
+        widgetsByKey.put(key, fw);
+    }
 
-//********************* data flow for - objectEditor's data management 
-	public Set<String> getFormWidgetKeySet() {
-		return widgetsByKey.keySet();
-	}
+    public void joinAndAddToMainPanel(String key, FormWidget fw) {
+        joinToDataFlow(key, fw);
+        add(fw);
+    }
 
-	public Set<String> getErrorManagerKeySet() {
-		Set<String> keys = new TreeSet<String>();
-		keys.addAll(errormanagersByKey.keySet());
+    public void addToMainPanel(Widget w) {
+        add(w);
+    }
 
-		for(String key : propFwsByKey.keySet()) {
-			keys.addAll(propFwsByKey.get(key).getModelKeys(key));
-		}
-			
-		return keys;
-	}
-	
-	public TreeMap<String, ErrorMessageManagerInterface> getErrormanagersByKey() {
-		TreeMap<String, ErrorMessageManagerInterface> ret = new TreeMap<String, ErrorMessageManagerInterface>();
-		ret.putAll(errormanagersByKey);
-		
-		for(String key : propFwsByKey.keySet()) {
-			ret.putAll(propFwsByKey.get(key).getErrorManagers(key));
-		}		
-		return ret;
-	}
+    public void insertIntoMainPanel(Widget w, int beforeIndex) {
+        insert(w, beforeIndex);
+    }
 
-	public FormWidget getWidgetByKey(String key) {
-		return widgetsByKey.get(key);
-	}
+    public void joinToDataFlow(
+        String key,
+        FormWidget fw,
+        ErrorMessageManagerInterface errorMessageManager) {
+        widgetsByKey.put(key, fw);
 
-	public void setSingleWidgetValue(String key, Boolean value){
-		FormWidget widget = widgetsByKey.get(key);
-		if (widget == null)
-			return;
-		
-		if (widget.handlesBoolean())
-			widget.setBooleanValue(value);
-	}
+        errormanagersByKey.put(key, errorMessageManager);
+    }
 
-	public void setSingleWidgetValue(String key, Double value){
-		FormWidget widget = widgetsByKey.get(key);
-		if (widget == null)
-			return;
-		
-		if (widget.handlesDouble())
-			widget.setDoubleValue(value);
-	}
-	
-	public void setSingleWidgetValue(String key, Long value){
-		FormWidget widget = widgetsByKey.get(key);
-		if (widget == null)
-			return;
-		
-		if (widget.handlesLong())
-			widget.setLongValue(value);
-	}
-	
-	public void setSingleWidgetValue(String key, IneList value) {
-		FormWidget widget = widgetsByKey.get(key);
-		if (widget == null)
-			return;
-		
-		if (widget.handlesList())
-			widget.setListValue(value);		
-	}
+    public void joinAndAddToMainPanel(
+        String key,
+        FormWidget fw,
+        ErrorMessageManagerInterface errorMessageManager) {
+        joinToDataFlow(key, fw, errorMessageManager);
+        add(fw);
+    }
 
-	public void setSingleWidgetValue(String key, Relation value){
-		FormWidget widget = widgetsByKey.get(key);
-		if (widget == null)
-			return;
-		
-		if (widget.handlesRelation())
-			widget.setRelationValue(value);
-	}
-	
-	public void setSingleWidgetValue(String key, String value){
-		FormWidget widget = widgetsByKey.get(key);
-		if (widget == null)
-			return;
-		
-		if (widget.handlesString())
-			widget.setStringValue(value);
-	}	
+    // ********************* initialize form
+
+    DescriptorStore descStore;
+
+    public AbstractFormUnit(String objectDescriptorsName, DescriptorStore ds) {
+        this.objectDescriptorsName = objectDescriptorsName;
+        this.descStore = ds;
+        this.objectDescriptor = ds.getOD(objectDescriptorsName);
+    }
+
+    public void registerErrorMessegeManager(
+        String key,
+        ErrorMessageManagerInterface errorMessageManager) {
+        errormanagersByKey.put(key, errorMessageManager);
+    }
+
+    public void registerWidgetToDataFlow(String key, FormWidget widget) {
+        widgetsByKey.put(key, widget);
+
+        if (widget instanceof PropFW)
+            propFwsByKey.put(key, (PropFW) widget);
+    }
+
+    public void registerTitle(String key, HTML title) {
+        titlesByKey.put(key, title);
+    }
+
+    public void registerRenderedWidget(FormWidget widget) {
+        renderedWidgets.add(widget);
+
+        if (firstFocusableWidget == null && widget.isFocusable())
+            firstFocusableWidget = widget;
+
+        widget.addFormWidgetChangeHandler(formChangeHandler);
+    }
+
+    // ********************* for rendering
+
+    /**
+     * @param nodeName
+     *            - the name of node
+     * @return - a fielddescriptor belongs to the name or null
+     */
+    public FDesc getFieldDesct(Node<FormRDescBase> node) {
+        if (SharedUtil.isMultilevelKey(node.getNodeId()))
+            return descStore.getRelatedFieldDescrMultiLevel(
+                objectDescriptor,
+                SharedUtil.listFromDotSeparated(node.getNodeId()));
+        else
+            return objectDescriptor.getField(node.getNodeId());
+    }
+
+    // ********************* gui behaviour
+
+    /**
+     * to handle change of form (and subforms, and sub-subforms...)
+     */
+    public HandlerRegistration addFormWidgetChangeHandler(FormWidgetChangeHandler h) {
+        return addHandler(h, FormWidgetChangeEvent.TYPE);
+    }
+
+    public void focusFirstWidget() {
+        if (firstFocusableWidget != null)
+            firstFocusableWidget.setFocus(true);
+    }
+
+    public void setEnabled(boolean enabled) {
+        for (FormWidget widget : renderedWidgets) {
+            widget.setEnabled(enabled);
+        }
+    }
+
+    public abstract void setFWVisible(String key, boolean visible);
+
+    public void setRowTitle(String key, String titleText) {
+        if (titlesByKey.get(key) != null)
+            titlesByKey.get(key).setHTML(titleText);
+    }
+
+    // ********************* data flow for - objectEditor's data management
+    public Set<String> getFormWidgetKeySet() {
+        return widgetsByKey.keySet();
+    }
+
+    public Set<String> getErrorManagerKeySet() {
+        Set<String> keys = new TreeSet<String>();
+        keys.addAll(errormanagersByKey.keySet());
+
+        for (String key : propFwsByKey.keySet()) {
+            keys.addAll(propFwsByKey.get(key).getModelKeys(key));
+        }
+
+        return keys;
+    }
+
+    public TreeMap<String, ErrorMessageManagerInterface> getErrormanagersByKey() {
+        TreeMap<String, ErrorMessageManagerInterface> ret =
+            new TreeMap<String, ErrorMessageManagerInterface>();
+        ret.putAll(errormanagersByKey);
+
+        for (String key : propFwsByKey.keySet()) {
+            ret.putAll(propFwsByKey.get(key).getErrorManagers(key));
+        }
+        return ret;
+    }
+
+    public FormWidget getWidgetByKey(String key) {
+        return widgetsByKey.get(key);
+    }
+
+    public void setSingleWidgetValue(String key, Boolean value) {
+        FormWidget widget = widgetsByKey.get(key);
+        if (widget == null)
+            return;
+
+        if (widget.handlesBoolean())
+            widget.setBooleanValue(value);
+    }
+
+    public void setSingleWidgetValue(String key, Double value) {
+        FormWidget widget = widgetsByKey.get(key);
+        if (widget == null)
+            return;
+
+        if (widget.handlesDouble())
+            widget.setDoubleValue(value);
+    }
+
+    public void setSingleWidgetValue(String key, Long value) {
+        FormWidget widget = widgetsByKey.get(key);
+        if (widget == null)
+            return;
+
+        if (widget.handlesLong())
+            widget.setLongValue(value);
+    }
+
+    public void setSingleWidgetValue(String key, IneList value) {
+        FormWidget widget = widgetsByKey.get(key);
+        if (widget == null)
+            return;
+
+        if (widget.handlesList())
+            widget.setListValue(value);
+    }
+
+    public void setSingleWidgetValue(String key, Relation value) {
+        FormWidget widget = widgetsByKey.get(key);
+        if (widget == null)
+            return;
+
+        if (widget.handlesRelation())
+            widget.setRelationValue(value);
+    }
+
+    public void setSingleWidgetValue(String key, String value) {
+        FormWidget widget = widgetsByKey.get(key);
+        if (widget == null)
+            return;
+
+        if (widget.handlesString())
+            widget.setStringValue(value);
+    }
 }

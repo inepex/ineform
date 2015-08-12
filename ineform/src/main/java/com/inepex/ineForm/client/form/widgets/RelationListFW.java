@@ -30,272 +30,279 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 public class RelationListFW extends DenyingFormWidget {
-	
-	public static final String FIXSIZED = "FIXSIZED";
 
-	private class RelationDragHandler extends DragHandlerAdapter {
-		@Override
-		public void onDragEnd(DragEndEvent event) {
-			RelationRow movedObject = (RelationRow)event.getSource();
-			int to = relationsPanel.getWidgetIndex(movedObject);
-			relationList.move(movedObject.getRelation(), to);
-			reRenderRelations();			
-			fireFormWidgetChanged();
-		}
-	}
-	
-	private class AddButtonClickHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			relationList.add(new Relation());
-			reRenderRelations();			
-			fireFormWidgetChanged();
-		}
-	}
+    public static final String FIXSIZED = "FIXSIZED";
 
-	private abstract class PanelClickHandler implements ClickHandler {
-		final RelationRow relationRow;
+    private class RelationDragHandler extends DragHandlerAdapter {
+        @Override
+        public void onDragEnd(DragEndEvent event) {
+            RelationRow movedObject = (RelationRow) event.getSource();
+            int to = relationsPanel.getWidgetIndex(movedObject);
+            relationList.move(movedObject.getRelation(), to);
+            reRenderRelations();
+            fireFormWidgetChanged();
+        }
+    }
 
-		public PanelClickHandler(RelationRow relationRow) {
-			this.relationRow = relationRow;
-		}
-	}
+    private class AddButtonClickHandler implements ClickHandler {
+        @Override
+        public void onClick(ClickEvent event) {
+            relationList.add(new Relation());
+            reRenderRelations();
+            fireFormWidgetChanged();
+        }
+    }
 
-	private class RemoveClickHandler extends PanelClickHandler {
-		public RemoveClickHandler(RelationRow relationRow) {
-			super(relationRow);
-		}
+    private abstract class PanelClickHandler implements ClickHandler {
+        final RelationRow relationRow;
 
-		@Override
-		public void onClick(ClickEvent event) {
-			relationList.delete(relationRow.getRelation());
-			relationsPanel.remove(relationRow);
-			reRenderRelations();
-			fireFormWidgetChanged();
-		}
-	}
+        public PanelClickHandler(RelationRow relationRow) {
+            this.relationRow = relationRow;
+        }
+    }
 
-	private class UpClickHandler extends PanelClickHandler {
-		public UpClickHandler(RelationRow relationRow) {
-			super(relationRow);
-		}
+    private class RemoveClickHandler extends PanelClickHandler {
+        public RemoveClickHandler(RelationRow relationRow) {
+            super(relationRow);
+        }
 
-		@Override
-		public void onClick(ClickEvent event) {
-			relationList.moveUp(relationRow.getRelation());
-			reRenderRelations();			
-			fireFormWidgetChanged();
-		}
-	}
+        @Override
+        public void onClick(ClickEvent event) {
+            relationList.delete(relationRow.getRelation());
+            relationsPanel.remove(relationRow);
+            reRenderRelations();
+            fireFormWidgetChanged();
+        }
+    }
 
-	private class DownClickHandler extends PanelClickHandler {
-		public DownClickHandler(RelationRow relationRow) {
-			super(relationRow);
-		}
-		
-		@Override
-		public void onClick(ClickEvent event) {
-			relationList.moveDown(relationRow.getRelation());
-			reRenderRelations();			
-			fireFormWidgetChanged();
-		}
-	}
-	
-	private final FormWidgetChangeHandler fwch = new FormWidgetChangeHandler() {
-		
-		@Override
-		public void onFormWidgetChange(FormWidgetChangeEvent e) {
-			fireFormWidgetChanged();
-		}
-	};
-	
-	private final AbsolutePanel boundaryPanel = new AbsolutePanel();
-	private final FlowPanel relationsPanel = new FlowPanel();
-	
-	private final List<RelationRow> rowList = new ArrayList<RelationListFW.RelationRow>();
+    private class UpClickHandler extends PanelClickHandler {
+        public UpClickHandler(RelationRow relationRow) {
+            super(relationRow);
+        }
 
-	private final PickupDragController dragConroller = new PickupDragController(boundaryPanel, false);
-	private final FlowPanelDropController dropController = new FlowPanelDropController(relationsPanel);
+        @Override
+        public void onClick(ClickEvent event) {
+            relationList.moveUp(relationRow.getRelation());
+            reRenderRelations();
+            fireFormWidgetChanged();
+        }
+    }
 
-	private final FlowPanel mainPanel = new FlowPanel();
-	private final IneButton addButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.ADD());
+    private class DownClickHandler extends PanelClickHandler {
+        public DownClickHandler(RelationRow relationRow) {
+            super(relationRow);
+        }
 
-	private final String relationDescriptorName;
-	private final FormContext formCtx;
-	
-	private final RelationList relationList;
-	
-	private final boolean fixSized;
+        @Override
+        public void onClick(ClickEvent event) {
+            relationList.moveDown(relationRow.getRelation());
+            reRenderRelations();
+            fireFormWidgetChanged();
+        }
+    }
 
-	/**
-	 * Creates the RelationListFW. allowOrdering set to true. If you want to
-	 * disable ordering, you have to call the another constructor explicitly.
-	 * 
-	 * @param relationDescriptorName
-	 * @param valueRangeProvider
-	 */
-	public RelationListFW(FormContext formCtx, FDesc fielddescriptor, String relationDescriptorName, boolean fixSized) {
-		this(formCtx, fielddescriptor, relationDescriptorName, true, fixSized);
-	}
+    private final FormWidgetChangeHandler fwch = new FormWidgetChangeHandler() {
 
-	public RelationListFW(FormContext formCtx
-			, FDesc fielddescriptor
-			, String relationDescriptorName
-			, boolean allowOrdering
-			, boolean fixSized) {
-		super(fielddescriptor);
-		this.formCtx = formCtx;
-		this.fixSized = fixSized;
-		this.relationDescriptorName = relationDescriptorName;
-		this.relationList = new RelationList(formCtx.descStore, 
-				relationDescriptorName
-				, allowOrdering);
+        @Override
+        public void onFormWidgetChange(FormWidgetChangeEvent e) {
+            fireFormWidgetChanged();
+        }
+    };
 
-		initWidget(mainPanel);
-				
-		mainPanel.add(boundaryPanel);
-		boundaryPanel.add(relationsPanel);
-		mainPanel.add(addButton);
-		
-		dragConroller.registerDropController(dropController);
-		dragConroller.setBehaviorDragProxy(true);
-		
-		dragConroller.addDragHandler(new RelationDragHandler());
-		
-		if(fixSized)
-			addButton.setVisible(false);
-	}
-	
-	public void reRenderRelations(){
-		relationsPanel.clear();
-		rowList.clear();
-		
-		for (Relation rel : relationList.getRelations()){
-			RelationRow relationRow = new RelationRow(rel);
-			rowList.add(relationRow);
-			relationsPanel.add(relationRow);
-			relationRow.updateButtonVisiblity();
-		}
-	}
+    private final AbsolutePanel boundaryPanel = new AbsolutePanel();
+    private final FlowPanel relationsPanel = new FlowPanel();
 
-	@Override
-	public boolean handlesList() {
-		return true;
-	}
+    private final List<RelationRow> rowList = new ArrayList<RelationListFW.RelationRow>();
 
-	@Override
-	protected void onAttach() {
-		registerHandler(addButton.addClickHandler(new AddButtonClickHandler()));
-		super.onAttach();
-	}
+    private final PickupDragController dragConroller = new PickupDragController(
+        boundaryPanel,
+        false);
+    private final FlowPanelDropController dropController = new FlowPanelDropController(
+        relationsPanel);
 
+    private final FlowPanel mainPanel = new FlowPanel();
+    private final IneButton addButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.ADD());
 
-	public RelationList getRelationList() {
-		return relationList;
-	}
-	
-	@Override
-	public void setListValue(IneList value) {
-		if (value == null || value.getRelationList() == null) {
-			relationList.setRelations(Collections.<Relation>emptyList());
-		} else {
-			relationList.setRelations(value.getRelationList());
-		}
-		
-		reRenderRelations();
-	}
-	
-	public void clearValidationResult() {
-		for(RelationRow row : rowList)
-			row.getRelatedForm().dealValidationResult(null);
-	}
-	
-	public void dealValidationResult(int rowId, ValidationResult vr) {
-		rowList.get(rowId).getRelatedForm().dealValidationResult(vr);
-	}
+    private final String relationDescriptorName;
+    private final FormContext formCtx;
 
-	@Override
-	public IneList getListValue() {
-		IneList list = new IneList();
-		list.setRelationList(relationList.getChanges());
-		return list;
-	}
+    private final RelationList relationList;
 
-	class RelationRow extends HandlerAwareComposite {
+    private final boolean fixSized;
 
-		HorizontalPanel hp = new HorizontalPanel();
+    /**
+     * Creates the RelationListFW. allowOrdering set to true. If you want to
+     * disable ordering, you have to call the another constructor explicitly.
+     * 
+     * @param relationDescriptorName
+     * @param valueRangeProvider
+     */
+    public RelationListFW(
+        FormContext formCtx,
+        FDesc fielddescriptor,
+        String relationDescriptorName,
+        boolean fixSized) {
+        this(formCtx, fielddescriptor, relationDescriptorName, true, fixSized);
+    }
 
-		private final IneForm relatedForm;
-		IneButton removeButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.REMOVE());
-		IneButton upButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.UP());
-		IneButton downButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.DOWN());
-		InlineLabel dragLabel = new InlineLabel("Drag");
-		
-		private Relation rel;
-		
-		private FormWidgetChangeHandler formWidgetChangeHandler = new FormWidgetChangeHandler() {
-			
-			@Override
-			public void onFormWidgetChange(FormWidgetChangeEvent e) {
-				relationList.change(getRelation());
-			}
-		};
+    public RelationListFW(
+        FormContext formCtx,
+        FDesc fielddescriptor,
+        String relationDescriptorName,
+        boolean allowOrdering,
+        boolean fixSized) {
+        super(fielddescriptor);
+        this.formCtx = formCtx;
+        this.fixSized = fixSized;
+        this.relationDescriptorName = relationDescriptorName;
+        this.relationList =
+            new RelationList(formCtx.descStore, relationDescriptorName, allowOrdering);
 
-		public RelationRow(Relation rel) {
-			initWidget(hp);
-			this.rel = rel;
+        initWidget(mainPanel);
 
-			relatedForm = new IneForm(formCtx, relationDescriptorName, null);
-			relatedForm.renderForm();
+        mainPanel.add(boundaryPanel);
+        boundaryPanel.add(relationsPanel);
+        mainPanel.add(addButton);
 
-			if (relationList.isSupportsOrdering())
-				hp.add(dragLabel);
+        dragConroller.registerDropController(dropController);
+        dragConroller.setBehaviorDragProxy(true);
 
-			hp.add(relatedForm.asWidget());
-			
-			if(!fixSized)
-				hp.add(removeButton);
-			
-			if (relationList.isSupportsOrdering()){
-				hp.add(upButton);
-				hp.add(downButton);
-			}
-			
-			dragConroller.makeDraggable(this, dragLabel);
+        dragConroller.addDragHandler(new RelationDragHandler());
 
-			if (rel.getKvo() != null) relatedForm.setInitialData(rel.getKvo());
-		}
+        if (fixSized)
+            addButton.setVisible(false);
+    }
 
-		@Override
-		protected void onAttach() {
-			registerHandler(removeButton.addClickHandler(new RemoveClickHandler(this)));
-			registerHandler(upButton.addClickHandler(new UpClickHandler(this)));
-			registerHandler(downButton.addClickHandler(new DownClickHandler(this)));
-			
-			for(AbstractFormUnit innerFormUnit : relatedForm.getRootPanelWidget().getFormUnits()) {
-				registerHandler(innerFormUnit.addFormWidgetChangeHandler(fwch));
-				registerHandler(innerFormUnit.addFormWidgetChangeHandler(formWidgetChangeHandler));
-			}
-			
-			super.onAttach();
-		}
+    public void reRenderRelations() {
+        relationsPanel.clear();
+        rowList.clear();
 
-		public IneForm getRelatedForm() {
-			return relatedForm;
-		}
+        for (Relation rel : relationList.getRelations()) {
+            RelationRow relationRow = new RelationRow(rel);
+            rowList.add(relationRow);
+            relationsPanel.add(relationRow);
+            relationRow.updateButtonVisiblity();
+        }
+    }
 
-		public void updateButtonVisiblity() {
-			int rowCount = relationList.getRelations().size();
-			int index = relationList.getRelations().indexOf(rel);
-			upButton.setVisible(index != 0);
-			downButton.setVisible(index != rowCount - 1);
-		}
-		
-		public Relation getRelation(){
-			AssistedObject kvo = relatedForm.getValues(relatedForm.getInitialOrEmptyData());
-			rel.setKvo(kvo);			
-			return rel;
-		}
-		
-	}
+    @Override
+    public boolean handlesList() {
+        return true;
+    }
+
+    @Override
+    protected void onAttach() {
+        registerHandler(addButton.addClickHandler(new AddButtonClickHandler()));
+        super.onAttach();
+    }
+
+    public RelationList getRelationList() {
+        return relationList;
+    }
+
+    @Override
+    public void setListValue(IneList value) {
+        if (value == null || value.getRelationList() == null) {
+            relationList.setRelations(Collections.<Relation> emptyList());
+        } else {
+            relationList.setRelations(value.getRelationList());
+        }
+
+        reRenderRelations();
+    }
+
+    public void clearValidationResult() {
+        for (RelationRow row : rowList)
+            row.getRelatedForm().dealValidationResult(null);
+    }
+
+    public void dealValidationResult(int rowId, ValidationResult vr) {
+        rowList.get(rowId).getRelatedForm().dealValidationResult(vr);
+    }
+
+    @Override
+    public IneList getListValue() {
+        IneList list = new IneList();
+        list.setRelationList(relationList.getChanges());
+        return list;
+    }
+
+    class RelationRow extends HandlerAwareComposite {
+
+        HorizontalPanel hp = new HorizontalPanel();
+
+        private final IneForm relatedForm;
+        IneButton removeButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.REMOVE());
+        IneButton upButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.UP());
+        IneButton downButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.DOWN());
+        InlineLabel dragLabel = new InlineLabel("Drag");
+
+        private Relation rel;
+
+        private FormWidgetChangeHandler formWidgetChangeHandler = new FormWidgetChangeHandler() {
+
+            @Override
+            public void onFormWidgetChange(FormWidgetChangeEvent e) {
+                relationList.change(getRelation());
+            }
+        };
+
+        public RelationRow(Relation rel) {
+            initWidget(hp);
+            this.rel = rel;
+
+            relatedForm = new IneForm(formCtx, relationDescriptorName, null);
+            relatedForm.renderForm();
+
+            if (relationList.isSupportsOrdering())
+                hp.add(dragLabel);
+
+            hp.add(relatedForm.asWidget());
+
+            if (!fixSized)
+                hp.add(removeButton);
+
+            if (relationList.isSupportsOrdering()) {
+                hp.add(upButton);
+                hp.add(downButton);
+            }
+
+            dragConroller.makeDraggable(this, dragLabel);
+
+            if (rel.getKvo() != null)
+                relatedForm.setInitialData(rel.getKvo());
+        }
+
+        @Override
+        protected void onAttach() {
+            registerHandler(removeButton.addClickHandler(new RemoveClickHandler(this)));
+            registerHandler(upButton.addClickHandler(new UpClickHandler(this)));
+            registerHandler(downButton.addClickHandler(new DownClickHandler(this)));
+
+            for (AbstractFormUnit innerFormUnit : relatedForm.getRootPanelWidget().getFormUnits()) {
+                registerHandler(innerFormUnit.addFormWidgetChangeHandler(fwch));
+                registerHandler(innerFormUnit.addFormWidgetChangeHandler(formWidgetChangeHandler));
+            }
+
+            super.onAttach();
+        }
+
+        public IneForm getRelatedForm() {
+            return relatedForm;
+        }
+
+        public void updateButtonVisiblity() {
+            int rowCount = relationList.getRelations().size();
+            int index = relationList.getRelations().indexOf(rel);
+            upButton.setVisible(index != 0);
+            downButton.setVisible(index != rowCount - 1);
+        }
+
+        public Relation getRelation() {
+            AssistedObject kvo = relatedForm.getValues(relatedForm.getInitialOrEmptyData());
+            rel.setKvo(kvo);
+            return rel;
+        }
+
+    }
 }

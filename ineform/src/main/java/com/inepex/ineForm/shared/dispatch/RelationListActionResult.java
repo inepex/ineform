@@ -14,42 +14,42 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
  */
 public class RelationListActionResult extends GenericActionResult implements RelationListResult {
 
-	private List<Relation> list;
-	private Long allResultCount;
+    private List<Relation> list;
+    private Long allResultCount;
 
-	public RelationListActionResult() {
-		super();
-	}
+    public RelationListActionResult() {
+        super();
+    }
 
-	public RelationListActionResult(List<Relation> requestedPage) {
-		super();
-		this.list = requestedPage;
-	}
+    public RelationListActionResult(List<Relation> requestedPage) {
+        super();
+        this.list = requestedPage;
+    }
 
-	public RelationListActionResult(List<Relation> firstPage, Long allResultCount) {
-		this(firstPage);
-		this.allResultCount = allResultCount;
+    public RelationListActionResult(List<Relation> firstPage, Long allResultCount) {
+        this(firstPage);
+        this.allResultCount = allResultCount;
 
-	}
+    }
 
-	@Override
-	public List<Relation> getList() {
-		return list;
-	}
+    @Override
+    public List<Relation> getList() {
+        return list;
+    }
 
-	@Override
-	public void setList(List<Relation> list) {
-		this.list = list;
-	}
+    @Override
+    public void setList(List<Relation> list) {
+        this.list = list;
+    }
 
-	@Override
-	public Long getAllResultCount() {
-		return allResultCount;
-	}
+    @Override
+    public Long getAllResultCount() {
+        return allResultCount;
+    }
 
-	@Override
-	public void setAllResultCount(Long allResultCount) {
-		this.allResultCount = allResultCount;
-	}
+    @Override
+    public void setAllResultCount(Long allResultCount) {
+        this.allResultCount = allResultCount;
+    }
 
 }

@@ -13,63 +13,64 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
-public class SetActionForExportServletHandler extends AbstractIneHandler<SetActionForExportServletAction, GenericActionResult> {
+public class SetActionForExportServletHandler
+    extends
+    AbstractIneHandler<SetActionForExportServletAction, GenericActionResult> {
 
-	public static final String actionForCsvKey = "actionForCsvKey";
-	public static final String filenameForCsvKey = "filenameForCsvKey";
-	public static final String appendDateToFileName = "appendDateToFileName";
-	public static final String tableRDescForCsvKey = "tableRDescForCsvKey";
-	public static final String withHeaderForCsvKey = "withHeaderForCsvKey";
-	public static final String rendererForCsvKey = "rendererForCsvKey";
-	public static final String rendererLanguage = "rendererLanguage";
-	public static final String responseDescriptorName = "responseDescriptorName";
-	
-	private final Provider<HttpServletRequest> requestProvider;
-	final Provider<CurrentLang> currLangProvider;
+    public static final String actionForCsvKey = "actionForCsvKey";
+    public static final String filenameForCsvKey = "filenameForCsvKey";
+    public static final String appendDateToFileName = "appendDateToFileName";
+    public static final String tableRDescForCsvKey = "tableRDescForCsvKey";
+    public static final String withHeaderForCsvKey = "withHeaderForCsvKey";
+    public static final String rendererForCsvKey = "rendererForCsvKey";
+    public static final String rendererLanguage = "rendererLanguage";
+    public static final String responseDescriptorName = "responseDescriptorName";
 
-	@Inject
-	public SetActionForExportServletHandler(Provider<HttpServletRequest> requestProvider, Provider<CurrentLang> currLangProvider) {
-		this.requestProvider = requestProvider;
-		this.currLangProvider = currLangProvider;
-	}
+    private final Provider<HttpServletRequest> requestProvider;
+    final Provider<CurrentLang> currLangProvider;
 
-	@Override
-	public Class<SetActionForExportServletAction> getActionType() {
-		return SetActionForExportServletAction.class;
-	}
-	
-	@Override
-	protected GenericActionResult doExecute(SetActionForExportServletAction action,
-			ExecutionContext context) throws AuthenticationException, DispatchException {
-		
-		HttpServletRequest request = requestProvider.get();
-		request.getSession().setAttribute(actionForCsvKey,
-									      action.getActionForCsvServlet());
-		request.getSession().setAttribute(filenameForCsvKey,
-										  action.getFileName());
-		
-		request.getSession().setAttribute(appendDateToFileName,
-										  action.isAppendDate());
+    @Inject
+    public SetActionForExportServletHandler(
+        Provider<HttpServletRequest> requestProvider,
+        Provider<CurrentLang> currLangProvider) {
+        this.requestProvider = requestProvider;
+        this.currLangProvider = currLangProvider;
+    }
 
-		request.getSession().setAttribute(withHeaderForCsvKey,
-										  action.isWithHeader());
-		
-		request.getSession().setAttribute(rendererForCsvKey,
-										  action.getRenderer());
-		
-		request.getSession().setAttribute(rendererLanguage,
-										  currLangProvider.get().getCurrentLang());
-		
-		if(action.getResponseDescriptorName() != null){
-			request.getSession().setAttribute(responseDescriptorName, 
-											  action.getResponseDescriptorName());
-		}
-		if (action.getTableRDescName() != null){
-			request.getSession().setAttribute(tableRDescForCsvKey,
-											  action.getTableRDescName());
-		}
-		
-		return new GenericActionResult();
-	}
+    @Override
+    public Class<SetActionForExportServletAction> getActionType() {
+        return SetActionForExportServletAction.class;
+    }
+
+    @Override
+    protected GenericActionResult doExecute(
+        SetActionForExportServletAction action,
+        ExecutionContext context) throws AuthenticationException, DispatchException {
+
+        HttpServletRequest request = requestProvider.get();
+        request.getSession().setAttribute(actionForCsvKey, action.getActionForCsvServlet());
+        request.getSession().setAttribute(filenameForCsvKey, action.getFileName());
+
+        request.getSession().setAttribute(appendDateToFileName, action.isAppendDate());
+
+        request.getSession().setAttribute(withHeaderForCsvKey, action.isWithHeader());
+
+        request.getSession().setAttribute(rendererForCsvKey, action.getRenderer());
+
+        request
+            .getSession()
+            .setAttribute(rendererLanguage, currLangProvider.get().getCurrentLang());
+
+        if (action.getResponseDescriptorName() != null) {
+            request.getSession().setAttribute(
+                responseDescriptorName,
+                action.getResponseDescriptorName());
+        }
+        if (action.getTableRDescName() != null) {
+            request.getSession().setAttribute(tableRDescForCsvKey, action.getTableRDescName());
+        }
+
+        return new GenericActionResult();
+    }
 
 }

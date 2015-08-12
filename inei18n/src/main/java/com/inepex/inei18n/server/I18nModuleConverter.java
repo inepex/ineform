@@ -31,294 +31,295 @@ import com.inepex.inei18n.util.CsvMerge;
 
 public class I18nModuleConverter {
 
-	public final static String PER = "/";
-	public final static String QUOTE = "\"";
-	public final static String MODULE_VM = "vm/i18n/Module.vm";
-	public final static String SERVER_MODULE_PROVIDER_VM = "vm/i18n/ServerModuleProvider.vm";
-	public final static Pattern BRACETED_STIRNG_FINDER = Pattern.compile("\\{([^}]+)\\}");
-	
-	private final static Logger logger = LoggerFactory.getLogger(I18nModuleConverter.class);
-	
-	private static VelocityUtil velocityUtil;
-	
-	private final Class<?> moduleCalss;
-	private final String sourceFolder;
-	private final String devCsvPath;
-	private final String moduleUri;
-	private final String moduleName;
-	private final ModuleProperties props;
-	private final String SEP;
-	
-	private Map<String, LocalizedString> localizables;
-	
-	public I18nModuleConverter(Class<?> moduleClass) {
-		this.moduleCalss = moduleClass;
-		this.moduleName = moduleClass.getSimpleName();
-		this.moduleUri = moduleClass.getPackage().getName().replace(".", PER);
-		this.props = new ModuleProperties(getClass().getClassLoader(), moduleName);
-		this.SEP = props.csvSeparator;
-		this.sourceFolder = props.sourceFolder;
-		this.devCsvPath= props.devCsvPath;
-		
-		initVelocityUtilIfNeeded();
-	}
-	
-	public I18nModuleConverter(Class<?> moduleClass, Map<String, LocalizedString> localizables) {
-		this(moduleClass);
-		this.localizables = localizables;
-	}	
-	
-	public String[] getModuleLanguages() {
-		return props.languages;
-	}
-	
-	private void initVelocityUtilIfNeeded() {
-		if (velocityUtil != null)
-			return;
-		
-		velocityUtil = new VelocityUtil(getClass().getClassLoader());
-	}
-	
+    public final static String PER = "/";
+    public final static String QUOTE = "\"";
+    public final static String MODULE_VM = "vm/i18n/Module.vm";
+    public final static String SERVER_MODULE_PROVIDER_VM = "vm/i18n/ServerModuleProvider.vm";
+    public final static Pattern BRACETED_STIRNG_FINDER = Pattern.compile("\\{([^}]+)\\}");
 
-	
-	/**
-	 * Only works in development environment!
-	 * @throws IOException
-	 */
-	public void saveCsvToDefaultPath() throws IOException {
-		saveCsvToPath(getDevCsvPath());
-	}
-	
-	public void saveCsvToUserDefinedPath() throws IOException {
-		String userDefinedPath = props.userCsvPath == null ? "" : props.userCsvPath;
-		String userCsvFileName = userDefinedPath + moduleName + ".csv";
-		saveCsvToPath(userCsvFileName);
-	}
-	
-	private void saveCsvToPath(String nameWithPath) throws IOException {
-		BufferedWriter defaultOut = null;
-		try {
-			String csvContent = getLocalizablesInCsvFormat();
-			defaultOut = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nameWithPath),"UTF8"));
-			defaultOut.write(csvContent);
-			defaultOut.close();
-			logger.info("Csv file saved to '{}'", nameWithPath);
-		} catch (IOException e) {
-			logger.error("ERROR while saving file '" + nameWithPath + "'", e);
-			throw e;
-		}		
-	}
-	
-	public String getLocalizablesInCsvFormat() {
-		StringBuilder sb = new StringBuilder();
-		for (LocalizedString localizable : localizables.values()) {
-			sb.append(escapeAndQuote(localizable.getKey())).append(SEP);
-			sb.append(escapeAndQuote(localizable.getDescription())).append(SEP);
-			
-			for (String lang : props.languages) {
-				sb.append(escapeAndQuote(localizable.getLocalizedMap().get(lang)));
-				sb.append(SEP);
-			}
-			sb.delete(sb.length()-SEP.length(), sb.length());
-			sb.append("\n");
-		}
-		return sb.toString();
-	}
-	
-	private String getServerPackagePath() {
-		return "./" + sourceFolder + "/" + props.serverPackage.replace(".", PER) + "/";
-	}
-	
-	private String getModulesPath() {
-		return "./" + sourceFolder + "/" + moduleUri + "/";
-	}
-	
-	private String getDevCsvPath() {
-		if(devCsvPath==null || devCsvPath.length()==0)
-			return  getModulesPath() + moduleName + ".csv";
-		else
-			return "./"+ devCsvPath + "/" + moduleUri + "/" + moduleName + ".csv";
-	}
-	
-	
-	/**
-	 * Should only be used in development environment!
-	 */
-	public void loadDataFromDefaultCsvDev() {
-		loadFromCsv(getDevCsvPath());
-	}
-	
-	public void loadDataFromDefaultCsvRuntime() {
-		try {
-			String moduleCsvResourceName = moduleUri + "/" + moduleName + ".csv";
-			InputStream stream = getClass().getClassLoader().getResourceAsStream(moduleCsvResourceName);
-			if (stream == null) {
-				throw new FileNotFoundException("Template file could not be found: " + moduleCsvResourceName);
-			}		
-			
-			loadCsvFromStream(stream);
-			stream.close();
-		} catch (IOException e) {
-			logger.error("IOException while loading csv with Runime parameters", e);
-		}
-	}
-	
-	private void loadFromCsv(String csvNameWithPath) {
-		FileInputStream fstream;
-		try {
-			fstream = new FileInputStream(csvNameWithPath);
-			loadCsvFromStream(fstream);
-			fstream.close();
-		} catch (FileNotFoundException e) {
-			logger.error("The csv file '" + csvNameWithPath + "' is not found!", e);
-		} catch (IOException e) {
-			logger.error("IOException while loading csv", e);
-		}
+    private final static Logger logger = LoggerFactory.getLogger(I18nModuleConverter.class);
 
-			
-	}
-	
-	private void loadCsvFromStream(InputStream stream) {
-		localizables = new TreeMap<String, LocalizedString>();
-		String strLine;
-		String duplicates = "";
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-			while ((strLine = br.readLine()) != null) {
-				String[] fields = CsvMerge.csvSeparatorSplitLogic(strLine, SEP);
+    private static VelocityUtil velocityUtil;
 
-				if (localizables.get(fields[0]) != null) {
-					duplicates += fields[0] + "\n";
-				} else {
-					String key = deEscapeAndDeQuote(fields[0]);
-					
-					LocalizedString localizable = new LocalizedString(key
-													, deEscapeAndDeQuote(fields[1]));
-					int col = 2;
-					for (String language : props.languages) {
-						String raw = "";
-						if(fields.length <= col || fields[col] == null)
-							raw = "**" + fields[2] + "**";
-						else
-							raw = fields[col];
-						
-						localizable.getLocalizedMap().put(language, deEscapeAndDeQuote(raw));
-						col++;
-					}
+    private final Class<?> moduleCalss;
+    private final String sourceFolder;
+    private final String devCsvPath;
+    private final String moduleUri;
+    private final String moduleName;
+    private final ModuleProperties props;
+    private final String SEP;
 
-					localizables.put(key, localizable);
-				}
-			}
-			
-			logger.trace("Loading of I18n module '{}' finished succesfully", moduleName);
-			
-			if (!duplicates.equals("")) {
-				logger.info("Duplicated keys: \n{}", duplicates);
-			}
+    private Map<String, LocalizedString> localizables;
 
-		} catch (IOException e) {
-			logger.error("IOException while loading csv", e);
-		}		
-	}
-	
-	String getModuleFileName() {
-		return getModulesPath() + moduleName + ".java";
-	}
-	
-	public void generateModuleFile() {
-		generateFileFromTemplate(getModuleFileName()
-				, MODULE_VM
-				, getModuleFileCreatorContext());
-	}
-	
-	public VelocityContext getModuleFileCreatorContext() {
-		VelocityContext context = new VelocityContext();
-		context.put("package", moduleCalss.getPackage().getName());
-		context.put("className", moduleName);
-		context.put("localizables", localizables.values());
-		
-		// TODO: now one parameter cannot appear twice in the description 
-		Map<String, Set<String>> map_paramstmp = new LinkedHashMap<String, Set<String>>();
-		for (String key : localizables.keySet()){
-			Set<String> params = new TreeSet<String>();
-			String description = localizables.get(key).getLocalizedMap().get(CurrentLang.DEFAULT_LANG);
-			if (description == null)
-				continue;
-			Matcher m = BRACETED_STIRNG_FINDER.matcher(description);
-			while (m.find()) {
-			   params.add(m.group().replace("{","").replace("}",""));
-			}
-			
-			
-			map_paramstmp.put(key, params);
-		}
-		
-		context.put("paramsbykey", map_paramstmp);
-		
-		return context;
-	}
-	
-	String getServerFileName() {
-		return getServerPackagePath() 
-				+ "Server" 
-				+ moduleName 
-				+ "Provider.java";
-	}
-	
-	public void generateServerModuleProviderFile() {
-		generateFileFromTemplate(getServerFileName()
-				, SERVER_MODULE_PROVIDER_VM
-				, getServerModuleProviderFileContext());
-	}
-	
-	public VelocityContext getServerModuleProviderFileContext() {
-		VelocityContext context = new VelocityContext();
-		context.put("package", props.serverPackage);
-		context.put("className", moduleName);
-		context.put("modulePackage", moduleCalss.getPackage().getName());
-		context.put("localizables", localizables.values());
-		return context;
-	}	
-	
-	private void generateFileFromTemplate(String fileName, String templateName, VelocityContext context) {
-		try {
-			FileOutputStream fos = new FileOutputStream(fileName);
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-										fos , "UTF8"));
-			
-			generateFileToWriter(writer, templateName, context);
-			
-			writer.flush();
-			writer.close();
-			logger.info("{} generated successfully!", fileName);
-		} catch (Exception e) {
-			logger.error("Error while generating " + fileName, e);
-		}		
-	}
-	
-	public void generateFileToWriter(Writer writer, String templateName, VelocityContext context) 
-			throws ResourceNotFoundException, ParseErrorException, Exception {
-		String mergedTemplate = velocityUtil.getMessageFromTemplate(templateName, context);
-		writer.write(mergedTemplate);
-	}
-	
-	
-	private String escapeAndQuote(String str) {
-		if (str == null)
-			return QUOTE + QUOTE;
-		return QUOTE + str.replace("\n", "\\n") + QUOTE;
-	}
+    public I18nModuleConverter(Class<?> moduleClass) {
+        this.moduleCalss = moduleClass;
+        this.moduleName = moduleClass.getSimpleName();
+        this.moduleUri = moduleClass.getPackage().getName().replace(".", PER);
+        this.props = new ModuleProperties(getClass().getClassLoader(), moduleName);
+        this.SEP = props.csvSeparator;
+        this.sourceFolder = props.sourceFolder;
+        this.devCsvPath = props.devCsvPath;
 
-	private String deEscapeAndDeQuote(String str) {
-		return str.replace("\"", "").replace("\\n", "\n");
-	}
+        initVelocityUtilIfNeeded();
+    }
 
-	public Collection<LocalizedString> getLocalizables() {
-		return localizables.values();
-	}
-	
-	public Map<String, LocalizedString> getLocalizablesMap() {
-		return localizables;
-	}
-	
+    public I18nModuleConverter(Class<?> moduleClass, Map<String, LocalizedString> localizables) {
+        this(moduleClass);
+        this.localizables = localizables;
+    }
+
+    public String[] getModuleLanguages() {
+        return props.languages;
+    }
+
+    private void initVelocityUtilIfNeeded() {
+        if (velocityUtil != null)
+            return;
+
+        velocityUtil = new VelocityUtil(getClass().getClassLoader());
+    }
+
+    /**
+     * Only works in development environment!
+     * 
+     * @throws IOException
+     */
+    public void saveCsvToDefaultPath() throws IOException {
+        saveCsvToPath(getDevCsvPath());
+    }
+
+    public void saveCsvToUserDefinedPath() throws IOException {
+        String userDefinedPath = props.userCsvPath == null ? "" : props.userCsvPath;
+        String userCsvFileName = userDefinedPath + moduleName + ".csv";
+        saveCsvToPath(userCsvFileName);
+    }
+
+    private void saveCsvToPath(String nameWithPath) throws IOException {
+        BufferedWriter defaultOut = null;
+        try {
+            String csvContent = getLocalizablesInCsvFormat();
+            defaultOut =
+                new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(nameWithPath),
+                    "UTF8"));
+            defaultOut.write(csvContent);
+            defaultOut.close();
+            logger.info("Csv file saved to '{}'", nameWithPath);
+        } catch (IOException e) {
+            logger.error("ERROR while saving file '" + nameWithPath + "'", e);
+            throw e;
+        }
+    }
+
+    public String getLocalizablesInCsvFormat() {
+        StringBuilder sb = new StringBuilder();
+        for (LocalizedString localizable : localizables.values()) {
+            sb.append(escapeAndQuote(localizable.getKey())).append(SEP);
+            sb.append(escapeAndQuote(localizable.getDescription())).append(SEP);
+
+            for (String lang : props.languages) {
+                sb.append(escapeAndQuote(localizable.getLocalizedMap().get(lang)));
+                sb.append(SEP);
+            }
+            sb.delete(sb.length() - SEP.length(), sb.length());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    private String getServerPackagePath() {
+        return "./" + sourceFolder + "/" + props.serverPackage.replace(".", PER) + "/";
+    }
+
+    private String getModulesPath() {
+        return "./" + sourceFolder + "/" + moduleUri + "/";
+    }
+
+    private String getDevCsvPath() {
+        if (devCsvPath == null || devCsvPath.length() == 0)
+            return getModulesPath() + moduleName + ".csv";
+        else
+            return "./" + devCsvPath + "/" + moduleUri + "/" + moduleName + ".csv";
+    }
+
+    /**
+     * Should only be used in development environment!
+     */
+    public void loadDataFromDefaultCsvDev() {
+        loadFromCsv(getDevCsvPath());
+    }
+
+    public void loadDataFromDefaultCsvRuntime() {
+        try {
+            String moduleCsvResourceName = moduleUri + "/" + moduleName + ".csv";
+            InputStream stream =
+                getClass().getClassLoader().getResourceAsStream(moduleCsvResourceName);
+            if (stream == null) {
+                throw new FileNotFoundException("Template file could not be found: "
+                    + moduleCsvResourceName);
+            }
+
+            loadCsvFromStream(stream);
+            stream.close();
+        } catch (IOException e) {
+            logger.error("IOException while loading csv with Runime parameters", e);
+        }
+    }
+
+    private void loadFromCsv(String csvNameWithPath) {
+        FileInputStream fstream;
+        try {
+            fstream = new FileInputStream(csvNameWithPath);
+            loadCsvFromStream(fstream);
+            fstream.close();
+        } catch (FileNotFoundException e) {
+            logger.error("The csv file '" + csvNameWithPath + "' is not found!", e);
+        } catch (IOException e) {
+            logger.error("IOException while loading csv", e);
+        }
+
+    }
+
+    private void loadCsvFromStream(InputStream stream) {
+        localizables = new TreeMap<String, LocalizedString>();
+        String strLine;
+        String duplicates = "";
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+            while ((strLine = br.readLine()) != null) {
+                String[] fields = CsvMerge.csvSeparatorSplitLogic(strLine, SEP);
+
+                if (localizables.get(fields[0]) != null) {
+                    duplicates += fields[0] + "\n";
+                } else {
+                    String key = deEscapeAndDeQuote(fields[0]);
+
+                    LocalizedString localizable =
+                        new LocalizedString(key, deEscapeAndDeQuote(fields[1]));
+                    int col = 2;
+                    for (String language : props.languages) {
+                        String raw = "";
+                        if (fields.length <= col || fields[col] == null)
+                            raw = "**" + fields[2] + "**";
+                        else
+                            raw = fields[col];
+
+                        localizable.getLocalizedMap().put(language, deEscapeAndDeQuote(raw));
+                        col++;
+                    }
+
+                    localizables.put(key, localizable);
+                }
+            }
+
+            logger.trace("Loading of I18n module '{}' finished succesfully", moduleName);
+
+            if (!duplicates.equals("")) {
+                logger.info("Duplicated keys: \n{}", duplicates);
+            }
+
+        } catch (IOException e) {
+            logger.error("IOException while loading csv", e);
+        }
+    }
+
+    String getModuleFileName() {
+        return getModulesPath() + moduleName + ".java";
+    }
+
+    public void generateModuleFile() {
+        generateFileFromTemplate(getModuleFileName(), MODULE_VM, getModuleFileCreatorContext());
+    }
+
+    public VelocityContext getModuleFileCreatorContext() {
+        VelocityContext context = new VelocityContext();
+        context.put("package", moduleCalss.getPackage().getName());
+        context.put("className", moduleName);
+        context.put("localizables", localizables.values());
+
+        // TODO: now one parameter cannot appear twice in the description
+        Map<String, Set<String>> map_paramstmp = new LinkedHashMap<String, Set<String>>();
+        for (String key : localizables.keySet()) {
+            Set<String> params = new TreeSet<String>();
+            String description =
+                localizables.get(key).getLocalizedMap().get(CurrentLang.DEFAULT_LANG);
+            if (description == null)
+                continue;
+            Matcher m = BRACETED_STIRNG_FINDER.matcher(description);
+            while (m.find()) {
+                params.add(m.group().replace("{", "").replace("}", ""));
+            }
+
+            map_paramstmp.put(key, params);
+        }
+
+        context.put("paramsbykey", map_paramstmp);
+
+        return context;
+    }
+
+    String getServerFileName() {
+        return getServerPackagePath() + "Server" + moduleName + "Provider.java";
+    }
+
+    public void generateServerModuleProviderFile() {
+        generateFileFromTemplate(
+            getServerFileName(),
+            SERVER_MODULE_PROVIDER_VM,
+            getServerModuleProviderFileContext());
+    }
+
+    public VelocityContext getServerModuleProviderFileContext() {
+        VelocityContext context = new VelocityContext();
+        context.put("package", props.serverPackage);
+        context.put("className", moduleName);
+        context.put("modulePackage", moduleCalss.getPackage().getName());
+        context.put("localizables", localizables.values());
+        return context;
+    }
+
+    private void generateFileFromTemplate(
+        String fileName,
+        String templateName,
+        VelocityContext context) {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, "UTF8"));
+
+            generateFileToWriter(writer, templateName, context);
+
+            writer.flush();
+            writer.close();
+            logger.info("{} generated successfully!", fileName);
+        } catch (Exception e) {
+            logger.error("Error while generating " + fileName, e);
+        }
+    }
+
+    public void generateFileToWriter(Writer writer, String templateName, VelocityContext context)
+        throws ResourceNotFoundException,
+        ParseErrorException,
+        Exception {
+        String mergedTemplate = velocityUtil.getMessageFromTemplate(templateName, context);
+        writer.write(mergedTemplate);
+    }
+
+    private String escapeAndQuote(String str) {
+        if (str == null)
+            return QUOTE + QUOTE;
+        return QUOTE + str.replace("\n", "\\n") + QUOTE;
+    }
+
+    private String deEscapeAndDeQuote(String str) {
+        return str.replace("\"", "").replace("\\n", "\n");
+    }
+
+    public Collection<LocalizedString> getLocalizables() {
+        return localizables.values();
+    }
+
+    public Map<String, LocalizedString> getLocalizablesMap() {
+        return localizables;
+    }
+
 }

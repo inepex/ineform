@@ -10,56 +10,54 @@ import com.inepex.ineForm.annotations.Kvo_Transparent;
 
 public class ContactNatRel {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	@ManyToOne
-	@Kvo_Transparent
-	private Contact contact;
-	@ManyToOne
-	@Kvo_SortDefault
-	private Nationality nationality;
-	private Long orderNum;
-	
-	public ContactNatRel() {
-	}
-	
-	public ContactNatRel(Long id) {
-		super();
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @ManyToOne
+    @Kvo_Transparent
+    private Contact contact;
+    @ManyToOne
+    @Kvo_SortDefault
+    private Nationality nationality;
+    private Long orderNum;
 
-	public Long getId() {
-		return id;
-	}
+    public ContactNatRel() {}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public ContactNatRel(Long id) {
+        super();
+        this.id = id;
+    }
 
-	public Contact getContact() {
-		return contact;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Nationality getNationality() {
-		return nationality;
-	}
+    public Contact getContact() {
+        return contact;
+    }
 
-	public void setNationality(Nationality nationality) {
-		this.nationality = nationality;
-	}
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 
-	public Long getOrderNum() {
-		return orderNum;
-	}
+    public Nationality getNationality() {
+        return nationality;
+    }
 
-	public void setOrderNum(Long orderNum) {
-		this.orderNum = orderNum;
-	}
-	
-	
+    public void setNationality(Nationality nationality) {
+        this.nationality = nationality;
+    }
+
+    public Long getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Long orderNum) {
+        this.orderNum = orderNum;
+    }
+
 }

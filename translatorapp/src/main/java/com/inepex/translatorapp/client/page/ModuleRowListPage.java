@@ -65,319 +65,382 @@ import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueHandlerFactory.TranslatedValueHandler;
 
 public class ModuleRowListPage extends FlowPanelBasedPageWithScroll {
-	
-	private final TranslatedValueHandlerFactory translatedValueHandlerFactory;
-	private final DateFormatter dateFormatter;
-	private final AssistedObjectHandlerFactory objectHandlerFactory;
-	private final FormContext formCtx;
-	private final Provider<ModuleUploadPopup> uploadPopupProv;
-	
-	private final ServerSideDataConnector connector;
-	private final RowCommandDataManipulator manipulator;
-	private final RowListAction action;
-	
-	private Grid filterGrid;
-	private IneButton massUpload;
-	private ListBoxFW moduleListBox;
-	private TextBoxFW textBox;
-	
-	@Inject
-	public ModuleRowListPage(ManipulatorFactory manipulatorFactory,
-			DataConnectorFactory connectorFactory,
-			TranslatedValueHandlerFactory translatedValueHandlerFactory,
-			DateFormatter dateFormatter,
-			AssistedObjectHandlerFactory objectHandlerFactory,
-			FormContext formCtx,
-			Provider<ModuleUploadPopup> uploadPopupProv) {
-		this.translatedValueHandlerFactory=translatedValueHandlerFactory;
-		this.dateFormatter=dateFormatter;
-		this.objectHandlerFactory=objectHandlerFactory;
-		this.formCtx=formCtx;
-		this.uploadPopupProv=uploadPopupProv;
-		
-		createAndAddFilterGrid();
-		
-		action = new RowListAction();
-		
-		connector=connectorFactory.createServerSide(ModuleRowConsts.descriptorName);
-		connector.setAssociatedListAction(action);
-		
-		manipulator=manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
-		formCreationCallbacks();
-		manipulator.setPageSize(200);
-		manipulator.getIneTable().setPagerPosition(PagerPosition.BOTH);
-		manipulator.render();
-		setCellContentDisplayers();
-		mainPanel.add(manipulator);
-	}
 
-	private void createAndAddFilterGrid() {
-		filterGrid = new Grid(2, 3);
-		
-		filterGrid.setHTML(0, 0, translatorappI18n.transPage_moduleSelect());
-		moduleListBox = new ListBoxFW(formCtx, new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true), new WidgetRDesc());
-		filterGrid.setWidget(0, 1, moduleListBox);
-		
-		massUpload = new IneButton(IneButtonType.ACTION, translatorappI18n.massUpload());
-		filterGrid.setWidget(0, 2, massUpload);
-		massUpload.setVisible(false);
-		
-		filterGrid.setHTML(1, 0, translatorappI18n.rowListPage_magicFilter());
-		textBox=new TextBoxFW();
-		filterGrid.setWidget(1, 1, textBox);
-		
-		filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
-		filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
-		mainPanel.add(filterGrid);
-	}
+    private final TranslatedValueHandlerFactory translatedValueHandlerFactory;
+    private final DateFormatter dateFormatter;
+    private final AssistedObjectHandlerFactory objectHandlerFactory;
+    private final FormContext formCtx;
+    private final Provider<ModuleUploadPopup> uploadPopupProv;
 
-	private void formCreationCallbacks() {
-		manipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
-			
-			@Override
-			public void onCreatingEditForm(IneForm ineForm) {
-				hideFilterAddShowHandler((SaveCancelForm) ineForm);
-				setupFormModuleValueListener(ineForm);
-			}
-			
-			@Override
-			public void onCreatingCreateForm(final IneForm ineForm) {
-				hideFilterAddShowHandler((SaveCancelForm) ineForm);
-				setupFormModuleValueListener(ineForm);
-				
-				ineForm.addRenderedHandler(new RenderedEvent.Handler() {
+    private final ServerSideDataConnector connector;
+    private final RowCommandDataManipulator manipulator;
+    private final RowListAction action;
 
-					@Override
-					public void onRendered(RenderedEvent event) {
-						ListBoxFW fw = (ListBoxFW) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(ModuleRowConsts.k_module);
-						fw.setRelationValue(moduleListBox.getRelationValue());
-						adjustTranslatedValueCount(ineForm);
-					};
-				});
-			}
+    private Grid filterGrid;
+    private IneButton massUpload;
+    private ListBoxFW moduleListBox;
+    private TextBoxFW textBox;
 
-			private void hideFilterAddShowHandler(SaveCancelForm ineForm) {
-				filterGrid.setVisible(false);
-				
-				ineForm.addSavedHandler(new SavedEvent.Handler() {
-					
-					@Override
-					public void onSaved(SavedEvent event) {
-						filterGrid.setVisible(true);
-						connector.update();
-					}
-				});
-				
-				ineForm.addCancelledHandler(new CancelledEvent.Handler() {
-					
-					@Override
-					public void onCancelled(CancelledEvent event) {
-						filterGrid.setVisible(true);
-					}
-				});
-			}
+    @Inject
+    public ModuleRowListPage(
+        ManipulatorFactory manipulatorFactory,
+        DataConnectorFactory connectorFactory,
+        TranslatedValueHandlerFactory translatedValueHandlerFactory,
+        DateFormatter dateFormatter,
+        AssistedObjectHandlerFactory objectHandlerFactory,
+        FormContext formCtx,
+        Provider<ModuleUploadPopup> uploadPopupProv) {
+        this.translatedValueHandlerFactory = translatedValueHandlerFactory;
+        this.dateFormatter = dateFormatter;
+        this.objectHandlerFactory = objectHandlerFactory;
+        this.formCtx = formCtx;
+        this.uploadPopupProv = uploadPopupProv;
 
-			private void setupFormModuleValueListener(final IneForm ineForm) {
-				ineForm.addRenderedHandler(new RenderedEvent.Handler() {
-					
-					@Override
-					public void onRendered(RenderedEvent event) {
-						ListBoxFW lb = (ListBoxFW) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(ModuleRowConsts.k_module);
-						
-						lb.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
-							
-							@Override
-							public void onFormWidgetChange(FormWidgetChangeEvent e) {
-								adjustTranslatedValueCount(ineForm);
-							}
-						});
-					}
-				});
-			}
-			
-			private void adjustTranslatedValueCount(
-					IneForm ineForm) {
-				final RelationListFW transValuesFw = (RelationListFW) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(ModuleRowConsts.k_values);
-				final ListBoxFW lb = (ListBoxFW) ineForm.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(ModuleRowConsts.k_module);
-				
-				Long selecetedModuleId=null;
-				if(lb.getRelationValue()!=null)
-					selecetedModuleId=lb.getRelationValue().getId();
-				
-				if(selecetedModuleId==null) {
-					transValuesFw.getRelationList().deleteAll();
-					transValuesFw.reRenderRelations();
-					return;
-				}
-				
-				formCtx.ineDispatch.execute(new ObjectManipulationAction(ModuleConsts.descriptorName, selecetedModuleId), new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+        createAndAddFilterGrid();
 
-					@Override
-					public void onSuccess(ObjectManipulationActionResult result) {
-						if(!result.isSuccess() || result.getObjectsNewState()==null) {
-							formCtx.eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.wrongTokenPlace));
-							return;
-						}
-						
-						Map<Long, String> langIds = new HashMap<Long, String>();
-						IneList list = objectHandlerFactory.createHandler(result.getObjectsNewState()).getList(ModuleConsts.k_langs);
-						for(Relation r : list.getRelationList()) {
-							Relation realLang = r.getKvo().getRelationUnchecked(ModuleLangConsts.k_lang);
-							langIds.put(realLang.getId(), realLang.getDisplayName());
-						}
-						
-						for(Relation r : new ArrayList<Relation>(transValuesFw.getRelationList().getRelations())) {
-							Long valueLang = r.getKvo().getRelationUnchecked(TranslatedValueConsts.k_lang).getId();
-							if(langIds.containsKey(valueLang)) {
-								langIds.remove(valueLang);
-							} else {
-								transValuesFw.getRelationList().delete(r);
-							}
-						}
-						
-						for(Long langId : langIds.keySet()) {
-							AssistedObjectHandler newTranslated = objectHandlerFactory.createHandler(TranslatedValueConsts.descriptorName);
-							newTranslated.set(TranslatedValueConsts.k_lang, new Relation(langId, langIds.get(langId)));
-							Relation newValue = new Relation(newTranslated.getAssistedObject());
-							transValuesFw.getRelationList().add(newValue);
-							transValuesFw.getRelationList().change(newValue);
-						}
-						
-						transValuesFw.reRenderRelations();
-					}
-				});
-			}
-		});
-	}
+        action = new RowListAction();
 
-	private void setCellContentDisplayers() {
-		manipulator.getIneTable().addCellContentDisplayer(ModuleRowAssist.engVal, new TableFieldRenderer.CustomCellContentDisplayer() {
-			
-			@Override
-			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
-				TranslatedValueHandler engVal = engVal(rowKvo);
-				if(engVal==null || engVal.getValue()==null)
-					return null;
-				
-				return SafeHtmlUtils.htmlEscape(subString(engVal.getValue(), 100, "..."));
-				
-			}
-		});
-		
-		manipulator.getIneTable().addCellContentDisplayer(ModuleRowAssist.engModTime, new TableFieldRenderer.CustomCellContentDisplayer() {
-			
-			@Override
-			public String getCustomCellContent(AssistedObjectHandler rowKvo, String fieldId, ColRDesc colRDesc) {
-				TranslatedValueHandler engVal = engVal(rowKvo);
-				if(engVal==null || engVal.getLastModTime()==null)
-					return null;
-				
-				return ModuleRowListPage.this.dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT,
-						engVal.getLastModTime());
-			}
-		});
-	}
+        connector = connectorFactory.createServerSide(ModuleRowConsts.descriptorName);
+        connector.setAssociatedListAction(action);
 
-	private TranslatedValueHandler engVal(AssistedObjectHandler modulerRowKvo) {
-		IneList list = modulerRowKvo.getList(ModuleRowConsts.k_values);
-		if(list==null || list.getRelationList()==null || list.getRelationList().isEmpty())
-			return null;
-		
-		for(Relation r : list.getRelationList()){
-			if(r.getKvo()!=null) {
-				if(Consts.defaultLang.equals(r.getKvo().getRelationUnchecked(TranslatedValueConsts.k_lang).getDisplayName())) {
-					return translatedValueHandlerFactory.createHandler(r.getKvo());
-				}
-			}
-		}
-		
-		return null;
-	}
-	
-	private static String subString(String s, int maxLength, String append) {
-		if (s.length() > maxLength)
-			return s.substring(0, maxLength-append.length()) + append;
-		
-		return s;
+        manipulator =
+            manipulatorFactory.createRowCommand(ModuleRowConsts.descriptorName, connector, true);
+        formCreationCallbacks();
+        manipulator.setPageSize(200);
+        manipulator.getIneTable().setPagerPosition(PagerPosition.BOTH);
+        manipulator.render();
+        setCellContentDisplayers();
+        mainPanel.add(manipulator);
+    }
 
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		
-		filterGrid.setVisible(true);
-		
-		registerHandler(moduleListBox.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
-			
-			@Override
-			public void onFormWidgetChange(FormWidgetChangeEvent e) {
-				fillActionAndUpdate();
-				massUpload.setVisible(moduleListBox.getRelationValue()!=null);
-			}
-		}));
-		
-		registerHandler(textBox.getTextBox().addKeyUpHandler(new KeyUpHandler() {
-			
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if(event.getNativeKeyCode()==KeyCodes.KEY_ENTER)
-					fillActionAndUpdate();
-			}
-		}));
-		
-		registerHandler(massUpload.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				formCtx.ineDispatch.execute(new ObjectManipulationAction(ModuleConsts.descriptorName, moduleListBox.getRelationValue().getId()), 
-						new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+    private void createAndAddFilterGrid() {
+        filterGrid = new Grid(2, 3);
 
-							@Override
-							public void onSuccess(ObjectManipulationActionResult result) {
-								if(notNullAndHasLangs(result.getObjectsNewState())) {
-									uploadPopupProv.get().show(result.getObjectsNewState(), new ChangedCallback() {
-										
-										@Override
-										public void onChanged() {
-											connector.update();	
-										}
-									});
-								} else  {
-									Window.alert(translatorappI18n.massUploadAlert());
-								}
-									
-							}
-							
-							private boolean notNullAndHasLangs(AssistedObject moduleAo) {
-								if(moduleAo==null)
-									return false;
-								
-								AssistedObjectHandler h = objectHandlerFactory.createHandler(moduleAo);
-								IneList langs = h.getList(ModuleConsts.k_langs);
-								return langs!=null && langs.getRelationList()!=null && !langs.getRelationList().isEmpty();
-							}
-				});
-			}
-		}));
-	}
-	
-	@Override
-	protected void onShow(boolean isFirstShow) {
-		fillActionAndUpdate();
-	}
+        filterGrid.setHTML(0, 0, translatorappI18n.transPage_moduleSelect());
+        moduleListBox =
+            new ListBoxFW(
+                formCtx,
+                new RelationFDesc("", "", ModuleConsts.descriptorName).setNullable(true),
+                new WidgetRDesc());
+        filterGrid.setWidget(0, 1, moduleListBox);
 
-	private void fillActionAndUpdate() {
-		if(moduleListBox.getRelationValue()!=null)
-			action.setModuleId(moduleListBox.getRelationValue().getId());
-		else
-			action.setModuleId(null);
-		
-		if(textBox.getStringValue()!=null && textBox.getStringValue().length()>0)
-			action.setMagicString(textBox.getStringValue());
-		else
-			action.setMagicString(null);
-		
-		connector.update();
-	}
+        massUpload = new IneButton(IneButtonType.ACTION, translatorappI18n.massUpload());
+        filterGrid.setWidget(0, 2, massUpload);
+        massUpload.setVisible(false);
+
+        filterGrid.setHTML(1, 0, translatorappI18n.rowListPage_magicFilter());
+        textBox = new TextBoxFW();
+        filterGrid.setWidget(1, 1, textBox);
+
+        filterGrid.getElement().getStyle().setMarginBottom(25, Unit.PX);
+        filterGrid.getElement().getStyle().setMarginLeft(5, Unit.PX);
+        mainPanel.add(filterGrid);
+    }
+
+    private void formCreationCallbacks() {
+        manipulator.setFormCreationCallback(new DataManipulator.FormCreationCallback() {
+
+            @Override
+            public void onCreatingEditForm(IneForm ineForm) {
+                hideFilterAddShowHandler((SaveCancelForm) ineForm);
+                setupFormModuleValueListener(ineForm);
+            }
+
+            @Override
+            public void onCreatingCreateForm(final IneForm ineForm) {
+                hideFilterAddShowHandler((SaveCancelForm) ineForm);
+                setupFormModuleValueListener(ineForm);
+
+                ineForm.addRenderedHandler(new RenderedEvent.Handler() {
+
+                    @Override
+                    public void onRendered(RenderedEvent event) {
+                        ListBoxFW fw =
+                            (ListBoxFW) ineForm
+                                .getRootPanelWidget()
+                                .getFormUnits()
+                                .get(0)
+                                .getWidgetByKey(ModuleRowConsts.k_module);
+                        fw.setRelationValue(moduleListBox.getRelationValue());
+                        adjustTranslatedValueCount(ineForm);
+                    };
+                });
+            }
+
+            private void hideFilterAddShowHandler(SaveCancelForm ineForm) {
+                filterGrid.setVisible(false);
+
+                ineForm.addSavedHandler(new SavedEvent.Handler() {
+
+                    @Override
+                    public void onSaved(SavedEvent event) {
+                        filterGrid.setVisible(true);
+                        connector.update();
+                    }
+                });
+
+                ineForm.addCancelledHandler(new CancelledEvent.Handler() {
+
+                    @Override
+                    public void onCancelled(CancelledEvent event) {
+                        filterGrid.setVisible(true);
+                    }
+                });
+            }
+
+            private void setupFormModuleValueListener(final IneForm ineForm) {
+                ineForm.addRenderedHandler(new RenderedEvent.Handler() {
+
+                    @Override
+                    public void onRendered(RenderedEvent event) {
+                        ListBoxFW lb =
+                            (ListBoxFW) ineForm
+                                .getRootPanelWidget()
+                                .getFormUnits()
+                                .get(0)
+                                .getWidgetByKey(ModuleRowConsts.k_module);
+
+                        lb.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+
+                            @Override
+                            public void onFormWidgetChange(FormWidgetChangeEvent e) {
+                                adjustTranslatedValueCount(ineForm);
+                            }
+                        });
+                    }
+                });
+            }
+
+            private void adjustTranslatedValueCount(IneForm ineForm) {
+                final RelationListFW transValuesFw =
+                    (RelationListFW) ineForm
+                        .getRootPanelWidget()
+                        .getFormUnits()
+                        .get(0)
+                        .getWidgetByKey(ModuleRowConsts.k_values);
+                final ListBoxFW lb =
+                    (ListBoxFW) ineForm
+                        .getRootPanelWidget()
+                        .getFormUnits()
+                        .get(0)
+                        .getWidgetByKey(ModuleRowConsts.k_module);
+
+                Long selecetedModuleId = null;
+                if (lb.getRelationValue() != null)
+                    selecetedModuleId = lb.getRelationValue().getId();
+
+                if (selecetedModuleId == null) {
+                    transValuesFw.getRelationList().deleteAll();
+                    transValuesFw.reRenderRelations();
+                    return;
+                }
+
+                formCtx.ineDispatch.execute(
+                    new ObjectManipulationAction(ModuleConsts.descriptorName, selecetedModuleId),
+                    new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+
+                        @Override
+                        public void onSuccess(ObjectManipulationActionResult result) {
+                            if (!result.isSuccess() || result.getObjectsNewState() == null) {
+                                formCtx.eventBus.fireEvent(new PlaceRequestEvent(
+                                    NavigationProperties.wrongTokenPlace));
+                                return;
+                            }
+
+                            Map<Long, String> langIds = new HashMap<Long, String>();
+                            IneList list =
+                                objectHandlerFactory
+                                    .createHandler(result.getObjectsNewState())
+                                    .getList(ModuleConsts.k_langs);
+                            for (Relation r : list.getRelationList()) {
+                                Relation realLang =
+                                    r.getKvo().getRelationUnchecked(ModuleLangConsts.k_lang);
+                                langIds.put(realLang.getId(), realLang.getDisplayName());
+                            }
+
+                            for (Relation r : new ArrayList<Relation>(transValuesFw
+                                .getRelationList()
+                                .getRelations())) {
+                                Long valueLang =
+                                    r
+                                        .getKvo()
+                                        .getRelationUnchecked(TranslatedValueConsts.k_lang)
+                                        .getId();
+                                if (langIds.containsKey(valueLang)) {
+                                    langIds.remove(valueLang);
+                                } else {
+                                    transValuesFw.getRelationList().delete(r);
+                                }
+                            }
+
+                            for (Long langId : langIds.keySet()) {
+                                AssistedObjectHandler newTranslated =
+                                    objectHandlerFactory
+                                        .createHandler(TranslatedValueConsts.descriptorName);
+                                newTranslated.set(TranslatedValueConsts.k_lang, new Relation(
+                                    langId,
+                                    langIds.get(langId)));
+                                Relation newValue = new Relation(newTranslated.getAssistedObject());
+                                transValuesFw.getRelationList().add(newValue);
+                                transValuesFw.getRelationList().change(newValue);
+                            }
+
+                            transValuesFw.reRenderRelations();
+                        }
+                    });
+            }
+        });
+    }
+
+    private void setCellContentDisplayers() {
+        manipulator.getIneTable().addCellContentDisplayer(
+            ModuleRowAssist.engVal,
+            new TableFieldRenderer.CustomCellContentDisplayer() {
+
+                @Override
+                public String getCustomCellContent(
+                    AssistedObjectHandler rowKvo,
+                    String fieldId,
+                    ColRDesc colRDesc) {
+                    TranslatedValueHandler engVal = engVal(rowKvo);
+                    if (engVal == null || engVal.getValue() == null)
+                        return null;
+
+                    return SafeHtmlUtils.htmlEscape(subString(engVal.getValue(), 100, "..."));
+
+                }
+            });
+
+        manipulator.getIneTable().addCellContentDisplayer(
+            ModuleRowAssist.engModTime,
+            new TableFieldRenderer.CustomCellContentDisplayer() {
+
+                @Override
+                public String getCustomCellContent(
+                    AssistedObjectHandler rowKvo,
+                    String fieldId,
+                    ColRDesc colRDesc) {
+                    TranslatedValueHandler engVal = engVal(rowKvo);
+                    if (engVal == null || engVal.getLastModTime() == null)
+                        return null;
+
+                    return ModuleRowListPage.this.dateFormatter.format(
+                        IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT,
+                        engVal.getLastModTime());
+                }
+            });
+    }
+
+    private TranslatedValueHandler engVal(AssistedObjectHandler modulerRowKvo) {
+        IneList list = modulerRowKvo.getList(ModuleRowConsts.k_values);
+        if (list == null || list.getRelationList() == null || list.getRelationList().isEmpty())
+            return null;
+
+        for (Relation r : list.getRelationList()) {
+            if (r.getKvo() != null) {
+                if (Consts.defaultLang.equals(r
+                    .getKvo()
+                    .getRelationUnchecked(TranslatedValueConsts.k_lang)
+                    .getDisplayName())) {
+                    return translatedValueHandlerFactory.createHandler(r.getKvo());
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static String subString(String s, int maxLength, String append) {
+        if (s.length() > maxLength)
+            return s.substring(0, maxLength - append.length()) + append;
+
+        return s;
+
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        filterGrid.setVisible(true);
+
+        registerHandler(moduleListBox.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+
+            @Override
+            public void onFormWidgetChange(FormWidgetChangeEvent e) {
+                fillActionAndUpdate();
+                massUpload.setVisible(moduleListBox.getRelationValue() != null);
+            }
+        }));
+
+        registerHandler(textBox.getTextBox().addKeyUpHandler(new KeyUpHandler() {
+
+            @Override
+            public void onKeyUp(KeyUpEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER)
+                    fillActionAndUpdate();
+            }
+        }));
+
+        registerHandler(massUpload.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                formCtx.ineDispatch.execute(
+                    new ObjectManipulationAction(ModuleConsts.descriptorName, moduleListBox
+                        .getRelationValue()
+                        .getId()),
+                    new IneDispatchBase.SuccessCallback<ObjectManipulationActionResult>() {
+
+                        @Override
+                        public void onSuccess(ObjectManipulationActionResult result) {
+                            if (notNullAndHasLangs(result.getObjectsNewState())) {
+                                uploadPopupProv.get().show(
+                                    result.getObjectsNewState(),
+                                    new ChangedCallback() {
+
+                                        @Override
+                                        public void onChanged() {
+                                            connector.update();
+                                        }
+                                    });
+                            } else {
+                                Window.alert(translatorappI18n.massUploadAlert());
+                            }
+
+                        }
+
+                        private boolean notNullAndHasLangs(AssistedObject moduleAo) {
+                            if (moduleAo == null)
+                                return false;
+
+                            AssistedObjectHandler h = objectHandlerFactory.createHandler(moduleAo);
+                            IneList langs = h.getList(ModuleConsts.k_langs);
+                            return langs != null
+                                && langs.getRelationList() != null
+                                && !langs.getRelationList().isEmpty();
+                        }
+                    });
+            }
+        }));
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {
+        fillActionAndUpdate();
+    }
+
+    private void fillActionAndUpdate() {
+        if (moduleListBox.getRelationValue() != null)
+            action.setModuleId(moduleListBox.getRelationValue().getId());
+        else
+            action.setModuleId(null);
+
+        if (textBox.getStringValue() != null && textBox.getStringValue().length() > 0)
+            action.setMagicString(textBox.getStringValue());
+        else
+            action.setMagicString(null);
+
+        connector.update();
+    }
 }

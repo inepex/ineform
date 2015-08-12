@@ -19,51 +19,53 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
- * To customize persist, merge or remove behaviour override persist(E), merge(E) or remove(E). (Don't 
- * forget to call super.persist, super.merge ...)
+ * To customize persist, merge or remove behaviour override persist(E), merge(E)
+ * or remove(E). (Don't forget to call super.persist, super.merge ...)
  * 
  */
 @Singleton
 public class MeetingDao extends BaseDao<Meeting> {
-	
-	private final DescriptorStore descStore;
-	
-	@Inject
-	public MeetingDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
-		, AssistedObjectHandlerFactory handlerFactory
-		, DescriptorStore descStore){
-		super(em, objectFactory, handlerFactory);
-		this.descStore=descStore;
-	}
 
-	@Override
-	public BaseQuery<Meeting> getQuery() {
-		return new MeetingQuery(descStore);
-	}
+    private final DescriptorStore descStore;
 
-	@Override
-	public BaseMapper<Meeting> getMapper() {
-		return new MeetingMapper(descStore);
-	}
+    @Inject
+    public MeetingDao(
+        Provider<EntityManager> em,
+        ManipulationObjectFactory objectFactory,
+        AssistedObjectHandlerFactory handlerFactory,
+        DescriptorStore descStore) {
+        super(em, objectFactory, handlerFactory);
+        this.descStore = descStore;
+    }
 
-	@Override
-	public CriteriaSelector<Meeting, Meeting> getSelector() {
-		return new CriteriaSelector<Meeting, Meeting>(em, getQuery(), Meeting.class, Meeting.class);
-	}
+    @Override
+    public BaseQuery<Meeting> getQuery() {
+        return new MeetingQuery(descStore);
+    }
 
-	@Override
-	public CriteriaSelector<Long, Meeting> getCountSelector() {
-		return new CriteriaSelector<Long, Meeting>(em, getQuery(), Long.class, Meeting.class);
-	}
+    @Override
+    public BaseMapper<Meeting> getMapper() {
+        return new MeetingMapper(descStore);
+    }
 
-	@Override
-	public Class<Meeting> getClazz() {
-		return Meeting.class;
-	}
+    @Override
+    public CriteriaSelector<Meeting, Meeting> getSelector() {
+        return new CriteriaSelector<Meeting, Meeting>(em, getQuery(), Meeting.class, Meeting.class);
+    }
 
-	@Override
-	public Meeting newInstance() {
-		return new Meeting();
-	}
-		
+    @Override
+    public CriteriaSelector<Long, Meeting> getCountSelector() {
+        return new CriteriaSelector<Long, Meeting>(em, getQuery(), Long.class, Meeting.class);
+    }
+
+    @Override
+    public Class<Meeting> getClazz() {
+        return Meeting.class;
+    }
+
+    @Override
+    public Meeting newInstance() {
+        return new Meeting();
+    }
+
 }

@@ -14,17 +14,17 @@ import com.inepex.translatorapp.client.page.popup.ChangeModuleLangPopup.ChangeMo
 
 public class AppGinModule extends AbstractGinModule {
 
-	@Override
-	protected void configure() {
-		install(new IneFormGinModule()
-			.setConnectionFailedHandler(ExponentialBackoffHandler.class)
-			.setFormWidgetFactory(TranslatorAppFormWidgetFactoryManager.class));
-		install(new IneFormDispatcherGinModule());
-		install(new IneFrameGinModule(AppPlaceHierarchyProvider.class, AppPlaceHandler.class));
-		
-		install(new GinFactoryModuleBuilder()
-	     .implement(ChangeModuleLangPopup.class, ChangeModuleLangPopup.class)
-	     .build(ChangeModuleLangPopupFactory.class));
-	}
+    @Override
+    protected void configure() {
+        install(new IneFormGinModule()
+            .setConnectionFailedHandler(ExponentialBackoffHandler.class)
+            .setFormWidgetFactory(TranslatorAppFormWidgetFactoryManager.class));
+        install(new IneFormDispatcherGinModule());
+        install(new IneFrameGinModule(AppPlaceHierarchyProvider.class, AppPlaceHandler.class));
+
+        install(new GinFactoryModuleBuilder().implement(
+            ChangeModuleLangPopup.class,
+            ChangeModuleLangPopup.class).build(ChangeModuleLangPopupFactory.class));
+    }
 
 }

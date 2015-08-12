@@ -14,20 +14,27 @@ import com.inepex.ineom.shared.descriptor.Node;
 
 public class DefaultFormUnitFactory implements FormUnitFactory {
 
-	@Override
-	public AbstractFormUnit createFormUnit(FormContext formCtx,
-			FormRDesc formRDesc,
-			FormUnitRDesc formUnitRDesc,
-			String objectDescriptorsName,
-			List<Node<FormRDescBase>> selectedFields) {
-		
-		if(formUnitRDesc==null || formUnitRDesc.getFormUnitType()==null || formUnitRDesc.getFormUnitType().equals(FormUnitT.SIMPLETABLEFORM)) {
-			return new SimpleTableFormUnit(formCtx, formRDesc, objectDescriptorsName, selectedFields);
-		} else if(formUnitRDesc.getFormUnitType().equals(FormUnitT.UIBINDERFORM)) { 
-			return new UIBinderFormUnit(formCtx, objectDescriptorsName, selectedFields);
-		}
-		
-		return null;
-	}
+    @Override
+    public AbstractFormUnit createFormUnit(
+        FormContext formCtx,
+        FormRDesc formRDesc,
+        FormUnitRDesc formUnitRDesc,
+        String objectDescriptorsName,
+        List<Node<FormRDescBase>> selectedFields) {
+
+        if (formUnitRDesc == null
+            || formUnitRDesc.getFormUnitType() == null
+            || formUnitRDesc.getFormUnitType().equals(FormUnitT.SIMPLETABLEFORM)) {
+            return new SimpleTableFormUnit(
+                formCtx,
+                formRDesc,
+                objectDescriptorsName,
+                selectedFields);
+        } else if (formUnitRDesc.getFormUnitType().equals(FormUnitT.UIBINDERFORM)) {
+            return new UIBinderFormUnit(formCtx, objectDescriptorsName, selectedFields);
+        }
+
+        return null;
+    }
 
 }

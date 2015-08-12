@@ -13,115 +13,114 @@ import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 
 class OOO_OMField extends FlowPanel implements DateTimeFieldInterface {
-	
-	private final Precision PRECISION;
 
-	private final IneDateGWT inedate;
+    private final Precision PRECISION;
 
-	private final DateTimeFieldParentInterface parent;
+    private final IneDateGWT inedate;
 
-	private HandlerRegistration hr_valuechange;
-	
-	private final ListBox lb = new ListBox(false);
-	
-	public OOO_OMField(IneDateGWT date, DateTimeFieldParentInterface parent) {
-		
-		this.PRECISION=Precision.OOO_OM;
-		this.inedate=date;
-		this.parent=parent;
-		
-		lb.addItem("-");
-		
-		for(int i=0; i<60; i++) {
-			if(i<10)
-				lb.addItem("0"+i);
-			else
-				lb.addItem(""+i);
-		}
+    private final DateTimeFieldParentInterface parent;
 
-		add(lb);
-		add(new InlineHTML("&nbsp;"+IneFormI18n.minutes()));
-	}
+    private HandlerRegistration hr_valuechange;
 
-	@Override
-	protected void onAttach() {
-		super.onAttach();
+    private final ListBox lb = new ListBox(false);
 
-		hr_valuechange=lb.addChangeHandler(new ListFieldChangeHandler());
-	}
+    public OOO_OMField(IneDateGWT date, DateTimeFieldParentInterface parent) {
 
-	@Override
-	protected void onDetach() {
-		super.onDetach();
+        this.PRECISION = Precision.OOO_OM;
+        this.inedate = date;
+        this.parent = parent;
 
-		if(hr_valuechange!=null) {
-			hr_valuechange.removeHandler();
-			hr_valuechange=null;
-		}
-	}
+        lb.addItem("-");
 
-	@Override
-	public Widget asWidget() {
-		return this;
-	}
+        for (int i = 0; i < 60; i++) {
+            if (i < 10)
+                lb.addItem("0" + i);
+            else
+                lb.addItem("" + i);
+        }
 
-	private class ListFieldChangeHandler implements ChangeHandler {
+        add(lb);
+        add(new InlineHTML("&nbsp;" + IneFormI18n.minutes()));
+    }
 
-		@SuppressWarnings("deprecation")
-		@Override
-		public void onChange(ChangeEvent event) {
-			Date d = new Date();
-			d.setMinutes(lb.getSelectedIndex()-1);
-			inedate.setDate(PRECISION, d);
-			parent.childValueChanged(true, false);
-		}
-	}
+    @Override
+    protected void onAttach() {
+        super.onAttach();
 
-	@Override
-	public boolean isEmpty() {
-		return false;
-	}
-	
-	@Override
-	public boolean isNull() {
-		return lb.getSelectedIndex()<1;
-	}
+        hr_valuechange = lb.addChangeHandler(new ListFieldChangeHandler());
+    }
 
+    @Override
+    protected void onDetach() {
+        super.onDetach();
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public void refresh(boolean empty, boolean initialValue) {
-		if(!initialValue)
-			return;
-		
-		if(empty)
-			lb.setSelectedIndex(0);
-		else
-			lb.setSelectedIndex(inedate.getDateClone().getMinutes()+1);
-	}
+        if (hr_valuechange != null) {
+            hr_valuechange.removeHandler();
+            hr_valuechange = null;
+        }
+    }
 
-	@Override
-	public boolean isTextBox() {
-		return false;
-	}
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
 
-	@Override
-	public boolean isFocusable() {
-		return false;
-	}
+    private class ListFieldChangeHandler implements ChangeHandler {
 
-	@Override
-	public boolean isInReadOnlyMode() {
-		return false;
-	}
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onChange(ChangeEvent event) {
+            Date d = new Date();
+            d.setMinutes(lb.getSelectedIndex() - 1);
+            inedate.setDate(PRECISION, d);
+            parent.childValueChanged(true, false);
+        }
+    }
 
-	@Override
-	public void setFocus(boolean focused) {
-		lb.setFocus(focused);
-	}
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
 
-	@Override
-	public void setEnabled(boolean enabled) {
-		lb.setEnabled(enabled);
-	}
+    @Override
+    public boolean isNull() {
+        return lb.getSelectedIndex() < 1;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void refresh(boolean empty, boolean initialValue) {
+        if (!initialValue)
+            return;
+
+        if (empty)
+            lb.setSelectedIndex(0);
+        else
+            lb.setSelectedIndex(inedate.getDateClone().getMinutes() + 1);
+    }
+
+    @Override
+    public boolean isTextBox() {
+        return false;
+    }
+
+    @Override
+    public boolean isFocusable() {
+        return false;
+    }
+
+    @Override
+    public boolean isInReadOnlyMode() {
+        return false;
+    }
+
+    @Override
+    public void setFocus(boolean focused) {
+        lb.setFocus(focused);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        lb.setEnabled(enabled);
+    }
 }

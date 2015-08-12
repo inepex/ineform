@@ -6,19 +6,19 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 public class ActionObjectFactory implements ManipulationObjectFactory {
 
-	@Override
-	public ObjectManipulationResult getNewObjectManipulationResult() {
-		return new ObjectManipulationActionResult();
-	}
+    @Override
+    public ObjectManipulationResult getNewObjectManipulationResult() {
+        return new ObjectManipulationActionResult();
+    }
 
-	@Override
-	public ObjectListResult getNewObjectListResult() {
-		return new ObjectListActionResult();
-	}
+    @Override
+    public ObjectListResult getNewObjectListResult() {
+        return new ObjectListActionResult();
+    }
 
-	@Override
-	public RelationListResult getNewRelationListResult() {
-		return new RelationListActionResult();
-	}
-	
+    @Override
+    public RelationListResult getNewRelationListResult() {
+        return new RelationListActionResult();
+    }
+
 }

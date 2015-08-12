@@ -15,34 +15,36 @@ import com.inepex.ineFrame.client.page.InePage;
 
 @Singleton
 public class DefaultIneFrameMasterPage extends AbstractMasterPage {
-	
-	private final MenuRenderer menuRenderer;
-	private final IneFrameHeader header;
 
-	
-	@Inject
-	public DefaultIneFrameMasterPage(MenuRenderer menuRenderer,
-			IneFrameHeader header, MasterPage.View view, EventBus eventBus) {
-		super(view, eventBus);
-		this.menuRenderer=menuRenderer;
-		this.header=header;
-	}
-	
-	@Override
-	public void render(InePlace place, Map<String, String> urlParams) {
-		header.refresh();
-		menuRenderer.realizeNewPlaceOnMenu(place, urlParams);
-		super.render(place, urlParams);
-	}
-	
-	@Override
-	protected void setUpPageStyle(InePage page) {
-		page.asWidget().addStyleName(ResourceHelper.getRes().style().pageContent());
-	}
+    private final MenuRenderer menuRenderer;
+    private final IneFrameHeader header;
 
-	@Override
-	protected void showPage(InePlace place, InePage page) {
-		menuRenderer.showPage(place, page);
-	}
+    @Inject
+    public DefaultIneFrameMasterPage(
+        MenuRenderer menuRenderer,
+        IneFrameHeader header,
+        MasterPage.View view,
+        EventBus eventBus) {
+        super(view, eventBus);
+        this.menuRenderer = menuRenderer;
+        this.header = header;
+    }
+
+    @Override
+    public void render(InePlace place, Map<String, String> urlParams) {
+        header.refresh();
+        menuRenderer.realizeNewPlaceOnMenu(place, urlParams);
+        super.render(place, urlParams);
+    }
+
+    @Override
+    protected void setUpPageStyle(InePage page) {
+        page.asWidget().addStyleName(ResourceHelper.getRes().style().pageContent());
+    }
+
+    @Override
+    protected void showPage(InePlace place, InePage page) {
+        menuRenderer.showPage(place, page);
+    }
 
 }

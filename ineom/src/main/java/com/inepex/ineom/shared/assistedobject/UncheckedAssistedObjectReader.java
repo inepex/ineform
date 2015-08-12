@@ -5,34 +5,34 @@ import com.inepex.ineom.shared.Relation;
 
 public class UncheckedAssistedObjectReader {
 
-	private final AssistedObject kvo;
+    private final AssistedObject kvo;
 
-	public UncheckedAssistedObjectReader(AssistedObject kvo) {
-		this.kvo = kvo;
-	}
-	
-	public Boolean getBoolean(String key) {
-		return kvo.getBoolean(key);
-	}
+    public UncheckedAssistedObjectReader(AssistedObject kvo) {
+        this.kvo = kvo;
+    }
 
-	public Double getDouble(String key) {
-		return kvo.getDouble(key);
-	}
+    public Boolean getBoolean(String key) {
+        return kvo.getBoolean(key);
+    }
 
-	public IneList getList(String key){
-		return kvo.getList(key);
-	}
+    public Double getDouble(String key) {
+        return kvo.getDouble(key);
+    }
 
-	public Long getLong(String key) {
-		return kvo.getLong(key);
-	}
+    public IneList getList(String key) {
+        return kvo.getList(key);
+    }
 
-	public Relation getRelation(String key){
-		return kvo.getRelation(key);
-	}
+    public Long getLong(String key) {
+        return kvo.getLong(key);
+    }
 
-	public String getString(String key){
-		return kvo.getString(key);
-	}
-	
+    public Relation getRelation(String key) {
+        return kvo.getRelation(key);
+    }
+
+    public String getString(String key) {
+        return kvo.getString(key);
+    }
+
 }

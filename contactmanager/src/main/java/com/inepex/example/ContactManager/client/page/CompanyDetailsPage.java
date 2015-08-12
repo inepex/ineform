@@ -14,36 +14,38 @@ import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class CompanyDetailsPage extends FlowPanelBasedPage {
-	
-	private final FormContext formContext;
-	private final IneForm form;
-	
-	@Inject
-	CompanyDetailsPage(FormContext formContext) {
-		this.formContext=formContext;
-		
-		form= new IneForm(formContext, CompanyConsts.descriptorName, CompanyAssist.roFRD);
-		form.renderForm();
-		mainPanel.add(form.asWidget());
-	}
-	
-	@Override
-	public void setUrlParameters(Map<String, String> urlParams, final UrlParamsParsedCallback callback) throws Exception {
-		formContext.objectFinder.executeFind(CompanyConsts.descriptorName
-				, Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY))
-				, Arrays.asList(CompanyConsts.propUser)
-				, new ObjectFinder.Callback() {
 
-						@Override
-						public void onObjectFound(AssistedObject foundObject) {
-							form.resetValuesToEmpty();
-							form.setInitialData(foundObject);
-							callback.onUrlParamsParsed();
-						}
-				});
-	}
+    private final FormContext formContext;
+    private final IneForm form;
 
-	@Override
-	protected void onShow(boolean isFirstShow) {
-	}
+    @Inject
+    CompanyDetailsPage(FormContext formContext) {
+        this.formContext = formContext;
+
+        form = new IneForm(formContext, CompanyConsts.descriptorName, CompanyAssist.roFRD);
+        form.renderForm();
+        mainPanel.add(form.asWidget());
+    }
+
+    @Override
+    public void setUrlParameters(
+        Map<String, String> urlParams,
+        final UrlParamsParsedCallback callback) throws Exception {
+        formContext.objectFinder.executeFind(
+            CompanyConsts.descriptorName,
+            Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)),
+            Arrays.asList(CompanyConsts.propUser),
+            new ObjectFinder.Callback() {
+
+                @Override
+                public void onObjectFound(AssistedObject foundObject) {
+                    form.resetValuesToEmpty();
+                    form.setInitialData(foundObject);
+                    callback.onUrlParamsParsed();
+                }
+            });
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {}
 }

@@ -33,161 +33,178 @@ import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleLangConsts;
 
 public class ChangeModuleLangPopup {
-	
-	public static interface ChangeModuleLangPopupFactory {
-		ChangeModuleLangPopup create(@Assisted AssistedObject moduleKvo);
-	}
-	
-	private class DialogContent extends HandlerAwareFlowPanel {
 
-		private final ChangedCallback callback;
-		
-		private final IneButton btn = new IneButton(IneButtonType.ACTION, IneFormI18n.OK());
-		
-		public DialogContent(ChangedCallback callback) {
-			this.callback=callback;
-			add(new Label(IneFormI18n.loading()));
-			ineDispatch.execute(new RelationListAction(LangConsts.descriptorName, null, 0, 10000, false), 
-					new IneDispatchBase.SuccessCallback<RelationListResult>() {
+    public static interface ChangeModuleLangPopupFactory {
+        ChangeModuleLangPopup create(@Assisted AssistedObject moduleKvo);
+    }
 
-						@Override
-						public void onSuccess(RelationListResult result) {
-							clear();
-							
-							if(!result.isSuccess() || result.getList()==null || result.getList().isEmpty()) {
-								add(new Label(IneFormI18n.cantDisplay()));
-								return;
-							}
-							
-							for(Relation r : result.getList()) {
-								add(new LangRelCheckbox(r));
-							}
-							
-							add(btn);
-						}
-					});
-		}
-		
-		@Override
-		protected void onLoad() {
-			super.onLoad();
-			
-			registerHandler(btn.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					dialogBox.hide();
-					if(changed)
-						callback.onChanged();
-				}
-			}));
-		}
-		
-	}
-	
-	private class LangRelCheckbox extends HandlerAwareComposite{
+    private class DialogContent extends HandlerAwareFlowPanel {
 
-		private final Relation langRelation;
-		private final IneCheckBox cb;
-		
-		public LangRelCheckbox(Relation langRelation) {
-			this.langRelation=langRelation;
-			this.cb=new IneCheckBox(langRelation.getDisplayName());
-			cb.setValue(isModuleLang(langRelation.getId()));
-			cb.getElement().getStyle().setPadding(5, Unit.PX);
-			initWidget(cb);
-		}
-		
-		private boolean isModuleLang(Long id) {
-			AssistedObjectHandler modHandler = assistedObjectHandlerFactory.createHandler(moduleKvo);
-			IneList mLangs = modHandler.getList(ModuleConsts.k_langs);
-			if(mLangs==null || mLangs.getRelationList()==null || mLangs.getRelationList().isEmpty())
-				return false;
-			
-			for(Relation r : mLangs.getRelationList()) {
-				Relation lang = assistedObjectHandlerFactory.createHandler(r.getKvo()).getRelation(ModuleLangConsts.k_lang);
-				if(lang!=null && lang.getId().equals(id))
-					return true;
-			}
-			
-			return false;
-		}
+        private final ChangedCallback callback;
 
-		@Override
-		protected void onLoad() {
-			super.onLoad();
+        private final IneButton btn = new IneButton(IneButtonType.ACTION, IneFormI18n.OK());
 
-			registerHandler(cb.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					event.stopPropagation();
-					event.preventDefault();
-					
-					final boolean currentState = !cb.getValue();
-					final long moduleId = moduleKvo.getId();
-					final long langId = langRelation.getId();
-					
-					if(currentState==true) {
-						ineDispatch.execute(new TestLangChangeAction(currentState, moduleId, langId), new IneDispatchBase.SuccessCallback<TestLangChangeResult>() {
+        public DialogContent(ChangedCallback callback) {
+            this.callback = callback;
+            add(new Label(IneFormI18n.loading()));
+            ineDispatch.execute(new RelationListAction(
+                LangConsts.descriptorName,
+                null,
+                0,
+                10000,
+                false), new IneDispatchBase.SuccessCallback<RelationListResult>() {
 
-							@Override
-							public void onSuccess(TestLangChangeResult result) {
-								ConfirmDialogBox dialog = new ConfirmDialogBox();
-								dialog.show(translatorappI18n.moduleLangDelQuestion(
-										""+result.getWillBeDeletedWithText(),
-										""+result.getWillBeDeletedWithEmpty()),
-										new ClickHandler() {
-											
-											@Override
-											public void onClick(ClickEvent clkEvent) {
-												doChange(currentState, moduleId, langId);
-											}
-										});
-							}
-						});
-					} else {
-						doChange(currentState, moduleId, langId);
-					}
-				}
+                @Override
+                public void onSuccess(RelationListResult result) {
+                    clear();
 
-				private void doChange(final boolean currentState, long moduleId, long langId) {
-					ineDispatch.execute(new LangChangeAction(currentState, moduleId, langId), new IneDispatchBase.SuccessCallback<GenericActionResult>() {
+                    if (!result.isSuccess()
+                        || result.getList() == null
+                        || result.getList().isEmpty()) {
+                        add(new Label(IneFormI18n.cantDisplay()));
+                        return;
+                    }
 
-						@Override
-						public void onSuccess(GenericActionResult result) {
-							changed=true;
-							cb.setValue(!cb.getValue());
-						}
-					});
-				}
-			}));
-		}
-		
-	}
+                    for (Relation r : result.getList()) {
+                        add(new LangRelCheckbox(r));
+                    }
 
-	private final AssistedObject moduleKvo;
-	private final AssistedObjectHandlerFactory assistedObjectHandlerFactory;
-	private final IneDispatch ineDispatch;
-	
-	private IneDialogBox dialogBox;
-	private boolean changed = false;
-	
-	@Inject
-	public ChangeModuleLangPopup(@Assisted AssistedObject moduleKvo,
-			AssistedObjectHandlerFactory assistedObjectHandlerFactory,
-			IneDispatch ineDispatch) {
-		this.moduleKvo=moduleKvo;
-		this.ineDispatch=ineDispatch;
-		this.assistedObjectHandlerFactory=assistedObjectHandlerFactory;
-	}
+                    add(btn);
+                }
+            });
+        }
 
-	public void show(ChangedCallback callback) {
-		dialogBox = new IneDialogBox(false, true);
-		dialogBox.setWidget(new DialogContent(callback));
-		dialogBox.setGlassEnabled(true);
-		dialogBox.setAnimationEnabled(true);
-		dialogBox.setText(IneFormI18n.EDIT());
-		dialogBox.center();
-	}
+        @Override
+        protected void onLoad() {
+            super.onLoad();
+
+            registerHandler(btn.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(ClickEvent event) {
+                    dialogBox.hide();
+                    if (changed)
+                        callback.onChanged();
+                }
+            }));
+        }
+
+    }
+
+    private class LangRelCheckbox extends HandlerAwareComposite {
+
+        private final Relation langRelation;
+        private final IneCheckBox cb;
+
+        public LangRelCheckbox(Relation langRelation) {
+            this.langRelation = langRelation;
+            this.cb = new IneCheckBox(langRelation.getDisplayName());
+            cb.setValue(isModuleLang(langRelation.getId()));
+            cb.getElement().getStyle().setPadding(5, Unit.PX);
+            initWidget(cb);
+        }
+
+        private boolean isModuleLang(Long id) {
+            AssistedObjectHandler modHandler =
+                assistedObjectHandlerFactory.createHandler(moduleKvo);
+            IneList mLangs = modHandler.getList(ModuleConsts.k_langs);
+            if (mLangs == null
+                || mLangs.getRelationList() == null
+                || mLangs.getRelationList().isEmpty())
+                return false;
+
+            for (Relation r : mLangs.getRelationList()) {
+                Relation lang =
+                    assistedObjectHandlerFactory.createHandler(r.getKvo()).getRelation(
+                        ModuleLangConsts.k_lang);
+                if (lang != null && lang.getId().equals(id))
+                    return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onLoad() {
+            super.onLoad();
+
+            registerHandler(cb.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(ClickEvent event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
+                    final boolean currentState = !cb.getValue();
+                    final long moduleId = moduleKvo.getId();
+                    final long langId = langRelation.getId();
+
+                    if (currentState == true) {
+                        ineDispatch.execute(
+                            new TestLangChangeAction(currentState, moduleId, langId),
+                            new IneDispatchBase.SuccessCallback<TestLangChangeResult>() {
+
+                                @Override
+                                public void onSuccess(TestLangChangeResult result) {
+                                    ConfirmDialogBox dialog = new ConfirmDialogBox();
+                                    dialog.show(
+                                        translatorappI18n.moduleLangDelQuestion(
+                                            "" + result.getWillBeDeletedWithText(),
+                                            "" + result.getWillBeDeletedWithEmpty()),
+                                        new ClickHandler() {
+
+                                            @Override
+                                            public void onClick(ClickEvent clkEvent) {
+                                                doChange(currentState, moduleId, langId);
+                                            }
+                                        });
+                                }
+                            });
+                    } else {
+                        doChange(currentState, moduleId, langId);
+                    }
+                }
+
+                private void doChange(final boolean currentState, long moduleId, long langId) {
+                    ineDispatch.execute(
+                        new LangChangeAction(currentState, moduleId, langId),
+                        new IneDispatchBase.SuccessCallback<GenericActionResult>() {
+
+                            @Override
+                            public void onSuccess(GenericActionResult result) {
+                                changed = true;
+                                cb.setValue(!cb.getValue());
+                            }
+                        });
+                }
+            }));
+        }
+
+    }
+
+    private final AssistedObject moduleKvo;
+    private final AssistedObjectHandlerFactory assistedObjectHandlerFactory;
+    private final IneDispatch ineDispatch;
+
+    private IneDialogBox dialogBox;
+    private boolean changed = false;
+
+    @Inject
+    public ChangeModuleLangPopup(
+        @Assisted AssistedObject moduleKvo,
+        AssistedObjectHandlerFactory assistedObjectHandlerFactory,
+        IneDispatch ineDispatch) {
+        this.moduleKvo = moduleKvo;
+        this.ineDispatch = ineDispatch;
+        this.assistedObjectHandlerFactory = assistedObjectHandlerFactory;
+    }
+
+    public void show(ChangedCallback callback) {
+        dialogBox = new IneDialogBox(false, true);
+        dialogBox.setWidget(new DialogContent(callback));
+        dialogBox.setGlassEnabled(true);
+        dialogBox.setAnimationEnabled(true);
+        dialogBox.setText(IneFormI18n.EDIT());
+        dialogBox.center();
+    }
 }

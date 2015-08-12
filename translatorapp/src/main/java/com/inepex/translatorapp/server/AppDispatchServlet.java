@@ -1,6 +1,5 @@
 package com.inepex.translatorapp.server;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,48 +34,54 @@ import com.inepex.translatorapp.shared.assist.UserLangAssist;
 @Singleton
 @SuppressWarnings("serial")
 public class AppDispatchServlet extends AbstractGuiceDispatch {
-	
-	private final DaoFinder daofinder;
 
-	@Inject
-	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
-			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder, ApplicationLangs langs) {
-		super(dispatch, currentLangProvider, serverI18n, descStore, 
-				true, langs);
-		this.daofinder=daoFinder;
-	}
-	
-	@Override
-	public void init() throws ServletException {
-		daofinder.addPackageByName("com.inepex.translatorapp.server.entity.dao");
-		super.init();
-	}
+    private final DaoFinder daofinder;
 
-	@Override
-	public void doLogAction(Loggable loggable, HttpServletRequest request) {		
-	}
+    @Inject
+    public AppDispatchServlet(
+        Dispatch dispatch,
+        Provider<CurrentLang> currentLangProvider,
+        I18nStore_Server serverI18n,
+        DescriptorStore descStore,
+        DaoFinder daoFinder,
+        ApplicationLangs langs) {
+        super(dispatch, currentLangProvider, serverI18n, descStore, true, langs);
+        this.daofinder = daoFinder;
+    }
 
-	@Override
-	public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {
-		serverI18n.registerModule(new IneFormI18n(new ServerIneFormI18nProvider(currentLangProvider)));
-		serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
-		serverI18n.registerModule(new translatorappI18n(new ServertranslatorappI18nProvider(currentLangProvider)));
-	}
+    @Override
+    public void init() throws ServletException {
+        daofinder.addPackageByName("com.inepex.translatorapp.server.entity.dao");
+        super.init();
+    }
 
-	@Override
-	public void registerAssists(DescriptorStore descStore) {
-		new UserAssist(descStore).registerDescriptors();
-		new LangAssist(descStore).registerDescriptors();
-		new RegAssist(descStore).registerDescriptors();
-		new UserLangAssist(descStore).registerDescriptors();
-		new ModuleAssist(descStore).registerDescriptors();
-		new ModuleLangAssist(descStore).registerDescriptors();
-		new ModuleRowAssist(descStore).registerDescriptors();
-		new TranslatedValueAssist(descStore).registerDescriptors();
-		new TranslateTableRowAssist(descStore).registerDescriptors();
-	}
+    @Override
+    public void doLogAction(Loggable loggable, HttpServletRequest request) {}
 
-	@Override
-	public void setupDefaults() {
-	}
+    @Override
+    public void registerAdditionalI18nModules(
+        I18nStore_Server serverI18n,
+        Provider<CurrentLang> currentLangProvider) {
+        serverI18n.registerModule(new IneFormI18n(
+            new ServerIneFormI18nProvider(currentLangProvider)));
+        serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
+        serverI18n.registerModule(new translatorappI18n(new ServertranslatorappI18nProvider(
+            currentLangProvider)));
+    }
+
+    @Override
+    public void registerAssists(DescriptorStore descStore) {
+        new UserAssist(descStore).registerDescriptors();
+        new LangAssist(descStore).registerDescriptors();
+        new RegAssist(descStore).registerDescriptors();
+        new UserLangAssist(descStore).registerDescriptors();
+        new ModuleAssist(descStore).registerDescriptors();
+        new ModuleLangAssist(descStore).registerDescriptors();
+        new ModuleRowAssist(descStore).registerDescriptors();
+        new TranslatedValueAssist(descStore).registerDescriptors();
+        new TranslateTableRowAssist(descStore).registerDescriptors();
+    }
+
+    @Override
+    public void setupDefaults() {}
 }

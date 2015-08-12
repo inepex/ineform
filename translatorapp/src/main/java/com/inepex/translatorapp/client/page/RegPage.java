@@ -25,82 +25,87 @@ import com.inepex.translatorapp.shared.action.RegAction;
 import com.inepex.translatorapp.shared.kvo.RegConsts;
 
 public class RegPage extends FlowPanelBasedPageWithScroll {
-	
-	private final EventBus eventBus;
-	private final IneDispatch ineDispatch;
-	
-	private final SaveCancelForm form;
-	private final ServerSideDataConnector connector;
-	
-	@Inject
-	public RegPage(FormFactory formFactory,
-			DataConnectorFactory connectorFactory,
-			EventBus eventBus,
-			IneDispatch ineDispatch) {
-		this.eventBus=eventBus;
-		this.ineDispatch=ineDispatch;
-		
-		mainPanel.add(new HTML(translatorappI18n.regPageTitle()));
-		
-		connector = connectorFactory.createServerSide(RegConsts.descriptorName);
-		form = formFactory.createSaveCancel(RegConsts.descriptorName, null, connector, null);
-		form.renderForm();
-		mainPanel.add(form.asWidget());
-	}
 
-	@Override
-	protected void onShow(boolean isFirstShow) {
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		
-		registerHandler(form.addBeforeSaveHandler(new BeforeSaveEvent.Handler() {
-			
-			@Override
-			public void onBeforeSave(BeforeSaveEvent event) {
-				event.setCancelled(true);
-			
-				ineDispatch.execute(new RegAction(event.getKvo()), new SuccessCallback<ObjectManipulationActionResult>() {
+    private final EventBus eventBus;
+    private final IneDispatch ineDispatch;
 
-					@Override
-					public void onSuccess(ObjectManipulationActionResult result) {
-						if(result.isSuccess() || result.getValidationResult()!=null) {
-							if(result.getValidationResult()==null || result.getValidationResult().isValid()) {
-								InfoDialog dialog = new InfoDialog(translatorappI18n.succesfulRegistration());
-								dialog.center();
-								dialog.addCloseHandler(new CloseHandler<PopupPanel>() {
-									
-									@Override
-									public void onClose(CloseEvent<PopupPanel> closeEvent) {
-										backToLoginPage();
-									}
-								});
-							} else {
-								form.dealValidationResult(result.getValidationResult());
-							}
-						} else {
-							System.out.println("Error while registering: "+result.getMessage());
-							ErrorDialogBox.showError(translatorappI18n.regError());
-						}
-					}
-				});
-			}
-		}));
-		
-		registerHandler(form.addCancelledHandler(new CancelledEvent.Handler() {
-			
-			@Override
-			public void onCancelled(CancelledEvent event) {
-				backToLoginPage();
-			}
-		}));
-	}
-	
-	private void backToLoginPage() {
-		eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
-		form.resetValuesToEmpty();
-	}
-	
+    private final SaveCancelForm form;
+    private final ServerSideDataConnector connector;
+
+    @Inject
+    public RegPage(
+        FormFactory formFactory,
+        DataConnectorFactory connectorFactory,
+        EventBus eventBus,
+        IneDispatch ineDispatch) {
+        this.eventBus = eventBus;
+        this.ineDispatch = ineDispatch;
+
+        mainPanel.add(new HTML(translatorappI18n.regPageTitle()));
+
+        connector = connectorFactory.createServerSide(RegConsts.descriptorName);
+        form = formFactory.createSaveCancel(RegConsts.descriptorName, null, connector, null);
+        form.renderForm();
+        mainPanel.add(form.asWidget());
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {}
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+
+        registerHandler(form.addBeforeSaveHandler(new BeforeSaveEvent.Handler() {
+
+            @Override
+            public void onBeforeSave(BeforeSaveEvent event) {
+                event.setCancelled(true);
+
+                ineDispatch.execute(
+                    new RegAction(event.getKvo()),
+                    new SuccessCallback<ObjectManipulationActionResult>() {
+
+                        @Override
+                        public void onSuccess(ObjectManipulationActionResult result) {
+                            if (result.isSuccess() || result.getValidationResult() != null) {
+                                if (result.getValidationResult() == null
+                                    || result.getValidationResult().isValid()) {
+                                    InfoDialog dialog =
+                                        new InfoDialog(translatorappI18n.succesfulRegistration());
+                                    dialog.center();
+                                    dialog.addCloseHandler(new CloseHandler<PopupPanel>() {
+
+                                        @Override
+                                        public void onClose(CloseEvent<PopupPanel> closeEvent) {
+                                            backToLoginPage();
+                                        }
+                                    });
+                                } else {
+                                    form.dealValidationResult(result.getValidationResult());
+                                }
+                            } else {
+                                System.out.println("Error while registering: "
+                                    + result.getMessage());
+                                ErrorDialogBox.showError(translatorappI18n.regError());
+                            }
+                        }
+                    });
+            }
+        }));
+
+        registerHandler(form.addCancelledHandler(new CancelledEvent.Handler() {
+
+            @Override
+            public void onCancelled(CancelledEvent event) {
+                backToLoginPage();
+            }
+        }));
+    }
+
+    private void backToLoginPage() {
+        eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.defaultPlace));
+        form.resetValuesToEmpty();
+    }
+
 }

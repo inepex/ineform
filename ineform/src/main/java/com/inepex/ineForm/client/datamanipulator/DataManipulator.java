@@ -26,212 +26,235 @@ import com.inepex.ineFrame.client.pushedevents.PushedEventProvider;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 /**
- * <p>DataManipulator is the base class for displaying a table and manipulating it's
- * rows with default {@link TableRDesc} and default {@link FormRDesc}.</p>
+ * <p>
+ * DataManipulator is the base class for displaying a table and manipulating
+ * it's rows with default {@link TableRDesc} and default {@link FormRDesc}.
+ * </p>
  * 
- * <p><b>This class is subject to change!</b> It should support both custom {@link TableRDesc} 
- * and custom {@link FormRDesc}. Also it would be good to support updating the place
- * according to what is displayed (table or form).</p>
+ * <p>
+ * <b>This class is subject to change!</b> It should support both custom
+ * {@link TableRDesc} and custom {@link FormRDesc}. Also it would be good to
+ * support updating the place according to what is displayed (table or form).
+ * </p>
  * 
  * @author istvanszoboszlai
  *
  */
 public abstract class DataManipulator extends HandlerAwareComposite {
 
-	// Components
-	private final SimplePanel outerPanel = new SimplePanel();
-	protected final FlowPanel mainPanel = new FlowPanel();
-	private final SimplePanel topPlaceholder = new SimplePanel();
-	
-	protected IneTable ineTable;
+    // Components
+    private final SimplePanel outerPanel = new SimplePanel();
+    protected final FlowPanel mainPanel = new FlowPanel();
+    private final SimplePanel topPlaceholder = new SimplePanel();
 
-	// Properties
-	protected String objectDescriptorName;
+    protected IneTable ineTable;
 
-	// Dependencies
-	protected final IneDataConnector ineDataConnector;
-	protected final EventBus eventBus;
-	protected final FormFactory formFactory;
+    // Properties
+    protected String objectDescriptorName;
 
-	protected FormCreationCallback formCreationCallback = null;
-	
-	//State
-	private boolean rendered = false;
-	
-	private String formRDesc = null;
-	
-	public DataManipulator(FormContext formCtx
-			, FormFactory formFactory
-			, String objectDescriptorName
-			, IneDataConnector ineDataConnector
-			, boolean sortable
-			, TableFieldRenderer fieldRenderer) {
-		
-		this.objectDescriptorName = objectDescriptorName;
-		this.ineDataConnector = ineDataConnector;
-		this.eventBus = formCtx.eventBus;
-		this.formFactory = formFactory;
+    // Dependencies
+    protected final IneDataConnector ineDataConnector;
+    protected final EventBus eventBus;
+    protected final FormFactory formFactory;
 
-		initWidget(outerPanel);
-		outerPanel.setWidget(mainPanel);
-		addTopPlaceholder();
-		
-		if(sortable)
-			this.ineTable = new SortableIneTable(formCtx.descStore, objectDescriptorName, ineDataConnector, fieldRenderer);
-		else 
-			this.ineTable = new IneTable(formCtx.descStore, objectDescriptorName, ineDataConnector, fieldRenderer);
-	}
-	
-	public void render() {
-		if (!rendered) {
-			buildManipulator();
-			rendered = true;
-		}
-	}
+    protected FormCreationCallback formCreationCallback = null;
 
-	public void setTableParams(int pageSize, boolean sortable) {
-		ineTable.setPageSize(pageSize);
-		// if (sortable) ineTable.setSortPolicy(SortPolicy.SINGLE_CELL);
-	}
-	
-	private void buildManipulator() {
-		initilaizeIneTableAndBuildCustom();
-		ineTable.renderTable();
-		if (ineDataConnector != null) ineDataConnector.update();
-	}
-	
-	public void setAutoUpdating(PushedEventProvider pEventProvider) {
-		if (ineDataConnector != null
-				&& ineDataConnector instanceof ServerSideDataConnector) {
-			((ServerSideDataConnector) ineDataConnector).setAutoUpdating(
-					pEventProvider, ineTable.getDataDisplay());
-		}
-	}
+    // State
+    private boolean rendered = false;
 
-	@Override
-	protected void onDetach() {
-		if (ineDataConnector != null && ineDataConnector instanceof ServerSideDataConnector) {
-			((ServerSideDataConnector)ineDataConnector).disableAutoUpdating();
-			
-		}
-		super.onDetach();
-	}
-	
-	protected abstract void initilaizeIneTableAndBuildCustom();
-	
-	public abstract void setNewText(String newText);
-	public abstract void setEditText(String editText);
-	public abstract void setDeleteText(String deleteText);
-	
-	private void addTopPlaceholder() {
-		mainPanel.add(topPlaceholder);
-	}
+    private String formRDesc = null;
 
-	public void setTopPanelWidget(Widget w) {
-		topPlaceholder.setWidget(w);
-	}
+    public DataManipulator(
+        FormContext formCtx,
+        FormFactory formFactory,
+        String objectDescriptorName,
+        IneDataConnector ineDataConnector,
+        boolean sortable,
+        TableFieldRenderer fieldRenderer) {
 
-	protected void onAddDataClicked() {
-		showObjectEditor(null);
-	}
-	
-	protected void onEditClicked(final AssistedObject kvo) {
-		showObjectEditor(kvo);		
-	}
-	
-	protected void onDeleteClicked(final AssistedObject kvo) {
-		ConfirmDialogBox cb = new ConfirmDialogBox();
+        this.objectDescriptorName = objectDescriptorName;
+        this.ineDataConnector = ineDataConnector;
+        this.eventBus = formCtx.eventBus;
+        this.formFactory = formFactory;
 
-		cb.show(IneFormI18n.reallyWantToDelete());
+        initWidget(outerPanel);
+        outerPanel.setWidget(mainPanel);
+        addTopPlaceholder();
 
-		cb.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				ineDataConnector.objectDeleteRequested(kvo, null);
+        if (sortable)
+            this.ineTable =
+                new SortableIneTable(
+                    formCtx.descStore,
+                    objectDescriptorName,
+                    ineDataConnector,
+                    fieldRenderer);
+        else
+            this.ineTable =
+                new IneTable(
+                    formCtx.descStore,
+                    objectDescriptorName,
+                    ineDataConnector,
+                    fieldRenderer);
+    }
 
-			}
-		});
-	}
+    public void render() {
+        if (!rendered) {
+            buildManipulator();
+            rendered = true;
+        }
+    }
 
-	protected String getFRD() {
-		return formRDesc;
-	}
-	
-	protected void showObjectEditor(AssistedObject selectedValue) {
-		boolean isEditMode = selectedValue != null;
+    public void setTableParams(int pageSize, boolean sortable) {
+        ineTable.setPageSize(pageSize);
+        // if (sortable) ineTable.setSortPolicy(SortPolicy.SINGLE_CELL);
+    }
 
-		SaveCancelForm saveCancelForm = formFactory.createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector, null);
+    private void buildManipulator() {
+        initilaizeIneTableAndBuildCustom();
+        ineTable.renderTable();
+        if (ineDataConnector != null)
+            ineDataConnector.update();
+    }
 
-		showForm(saveCancelForm); // this is needed here to make event processing available!
-		
-		if (formCreationCallback != null) {
-			if (isEditMode)
-				formCreationCallback.onCreatingEditForm(saveCancelForm);
-			else 
-				formCreationCallback.onCreatingCreateForm(saveCancelForm);
-		}
-		
-		saveCancelForm.renderForm();
+    public void setAutoUpdating(PushedEventProvider pEventProvider) {
+        if (ineDataConnector != null && ineDataConnector instanceof ServerSideDataConnector) {
+            ((ServerSideDataConnector) ineDataConnector).setAutoUpdating(
+                pEventProvider,
+                ineTable.getDataDisplay());
+        }
+    }
 
-		if (isEditMode) {
-			saveCancelForm.setInitialData(selectedValue.clone());
-		}
-		
-		saveCancelForm.addCancelledHandler(new FormCancelledHadler());
-		saveCancelForm.addSavedHandler(new FormSavedHadler());
-	}
-	
-	public class FormCancelledHadler implements CancelledEvent.Handler {
-		@Override
-		public void onCancelled(CancelledEvent event) {
-			showTable();
-		}
-	}
-	
-	public class FormSavedHadler implements SavedEvent.Handler {
-		@Override
-		public void onSaved(SavedEvent event) {
-			showTable();
-		}
-	}
-	
-	protected void showForm(SaveCancelForm saveCancelForm) {
-		outerPanel.setWidget(saveCancelForm.asWidget());
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		showTable();
-	}
-	
-	private void showTable() {
-		if(ineTable.getSingleSelectionModel()!=null)
-			if(ineTable.getSingleSelectionModel().getSelectedObject()!=null)
-				ineTable.getSelectionModel().setSelected(ineTable.getSingleSelectionModel().getSelectedObject(), false);
-		
-		outerPanel.setWidget(mainPanel);
-	}
+    @Override
+    protected void onDetach() {
+        if (ineDataConnector != null && ineDataConnector instanceof ServerSideDataConnector) {
+            ((ServerSideDataConnector) ineDataConnector).disableAutoUpdating();
 
-	public IneTable getIneTable() {
-		return ineTable;
-	}
+        }
+        super.onDetach();
+    }
 
-	public interface FormCreationCallback {
-		void onCreatingEditForm(IneForm ineForm);
-		void onCreatingCreateForm(IneForm ineForm);
-	}
+    protected abstract void initilaizeIneTableAndBuildCustom();
 
-	public void setPageSize(int pageSize) {
-		ineTable.setPageSize(pageSize);
-	}
+    public abstract void setNewText(String newText);
 
-	public void setFormCreationCallback(FormCreationCallback formCreationCallback) {
-		this.formCreationCallback = formCreationCallback;
-	}
+    public abstract void setEditText(String editText);
 
-	public void setFormRDesc(String formRDesc) {
-		this.formRDesc = formRDesc;
-	}
-	
+    public abstract void setDeleteText(String deleteText);
+
+    private void addTopPlaceholder() {
+        mainPanel.add(topPlaceholder);
+    }
+
+    public void setTopPanelWidget(Widget w) {
+        topPlaceholder.setWidget(w);
+    }
+
+    protected void onAddDataClicked() {
+        showObjectEditor(null);
+    }
+
+    protected void onEditClicked(final AssistedObject kvo) {
+        showObjectEditor(kvo);
+    }
+
+    protected void onDeleteClicked(final AssistedObject kvo) {
+        ConfirmDialogBox cb = new ConfirmDialogBox();
+
+        cb.show(IneFormI18n.reallyWantToDelete());
+
+        cb.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                ineDataConnector.objectDeleteRequested(kvo, null);
+
+            }
+        });
+    }
+
+    protected String getFRD() {
+        return formRDesc;
+    }
+
+    protected void showObjectEditor(AssistedObject selectedValue) {
+        boolean isEditMode = selectedValue != null;
+
+        SaveCancelForm saveCancelForm =
+            formFactory.createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector, null);
+
+        showForm(saveCancelForm); // this is needed here to make event
+                                  // processing available!
+
+        if (formCreationCallback != null) {
+            if (isEditMode)
+                formCreationCallback.onCreatingEditForm(saveCancelForm);
+            else
+                formCreationCallback.onCreatingCreateForm(saveCancelForm);
+        }
+
+        saveCancelForm.renderForm();
+
+        if (isEditMode) {
+            saveCancelForm.setInitialData(selectedValue.clone());
+        }
+
+        saveCancelForm.addCancelledHandler(new FormCancelledHadler());
+        saveCancelForm.addSavedHandler(new FormSavedHadler());
+    }
+
+    public class FormCancelledHadler implements CancelledEvent.Handler {
+        @Override
+        public void onCancelled(CancelledEvent event) {
+            showTable();
+        }
+    }
+
+    public class FormSavedHadler implements SavedEvent.Handler {
+        @Override
+        public void onSaved(SavedEvent event) {
+            showTable();
+        }
+    }
+
+    protected void showForm(SaveCancelForm saveCancelForm) {
+        outerPanel.setWidget(saveCancelForm.asWidget());
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        showTable();
+    }
+
+    private void showTable() {
+        if (ineTable.getSingleSelectionModel() != null)
+            if (ineTable.getSingleSelectionModel().getSelectedObject() != null)
+                ineTable.getSelectionModel().setSelected(
+                    ineTable.getSingleSelectionModel().getSelectedObject(),
+                    false);
+
+        outerPanel.setWidget(mainPanel);
+    }
+
+    public IneTable getIneTable() {
+        return ineTable;
+    }
+
+    public interface FormCreationCallback {
+        void onCreatingEditForm(IneForm ineForm);
+
+        void onCreatingCreateForm(IneForm ineForm);
+    }
+
+    public void setPageSize(int pageSize) {
+        ineTable.setPageSize(pageSize);
+    }
+
+    public void setFormCreationCallback(FormCreationCallback formCreationCallback) {
+        this.formCreationCallback = formCreationCallback;
+    }
+
+    public void setFormRDesc(String formRDesc) {
+        this.formRDesc = formRDesc;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationActionResult;
 
 public interface CustomActionHandler {
-	ObjectManipulationActionResult doCustomAction(ObjectManipulationAction action) throws Exception;
-	ObjectListActionResult doCustomAction(ObjectListAction action) throws Exception;
+    ObjectManipulationActionResult doCustomAction(ObjectManipulationAction action) throws Exception;
+
+    ObjectListActionResult doCustomAction(ObjectListAction action) throws Exception;
 }

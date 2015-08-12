@@ -27,102 +27,108 @@ import com.inepex.ineom.shared.IFConsts;
 
 @Singleton
 public class UploadServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	public static final String PROPNAME = "conf/imageservice.properties";
+    private static final long serialVersionUID = 1L;
+    public static final String PROPNAME = "conf/imageservice.properties";
 
-	private OnDemandProperties props;
-	private UploadProcessor uploadProc;
-	
-	private static final Logger _logger = LoggerFactory
-			.getLogger(UploadServlet.class);
+    private OnDemandProperties props;
+    private UploadProcessor uploadProc;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public UploadServlet() {
-		super();
-	}
+    private static final Logger _logger = LoggerFactory.getLogger(UploadServlet.class);
 
-	@Override
-	public void init() throws ServletException {
-		props = new OnDemandProperties(PROPNAME);
-		uploadProc = new UploadProcessor(props);
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UploadServlet() {
+        super();
+    }
 
-	}
+    @Override
+    public void init() throws ServletException {
+        props = new OnDemandProperties(PROPNAME);
+        uploadProc = new UploadProcessor(props);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		// TODO: sometimes it is not multipart, why?
-		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-		/* Create a factory for disk-based file items */
+    }
 
-		TreeMap<String, Object> query = new TreeMap<String, Object>();
-		Map tbl = req.getParameterMap();
-		query.putAll(tbl);
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException,
+        IOException {
+        // TODO: sometimes it is not multipart, why?
+        boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+        /* Create a factory for disk-based file items */
 
-		if (isMultipart) {
-			FileItemFactory factory = new DiskFileItemFactory();
+        TreeMap<String, Object> query = new TreeMap<String, Object>();
+        Map tbl = req.getParameterMap();
+        query.putAll(tbl);
 
-			/* Create a new file upload handler */
-			ServletFileUpload upload = new ServletFileUpload(factory);
+        if (isMultipart) {
+            FileItemFactory factory = new DiskFileItemFactory();
 
-			/* Set overall request size constraint */
-			upload.setSizeMax(Long.parseLong(props.getPropertiesInstance().getProperty(IFConsts.MAX_REQUEST_SIZE, "10485760")));
+            /* Create a new file upload handler */
+            ServletFileUpload upload = new ServletFileUpload(factory);
 
-			/* Parse the request */
-			try {
-				List items = upload.parseRequest(req);
+            /* Set overall request size constraint */
+            upload.setSizeMax(Long.parseLong(props.getPropertiesInstance().getProperty(
+                IFConsts.MAX_REQUEST_SIZE,
+                "10485760")));
 
-				// Process the uploaded items
-				Iterator iter = items.iterator();
-				while (iter.hasNext()) {
-					FileItem fileItem = (FileItem) iter.next();
-					String name = fileItem.getFieldName();
+            /* Parse the request */
+            try {
+                List items = upload.parseRequest(req);
 
-					if (!fileItem.isFormField()) {
-						_logger.info("File field {} with file name "
-								+ fileItem.getName() + " detected.");
+                // Process the uploaded items
+                Iterator iter = items.iterator();
+                while (iter.hasNext()) {
+                    FileItem fileItem = (FileItem) iter.next();
+                    String name = fileItem.getFieldName();
 
-						InputStream inStream = fileItem.getInputStream();
+                    if (!fileItem.isFormField()) {
+                        _logger.info("File field {} with file name "
+                            + fileItem.getName()
+                            + " detected.");
 
-						String extension = FilenameUtils.getExtension(fileItem
-								.getName());
-						boolean allowed = false;
+                        InputStream inStream = fileItem.getInputStream();
 
-						for (String s : ((String) props.getPropertiesInstance().get(IFConsts.ALLOWED_EXTENSIONS)).split(",")) {
-							if (extension.equals(s)) {
-								allowed = true;
-								break;
-							}
-						}
+                        String extension = FilenameUtils.getExtension(fileItem.getName());
+                        boolean allowed = false;
 
-						if (!allowed) {
-							_logger.info("Extension not allowed");
-							PrintWriter out = resp.getWriter();
-							out.print("-1");
-						} else {
-							String id = uploadProc.storeImage(
-									inStream
-									, fileItem.getName()
-									, Boolean.parseBoolean(props.getPropertiesInstance().getProperty(IFConsts.RESIZEIMAGES, "false")));
-							resp.setContentType("text/html");
-							PrintWriter out = resp.getWriter();
-							out.print(id);
-						}
-					}
-				}
-			} catch (Exception e) {
-				_logger.info(e.getMessage(), e);
-			}
+                        for (String s : ((String) props.getPropertiesInstance().get(
+                            IFConsts.ALLOWED_EXTENSIONS)).split(",")) {
+                            if (extension.equals(s)) {
+                                allowed = true;
+                                break;
+                            }
+                        }
 
-		} else {
-			_logger.info("isMultipartContent = false");
-		}
-	}
+                        if (!allowed) {
+                            _logger.info("Extension not allowed");
+                            PrintWriter out = resp.getWriter();
+                            out.print("-1");
+                        } else {
+                            String id =
+                                uploadProc.storeImage(
+                                    inStream,
+                                    fileItem.getName(),
+                                    Boolean.parseBoolean(props.getPropertiesInstance().getProperty(
+                                        IFConsts.RESIZEIMAGES,
+                                        "false")));
+                            resp.setContentType("text/html");
+                            PrintWriter out = resp.getWriter();
+                            out.print(id);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                _logger.info(e.getMessage(), e);
+            }
+
+        } else {
+            _logger.info("isMultipartContent = false");
+        }
+    }
 
 }

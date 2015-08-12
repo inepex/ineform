@@ -13,27 +13,26 @@ import com.inepex.translatorapp.client.fw.TextBoxWithPopupEditorFw;
 
 public class TranslatorAppFormWidgetFactory implements FormWidgetFactory {
 
-	@Inject
-	public TranslatorAppFormWidgetFactory() {
-	}
-	
-	@Override
-	public FormWidget createWidget(
-			FormContext formCtx,
-			AbstractFormUnit form,
-			FDesc fieldDesc,
-			WidgetRDesc wrDesc,
-			Provider<View> propView) {
-		FormWidget createdWidget = null;
-		if (wrDesc.getFormWidgetType().equals(TranslatorAppFwTypes.TEXTBOXWITHPOPUPEDITOR)) {
-			createdWidget = new TextBoxWithPopupEditorFw(fieldDesc, wrDesc);
-		}
-		return createdWidget;
-	}
+    @Inject
+    public TranslatorAppFormWidgetFactory() {}
 
-	@Override
-	public FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc) {
-		return formWidget;
-	}
+    @Override
+    public FormWidget createWidget(
+        FormContext formCtx,
+        AbstractFormUnit form,
+        FDesc fieldDesc,
+        WidgetRDesc wrDesc,
+        Provider<View> propView) {
+        FormWidget createdWidget = null;
+        if (wrDesc.getFormWidgetType().equals(TranslatorAppFwTypes.TEXTBOXWITHPOPUPEDITOR)) {
+            createdWidget = new TextBoxWithPopupEditorFw(fieldDesc, wrDesc);
+        }
+        return createdWidget;
+    }
+
+    @Override
+    public FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc) {
+        return formWidget;
+    }
 
 }

@@ -16,25 +16,26 @@ import com.inepex.ineom.shared.dispatch.GenericActionResult;
 @Singleton
 public class LogoutHandler extends AbstractIneHandler<LogoutAction, GenericActionResult> {
 
-	private final Provider<HttpSession> sessionProvider;
-	
-	@Inject
-	LogoutHandler(Provider<HttpSession> sessionProvider) {
-		this.sessionProvider=sessionProvider;
-	}
+    private final Provider<HttpSession> sessionProvider;
 
-	@Override
-	public Class<LogoutAction> getActionType() {
-		return LogoutAction.class;
-	}
+    @Inject
+    LogoutHandler(Provider<HttpSession> sessionProvider) {
+        this.sessionProvider = sessionProvider;
+    }
 
-	@Override
-	protected GenericActionResult doExecute(LogoutAction action, ExecutionContext context) throws AuthenticationException,
-			DispatchException {
-		
-		sessionProvider.get().invalidate();
-		
-		return new GenericActionResult("", true);
-	}
-	
+    @Override
+    public Class<LogoutAction> getActionType() {
+        return LogoutAction.class;
+    }
+
+    @Override
+    protected GenericActionResult doExecute(LogoutAction action, ExecutionContext context)
+        throws AuthenticationException,
+        DispatchException {
+
+        sessionProvider.get().invalidate();
+
+        return new GenericActionResult("", true);
+    }
+
 }

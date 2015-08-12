@@ -19,32 +19,31 @@ import com.google.inject.persist.UnitOfWork;
  */
 @Singleton
 public final class InePersistFilter implements Filter {
-	
-  private final UnitOfWork unitOfWork;
 
-  @Inject
-  public InePersistFilter(UnitOfWork unitOfWork) {
-    this.unitOfWork = unitOfWork;
-  }
+    private final UnitOfWork unitOfWork;
 
-  @Override
-  public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
-      final FilterChain filterChain) throws IOException, ServletException {
-
-    unitOfWork.begin();
-    try {
-      filterChain.doFilter(servletRequest, servletResponse);
-    } finally {
-      unitOfWork.end();
+    @Inject
+    public InePersistFilter(UnitOfWork unitOfWork) {
+        this.unitOfWork = unitOfWork;
     }
-  }
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+    @Override
+    public void doFilter(
+        final ServletRequest servletRequest,
+        final ServletResponse servletResponse,
+        final FilterChain filterChain) throws IOException, ServletException {
 
-	@Override
-	public void destroy() {
-	}
+        unitOfWork.begin();
+        try {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } finally {
+            unitOfWork.end();
+        }
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {}
+
+    @Override
+    public void destroy() {}
 }
-

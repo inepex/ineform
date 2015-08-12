@@ -10,10 +10,11 @@ import com.inepex.ineForm.shared.descriptorext.FormUnitRDesc;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public interface FormUnitFactory {
-	
-	public AbstractFormUnit createFormUnit(FormContext formCtx,
-						FormRDesc formRDesc,
-						FormUnitRDesc formDesc, 
-						String objectDescriptorsName, 
-						List<Node<FormRDescBase>> selectedFields);
+
+    public AbstractFormUnit createFormUnit(
+        FormContext formCtx,
+        FormRDesc formRDesc,
+        FormUnitRDesc formDesc,
+        String objectDescriptorsName,
+        List<Node<FormRDescBase>> selectedFields);
 }

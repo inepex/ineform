@@ -6,37 +6,38 @@ import com.google.gwt.resources.client.ImageResource;
 
 /**
  * resources and style for this package (only this package!)
+ * 
  * @author SoTi
  *
  */
 public interface Res extends ClientBundle {
-	
-	public static class INST {
-		static Res INST;
-		public static Res get() {
-			if (INST == null) {
-				INST = GWT.create(Res.class);
-				INST.style().ensureInjected();
-				INST.ineMenuStyle().ensureInjected();
-			}
-			return INST;
-		}
-	}	
-	
-	@Source("DefaultIneFrameMasterPageViewStyle.css")
-	DefaultIneFrameMasterPageStyle style();
-	
-	@Source("IneMenuStyle.css")
-	IneMenuStyle ineMenuStyle();
-	
-	
-	ImageResource drawerAccountSettings();
-	
-	ImageResource drawerHelp();
-	
-	ImageResource drawerLogout();
 
-	ImageResource drawerLeaveAlias();
-	
-	ImageResource drawerProfile();
+    public static class INST {
+        static Res INST;
+
+        public static Res get() {
+            if (INST == null) {
+                INST = GWT.create(Res.class);
+                INST.style().ensureInjected();
+                INST.ineMenuStyle().ensureInjected();
+            }
+            return INST;
+        }
+    }
+
+    @Source("DefaultIneFrameMasterPageViewStyle.css")
+    DefaultIneFrameMasterPageStyle style();
+
+    @Source("IneMenuStyle.css")
+    IneMenuStyle ineMenuStyle();
+
+    ImageResource drawerAccountSettings();
+
+    ImageResource drawerHelp();
+
+    ImageResource drawerLogout();
+
+    ImageResource drawerLeaveAlias();
+
+    ImageResource drawerProfile();
 }

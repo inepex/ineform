@@ -13,74 +13,74 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public abstract class TextBoxFWBase extends StringFormWidget {
 
-	protected TextBox textBox; 
+    protected TextBox textBox;
 
-	public TextBoxFWBase(FDesc fielddescriptor) {
-		super(fielddescriptor);		
-	}
-	
-	protected void updateWidth(WidgetRDesc wrDesc){
-		if (wrDesc.hasProp(SimpleTableFormUnit.WIDTH)){
-			textBox.setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
-		} else {
-			textBox.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
-		}
-	}
-	
-	@Override
-	protected void onAttach() {
-		registerHandler(textBox.addValueChangeHandler(new ValueChangeHandler<String>() {		
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				fireFormWidgetChanged();
-			}
-		}));
-		registerHandler(textBox.addKeyUpHandler(new KeyUpHandler() {
-			
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
-					fireFormWidgetChanged(true);
-				} else {
-					fireFormWidgetChanged();
-				}
-			}
-		}));
+    public TextBoxFWBase(FDesc fielddescriptor) {
+        super(fielddescriptor);
+    }
 
-		super.onAttach();
-	} 
-	
-	
+    protected void updateWidth(WidgetRDesc wrDesc) {
+        if (wrDesc.hasProp(SimpleTableFormUnit.WIDTH)) {
+            textBox.setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
+        } else {
+            textBox.setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+        }
+    }
 
-	@Override
-	public boolean isFocusable() {
-		return true;
-	}
+    @Override
+    protected void onAttach() {
+        registerHandler(textBox.addValueChangeHandler(new ValueChangeHandler<String>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<String> event) {
+                fireFormWidgetChanged();
+            }
+        }));
+        registerHandler(textBox.addKeyUpHandler(new KeyUpHandler() {
 
-	@Override
-	public void setEnabled(boolean enabled) {
-		textBox.setEnabled(enabled);
-	}
+            @Override
+            public void onKeyUp(KeyUpEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    fireFormWidgetChanged(true);
+                } else {
+                    fireFormWidgetChanged();
+                }
+            }
+        }));
 
-	@Override
-	public void setFocus(boolean focused) {
-		textBox.setFocus(focused);
-	}
+        super.onAttach();
+    }
 
+    @Override
+    public boolean isFocusable() {
+        return true;
+    }
 
-	@Override
-	public String getStringValue() {
-		if(textBox.getValue().length()==0) return null;
-		return textBox.getValue();
-	}
+    @Override
+    public void setEnabled(boolean enabled) {
+        textBox.setEnabled(enabled);
+    }
 
-	@Override
-	public void setStringValue(String value) {
-		if(value==null) textBox.setValue("");
-		else textBox.setValue(value);
-	}
+    @Override
+    public void setFocus(boolean focused) {
+        textBox.setFocus(focused);
+    }
 
-	public TextBox getTextBox() {
-		return textBox;
-	}
+    @Override
+    public String getStringValue() {
+        if (textBox.getValue().length() == 0)
+            return null;
+        return textBox.getValue();
+    }
+
+    @Override
+    public void setStringValue(String value) {
+        if (value == null)
+            textBox.setValue("");
+        else
+            textBox.setValue(value);
+    }
+
+    public TextBox getTextBox() {
+        return textBox;
+    }
 }

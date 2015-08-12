@@ -36,11 +36,11 @@ import com.google.inject.Inject;
  * 
  * <pre>
  * {
- * 	&#064;code
- * 	Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
- * 	params.put(&quot;width&quot;, &quot;200&quot;);
- * 	params.put(&quot;height&quot;, &quot;50&quot;);
- * 	serve(&quot;/SimpleCaptcha.jpg&quot;).with(CaptchaServlet.class, params);
+ *     &#064;code
+ *     Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
+ *     params.put(&quot;width&quot;, &quot;200&quot;);
+ *     params.put(&quot;height&quot;, &quot;50&quot;);
+ *     serve(&quot;/SimpleCaptcha.jpg&quot;).with(CaptchaServlet.class, params);
  * }
  * </pre>
  * 
@@ -56,67 +56,65 @@ import com.google.inject.Inject;
  */
 public class CaptchaWidget extends Composite {
 
-	private final Image img = new Image();
-	private final TextBox tb = new TextBox();
+    private final Image img = new Image();
+    private final TextBox tb = new TextBox();
 
-	@Inject
-	public CaptchaWidget() {
-		this(Rendering.VERTICAL);
-	}
-	
-	public CaptchaWidget(Rendering rendering) {
-		buildStructure(rendering);
-		reloadCaptcha();
-	}
+    @Inject
+    public CaptchaWidget() {
+        this(Rendering.VERTICAL);
+    }
 
-	public void reloadCaptcha() {
-		img.setUrl("SimpleCaptcha.jpg" + "?"
-				+ System.currentTimeMillis());
-		tb.setText("");
-	}
+    public CaptchaWidget(Rendering rendering) {
+        buildStructure(rendering);
+        reloadCaptcha();
+    }
 
-	private void buildStructure(Rendering rendering) {
-		switch (rendering) {
-		case HORIZONTAL:
-			Grid g = new Grid(1, 2);
-			g.setWidget(0, 0, tb);
-			g.setWidget(0, 1, img);
-			initWidget(g);
-			
-			g.setCellSpacing(0);
-			g.setCellPadding(0);
-			g.setBorderWidth(0);
-			break;
-		case VERTICAL:
-		default:
-			FlowPanel fp = new FlowPanel();
-			fp.add(img);
-			fp.add(tb);
-			initWidget(fp);
-			
-			setPixelSize(150, 80);
-			break;
-		}
-	}
+    public void reloadCaptcha() {
+        img.setUrl("SimpleCaptcha.jpg" + "?" + System.currentTimeMillis());
+        tb.setText("");
+    }
 
-	public TextBox getTextBox() {
-		return tb;
-	}
+    private void buildStructure(Rendering rendering) {
+        switch (rendering) {
+            case HORIZONTAL:
+                Grid g = new Grid(1, 2);
+                g.setWidget(0, 0, tb);
+                g.setWidget(0, 1, img);
+                initWidget(g);
 
-	public String getCaptchaText() {
-		return tb.getText();
-	}
+                g.setCellSpacing(0);
+                g.setCellPadding(0);
+                g.setBorderWidth(0);
+                break;
+            case VERTICAL:
+            default:
+                FlowPanel fp = new FlowPanel();
+                fp.add(img);
+                fp.add(tb);
+                initWidget(fp);
 
-	public static enum Rendering {
-		/** 
-		 * first line: captcha
-		 * next line: textbox
-		 */
-		VERTICAL,
-		
-		/**
-		 * one line: textbox, captcha
-		 */
-		HORIZONTAL;
-	}
+                setPixelSize(150, 80);
+                break;
+        }
+    }
+
+    public TextBox getTextBox() {
+        return tb;
+    }
+
+    public String getCaptchaText() {
+        return tb.getText();
+    }
+
+    public static enum Rendering {
+        /**
+         * first line: captcha next line: textbox
+         */
+        VERTICAL,
+
+        /**
+         * one line: textbox, captcha
+         */
+        HORIZONTAL;
+    }
 }

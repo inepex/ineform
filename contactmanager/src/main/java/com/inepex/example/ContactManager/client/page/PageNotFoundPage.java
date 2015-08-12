@@ -7,17 +7,17 @@ import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 
 public class PageNotFoundPage extends FlowPanelBasedPage {
 
-	private HTML message = new HTML("<h1>" + CMI18n.pageNotFound() + "</h1>");
-	
-	@Inject
-	public PageNotFoundPage() {
+    private HTML message = new HTML("<h1>" + CMI18n.pageNotFound() + "</h1>");
 
-	}
-	
-	@Override
-	protected void onShow(boolean isFirstShow) {
-		mainPanel.clear();
-		mainPanel.add(message);
-	}
+    @Inject
+    public PageNotFoundPage() {
+
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {
+        mainPanel.clear();
+        mainPanel.add(message);
+    }
 
 }

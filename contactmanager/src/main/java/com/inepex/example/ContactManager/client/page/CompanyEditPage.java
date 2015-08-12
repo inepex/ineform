@@ -19,81 +19,74 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
-public class CompanyEditPage extends FlowPanelBasedPage 
-	implements SavedEvent.Handler, CancelledEvent.Handler {
-	
-	private final FormContext formContext;
-	private final PlaceHandler placeHandler;
-	
-	private final ServerSideDataConnector connector;
-	private final SaveCancelForm form;
-	
-	@Inject
-	CompanyEditPage(FormContext formContext, PlaceHandler placeHandler,
-			FormFactory formFactory) {
-		this.formContext=formContext;
-		this.placeHandler=placeHandler;
-		
-		connector = new ServerSideDataConnector(
-				formContext.ineDispatch, 
-				formContext.eventBus, 
-				CompanyConsts.descriptorName);
-		connector.setAssociatedManipulateAction(
-				new ObjectManipulationAction(
-						Arrays.asList(CompanyConsts.propUser)));
-		form = formFactory.createSaveCancel(
-				CompanyConsts.descriptorName, 
-				null, 
-				connector, 
-				null);
-		form.setValidateData(ValidateMode.PARTIAL);
-		form.renderForm();
-		mainPanel.add(form.asWidget());
-	}
-	
-	@Override
-	public void setUrlParameters(
-			Map<String, String> urlParams, 
-			final UrlParamsParsedCallback callback) throws Exception {
-		formContext.objectFinder.executeFind(
-				CompanyConsts.descriptorName,
-				Long.parseLong(
-						urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)), 
-				Arrays.asList(CompanyConsts.propUser), 
-				new ObjectFinder.Callback() {
+public class CompanyEditPage extends FlowPanelBasedPage
+    implements
+    SavedEvent.Handler,
+    CancelledEvent.Handler {
 
-						@Override
-						public void onObjectFound(AssistedObject foundObject) {
-							form.resetValuesToEmpty();
-							form.setInitialData(foundObject);
-							callback.onUrlParamsParsed();
-						}
-				});
-	}
+    private final FormContext formContext;
+    private final PlaceHandler placeHandler;
 
-	@Override
-	protected void onShow(boolean isFirstShow) {
-	}
-	
-	@Override
-	protected void onLoad() {
-		super.onLoad();		
-		registerHandler(form.addSavedHandler(this));
-		registerHandler(form.addCancelledHandler(this));
-	}
+    private final ServerSideDataConnector connector;
+    private final SaveCancelForm form;
 
-	@Override
-	public void onCancelled(CancelledEvent event) {
-		formContext.eventBus.fireEvent(
-				placeHandler.generateSameLevelMenuEvent(
-								AppPlaceHierarchyProvider.COMPDETAILS));
-	}
+    @Inject
+    CompanyEditPage(FormContext formContext, PlaceHandler placeHandler, FormFactory formFactory) {
+        this.formContext = formContext;
+        this.placeHandler = placeHandler;
 
-	@Override
-	public void onSaved(SavedEvent event) {
-		formContext.eventBus.fireEvent(
-				placeHandler.generateSameLevelMenuEvent(
-								AppPlaceHierarchyProvider.COMPDETAILS));
-	}
+        connector =
+            new ServerSideDataConnector(
+                formContext.ineDispatch,
+                formContext.eventBus,
+                CompanyConsts.descriptorName);
+        connector.setAssociatedManipulateAction(new ObjectManipulationAction(Arrays
+            .asList(CompanyConsts.propUser)));
+        form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
+        form.setValidateData(ValidateMode.PARTIAL);
+        form.renderForm();
+        mainPanel.add(form.asWidget());
+    }
+
+    @Override
+    public void setUrlParameters(
+        Map<String, String> urlParams,
+        final UrlParamsParsedCallback callback) throws Exception {
+        formContext.objectFinder.executeFind(
+            CompanyConsts.descriptorName,
+            Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY)),
+            Arrays.asList(CompanyConsts.propUser),
+            new ObjectFinder.Callback() {
+
+                @Override
+                public void onObjectFound(AssistedObject foundObject) {
+                    form.resetValuesToEmpty();
+                    form.setInitialData(foundObject);
+                    callback.onUrlParamsParsed();
+                }
+            });
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {}
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        registerHandler(form.addSavedHandler(this));
+        registerHandler(form.addCancelledHandler(this));
+    }
+
+    @Override
+    public void onCancelled(CancelledEvent event) {
+        formContext.eventBus.fireEvent(placeHandler
+            .generateSameLevelMenuEvent(AppPlaceHierarchyProvider.COMPDETAILS));
+    }
+
+    @Override
+    public void onSaved(SavedEvent event) {
+        formContext.eventBus.fireEvent(placeHandler
+            .generateSameLevelMenuEvent(AppPlaceHierarchyProvider.COMPDETAILS));
+    }
 
 }

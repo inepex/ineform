@@ -25,44 +25,47 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 @RunWith(JukitoRunner.class)
 public class ChooserTest2 extends DefaultIneFrameClientSideTestBase {
-	
-	public static class Module extends JukitoModule {
-		@Override
-		protected void configureTest() {
-			install(new TestIneFormClientGuiceModule());
-			bind(DateFormatter.class).to(JavaDateFormatter.class);
-			bind(NumberUtil.class).to(NumberUtilSrv.class);
-		}
-	}
 
-	RelationTestData data;
-	RelationChooser chooser;
-	
-	
-	@Before
-	public void before(DescriptorStore descriptorStore, FormContext formCtx){
-		data = new RelationTestData(descriptorStore);
-		
-		ChooserFw chooserFw = mock(ChooserFw.class);
-		formCtx.valueRangeProvider = RelationTestData.valueRangeProvider;
-		
-		chooser = new RelationChooser(formCtx, chooserFw, data.fieldDesc
-				, data.fieldDesc.getRelatedDescriptorType());
-		chooser.loadValueRange();
-		ArrayList<Relation> relations = new ArrayList<Relation>();
-		relations.add(data.rel1);
-		relations.add(data.rel2);
-		relations.add(data.rel3);
-		chooser.setSelected(relations);
-	}
-	
-	@Test
-	public void deSelectAllTest(){
-		chooser.deselectAll();
-		assertEquals(3, chooser.getChanged().size());
-		
-		ChooserTest.assertSelected(chooser);
-		ChooserTest.assertValueRange(chooser, "1L", "2L", "3L");
-		
-	}
+    public static class Module extends JukitoModule {
+        @Override
+        protected void configureTest() {
+            install(new TestIneFormClientGuiceModule());
+            bind(DateFormatter.class).to(JavaDateFormatter.class);
+            bind(NumberUtil.class).to(NumberUtilSrv.class);
+        }
+    }
+
+    RelationTestData data;
+    RelationChooser chooser;
+
+    @Before
+    public void before(DescriptorStore descriptorStore, FormContext formCtx) {
+        data = new RelationTestData(descriptorStore);
+
+        ChooserFw chooserFw = mock(ChooserFw.class);
+        formCtx.valueRangeProvider = RelationTestData.valueRangeProvider;
+
+        chooser =
+            new RelationChooser(
+                formCtx,
+                chooserFw,
+                data.fieldDesc,
+                data.fieldDesc.getRelatedDescriptorType());
+        chooser.loadValueRange();
+        ArrayList<Relation> relations = new ArrayList<Relation>();
+        relations.add(data.rel1);
+        relations.add(data.rel2);
+        relations.add(data.rel3);
+        chooser.setSelected(relations);
+    }
+
+    @Test
+    public void deSelectAllTest() {
+        chooser.deselectAll();
+        assertEquals(3, chooser.getChanged().size());
+
+        ChooserTest.assertSelected(chooser);
+        ChooserTest.assertValueRange(chooser, "1L", "2L", "3L");
+
+    }
 }

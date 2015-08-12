@@ -35,71 +35,87 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 /**
  * Not works because of json classes which tied to gwt
+ * 
  * @author Tibor
  *
  */
 public class RestDataConnectorComplexTest {
 
-	KeyValueObject testKvo;
-	
-	@Mock RequestBuilderFactory requestBuilderFactory;
-	@Mock RequestBuilder requestBuilder;
-	DescriptorStore descriptorStore;
-	RestDataConnector restDataConnector;
-	@Mock ManipulateResultCallback callback;
-	String response = "{'stringField': 'hello', 'relField': {'longField': 3}, 'listField': [{'longField': 4}, {'longField': 5}]}";
+    KeyValueObject testKvo;
 
-	@Before
-	public void init() throws Exception {
-		MockI18n.mock(ServerIneFormI18nProvider.class);
-		MockitoAnnotations.initMocks(this);
-		descriptorStore = TestUtil.descriptorStore;
-		testKvo = (KeyValueObject) TestUtil.getTestKvo().getAssistedObject();		
-		when(requestBuilderFactory.createBuilder(any(Method.class), anyString())).thenReturn(requestBuilder);
-		restDataConnector = new RestDataConnector(
-				Mockito.mock(EventBus.class),
-				Mockito.mock(AsyncStatusIndicator.class),
-				requestBuilderFactory,
-				descriptorStore,
-				new AssistedObjectHandlerFactory(descriptorStore),
-				"testKvo",
-				"getUrl",
-				"newUrl",
-				"modifyUrl",
-				"deleteUrl",
-				false);
+    @Mock
+    RequestBuilderFactory requestBuilderFactory;
+    @Mock
+    RequestBuilder requestBuilder;
+    DescriptorStore descriptorStore;
+    RestDataConnector restDataConnector;
+    @Mock
+    ManipulateResultCallback callback;
+    String response =
+        "{'stringField': 'hello', 'relField': {'longField': 3}, 'listField': [{'longField': 4}, {'longField': 5}]}";
 
-	}
+    @Before
+    public void init() throws Exception {
+        MockI18n.mock(ServerIneFormI18nProvider.class);
+        MockitoAnnotations.initMocks(this);
+        descriptorStore = TestUtil.descriptorStore;
+        testKvo = (KeyValueObject) TestUtil.getTestKvo().getAssistedObject();
+        when(requestBuilderFactory.createBuilder(any(Method.class), anyString())).thenReturn(
+            requestBuilder);
+        restDataConnector =
+            new RestDataConnector(
+                Mockito.mock(EventBus.class),
+                Mockito.mock(AsyncStatusIndicator.class),
+                requestBuilderFactory,
+                descriptorStore,
+                new AssistedObjectHandlerFactory(descriptorStore),
+                "testKvo",
+                "getUrl",
+                "newUrl",
+                "modifyUrl",
+                "deleteUrl",
+                false);
 
-	private void prepareRequestBuilder(RequestBuilder requestBuilder, String responseText, int statusCode) throws Exception {
-		final Response response = mock(Response.class);
-		when(response.getStatusCode()).thenReturn(statusCode);
-		when(response.getText()).thenReturn(responseText);
+    }
 
-		when(requestBuilder.sendRequest(anyString(), any(RequestCallback.class))).thenAnswer(new Answer<Request>() {
+    private void prepareRequestBuilder(
+        RequestBuilder requestBuilder,
+        String responseText,
+        int statusCode) throws Exception {
+        final Response response = mock(Response.class);
+        when(response.getStatusCode()).thenReturn(statusCode);
+        when(response.getText()).thenReturn(responseText);
 
-			@Override
-			public Request answer(InvocationOnMock invocation) throws Throwable {
-				((RequestCallback) invocation.getArguments()[1]).onResponseReceived(null, response);
-				return null;
-			}
-		});
-	}
+        when(requestBuilder.sendRequest(anyString(), any(RequestCallback.class))).thenAnswer(
+            new Answer<Request>() {
 
-	@Test
-	public void createRequest() throws Exception {
-		prepareRequestBuilder(requestBuilder, response.replace("'", "\""), 200);
-		
-		restDataConnector.objectCreateOrEditRequested(testKvo, callback);
+                @Override
+                public Request answer(InvocationOnMock invocation) throws Throwable {
+                    ((RequestCallback) invocation.getArguments()[1]).onResponseReceived(
+                        null,
+                        response);
+                    return null;
+                }
+            });
+    }
 
-		ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
-		verify(requestBuilder).sendRequest(argument.capture(), any(RequestCallback.class));
-		Assert.assertEquals(response, argument.getValue());
-		ArgumentCaptor<ObjectManipulationActionResult> omrCapture = ArgumentCaptor.forClass(ObjectManipulationActionResult.class);
-		verify(callback).onManipulationResult(omrCapture.capture());
-		
-		TestUtil.assertEquals(testKvo, omrCapture.getValue().getObjectsNewState(), TestUtil.descriptorStore);
-		
+    @Test
+    public void createRequest() throws Exception {
+        prepareRequestBuilder(requestBuilder, response.replace("'", "\""), 200);
 
-	}
+        restDataConnector.objectCreateOrEditRequested(testKvo, callback);
+
+        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+        verify(requestBuilder).sendRequest(argument.capture(), any(RequestCallback.class));
+        Assert.assertEquals(response, argument.getValue());
+        ArgumentCaptor<ObjectManipulationActionResult> omrCapture =
+            ArgumentCaptor.forClass(ObjectManipulationActionResult.class);
+        verify(callback).onManipulationResult(omrCapture.capture());
+
+        TestUtil.assertEquals(
+            testKvo,
+            omrCapture.getValue().getObjectsNewState(),
+            TestUtil.descriptorStore);
+
+    }
 }

@@ -9,17 +9,20 @@ import com.inepex.ineFrame.client.navigation.menu.MenuRenderer;
 import com.inepex.ineFrame.client.page.InePage;
 
 @Singleton
-public class NoPaddingMasterPage extends DefaultIneFrameMasterPage{
+public class NoPaddingMasterPage extends DefaultIneFrameMasterPage {
 
-	@Inject
-	public NoPaddingMasterPage(MenuRenderer menuRenderer, IneFrameHeader header,
-			MasterPage.View view, EventBus eventBus) {
-		super(menuRenderer, header, view, eventBus);
-	}
+    @Inject
+    public NoPaddingMasterPage(
+        MenuRenderer menuRenderer,
+        IneFrameHeader header,
+        MasterPage.View view,
+        EventBus eventBus) {
+        super(menuRenderer, header, view, eventBus);
+    }
 
-	@Override
-	protected void setUpPageStyle(InePage page) {
-		//nothing to do
-	}
-	
+    @Override
+    protected void setUpPageStyle(InePage page) {
+        // nothing to do
+    }
+
 }

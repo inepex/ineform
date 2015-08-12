@@ -5,6 +5,6 @@ import com.inepex.ineom.shared.descriptor.Node;
 
 public interface MenuFilter {
 
-	public boolean filter(Node<InePlace> node);
-	
+    public boolean filter(Node<InePlace> node);
+
 }

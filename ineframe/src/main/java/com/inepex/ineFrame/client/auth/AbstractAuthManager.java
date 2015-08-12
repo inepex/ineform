@@ -22,132 +22,144 @@ import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public abstract class AbstractAuthManager implements AuthManager {
 
-	public static interface AuthActionCallback {
-		void onAuthCheckDone(AuthStatusResultBase result);
-	}
+    public static interface AuthActionCallback {
+        void onAuthCheckDone(AuthStatusResultBase result);
+    }
 
-	AuthStatusResultBase lastAuthStatusResult = null;
+    AuthStatusResultBase lastAuthStatusResult = null;
 
-	final Provider<IneDispatch> dispatcher;
-	protected final EventBus eventBus;
-	
-	public AbstractAuthManager(Provider<IneDispatch> dispatcher, EventBus eventBus) {
-		this.dispatcher = dispatcher;
-		this.eventBus = eventBus;
-	}
+    final Provider<IneDispatch> dispatcher;
+    protected final EventBus eventBus;
 
-	@Override
-	public void checkAuthStatus(final AuthActionCallback callback) {
-		GetAuthStatusAction action;
-		String userEmail = Cookies.getCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME);
-		String userUUID = Cookies.getCookie(IFConsts.COOKIE_STAYSIGNEDINUUID);
-		if(userEmail != null && userUUID != null){
-			action = new GetAuthStatusAction(userEmail, userUUID);
-		}else{
-			action = new GetAuthStatusAction();
-		}
-		dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
-	}
-	
-	@Override
-	public void doLogin(String userName, String password, String captchaAnswer, AuthActionCallback callback) {
-		LoginAction action;
-		boolean needStaySignedIn = Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
-		if(needStaySignedIn){
-			action = new LoginAction(userName, password, captchaAnswer, true);
-		}else{
-			action = new LoginAction(userName, password, captchaAnswer);
-		}
-		dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
-	}
-	
-	class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase>{
-		
-		final AuthActionCallback callback;
-		
-		public AuthStatusResultCallback(AuthActionCallback callback) {
-			this.callback = callback;
-		}
-		
-		@Override
-		public void onFailure(Throwable arg0) {
-			if(arg0 instanceof UnsupportedActionException || arg0 instanceof ActionException)  {
-				Window.alert(arg0.getMessage());
-			}
-			
-			lastAuthStatusResult = null;
-			callback.onAuthCheckDone(null);
-		}
+    public AbstractAuthManager(Provider<IneDispatch> dispatcher, EventBus eventBus) {
+        this.dispatcher = dispatcher;
+        this.eventBus = eventBus;
+    }
 
-		@Override
-		public void onSuccess(AuthStatusResultBase result) {
-			lastAuthStatusResult = result;
-			
-			// here we set the cookies for the stay signed in functionality (if set in the result)
-			if(result!=null && result.getUserUUID()!=null && result.getUserEmail()!=null){
-				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUUID, result.getUserUUID(), new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
-				Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME, result.getUserEmail(), new Date(System.currentTimeMillis()+DateHelper.dayInMs*30));
-			}
-			
-			callback.onAuthCheckDone(result);
-		}
-	}
+    @Override
+    public void checkAuthStatus(final AuthActionCallback callback) {
+        GetAuthStatusAction action;
+        String userEmail = Cookies.getCookie(IFConsts.COOKIE_STAYSIGNEDINUSERNAME);
+        String userUUID = Cookies.getCookie(IFConsts.COOKIE_STAYSIGNEDINUUID);
+        if (userEmail != null && userUUID != null) {
+            action = new GetAuthStatusAction(userEmail, userUUID);
+        } else {
+            action = new GetAuthStatusAction();
+        }
+        dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
+    }
 
-	@Override
-	public AuthStatusResultBase getLastAuthStatusResult() {
-		return lastAuthStatusResult;
-	}	
-	
-	@Override
-	public void doLogout(AuthActionCallback callback) {
-		LogoutAction action = new LogoutAction();
-		dispatcher.get().getDispatcher().execute(action, new LogoutCallback(callback));
-	}
-	
-	class LogoutCallback implements AsyncCallback<GenericActionResult> {
-		final AuthActionCallback callback;
-		public LogoutCallback(AuthActionCallback callback) {
-			this.callback = callback;
-		}
-		@Override
-		public void onFailure(Throwable arg0) {
-			if(arg0 instanceof UnsupportedActionException)  {
-				Window.alert(arg0.getMessage());
-			}
-			
-			lastAuthStatusResult = null;
-			callback.onAuthCheckDone(null);
-		}
-		
-		@Override
-		public void onSuccess(GenericActionResult arg0) {
-			lastAuthStatusResult = null;
-			eventBus.fireEvent(new UserLoggedOutEvent());
-			callback.onAuthCheckDone(null);			
-		}	
-	}
+    @Override
+    public void doLogin(
+        String userName,
+        String password,
+        String captchaAnswer,
+        AuthActionCallback callback) {
+        LoginAction action;
+        boolean needStaySignedIn =
+            Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
+        if (needStaySignedIn) {
+            action = new LoginAction(userName, password, captchaAnswer, true);
+        } else {
+            action = new LoginAction(userName, password, captchaAnswer);
+        }
+        dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
+    }
 
-	@Override
-	public boolean isUserLoggedIn() {
-		return (!(lastAuthStatusResult == null || lastAuthStatusResult.getUserId() == null));
-	}
-	
-	@Override
-	public boolean doUserHaveAnyOfRoles(String... roles) {
-		if(roles.length==0)
-			return true;
-		
-		if (getLastAuthStatusResult() == null || getLastAuthStatusResult().getRoles() == null)
-			return false;
-		
-		Set<String> usersRoles = getLastAuthStatusResult().getRoles();
-		for (String role : roles) {
-			for (String usersRole : usersRoles) {
-				if (role.equals(usersRole))
-					return true;
-			}
-		}
-		return false;
-	}
-	
+    class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase> {
+
+        final AuthActionCallback callback;
+
+        public AuthStatusResultCallback(AuthActionCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void onFailure(Throwable arg0) {
+            if (arg0 instanceof UnsupportedActionException || arg0 instanceof ActionException) {
+                Window.alert(arg0.getMessage());
+            }
+
+            lastAuthStatusResult = null;
+            callback.onAuthCheckDone(null);
+        }
+
+        @Override
+        public void onSuccess(AuthStatusResultBase result) {
+            lastAuthStatusResult = result;
+
+            // here we set the cookies for the stay signed in functionality (if
+            // set in the result)
+            if (result != null && result.getUserUUID() != null && result.getUserEmail() != null) {
+                Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUUID, result.getUserUUID(), new Date(
+                    System.currentTimeMillis() + DateHelper.dayInMs * 30));
+                Cookies.setCookie(
+                    IFConsts.COOKIE_STAYSIGNEDINUSERNAME,
+                    result.getUserEmail(),
+                    new Date(System.currentTimeMillis() + DateHelper.dayInMs * 30));
+            }
+
+            callback.onAuthCheckDone(result);
+        }
+    }
+
+    @Override
+    public AuthStatusResultBase getLastAuthStatusResult() {
+        return lastAuthStatusResult;
+    }
+
+    @Override
+    public void doLogout(AuthActionCallback callback) {
+        LogoutAction action = new LogoutAction();
+        dispatcher.get().getDispatcher().execute(action, new LogoutCallback(callback));
+    }
+
+    class LogoutCallback implements AsyncCallback<GenericActionResult> {
+        final AuthActionCallback callback;
+
+        public LogoutCallback(AuthActionCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void onFailure(Throwable arg0) {
+            if (arg0 instanceof UnsupportedActionException) {
+                Window.alert(arg0.getMessage());
+            }
+
+            lastAuthStatusResult = null;
+            callback.onAuthCheckDone(null);
+        }
+
+        @Override
+        public void onSuccess(GenericActionResult arg0) {
+            lastAuthStatusResult = null;
+            eventBus.fireEvent(new UserLoggedOutEvent());
+            callback.onAuthCheckDone(null);
+        }
+    }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        return (!(lastAuthStatusResult == null || lastAuthStatusResult.getUserId() == null));
+    }
+
+    @Override
+    public boolean doUserHaveAnyOfRoles(String... roles) {
+        if (roles.length == 0)
+            return true;
+
+        if (getLastAuthStatusResult() == null || getLastAuthStatusResult().getRoles() == null)
+            return false;
+
+        Set<String> usersRoles = getLastAuthStatusResult().getRoles();
+        for (String role : roles) {
+            for (String usersRole : usersRoles) {
+                if (role.equals(usersRole))
+                    return true;
+            }
+        }
+        return false;
+    }
+
 }

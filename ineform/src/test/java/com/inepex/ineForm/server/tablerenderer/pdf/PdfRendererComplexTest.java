@@ -27,42 +27,42 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @RunWith(JukitoRunner.class)
 public class PdfRendererComplexTest {
-	public static class Module extends JukitoModule {
-		@Override
-		protected void configureTest() {
-			install(new TestIneFormClientGuiceModule());
-			install(new IneFormExportGuiceModule());
-			bind(DateFormatter.class).to(JavaDateFormatter.class);
-			bind(NumberUtil.class).to(NumberUtilSrv.class);
-		}
-	}
+    public static class Module extends JukitoModule {
+        @Override
+        protected void configureTest() {
+            install(new TestIneFormClientGuiceModule());
+            install(new IneFormExportGuiceModule());
+            bind(DateFormatter.class).to(JavaDateFormatter.class);
+            bind(NumberUtil.class).to(NumberUtilSrv.class);
+        }
+    }
 
-	List<AssistedObject> kvos;
+    List<AssistedObject> kvos;
 
-	@Before
-	public void init(DescriptorStore descriptorStore) {
-		NationalityAssist.registerDescriptors(descriptorStore);
-		IneFormProperties.showIds = true;
+    @Before
+    public void init(DescriptorStore descriptorStore) {
+        NationalityAssist.registerDescriptors(descriptorStore);
+        IneFormProperties.showIds = true;
 
-		kvos = new ArrayList<AssistedObject>();
-		NationalityKVO nat1 = new NationalityKVO();
-		nat1.setId(1L);
-		nat1.setName("Nat1");
-		NationalityKVO nat2 = new NationalityKVO();
-		nat2.setId(2L);
-		nat2.setName("Nat2");
-		kvos.add(nat1);
-		kvos.add(nat2);
-	}
+        kvos = new ArrayList<AssistedObject>();
+        NationalityKVO nat1 = new NationalityKVO();
+        nat1.setId(1L);
+        nat1.setName("Nat1");
+        NationalityKVO nat2 = new NationalityKVO();
+        nat2.setId(2L);
+        nat2.setName("Nat2");
+        kvos.add(nat1);
+        kvos.add(nat2);
+    }
 
-	@Test
-	public void renderTest(PdfRendererFactory rendererFactory) throws Exception {
-		PdfRenderer renderer = rendererFactory.create(NationalityKVO.descriptorName, (String) null);
-		renderer.render(kvos);
-		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream("workbook.pdf"));
-		document.open();
-		document.add(renderer.getTable());
-		document.close();
-	}
+    @Test
+    public void renderTest(PdfRendererFactory rendererFactory) throws Exception {
+        PdfRenderer renderer = rendererFactory.create(NationalityKVO.descriptorName, (String) null);
+        renderer.render(kvos);
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("workbook.pdf"));
+        document.open();
+        document.add(renderer.getTable());
+        document.close();
+    }
 }

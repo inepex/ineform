@@ -26,68 +26,87 @@ import com.inepex.translatorapp.shared.Consts;
 @Singleton
 public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
 
-	public static final String LOGIN="login";
-	public static final String REGISTER="register";
-	
-	public static final String LOGGEDIN="loggedin";
-	public static final String PAGENOTFOUND = "notfound";
-	public static final String TRANSLATOR = "translator";
-	public static final String INACTIVE = "inactive";
-	public static final String USERLIST = "userList";
-	public static final String MODULELIST = "moduleList";
-	public static final String MODULEROWLIST = "rowList";
-	
-	
-	@Inject AuthManager authManager;
-	
-	@Inject Provider<LoginPage> loginProvider;
-	@Inject Provider<PageNotFoundPage> pageNotFoundProvider;
-	@Inject Provider<InactivePage> inactiveProvider;
-	@Inject Provider<TranslatorPage> translatorProvider;
-	@Inject Provider<RegPage> regProvider;
-	@Inject Provider<UserListPage> userListProv;
-	@Inject Provider<ModuleListPage> moduleListProvider;
-	@Inject Provider<ModuleRowListPage> rowListProvider;
-	
-	@Override
-	public void createPlaceHierarchy() {
-		placeRoot.addChild(LOGIN, new SimpleCachingPlace(loginProvider))
-				.addChild(REGISTER, new SimpleCachingPlace(regProvider))
-				.addChildGC(LOGGEDIN, new ChildRedirectPlace(TRANSLATOR))
-					.addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))
-					.addChild(INACTIVE, auth(new SimpleCachingPlace(inactiveProvider)))
-					.addChild(TRANSLATOR, usr(new SimpleCachingPlace(translatorProvider)).setMenuName(translatorappI18n.translatorPage()))
-					.addChild(MODULEROWLIST, dev(new SimpleCachingPlace(rowListProvider)).setMenuName(translatorappI18n.rowListPage()))
-					.addChild(USERLIST, dev(new SimpleCachingPlace(userListProv)).setMenuName(translatorappI18n.userListPage()))
-					.addChild(MODULELIST, dev(new SimpleCachingPlace(moduleListProvider)).setMenuName(translatorappI18n.moduleListPage()))
-					.getParent()
-				 ;
-	}
-	
-	private static <E extends InePlace> E auth(E place) {
-		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
-		return place;
-	}
-	
-	private static <E extends InePlace> E usr(E place) {
-		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
-		place.addAllowedRoles(Consts.Roles.developer, Consts.Roles.translator);
-		return place;
-	}
-	
-	private static <E extends InePlace> E dev(E place) {
-		place.setRequiresAuthentication(RequiresAuthentication.TRUE);
-		place.addAllowedRoles(Consts.Roles.developer);
-		return place;
-	}
-	
-	@Override
-	public List<String> getCurrentMenuRoot() {
-		if(authManager.isUserLoggedIn()) {
-			return SharedUtil.Li(LOGGEDIN);
-		} else {
-			return null;
-		}
-	}
-}
+    public static final String LOGIN = "login";
+    public static final String REGISTER = "register";
 
+    public static final String LOGGEDIN = "loggedin";
+    public static final String PAGENOTFOUND = "notfound";
+    public static final String TRANSLATOR = "translator";
+    public static final String INACTIVE = "inactive";
+    public static final String USERLIST = "userList";
+    public static final String MODULELIST = "moduleList";
+    public static final String MODULEROWLIST = "rowList";
+
+    @Inject
+    AuthManager authManager;
+
+    @Inject
+    Provider<LoginPage> loginProvider;
+    @Inject
+    Provider<PageNotFoundPage> pageNotFoundProvider;
+    @Inject
+    Provider<InactivePage> inactiveProvider;
+    @Inject
+    Provider<TranslatorPage> translatorProvider;
+    @Inject
+    Provider<RegPage> regProvider;
+    @Inject
+    Provider<UserListPage> userListProv;
+    @Inject
+    Provider<ModuleListPage> moduleListProvider;
+    @Inject
+    Provider<ModuleRowListPage> rowListProvider;
+
+    @Override
+    public void createPlaceHierarchy() {
+        placeRoot
+            .addChild(LOGIN, new SimpleCachingPlace(loginProvider))
+            .addChild(REGISTER, new SimpleCachingPlace(regProvider))
+            .addChildGC(LOGGEDIN, new ChildRedirectPlace(TRANSLATOR))
+            .addChild(PAGENOTFOUND, auth(new SimpleCachingPlace(pageNotFoundProvider)))
+            .addChild(INACTIVE, auth(new SimpleCachingPlace(inactiveProvider)))
+            .addChild(
+                TRANSLATOR,
+                usr(new SimpleCachingPlace(translatorProvider)).setMenuName(
+                    translatorappI18n.translatorPage()))
+            .addChild(
+                MODULEROWLIST,
+                dev(new SimpleCachingPlace(rowListProvider)).setMenuName(
+                    translatorappI18n.rowListPage()))
+            .addChild(
+                USERLIST,
+                dev(new SimpleCachingPlace(userListProv)).setMenuName(
+                    translatorappI18n.userListPage()))
+            .addChild(
+                MODULELIST,
+                dev(new SimpleCachingPlace(moduleListProvider)).setMenuName(
+                    translatorappI18n.moduleListPage()))
+            .getParent();
+    }
+
+    private static <E extends InePlace> E auth(E place) {
+        place.setRequiresAuthentication(RequiresAuthentication.TRUE);
+        return place;
+    }
+
+    private static <E extends InePlace> E usr(E place) {
+        place.setRequiresAuthentication(RequiresAuthentication.TRUE);
+        place.addAllowedRoles(Consts.Roles.developer, Consts.Roles.translator);
+        return place;
+    }
+
+    private static <E extends InePlace> E dev(E place) {
+        place.setRequiresAuthentication(RequiresAuthentication.TRUE);
+        place.addAllowedRoles(Consts.Roles.developer);
+        return place;
+    }
+
+    @Override
+    public List<String> getCurrentMenuRoot() {
+        if (authManager.isUserLoggedIn()) {
+            return SharedUtil.Li(LOGGEDIN);
+        } else {
+            return null;
+        }
+    }
+}

@@ -22,81 +22,79 @@ import com.inepex.ineForm.annotations.Kvo_SearchParam;
 import com.inepex.ineForm.annotations.Kvo_SortDefault;
 
 @Entity
-@Table(uniqueConstraints=
-	@UniqueConstraint(columnNames = {"MODULE_ID", "MODULE_ROW_KEY"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "MODULE_ID", "MODULE_ROW_KEY" }))
 public class ModuleRow {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam
-	private Long id;
-	
-	@Kvo_SortDefault
-	@Kvo_SearchParam
-	@Column(nullable=false, name="MODULE_ROW_KEY")
-	private String key;
-	@Lob
-	private String description;
-	
-	@ManyToOne
-	@JoinColumn(nullable=false)
-	@Kvo_SearchParam
-	@Kvo_Fetch(mode=Mode.idRelation)
-	private Module module;
-	
-	@Kvo_Fetch(mode=Mode.fullObject)
-	@OneToMany(mappedBy="row", cascade={CascadeType.ALL}, orphanRemoval=true)
-	private List<TranslatedValue> values = new ArrayList<>();
-	
-	public ModuleRow(){
-	}
-	
-	public ModuleRow(Long id) {
-		this.id=id;
-	}
-	
-	@Override
-	public String toString() {
-		return module.getName()+"#"+key;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Kvo_SearchParam
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @Kvo_SortDefault
+    @Kvo_SearchParam
+    @Column(nullable = false, name = "MODULE_ROW_KEY")
+    private String key;
+    @Lob
+    private String description;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @Kvo_SearchParam
+    @Kvo_Fetch(mode = Mode.idRelation)
+    private Module module;
 
-	public String getKey() {
-		return key;
-	}
+    @Kvo_Fetch(mode = Mode.fullObject)
+    @OneToMany(mappedBy = "row", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    private List<TranslatedValue> values = new ArrayList<>();
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public ModuleRow() {}
 
-	public String getDescription() {
-		return description;
-	}
+    public ModuleRow(Long id) {
+        this.id = id;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @Override
+    public String toString() {
+        return module.getName() + "#" + key;
+    }
 
-	public Module getModule() {
-		return module;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setModule(Module module) {
-		this.module = module;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public List<TranslatedValue> getValues() {
-		return values;
-	}
-	
-	public void setValues(List<TranslatedValue> values) {
-		this.values = values;
-	}
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Module getModule() {
+        return module;
+    }
+
+    public void setModule(Module module) {
+        this.module = module;
+    }
+
+    public List<TranslatedValue> getValues() {
+        return values;
+    }
+
+    public void setValues(List<TranslatedValue> values) {
+        this.values = values;
+    }
 }

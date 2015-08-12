@@ -18,38 +18,45 @@ import com.inepex.inei18n.shared.SimpleResult;
  */
 public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction, SimpleResult> {
 
-	private final static Logger logger = LoggerFactory.getLogger(ChangeLanguageHandler.class);
-	
-	@Inject CurrentLang currentLang;
-	@Inject I18nStore_Server i18nStore;
-	@Inject ApplicationLangs langs;
-	
-	@Override
-	public Class<ChangeLanguageAction> getActionType() {
-		return ChangeLanguageAction.class;
-	}
+    private final static Logger logger = LoggerFactory.getLogger(ChangeLanguageHandler.class);
 
-	@Override
-	public SimpleResult execute(ChangeLanguageAction action, net.customware.gwt.dispatch.server.ExecutionContext arg1)
-			throws DispatchException {
-		
-		String reqLang = null;
-		if(action.getRequestedLanguage()==null || "".equals(action.getRequestedLanguage()) 
-				|| !langs.getLangs().contains(action.getRequestedLanguage())) {
-			reqLang=CurrentLang.DEFAULT_LANG;
-			logger.warn("Requested lang is not supported or null: {}", action.getRequestedLanguage());
-		} else {
-			reqLang=action.getRequestedLanguage();
-		}
-		
-		currentLang.setSessionLang(reqLang);
-		return new SimpleResult();
-	}
+    @Inject
+    CurrentLang currentLang;
+    @Inject
+    I18nStore_Server i18nStore;
+    @Inject
+    ApplicationLangs langs;
 
-	@Override
-	public void rollback(ChangeLanguageAction arg0, SimpleResult arg1, net.customware.gwt.dispatch.server.ExecutionContext arg2)
-			throws DispatchException {
-	}
+    @Override
+    public Class<ChangeLanguageAction> getActionType() {
+        return ChangeLanguageAction.class;
+    }
 
+    @Override
+    public SimpleResult execute(
+        ChangeLanguageAction action,
+        net.customware.gwt.dispatch.server.ExecutionContext arg1) throws DispatchException {
+
+        String reqLang = null;
+        if (action.getRequestedLanguage() == null
+            || "".equals(action.getRequestedLanguage())
+            || !langs.getLangs().contains(action.getRequestedLanguage())) {
+            reqLang = CurrentLang.DEFAULT_LANG;
+            logger.warn(
+                "Requested lang is not supported or null: {}",
+                action.getRequestedLanguage());
+        } else {
+            reqLang = action.getRequestedLanguage();
+        }
+
+        currentLang.setSessionLang(reqLang);
+        return new SimpleResult();
+    }
+
+    @Override
+    public void rollback(
+        ChangeLanguageAction arg0,
+        SimpleResult arg1,
+        net.customware.gwt.dispatch.server.ExecutionContext arg2) throws DispatchException {}
 
 }

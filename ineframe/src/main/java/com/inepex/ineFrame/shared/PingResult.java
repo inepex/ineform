@@ -4,17 +4,16 @@ import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public class PingResult extends GenericActionResult {
 
-	private boolean sessionAlive = false;
-	
-	public PingResult() {
-	}
+    private boolean sessionAlive = false;
 
-	public boolean isSessionAlive() {
-		return sessionAlive;
-	}
+    public PingResult() {}
 
-	public void setSessionAlive(boolean sessionAlive) {
-		this.sessionAlive = sessionAlive;
-	}
-	
+    public boolean isSessionAlive() {
+        return sessionAlive;
+    }
+
+    public void setSessionAlive(boolean sessionAlive) {
+        this.sessionAlive = sessionAlive;
+    }
+
 }

@@ -7,17 +7,18 @@ import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.I18nModule;
 
-public class RealLocalizationInitializer extends LocalizationInitializer{
+public class RealLocalizationInitializer extends LocalizationInitializer {
 
-	public RealLocalizationInitializer(I18nStore_Server serverI18n,
-			IneInitializer ineFrameInitilaizer,
-			Provider<CurrentLang> currentLangProvider) {
-		super(serverI18n, ineFrameInitilaizer, currentLangProvider);
-	}
+    public RealLocalizationInitializer(
+        I18nStore_Server serverI18n,
+        IneInitializer ineFrameInitilaizer,
+        Provider<CurrentLang> currentLangProvider) {
+        super(serverI18n, ineFrameInitilaizer, currentLangProvider);
+    }
 
-	@Override
-	protected I18nModule getIneFrameModule(Provider<CurrentLang> currentLangProvider) {
-		return new IneFrameI18n(new ServerIneFrameI18nProvider(currentLangProvider));
-	}
+    @Override
+    protected I18nModule getIneFrameModule(Provider<CurrentLang> currentLangProvider) {
+        return new IneFrameI18n(new ServerIneFrameI18nProvider(currentLangProvider));
+    }
 
 }

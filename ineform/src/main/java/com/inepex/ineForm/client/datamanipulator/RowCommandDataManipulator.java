@@ -20,136 +20,147 @@ import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class RowCommandDataManipulator extends DataManipulator {
-	private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
+    private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
-	protected final IneButton newButton = new IneButton(IneButton.IneButtonType.ACTION, IneFormI18n.NEW());
-	
-	private String editText;
-	private String deleteText;
-	
-	protected List<UserCommand> userCommands = new ArrayList<UserCommand>();
-	
-	@Inject
-	public RowCommandDataManipulator(FormContext formCtx
-			, FormFactory formFactory
-			, @Assisted String objectDescriptorName
-			, @Assisted IneDataConnector ineDataConnector
-			, @Assisted boolean sortable
-			, TableFieldRenderer fieldRenderer) {
-		super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
-		
-		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-			editText = IneFormI18n.EDIT();
-			deleteText = IneFormI18n.DELETE();
-		} else {
-			editText = "<div class='"+ResourceHelper.ineformRes().style().tableEditIcon()+"' title='"+IneFormI18n.EDIT()+"'></div>";
-			deleteText = "<div class='"+ResourceHelper.ineformRes().style().tableDeleteIcon()+"' title='"+IneFormI18n.DELETE()+"'></div>";
-		}
-		
-		userCommands.add(new EditCommand());
-		userCommands.add(new DeleteCommand());
-	}
+    protected final IneButton newButton = new IneButton(
+        IneButton.IneButtonType.ACTION,
+        IneFormI18n.NEW());
 
-	@Override
-	protected void initilaizeIneTableAndBuildCustom() {
-		ineTable.setSelectionBehaviour(SelectionBehaviour.NO_SELECTION);
-		
-		if(userCommands!=null) {
-			for (UserCommand command : userCommands) {
-				ineTable.addCommand(command);		
-			}
-		}
-		
-		mainPanel.add(rightSideButtonsPanel);
-		rightSideButtonsPanel.getCenterPanel().add(ineTable);
-		setTopPanelWidget(newButton);
-		newButton.addStyleName("newBtn");
-	}
-	
-	@Override
-	protected void onAttach() {
-		registerHandler(newButton.addClickHandler(new AddDataClickHandler()));
-		super.onAttach();
-	}
-	
-	protected class AddDataClickHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			onAddDataClicked();
-		}
-	}
+    private String editText;
+    private String deleteText;
 
-	public class EditCommand extends UserCommand {
-		public EditCommand() {
-		}
+    protected List<UserCommand> userCommands = new ArrayList<UserCommand>();
 
-		@Override
-		public String getCommandCellText(AssistedObject kvoOfRow) {
-			return editText;
-		}
+    @Inject
+    public RowCommandDataManipulator(
+        FormContext formCtx,
+        FormFactory formFactory,
+        @Assisted String objectDescriptorName,
+        @Assisted IneDataConnector ineDataConnector,
+        @Assisted boolean sortable,
+        TableFieldRenderer fieldRenderer) {
+        super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
 
-		@Override
-		public void onCellClicked(AssistedObject kvoOfRow) {
-			onEditClicked(kvoOfRow);
-		}
+        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
+            editText = IneFormI18n.EDIT();
+            deleteText = IneFormI18n.DELETE();
+        } else {
+            editText =
+                "<div class='"
+                    + ResourceHelper.ineformRes().style().tableEditIcon()
+                    + "' title='"
+                    + IneFormI18n.EDIT()
+                    + "'></div>";
+            deleteText =
+                "<div class='"
+                    + ResourceHelper.ineformRes().style().tableDeleteIcon()
+                    + "' title='"
+                    + IneFormI18n.DELETE()
+                    + "'></div>";
+        }
 
-		@Override
-		public boolean visible(AssistedObject kvoOfRow) {
-			return true;
-		}
-	}
+        userCommands.add(new EditCommand());
+        userCommands.add(new DeleteCommand());
+    }
 
-	public class DeleteCommand extends UserCommand {
-		public DeleteCommand() {
-		}
-		
-		@Override
-		public String getCommandCellText(AssistedObject kvoOfRow) {
-			return deleteText;
-		}
+    @Override
+    protected void initilaizeIneTableAndBuildCustom() {
+        ineTable.setSelectionBehaviour(SelectionBehaviour.NO_SELECTION);
 
-		@Override
-		public void onCellClicked(AssistedObject kvoOfRow) {
-			onDeleteClicked(kvoOfRow);
-		}
+        if (userCommands != null) {
+            for (UserCommand command : userCommands) {
+                ineTable.addCommand(command);
+            }
+        }
 
-		@Override
-		public boolean visible(AssistedObject kvoOfRow) {
-			return true;
-		}
-	}
+        mainPanel.add(rightSideButtonsPanel);
+        rightSideButtonsPanel.getCenterPanel().add(ineTable);
+        setTopPanelWidget(newButton);
+        newButton.addStyleName("newBtn");
+    }
 
-	@Override
-	public void setNewText(String newText) {
-		newButton.setText(newText);
-	}
-	
-	public void setNewBtnVisible(boolean visible) {
-		newButton.setVisible(visible);
-	}
+    @Override
+    protected void onAttach() {
+        registerHandler(newButton.addClickHandler(new AddDataClickHandler()));
+        super.onAttach();
+    }
 
-	@Override
-	public void setEditText(String editText) {
-		this.editText = editText;
-	}
+    protected class AddDataClickHandler implements ClickHandler {
+        @Override
+        public void onClick(ClickEvent event) {
+            onAddDataClicked();
+        }
+    }
 
-	@Override
-	public void setDeleteText(String deleteText) {
-		this.deleteText = deleteText;
-	}
-	
-	public void setNewBtnStyle(String styleName){
-		newButton.setStyleName(styleName);
-	}
+    public class EditCommand extends UserCommand {
+        public EditCommand() {}
 
-	/**
-	 * edit userCommands list before call render()
-	 * by default it contains edit and delete
-	 * @return
-	 */
-	public List<UserCommand> getUserCommands() {
-		return userCommands;
-	}
+        @Override
+        public String getCommandCellText(AssistedObject kvoOfRow) {
+            return editText;
+        }
 
-	
+        @Override
+        public void onCellClicked(AssistedObject kvoOfRow) {
+            onEditClicked(kvoOfRow);
+        }
+
+        @Override
+        public boolean visible(AssistedObject kvoOfRow) {
+            return true;
+        }
+    }
+
+    public class DeleteCommand extends UserCommand {
+        public DeleteCommand() {}
+
+        @Override
+        public String getCommandCellText(AssistedObject kvoOfRow) {
+            return deleteText;
+        }
+
+        @Override
+        public void onCellClicked(AssistedObject kvoOfRow) {
+            onDeleteClicked(kvoOfRow);
+        }
+
+        @Override
+        public boolean visible(AssistedObject kvoOfRow) {
+            return true;
+        }
+    }
+
+    @Override
+    public void setNewText(String newText) {
+        newButton.setText(newText);
+    }
+
+    public void setNewBtnVisible(boolean visible) {
+        newButton.setVisible(visible);
+    }
+
+    @Override
+    public void setEditText(String editText) {
+        this.editText = editText;
+    }
+
+    @Override
+    public void setDeleteText(String deleteText) {
+        this.deleteText = deleteText;
+    }
+
+    public void setNewBtnStyle(String styleName) {
+        newButton.setStyleName(styleName);
+    }
+
+    /**
+     * edit userCommands list before call render() by default it contains edit
+     * and delete
+     * 
+     * @return
+     */
+    public List<UserCommand> getUserCommands() {
+        return userCommands;
+    }
+
 }

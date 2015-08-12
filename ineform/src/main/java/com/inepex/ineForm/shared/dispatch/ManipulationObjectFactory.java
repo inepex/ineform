@@ -5,10 +5,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 public interface ManipulationObjectFactory {
-	
-	public ObjectManipulationResult getNewObjectManipulationResult();
 
-	public ObjectListResult getNewObjectListResult();
+    public ObjectManipulationResult getNewObjectManipulationResult();
 
-	public RelationListResult getNewRelationListResult();
+    public ObjectListResult getNewObjectListResult();
+
+    public RelationListResult getNewRelationListResult();
 }

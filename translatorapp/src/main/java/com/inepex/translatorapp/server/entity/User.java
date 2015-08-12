@@ -25,110 +25,108 @@ import com.inepex.ineFrame.server.auth.AuthUser;
 
 @Entity
 @Table(name = "TransUser")
-public class User implements AuthUser{
+public class User implements AuthUser {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam
-	private Long id;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false, unique=true)
-	private String email;
-	
-	@Kvo_Transparent
-	@Column(nullable=false)
-	private String password;
-	
-	private String role;
-	
-	@Kvo_Fetch(mode=Mode.fullObject)
-	@OneToMany(mappedBy="user", cascade={CascadeType.ALL}, orphanRemoval=true)
-	private List<UserLang> translates = new ArrayList<>();
-	
-	public User(){
-	}
-	
-	public User(Long id){
-		this.id=id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Kvo_SearchParam
+    private Long id;
+
+    @Kvo_SearchParam
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Kvo_Transparent
+    @Column(nullable = false)
+    private String password;
+
+    private String role;
+
+    @Kvo_Fetch(mode = Mode.fullObject)
+    @OneToMany(mappedBy = "user", cascade = { CascadeType.ALL }, orphanRemoval = true)
+    private List<UserLang> translates = new ArrayList<>();
+
+    public User() {}
+
+    public User(Long id) {
+        this.id = id;
     }
 
-	public User(String email, String password) {
-		this.email = email;
-		this.password = password;
-	}
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
-	@Override
-	public Long getUserId() {
-		return id;
-	}
+    @Override
+    public Long getUserId() {
+        return id;
+    }
 
-	@Override
-	public String getDisplayName() {
-		return email;
-	}
-	
+    @Override
+    public String getDisplayName() {
+        return email;
+    }
 
-	@Override
-	public String getUserAuthString() {
-		return email;
-	}
+    @Override
+    public String getUserAuthString() {
+        return email;
+    }
 
-	@Override
-	public Set<String> getAllowedRoles() {
-		if(role==null || role.length()<1)
-			return Collections.emptySet();
-		
-		return new HashSet<>(Arrays.asList(role));
-	}
-	
-	public String getRole() {
-		return role;
-	}
-	
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
-	@Override
-	public String toString() {
-		return email;
-	}
+    @Override
+    public Set<String> getAllowedRoles() {
+        if (role == null || role.length() < 1)
+            return Collections.emptySet();
 
-	public Long getId() {
-		return id;
-	}
+        return new HashSet<>(Arrays.asList(role));
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Override
+    public String toString() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public List<UserLang> getTranslates() {
-		return translates;
-	}
-	
-	public void setTranslates(List<UserLang> translates) {
-		this.translates = translates;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public Map<String, String> getUserJsonProps() {
-		return null;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<UserLang> getTranslates() {
+        return translates;
+    }
+
+    public void setTranslates(List<UserLang> translates) {
+        this.translates = translates;
+    }
+
+    @Override
+    public Map<String, String> getUserJsonProps() {
+        return null;
+    }
 }

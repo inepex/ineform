@@ -14,83 +14,83 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class CaptchaFW extends StringFormWidget {
 
-	public static final String PROP_RENDERING="rendering";
-	public static final String HORIZONTAL="horizontal";
-	
-	private CaptchaWidget captchaWidget;
-	
-	public CaptchaFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
-		super(fielddescriptor);
-		if(wrDesc.hasProp(PROP_RENDERING) && HORIZONTAL.equals(wrDesc.getPropValue(PROP_RENDERING))) {
-			captchaWidget = new CaptchaWidget(Rendering.HORIZONTAL);
-			if(!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
-				captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_CaptchaTextBoxWidth);
-			else
-				captchaWidget.getTextBox().setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
-			
-		} else {
-			captchaWidget = new CaptchaWidget(Rendering.VERTICAL);
-			if(!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
-				captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
-			else
-				captchaWidget.getTextBox().setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
-		}
-		initWidget(captchaWidget);
-	}
-	
-	public CaptchaWidget getCaptchaWidget() {
-		return captchaWidget;
-	}
-	
-	@Override
-	protected void onAttach() {
-		registerHandler(captchaWidget.getTextBox().addValueChangeHandler(new ValueChangeHandler<String>() {		
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				fireFormWidgetChanged();
-			}
-		}));
-		registerHandler(captchaWidget.getTextBox().addKeyUpHandler(new KeyUpHandler() {
-			
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER){
-					fireFormWidgetChanged(true);
-				} else {
-					fireFormWidgetChanged();
-				}
-			}
-		}));
+    public static final String PROP_RENDERING = "rendering";
+    public static final String HORIZONTAL = "horizontal";
 
-		super.onAttach();
-	} 
-	
-	
+    private CaptchaWidget captchaWidget;
 
-	@Override
-	public boolean isFocusable() {
-		return true;
-	}
+    public CaptchaFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
+        super(fielddescriptor);
+        if (wrDesc.hasProp(PROP_RENDERING)
+            && HORIZONTAL.equals(wrDesc.getPropValue(PROP_RENDERING))) {
+            captchaWidget = new CaptchaWidget(Rendering.HORIZONTAL);
+            if (!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
+                captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_CaptchaTextBoxWidth);
+            else
+                captchaWidget.getTextBox().setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
 
-	@Override
-	public void setEnabled(boolean enabled) {
-		captchaWidget.getTextBox().setEnabled(enabled);
-	}
+        } else {
+            captchaWidget = new CaptchaWidget(Rendering.VERTICAL);
+            if (!wrDesc.hasProp(SimpleTableFormUnit.WIDTH))
+                captchaWidget.getTextBox().setWidth(IneFormProperties.DEFAULT_TextBoxWidth);
+            else
+                captchaWidget.getTextBox().setWidth(wrDesc.getPropValue(SimpleTableFormUnit.WIDTH));
+        }
+        initWidget(captchaWidget);
+    }
 
-	@Override
-	public void setFocus(boolean focused) {
-		captchaWidget.getTextBox().setFocus(focused);
-	}
+    public CaptchaWidget getCaptchaWidget() {
+        return captchaWidget;
+    }
 
+    @Override
+    protected void onAttach() {
+        registerHandler(captchaWidget.getTextBox().addValueChangeHandler(
+            new ValueChangeHandler<String>() {
+                @Override
+                public void onValueChange(ValueChangeEvent<String> event) {
+                    fireFormWidgetChanged();
+                }
+            }));
+        registerHandler(captchaWidget.getTextBox().addKeyUpHandler(new KeyUpHandler() {
 
-	@Override
-	public String getStringValue() {
-		if(captchaWidget.getTextBox().getValue().length()==0) return null;
-		return captchaWidget.getTextBox().getValue();
-	}
+            @Override
+            public void onKeyUp(KeyUpEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    fireFormWidgetChanged(true);
+                } else {
+                    fireFormWidgetChanged();
+                }
+            }
+        }));
 
-	@Override
-	public void setStringValue(String value) {
-		//nothing to do
-	}
+        super.onAttach();
+    }
+
+    @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        captchaWidget.getTextBox().setEnabled(enabled);
+    }
+
+    @Override
+    public void setFocus(boolean focused) {
+        captchaWidget.getTextBox().setFocus(focused);
+    }
+
+    @Override
+    public String getStringValue() {
+        if (captchaWidget.getTextBox().getValue().length() == 0)
+            return null;
+        return captchaWidget.getTextBox().getValue();
+    }
+
+    @Override
+    public void setStringValue(String value) {
+        // nothing to do
+    }
 }

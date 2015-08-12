@@ -26,79 +26,79 @@ import com.inepex.ineFrame.client.i18n.IneFrameI18n;
  */
 public abstract class DialogBoxBase extends DialogBox {
 
-	protected HTML message = new HTML();
-	protected VerticalPanel panel = new VerticalPanel();
-	protected HorizontalPanel buttonBar = new HorizontalPanel();
-	protected Button okButton = new Button(IneFrameI18n.dialogOkButton());
+    protected HTML message = new HTML();
+    protected VerticalPanel panel = new VerticalPanel();
+    protected HorizontalPanel buttonBar = new HorizontalPanel();
+    protected Button okButton = new Button(IneFrameI18n.dialogOkButton());
 
-	public DialogBoxBase() {
-		super();
+    public DialogBoxBase() {
+        super();
 
-		getElement().getStyle().setBackgroundColor("white");
-		getElement().getStyle().setPadding(15, Unit.PX);
-		getElement().getStyle().setBorderColor("black");
-		getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-		getElement().getStyle().setBorderWidth(1, Unit.PX);
-		
-		setModal(true);
-		setGlassEnabled(true);
-		setAnimationEnabled(true);
-		setAutoHideEnabled(false);
+        getElement().getStyle().setBackgroundColor("white");
+        getElement().getStyle().setPadding(15, Unit.PX);
+        getElement().getStyle().setBorderColor("black");
+        getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+        getElement().getStyle().setBorderWidth(1, Unit.PX);
 
-		panel.setSpacing(10);
+        setModal(true);
+        setGlassEnabled(true);
+        setAnimationEnabled(true);
+        setAutoHideEnabled(false);
 
-		HorizontalPanel messagePanel = new HorizontalPanel();
-		Image image = new Image(getImageResource());
-		messagePanel.add(image);
-		messagePanel.add(message);
-		messagePanel.setCellVerticalAlignment(image, HorizontalPanel.ALIGN_MIDDLE);
-		messagePanel.setCellVerticalAlignment(message, HorizontalPanel.ALIGN_MIDDLE);
+        panel.setSpacing(10);
 
-		panel.add(messagePanel);
+        HorizontalPanel messagePanel = new HorizontalPanel();
+        Image image = new Image(getImageResource());
+        messagePanel.add(image);
+        messagePanel.add(message);
+        messagePanel.setCellVerticalAlignment(image, HorizontalPanel.ALIGN_MIDDLE);
+        messagePanel.setCellVerticalAlignment(message, HorizontalPanel.ALIGN_MIDDLE);
 
-		buttonBar.setSpacing(5);
-		buttonBar.add(okButton);
+        panel.add(messagePanel);
 
-		panel.add(buttonBar);
-		panel.setCellHorizontalAlignment(buttonBar, VerticalPanel.ALIGN_CENTER);
+        buttonBar.setSpacing(5);
+        buttonBar.add(okButton);
 
-		okButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-		});
+        panel.add(buttonBar);
+        panel.setCellHorizontalAlignment(buttonBar, VerticalPanel.ALIGN_CENTER);
 
-		configureButtonBar();
+        okButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                hide();
+            }
+        });
 
-		add(panel);
-	}
+        configureButtonBar();
 
-	protected abstract void configureButtonBar();
+        add(panel);
+    }
 
-	protected abstract ImageResource getImageResource();
+    protected abstract void configureButtonBar();
 
-	@Override
-	public void show() {
-		super.show();
-		center();
-	}
+    protected abstract ImageResource getImageResource();
 
-	public void show(String message) {
-		setMessage(message);
-		this.show();
-	}
+    @Override
+    public void show() {
+        super.show();
+        center();
+    }
 
-	public void setMessage(String value) {
-		message.setHTML(value);
-	}
+    public void show(String message) {
+        setMessage(message);
+        this.show();
+    }
 
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return okButton.addClickHandler(handler);
-	}
+    public void setMessage(String value) {
+        message.setHTML(value);
+    }
 
-	public void show(String message, ClickHandler okHandler) {
-		show(message);
-		addClickHandler(okHandler);
-	}
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return okButton.addClickHandler(handler);
+    }
+
+    public void show(String message, ClickHandler okHandler) {
+        show(message);
+        addClickHandler(okHandler);
+    }
 }

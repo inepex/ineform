@@ -7,10 +7,9 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
 
 public class ConcurrentDescStoreMapCreator implements DescriptorStoreMapCreator {
 
-	@Override
-	public <K, V> Map<K, V> createMap(GenParam<K, V> genParams) {
-		return new ConcurrentHashMap<K, V>();
-	}
+    @Override
+    public <K, V> Map<K, V> createMap(GenParam<K, V> genParams) {
+        return new ConcurrentHashMap<K, V>();
+    }
 
-	
 }

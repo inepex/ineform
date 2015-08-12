@@ -8,9 +8,9 @@ import com.inepex.ineFrame.shared.util.NumberFormatter;
 
 public class JavaNumberFormatter implements NumberFormatter {
 
-	@Override
-	public String format(String format, double number) {
-		return new DecimalFormat(format, new DecimalFormatSymbols(Locale.ENGLISH)).format(number);
-	}
+    @Override
+    public String format(String format, double number) {
+        return new DecimalFormat(format, new DecimalFormatSymbols(Locale.ENGLISH)).format(number);
+    }
 
 }

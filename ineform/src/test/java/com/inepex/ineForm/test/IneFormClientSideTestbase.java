@@ -6,13 +6,13 @@ import com.inepex.ineFrame.test.IneFrameClientSideTestBase;
 
 public abstract class IneFormClientSideTestbase extends IneFrameClientSideTestBase {
 
-	private Injector defaultInjector;
-	
-	public Injector getDefaultInjector() {
-		if (defaultInjector == null) {
-			defaultInjector = Guice.createInjector(new TestIneFormClientGuiceModule());
-		}
-		return defaultInjector;
-	}
+    private Injector defaultInjector;
+
+    public Injector getDefaultInjector() {
+        if (defaultInjector == null) {
+            defaultInjector = Guice.createInjector(new TestIneFormClientGuiceModule());
+        }
+        return defaultInjector;
+    }
 
 }

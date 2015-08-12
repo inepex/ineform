@@ -6,15 +6,18 @@ import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 
 public class FlowPanelWidget extends PanelWidget {
 
-	private final FlowPanel mainPanel=new FlowPanel();
-	
-	public FlowPanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
-		super(descriptor, parent, handler);
-		initWidget(mainPanel);
-	}
+    private final FlowPanel mainPanel = new FlowPanel();
 
-	@Override
-	public void addToPanel(Widget w) {
-		mainPanel.add(w);
-	}
+    public FlowPanelWidget(
+        PanelWidgetRDesc descriptor,
+        PanelWidget parent,
+        DisplayedFormUnitChangeHandler handler) {
+        super(descriptor, parent, handler);
+        initWidget(mainPanel);
+    }
+
+    @Override
+    public void addToPanel(Widget w) {
+        mainPanel.add(w);
+    }
 }

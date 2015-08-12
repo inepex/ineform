@@ -31,38 +31,47 @@ import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction
 
 public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
 
-	private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler = DefaultLoginHandler.class;
-	private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
-		
-	public IneFrameBaseActionHandlerModule() {
-		super();
-	}
+    private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler =
+        DefaultLoginHandler.class;
+    private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler =
+        GetAuthStatusHandler.class;
 
-	public IneFrameBaseActionHandlerModule setLoginHandler(Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler){
-		this.loginHandler=loginHandler;
-		return this;
-	}
-	
-	public IneFrameBaseActionHandlerModule setGetAuthStatusHandler(Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler){
-		this.getAuthStatusHandler = getAuthStatusHandler;
-		return this;
-	}
-	
-	@Override
-	protected void configureHandlers() {
-		bindHandler(BatchAction.class, BatchActionHandler.class);
-		bindHandler(ChangeLanguageAction.class, ChangeLanguageHandler.class);
-		bindHandler(GetI18nModulesAndSetCurrentLangFromCookieAction.class, GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
-		bindHandler(GetTimeZoneNamesAction.class, GetTimeZoneNamesHandler.class);
-		bindHandler(GetDescStore.class, GetDescriptorStoreHandler.class);
-		
-		//authentication
-		bindHandler(GetAuthStatusAction.class, getAuthStatusHandler);
-		bindHandler(LogoutAction.class, LogoutHandler.class);
-		bindHandler(CaptchaInfoAction.class, CaptchaInfoHandler.class);
-		bind(new TypeLiteral<AbstractLoginHandler<AuthUser,AuthStatusResultBase>>(){}).to(loginHandler).in(Singleton.class);
-		bindHandler(LoginAction.class, loginHandler);
-		bindHandler(PingAction.class, PingActionHandler.class);
-		
-	}
+    public IneFrameBaseActionHandlerModule() {
+        super();
+    }
+
+    public IneFrameBaseActionHandlerModule setLoginHandler(
+        Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler) {
+        this.loginHandler = loginHandler;
+        return this;
+    }
+
+    public
+        IneFrameBaseActionHandlerModule
+        setGetAuthStatusHandler(
+            Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler) {
+        this.getAuthStatusHandler = getAuthStatusHandler;
+        return this;
+    }
+
+    @Override
+    protected void configureHandlers() {
+        bindHandler(BatchAction.class, BatchActionHandler.class);
+        bindHandler(ChangeLanguageAction.class, ChangeLanguageHandler.class);
+        bindHandler(
+            GetI18nModulesAndSetCurrentLangFromCookieAction.class,
+            GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
+        bindHandler(GetTimeZoneNamesAction.class, GetTimeZoneNamesHandler.class);
+        bindHandler(GetDescStore.class, GetDescriptorStoreHandler.class);
+
+        // authentication
+        bindHandler(GetAuthStatusAction.class, getAuthStatusHandler);
+        bindHandler(LogoutAction.class, LogoutHandler.class);
+        bindHandler(CaptchaInfoAction.class, CaptchaInfoHandler.class);
+        bind(new TypeLiteral<AbstractLoginHandler<AuthUser, AuthStatusResultBase>>() {}).to(
+            loginHandler).in(Singleton.class);
+        bindHandler(LoginAction.class, loginHandler);
+        bindHandler(PingAction.class, PingActionHandler.class);
+
+    }
 }

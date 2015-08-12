@@ -8,59 +8,59 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class CheckBoxFW extends DenyingFormWidget {
 
-	public static final String CHECKBOXTEXT = "checkBoxText";
-	public static final String CHECKBOXHTML = "checkBoxHTML";
-	public static final String CHECKBOXICONURL = "checkboxIconUrl";
-	
-	private IneCheckBox checkBox = new IneCheckBox();
-	
-	public CheckBoxFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
-		super(fielddescriptor);
-		initWidget(checkBox);
-		
-		if(wrDesc.getPropValue(CHECKBOXTEXT)!=null) {
-			checkBox.setText(wrDesc.getPropValue(CHECKBOXTEXT));
-		}else if(wrDesc.getPropValue(CHECKBOXHTML) != null){
-			checkBox.setHTML(wrDesc.getPropValue(CHECKBOXHTML));
-		}
-		if (wrDesc.getPropValue(CHECKBOXICONURL) != null){
-			checkBox.setIconUrl(wrDesc.getPropValue(CHECKBOXICONURL));
-		}
-	}
-	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		registerHandler(checkBox.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				fireFormWidgetChanged(true);
-			}
-		}));
-	}
-	
-	@Override
-	public boolean handlesBoolean() {
-		return true;
-	}
-	
-	@Override
-	public void setEnabled(boolean enabled) {
-		checkBox.setEnabled(enabled);
-	}
-	
-	@Override
-	public void setBooleanValue(Boolean value) {
-		checkBox.setValue(value!=null && value);
-	}
-	
-	@Override
-	public Boolean getBooleanValue() {
-		return checkBox.getValue();
-	}
-	
-	public IneCheckBox getIneCheckBox() {
-		return checkBox;
-	}
+    public static final String CHECKBOXTEXT = "checkBoxText";
+    public static final String CHECKBOXHTML = "checkBoxHTML";
+    public static final String CHECKBOXICONURL = "checkboxIconUrl";
+
+    private IneCheckBox checkBox = new IneCheckBox();
+
+    public CheckBoxFW(FDesc fielddescriptor, WidgetRDesc wrDesc) {
+        super(fielddescriptor);
+        initWidget(checkBox);
+
+        if (wrDesc.getPropValue(CHECKBOXTEXT) != null) {
+            checkBox.setText(wrDesc.getPropValue(CHECKBOXTEXT));
+        } else if (wrDesc.getPropValue(CHECKBOXHTML) != null) {
+            checkBox.setHTML(wrDesc.getPropValue(CHECKBOXHTML));
+        }
+        if (wrDesc.getPropValue(CHECKBOXICONURL) != null) {
+            checkBox.setIconUrl(wrDesc.getPropValue(CHECKBOXICONURL));
+        }
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        registerHandler(checkBox.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                fireFormWidgetChanged(true);
+            }
+        }));
+    }
+
+    @Override
+    public boolean handlesBoolean() {
+        return true;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        checkBox.setEnabled(enabled);
+    }
+
+    @Override
+    public void setBooleanValue(Boolean value) {
+        checkBox.setValue(value != null && value);
+    }
+
+    @Override
+    public Boolean getBooleanValue() {
+        return checkBox.getValue();
+    }
+
+    public IneCheckBox getIneCheckBox() {
+        return checkBox;
+    }
 }

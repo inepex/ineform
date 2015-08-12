@@ -12,26 +12,28 @@ import com.inepex.ineFrame.client.i18n.IneFrameI18n;
  */
 public class ErrorDialogBox extends DialogBoxBase {
 
-	public ErrorDialogBox() {
-		super();
-		setText(IneFrameI18n.errorDialogTitle());
-	}
+    public ErrorDialogBox() {
+        super();
+        setText(IneFrameI18n.errorDialogTitle());
+    }
 
-	/* (non-Javadoc)
-	 * @see hu.bluebird.rita.common.client.widgets.dialog.BaseDialogBox#configureButtonBar()
-	 */
-	@Override
-	protected void configureButtonBar() {
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see hu.bluebird.rita.common.client.widgets.dialog.BaseDialogBox#
+     * configureButtonBar()
+     */
+    @Override
+    protected void configureButtonBar() {}
 
-	@Override
-	protected ImageResource getImageResource() {
-		return DialogBoxBaseImages.INSTANCE.dialogError();
-	}
-	
-	public static void showError(String errorMesage) {
-		ErrorDialogBox edb = new ErrorDialogBox();
-		edb.show(errorMesage);
-	}
-	
+    @Override
+    protected ImageResource getImageResource() {
+        return DialogBoxBaseImages.INSTANCE.dialogError();
+    }
+
+    public static void showError(String errorMesage) {
+        ErrorDialogBox edb = new ErrorDialogBox();
+        edb.show(errorMesage);
+    }
+
 }

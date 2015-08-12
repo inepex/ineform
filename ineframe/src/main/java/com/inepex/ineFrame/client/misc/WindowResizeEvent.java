@@ -2,48 +2,45 @@ package com.inepex.ineFrame.client.misc;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class WindowResizeEvent extends GwtEvent<WindowResizeHandler>{
-	
-	private int width = -1;
-	private int height = -1;
-	
-	public WindowResizeEvent() {
-	}
+public class WindowResizeEvent extends GwtEvent<WindowResizeHandler> {
 
-	public WindowResizeEvent(int width, int height) {
-		super();
-		this.width = width;
-		this.height = height;
-	}
+    private int width = -1;
+    private int height = -1;
 
-	public static final Type<WindowResizeHandler> TYPE = new Type<WindowResizeHandler>();
-	
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<WindowResizeHandler> getAssociatedType() {
-		return TYPE;
-	}
+    public WindowResizeEvent() {}
 
-	@Override
-	protected void dispatch(WindowResizeHandler handler) {
-		handler.onResize(this);
-	}
+    public WindowResizeEvent(int width, int height) {
+        super();
+        this.width = width;
+        this.height = height;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public static final Type<WindowResizeHandler> TYPE = new Type<WindowResizeHandler>();
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<WindowResizeHandler> getAssociatedType() {
+        return TYPE;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    @Override
+    protected void dispatch(WindowResizeHandler handler) {
+        handler.onResize(this);
+    }
 
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	
-	
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
 }

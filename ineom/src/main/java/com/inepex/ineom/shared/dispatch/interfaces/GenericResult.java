@@ -9,5 +9,5 @@ public interface GenericResult {
     public void setMessage(String message);
 
     public void setSuccess(Boolean success);
-    
+
 }

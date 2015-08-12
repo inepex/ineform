@@ -8,81 +8,82 @@ import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
-public class HtmlRenderer extends TableRenderer{
+public class HtmlRenderer extends TableRenderer {
 
-	public static interface HtmlRendererFactory {
-		public HtmlRenderer create(@Assisted("od") String objectDescName,
-				@Assisted("td") @Nullable String tableRDescName);
-	}	
-	
-	@Inject
-	public HtmlRenderer(DescriptorStore descStore
-			, @Assisted("od") String objectDescName
-			, @Assisted("td") @Nullable String tableRDescName
-			, TableFieldRenderer fieldRenderer) {
-		super(descStore, objectDescName, tableRDescName, fieldRenderer);
-		setRenderLastFieldEnd(true);
-	}
+    public static interface HtmlRendererFactory {
+        public HtmlRenderer create(
+            @Assisted("od") String objectDescName,
+            @Assisted("td") @Nullable String tableRDescName);
+    }
 
-	@Override
-	protected void renderLineStart() {
-		sb.append("<tr>");
-	}
+    @Inject
+    public HtmlRenderer(
+        DescriptorStore descStore,
+        @Assisted("od") String objectDescName,
+        @Assisted("td") @Nullable String tableRDescName,
+        TableFieldRenderer fieldRenderer) {
+        super(descStore, objectDescName, tableRDescName, fieldRenderer);
+        setRenderLastFieldEnd(true);
+    }
 
-	@Override
-	protected void renderLineEnd() {
-		sb.append("</tr>\n");
-	}
+    @Override
+    protected void renderLineStart() {
+        sb.append("<tr>");
+    }
 
-	@Override
-	protected void renderFieldStart() {
-		sb.append("<td>");
-	}
+    @Override
+    protected void renderLineEnd() {
+        sb.append("</tr>\n");
+    }
 
-	@Override
-	protected void renderFieldEnd() {
-		sb.append("</td>");
-		
-	}
+    @Override
+    protected void renderFieldStart() {
+        sb.append("<td>");
+    }
 
-	@Override
-	protected void renderStart() {
-		sb.append("<html>\n" +
-				"<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" +
-				"<style type=\"text/css\">" +
-					"td {border: 1px solid black;}\n"+
-					"th {background-color: #f2f2f2; border: 1px solid black;}\n" +
-					"table {text-align: left; empty-cells: show; border-collapse: collapse;}" +
-				"</style>" +
-				"</head>"+
-				"<table>\n");
-	}
+    @Override
+    protected void renderFieldEnd() {
+        sb.append("</td>");
 
-	@Override
-	protected void renderEnd() {
-		sb.append("</table></html>");
-		
-	}
+    }
 
-	@Override
-	protected void renderHeaderStart() {
-		sb.append("<tr>");
-	}
+    @Override
+    protected void renderStart() {
+        sb.append("<html>\n"
+            + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
+            + "<style type=\"text/css\">"
+            + "td {border: 1px solid black;}\n"
+            + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
+            + "table {text-align: left; empty-cells: show; border-collapse: collapse;}"
+            + "</style>"
+            + "</head>"
+            + "<table>\n");
+    }
 
-	@Override
-	protected void renderHeaderEnd() {
-		sb.append("</tr>\n");		
-	}
+    @Override
+    protected void renderEnd() {
+        sb.append("</table></html>");
 
+    }
 
-	@Override
-	protected void renderHeaderFieldEnd() {
-		sb.append("</th>");
-	}
+    @Override
+    protected void renderHeaderStart() {
+        sb.append("<tr>");
+    }
 
-	@Override
-	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
-		sb.append("<th>");
-	}
+    @Override
+    protected void renderHeaderEnd() {
+        sb.append("</tr>\n");
+    }
+
+    @Override
+    protected void renderHeaderFieldEnd() {
+        sb.append("</th>");
+    }
+
+    @Override
+    protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
+        sb.append("<th>");
+    }
 
 }

@@ -6,21 +6,29 @@ import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
 
 public interface FormFactory {
-	@Named("simple") IneForm createSimple(@Assisted("dn") String descriptorName
-			, @Assisted("frdn") String formRDescName);
-	
-	@Named("saveCancel") SaveCancelForm createSaveCancel(@Assisted("dn") String descriptorName
-			, @Assisted("frdn") String formRDescName
-			, IneDataConnector ineDataConnector
-			, @Assisted SaveCancelFormView view);
+    @Named("simple")
+    IneForm createSimple(
+        @Assisted("dn") String descriptorName,
+        @Assisted("frdn") String formRDescName);
 
-	@Named("wizard") WizardForm createWizard(@Assisted("dn") String descriptorName
-			, @Assisted("frdn") String formRDescName
-			, IneDataConnector ineDataConnector
-			, @Assisted SaveCancelFormView view);
-	
-	@Named("search") SearchForm createSearch(@Assisted("dn") String descriptorName
-			, @Assisted("frdn") String formRDescName
-			, IneDataConnector ineDataConnector
-			, IneTable ineTable);	
+    @Named("saveCancel")
+    SaveCancelForm createSaveCancel(
+        @Assisted("dn") String descriptorName,
+        @Assisted("frdn") String formRDescName,
+        IneDataConnector ineDataConnector,
+        @Assisted SaveCancelFormView view);
+
+    @Named("wizard")
+    WizardForm createWizard(
+        @Assisted("dn") String descriptorName,
+        @Assisted("frdn") String formRDescName,
+        IneDataConnector ineDataConnector,
+        @Assisted SaveCancelFormView view);
+
+    @Named("search")
+    SearchForm createSearch(
+        @Assisted("dn") String descriptorName,
+        @Assisted("frdn") String formRDescName,
+        IneDataConnector ineDataConnector,
+        IneTable ineTable);
 }

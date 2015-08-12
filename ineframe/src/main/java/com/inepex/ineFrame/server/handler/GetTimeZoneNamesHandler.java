@@ -9,17 +9,19 @@ import com.inepex.ineFrame.shared.GetTimeZoneNamesAction;
 import com.inepex.ineFrame.shared.GetTimeZoneNamesResult;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
-public class GetTimeZoneNamesHandler extends AbstractIneHandler<GetTimeZoneNamesAction,GetTimeZoneNamesResult>{
+public class GetTimeZoneNamesHandler
+    extends
+    AbstractIneHandler<GetTimeZoneNamesAction, GetTimeZoneNamesResult> {
 
-	@Override
-	protected GetTimeZoneNamesResult doExecute(GetTimeZoneNamesAction action, ExecutionContext context) throws AuthenticationException,
-			DispatchException {
-		return new GetTimeZoneNamesResult(TimeZoneEnum.getValueRange());
-	}
-	
-	
-	@Override
-	public Class<GetTimeZoneNamesAction> getActionType() {
-		return GetTimeZoneNamesAction.class;
-	}
+    @Override
+    protected GetTimeZoneNamesResult doExecute(
+        GetTimeZoneNamesAction action,
+        ExecutionContext context) throws AuthenticationException, DispatchException {
+        return new GetTimeZoneNamesResult(TimeZoneEnum.getValueRange());
+    }
+
+    @Override
+    public Class<GetTimeZoneNamesAction> getActionType() {
+        return GetTimeZoneNamesAction.class;
+    }
 }

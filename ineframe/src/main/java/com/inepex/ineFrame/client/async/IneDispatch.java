@@ -9,29 +9,29 @@ import com.google.inject.Inject;
 
 public class IneDispatch extends IneDispatchBase<Action<? extends Result>> {
 
-	private DispatchAsync dispatcher;
-	
-	
-	@Inject
-	public IneDispatch(DispatchAsync dispatcher, AsyncStatusIndicator defaultStatusIndicator,
-			EventBus eventBus, ConnectionFailedHandler connectionFailedHandler) {
-		super(connectionFailedHandler, eventBus);
-		this.dispatcher = dispatcher;
-		this.defaultStatusIndicator = defaultStatusIndicator;
-		this.eventBus = eventBus;
-	}
-	
-	public DispatchAsync getDispatcher() {
-		return dispatcher;
-	}
+    private DispatchAsync dispatcher;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	protected void doExecute(
-			Action action,
-			IneAsyncCallback callback) {
-		dispatcher.execute(action, callback);
-		
-	}
-	
+    @Inject
+    public IneDispatch(
+        DispatchAsync dispatcher,
+        AsyncStatusIndicator defaultStatusIndicator,
+        EventBus eventBus,
+        ConnectionFailedHandler connectionFailedHandler) {
+        super(connectionFailedHandler, eventBus);
+        this.dispatcher = dispatcher;
+        this.defaultStatusIndicator = defaultStatusIndicator;
+        this.eventBus = eventBus;
+    }
+
+    public DispatchAsync getDispatcher() {
+        return dispatcher;
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Override
+    protected void doExecute(Action action, IneAsyncCallback callback) {
+        dispatcher.execute(action, callback);
+
+    }
+
 }

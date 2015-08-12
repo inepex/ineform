@@ -5,6 +5,6 @@ import com.google.gwt.http.client.RequestBuilder.Method;
 
 public interface RequestBuilderFactory {
 
-	public RequestBuilder createBuilder(Method method, String url);
-	
+    public RequestBuilder createBuilder(Method method, String url);
+
 }

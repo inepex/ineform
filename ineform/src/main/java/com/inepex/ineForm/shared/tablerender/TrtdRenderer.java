@@ -8,77 +8,78 @@ import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
-
 /**
  * it's MS Excel's favorite food
  * 
  */
-public class TrtdRenderer extends TableRenderer{
+public class TrtdRenderer extends TableRenderer {
 
-	public static interface TrtdRendererFactory {
-		public TrtdRenderer create(@Assisted("od") String objectDescName,
-				@Assisted("td") @Nullable String tableRDescName);
-	}
-	
-	@Inject
-	public TrtdRenderer(DescriptorStore descStore,
-			@Assisted("od") String objectDescName,
-			@Assisted("td") @Nullable String tableRDescName,
-			TableFieldRenderer fieldRenderer) {
-		super(descStore, objectDescName, tableRDescName, fieldRenderer);
-		setRenderLastFieldEnd(true);
-	}
+    public static interface TrtdRendererFactory {
+        public TrtdRenderer create(
+            @Assisted("od") String objectDescName,
+            @Assisted("td") @Nullable String tableRDescName);
+    }
 
-	@Override
-	protected void renderLineStart() {
-		sb.append("<tr>");
-	}
+    @Inject
+    public TrtdRenderer(
+        DescriptorStore descStore,
+        @Assisted("od") String objectDescName,
+        @Assisted("td") @Nullable String tableRDescName,
+        TableFieldRenderer fieldRenderer) {
+        super(descStore, objectDescName, tableRDescName, fieldRenderer);
+        setRenderLastFieldEnd(true);
+    }
 
-	@Override
-	protected void renderLineEnd() {
-		sb.append("</tr>\n");
-	}
+    @Override
+    protected void renderLineStart() {
+        sb.append("<tr>");
+    }
 
-	@Override
-	protected void renderFieldStart() {
-		sb.append("<td>");
-	}
+    @Override
+    protected void renderLineEnd() {
+        sb.append("</tr>\n");
+    }
 
-	@Override
-	protected void renderFieldEnd() {
-		sb.append("</td>");
-		
-	}
+    @Override
+    protected void renderFieldStart() {
+        sb.append("<td>");
+    }
 
-	@Override
-	protected void renderStart() {
-		sb.append("<table>\n");
-	}
+    @Override
+    protected void renderFieldEnd() {
+        sb.append("</td>");
 
-	@Override
-	protected void renderEnd() {
-		sb.append("</table>");
-		
-	}
+    }
 
-	@Override
-	protected void renderHeaderStart() {
-		sb.append("<tr>");
-	}
+    @Override
+    protected void renderStart() {
+        sb.append("<table>\n");
+    }
 
-	@Override
-	protected void renderHeaderEnd() {
-		sb.append("</tr>\n");		
-	}
-	
-	@Override
-	protected void renderHeaderFieldEnd() {
-		sb.append("</th>");
-	}
+    @Override
+    protected void renderEnd() {
+        sb.append("</table>");
 
-	@Override
-	protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
-		sb.append("<th>");
-	}
+    }
+
+    @Override
+    protected void renderHeaderStart() {
+        sb.append("<tr>");
+    }
+
+    @Override
+    protected void renderHeaderEnd() {
+        sb.append("</tr>\n");
+    }
+
+    @Override
+    protected void renderHeaderFieldEnd() {
+        sb.append("</th>");
+    }
+
+    @Override
+    protected void renderHeaderFieldStart(ColRDesc colRDesc, FDesc fDesc) {
+        sb.append("<th>");
+    }
 
 }

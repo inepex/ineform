@@ -5,34 +5,38 @@ import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 public class NoAuthManager implements AuthManager {
 
-	@Override
-	public void checkAuthStatus(AuthActionCallback callback) {
-		throw new RuntimeException();
-	}
+    @Override
+    public void checkAuthStatus(AuthActionCallback callback) {
+        throw new RuntimeException();
+    }
 
-	@Override
-	public AuthStatusResultBase getLastAuthStatusResult() {
-		throw new RuntimeException();
-	}
+    @Override
+    public AuthStatusResultBase getLastAuthStatusResult() {
+        throw new RuntimeException();
+    }
 
-	@Override
-	public void doLogout(AuthActionCallback callback) {
-		throw new RuntimeException();
-	}
+    @Override
+    public void doLogout(AuthActionCallback callback) {
+        throw new RuntimeException();
+    }
 
-	@Override
-	public boolean isUserLoggedIn() {
-		return false;
-	}
+    @Override
+    public boolean isUserLoggedIn() {
+        return false;
+    }
 
-	@Override
-	public boolean doUserHaveAnyOfRoles(String... roles) {
-		throw new RuntimeException();
-	}
+    @Override
+    public boolean doUserHaveAnyOfRoles(String... roles) {
+        throw new RuntimeException();
+    }
 
-	@Override
-	public void doLogin(String userName, String password, String captchaAnswer, AuthActionCallback callback) {
-		throw new RuntimeException();
-	}
+    @Override
+    public void doLogin(
+        String userName,
+        String password,
+        String captchaAnswer,
+        AuthActionCallback callback) {
+        throw new RuntimeException();
+    }
 
 }

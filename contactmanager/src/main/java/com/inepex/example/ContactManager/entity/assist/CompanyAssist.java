@@ -1,4 +1,5 @@
 package com.inepex.example.ContactManager.entity.assist;
+
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
@@ -18,121 +19,188 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 
 public class CompanyAssist extends Assist {
-	
-	public static final String roFRD = "roFrd";
-	
-	public CompanyAssist(DescriptorStore descStore) {
-		super(descStore);
-	}
-	
-	@Override
-	protected void registerExtraDescriptors() {
-		descStore.addNamedTypedDesc(Marker.registered, CompanyConsts.descriptorName, roFRD, getROFormRDesc());
-	}
-	
-	@Override
-	public ValidatorDesc getValidatorDesc() {
-		return new ValidatorDesc(CompanyConsts.descriptorName, new String[] {/*hc:vd1*/
-			
-		/*hc*/});
-	}
 
-	@Override
-	public ObjectDesc getObjectDesc() {
-		ObjectDesc objDesc = new ObjectDesc(CompanyConsts.descriptorName
-			, new LongFDesc(CompanyConsts.k_id, /*hc:d1*/CMI18n.company_id()/*hc*/)/*hc:d2_1*//*hc*/
-			, new StringFDesc(CompanyConsts.k_name, /*hc:d2*/CMI18n.company_name()/*hc*/)/*hc:d2_2*//*hc*/
-					.mandatory()
-			, new StringFDesc(CompanyConsts.k_phone, /*hc:d3*/CMI18n.company_phone()/*hc*/)/*hc:d2_3*//*hc*/
-					.mandatory()
-			, new StringFDesc(CompanyConsts.k_email, /*hc:d4*/CMI18n.company_email()/*hc*/)/*hc:d2_4*//*hc*/
-					.email()
-					.mandatory()
-			, new StringFDesc(CompanyConsts.k_webPage, /*hc:d5*/CMI18n.company_webPage()/*hc*/)/*hc:d2_5*//*hc*/
-					.mandatory()
-			, new ListFDesc(CompanyConsts.k_contacts, /*hc:d6*/CMI18n.company_contacts()/*hc*/,ContactConsts.descriptorName)/*hc:d2_6*//*hc*/
-			, new PropFDesc(CompanyConsts.k_propsUser, CMI18n.company_propsUser(), CompanyConsts.propUser)
-		);
-		
-		objDesc.setDefaultOrderKey(getOrderKey());
-		return objDesc;
-	}
+    public static final String roFRD = "roFrd";
 
-	@Override
-	public TableRDesc getTableRDesc() {
-		TableRDesc tableRDesc = new TableRDesc(CompanyConsts.descriptorName);
-			
-		tableRDesc.getRootNode()
-			.addChild(CompanyConsts.k_name, new ColRDesc(/*hc:tdr1_2*/true/*hc*/)/*hc:tdr2_2*//*hc*/)
-			.addChild(CompanyConsts.k_phone, new ColRDesc(/*hc:tdr1_3*/true/*hc*/)/*hc:tdr2_3*//*hc*/)
-			.addChild(CompanyConsts.k_email, new ColRDesc(/*hc:tdr1_4*/true/*hc*/)/*hc:tdr2_4*//*hc*/)
-			.addChild(CompanyConsts.k_webPage, new ColRDesc(/*hc:tdr1_5*/true/*hc*/)/*hc:tdr2_5*//*hc*/)
-			.addChild(CompanyConsts.k_contacts, new ColRDesc(/*hc:tdr1_6*/false/*hc*/)/*hc:tdr2_6*//*hc*/)				
-			;
-		return tableRDesc;
-	}
-	
-	public FormRDesc getROFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(CompanyConsts.descriptorName);
-			
-		formRDesc.getRootNode()
-				.addChild(CompanyConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.LABEL/*hc*/))
-				.addChild(CompanyConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.LABEL/*hc*/))
-				.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.LABEL/*hc*/))
-				.addChild(CompanyConsts.k_contacts, new WidgetRDesc(/*hc:f6*/FWTypes.LABEL/*hc*/))
-				.addChild(CompanyConsts.k_propsUser, new WidgetRDesc(FWTypes.PROPSREADONLY, "showHeader:false"))
-			;
-		return formRDesc;
-	}
-	
-	@Override
-	public FormRDesc getFormRDesc() {
-		FormRDesc formRDesc = new FormRDesc(CompanyConsts.descriptorName/*hc:frd_props*/
-			
-			/*hc*/);
-		
-		//TODO remove labels
-		
-		formRDesc.getRootNode()
-			.addChild(CompanyConsts.k_name, new WidgetRDesc(/*hc:f2*/FWTypes.TEXTBOX/*hc*/)
-				.addProp(FWTypes.p_label, "a long text to read... bla bla bla b ert ert sdfsdfsd ert dfsdf  ertertret  dfgdfg. Bla bla bla b ert ert sdfsdfsd ert dfsdf  ertertret  dfgdfg!"))
-			.addChild(CompanyConsts.k_phone, new WidgetRDesc(/*hc:f3*/FWTypes.PHONE/*hc*/)
-				.addProp(FWTypes.p_label, "small label"))
-			.addChild(CompanyConsts.k_email, new WidgetRDesc(/*hc:f4*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(CompanyConsts.k_webPage, new WidgetRDesc(/*hc:f5*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(CompanyConsts.k_propsUser, new WidgetRDesc(FWTypes.PROPS))
-			;
-		return formRDesc;
-	}
+    public CompanyAssist(DescriptorStore descStore) {
+        super(descStore);
+    }
 
-	@Override
-	public ObjectDesc getSearchObjectDesc() {			
-		return new ObjectDesc(CompanyConsts.searchDescriptor
-			, new LongFDesc(CompanyConsts.s_id, /*hc:ds1*/"Id"/*hc*/)
-			, new StringFDesc(CompanyConsts.s_name, /*hc:ds2*/"Name"/*hc*/)
-			, new StringFDesc(CompanyConsts.s_phone, /*hc:ds3*/"Phone"/*hc*/)
-			, new StringFDesc(CompanyConsts.s_email, /*hc:ds4*/"Email"/*hc*/)
-			, new StringFDesc(CompanyConsts.s_webPage, /*hc:ds5*/"WebPage"/*hc*/)
-		);
-	}
-	
-	@Override
-	public FormRDesc getSearchFormRDesc() {
-		FormRDesc searchFormRDesc = new FormRDesc(CompanyConsts.searchDescriptor);
-			
-		searchFormRDesc.getRootNode().dummy()
-			.addChild(CompanyConsts.s_id, new WidgetRDesc(/*hc:fs1*/FWTypes.LABEL/*hc*/))
-			.addChild(CompanyConsts.s_name, new WidgetRDesc(/*hc:fs2*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(CompanyConsts.s_phone, new WidgetRDesc(/*hc:fs3*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(CompanyConsts.s_email, new WidgetRDesc(/*hc:fs4*/FWTypes.TEXTBOX/*hc*/))
-			.addChild(CompanyConsts.s_webPage, new WidgetRDesc(/*hc:fs5*/FWTypes.TEXTBOX/*hc*/))
-			;
-		return searchFormRDesc;
-	}
+    @Override
+    protected void registerExtraDescriptors() {
+        descStore.addNamedTypedDesc(
+            Marker.registered,
+            CompanyConsts.descriptorName,
+            roFRD,
+            getROFormRDesc());
+    }
 
-	public static String getOrderKey(){
-		//displayname field
-		String key = "";
-		return key;
-	}
+    @Override
+    public ValidatorDesc getValidatorDesc() {
+        return new ValidatorDesc(CompanyConsts.descriptorName, new String[] {/*
+                                                                              * hc:
+                                                                              * vd1
+                                                                              */
+
+        /* hc */});
+    }
+
+    @Override
+    public ObjectDesc getObjectDesc() {
+        ObjectDesc objDesc =
+            new ObjectDesc(
+                CompanyConsts.descriptorName,
+                new LongFDesc(CompanyConsts.k_id, /* hc:d1 */CMI18n.company_id()/* hc */)/*
+                                                                                          * hc
+                                                                                          * :
+                                                                                          * d2_1
+                                                                                          *//* hc */
+                ,
+                new StringFDesc(CompanyConsts.k_name, /* hc:d2 */CMI18n.company_name()/* hc */)/*
+                                                                                                * hc
+                                                                                                * :
+                                                                                                * d2_2
+                                                                                                *//* hc */
+                .mandatory(),
+                new StringFDesc(CompanyConsts.k_phone, /* hc:d3 */CMI18n.company_phone()/* hc */)/*
+                                                                                                  * hc
+                                                                                                  * :
+                                                                                                  * d2_3
+                                                                                                  *//* hc */
+                .mandatory(),
+                new StringFDesc(CompanyConsts.k_email, /* hc:d4 */CMI18n.company_email()/* hc */)/*
+                                                                                                  * hc
+                                                                                                  * :
+                                                                                                  * d2_4
+                                                                                                  *//* hc */
+                .email().mandatory(),
+                new StringFDesc(CompanyConsts.k_webPage, /* hc:d5 */CMI18n.company_webPage()/* hc */)/*
+                                                                                                      * hc
+                                                                                                      * :
+                                                                                                      * d2_5
+                                                                                                      *//* hc */
+                .mandatory(),
+                new ListFDesc(
+                    CompanyConsts.k_contacts, /* hc:d6 */
+                    CMI18n.company_contacts()/* hc */,
+                    ContactConsts.descriptorName)/* hc:d2_6 *//* hc */
+                , new PropFDesc(
+                    CompanyConsts.k_propsUser,
+                    CMI18n.company_propsUser(),
+                    CompanyConsts.propUser));
+
+        objDesc.setDefaultOrderKey(getOrderKey());
+        return objDesc;
+    }
+
+    @Override
+    public TableRDesc getTableRDesc() {
+        TableRDesc tableRDesc = new TableRDesc(CompanyConsts.descriptorName);
+
+        tableRDesc
+            .getRootNode()
+            .addChild(CompanyConsts.k_name, new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
+                                                                                      * hc
+                                                                                      * :
+                                                                                      * tdr2_2
+                                                                                      *//* hc */)
+            .addChild(CompanyConsts.k_phone, new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
+                                                                                       * hc
+                                                                                       * :
+                                                                                       * tdr2_3
+                                                                                       *//* hc */)
+            .addChild(CompanyConsts.k_email, new ColRDesc(/* hc:tdr1_4 */true/* hc */)/*
+                                                                                       * hc
+                                                                                       * :
+                                                                                       * tdr2_4
+                                                                                       *//* hc */)
+            .addChild(CompanyConsts.k_webPage, new ColRDesc(/* hc:tdr1_5 */true/* hc */)/*
+                                                                                         * hc
+                                                                                         * :
+                                                                                         * tdr2_5
+                                                                                         *//* hc */)
+            .addChild(CompanyConsts.k_contacts, new ColRDesc(/* hc:tdr1_6 */false/* hc */)/*
+                                                                                           * hc
+                                                                                           * :
+                                                                                           * tdr2_6
+                                                                                           *//* hc */);
+        return tableRDesc;
+    }
+
+    public FormRDesc getROFormRDesc() {
+        FormRDesc formRDesc = new FormRDesc(CompanyConsts.descriptorName);
+
+        formRDesc
+            .getRootNode()
+            .addChild(CompanyConsts.k_phone, new WidgetRDesc(/* hc:f3 */FWTypes.LABEL/* hc */))
+            .addChild(CompanyConsts.k_email, new WidgetRDesc(/* hc:f4 */FWTypes.LABEL/* hc */))
+            .addChild(CompanyConsts.k_webPage, new WidgetRDesc(/* hc:f5 */FWTypes.LABEL/* hc */))
+            .addChild(CompanyConsts.k_contacts, new WidgetRDesc(/* hc:f6 */FWTypes.LABEL/* hc */))
+            .addChild(
+                CompanyConsts.k_propsUser,
+                new WidgetRDesc(FWTypes.PROPSREADONLY, "showHeader:false"));
+        return formRDesc;
+    }
+
+    @Override
+    public FormRDesc getFormRDesc() {
+        FormRDesc formRDesc = new FormRDesc(CompanyConsts.descriptorName/*
+                                                                         * hc:
+                                                                         * frd_props
+                                                                         */
+
+        /* hc */);
+
+        // TODO remove labels
+
+        formRDesc
+            .getRootNode()
+            .addChild(
+                CompanyConsts.k_name,
+                new WidgetRDesc(/* hc:f2 */FWTypes.TEXTBOX/* hc */)
+                    .addProp(
+                        FWTypes.p_label,
+                        "a long text to read... bla bla bla b ert ert sdfsdfsd ert dfsdf  ertertret  dfgdfg. Bla bla bla b ert ert sdfsdfsd ert dfsdf  ertertret  dfgdfg!"))
+            .addChild(
+                CompanyConsts.k_phone,
+                new WidgetRDesc(/* hc:f3 */FWTypes.PHONE/* hc */).addProp(
+                    FWTypes.p_label,
+                    "small label"))
+            .addChild(CompanyConsts.k_email, new WidgetRDesc(/* hc:f4 */FWTypes.TEXTBOX/* hc */))
+            .addChild(CompanyConsts.k_webPage, new WidgetRDesc(/* hc:f5 */FWTypes.TEXTBOX/* hc */))
+            .addChild(CompanyConsts.k_propsUser, new WidgetRDesc(FWTypes.PROPS));
+        return formRDesc;
+    }
+
+    @Override
+    public ObjectDesc getSearchObjectDesc() {
+        return new ObjectDesc(
+            CompanyConsts.searchDescriptor,
+            new LongFDesc(CompanyConsts.s_id, /* hc:ds1 */"Id"/* hc */),
+            new StringFDesc(CompanyConsts.s_name, /* hc:ds2 */"Name"/* hc */),
+            new StringFDesc(CompanyConsts.s_phone, /* hc:ds3 */"Phone"/* hc */),
+            new StringFDesc(CompanyConsts.s_email, /* hc:ds4 */"Email"/* hc */),
+            new StringFDesc(CompanyConsts.s_webPage, /* hc:ds5 */"WebPage"/* hc */));
+    }
+
+    @Override
+    public FormRDesc getSearchFormRDesc() {
+        FormRDesc searchFormRDesc = new FormRDesc(CompanyConsts.searchDescriptor);
+
+        searchFormRDesc
+            .getRootNode()
+            .dummy()
+            .addChild(CompanyConsts.s_id, new WidgetRDesc(/* hc:fs1 */FWTypes.LABEL/* hc */))
+            .addChild(CompanyConsts.s_name, new WidgetRDesc(/* hc:fs2 */FWTypes.TEXTBOX/* hc */))
+            .addChild(CompanyConsts.s_phone, new WidgetRDesc(/* hc:fs3 */FWTypes.TEXTBOX/* hc */))
+            .addChild(CompanyConsts.s_email, new WidgetRDesc(/* hc:fs4 */FWTypes.TEXTBOX/* hc */))
+            .addChild(CompanyConsts.s_webPage, new WidgetRDesc(/* hc:fs5 */FWTypes.TEXTBOX/* hc */));
+        return searchFormRDesc;
+    }
+
+    public static String getOrderKey() {
+        // displayname field
+        String key = "";
+        return key;
+    }
 }

@@ -6,21 +6,21 @@ import com.google.gwt.event.shared.HandlerRegistration;
 
 public class HandlerHandler {
 
-	public HandlerHandler() {
-	}
+    public HandlerHandler() {}
 
-	private List<HandlerRegistration> handlerRegistrations = new java.util.ArrayList<HandlerRegistration>();
+    private List<HandlerRegistration> handlerRegistrations =
+        new java.util.ArrayList<HandlerRegistration>();
 
-	public void registerHandler(HandlerRegistration handlerRegistration) {
-		handlerRegistrations.add(handlerRegistration);
-	}
+    public void registerHandler(HandlerRegistration handlerRegistration) {
+        handlerRegistrations.add(handlerRegistration);
+    }
 
-	public void unregister() {
-		for (HandlerRegistration reg : handlerRegistrations) {
-			if (reg != null)
-				reg.removeHandler();
-		}
-		handlerRegistrations.clear();
-	}
+    public void unregister() {
+        for (HandlerRegistration reg : handlerRegistrations) {
+            if (reg != null)
+                reg.removeHandler();
+        }
+        handlerRegistrations.clear();
+    }
 
 }

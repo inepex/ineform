@@ -5,38 +5,37 @@ import com.inepex.ineForm.shared.types.FWTypes;
 
 public class WidgetRDesc extends FormRDescBase {
 
-	private static final long serialVersionUID = -8017885749027661786L;
-	
-	private FWTypes formWidgetType;
+    private static final long serialVersionUID = -8017885749027661786L;
 
-	public WidgetRDesc() {
-	}
-	
-	public WidgetRDesc(FWTypes formWidgetType) {
-		this.formWidgetType = formWidgetType;
-	}
+    private FWTypes formWidgetType;
 
-	public WidgetRDesc(FWTypes formWidgetType, String... propList) {
-		this(formWidgetType);
-		addProps(propList);
-	}
+    public WidgetRDesc() {}
 
-	public FWTypes getFormWidgetType() {
-		return formWidgetType;
-	}
-	
-	public WidgetRDesc setDisplayName(String displayName) {
-		return setDisplayName(displayName, WidgetRDesc.class);
-	}
+    public WidgetRDesc(FWTypes formWidgetType) {
+        this.formWidgetType = formWidgetType;
+    }
 
-	public WidgetRDesc width(int pixel) {
-		addProp(SimpleTableFormUnit.WIDTH, pixel+"px");
-		return this;
-	}
-	
-	@Override
-	public WidgetRDesc addProp(String name, String value) {
-		super.addProp(name, value);
-		return this;
-	}
+    public WidgetRDesc(FWTypes formWidgetType, String... propList) {
+        this(formWidgetType);
+        addProps(propList);
+    }
+
+    public FWTypes getFormWidgetType() {
+        return formWidgetType;
+    }
+
+    public WidgetRDesc setDisplayName(String displayName) {
+        return setDisplayName(displayName, WidgetRDesc.class);
+    }
+
+    public WidgetRDesc width(int pixel) {
+        addProp(SimpleTableFormUnit.WIDTH, pixel + "px");
+        return this;
+    }
+
+    @Override
+    public WidgetRDesc addProp(String name, String value) {
+        super.addProp(name, value);
+        return this;
+    }
 }

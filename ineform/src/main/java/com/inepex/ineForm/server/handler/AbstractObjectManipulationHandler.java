@@ -17,56 +17,57 @@ import com.inepex.ineom.shared.validation.ValidationException;
 import com.inepex.ineom.shared.validation.ValidationResult;
 
 /**
- * Abstract class for Object Manipulation type of actions.
- * Makes it easier to prepare the result that a {@link IneForm} can consume.
- * Sets {@link ValidationResult} when {@link ValidationException} is thrown.
+ * Abstract class for Object Manipulation type of actions. Makes it easier to
+ * prepare the result that a {@link IneForm} can consume. Sets
+ * {@link ValidationResult} when {@link ValidationException} is thrown.
  * 
  * @author istvanszoboszlai
  *
  * @param <A>
  */
-public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectManipulationActionResult>> implements
-		ActionHandler<A, ObjectManipulationActionResult> {
-	
-	final KeyValueObjectValidationManager validatorManager;
-	
-	public AbstractObjectManipulationHandler(KeyValueObjectValidationManager validatorManager) {
-		this.validatorManager = validatorManager;
-	}
-	
-	@Override
-	public ObjectManipulationActionResult execute(A arg0, ExecutionContext arg1)
-			throws DispatchException {
-		ObjectManipulationActionResult result = null;
-		try {
-			result = doExecute(arg0, arg1);
-		} catch (ValidationException e) {
-			result = new ObjectManipulationActionResult(e.getValidationResult());
-		}
-		
-		return result;
-	}
-	
-	protected void doValidate(KeyValueObject kvo) throws ValidationException {
-		ValidationResult vr = validatorManager.validate(kvo);
-		if(!vr.isValid()) 
-			throw new ValidationException(vr);	
-	}
-	
-	/**
-	 * @param action
-	 * @param context
-	 * @throws ValidationException
-	 * @throws AuthenticationException
-	 * @throws NamingException
-	 */
-	protected abstract ObjectManipulationActionResult doExecute(A action, ExecutionContext context)
-							throws ValidationException, AuthenticationException, ActionException;
+public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectManipulationActionResult>>
+    implements
+    ActionHandler<A, ObjectManipulationActionResult> {
 
+    final KeyValueObjectValidationManager validatorManager;
 
-	@Override
-	public void rollback(A arg0, ObjectManipulationActionResult arg1,
-			ExecutionContext arg2) throws DispatchException {
-	}
+    public AbstractObjectManipulationHandler(KeyValueObjectValidationManager validatorManager) {
+        this.validatorManager = validatorManager;
+    }
+
+    @Override
+    public ObjectManipulationActionResult execute(A arg0, ExecutionContext arg1)
+        throws DispatchException {
+        ObjectManipulationActionResult result = null;
+        try {
+            result = doExecute(arg0, arg1);
+        } catch (ValidationException e) {
+            result = new ObjectManipulationActionResult(e.getValidationResult());
+        }
+
+        return result;
+    }
+
+    protected void doValidate(KeyValueObject kvo) throws ValidationException {
+        ValidationResult vr = validatorManager.validate(kvo);
+        if (!vr.isValid())
+            throw new ValidationException(vr);
+    }
+
+    /**
+     * @param action
+     * @param context
+     * @throws ValidationException
+     * @throws AuthenticationException
+     * @throws NamingException
+     */
+    protected abstract ObjectManipulationActionResult doExecute(A action, ExecutionContext context)
+        throws ValidationException,
+        AuthenticationException,
+        ActionException;
+
+    @Override
+    public void rollback(A arg0, ObjectManipulationActionResult arg1, ExecutionContext arg2)
+        throws DispatchException {}
 
 }

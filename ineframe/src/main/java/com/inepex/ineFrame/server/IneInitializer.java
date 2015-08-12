@@ -6,8 +6,12 @@ import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public interface IneInitializer {
-	void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider);
-	void registerAssists(DescriptorStore descStore);
-	void setupDefaults();
+    void registerAdditionalI18nModules(
+        I18nStore_Server serverI18n,
+        Provider<CurrentLang> currentLangProvider);
+
+    void registerAssists(DescriptorStore descStore);
+
+    void setupDefaults();
 
 }

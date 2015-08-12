@@ -10,112 +10,114 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public class AssistedObjectHandler extends AssistedObjectChecker {
-	
-	private final DescriptorStore descriptorStore;
 
-	public AssistedObjectHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
-		super(assistedObject, assistedObject.getDescriptorName(), descriptorStore.getOD(assistedObject.getDescriptorName()));
-		this.descriptorStore=descriptorStore;
-	
-		if (descriptorName == null)
-			throw new IllegalArgumentException("No desciptorName!");
+    private final DescriptorStore descriptorStore;
 
-		if (objectDescriptor == null)
-			throw new IllegalArgumentException("No object descriptor registered for '"+descriptorName+"'");
-	}
-	
-	protected AssistedObjectHandler(String descriptorName){
-		super(descriptorName);
-		this.descriptorStore = null;
-	}
-	
-	public static AssistedObjectHandler createUnchecked(String descName){
-		return new AssistedObjectHandler(descName);
-	}
+    public AssistedObjectHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+        super(assistedObject, assistedObject.getDescriptorName(), descriptorStore
+            .getOD(assistedObject.getDescriptorName()));
+        this.descriptorStore = descriptorStore;
 
-	// -------------------------------------------------------
-	// related methods
-	// -------------------------------------------------------
-	public Boolean getRelatedBoolean(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getBoolean(id.get(id.size() - 1));
-	}
+        if (descriptorName == null)
+            throw new IllegalArgumentException("No desciptorName!");
 
-	public Double getRelatedDouble(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getDouble(id.get(id.size() - 1));
-	}
+        if (objectDescriptor == null)
+            throw new IllegalArgumentException("No object descriptor registered for '"
+                + descriptorName
+                + "'");
+    }
 
-	public IneList getRelatedList(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getList(id.get(id.size() - 1));
-	}
+    protected AssistedObjectHandler(String descriptorName) {
+        super(descriptorName);
+        this.descriptorStore = null;
+    }
 
-	public Long getRelatedLongUnchecked(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getLongUnchecked(id.get(id.size() - 1));
-	}
+    public static AssistedObjectHandler createUnchecked(String descName) {
+        return new AssistedObjectHandler(descName);
+    }
 
-	public Long getRelatedLong(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getLong(id.get(id.size() - 1));
-	}
+    // -------------------------------------------------------
+    // related methods
+    // -------------------------------------------------------
+    public Boolean getRelatedBoolean(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getBoolean(id.get(id.size() - 1));
+    }
 
-	public Relation getRelatedRelation(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getRelation(id.get(id.size() - 1));
-	}
+    public Double getRelatedDouble(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getDouble(id.get(id.size() - 1));
+    }
 
-	public String getRelatedString(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getString(id.get(id.size() - 1));
-	}
+    public IneList getRelatedList(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getList(id.get(id.size() - 1));
+    }
 
-	public String getRelatedStringUnchecked(String dotSeparetedKeys) {
-		List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
-		AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
-		return handler.getStringUnchecked(id.get(id.size() - 1));
-	}
+    public Long getRelatedLongUnchecked(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getLongUnchecked(id.get(id.size() - 1));
+    }
 
-	// -------------------------------------------------------
-	// helper methods
-	// -------------------------------------------------------
+    public Long getRelatedLong(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getLong(id.get(id.size() - 1));
+    }
 
-	public AssistedObjectHandler getRelatedKVOMultiLevel(List<String> path) {
-		AssistedObjectHandler actual = this;
-		for (int i = 0; i < path.size() - 1; i++) {
-			Relation rel = actual.getRelation(path.get(i));
-			if (rel == null) {
-				rel = new Relation(IFConsts.NEW_ITEM_ID, "");
-				actual.set(path.get(i), rel);
-			}
+    public Relation getRelatedRelation(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getRelation(id.get(id.size() - 1));
+    }
 
-			if (rel.getKvo() == null) {
-				RelationFDesc relDescriptor = (RelationFDesc) descriptorStore
-						.getOD(actual.getDescriptorName()).getField(
-								path.get(i));
-				rel.setKvo(new KeyValueObject(relDescriptor
-						.getRelatedDescriptorName()));
-			}
+    public String getRelatedString(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getString(id.get(id.size() - 1));
+    }
 
-			actual = new AssistedObjectHandler(rel.getKvo(), descriptorStore);
-		}
-		
-		return actual;
-	}
-	
-	public <T extends Enum<T>> T getEnum(String key, Class<T> enumType) {
-		Long l = getLong(key);
-		if (l == null)
-			return null;
-		else
-			return enumType.getEnumConstants()[l.intValue()];
-	}
+    public String getRelatedStringUnchecked(String dotSeparetedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+        AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
+        return handler.getStringUnchecked(id.get(id.size() - 1));
+    }
+
+    // -------------------------------------------------------
+    // helper methods
+    // -------------------------------------------------------
+
+    public AssistedObjectHandler getRelatedKVOMultiLevel(List<String> path) {
+        AssistedObjectHandler actual = this;
+        for (int i = 0; i < path.size() - 1; i++) {
+            Relation rel = actual.getRelation(path.get(i));
+            if (rel == null) {
+                rel = new Relation(IFConsts.NEW_ITEM_ID, "");
+                actual.set(path.get(i), rel);
+            }
+
+            if (rel.getKvo() == null) {
+                RelationFDesc relDescriptor =
+                    (RelationFDesc) descriptorStore.getOD(actual.getDescriptorName()).getField(
+                        path.get(i));
+                rel.setKvo(new KeyValueObject(relDescriptor.getRelatedDescriptorName()));
+            }
+
+            actual = new AssistedObjectHandler(rel.getKvo(), descriptorStore);
+        }
+
+        return actual;
+    }
+
+    public <T extends Enum<T>> T getEnum(String key, Class<T> enumType) {
+        Long l = getLong(key);
+        if (l == null)
+            return null;
+        else
+            return enumType.getEnumConstants()[l.intValue()];
+    }
 }

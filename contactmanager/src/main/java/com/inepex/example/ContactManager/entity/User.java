@@ -14,112 +14,109 @@ import com.inepex.ineForm.annotations.Kvo_Transparent;
 import com.inepex.ineFrame.server.auth.AuthUser;
 
 @Entity
-public class User implements AuthUser{
+public class User implements AuthUser {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam
-	private Long id;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String firstName;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String lastName;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String email;
-	
-	@Kvo_Transparent
-	@Column(nullable=false)
-	private String password;
-	
-	public User(){
-	}
-	
-	public User(Long id){
-		this.id=id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Kvo_SearchParam
+    private Long id;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String firstName;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String lastName;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String email;
+
+    @Kvo_Transparent
+    @Column(nullable = false)
+    private String password;
+
+    public User() {}
+
+    public User(Long id) {
+        this.id = id;
     }
 
-	public User(String firstName, String lastName, String email, String password) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-	}
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
-	@Override
-	public Long getUserId() {
-		return id;
-	}
+    @Override
+    public Long getUserId() {
+        return id;
+    }
 
-	@Override
-	public String getDisplayName() {
-		return firstName+" "+lastName;
-	}
-	
+    @Override
+    public String getDisplayName() {
+        return firstName + " " + lastName;
+    }
 
-	@Override
-	public String getUserAuthString() {
-		return email;
-	}
+    @Override
+    public String getUserAuthString() {
+        return email;
+    }
 
-	@Override
-	public Set<String> getAllowedRoles() {
-		return null;
-	}
-	 
-	
-	@Override
-	public String toString() {
-		return firstName+" "+lastName;
-	}
+    @Override
+    public Set<String> getAllowedRoles() {
+        return null;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	public String getFirstName() {
-		return firstName;
-	}
-	
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	@Override
-	public Map<String, String> getUserJsonProps() {
-		return null;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    @Override
+    public Map<String, String> getUserJsonProps() {
+        return null;
+    }
 }

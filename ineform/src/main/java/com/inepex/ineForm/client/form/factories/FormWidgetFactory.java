@@ -9,15 +9,17 @@ import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 /**
- * FormWidgetFactory create the widgets of the display... use DefaultFormWidgetFactory or create a new one
+ * FormWidgetFactory create the widgets of the display... use
+ * DefaultFormWidgetFactory or create a new one
  *
  */
 public interface FormWidgetFactory {
-	FormWidget createWidget(FormContext formCtx
-			 , AbstractFormUnit form
-			 , FDesc fieldDesc
-			 , WidgetRDesc wrDesc
-			 , Provider<PropFW.View> propView);
-	
-	FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc);
+    FormWidget createWidget(
+        FormContext formCtx,
+        AbstractFormUnit form,
+        FDesc fieldDesc,
+        WidgetRDesc wrDesc,
+        Provider<PropFW.View> propView);
+
+    FormWidget createDecorator(FormWidget formWidget, FDesc fieldDesc, WidgetRDesc wrDesc);
 }

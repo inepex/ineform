@@ -20,53 +20,55 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
- * To customize persist, merge or remove behaviour override persist(E), merge(E) or remove(E). (Don't 
- * forget to call super.persist, super.merge ...)
+ * To customize persist, merge or remove behaviour override persist(E), merge(E)
+ * or remove(E). (Don't forget to call super.persist, super.merge ...)
  * 
  */
 @Singleton
 public class ContactDao extends BaseDao<Contact> {
-	
-	private final DescriptorStore descStore;
-	
-	@Inject
-	public ContactDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
-		, AssistedObjectHandlerFactory handlerFactory
-		, DescriptorStore descStore,
-		PropDao propDao){
-		super(em, objectFactory, handlerFactory);
-		this.descStore=descStore;
-		setMongoDao(propDao);
-	}
 
-	@Override
-	public BaseQuery<Contact> getQuery() {
-		return new ContactQuery(descStore);
-	}
+    private final DescriptorStore descStore;
 
-	@Override
-	public BaseMapper<Contact> getMapper() {
-		return new ContactMapper(descStore);
-	}
+    @Inject
+    public ContactDao(
+        Provider<EntityManager> em,
+        ManipulationObjectFactory objectFactory,
+        AssistedObjectHandlerFactory handlerFactory,
+        DescriptorStore descStore,
+        PropDao propDao) {
+        super(em, objectFactory, handlerFactory);
+        this.descStore = descStore;
+        setMongoDao(propDao);
+    }
 
-	@Override
-	public CriteriaSelector<Contact, Contact> getSelector() {
-		return new CriteriaSelector<Contact, Contact>(em, getQuery(), Contact.class, Contact.class);
-	}
+    @Override
+    public BaseQuery<Contact> getQuery() {
+        return new ContactQuery(descStore);
+    }
 
-	@Override
-	public CriteriaSelector<Long, Contact> getCountSelector() {
-		return new CriteriaSelector<Long, Contact>(em, getQuery(), Long.class, Contact.class);
-	}
+    @Override
+    public BaseMapper<Contact> getMapper() {
+        return new ContactMapper(descStore);
+    }
 
-	@Override
-	public Class<Contact> getClazz() {
-		return Contact.class;
-	}
+    @Override
+    public CriteriaSelector<Contact, Contact> getSelector() {
+        return new CriteriaSelector<Contact, Contact>(em, getQuery(), Contact.class, Contact.class);
+    }
 
-	@Override
-	public Contact newInstance() {
-		return new Contact();
-	}
-		
+    @Override
+    public CriteriaSelector<Long, Contact> getCountSelector() {
+        return new CriteriaSelector<Long, Contact>(em, getQuery(), Long.class, Contact.class);
+    }
+
+    @Override
+    public Class<Contact> getClazz() {
+        return Contact.class;
+    }
+
+    @Override
+    public Contact newInstance() {
+        return new Contact();
+    }
+
 }

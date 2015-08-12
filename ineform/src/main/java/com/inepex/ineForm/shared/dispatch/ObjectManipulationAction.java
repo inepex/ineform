@@ -19,98 +19,107 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
  * @author István Szoboszlai
  *
  */
-public class ObjectManipulationAction implements Action<ObjectManipulationActionResult>, Loggable, ObjectManipulation {
+public class ObjectManipulationAction
+    implements
+    Action<ObjectManipulationActionResult>,
+    Loggable,
+    ObjectManipulation {
 
-	private static final long serialVersionUID = -7036154087856790606L;
+    private static final long serialVersionUID = -7036154087856790606L;
 
-	private ManipulationTypes manipulationType;
-	private AssistedObject object;
-	private Long idToRefresh;
-	private List<String> propGroups = new ArrayList<String>();
-	private Long executingUser;
-	
-	public ObjectManipulationAction() {
-	}
-	
-	public ObjectManipulationAction(String descriptorName, Long idToRefresh) {
-		this.manipulationType=ManipulationTypes.REFRESH;
-		this.idToRefresh=idToRefresh;
-		this.object = new KeyValueObject(descriptorName);
-	}
+    private ManipulationTypes manipulationType;
+    private AssistedObject object;
+    private Long idToRefresh;
+    private List<String> propGroups = new ArrayList<String>();
+    private Long executingUser;
 
-	public ObjectManipulationAction(ManipulationTypes manipulationType,
-			AssistedObject object) {
-		this.manipulationType = manipulationType;
-		this.object = object;
+    public ObjectManipulationAction() {}
 
-	}
-	
-	public ObjectManipulationAction(List<String> propGroups) {
-		this.propGroups = propGroups;
-	}
+    public ObjectManipulationAction(String descriptorName, Long idToRefresh) {
+        this.manipulationType = ManipulationTypes.REFRESH;
+        this.idToRefresh = idToRefresh;
+        this.object = new KeyValueObject(descriptorName);
+    }
 
-	@Override
-	public ManipulationTypes getManipulationType() {
-		return manipulationType;
-	}
+    public ObjectManipulationAction(ManipulationTypes manipulationType, AssistedObject object) {
+        this.manipulationType = manipulationType;
+        this.object = object;
 
-	@Override
-	public void setManipulationType(ManipulationTypes manipulationType) {
-		this.manipulationType = manipulationType;
-	}
+    }
 
-	@Override
-	public AssistedObject getObject() {
-		return object;
-	}
+    public ObjectManipulationAction(List<String> propGroups) {
+        this.propGroups = propGroups;
+    }
 
-	@Override
-	public void setObject(AssistedObject object) {
-		this.object = object;
-	}
+    @Override
+    public ManipulationTypes getManipulationType() {
+        return manipulationType;
+    }
 
-	@Override
-	public String getActionName() {
-		return "Manipulate '" + object.getDescriptorName() + "'";
-	}
+    @Override
+    public void setManipulationType(ManipulationTypes manipulationType) {
+        this.manipulationType = manipulationType;
+    }
 
-	@Override
-	public String getActionParamteres() {
-		return this.toString();
-	}
-	
-	@Override
-	public String toString() {
-		return "ObjectManipulationAction [manipulationType=" + manipulationType + ", object=" + object + ", idToRefresh="
-				+ idToRefresh + ", propGroups=" + propGroups + "]";
-	}
+    @Override
+    public AssistedObject getObject() {
+        return object;
+    }
 
-	@Override
-	public Long getIdToRefresh() {
-		return idToRefresh;
-	}
-	
-	@Override
-	public void setIdToRefresh(Long idToRefresh) {
-		this.idToRefresh = idToRefresh;
-	}
+    @Override
+    public void setObject(AssistedObject object) {
+        this.object = object;
+    }
 
-	@Override
-	public void setPropGroups(String... propGroups) {
-		this.propGroups = Arrays.asList(propGroups);
-	}
+    @Override
+    public String getActionName() {
+        return "Manipulate '" + object.getDescriptorName() + "'";
+    }
 
-	@Override
-	public List<String> getPropGroups() {
-		return propGroups;
-	}
+    @Override
+    public String getActionParamteres() {
+        return this.toString();
+    }
 
-	public Long getExecutingUser() {
-		return executingUser;
-	}
+    @Override
+    public String toString() {
+        return "ObjectManipulationAction [manipulationType="
+            + manipulationType
+            + ", object="
+            + object
+            + ", idToRefresh="
+            + idToRefresh
+            + ", propGroups="
+            + propGroups
+            + "]";
+    }
 
-	public void setExecutingUser(Long executingUser) {
-		this.executingUser = executingUser;
-	}
+    @Override
+    public Long getIdToRefresh() {
+        return idToRefresh;
+    }
+
+    @Override
+    public void setIdToRefresh(Long idToRefresh) {
+        this.idToRefresh = idToRefresh;
+    }
+
+    @Override
+    public void setPropGroups(String... propGroups) {
+        this.propGroups = Arrays.asList(propGroups);
+    }
+
+    @Override
+    public List<String> getPropGroups() {
+        return propGroups;
+    }
+
+    public Long getExecutingUser() {
+        return executingUser;
+    }
+
+    public void setExecutingUser(Long executingUser) {
+        this.executingUser = executingUser;
+    }
 
 }

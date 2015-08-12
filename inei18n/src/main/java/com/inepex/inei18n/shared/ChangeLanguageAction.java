@@ -17,21 +17,20 @@ import com.inepex.inei18n.client.I18nStore_Client;
  * see {@link I18nStore_Client}
  */
 public class ChangeLanguageAction implements Action<SimpleResult> {
-	
-	private String requestedLanguage;
 
-	public ChangeLanguageAction() {
-	}
-	
-	public ChangeLanguageAction(String requestedLanguage) {
-		this.requestedLanguage = requestedLanguage;
-	}
-	
-	public String getRequestedLanguage() {
-		return requestedLanguage;
-	}
-	
-	public void setRequestedLanguage(String requestedLanguage) {
-		this.requestedLanguage = requestedLanguage;
-	}
+    private String requestedLanguage;
+
+    public ChangeLanguageAction() {}
+
+    public ChangeLanguageAction(String requestedLanguage) {
+        this.requestedLanguage = requestedLanguage;
+    }
+
+    public String getRequestedLanguage() {
+        return requestedLanguage;
+    }
+
+    public void setRequestedLanguage(String requestedLanguage) {
+        this.requestedLanguage = requestedLanguage;
+    }
 }

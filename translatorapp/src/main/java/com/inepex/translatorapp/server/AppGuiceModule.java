@@ -25,30 +25,31 @@ import com.inepex.translatorapp.shared.action.RowUploadAction;
 import com.inepex.translatorapp.shared.action.TestLangChangeAction;
 import com.inepex.translatorapp.shared.action.TransTableListAction;
 
-public class AppGuiceModule  extends ActionHandlerModule {
+public class AppGuiceModule extends ActionHandlerModule {
 
-	@Override
-	protected void configureHandlers() {
-		install(new IneFrameBaseServletModule("translatorapp", AppDispatchServlet.class));
-		install(new IneFrameBaseModule(true)
-			.setLoginHandler(LoginHandler.class)
-			.setAppLangs(TranslatorAppLangs.class));
-		install(new IneFormActionHanlderModule());
-		
-		bindHandler(RegAction.class, RegActionHandler.class);
-		bindHandler(TransTableListAction.class, TransTableListActionHandler.class);
-		bindHandler(RowListAction.class, RowListActionHandler.class);
-		bindHandler(TestLangChangeAction.class, TestLangChangeActionHandler.class);
-		bindHandler(LangChangeAction.class, LangChangeActionHandler.class);
-		bindHandler(RowUploadAction.class, RowUploadActionHandler.class);
-		
-		bindInterceptor(Matchers.subclassesOf(TranslatedValueDao.class),
-				Matchers.returns(Matchers.subclassesOf(ObjectManipulationResult.class)),
-				new TransValueModInterceptor(getProvider(SessionScopedAuthStat.class), getProvider(AssistedObjectHandlerFactory.class)));
-		
-		bindInterceptor(Matchers.subclassesOf(ModuleRowDao.class),
-				Matchers.returns(Matchers.subclassesOf(ObjectManipulationResult.class)),
-				new ModuleRowModInterceptor(getProvider(SessionScopedAuthStat.class), getProvider(AssistedObjectHandlerFactory.class)));
-	}
+    @Override
+    protected void configureHandlers() {
+        install(new IneFrameBaseServletModule("translatorapp", AppDispatchServlet.class));
+        install(new IneFrameBaseModule(true).setLoginHandler(LoginHandler.class).setAppLangs(
+            TranslatorAppLangs.class));
+        install(new IneFormActionHanlderModule());
+
+        bindHandler(RegAction.class, RegActionHandler.class);
+        bindHandler(TransTableListAction.class, TransTableListActionHandler.class);
+        bindHandler(RowListAction.class, RowListActionHandler.class);
+        bindHandler(TestLangChangeAction.class, TestLangChangeActionHandler.class);
+        bindHandler(LangChangeAction.class, LangChangeActionHandler.class);
+        bindHandler(RowUploadAction.class, RowUploadActionHandler.class);
+
+        bindInterceptor(Matchers.subclassesOf(TranslatedValueDao.class), Matchers.returns(Matchers
+            .subclassesOf(ObjectManipulationResult.class)), new TransValueModInterceptor(
+            getProvider(SessionScopedAuthStat.class),
+            getProvider(AssistedObjectHandlerFactory.class)));
+
+        bindInterceptor(Matchers.subclassesOf(ModuleRowDao.class), Matchers.returns(Matchers
+            .subclassesOf(ObjectManipulationResult.class)), new ModuleRowModInterceptor(
+            getProvider(SessionScopedAuthStat.class),
+            getProvider(AssistedObjectHandlerFactory.class)));
+    }
 
 }

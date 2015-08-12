@@ -9,39 +9,35 @@ import javax.persistence.OneToMany;
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 
 public class Contact {
-	@Id
-	Long id;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "contact", orphanRemoval=true)
-	@Kvo_SearchParam(secondLevelJoin = "nationality")
-	private List<ContactNatRel> nationalities;
-	
-	public Contact() {
+    @Id
+    Long id;
 
-	}
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contact", orphanRemoval = true)
+    @Kvo_SearchParam(secondLevelJoin = "nationality")
+    private List<ContactNatRel> nationalities;
 
-	public Contact(Long id) {
-		this.id = id;
-	}
+    public Contact() {
 
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Contact(Long id) {
+        this.id = id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public List<ContactNatRel> getNationalities() {
-		return nationalities;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNationalities(List<ContactNatRel> nationalities) {
-		this.nationalities = nationalities;
-	}
+    public List<ContactNatRel> getNationalities() {
+        return nationalities;
+    }
 
-	
-	
+    public void setNationalities(List<ContactNatRel> nationalities) {
+        this.nationalities = nationalities;
+    }
 
 }

@@ -6,50 +6,51 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
-public class DefaultLoginHandler extends AbstractLoginHandler<AuthUser,AuthStatusResultBase> {
+public class DefaultLoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResultBase> {
 
-	@Inject
-	protected DefaultLoginHandler(Provider<SessionScopedAuthStat> authStat,
-			Provider<HttpSession> sesionProvider,
-			Provider<SessionScopedCaptchaInfo> captchaInfoProvider) {
-		super(authStat, sesionProvider, captchaInfoProvider);
-		// TODO Auto-generated constructor stub
-	}
+    @Inject
+    protected DefaultLoginHandler(
+        Provider<SessionScopedAuthStat> authStat,
+        Provider<HttpSession> sesionProvider,
+        Provider<SessionScopedCaptchaInfo> captchaInfoProvider) {
+        super(authStat, sesionProvider, captchaInfoProvider);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	protected void mapAdditional(AuthUser user, AuthStatusResultBase result) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void mapAdditional(AuthUser user, AuthStatusResultBase result) {
+        // TODO Auto-generated method stub
 
-	@Override
-	protected AuthUser findByUserNameAndPassword(String userAuthString,
-			String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	protected AuthStatusResultBase createResultBase() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    protected AuthUser findByUserNameAndPassword(String userAuthString, String password) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	protected void setUserStaySignedInUUID(Long userId, String UUIDString) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected AuthStatusResultBase createResultBase() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public AuthUser checkSignedInUUIDForUserAndLogUserIntoIfCorrect(String userEmail, String userUUID,
-			AuthStatusResultBase result) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    protected void setUserStaySignedInUUID(Long userId, String UUIDString) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void refresh(AuthStatusResultBase result) {
-	}
+    }
+
+    @Override
+    public AuthUser checkSignedInUUIDForUserAndLogUserIntoIfCorrect(
+        String userEmail,
+        String userUUID,
+        AuthStatusResultBase result) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void refresh(AuthStatusResultBase result) {}
 
 }

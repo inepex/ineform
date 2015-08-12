@@ -5,11 +5,11 @@ import java.util.Collection;
 
 import com.inepex.inei18n.server.ApplicationLangs;
 
-public class CMAppLangs implements ApplicationLangs{
+public class CMAppLangs implements ApplicationLangs {
 
-	@Override
-	public Collection<String> getLangs() {
-		return Arrays.asList("en", "hu");
-	}
+    @Override
+    public Collection<String> getLangs() {
+        return Arrays.asList("en", "hu");
+    }
 
 }

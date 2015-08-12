@@ -19,53 +19,55 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 @Singleton
 public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListActionResult> {
-	
-	private static final Logger _logger = LoggerFactory
-			.getLogger(ObjectListHandler.class);
 
+    private static final Logger _logger = LoggerFactory.getLogger(ObjectListHandler.class);
 
-	private final DaoFinder daoFinder;
-	private CustomActionHandler customActionHandler = null;
-	@Inject Provider<SessionScopedAuthStat> authProv;
-	
-	@Inject
-	ObjectListHandler(DaoFinder daoFinder) {
-		this.daoFinder=daoFinder;
-	}
-	
-	public void setCustomActionHandler(CustomActionHandler customActionHandler) {
-		this.customActionHandler = customActionHandler;
-	}
-	
-	@Override
-	public ObjectListActionResult doExecute(ObjectListAction action, ExecutionContext context)
-							throws AuthenticationException, DispatchException {
-		String descriptorName = action.getDescriptorName();
-		SessionScopedAuthStat stat = authProv.get();
-		Long userId;
-		synchronized (stat) {
-			userId = stat.getUserId();
-		}
-		action.setExecutingUser(userId);
-		try {
-			ObjectListActionResult result;
-			if (customActionHandler !=null) {
-				result = customActionHandler.doCustomAction(action);
-				if (result != null)
-					return result;
-			}
-			
-			return (ObjectListActionResult)daoFinder.getDefaultDaoForDescriptor(descriptorName).search(action);
+    private final DaoFinder daoFinder;
+    private CustomActionHandler customActionHandler = null;
+    @Inject
+    Provider<SessionScopedAuthStat> authProv;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			_logger.warn(e.getMessage());
-			throw new ActionException("Problem while performing search action: " + e.getMessage());
-		}
-	}
+    @Inject
+    ObjectListHandler(DaoFinder daoFinder) {
+        this.daoFinder = daoFinder;
+    }
 
-	@Override
-	public Class<ObjectListAction> getActionType() {
-		return ObjectListAction.class;
-	}
+    public void setCustomActionHandler(CustomActionHandler customActionHandler) {
+        this.customActionHandler = customActionHandler;
+    }
+
+    @Override
+    public ObjectListActionResult doExecute(ObjectListAction action, ExecutionContext context)
+        throws AuthenticationException,
+        DispatchException {
+        String descriptorName = action.getDescriptorName();
+        SessionScopedAuthStat stat = authProv.get();
+        Long userId;
+        synchronized (stat) {
+            userId = stat.getUserId();
+        }
+        action.setExecutingUser(userId);
+        try {
+            ObjectListActionResult result;
+            if (customActionHandler != null) {
+                result = customActionHandler.doCustomAction(action);
+                if (result != null)
+                    return result;
+            }
+
+            return (ObjectListActionResult) daoFinder
+                .getDefaultDaoForDescriptor(descriptorName)
+                .search(action);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            _logger.warn(e.getMessage());
+            throw new ActionException("Problem while performing search action: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Class<ObjectListAction> getActionType() {
+        return ObjectListAction.class;
+    }
 }

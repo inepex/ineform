@@ -7,9 +7,9 @@ import com.inepex.ineFrame.shared.util.NumberFormatter;
 @Singleton
 public class GwtNumberFormatter implements NumberFormatter {
 
-	@Override
-	public String format(String format, double number) {
-		return NumberFormat.getFormat(format).format(number);
-	}
+    @Override
+    public String format(String format, double number) {
+        return NumberFormat.getFormat(format).format(number);
+    }
 
 }

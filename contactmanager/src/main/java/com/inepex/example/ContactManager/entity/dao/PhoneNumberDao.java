@@ -19,51 +19,61 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
- * To customize persist, merge or remove behaviour override persist(E), merge(E) or remove(E). (Don't 
- * forget to call super.persist, super.merge ...)
+ * To customize persist, merge or remove behaviour override persist(E), merge(E)
+ * or remove(E). (Don't forget to call super.persist, super.merge ...)
  * 
  */
 @Singleton
 public class PhoneNumberDao extends BaseDao<PhoneNumber> {
-	
-	private final DescriptorStore descStore;
-	
-	@Inject
-	public PhoneNumberDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
-		, AssistedObjectHandlerFactory handlerFactory
-		, DescriptorStore descStore){
-		super(em, objectFactory, handlerFactory);
-		this.descStore=descStore;
-	}
 
-	@Override
-	public BaseQuery<PhoneNumber> getQuery() {
-		return new PhoneNumberQuery(descStore);
-	}
+    private final DescriptorStore descStore;
 
-	@Override
-	public BaseMapper<PhoneNumber> getMapper() {
-		return new PhoneNumberMapper(descStore);
-	}
+    @Inject
+    public PhoneNumberDao(
+        Provider<EntityManager> em,
+        ManipulationObjectFactory objectFactory,
+        AssistedObjectHandlerFactory handlerFactory,
+        DescriptorStore descStore) {
+        super(em, objectFactory, handlerFactory);
+        this.descStore = descStore;
+    }
 
-	@Override
-	public CriteriaSelector<PhoneNumber, PhoneNumber> getSelector() {
-		return new CriteriaSelector<PhoneNumber, PhoneNumber>(em, getQuery(), PhoneNumber.class, PhoneNumber.class);
-	}
+    @Override
+    public BaseQuery<PhoneNumber> getQuery() {
+        return new PhoneNumberQuery(descStore);
+    }
 
-	@Override
-	public CriteriaSelector<Long, PhoneNumber> getCountSelector() {
-		return new CriteriaSelector<Long, PhoneNumber>(em, getQuery(), Long.class, PhoneNumber.class);
-	}
+    @Override
+    public BaseMapper<PhoneNumber> getMapper() {
+        return new PhoneNumberMapper(descStore);
+    }
 
-	@Override
-	public Class<PhoneNumber> getClazz() {
-		return PhoneNumber.class;
-	}
+    @Override
+    public CriteriaSelector<PhoneNumber, PhoneNumber> getSelector() {
+        return new CriteriaSelector<PhoneNumber, PhoneNumber>(
+            em,
+            getQuery(),
+            PhoneNumber.class,
+            PhoneNumber.class);
+    }
 
-	@Override
-	public PhoneNumber newInstance() {
-		return new PhoneNumber();
-	}
-		
+    @Override
+    public CriteriaSelector<Long, PhoneNumber> getCountSelector() {
+        return new CriteriaSelector<Long, PhoneNumber>(
+            em,
+            getQuery(),
+            Long.class,
+            PhoneNumber.class);
+    }
+
+    @Override
+    public Class<PhoneNumber> getClazz() {
+        return PhoneNumber.class;
+    }
+
+    @Override
+    public PhoneNumber newInstance() {
+        return new PhoneNumber();
+    }
+
 }

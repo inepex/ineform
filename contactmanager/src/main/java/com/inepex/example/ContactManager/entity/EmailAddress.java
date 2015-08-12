@@ -11,47 +11,45 @@ import com.inepex.ineForm.annotations.Kvo_SearchParam;
 @Entity
 public class EmailAddress {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam
-	private Long id;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String email;
-	
-	public EmailAddress(){
-	}
-	
-	public EmailAddress(Long id){
-		this.id=id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Kvo_SearchParam
+    private Long id;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String email;
+
+    public EmailAddress() {}
+
+    public EmailAddress(Long id) {
+        this.id = id;
     }
-	
-	public EmailAddress(String email) {
-		super();
-		this.email = email;
-	}
 
-	@Override
-	public String toString() {
-		return email;
-	}
+    public EmailAddress(String email) {
+        super();
+        this.email = email;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public String toString() {
+        return email;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

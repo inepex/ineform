@@ -6,11 +6,11 @@ import com.inepex.ineForm.client.form.factories.FormWidgetFactoryManager;
 
 public class TranslatorAppFormWidgetFactoryManager extends FormWidgetFactoryManager {
 
-	@Inject
-	public TranslatorAppFormWidgetFactoryManager(
-			TranslatorAppFormWidgetFactory translatorFactory, 
-			DefaultFormWidgetFactory defaultFactory) {
-		super(translatorFactory, defaultFactory);
-	}
-	
+    @Inject
+    public TranslatorAppFormWidgetFactoryManager(
+        TranslatorAppFormWidgetFactory translatorFactory,
+        DefaultFormWidgetFactory defaultFactory) {
+        super(translatorFactory, defaultFactory);
+    }
+
 }

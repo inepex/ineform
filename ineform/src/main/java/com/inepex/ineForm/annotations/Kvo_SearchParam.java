@@ -5,12 +5,14 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
 public @interface Kvo_SearchParam {
-	public static enum FilterType {
-		EXACTMATCH,
-		OPENSTART,
-		OPENEND,
-		OPENBOTH
-	}
-	String secondLevelJoin() default ""; 
-	FilterType type() default FilterType.OPENEND;
+    public static enum FilterType {
+        EXACTMATCH,
+        OPENSTART,
+        OPENEND,
+        OPENBOTH
+    }
+
+    String secondLevelJoin() default "";
+
+    FilterType type() default FilterType.OPENEND;
 }

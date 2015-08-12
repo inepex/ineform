@@ -13,105 +13,116 @@ import com.inepex.ineom.shared.Relation;
 
 /**
  * 
- * this abstract class describes the base data storing class like KeyValueObject or DTOAdatper
+ * this abstract class describes the base data storing class like KeyValueObject
+ * or DTOAdatper
  * 
- * methods are unchecked!! use {@link AssistedObjectChecker} to type safe manipulating
- *  
+ * methods are unchecked!! use {@link AssistedObjectChecker} to type safe
+ * manipulating
+ * 
  */
-@JsonDeserialize(as=KeyValueObject.class)
+@JsonDeserialize(as = KeyValueObject.class)
 @SuppressWarnings("serial")
 public abstract class AssistedObject implements Serializable, IsSerializable, HasProp {
 
-	/******** ADD methods ********/
-	protected abstract void set(String key, Boolean value);
+    /******** ADD methods ********/
+    protected abstract void set(String key, Boolean value);
 
-	protected abstract void set(String key, Double value);
+    protected abstract void set(String key, Double value);
 
-	protected abstract void set(String key, IneList value);
+    protected abstract void set(String key, IneList value);
 
-	protected abstract void set(String key, Long value);
+    protected abstract void set(String key, Long value);
 
-	protected abstract void set(String key, Relation value);
+    protected abstract void set(String key, Relation value);
 
-	protected abstract void set(String key, String value);
-	
-	protected abstract void unsetField(String key);
+    protected abstract void set(String key, String value);
 
-	/******** GET methods ********/
-	protected abstract Boolean getBoolean(String key);
+    protected abstract void unsetField(String key);
 
-	protected abstract Double getDouble(String key);
+    /******** GET methods ********/
+    protected abstract Boolean getBoolean(String key);
 
-	protected abstract IneList getList(String key);
+    protected abstract Double getDouble(String key);
 
-	protected abstract Long getLong(String key);
+    protected abstract IneList getList(String key);
 
-	protected abstract Relation getRelation(String key);
+    protected abstract Long getLong(String key);
 
-	protected abstract String getString(String key);
+    protected abstract Relation getRelation(String key);
 
-	/******** Unchecked ADD methods ********/
-	public abstract void setUnchecked(String key, Long value);
+    protected abstract String getString(String key);
 
-	public abstract void setUnchecked(String key, String value);
-	
-	public abstract void setUnchecked(String key, Boolean value);
-	
-	public abstract void setUnchecked(String key, Double value);
+    /******** Unchecked ADD methods ********/
+    public abstract void setUnchecked(String key, Long value);
 
-	/******** Unchecked GET methods ********/
-	public abstract Long getLongUnchecked(String key);
+    public abstract void setUnchecked(String key, String value);
 
-	public abstract Boolean getBooleanUnchecked(String key);
+    public abstract void setUnchecked(String key, Boolean value);
 
-	public abstract String getStringUnchecked(String key);
-	
-	public abstract Relation getRelationUnchecked(String key);
-	
-	public abstract Double getDoubleUnchecked(String key);
+    public abstract void setUnchecked(String key, Double value);
 
-	/******** CONTAINS methods ********/
-	protected abstract boolean containsString(String key);
+    /******** Unchecked GET methods ********/
+    public abstract Long getLongUnchecked(String key);
 
-	protected abstract boolean containsBoolean(String key);
+    public abstract Boolean getBooleanUnchecked(String key);
 
-	protected abstract boolean containsDouble(String key);
+    public abstract String getStringUnchecked(String key);
 
-	protected abstract boolean containsList(String key);
+    public abstract Relation getRelationUnchecked(String key);
 
-	protected abstract boolean containsLong(String key);
+    public abstract Double getDoubleUnchecked(String key);
 
-	protected abstract boolean containsRelation(String key);
+    /******** CONTAINS methods ********/
+    protected abstract boolean containsString(String key);
 
-	/******** HELPER methods ********/
-	public abstract String getDescriptorName();
-	public abstract void setDescriptorName(String descriptorName);
+    protected abstract boolean containsBoolean(String key);
 
-	/**
-	 * list of used (one of set(String key, *) was invoked on the selected
-	 * object) keys of AssistedObjects object descriptor
-	 */
-	public abstract List<String> getKeys();
-	public abstract Set<String> getLongKeys();
-	public abstract Set<String> getBooleanKeys();
-	public abstract Set<String> getDoubleKeys();
-	public abstract Set<String> getStringKeys();
-	public abstract Set<String> getListKeys();
-	public abstract Set<String> getRelationKeys();
+    protected abstract boolean containsDouble(String key);
 
-	public abstract AssistedObject clone();
+    protected abstract boolean containsList(String key);
 
-	protected abstract void copyValuesTo(AssistedObject target);
+    protected abstract boolean containsLong(String key);
 
-	/******** ID RELATED methods ********/
-	public abstract Long getId();
+    protected abstract boolean containsRelation(String key);
 
-	public abstract void setId(Long id);
+    /******** HELPER methods ********/
+    public abstract String getDescriptorName();
 
-	public abstract boolean isNew();
+    public abstract void setDescriptorName(String descriptorName);
 
-	/** custom property **/
-	public abstract Map<String, String> getAllPropsJson();
-	public abstract String getPropsJson(String id);
-	public abstract void setPropsJson(String id, String json);
+    /**
+     * list of used (one of set(String key, *) was invoked on the selected
+     * object) keys of AssistedObjects object descriptor
+     */
+    public abstract List<String> getKeys();
+
+    public abstract Set<String> getLongKeys();
+
+    public abstract Set<String> getBooleanKeys();
+
+    public abstract Set<String> getDoubleKeys();
+
+    public abstract Set<String> getStringKeys();
+
+    public abstract Set<String> getListKeys();
+
+    public abstract Set<String> getRelationKeys();
+
+    public abstract AssistedObject clone();
+
+    protected abstract void copyValuesTo(AssistedObject target);
+
+    /******** ID RELATED methods ********/
+    public abstract Long getId();
+
+    public abstract void setId(Long id);
+
+    public abstract boolean isNew();
+
+    /** custom property **/
+    public abstract Map<String, String> getAllPropsJson();
+
+    public abstract String getPropsJson(String id);
+
+    public abstract void setPropsJson(String id, String json);
 }

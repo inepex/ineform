@@ -19,47 +19,45 @@ import com.inepex.translatorapp.client.page.popup.TransRowEditPopup;
 
 public class TextBoxWithPopupEditorFw extends TextBoxFWBase {
 
-	private HorizontalPanel panel = new HorizontalPanel();
-	private Label showPopupLabel = new Label(translatorappI18n.textBoxWithPopupLabel());
-	private TransRowEditPopup popup;
-	
-	public TextBoxWithPopupEditorFw(FDesc fielddescriptor, WidgetRDesc wrDesc) {
-		super(fielddescriptor);
-		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		textBox= new TextBox();
-		updateWidth(wrDesc);
-		panel.add(textBox);
-		panel.add(showPopupLabel);
-		initWidget(panel);
-		
-		showPopupLabel.getElement().getStyle().setCursor(Cursor.POINTER);
-		showPopupLabel.getElement().getStyle().setTextDecoration(TextDecoration.UNDERLINE);
-		showPopupLabel.getElement().getStyle().setMarginLeft(6, Unit.PX);
-		showPopupLabel.getElement().getStyle().setWhiteSpace(WhiteSpace.NOWRAP);
-		
-		
-		showPopupLabel.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				showPopup();
-			}
-		});
-	}
-	
-	private void showPopup(){
-		popup = new TransRowEditPopup("", textBox.getText());
-		popup.show(new EditCallback() {
-			
-			@Override
-			public void onSave(String newTranslated) {
-				textBox.setValue(newTranslated, true);
-			}
-			
-			@Override
-			public void onCancelled() {
-			}
-		});
-	}
+    private HorizontalPanel panel = new HorizontalPanel();
+    private Label showPopupLabel = new Label(translatorappI18n.textBoxWithPopupLabel());
+    private TransRowEditPopup popup;
+
+    public TextBoxWithPopupEditorFw(FDesc fielddescriptor, WidgetRDesc wrDesc) {
+        super(fielddescriptor);
+        panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+        textBox = new TextBox();
+        updateWidth(wrDesc);
+        panel.add(textBox);
+        panel.add(showPopupLabel);
+        initWidget(panel);
+
+        showPopupLabel.getElement().getStyle().setCursor(Cursor.POINTER);
+        showPopupLabel.getElement().getStyle().setTextDecoration(TextDecoration.UNDERLINE);
+        showPopupLabel.getElement().getStyle().setMarginLeft(6, Unit.PX);
+        showPopupLabel.getElement().getStyle().setWhiteSpace(WhiteSpace.NOWRAP);
+
+        showPopupLabel.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                showPopup();
+            }
+        });
+    }
+
+    private void showPopup() {
+        popup = new TransRowEditPopup("", textBox.getText());
+        popup.show(new EditCallback() {
+
+            @Override
+            public void onSave(String newTranslated) {
+                textBox.setValue(newTranslated, true);
+            }
+
+            @Override
+            public void onCancelled() {}
+        });
+    }
 
 }

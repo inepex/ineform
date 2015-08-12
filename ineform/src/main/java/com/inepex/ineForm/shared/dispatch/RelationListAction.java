@@ -11,38 +11,41 @@ import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 
 /**
- * General action for searching when a {@link List} of {@link KeyValueObject} is returned.
- * Especially useful in {@link ServerSideTableModel}
+ * General action for searching when a {@link List} of {@link KeyValueObject} is
+ * returned. Especially useful in {@link ServerSideTableModel}
  *
  * @author István Szoboszlai
  *
  */
-public class RelationListAction extends AbstractSearchAction 
-	implements Action<RelationListActionResult>, RelationList {
-	/**
+public class RelationListAction extends AbstractSearchAction
+    implements
+    Action<RelationListActionResult>,
+    RelationList {
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -8669603502664601792L;
-	private List<String> propGroups = new ArrayList<String>();
-	
-	
-	public RelationListAction() {
-	}
+    private static final long serialVersionUID = -8669603502664601792L;
+    private List<String> propGroups = new ArrayList<String>();
 
-	public RelationListAction(String descriptorName, AssistedObject searchParameters,
-			int firstResult, int numMaxResult, boolean queryResultCount){
-		super(descriptorName, searchParameters, firstResult, numMaxResult, queryResultCount);
-	}
+    public RelationListAction() {}
 
-	@Override
-	public void setPropGroups(String... propGroups) {
-		this.propGroups = Arrays.asList(propGroups);
-	}
+    public RelationListAction(
+        String descriptorName,
+        AssistedObject searchParameters,
+        int firstResult,
+        int numMaxResult,
+        boolean queryResultCount) {
+        super(descriptorName, searchParameters, firstResult, numMaxResult, queryResultCount);
+    }
 
-	@Override
-	public List<String> getPropGroups() {
-		return propGroups;
-	}
+    @Override
+    public void setPropGroups(String... propGroups) {
+        this.propGroups = Arrays.asList(propGroups);
+    }
 
+    @Override
+    public List<String> getPropGroups() {
+        return propGroups;
+    }
 
 }

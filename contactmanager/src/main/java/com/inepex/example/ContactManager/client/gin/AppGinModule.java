@@ -10,11 +10,11 @@ import com.inepex.ineFrame.client.gin.IneFrameGinModule;
 
 public class AppGinModule extends AbstractGinModule {
 
-	@Override
-	protected void configure() {
-		install(new IneFormGinModule().setConnectionFailedHandler(ExponentialBackoffHandler.class));
-		install(new IneFormDispatcherGinModule());
-		install(new IneFrameGinModule(AppPlaceHierarchyProvider.class, AppPlaceHandler.class));
-	}
+    @Override
+    protected void configure() {
+        install(new IneFormGinModule().setConnectionFailedHandler(ExponentialBackoffHandler.class));
+        install(new IneFormDispatcherGinModule());
+        install(new IneFrameGinModule(AppPlaceHierarchyProvider.class, AppPlaceHandler.class));
+    }
 
 }

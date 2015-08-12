@@ -11,22 +11,23 @@ import com.inepex.ineFrame.shared.util.date.DateProvider;
 @Singleton
 public class GwtDateFormatter implements DateFormatter {
 
-	private final DateProvider dateProvider;
-	
-	@Inject
-	public GwtDateFormatter(DateProvider dateProvider) {
-		this.dateProvider = dateProvider;
-	}
+    private final DateProvider dateProvider;
 
-	@Override
-	public String format(String pattern, Long dateInUtc) {
-		Date date = dateProvider.getDate(dateInUtc);
-		return DateTimeFormat.getFormat(pattern).format(date);
-	}
+    @Inject
+    public GwtDateFormatter(DateProvider dateProvider) {
+        this.dateProvider = dateProvider;
+    }
 
-	@Override
-	public Long parseUiDate(String format, String localDateString) {
-		return dateProvider.whatMeansTyped(DateTimeFormat.getFormat(format).parse(localDateString).getTime()).getTime();
-	}
+    @Override
+    public String format(String pattern, Long dateInUtc) {
+        Date date = dateProvider.getDate(dateInUtc);
+        return DateTimeFormat.getFormat(pattern).format(date);
+    }
+
+    @Override
+    public Long parseUiDate(String format, String localDateString) {
+        return dateProvider.whatMeansTyped(
+            DateTimeFormat.getFormat(format).parse(localDateString).getTime()).getTime();
+    }
 
 }

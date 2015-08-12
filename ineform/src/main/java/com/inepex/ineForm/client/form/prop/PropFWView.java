@@ -22,182 +22,230 @@ import com.inepex.ineFrame.client.misc.HandlerAwareFlowPanel;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public class PropFWView extends HandlerAwareFlowPanel implements PropFW.View {
-	
-	private final Map<Long, DispRow> rowsByInnerId = new HashMap<Long, DispRow>();
-	private List<Long> dispRowinnerIdMirror = new ArrayList<Long>();
-	
-	private final FlexTable rowTable = new FlexTable();
-	
-	private final IneButton addBtn = new IneButton(IneButtonType.CONTROL, IneFormI18n.ADD());
-	
-	private RemoveCallback removeCallback;
-	private AddCallback addCallback;
-	private RowValueChangeCallback rowValueChangeCallback;
-	
-	private final PropFWReadOnlyView readOnlyView = new PropFWReadOnlyView();
-	private final boolean showType;
-	private List<String> tooltipOptions;
-	
-	@Inject
-	public PropFWView(){
-		this(true);
-	}
-	
-	protected PropFWView(boolean showType) {
-		this.showType=showType;
-		
-		rowTable.setStyleName(ResourceHelper.ineformRes().style().customKVOTable());
-		rowTable.getColumnFormatter().setStyleName(0, ResourceHelper.ineformRes().style().customKVOTableContent());
-		rowTable.getColumnFormatter().setStyleName(1, ResourceHelper.ineformRes().style().customKVOTableContent());
-		rowTable.getColumnFormatter().setStyleName(2, ResourceHelper.ineformRes().style().customKVOTableContent());
-		rowTable.getColumnFormatter().setStyleName(3, ResourceHelper.ineformRes().style().customKVOTableContent());
-		
-		if(!IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-			addBtn.getElement().getStyle().setMarginTop(15, Unit.PX);
-		}
-	}
-	
-	private void createHeader() {
-		if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-			int col=0;
-			rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
-			if(showType)
-				rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
-			rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
-			
-			rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeader());
-			if(showType) {
-				rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
-				rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeader());
-			} else {
-				rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeader());
-			}
-			
-		} else {
-			int col=0;
-			rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
-			if(showType)
-				rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
-			rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
-			((FlexCellFormatter) rowTable.getCellFormatter()).setColSpan(0, col-1, 2);
-			
-			rowTable.getCellFormatter().setStyleName(0, 0, ResourceHelper.ineformRes().style().customKVOHeader());
-			if(showType) {
-				rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeaderType());
-				rowTable.getCellFormatter().setStyleName(0, 2, ResourceHelper.ineformRes().style().customKVOHeader());
-			} else {
-				rowTable.getCellFormatter().setStyleName(0, 1, ResourceHelper.ineformRes().style().customKVOHeader());
-			}
-		}
-			
-	}
 
-	@Override
-	public void setRemoveCallback(RemoveCallback removeCallback) {
-		this.removeCallback=removeCallback;
-	}
+    private final Map<Long, DispRow> rowsByInnerId = new HashMap<Long, DispRow>();
+    private List<Long> dispRowinnerIdMirror = new ArrayList<Long>();
 
-	@Override
-	public void setAddCallback(AddCallback addCallback) {
-		this.addCallback=addCallback;
-	}
-	
-	@Override
-	public void setRowValueChangeCallback(
-			RowValueChangeCallback rowValueChangeCallback) {
-		this.rowValueChangeCallback = rowValueChangeCallback;
-	}
-	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		registerHandler(addBtn.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				addCallback.onAdd();
-			}
-		}));
-	}
+    private final FlexTable rowTable = new FlexTable();
 
-	@Override
-	public void dealResult(Map<Long, String> res) {
-		for(DispRow dr : rowsByInnerId.values())
-			dr.getErrorManager().clearErrorMsg();
-		
-		for(Long i : res.keySet()) {
-			rowsByInnerId.get(i).getErrorManager().addErrorMsg(SharedUtil.Li(res.get(i)));
-		}
-	}
+    private final IneButton addBtn = new IneButton(IneButtonType.CONTROL, IneFormI18n.ADD());
 
-	@Override
-	public ErrorMessageManagerInterface getErrorManager(PropRow r) {
-		return rowsByInnerId.get(r.getInnerId()).getErrorManager();
-	}
-	
-	@Override
-	public void clearRows() {
-		dispRowinnerIdMirror.clear();
-		rowsByInnerId.clear();
-		
-		//remove all rows except the header
-		for(int i=rowTable.getRowCount()-1; i>0; i--)
-			rowTable.removeRow(i);
-	}
-	
-	@Override
-	public void addRow(PropRow r) {
-		DispRow dr = createDispRow(r, removeCallback, rowValueChangeCallback, rowTable, showType, 
-				tooltipOptions);
-		rowsByInnerId.put(r.getInnerId(), dr);
-		dispRowinnerIdMirror.add(r.getInnerId());
-	}
-	
-	protected DispRow createDispRow(PropRow row, RemoveCallback removeCallback, RowValueChangeCallback rowValueChangeCallback, FlexTable rowTable,
-			boolean showType, List<String> tooltipOptions) {
-		return new DispRow(row, removeCallback, rowValueChangeCallback, rowTable, showType, tooltipOptions);
-	}
+    private RemoveCallback removeCallback;
+    private AddCallback addCallback;
+    private RowValueChangeCallback rowValueChangeCallback;
 
-	@Override
-	public void removeRow(PropRow r) {
-		rowsByInnerId.remove(rowsByInnerId.get(r.getInnerId()));
-		
-		int index = dispRowinnerIdMirror.indexOf(r.getInnerId());
-		
-		dispRowinnerIdMirror.remove(index);
-		
-		//because of header
-		index++; 
-		rowTable.removeRow(index);
-	}
+    private final PropFWReadOnlyView readOnlyView = new PropFWReadOnlyView();
+    private final boolean showType;
+    private List<String> tooltipOptions;
 
-	@Override
-	public void showReadOnly(List<PropRow> rows) {
-		clear();
-		add(readOnlyView);
-		readOnlyView.init(rows, true, true);
-		readOnlyView.show();
-		
-	}
+    @Inject
+    public PropFWView() {
+        this(true);
+    }
 
-	@Override
-	public void showEditable() {
-		addBtn.setEnabled(true);
-		clear();
-		add(rowTable);
-		add(addBtn);
-		
-		createHeader();
-	}
+    protected PropFWView(boolean showType) {
+        this.showType = showType;
 
-	@Override
-	public void disableAddBtn() {
-		addBtn.setEnabled(false);
-	}
+        rowTable.setStyleName(ResourceHelper.ineformRes().style().customKVOTable());
+        rowTable.getColumnFormatter().setStyleName(
+            0,
+            ResourceHelper.ineformRes().style().customKVOTableContent());
+        rowTable.getColumnFormatter().setStyleName(
+            1,
+            ResourceHelper.ineformRes().style().customKVOTableContent());
+        rowTable.getColumnFormatter().setStyleName(
+            2,
+            ResourceHelper.ineformRes().style().customKVOTableContent());
+        rowTable.getColumnFormatter().setStyleName(
+            3,
+            ResourceHelper.ineformRes().style().customKVOTableContent());
 
-	@Override
-	public void setTooltipOptions(List<String> options) {
-		this.tooltipOptions = options;
-	}
+        if (!IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
+            addBtn.getElement().getStyle().setMarginTop(15, Unit.PX);
+        }
+    }
+
+    private void createHeader() {
+        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
+            int col = 0;
+            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
+            if (showType)
+                rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
+            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
+
+            rowTable.getCellFormatter().setStyleName(
+                0,
+                0,
+                ResourceHelper.ineformRes().style().customKVOHeader());
+            if (showType) {
+                rowTable.getCellFormatter().setStyleName(
+                    0,
+                    1,
+                    ResourceHelper.ineformRes().style().customKVOHeaderType());
+                rowTable.getCellFormatter().setStyleName(
+                    0,
+                    2,
+                    ResourceHelper.ineformRes().style().customKVOHeader());
+            } else {
+                rowTable.getCellFormatter().setStyleName(
+                    0,
+                    1,
+                    ResourceHelper.ineformRes().style().customKVOHeader());
+            }
+
+        } else {
+            int col = 0;
+            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
+            if (showType)
+                rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
+            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
+            ((FlexCellFormatter) rowTable.getCellFormatter()).setColSpan(0, col - 1, 2);
+
+            rowTable.getCellFormatter().setStyleName(
+                0,
+                0,
+                ResourceHelper.ineformRes().style().customKVOHeader());
+            if (showType) {
+                rowTable.getCellFormatter().setStyleName(
+                    0,
+                    1,
+                    ResourceHelper.ineformRes().style().customKVOHeaderType());
+                rowTable.getCellFormatter().setStyleName(
+                    0,
+                    2,
+                    ResourceHelper.ineformRes().style().customKVOHeader());
+            } else {
+                rowTable.getCellFormatter().setStyleName(
+                    0,
+                    1,
+                    ResourceHelper.ineformRes().style().customKVOHeader());
+            }
+        }
+
+    }
+
+    @Override
+    public void setRemoveCallback(RemoveCallback removeCallback) {
+        this.removeCallback = removeCallback;
+    }
+
+    @Override
+    public void setAddCallback(AddCallback addCallback) {
+        this.addCallback = addCallback;
+    }
+
+    @Override
+    public void setRowValueChangeCallback(RowValueChangeCallback rowValueChangeCallback) {
+        this.rowValueChangeCallback = rowValueChangeCallback;
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+
+        registerHandler(addBtn.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                addCallback.onAdd();
+            }
+        }));
+    }
+
+    @Override
+    public void dealResult(Map<Long, String> res) {
+        for (DispRow dr : rowsByInnerId.values())
+            dr.getErrorManager().clearErrorMsg();
+
+        for (Long i : res.keySet()) {
+            rowsByInnerId.get(i).getErrorManager().addErrorMsg(SharedUtil.Li(res.get(i)));
+        }
+    }
+
+    @Override
+    public ErrorMessageManagerInterface getErrorManager(PropRow r) {
+        return rowsByInnerId.get(r.getInnerId()).getErrorManager();
+    }
+
+    @Override
+    public void clearRows() {
+        dispRowinnerIdMirror.clear();
+        rowsByInnerId.clear();
+
+        // remove all rows except the header
+        for (int i = rowTable.getRowCount() - 1; i > 0; i--)
+            rowTable.removeRow(i);
+    }
+
+    @Override
+    public void addRow(PropRow r) {
+        DispRow dr =
+            createDispRow(
+                r,
+                removeCallback,
+                rowValueChangeCallback,
+                rowTable,
+                showType,
+                tooltipOptions);
+        rowsByInnerId.put(r.getInnerId(), dr);
+        dispRowinnerIdMirror.add(r.getInnerId());
+    }
+
+    protected DispRow createDispRow(
+        PropRow row,
+        RemoveCallback removeCallback,
+        RowValueChangeCallback rowValueChangeCallback,
+        FlexTable rowTable,
+        boolean showType,
+        List<String> tooltipOptions) {
+        return new DispRow(
+            row,
+            removeCallback,
+            rowValueChangeCallback,
+            rowTable,
+            showType,
+            tooltipOptions);
+    }
+
+    @Override
+    public void removeRow(PropRow r) {
+        rowsByInnerId.remove(rowsByInnerId.get(r.getInnerId()));
+
+        int index = dispRowinnerIdMirror.indexOf(r.getInnerId());
+
+        dispRowinnerIdMirror.remove(index);
+
+        // because of header
+        index++;
+        rowTable.removeRow(index);
+    }
+
+    @Override
+    public void showReadOnly(List<PropRow> rows) {
+        clear();
+        add(readOnlyView);
+        readOnlyView.init(rows, true, true);
+        readOnlyView.show();
+
+    }
+
+    @Override
+    public void showEditable() {
+        addBtn.setEnabled(true);
+        clear();
+        add(rowTable);
+        add(addBtn);
+
+        createHeader();
+    }
+
+    @Override
+    public void disableAddBtn() {
+        addBtn.setEnabled(false);
+    }
+
+    @Override
+    public void setTooltipOptions(List<String> options) {
+        this.tooltipOptions = options;
+    }
 }

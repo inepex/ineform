@@ -32,45 +32,51 @@ import com.inepex.ineom.shared.i18n.IneOmI18n;
 @Singleton
 @SuppressWarnings("serial")
 public class AppDispatchServlet extends AbstractGuiceDispatch {
-	
-	private final DaoFinder daofinder;
 
-	@Inject
-	public AppDispatchServlet(Dispatch dispatch, Provider<CurrentLang> currentLangProvider,
-			I18nStore_Server serverI18n, DescriptorStore descStore, DaoFinder daoFinder, ApplicationLangs langs) {
-		super(dispatch, currentLangProvider, serverI18n, descStore, true, langs);
-		this.daofinder=daoFinder;
-	}
-	
-	@Override
-	public void init() throws ServletException {
-		daofinder.addPackageByName("com.inepex.example.ContactManager.entity.dao");
-		super.init();
-	}
+    private final DaoFinder daofinder;
 
-	@Override
-	public void doLogAction(Loggable loggable, HttpServletRequest request) {		
-	}
+    @Inject
+    public AppDispatchServlet(
+        Dispatch dispatch,
+        Provider<CurrentLang> currentLangProvider,
+        I18nStore_Server serverI18n,
+        DescriptorStore descStore,
+        DaoFinder daoFinder,
+        ApplicationLangs langs) {
+        super(dispatch, currentLangProvider, serverI18n, descStore, true, langs);
+        this.daofinder = daoFinder;
+    }
 
-	@Override
-	public void registerAdditionalI18nModules(I18nStore_Server serverI18n, Provider<CurrentLang> currentLangProvider) {
-		serverI18n.registerModule(new IneFormI18n(new ServerIneFormI18nProvider(currentLangProvider)));
-		serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
-		serverI18n.registerModule(new CMI18n(new ServerCMI18nProvider(currentLangProvider)));
-	}
+    @Override
+    public void init() throws ServletException {
+        daofinder.addPackageByName("com.inepex.example.ContactManager.entity.dao");
+        super.init();
+    }
 
-	@Override
-	public void registerAssists(DescriptorStore descStore) {
-		new MeetingAssist(descStore).registerDescriptors();
-		new CompanyAssist(descStore).registerDescriptors();
-		new ContactAssist(descStore).registerDescriptors();
-		new EmailAddressAssist(descStore).registerDescriptors();
-		new PhoneNumberAssist(descStore).registerDescriptors();
-		new PhoneNumberTypeAssist(descStore).registerDescriptors();
-		new UserAssist(descStore).registerDescriptors();
-	}
+    @Override
+    public void doLogAction(Loggable loggable, HttpServletRequest request) {}
 
-	@Override
-	public void setupDefaults() {
-	}
+    @Override
+    public void registerAdditionalI18nModules(
+        I18nStore_Server serverI18n,
+        Provider<CurrentLang> currentLangProvider) {
+        serverI18n.registerModule(new IneFormI18n(
+            new ServerIneFormI18nProvider(currentLangProvider)));
+        serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
+        serverI18n.registerModule(new CMI18n(new ServerCMI18nProvider(currentLangProvider)));
+    }
+
+    @Override
+    public void registerAssists(DescriptorStore descStore) {
+        new MeetingAssist(descStore).registerDescriptors();
+        new CompanyAssist(descStore).registerDescriptors();
+        new ContactAssist(descStore).registerDescriptors();
+        new EmailAddressAssist(descStore).registerDescriptors();
+        new PhoneNumberAssist(descStore).registerDescriptors();
+        new PhoneNumberTypeAssist(descStore).registerDescriptors();
+        new UserAssist(descStore).registerDescriptors();
+    }
+
+    @Override
+    public void setupDefaults() {}
 }

@@ -19,110 +19,110 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 public class TransRowEditPopup {
-	
-	private class DialogContent extends HandlerAwareComposite {
-		
-		private final EditCallback callback;
-		
-		private final TextArea textArea;
-		private final IneButton revertBtn;
-		private final IneButton doneBtn;
-		
-		public DialogContent(EditCallback callback) {
-			this.callback=callback;
-			
-			VerticalPanel vp = new VerticalPanel();
-			initWidget(vp);
-			
-			if (engVal != null && !engVal.equals("")){
-				vp.add(new Label(translatorappI18n.translateTableRow_engVal()));
-				HTML lbl = new HTML(perNToBr(SafeHtmlUtils.htmlEscape(brToPerN(engVal))));
-				lbl.getElement().getStyle().setBackgroundColor("#f2f2f2");
-				lbl.getElement().getStyle().setWidth(blockWidth, Unit.PX);
-				lbl.getElement().getStyle().setHeight(blockHeight, Unit.PX);
-				lbl.getElement().getStyle().setOverflowY(Overflow.AUTO);
-				lbl.getElement().getStyle().setBorderColor("#d0d0d0");
-				lbl.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-				lbl.getElement().getStyle().setBorderWidth(2, Unit.PX);
-				vp.add(lbl);
-			}
-			
-			vp.add(new Label(translatorappI18n.translatedValue_value()));
-			textArea = new TextArea();
-			textArea.setText(brToPerN(translatedVal));
-			textArea.getElement().getStyle().setWidth(blockWidth, Unit.PX);
-			textArea.getElement().getStyle().setHeight(blockHeight, Unit.PX);
-			vp.add(textArea);
-			
-			HorizontalPanel hp = new HorizontalPanel();
-			hp.setSpacing(10);
-			
-			revertBtn = new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
-			hp.add(revertBtn);
-			
-			doneBtn = new IneButton(IneButtonType.ACTION, IneFormI18n.SAVE());
-			hp.add(doneBtn);
-			
-			vp.add(hp);
-		}
-		
-		private String perNToBr(String string) {
-			if(string==null)
-				return "";
-			
-			return string.replaceAll("\n", "<br />");
-		}
 
-		private String brToPerN(String string) {
-			if(string==null)
-				return "";
-			
-			return string.replaceAll("<[\\s]*br[\\s]*[/]?[\\s]*>", "\n");
-		}
+    private class DialogContent extends HandlerAwareComposite {
 
-		@Override
-		protected void onLoad() {
-			super.onLoad();
-			
-			registerHandler(revertBtn.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					callback.onCancelled();
-					dialogBox.hide();
-				}
-			}));
-			
-			registerHandler(doneBtn.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					callback.onSave(perNToBr(textArea.getText()));
-					dialogBox.hide();
-				}
-			}));
-		}
-	}
+        private final EditCallback callback;
 
-	private static int blockWidth=500;
-	private static int blockHeight=200;
-	
-	private final String engVal;
-	private final String translatedVal;
-	
-	private IneDialogBox dialogBox; 
-	
-	public TransRowEditPopup(String engVal, String translatedVal) {
-		this.engVal=engVal;
-		this.translatedVal=translatedVal;
-	}
-	
-	public void show(EditCallback callback) {
-		dialogBox = new IneDialogBox(false, true);
-		dialogBox.setWidget(new DialogContent(callback));
-		dialogBox.setGlassEnabled(true);
-		dialogBox.setAnimationEnabled(true);
-		dialogBox.setText(IneFormI18n.EDIT());
-		dialogBox.center();
-	}
+        private final TextArea textArea;
+        private final IneButton revertBtn;
+        private final IneButton doneBtn;
+
+        public DialogContent(EditCallback callback) {
+            this.callback = callback;
+
+            VerticalPanel vp = new VerticalPanel();
+            initWidget(vp);
+
+            if (engVal != null && !engVal.equals("")) {
+                vp.add(new Label(translatorappI18n.translateTableRow_engVal()));
+                HTML lbl = new HTML(perNToBr(SafeHtmlUtils.htmlEscape(brToPerN(engVal))));
+                lbl.getElement().getStyle().setBackgroundColor("#f2f2f2");
+                lbl.getElement().getStyle().setWidth(blockWidth, Unit.PX);
+                lbl.getElement().getStyle().setHeight(blockHeight, Unit.PX);
+                lbl.getElement().getStyle().setOverflowY(Overflow.AUTO);
+                lbl.getElement().getStyle().setBorderColor("#d0d0d0");
+                lbl.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+                lbl.getElement().getStyle().setBorderWidth(2, Unit.PX);
+                vp.add(lbl);
+            }
+
+            vp.add(new Label(translatorappI18n.translatedValue_value()));
+            textArea = new TextArea();
+            textArea.setText(brToPerN(translatedVal));
+            textArea.getElement().getStyle().setWidth(blockWidth, Unit.PX);
+            textArea.getElement().getStyle().setHeight(blockHeight, Unit.PX);
+            vp.add(textArea);
+
+            HorizontalPanel hp = new HorizontalPanel();
+            hp.setSpacing(10);
+
+            revertBtn = new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
+            hp.add(revertBtn);
+
+            doneBtn = new IneButton(IneButtonType.ACTION, IneFormI18n.SAVE());
+            hp.add(doneBtn);
+
+            vp.add(hp);
+        }
+
+        private String perNToBr(String string) {
+            if (string == null)
+                return "";
+
+            return string.replaceAll("\n", "<br />");
+        }
+
+        private String brToPerN(String string) {
+            if (string == null)
+                return "";
+
+            return string.replaceAll("<[\\s]*br[\\s]*[/]?[\\s]*>", "\n");
+        }
+
+        @Override
+        protected void onLoad() {
+            super.onLoad();
+
+            registerHandler(revertBtn.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(ClickEvent event) {
+                    callback.onCancelled();
+                    dialogBox.hide();
+                }
+            }));
+
+            registerHandler(doneBtn.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(ClickEvent event) {
+                    callback.onSave(perNToBr(textArea.getText()));
+                    dialogBox.hide();
+                }
+            }));
+        }
+    }
+
+    private static int blockWidth = 500;
+    private static int blockHeight = 200;
+
+    private final String engVal;
+    private final String translatedVal;
+
+    private IneDialogBox dialogBox;
+
+    public TransRowEditPopup(String engVal, String translatedVal) {
+        this.engVal = engVal;
+        this.translatedVal = translatedVal;
+    }
+
+    public void show(EditCallback callback) {
+        dialogBox = new IneDialogBox(false, true);
+        dialogBox.setWidget(new DialogContent(callback));
+        dialogBox.setGlassEnabled(true);
+        dialogBox.setAnimationEnabled(true);
+        dialogBox.setText(IneFormI18n.EDIT());
+        dialogBox.center();
+    }
 }

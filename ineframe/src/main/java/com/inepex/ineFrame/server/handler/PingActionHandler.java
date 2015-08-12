@@ -12,29 +12,31 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 
-public class PingActionHandler extends AbstractIneHandler<PingAction, PingResult>{
+public class PingActionHandler extends AbstractIneHandler<PingAction, PingResult> {
 
-	private Provider<SessionScopedAuthStat> authStatProvider;
+    private Provider<SessionScopedAuthStat> authStatProvider;
 
-	@Inject
-	public PingActionHandler(Provider<SessionScopedAuthStat> authStatProvider) {
-		this.authStatProvider = authStatProvider;
-	}
-	
-	@Override
-	public Class<PingAction> getActionType() {
-		return PingAction.class;
-	}
+    @Inject
+    public PingActionHandler(Provider<SessionScopedAuthStat> authStatProvider) {
+        this.authStatProvider = authStatProvider;
+    }
 
-	@Override
-	protected PingResult doExecute(PingAction action, ExecutionContext context) throws AuthenticationException, DispatchException {
-		SessionScopedAuthStat authStat = authStatProvider.get();
-		PingResult pingResult = new PingResult();
-		synchronized (authStat) {
-			AuthStatusResultBase  result = authStat.getAuthStatusResultBase();
-			pingResult.setSessionAlive(result != null && result.getUserId() != null);
-		}
-		return pingResult;
-	}
+    @Override
+    public Class<PingAction> getActionType() {
+        return PingAction.class;
+    }
+
+    @Override
+    protected PingResult doExecute(PingAction action, ExecutionContext context)
+        throws AuthenticationException,
+        DispatchException {
+        SessionScopedAuthStat authStat = authStatProvider.get();
+        PingResult pingResult = new PingResult();
+        synchronized (authStat) {
+            AuthStatusResultBase result = authStat.getAuthStatusResultBase();
+            pingResult.setSessionAlive(result != null && result.getUserId() != null);
+        }
+        return pingResult;
+    }
 
 }

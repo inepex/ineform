@@ -47,48 +47,54 @@ import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class TestIneFormClientGuiceModule extends AbstractModule {
-	@Override
-	protected void configure() {
-		bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
-		
-		bind(HistoryProvider.class).in(Singleton.class);
-		bind(IneDispatch.class).in(Singleton.class);
-		bind(PushedEventProvider.class).in(Singleton.class);
-		bind(DateProvider.class).to(CETDateProviderSrv.class).in(Singleton.class);
-				
-		bind(EventBus.class).to(SimpleEventBus.class);
-		bind(DescriptorStore.class).to(ClientDescriptorStore.class).in(Singleton.class);
-		
-		bind(FormContext.class);
-		
-		bind(FormWidgetFactory.class).to(DefaultFormWidgetFactory.class).in(Singleton.class);
-		bind(FormUnitFactory.class).to(DefaultFormUnitFactory.class).in(Singleton.class);
-		bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
+    @Override
+    protected void configure() {
+        bind(ObjectFinder.class).to(ActionBasedObjectFinder.class);
 
-		bind(AsyncStatusIndicator.class).to(DummyStatusIndicator.class).in(Singleton.class);
-		bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
-		bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
-		
-		install(new FactoryModuleBuilder()
-					.implement(IneForm.class, Names.named("simple"), IneForm.class)
-					.implement(IneForm.class, Names.named("saveCancel"), SaveCancelForm.class)
-					.implement(IneForm.class, Names.named("wizard"), WizardForm.class)
-					.implement(IneForm.class, Names.named("search"), SearchForm.class)
-					.build(FormFactory.class));
-		
-		install(new FactoryModuleBuilder()
-				 	.implement(IneDataConnector.class, ServerSideDataConnector.class)
-					.build(DataConnectorFactory.class));
+        bind(HistoryProvider.class).in(Singleton.class);
+        bind(IneDispatch.class).in(Singleton.class);
+        bind(PushedEventProvider.class).in(Singleton.class);
+        bind(DateProvider.class).to(CETDateProviderSrv.class).in(Singleton.class);
 
-		install(new FactoryModuleBuilder()
-				 	.implement(DataManipulator.class, Names.named("rowCommand"), RowCommandDataManipulator.class)
-				 	.implement(DataManipulator.class, Names.named("singleSelect"), SingleSelectDataManipulator.class)
-					.build(ManipulatorFactory.class));
-		
-	}
-	
-	@Provides
-	public DispatchAsync getDispatchAsync() {
-		return new StandardDispatchAsync(new DefaultExceptionHandler());
-	}
+        bind(EventBus.class).to(SimpleEventBus.class);
+        bind(DescriptorStore.class).to(ClientDescriptorStore.class).in(Singleton.class);
+
+        bind(FormContext.class);
+
+        bind(FormWidgetFactory.class).to(DefaultFormWidgetFactory.class).in(Singleton.class);
+        bind(FormUnitFactory.class).to(DefaultFormUnitFactory.class).in(Singleton.class);
+        bind(PanelWidgetFactory.class).to(DefaultPanelWidgetFactory.class).in(Singleton.class);
+
+        bind(AsyncStatusIndicator.class).to(DummyStatusIndicator.class).in(Singleton.class);
+        bind(ValueRangeProvider.class).to(ServerSideValueRangeProvider.class).in(Singleton.class);
+        bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
+
+        install(new FactoryModuleBuilder()
+            .implement(IneForm.class, Names.named("simple"), IneForm.class)
+            .implement(IneForm.class, Names.named("saveCancel"), SaveCancelForm.class)
+            .implement(IneForm.class, Names.named("wizard"), WizardForm.class)
+            .implement(IneForm.class, Names.named("search"), SearchForm.class)
+            .build(FormFactory.class));
+
+        install(new FactoryModuleBuilder().implement(
+            IneDataConnector.class,
+            ServerSideDataConnector.class).build(DataConnectorFactory.class));
+
+        install(new FactoryModuleBuilder()
+            .implement(
+                DataManipulator.class,
+                Names.named("rowCommand"),
+                RowCommandDataManipulator.class)
+            .implement(
+                DataManipulator.class,
+                Names.named("singleSelect"),
+                SingleSelectDataManipulator.class)
+            .build(ManipulatorFactory.class));
+
+    }
+
+    @Provides
+    public DispatchAsync getDispatchAsync() {
+        return new StandardDispatchAsync(new DefaultExceptionHandler());
+    }
 }

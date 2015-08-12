@@ -6,6 +6,9 @@ import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 
 public interface PanelWidgetFactory {
 
-	public PanelWidget createPanel(PanelWidgetRDesc paneldesc, PanelWidget parent, DisplayedFormUnitChangeHandler handler);
-	
+    public PanelWidget createPanel(
+        PanelWidgetRDesc paneldesc,
+        PanelWidget parent,
+        DisplayedFormUnitChangeHandler handler);
+
 }

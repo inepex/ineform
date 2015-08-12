@@ -12,51 +12,51 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
  */
 public class StringFDesc extends FDesc implements Serializable, IsSerializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 5521900795365354819L;
+    private static final long serialVersionUID = 5521900795365354819L;
 
-	public StringFDesc() {
-		type = IneT.STRING;
-	}
-	
-	public StringFDesc(String key, String defaultDisplayName, String... props) {
-		super(key, IneT.STRING, defaultDisplayName, props);
-	}
+    public StringFDesc() {
+        type = IneT.STRING;
+    }
 
-	public StringFDesc(String key, String defaultDisplayName) {
-		super(key, IneT.STRING, defaultDisplayName);
-	}
-	
-	public StringFDesc maxLength(int maxLenght)  {
-		validatorNames.add(KeyValueObjectValidationManager.MAXLENGTH+":"+maxLenght);
-		return this;
-	}
-	
-	public StringFDesc minLength(int minLenght)  {
-		validatorNames.add(KeyValueObjectValidationManager.MINLENGTH+":"+minLenght);
-		return this;
-	}
+    public StringFDesc(String key, String defaultDisplayName, String... props) {
+        super(key, IneT.STRING, defaultDisplayName, props);
+    }
 
-	public StringFDesc email() {
-		validatorNames.add(KeyValueObjectValidationManager.EMAIL);
-		return this;
-	}
-	
-	public StringFDesc alphanum() {
-		validatorNames.add(KeyValueObjectValidationManager.ALPHANUM);
-		return this;
-	}
-	
-	public StringFDesc alphanumOrSpace() {
-		validatorNames.add(KeyValueObjectValidationManager.ALPHANUM_OR_SPACE);
-		return this;
-	}
-	
-	@Override
-	public StringFDesc addProp(String name, String value) {
-		super.addProp(name, value);
-		return this;
-	}
+    public StringFDesc(String key, String defaultDisplayName) {
+        super(key, IneT.STRING, defaultDisplayName);
+    }
+
+    public StringFDesc maxLength(int maxLenght) {
+        validatorNames.add(KeyValueObjectValidationManager.MAXLENGTH + ":" + maxLenght);
+        return this;
+    }
+
+    public StringFDesc minLength(int minLenght) {
+        validatorNames.add(KeyValueObjectValidationManager.MINLENGTH + ":" + minLenght);
+        return this;
+    }
+
+    public StringFDesc email() {
+        validatorNames.add(KeyValueObjectValidationManager.EMAIL);
+        return this;
+    }
+
+    public StringFDesc alphanum() {
+        validatorNames.add(KeyValueObjectValidationManager.ALPHANUM);
+        return this;
+    }
+
+    public StringFDesc alphanumOrSpace() {
+        validatorNames.add(KeyValueObjectValidationManager.ALPHANUM_OR_SPACE);
+        return this;
+    }
+
+    @Override
+    public StringFDesc addProp(String name, String value) {
+        super.addProp(name, value);
+        return this;
+    }
 }

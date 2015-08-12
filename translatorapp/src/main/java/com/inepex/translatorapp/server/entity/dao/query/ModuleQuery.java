@@ -21,72 +21,75 @@ import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 import com.inepex.translatorapp.shared.kvo.ModuleHandlerFactory;
 import com.inepex.translatorapp.shared.kvo.ModuleHandlerFactory.ModuleSearchHandler;
 
-public class ModuleQuery extends BaseQuery<Module>{
+public class ModuleQuery extends BaseQuery<Module> {
 
-	private final ModuleHandlerFactory handlerFactory;
-	
-	@Inject
-	public ModuleQuery(DescriptorStore descriptorStore) {
-		this.handlerFactory= new ModuleHandlerFactory(descriptorStore);
-	}
-	
-	@Override
-	public Expression<Boolean> buildWhere(
-		AbstractSearch action
-		, CriteriaBuilder cb
-		, Root<Module> from
-		, Expression<Boolean> base){
-			
-		ModuleSearchHandler handler = handlerFactory.createSearchHandler(action.getSearchParameters());
-		Long id = handler.getLong(ModuleConsts.s_id);
-		if (id!=null)
-			base = addAndExpression(cb, base, cb.equal(from.get(Module_.id), id));
-		String name = handler.getString(ModuleConsts.s_name);
-		if (name!=null)
-			base = addAndExpression(cb, base, cb.like(cb.upper(from.get(Module_.name)),
-	    	name.toUpperCase() + "%"));
-    			
-	return base;
-	}
-	
-	@Override
-	public Order getOrderExpression(
-			AbstractSearch action
-			, CriteriaBuilder cb
-			, Root<Module> from
-			){
-		Order o;
-		String orderKey = action == null ? null : action.getOrderKey();
-		if (orderKey == null) {
-			//default default order
-			orderKey = IFConsts.KEY_ID;
-			//default order specified:
-		}
-		Expression<?> orderExpr = null;
-		List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
-			
-		{
-			orderExpr = from.get(orderKey);
-		}
-		if (action.isDescending() == null)
-			//default order
-			o = cb.asc(orderExpr);
-		else if (action.isDescending())
-			o = cb.desc(orderExpr);
-		else
-			o = cb.asc(orderExpr);
-		return o;
-	}
-	
-	@Override
-	public Expression<Boolean> getSearchExpression(
-			CriteriaBuilder cb
-			, Path<Module> from
-			, String value){
-		Expression<Boolean> expr = null;
-		expr = addOrExpression(cb, expr, 
-				cb.like(cb.upper(from.get(Module_.name)), value.toUpperCase() + "%"));
-		return expr;	
-	}
-	
+    private final ModuleHandlerFactory handlerFactory;
+
+    @Inject
+    public ModuleQuery(DescriptorStore descriptorStore) {
+        this.handlerFactory = new ModuleHandlerFactory(descriptorStore);
+    }
+
+    @Override
+    public Expression<Boolean> buildWhere(
+        AbstractSearch action,
+        CriteriaBuilder cb,
+        Root<Module> from,
+        Expression<Boolean> base) {
+
+        ModuleSearchHandler handler =
+            handlerFactory.createSearchHandler(action.getSearchParameters());
+        Long id = handler.getLong(ModuleConsts.s_id);
+        if (id != null)
+            base = addAndExpression(cb, base, cb.equal(from.get(Module_.id), id));
+        String name = handler.getString(ModuleConsts.s_name);
+        if (name != null)
+            base =
+                addAndExpression(
+                    cb,
+                    base,
+                    cb.like(cb.upper(from.get(Module_.name)), name.toUpperCase() + "%"));
+
+        return base;
+    }
+
+    @Override
+    public Order getOrderExpression(AbstractSearch action, CriteriaBuilder cb, Root<Module> from) {
+        Order o;
+        String orderKey = action == null ? null : action.getOrderKey();
+        if (orderKey == null) {
+            // default default order
+            orderKey = IFConsts.KEY_ID;
+            // default order specified:
+        }
+        Expression<?> orderExpr = null;
+        List<String> idList = SharedUtil.listFromDotSeparated(orderKey);
+
+        {
+            orderExpr = from.get(orderKey);
+        }
+        if (action.isDescending() == null)
+            // default order
+            o = cb.asc(orderExpr);
+        else if (action.isDescending())
+            o = cb.desc(orderExpr);
+        else
+            o = cb.asc(orderExpr);
+        return o;
+    }
+
+    @Override
+    public Expression<Boolean> getSearchExpression(
+        CriteriaBuilder cb,
+        Path<Module> from,
+        String value) {
+        Expression<Boolean> expr = null;
+        expr =
+            addOrExpression(
+                cb,
+                expr,
+                cb.like(cb.upper(from.get(Module_.name)), value.toUpperCase() + "%"));
+        return expr;
+    }
+
 }

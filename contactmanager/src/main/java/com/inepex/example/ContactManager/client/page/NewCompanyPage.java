@@ -14,53 +14,58 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 
-public class NewCompanyPage extends FlowPanelBasedPage implements SavedEvent.Handler, CancelledEvent.Handler {
-	
-	private final FormContext formContext;
-	private final PlaceHandler placeHandler;
-	
-	private final ServerSideDataConnector connector;
-	private final SaveCancelForm form;
-	
-	@Inject
-	NewCompanyPage(FormContext formContext, PlaceHandler placeHandler,
-			FormFactory formFactory) {
-		this.formContext=formContext;
-		this.placeHandler=placeHandler;
-		
-		connector = new ServerSideDataConnector(formContext.ineDispatch, formContext.eventBus, CompanyConsts.descriptorName);
-		form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
-		form.setValidateData(ValidateMode.PARTIAL);
-		form.renderForm();
-		mainPanel.add(form.asWidget());
-	}
+public class NewCompanyPage extends FlowPanelBasedPage
+    implements
+    SavedEvent.Handler,
+    CancelledEvent.Handler {
 
-	@Override
-	protected void onShow(boolean isFirstShow) {
-		form.resetValuesToEmpty();
-	}
-	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		registerHandler(form.addSavedHandler(this));
-		registerHandler(form.addCancelledHandler(this));
-	}
+    private final FormContext formContext;
+    private final PlaceHandler placeHandler;
 
-	@Override
-	public void onCancelled(CancelledEvent event) {
-		formContext.eventBus.fireEvent(placeHandler.generateJumpUpEvent());
-	}
+    private final ServerSideDataConnector connector;
+    private final SaveCancelForm form;
 
-	@Override
-	public void onSaved(SavedEvent event) {
-		formContext.eventBus.fireEvent(
-				placeHandler.generateSameLevelMenuEvent(
-						PlaceHandlerHelper.appendParam(
-								AppPlaceHierarchyProvider.COMPANIES,
-								AppPlaceHierarchyProvider.PARAM_COMPANY,
-								event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
-	}
+    @Inject
+    NewCompanyPage(FormContext formContext, PlaceHandler placeHandler, FormFactory formFactory) {
+        this.formContext = formContext;
+        this.placeHandler = placeHandler;
+
+        connector =
+            new ServerSideDataConnector(
+                formContext.ineDispatch,
+                formContext.eventBus,
+                CompanyConsts.descriptorName);
+        form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
+        form.setValidateData(ValidateMode.PARTIAL);
+        form.renderForm();
+        mainPanel.add(form.asWidget());
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {
+        form.resetValuesToEmpty();
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+
+        registerHandler(form.addSavedHandler(this));
+        registerHandler(form.addCancelledHandler(this));
+    }
+
+    @Override
+    public void onCancelled(CancelledEvent event) {
+        formContext.eventBus.fireEvent(placeHandler.generateJumpUpEvent());
+    }
+
+    @Override
+    public void onSaved(SavedEvent event) {
+        formContext.eventBus.fireEvent(placeHandler.generateSameLevelMenuEvent(PlaceHandlerHelper
+            .appendParam(
+                AppPlaceHierarchyProvider.COMPANIES,
+                AppPlaceHierarchyProvider.PARAM_COMPANY,
+                event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
+    }
 
 }

@@ -6,10 +6,12 @@ import com.google.gwt.event.shared.GwtEvent;
  * TableModel fires this event on change
  *
  */
-public class KeyValueObjectListModifiedEvent extends
-		GwtEvent<KeyValueObjectListModifiedEventHandler> {
+public class KeyValueObjectListModifiedEvent
+    extends
+    GwtEvent<KeyValueObjectListModifiedEventHandler> {
 
-    public static Type<KeyValueObjectListModifiedEventHandler> TYPE = new Type<KeyValueObjectListModifiedEventHandler>();
+    public static Type<KeyValueObjectListModifiedEventHandler> TYPE =
+        new Type<KeyValueObjectListModifiedEventHandler>();
 
     /**
      * Type corresponding to the ObjectDescriptor name
@@ -17,21 +19,21 @@ public class KeyValueObjectListModifiedEvent extends
     private final String listType;
 
     public KeyValueObjectListModifiedEvent(String listType) {
-    	this.listType = listType;
-	}
+        this.listType = listType;
+    }
 
-	public String getListType() {
-		return listType;
-	}
+    public String getListType() {
+        return listType;
+    }
 
-	@Override
-	protected void dispatch(KeyValueObjectListModifiedEventHandler handler) {
-		handler.onObjectListModified(this);
-	}
+    @Override
+    protected void dispatch(KeyValueObjectListModifiedEventHandler handler) {
+        handler.onObjectListModified(this);
+    }
 
-	@Override
-	public GwtEvent.Type<KeyValueObjectListModifiedEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public GwtEvent.Type<KeyValueObjectListModifiedEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

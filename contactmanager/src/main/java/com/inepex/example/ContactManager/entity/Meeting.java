@@ -15,97 +15,96 @@ import com.inepex.ineForm.annotations.Kvo_SearchParam;
 @Entity
 public class Meeting {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam
-	private Long id;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private Long meetingTimestamp;
-	
-	@Kvo_SearchParam
-	@ManyToOne
-	@JoinColumn(nullable=false)
-	private User user;
-	
-	@Kvo_SearchParam
-	@ManyToOne
-	@JoinColumn(nullable=false)
-	private Company company;
-	
-	@Kvo_SearchParam
-	@ManyToOne
-	@JoinColumn(nullable=false)
-	private Contact contact;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private MeetingType meetingType;
-	
-	@Lob
-	private String description;
-	
-	public Meeting(){
-	}
-	
-	public Meeting(Long id){
-		this.id=id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Kvo_SearchParam
+    private Long id;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private Long meetingTimestamp;
+
+    @Kvo_SearchParam
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private User user;
+
+    @Kvo_SearchParam
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Company company;
+
+    @Kvo_SearchParam
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Contact contact;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private MeetingType meetingType;
+
+    @Lob
+    private String description;
+
+    public Meeting() {}
+
+    public Meeting(Long id) {
+        this.id = id;
     }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setMeetingTimestamp(Long meetingTimestamp) {
-		this.meetingTimestamp = meetingTimestamp;
-	}
-	
-	public Long getMeetingTimestamp() {
-		return meetingTimestamp;
-	}
+    public void setMeetingTimestamp(Long meetingTimestamp) {
+        this.meetingTimestamp = meetingTimestamp;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public Long getMeetingTimestamp() {
+        return meetingTimestamp;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public Company getCompany() {
-		return company;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setCompany(Company company) {
-		this.company = company;
-	}
+    public Company getCompany() {
+        return company;
+    }
 
-	public Contact getContact() {
-		return contact;
-	}
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
+    public Contact getContact() {
+        return contact;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public MeetingType getMeetingType() {
-		return meetingType;
-	}
-	
-	public void setMeetingType(MeetingType meetingType) {
-		this.meetingType = meetingType;
-	}
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public MeetingType getMeetingType() {
+        return meetingType;
+    }
+
+    public void setMeetingType(MeetingType meetingType) {
+        this.meetingType = meetingType;
+    }
 }

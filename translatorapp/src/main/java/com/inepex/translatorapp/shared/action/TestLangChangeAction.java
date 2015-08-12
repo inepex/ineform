@@ -2,42 +2,41 @@ package com.inepex.translatorapp.shared.action;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-public class TestLangChangeAction implements Action<TestLangChangeResult>{
-	
-	private Boolean currentState;
-	private Long moduleId;
-	private Long langId;
-	
-	public TestLangChangeAction() {
-	}
-	
-	public TestLangChangeAction(Boolean currentState, Long moduleId, Long langId) {
-		this.currentState = currentState;
-		this.moduleId = moduleId;
-		this.langId = langId;
-	}
+public class TestLangChangeAction implements Action<TestLangChangeResult> {
 
-	public Boolean getCurrentState() {
-		return currentState;
-	}
+    private Boolean currentState;
+    private Long moduleId;
+    private Long langId;
 
-	public void setCurrentState(Boolean currentState) {
-		this.currentState = currentState;
-	}
+    public TestLangChangeAction() {}
 
-	public Long getModuleId() {
-		return moduleId;
-	}
+    public TestLangChangeAction(Boolean currentState, Long moduleId, Long langId) {
+        this.currentState = currentState;
+        this.moduleId = moduleId;
+        this.langId = langId;
+    }
 
-	public void setModuleId(Long moduleId) {
-		this.moduleId = moduleId;
-	}
+    public Boolean getCurrentState() {
+        return currentState;
+    }
 
-	public Long getLangId() {
-		return langId;
-	}
+    public void setCurrentState(Boolean currentState) {
+        this.currentState = currentState;
+    }
 
-	public void setLangId(Long langId) {
-		this.langId = langId;
-	}
+    public Long getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(Long moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public Long getLangId() {
+        return langId;
+    }
+
+    public void setLangId(Long langId) {
+        this.langId = langId;
+    }
 }

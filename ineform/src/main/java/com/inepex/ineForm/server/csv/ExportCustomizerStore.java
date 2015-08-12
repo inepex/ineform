@@ -8,21 +8,19 @@ import com.inepex.ineForm.shared.render.TableFieldRenderer;
 
 public class ExportCustomizerStore {
 
-	private Map<String, ExportTableCustomizer> customizersByDescriptor = new HashMap<>();
-	
-	@Inject
-	public ExportCustomizerStore() {
-	}
+    private Map<String, ExportTableCustomizer> customizersByDescriptor = new HashMap<>();
 
-	public void registerCustomizer(String descriptorName, ExportTableCustomizer customizer){
-		customizersByDescriptor.put(descriptorName, customizer);
-	}
-	
-	public void customize(String descriptorName, TableFieldRenderer fieldRenderer){
-		if (customizersByDescriptor.containsKey(descriptorName)){
-			customizersByDescriptor.get(descriptorName).customize(fieldRenderer);
-		}
-	}
+    @Inject
+    public ExportCustomizerStore() {}
 
-	
+    public void registerCustomizer(String descriptorName, ExportTableCustomizer customizer) {
+        customizersByDescriptor.put(descriptorName, customizer);
+    }
+
+    public void customize(String descriptorName, TableFieldRenderer fieldRenderer) {
+        if (customizersByDescriptor.containsKey(descriptorName)) {
+            customizersByDescriptor.get(descriptorName).customize(fieldRenderer);
+        }
+    }
+
 }

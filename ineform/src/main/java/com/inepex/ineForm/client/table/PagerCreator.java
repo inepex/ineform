@@ -11,69 +11,67 @@ import com.inepex.ineForm.client.IneFormProperties;
 
 public class PagerCreator {
 
-	private static SimplePager.Resources resources;
-	
-	public static SimplePager create() {
-		return new SimplePager(TextLocation.CENTER, getResources(), false, 0, true);
-	}
+    private static SimplePager.Resources resources;
 
-	private static Resources getResources() {
-		if(resources==null) {
-			if(IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
-				resources = GWT.create(SimplePager.Resources.class);
-			else
-				resources = GWT.create(PagerResources.class);
-			
-			resources.simplePagerStyle().ensureInjected();
-		}
-		
-		return resources;
-	}
-	
-	
-	public static interface PagerResources extends SimplePager.Resources, ClientBundle{
-		
-		@Override
-		@Source("dummy.png")
-	    ImageResource simplePagerFastForward();
+    public static SimplePager create() {
+        return new SimplePager(TextLocation.CENTER, getResources(), false, 0, true);
+    }
 
-	    @Override
-	    @Source("dummy.png")
-	    ImageResource simplePagerFastForwardDisabled();
+    private static Resources getResources() {
+        if (resources == null) {
+            if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
+                resources = GWT.create(SimplePager.Resources.class);
+            else
+                resources = GWT.create(PagerResources.class);
 
-	    @Override
-	    ImageResource simplePagerFirstPage();
+            resources.simplePagerStyle().ensureInjected();
+        }
 
-	    @Override
-	    @Source("simplePagerFirstPage.png")
-	    ImageResource simplePagerFirstPageDisabled();
+        return resources;
+    }
 
-	    @Override
-	    ImageResource simplePagerLastPage();
+    public static interface PagerResources extends SimplePager.Resources, ClientBundle {
 
-	    @Override
-	    @Source("simplePagerLastPage.png")
-	    ImageResource simplePagerLastPageDisabled();
+        @Override
+        @Source("dummy.png")
+        ImageResource simplePagerFastForward();
 
-	    @Override
-	    ImageResource simplePagerNextPage();
+        @Override
+        @Source("dummy.png")
+        ImageResource simplePagerFastForwardDisabled();
 
-	    @Override
-	    @Source("simplePagerNextPage.png")
-	    ImageResource simplePagerNextPageDisabled();
+        @Override
+        ImageResource simplePagerFirstPage();
 
-	    @Override
-	    ImageResource simplePagerPreviousPage();
+        @Override
+        @Source("simplePagerFirstPage.png")
+        ImageResource simplePagerFirstPageDisabled();
 
-	    @Override
-	    @Source("simplePagerPreviousPage.png")
-	    ImageResource simplePagerPreviousPageDisabled();
-		
-		@Override
-		@Source("SimplePager.css")
-		public Style simplePagerStyle();
-	}
-	
-	
-	private PagerCreator(){}
+        @Override
+        ImageResource simplePagerLastPage();
+
+        @Override
+        @Source("simplePagerLastPage.png")
+        ImageResource simplePagerLastPageDisabled();
+
+        @Override
+        ImageResource simplePagerNextPage();
+
+        @Override
+        @Source("simplePagerNextPage.png")
+        ImageResource simplePagerNextPageDisabled();
+
+        @Override
+        ImageResource simplePagerPreviousPage();
+
+        @Override
+        @Source("simplePagerPreviousPage.png")
+        ImageResource simplePagerPreviousPageDisabled();
+
+        @Override
+        @Source("SimplePager.css")
+        public Style simplePagerStyle();
+    }
+
+    private PagerCreator() {}
 }

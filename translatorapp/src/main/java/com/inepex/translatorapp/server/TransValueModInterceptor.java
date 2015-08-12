@@ -13,39 +13,41 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 import com.inepex.translatorapp.shared.kvo.TranslatedValueConsts;
 
-public class TransValueModInterceptor implements MethodInterceptor{
+public class TransValueModInterceptor implements MethodInterceptor {
 
-	private final Provider<SessionScopedAuthStat> authStatProv;
-	private final Provider<AssistedObjectHandlerFactory> hfProvider;
-	
-	public TransValueModInterceptor(Provider<SessionScopedAuthStat> authStatProv,
-			Provider<AssistedObjectHandlerFactory> hfProvider) {
-		this.authStatProv=authStatProv;
-		this.hfProvider=hfProvider;
-	}
-	
-	@Override
-	public Object invoke(MethodInvocation invocation) throws Throwable {
-		Long userId;
-		SessionScopedAuthStat stat = authStatProv.get();
-		synchronized (stat) {
-			userId=stat.getUserId();
-		}
-		
-		if(userId==null)
-			throw new AuthenticationException();
-		
-		ObjectManipulationAction action = (ObjectManipulationAction) invocation.getArguments()[0];
-		if(action.getManipulationType()!=ManipulationTypes.CREATE_OR_EDIT_REQUEST || action.getObject()==null) {
-			throw new IllegalStateException();
-		}
-		
-		AssistedObjectHandler handler = hfProvider.get().createHandler(action.getObject());
-		
-		handler.set(TranslatedValueConsts.k_lastModTime, System.currentTimeMillis());
-		handler.set(TranslatedValueConsts.k_lastModUser, new Relation(userId, ""));
-		
-		return invocation.proceed();
-	}
+    private final Provider<SessionScopedAuthStat> authStatProv;
+    private final Provider<AssistedObjectHandlerFactory> hfProvider;
+
+    public TransValueModInterceptor(
+        Provider<SessionScopedAuthStat> authStatProv,
+        Provider<AssistedObjectHandlerFactory> hfProvider) {
+        this.authStatProv = authStatProv;
+        this.hfProvider = hfProvider;
+    }
+
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        Long userId;
+        SessionScopedAuthStat stat = authStatProv.get();
+        synchronized (stat) {
+            userId = stat.getUserId();
+        }
+
+        if (userId == null)
+            throw new AuthenticationException();
+
+        ObjectManipulationAction action = (ObjectManipulationAction) invocation.getArguments()[0];
+        if (action.getManipulationType() != ManipulationTypes.CREATE_OR_EDIT_REQUEST
+            || action.getObject() == null) {
+            throw new IllegalStateException();
+        }
+
+        AssistedObjectHandler handler = hfProvider.get().createHandler(action.getObject());
+
+        handler.set(TranslatedValueConsts.k_lastModTime, System.currentTimeMillis());
+        handler.set(TranslatedValueConsts.k_lastModUser, new Relation(userId, ""));
+
+        return invocation.proceed();
+    }
 
 }

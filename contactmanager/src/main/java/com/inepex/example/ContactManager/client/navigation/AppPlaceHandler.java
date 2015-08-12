@@ -12,22 +12,28 @@ import com.inepex.ineFrame.client.navigation.PlaceHandler;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 
 @Singleton
-public class AppPlaceHandler extends PlaceHandler{
+public class AppPlaceHandler extends PlaceHandler {
 
-	@Inject
-	public AppPlaceHandler(PlaceHierarchyProvider placeHierarchyProvider,
-			MasterPage masterPage,
-			HistoryProvider historyProvider,
-			EventBus eventBus,
-			AuthManager authManager,
-			ConnectionFailedHandler connectionFailedHandler) {
-		super(placeHierarchyProvider, masterPage, authManager, historyProvider, eventBus,
-				connectionFailedHandler);
-	}
-	
-	@Override
-	protected boolean specificAdjustPlaceShouldReturn(InePlace place) {
-		return false;
-	}
+    @Inject
+    public AppPlaceHandler(
+        PlaceHierarchyProvider placeHierarchyProvider,
+        MasterPage masterPage,
+        HistoryProvider historyProvider,
+        EventBus eventBus,
+        AuthManager authManager,
+        ConnectionFailedHandler connectionFailedHandler) {
+        super(
+            placeHierarchyProvider,
+            masterPage,
+            authManager,
+            historyProvider,
+            eventBus,
+            connectionFailedHandler);
+    }
+
+    @Override
+    protected boolean specificAdjustPlaceShouldReturn(InePlace place) {
+        return false;
+    }
 
 }

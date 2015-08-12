@@ -15,132 +15,129 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
  *
  */
 public abstract class StringFormWidget extends FormWidget {
-	
-	public StringFormWidget(FDesc fielddescriptor) {
-		super(fielddescriptor);
-	}
-	
-	@Override
-	protected void initWidget(Widget widget) {
-		//adding div around the widget to styling
-		FlowPanel fp = new FlowPanel();
-		fp.add(widget);
-		super.initWidget(fp);;
-	}
-	
 
-	@Override
-	public Boolean getBooleanValue() {
-		String str = getStringValue();
-		if (str == null)
-			return null;
+    public StringFormWidget(FDesc fielddescriptor) {
+        super(fielddescriptor);
+    }
 
-		return str.equals(IFConsts.TRUE);
-	}
+    @Override
+    protected void initWidget(Widget widget) {
+        // adding div around the widget to styling
+        FlowPanel fp = new FlowPanel();
+        fp.add(widget);
+        super.initWidget(fp);
+        ;
+    }
 
-	@Override
-	public Double getDoubleValue() {
-		String str = getStringValue();
-		if (str == null)
-			return null;
+    @Override
+    public Boolean getBooleanValue() {
+        String str = getStringValue();
+        if (str == null)
+            return null;
 
-		try {
-			return Double.parseDouble(str);
-		} catch (NumberFormatException e) {
-			return null;
-		}
-	}
+        return str.equals(IFConsts.TRUE);
+    }
 
-	@Override
-	public IneList getListValue() {
-		return null;
-	}
+    @Override
+    public Double getDoubleValue() {
+        String str = getStringValue();
+        if (str == null)
+            return null;
 
-	@Override
-	public Long getLongValue() {
-		String str = getStringValue();
-		if (str == null)
-			return null;
+        try {
+            return Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 
-		try {
-			return Long.parseLong(str);
-		} catch (NumberFormatException e) {
-			return null;
-		}
-	}
+    @Override
+    public IneList getListValue() {
+        return null;
+    }
 
-	@Override
-	public Relation getRelationValue() {
-		return null;
-	}
+    @Override
+    public Long getLongValue() {
+        String str = getStringValue();
+        if (str == null)
+            return null;
 
-	@Override
-	public boolean handlesBoolean() {
-		return true;
-	}
+        try {
+            return Long.parseLong(str);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 
-	@Override
-	public boolean handlesDouble() {
-		return true;
-	}
+    @Override
+    public Relation getRelationValue() {
+        return null;
+    }
 
-	@Override
-	public boolean handlesList() {
-		return false;
-	}
+    @Override
+    public boolean handlesBoolean() {
+        return true;
+    }
 
-	@Override
-	public boolean handlesLong() {
-		return true;
-	}
+    @Override
+    public boolean handlesDouble() {
+        return true;
+    }
 
-	@Override
-	public boolean handlesRelation() {
-		return false;
-	}
+    @Override
+    public boolean handlesList() {
+        return false;
+    }
 
-	@Override
-	public boolean handlesString() {
-		return true;
-	}
+    @Override
+    public boolean handlesLong() {
+        return true;
+    }
 
-	@Override
-	public void setBooleanValue(Boolean value) {
-		if (value == null)
-			return;
-		setStringValue(value ? IFConsts.TRUE : IFConsts.FALSE);
+    @Override
+    public boolean handlesRelation() {
+        return false;
+    }
 
-	}
+    @Override
+    public boolean handlesString() {
+        return true;
+    }
 
-	@Override
-	public void setDoubleValue(Double value) {
-		if (value == null)
-			return;
-		setStringValue(new NumberUtilCln().formatNumberToFractial(value));
-	}
+    @Override
+    public void setBooleanValue(Boolean value) {
+        if (value == null)
+            return;
+        setStringValue(value ? IFConsts.TRUE : IFConsts.FALSE);
 
+    }
 
-	@Override
-	public void setLongValue(Long value) {
-		if (value == null)
-			return;
-		
-		if(fieldDescriptor!=null || !IFConsts.KEY_ID.equals(fieldDescriptor.getKey()))
-			setStringValue(new NumberUtilCln().formatNumberGroupThousands(value));
-		else
-			setStringValue(value.toString());
-	}
+    @Override
+    public void setDoubleValue(Double value) {
+        if (value == null)
+            return;
+        setStringValue(new NumberUtilCln().formatNumberToFractial(value));
+    }
 
-	@Override
-	public boolean isReadOnlyWidget() {
-		return false;
-	}
-	
-	@Override
-	public void setListValue(IneList value) {
-	}
+    @Override
+    public void setLongValue(Long value) {
+        if (value == null)
+            return;
 
-	@Override
-	public void setRelationValue(Relation value) {
-	}
+        if (fieldDescriptor != null || !IFConsts.KEY_ID.equals(fieldDescriptor.getKey()))
+            setStringValue(new NumberUtilCln().formatNumberGroupThousands(value));
+        else
+            setStringValue(value.toString());
+    }
+
+    @Override
+    public boolean isReadOnlyWidget() {
+        return false;
+    }
+
+    @Override
+    public void setListValue(IneList value) {}
+
+    @Override
+    public void setRelationValue(Relation value) {}
 }

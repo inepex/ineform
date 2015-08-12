@@ -4,35 +4,35 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.navigation.RequiresAuthentication;
 import com.inepex.ineFrame.client.page.InePage;
 
-public abstract class CachablePagePlace<W extends InePage> extends InePlace{
-		
-	private W page;
-	protected boolean doCaching = true;
+public abstract class CachablePagePlace<W extends InePage> extends InePlace {
 
-	public CachablePagePlace() {
-	}
-	
-	public CachablePagePlace(boolean doCaching) {
-		this.doCaching = doCaching;
-	}
-	
-	public CachablePagePlace(RequiresAuthentication requiresAuthentication) {
-		super(requiresAuthentication);
-	}
+    private W page;
+    protected boolean doCaching = true;
 
-	public CachablePagePlace(RequiresAuthentication requiresAuthentication, String menuName) {
-		super(requiresAuthentication, menuName);
-	}
-	
-	public abstract W createPage();
+    public CachablePagePlace() {}
 
-	@Override
-	public InePage getAssociatedPage() {
-		if (!doCaching)
-			return createPage();
-		
-		if (page == null)
-			page = createPage();
-		return page;	}
-	
+    public CachablePagePlace(boolean doCaching) {
+        this.doCaching = doCaching;
+    }
+
+    public CachablePagePlace(RequiresAuthentication requiresAuthentication) {
+        super(requiresAuthentication);
+    }
+
+    public CachablePagePlace(RequiresAuthentication requiresAuthentication, String menuName) {
+        super(requiresAuthentication, menuName);
+    }
+
+    public abstract W createPage();
+
+    @Override
+    public InePage getAssociatedPage() {
+        if (!doCaching)
+            return createPage();
+
+        if (page == null)
+            page = createPage();
+        return page;
+    }
+
 }

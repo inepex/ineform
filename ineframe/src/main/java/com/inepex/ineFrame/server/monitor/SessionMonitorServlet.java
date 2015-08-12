@@ -25,69 +25,67 @@ import com.google.inject.Singleton;
 @Singleton
 @SuppressWarnings("serial")
 public class SessionMonitorServlet extends HttpServlet implements HttpSessionListener {
-	
-	private static List<HttpSession> sessions = new ArrayList<HttpSession>();
-	private static AtomicLong numberOfSessions = new AtomicLong(0L);
-	
-	@Inject
-	public SessionMonitorServlet() {
-	}
-	
-	@Override
-	public void init() throws ServletException {
-		System.out.println("started");
-		super.init();
-	}
 
-	@Override	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		resp.getWriter().println("Number of active sessions: " + numberOfSessions.get());
-		List<HttpSession> copy;
-		synchronized (sessions) {
-			copy = new ArrayList<HttpSession>(sessions);
-		}
-		for (HttpSession sess : copy){
-			
-			Long approximateSizeInByte = 0L;
-			Enumeration<String> attributeNames = sess.getAttributeNames();
-			while (attributeNames.hasMoreElements()){
-				String name = attributeNames.nextElement();
-				if (sess.getAttribute(name) instanceof IsSerializable || sess.getAttribute(name) instanceof Serializable){
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					ObjectOutput out = new ObjectOutputStream(bos);
-					
-					out.writeObject(sess.getAttribute(name));
-					byte[] bytes = bos.toByteArray();
-					approximateSizeInByte += bytes.length;
-				}
+    private static List<HttpSession> sessions = new ArrayList<HttpSession>();
+    private static AtomicLong numberOfSessions = new AtomicLong(0L);
 
-			}		
-			resp.getWriter().println("Size of " + sess.getId() + ": " + approximateSizeInByte);
-			
-		}
-		
-		
-	}
+    @Inject
+    public SessionMonitorServlet() {}
 
+    @Override
+    public void init() throws ServletException {
+        System.out.println("started");
+        super.init();
+    }
 
-	@Override
-	public void sessionCreated(HttpSessionEvent arg0) {
-		numberOfSessions.incrementAndGet();
-		
-		synchronized (sessions) {
-			sessions.add(arg0.getSession());			
-		}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException,
+        IOException {
+        resp.getWriter().println("Number of active sessions: " + numberOfSessions.get());
+        List<HttpSession> copy;
+        synchronized (sessions) {
+            copy = new ArrayList<HttpSession>(sessions);
+        }
+        for (HttpSession sess : copy) {
 
-	}
+            Long approximateSizeInByte = 0L;
+            Enumeration<String> attributeNames = sess.getAttributeNames();
+            while (attributeNames.hasMoreElements()) {
+                String name = attributeNames.nextElement();
+                if (sess.getAttribute(name) instanceof IsSerializable
+                    || sess.getAttribute(name) instanceof Serializable) {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    ObjectOutput out = new ObjectOutputStream(bos);
 
+                    out.writeObject(sess.getAttribute(name));
+                    byte[] bytes = bos.toByteArray();
+                    approximateSizeInByte += bytes.length;
+                }
 
-	@Override
-	public void sessionDestroyed(HttpSessionEvent arg0) {
-		numberOfSessions.decrementAndGet();
-		
-		synchronized (sessions) {
-			sessions.remove(arg0.getSession());			
-		}
-	}
+            }
+            resp.getWriter().println("Size of " + sess.getId() + ": " + approximateSizeInByte);
+
+        }
+
+    }
+
+    @Override
+    public void sessionCreated(HttpSessionEvent arg0) {
+        numberOfSessions.incrementAndGet();
+
+        synchronized (sessions) {
+            sessions.add(arg0.getSession());
+        }
+
+    }
+
+    @Override
+    public void sessionDestroyed(HttpSessionEvent arg0) {
+        numberOfSessions.decrementAndGet();
+
+        synchronized (sessions) {
+            sessions.remove(arg0.getSession());
+        }
+    }
 }

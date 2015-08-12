@@ -30,107 +30,118 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
  */
 public class ServerSideDataConnector extends IneDataConnector {
 
-	private final IneDispatch dispatcher;
-	private PushedEventProvider pushedEventProvider = null;
+    private final IneDispatch dispatcher;
+    private PushedEventProvider pushedEventProvider = null;
 
-	@Inject
-	public ServerSideDataConnector(IneDispatch dispatcher, EventBus eventBus, @Assisted String descriptorName) {
-		super(eventBus, descriptorName);
-		this.dispatcher = dispatcher;
-	}
+    @Inject
+    public ServerSideDataConnector(
+        IneDispatch dispatcher,
+        EventBus eventBus,
+        @Assisted String descriptorName) {
+        super(eventBus, descriptorName);
+        this.dispatcher = dispatcher;
+    }
 
-	public void setAssociatedListAction(ObjectListAction associatedListAction) {
-		objectList = associatedListAction;
-	}
+    public void setAssociatedListAction(ObjectListAction associatedListAction) {
+        objectList = associatedListAction;
+    }
 
-	public void setAssociatedManipulateAction(ObjectManipulationAction associatedManipulateAction) {
-		objectManipulation = associatedManipulateAction;
-	}
+    public void setAssociatedManipulateAction(ObjectManipulationAction associatedManipulateAction) {
+        objectManipulation = associatedManipulateAction;
+    }
 
-	public ObjectManipulationAction getAssociatedManipulateAction() {
-		return (ObjectManipulationAction) objectManipulation;
-	}
+    public ObjectManipulationAction getAssociatedManipulateAction() {
+        return (ObjectManipulationAction) objectManipulation;
+    }
 
-	public ObjectListAction getAssociatedListAction() {
-		return (ObjectListAction) objectList;
-	}
+    public ObjectListAction getAssociatedListAction() {
+        return (ObjectListAction) objectList;
+    }
 
-	public void setAutoUpdating(PushedEventProvider pEventProvider, HasData<AssistedObject> display) {
-		this.pushedEventProvider = pEventProvider;
-		createDefaultListActionIfNull();
-		pEventProvider.addAction(getAssociatedListAction(), new ObjectRangePushContext(display));
-	}
+    public
+        void
+        setAutoUpdating(PushedEventProvider pEventProvider, HasData<AssistedObject> display) {
+        this.pushedEventProvider = pEventProvider;
+        createDefaultListActionIfNull();
+        pEventProvider.addAction(getAssociatedListAction(), new ObjectRangePushContext(display));
+    }
 
-	public void disableAutoUpdating() {
-		if (pushedEventProvider != null)
-			pushedEventProvider.removeAction(getAssociatedListAction());
-	}
+    public void disableAutoUpdating() {
+        if (pushedEventProvider != null)
+            pushedEventProvider.removeAction(getAssociatedListAction());
+    }
 
-	private class ObjectRangePushContext extends PushedActionContext<ObjectListActionResult> {
-		HasData<AssistedObject> display;
+    private class ObjectRangePushContext extends PushedActionContext<ObjectListActionResult> {
+        HasData<AssistedObject> display;
 
-		public ObjectRangePushContext(HasData<AssistedObject> display) {
-			this.display = display;
-		}
+        public ObjectRangePushContext(HasData<AssistedObject> display) {
+            this.display = display;
+        }
 
-		@Override
-		public void onCastedSuccess(ObjectListActionResult result) {
-			updateLastResult(result);
-			updateDisplayToLastResult();
-		}
+        @Override
+        public void onCastedSuccess(ObjectListActionResult result) {
+            updateLastResult(result);
+            updateDisplayToLastResult();
+        }
 
-		@Override
-		public void onBeforeCallAction(Action<?> action) {
-			this.customStatusIndicator = customListingStatusIndicator;
-			setListActionDetails((ObjectListAction) action, searchParameters, display.getVisibleRange().getStart(), display
-					.getVisibleRange()
-					.getLength(), false);
-		}
-	}
+        @Override
+        public void onBeforeCallAction(Action<?> action) {
+            this.customStatusIndicator = customListingStatusIndicator;
+            setListActionDetails((ObjectListAction) action, searchParameters, display
+                .getVisibleRange()
+                .getStart(), display.getVisibleRange().getLength(), false);
+        }
+    }
 
-	public static interface DataConnectorReadyCallback {
+    public static interface DataConnectorReadyCallback {
 
-		void ready();
+        void ready();
 
-	}
+    }
 
-	@Override
-	protected ObjectList createNewObjectList() {
-		return new ObjectListAction(getDescriptorName());
-	}
+    @Override
+    protected ObjectList createNewObjectList() {
+        return new ObjectListAction(getDescriptorName());
+    }
 
-	@Override
-	protected ObjectManipulation createNewObjectManipulate() {
-		return new ObjectManipulationAction();
-	}
+    @Override
+    protected ObjectManipulation createNewObjectManipulate() {
+        return new ObjectManipulationAction();
+    }
 
-	@Override
-	protected void executeManipulation(
-			ObjectManipulation objectManipulation,
-			final ObjectManipulationCallback manipulationCallback,
-			AsyncStatusIndicator statusIndicator) {
-		dispatcher.execute((ObjectManipulationAction)objectManipulation, new SuccessCallback<ObjectManipulationActionResult>() {
+    @Override
+    protected void executeManipulation(
+        ObjectManipulation objectManipulation,
+        final ObjectManipulationCallback manipulationCallback,
+        AsyncStatusIndicator statusIndicator) {
+        dispatcher.execute(
+            (ObjectManipulationAction) objectManipulation,
+            new SuccessCallback<ObjectManipulationActionResult>() {
 
-			@Override
-			public void onSuccess(ObjectManipulationActionResult result) {
-				manipulationCallback.onSuccess(result);
-			}
-		}, statusIndicator);
+                @Override
+                public void onSuccess(ObjectManipulationActionResult result) {
+                    manipulationCallback.onSuccess(result);
+                }
+            },
+            statusIndicator);
 
-	}
+    }
 
-	@Override
-	protected void executeObjectList(
-			ObjectList objectList,
-			final SuccessCallback<ObjectListResult> objectListCallback,
-			AsyncStatusIndicator statusIndicator) {
-		dispatcher.execute((ObjectListAction)objectList, new SuccessCallback<ObjectListActionResult>() {
+    @Override
+    protected void executeObjectList(
+        ObjectList objectList,
+        final SuccessCallback<ObjectListResult> objectListCallback,
+        AsyncStatusIndicator statusIndicator) {
+        dispatcher.execute(
+            (ObjectListAction) objectList,
+            new SuccessCallback<ObjectListActionResult>() {
 
-			@Override
-			public void onSuccess(ObjectListActionResult result) {
-				objectListCallback.onSuccess(result);
-			}
-		}, statusIndicator);
+                @Override
+                public void onSuccess(ObjectListActionResult result) {
+                    objectListCallback.onSuccess(result);
+                }
+            },
+            statusIndicator);
 
-	}
+    }
 }

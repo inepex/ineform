@@ -20,69 +20,66 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
  */
 public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean> {
 
-	private boolean checked;
-	private HandlerManager handlerManager;
-	private AbstractIneTable table;
+    private boolean checked;
+    private HandlerManager handlerManager;
+    private AbstractIneTable table;
 
-	public SelectAllHeader(AbstractIneTable table) {
-		super(new CheckboxCell());
-		this.table=table;
-	}
+    public SelectAllHeader(AbstractIneTable table) {
+        super(new CheckboxCell());
+        this.table = table;
+    }
 
-	@Override
-	public Boolean getValue() {
-		return checked;
-	}
+    @Override
+    public Boolean getValue() {
+        return checked;
+    }
 
-	@Override
-	public void onBrowserEvent(Context context, Element elem,
-			NativeEvent nativeEvent) {
-		int eventType = Event.as(nativeEvent).getTypeInt();
-		if (eventType == Event.ONCHANGE) {
-			nativeEvent.preventDefault();
-			setValue(!checked, true);
-		}
-	}
+    @Override
+    public void onBrowserEvent(Context context, Element elem, NativeEvent nativeEvent) {
+        int eventType = Event.as(nativeEvent).getTypeInt();
+        if (eventType == Event.ONCHANGE) {
+            nativeEvent.preventDefault();
+            setValue(!checked, true);
+        }
+    }
 
-	@Override
-	public HandlerRegistration addValueChangeHandler(
-			ValueChangeHandler<Boolean> handler) {
-		return ensureHandlerManager().addHandler(ValueChangeEvent.getType(),
-				handler);
-	}
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<Boolean> handler) {
+        return ensureHandlerManager().addHandler(ValueChangeEvent.getType(), handler);
+    }
 
-	@Override
-	public void fireEvent(GwtEvent<?> event) {
-		ensureHandlerManager().fireEvent(event);
-	}
+    @Override
+    public void fireEvent(GwtEvent<?> event) {
+        ensureHandlerManager().fireEvent(event);
+    }
 
-	@Override
-	public void setValue(Boolean value) {
-		setValue(value, false);
-	}
+    @Override
+    public void setValue(Boolean value) {
+        setValue(value, false);
+    }
 
-	@Override
-	public void setValue(Boolean value, boolean fireEvents) {
-		checked = value;
-		table.redrawHeaders();
-		
-		if(value) {
-			for(AssistedObject ao : table.getCellTable().getVisibleItems())
-				table.getSelectionModel().setSelected(ao, true);
-		} else {
-			for(AssistedObject ao : table.getMultiSelectionModel().getSelectedSet())
-				table.getSelectionModel().setSelected(ao, false);
-		}
-		
-		if (fireEvents) {
-			ValueChangeEvent.fire(this, value);
-		}
-	}
+    @Override
+    public void setValue(Boolean value, boolean fireEvents) {
+        checked = value;
+        table.redrawHeaders();
 
-	private HandlerManager ensureHandlerManager() {
-		if (handlerManager == null) {
-			handlerManager = new HandlerManager(this);
-		}
-		return handlerManager;
-	}
+        if (value) {
+            for (AssistedObject ao : table.getCellTable().getVisibleItems())
+                table.getSelectionModel().setSelected(ao, true);
+        } else {
+            for (AssistedObject ao : table.getMultiSelectionModel().getSelectedSet())
+                table.getSelectionModel().setSelected(ao, false);
+        }
+
+        if (fireEvents) {
+            ValueChangeEvent.fire(this, value);
+        }
+    }
+
+    private HandlerManager ensureHandlerManager() {
+        if (handlerManager == null) {
+            handlerManager = new HandlerManager(this);
+        }
+        return handlerManager;
+    }
 }

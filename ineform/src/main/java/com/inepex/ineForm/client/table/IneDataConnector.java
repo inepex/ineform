@@ -23,342 +23,360 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 
 public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject> {
 
-	public class ObjectManipulationCallback extends SuccessCallback<ObjectManipulationResult> {
+    public class ObjectManipulationCallback extends SuccessCallback<ObjectManipulationResult> {
 
-		private final ObjectManipulation currentManipulation;
-		private final ManipulateResultCallback currentCallback;
+        private final ObjectManipulation currentManipulation;
+        private final ManipulateResultCallback currentCallback;
 
-		private ObjectManipulationCallback(ObjectManipulation currentManipulation, ManipulateResultCallback currentCallback) {
-			this.currentManipulation = currentManipulation;
-			this.currentCallback = currentCallback;
-		}
+        private ObjectManipulationCallback(
+            ObjectManipulation currentManipulation,
+            ManipulateResultCallback currentCallback) {
+            this.currentManipulation = currentManipulation;
+            this.currentCallback = currentCallback;
+        }
 
-		@Override
-		public void onSuccess(ObjectManipulationResult result) {
-			if (result!=null && result.isSuccess() && (result.getValidationResult()==null || result.getValidationResult().isValid())) {
-				if (currentManipulation.getObject()!=null
-						&& result.getObjectsNewState()!=null){
-					if (currentManipulation.getObject().isNew()){
-						rowCount++;
-						resultMap.put(result.getObjectsNewState().getId(), resultList.size());
-						resultList.add(result.getObjectsNewState());
-					} else {
-						//case of its not a form
-						if(resultMap.get(result.getObjectsNewState().getId())!=null) {
-							resultList.set(resultMap.get(result.getObjectsNewState().getId()), result.getObjectsNewState());
-						}
-					}
-				}
-				
-				if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE && rowCount > 0){
-					--rowCount;
-					int indexOfDeleted = resultMap.get(currentManipulation.getObject().getId()).intValue();
-					resultList.remove(indexOfDeleted);
-					resultMap.remove(currentManipulation.getObject().getId());
-					for(Entry<Long, Integer> entry : resultMap.entrySet()) {
-						if(entry.getValue()>=indexOfDeleted)
-							entry.setValue(entry.getValue()-1);
-					}
-				}
-			}
-			if (currentCallback != null)
-				currentCallback.onManipulationResult(result);
+        @Override
+        public void onSuccess(ObjectManipulationResult result) {
+            if (result != null
+                && result.isSuccess()
+                && (result.getValidationResult() == null || result.getValidationResult().isValid())) {
+                if (currentManipulation.getObject() != null && result.getObjectsNewState() != null) {
+                    if (currentManipulation.getObject().isNew()) {
+                        rowCount++;
+                        resultMap.put(result.getObjectsNewState().getId(), resultList.size());
+                        resultList.add(result.getObjectsNewState());
+                    } else {
+                        // case of its not a form
+                        if (resultMap.get(result.getObjectsNewState().getId()) != null) {
+                            resultList.set(
+                                resultMap.get(result.getObjectsNewState().getId()),
+                                result.getObjectsNewState());
+                        }
+                    }
+                }
 
-			updateDisplaysAndfireListChangedEvent();
-		}
+                if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE
+                    && rowCount > 0) {
+                    --rowCount;
+                    int indexOfDeleted =
+                        resultMap.get(currentManipulation.getObject().getId()).intValue();
+                    resultList.remove(indexOfDeleted);
+                    resultMap.remove(currentManipulation.getObject().getId());
+                    for (Entry<Long, Integer> entry : resultMap.entrySet()) {
+                        if (entry.getValue() >= indexOfDeleted)
+                            entry.setValue(entry.getValue() - 1);
+                    }
+                }
+            }
+            if (currentCallback != null)
+                currentCallback.onManipulationResult(result);
 
-	}
+            updateDisplaysAndfireListChangedEvent();
+        }
 
-	private final String descriptorName;
-	private final EventBus eventBus;
+    }
 
-	private String orderKey = null;
-	private boolean orderDescending = false;
+    private final String descriptorName;
+    private final EventBus eventBus;
 
-	protected AssistedObject searchParameters;
-	
-	/**
-	 * map assisted object id to list index
-	 */
-	private HashMap<Long, Integer> resultMap = new HashMap<Long, Integer>();
-	
-	private List<AssistedObject> resultList = new ArrayList<AssistedObject>();
-	
-	private Long rowCount = new Long(0L);
-	
-	protected ObjectList objectList = null;
-	protected ObjectManipulation objectManipulation = null;
+    private String orderKey = null;
+    private boolean orderDescending = false;
 
-	protected AsyncStatusIndicator customListingStatusIndicator = null;
-	private AsyncStatusIndicator customManipulateStatusIndicator = null;
-	
-	private boolean isPaging = true;
-	
-	private DataConnectorReadyCallback callback;	
-	
-	private boolean firstCall = true;
-	
-	private boolean callCallbackAfterPageChange = false;
+    protected AssistedObject searchParameters;
 
-	public IneDataConnector(EventBus eventBus, String descriptorName) {
-		this.eventBus = eventBus;
-		this.descriptorName = descriptorName;
+    /**
+     * map assisted object id to list index
+     */
+    private HashMap<Long, Integer> resultMap = new HashMap<Long, Integer>();
 
-	}
+    private List<AssistedObject> resultList = new ArrayList<AssistedObject>();
 
-	protected abstract ObjectList createNewObjectList();
+    private Long rowCount = new Long(0L);
 
-	protected abstract ObjectManipulation createNewObjectManipulate();
+    protected ObjectList objectList = null;
+    protected ObjectManipulation objectManipulation = null;
 
-	protected abstract void executeManipulation(
-			ObjectManipulation objectManipulation,
-			ObjectManipulationCallback manipulationCallback,
-			AsyncStatusIndicator statusIndicator);
+    protected AsyncStatusIndicator customListingStatusIndicator = null;
+    private AsyncStatusIndicator customManipulateStatusIndicator = null;
 
-	protected abstract void executeObjectList(
-			ObjectList objectList,
-			SuccessCallback<ObjectListResult> objectListCallback,
-			AsyncStatusIndicator statusIndicator);
+    private boolean isPaging = true;
 
-	public String getDescriptorName() {
-		return descriptorName;
-	}
+    private DataConnectorReadyCallback callback;
 
-	public String getOrderKey() {
-		return orderKey;
-	}
+    private boolean firstCall = true;
 
-	public void setOrderKey(String orderKey) {
-		this.orderKey = orderKey;
-	}
+    private boolean callCallbackAfterPageChange = false;
 
-	public boolean isOrderDescending() {
-		return orderDescending;
-	}
+    public IneDataConnector(EventBus eventBus, String descriptorName) {
+        this.eventBus = eventBus;
+        this.descriptorName = descriptorName;
 
-	public void setOrderDescending(boolean orderDescending) {
-		this.orderDescending = orderDescending;
-	}
+    }
 
-	public void setCustomListingStatusIndicator(AsyncStatusIndicator customListingStatusIndicator) {
-		this.customListingStatusIndicator = customListingStatusIndicator;
-	}
+    protected abstract ObjectList createNewObjectList();
 
-	public void setCustomManipulateStatusIndicator(AsyncStatusIndicator customManipulateStatusIndicator) {
-		this.customManipulateStatusIndicator = customManipulateStatusIndicator;
-	}
+    protected abstract ObjectManipulation createNewObjectManipulate();
 
-	public void setIsPaging(boolean isPaging) {
-		this.isPaging = isPaging;
-	}
+    protected abstract void executeManipulation(
+        ObjectManipulation objectManipulation,
+        ObjectManipulationCallback manipulationCallback,
+        AsyncStatusIndicator statusIndicator);
 
-	public static interface ManipulateResultCallback {
-		void onManipulationResult(ObjectManipulationResult result);
-	}
+    protected abstract void executeObjectList(
+        ObjectList objectList,
+        SuccessCallback<ObjectListResult> objectListCallback,
+        AsyncStatusIndicator statusIndicator);
 
-	protected void createDefaultListActionIfNull() {
-		if (objectList == null)
-			objectList = createNewObjectList();
-		// new ObjectListAction(getDescriptorName());
-		else if (objectList.getDescriptorName() == null)
-			objectList.setDescriptorName(getDescriptorName());
-	}
+    public String getDescriptorName() {
+        return descriptorName;
+    }
 
-	protected void setListActionDetails(
-			ObjectList objectList,
-			AssistedObject searchParameters,
-			int firstResult,
-			int numMaxResult,
-			boolean queryResultCount) {
-		objectList.setSearchParameters(searchParameters);
-		objectList.setFirstResult(firstResult);
-		objectList.setNumMaxResult(numMaxResult);
-		objectList.setQueryResultCount(queryResultCount);
-		objectList.setOrderKey(orderKey);
-		objectList.setDescending(orderDescending);
-	}
+    public String getOrderKey() {
+        return orderKey;
+    }
 
-	private void createDefaultManipulateActionIfNUll() {
-		if (objectManipulation == null)
-			objectManipulation = createNewObjectManipulate();
-		// new ObjectManipulationAction();
-	}
+    public void setOrderKey(String orderKey) {
+        this.orderKey = orderKey;
+    }
 
-	private void setManipulateActionDetails(
-			ObjectManipulation objectManipulation,
-			ManipulationTypes manipulationType,
-			AssistedObject kvo) {
-		objectManipulation.setManipulationType(manipulationType);
-		objectManipulation.setObject(kvo);
-	}
+    public boolean isOrderDescending() {
+        return orderDescending;
+    }
 
-	/**
-	 * This function is called when a new object is created
-	 * 
-	 * @param object
-	 */
-	public void objectCreateOrEditRequested(AssistedObject object, ManipulateResultCallback callback) {
-		createDefaultManipulateActionIfNUll();
-		setManipulateActionDetails(objectManipulation, ManipulationTypes.CREATE_OR_EDIT_REQUEST, object);
-		executeManipulation(
-				objectManipulation,
-				new ObjectManipulationCallback(objectManipulation, callback),
-				customManipulateStatusIndicator);
-	}
+    public void setOrderDescending(boolean orderDescending) {
+        this.orderDescending = orderDescending;
+    }
 
-	/**
-	 * This function is called when an object is deleted
-	 * 
-	 * @param object
-	 */
-	public void objectDeleteRequested(AssistedObject object, ManipulateResultCallback callback) {
-		createDefaultManipulateActionIfNUll();
-		setManipulateActionDetails(objectManipulation, ManipulationTypes.DELETE, new KeyValueObject(
-				object.getDescriptorName(),
-				object.getId()));
-		executeManipulation(
-				objectManipulation,
-				new ObjectManipulationCallback(objectManipulation, callback),
-				customManipulateStatusIndicator);
-	}
+    public void setCustomListingStatusIndicator(AsyncStatusIndicator customListingStatusIndicator) {
+        this.customListingStatusIndicator = customListingStatusIndicator;
+    }
 
-	@Override
-	protected void onRangeChanged(HasData<AssistedObject> display) {
-		if (callCallbackAfterPageChange){
-			update(callback);
-		} else {
-			update();
-		}
-	}
-	
-	public List<AssistedObject> getResultList(){
-		return resultList;
-	}
-	
-	public AssistedObject getAssistedObjectByKey(Long key){
-		return resultList.get(resultMap.get(key));
-	}
-	
-	public Integer getSeqNumberById(Long key) {
-		return resultMap.get(key);
-	}
-	
-	protected HasData<AssistedObject> getFirstDataDisplay(){
-		if (getDataDisplays() != null && getDataDisplays().size() > 0){
-			return getDataDisplays().iterator().next();
-		} else {
-			throw new RuntimeException("DataDisplay not set on IneDataConnector. Call IneTable.renderTable() before updating dataConnector");
-		}
-	}
-	
-	public void update(boolean dummy){
-		update();
-	}
-	
-	public void update(boolean dummy, DataConnectorReadyCallback callback){
-		update(callback);
-	}
-	
-	public void update(){
-		update(null);
-	}
-	
-	public void update(DataConnectorReadyCallback callback){
-		this.callback = callback;
-		if (getFirstDataDisplay().getRowCount() == 0) reset();
-		getFirstDataDisplay().setVisibleRangeAndClearData(getFirstDataDisplay().getVisibleRange(), false);
-		if (!firstCall){
-			createDefaultListActionIfNull();
-			setListActionDetails(objectList, searchParameters, getFirstDataDisplay().getVisibleRange().getStart(), 
-					getFirstDataDisplay().getVisibleRange().getLength(), isPaging);
-			executeObjectList(objectList, new ObjectRangeSuccess(), customListingStatusIndicator);
-		}
-	}
-	
-	public void setSearchParameters(AssistedObject searchParameters){
-		this.searchParameters = searchParameters;
-	}
-		
-	public AssistedObject getSearchParameters() {
-		return searchParameters;
-	}
+    public void setCustomManipulateStatusIndicator(
+        AsyncStatusIndicator customManipulateStatusIndicator) {
+        this.customManipulateStatusIndicator = customManipulateStatusIndicator;
+    }
 
-	private void updateDisplaysAndfireListChangedEvent() {
-		updateDisplayToLastResult();
-		eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));
-	}
-	
-	@Override
-	public void addDataDisplay(final HasData<AssistedObject> display) {
-		super.addDataDisplay(display);
-		firstCall = false;
-	}
-	
-	protected void reset(){
-		getFirstDataDisplay().setRowCount(1);
-	}
-	
-	protected void updateLastResult(ObjectListResult result){
-		rowCount = result.getAllResultCount();
-		resultList.clear();
-		resultMap.clear();
-		if(result.getList()!=null) {
-			for(AssistedObject obj : result.getList()){
-				resultMap.put(obj.getId(), resultList.size());
-				resultList.add(obj);			
-			}
-		}
-	}
-	
-	protected void updateDisplayToLastResult() {
-		if (getDataDisplays() != null && getDataDisplays().size() > 0){
-			if (isPaging) {
-				getFirstDataDisplay().setRowCount(rowCount.intValue());
-				updateRowCount(rowCount.intValue(), true);
-			}
-			updateRowData(getFirstDataDisplay(), getFirstDataDisplay().getVisibleRange().getStart(), 
-					resultList);
-		}
-	}
-	
-	private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
+    public void setIsPaging(boolean isPaging) {
+        this.isPaging = isPaging;
+    }
 
-		@Override
-		public void onSuccess(ObjectListResult result) {	
-			if(result.isSuccess()){
-				setIdsIfNotSet(result);
-				updateLastResult(result);			
-				updateDisplayToLastResult();
-			}
-			
-			//TODO: rethink the use of statusindicator
-			if (!result.isSuccess() && customListingStatusIndicator != null){
-				customListingStatusIndicator.onGeneralFailure("");
-			}
-			
-			if (callback != null)
-				callback.ready();
-		}
-		
-		/**
-		 * without ids, table commands won't work
-		 */
-		private void setIdsIfNotSet(ObjectListResult result){
-			if (result.getList() != null) {
-				long counter = 0L;
-				for (AssistedObject ao : result.getList()){
-					if (ao.getId() == null || ao.getId() == IFConsts.NEW_ITEM_ID) {
-						ao.setId(counter++);
-					}
-				}
-			}
-		}
-		
-		
-	}
+    public static interface ManipulateResultCallback {
+        void onManipulationResult(ObjectManipulationResult result);
+    }
 
-	public void setCallCallbackAfterPageChange(boolean callCallbackAfterPageChange) {
-		this.callCallbackAfterPageChange = callCallbackAfterPageChange;
-	}
+    protected void createDefaultListActionIfNull() {
+        if (objectList == null)
+            objectList = createNewObjectList();
+        // new ObjectListAction(getDescriptorName());
+        else if (objectList.getDescriptorName() == null)
+            objectList.setDescriptorName(getDescriptorName());
+    }
+
+    protected void setListActionDetails(
+        ObjectList objectList,
+        AssistedObject searchParameters,
+        int firstResult,
+        int numMaxResult,
+        boolean queryResultCount) {
+        objectList.setSearchParameters(searchParameters);
+        objectList.setFirstResult(firstResult);
+        objectList.setNumMaxResult(numMaxResult);
+        objectList.setQueryResultCount(queryResultCount);
+        objectList.setOrderKey(orderKey);
+        objectList.setDescending(orderDescending);
+    }
+
+    private void createDefaultManipulateActionIfNUll() {
+        if (objectManipulation == null)
+            objectManipulation = createNewObjectManipulate();
+        // new ObjectManipulationAction();
+    }
+
+    private void setManipulateActionDetails(
+        ObjectManipulation objectManipulation,
+        ManipulationTypes manipulationType,
+        AssistedObject kvo) {
+        objectManipulation.setManipulationType(manipulationType);
+        objectManipulation.setObject(kvo);
+    }
+
+    /**
+     * This function is called when a new object is created
+     * 
+     * @param object
+     */
+    public
+        void
+        objectCreateOrEditRequested(AssistedObject object, ManipulateResultCallback callback) {
+        createDefaultManipulateActionIfNUll();
+        setManipulateActionDetails(
+            objectManipulation,
+            ManipulationTypes.CREATE_OR_EDIT_REQUEST,
+            object);
+        executeManipulation(objectManipulation, new ObjectManipulationCallback(
+            objectManipulation,
+            callback), customManipulateStatusIndicator);
+    }
+
+    /**
+     * This function is called when an object is deleted
+     * 
+     * @param object
+     */
+    public void objectDeleteRequested(AssistedObject object, ManipulateResultCallback callback) {
+        createDefaultManipulateActionIfNUll();
+        setManipulateActionDetails(
+            objectManipulation,
+            ManipulationTypes.DELETE,
+            new KeyValueObject(object.getDescriptorName(), object.getId()));
+        executeManipulation(objectManipulation, new ObjectManipulationCallback(
+            objectManipulation,
+            callback), customManipulateStatusIndicator);
+    }
+
+    @Override
+    protected void onRangeChanged(HasData<AssistedObject> display) {
+        if (callCallbackAfterPageChange) {
+            update(callback);
+        } else {
+            update();
+        }
+    }
+
+    public List<AssistedObject> getResultList() {
+        return resultList;
+    }
+
+    public AssistedObject getAssistedObjectByKey(Long key) {
+        return resultList.get(resultMap.get(key));
+    }
+
+    public Integer getSeqNumberById(Long key) {
+        return resultMap.get(key);
+    }
+
+    protected HasData<AssistedObject> getFirstDataDisplay() {
+        if (getDataDisplays() != null && getDataDisplays().size() > 0) {
+            return getDataDisplays().iterator().next();
+        } else {
+            throw new RuntimeException(
+                "DataDisplay not set on IneDataConnector. Call IneTable.renderTable() before updating dataConnector");
+        }
+    }
+
+    public void update(boolean dummy) {
+        update();
+    }
+
+    public void update(boolean dummy, DataConnectorReadyCallback callback) {
+        update(callback);
+    }
+
+    public void update() {
+        update(null);
+    }
+
+    public void update(DataConnectorReadyCallback callback) {
+        this.callback = callback;
+        if (getFirstDataDisplay().getRowCount() == 0)
+            reset();
+        getFirstDataDisplay().setVisibleRangeAndClearData(
+            getFirstDataDisplay().getVisibleRange(),
+            false);
+        if (!firstCall) {
+            createDefaultListActionIfNull();
+            setListActionDetails(objectList, searchParameters, getFirstDataDisplay()
+                .getVisibleRange()
+                .getStart(), getFirstDataDisplay().getVisibleRange().getLength(), isPaging);
+            executeObjectList(objectList, new ObjectRangeSuccess(), customListingStatusIndicator);
+        }
+    }
+
+    public void setSearchParameters(AssistedObject searchParameters) {
+        this.searchParameters = searchParameters;
+    }
+
+    public AssistedObject getSearchParameters() {
+        return searchParameters;
+    }
+
+    private void updateDisplaysAndfireListChangedEvent() {
+        updateDisplayToLastResult();
+        eventBus.fireEvent(new KeyValueObjectListModifiedEvent(descriptorName));
+    }
+
+    @Override
+    public void addDataDisplay(final HasData<AssistedObject> display) {
+        super.addDataDisplay(display);
+        firstCall = false;
+    }
+
+    protected void reset() {
+        getFirstDataDisplay().setRowCount(1);
+    }
+
+    protected void updateLastResult(ObjectListResult result) {
+        rowCount = result.getAllResultCount();
+        resultList.clear();
+        resultMap.clear();
+        if (result.getList() != null) {
+            for (AssistedObject obj : result.getList()) {
+                resultMap.put(obj.getId(), resultList.size());
+                resultList.add(obj);
+            }
+        }
+    }
+
+    protected void updateDisplayToLastResult() {
+        if (getDataDisplays() != null && getDataDisplays().size() > 0) {
+            if (isPaging) {
+                getFirstDataDisplay().setRowCount(rowCount.intValue());
+                updateRowCount(rowCount.intValue(), true);
+            }
+            updateRowData(
+                getFirstDataDisplay(),
+                getFirstDataDisplay().getVisibleRange().getStart(),
+                resultList);
+        }
+    }
+
+    private class ObjectRangeSuccess extends SuccessCallback<ObjectListResult> {
+
+        @Override
+        public void onSuccess(ObjectListResult result) {
+            if (result.isSuccess()) {
+                setIdsIfNotSet(result);
+                updateLastResult(result);
+                updateDisplayToLastResult();
+            }
+
+            // TODO: rethink the use of statusindicator
+            if (!result.isSuccess() && customListingStatusIndicator != null) {
+                customListingStatusIndicator.onGeneralFailure("");
+            }
+
+            if (callback != null)
+                callback.ready();
+        }
+
+        /**
+         * without ids, table commands won't work
+         */
+        private void setIdsIfNotSet(ObjectListResult result) {
+            if (result.getList() != null) {
+                long counter = 0L;
+                for (AssistedObject ao : result.getList()) {
+                    if (ao.getId() == null || ao.getId() == IFConsts.NEW_ITEM_ID) {
+                        ao.setId(counter++);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void setCallCallbackAfterPageChange(boolean callCallbackAfterPageChange) {
+        this.callCallbackAfterPageChange = callCallbackAfterPageChange;
+    }
 
 }

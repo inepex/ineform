@@ -8,33 +8,36 @@ import com.google.gwt.user.datepicker.client.MonthSelector;
 import com.inepex.ineForm.client.i18n.DateI18nHelper;
 
 public class I18nDatePicker extends DatePicker {
-	
-	public I18nDatePicker() {
-		super(new DefaultMonthSelector(), new DefaultCalendarView(), new CustomFormatCalendarModel());
-	}
-	
-	public MonthSelector getMonthSelectorPublic(){
-		return getMonthSelector();
-	}
-	
-	public static class CustomFormatCalendarModel extends CalendarModel {
-		
-		@Override
-		public String formatDayOfWeek(int dayInWeek) {
-			return DateI18nHelper.shortFormatDayOfWeek(dayInWeek);
-		}
-		
-		@Override
-		@SuppressWarnings("deprecation")
-		public String formatCurrentMonth() {
-			return (getCurrentMonth().getYear()+1900)
-					+". "
-					+formatMonth(getCurrentMonth().getMonth());
-		}
-		
-		public String formatMonth(int month) {
-			return DateI18nHelper.formatMonth(month);			
-		}
-	}
-	
+
+    public I18nDatePicker() {
+        super(
+            new DefaultMonthSelector(),
+            new DefaultCalendarView(),
+            new CustomFormatCalendarModel());
+    }
+
+    public MonthSelector getMonthSelectorPublic() {
+        return getMonthSelector();
+    }
+
+    public static class CustomFormatCalendarModel extends CalendarModel {
+
+        @Override
+        public String formatDayOfWeek(int dayInWeek) {
+            return DateI18nHelper.shortFormatDayOfWeek(dayInWeek);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public String formatCurrentMonth() {
+            return (getCurrentMonth().getYear() + 1900)
+                + ". "
+                + formatMonth(getCurrentMonth().getMonth());
+        }
+
+        public String formatMonth(int month) {
+            return DateI18nHelper.formatMonth(month);
+        }
+    }
+
 }

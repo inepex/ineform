@@ -9,45 +9,46 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 /**
  * A listbox with String value and String list value range
+ * 
  * @author SoTi
  *
  */
 public class StringListBoxFw extends AbstractListBoxFW {
 
-	private List<String> valueRange = new ArrayList<String>();
-	
-	public StringListBoxFw(FDesc fieldDesc, WidgetRDesc wrDesc) {
-		super(fieldDesc, wrDesc);
-	}
-	
-	public void setValueRange(List<String> valueRange){
-		this.valueRange = valueRange;
-		getListBox().clear();
-		if (allowsNull) addNullItem();
-		for (String value : valueRange){
-			getListBox().addItem(value);
-		}
-	}
-	
-	@Override
-	public String getStringValue() {
-		int selectedIndex = getListBox().getSelectedIndex();
-		
-		if(selectedIndex==-1 || allowsNull && selectedIndex==0)
-			return null;
-		
-		return valueRange.get(selectedIndex - (allowsNull ? 1 : 0) );
-	}
-	
-	@Override
-	public boolean handlesString() {
-		return true;
-	}
+    private List<String> valueRange = new ArrayList<String>();
 
-	@Override
-	public void setStringValue(String value) {
-		getListBox().setSelectedIndex((allowsNull ? 1 : 0) + valueRange.indexOf(value));
-	}
+    public StringListBoxFw(FDesc fieldDesc, WidgetRDesc wrDesc) {
+        super(fieldDesc, wrDesc);
+    }
 
+    public void setValueRange(List<String> valueRange) {
+        this.valueRange = valueRange;
+        getListBox().clear();
+        if (allowsNull)
+            addNullItem();
+        for (String value : valueRange) {
+            getListBox().addItem(value);
+        }
+    }
+
+    @Override
+    public String getStringValue() {
+        int selectedIndex = getListBox().getSelectedIndex();
+
+        if (selectedIndex == -1 || allowsNull && selectedIndex == 0)
+            return null;
+
+        return valueRange.get(selectedIndex - (allowsNull ? 1 : 0));
+    }
+
+    @Override
+    public boolean handlesString() {
+        return true;
+    }
+
+    @Override
+    public void setStringValue(String value) {
+        getListBox().setSelectedIndex((allowsNull ? 1 : 0) + valueRange.indexOf(value));
+    }
 
 }

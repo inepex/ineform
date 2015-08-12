@@ -5,36 +5,36 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class FilledWithDataEvent extends FormLifecycleEventBase<FilledWithDataEvent.Handler> {
 
-	private static Type<FilledWithDataEvent.Handler> TYPE;
+    private static Type<FilledWithDataEvent.Handler> TYPE;
 
-	public static interface Handler extends EventHandler {
-		void onFilledWithData(FilledWithDataEvent event);
-	}
-	
-	private final AssistedObject newData;
+    public static interface Handler extends EventHandler {
+        void onFilledWithData(FilledWithDataEvent event);
+    }
 
-	public FilledWithDataEvent(AssistedObject newData) {
-		this.newData=newData;
-	}
+    private final AssistedObject newData;
 
-	public static Type<FilledWithDataEvent.Handler> getType() {
-		if (TYPE == null) {
-			TYPE = new Type<FilledWithDataEvent.Handler>();
-		}
-		return TYPE;
-	}
+    public FilledWithDataEvent(AssistedObject newData) {
+        this.newData = newData;
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<Handler> getAssociatedType() {
-	    return TYPE;
-	}
+    public static Type<FilledWithDataEvent.Handler> getType() {
+        if (TYPE == null) {
+            TYPE = new Type<FilledWithDataEvent.Handler>();
+        }
+        return TYPE;
+    }
 
-	@Override
-	protected void dispatch(Handler handler) {
-	    handler.onFilledWithData(this);
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<Handler> getAssociatedType() {
+        return TYPE;
+    }
 
-	public AssistedObject getNewData() {
-		return newData;
-	}
+    @Override
+    protected void dispatch(Handler handler) {
+        handler.onFilledWithData(this);
+    }
+
+    public AssistedObject getNewData() {
+        return newData;
+    }
 }

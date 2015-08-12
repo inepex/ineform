@@ -5,9 +5,9 @@ import com.inepex.ineFrame.client.page.defaults.DummyPage;
 import com.inepex.translatorapp.client.i18n.translatorappI18n;
 
 public class InactivePage extends DummyPage {
-	
-	@Inject
-	public InactivePage() {
-		super("<h2>" + translatorappI18n.inactiveAccount() + "</h2>");
-	}
+
+    @Inject
+    public InactivePage() {
+        super("<h2>" + translatorappI18n.inactiveAccount() + "</h2>");
+    }
 }

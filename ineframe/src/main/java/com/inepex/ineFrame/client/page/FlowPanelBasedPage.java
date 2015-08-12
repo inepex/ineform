@@ -9,45 +9,45 @@ import com.inepex.ineFrame.client.navigation.InePlace;
 
 public abstract class FlowPanelBasedPage extends HandlerAwareComposite implements InePage {
 
-	protected FlowPanel mainPanel = new FlowPanel(); 
-	
-	private boolean isFirstShow = true;
-	
-	protected InePlace currentPlace;
-	
-	public FlowPanelBasedPage() {
-		initWidget(mainPanel);
-	}
-	
-	@Override
-	public Widget asWidget() {
-		return this;
-	}
-	
-	@Override
-	public void onShow() {
-		if (isFirstShow) {
-			onShow(true);
-			isFirstShow = false;
-			return;
-		}
-		onShow(false);
-	}
-	
-	protected abstract void onShow(boolean isFirstShow);
-	
-	@Override
-	public void setUrlParameters(Map<String, String> urlParams,
-			UrlParamsParsedCallback callback) throws Exception {
-		callback.onUrlParamsParsed();
-	}
-	
-	@Override
-	public void setCurrentPlace(InePlace place) {
-		currentPlace = place;
-	}
+    protected FlowPanel mainPanel = new FlowPanel();
 
-	public InePlace getCurrentPlace() {
-		return currentPlace;
-	}
+    private boolean isFirstShow = true;
+
+    protected InePlace currentPlace;
+
+    public FlowPanelBasedPage() {
+        initWidget(mainPanel);
+    }
+
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
+
+    @Override
+    public void onShow() {
+        if (isFirstShow) {
+            onShow(true);
+            isFirstShow = false;
+            return;
+        }
+        onShow(false);
+    }
+
+    protected abstract void onShow(boolean isFirstShow);
+
+    @Override
+    public void setUrlParameters(Map<String, String> urlParams, UrlParamsParsedCallback callback)
+        throws Exception {
+        callback.onUrlParamsParsed();
+    }
+
+    @Override
+    public void setCurrentPlace(InePlace place) {
+        currentPlace = place;
+    }
+
+    public InePlace getCurrentPlace() {
+        return currentPlace;
+    }
 }

@@ -16,50 +16,52 @@ import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class MeetingWidgetPlace extends WidgetPlace {
-	
-	private final AssistedObjectHandlerFactory handlerFactory;
-	private final ObjectFinder objectFinder;
-	
-	private HTML html;
-	
-	
-	@Inject 
-	private MeetingWidgetPlace(AssistedObjectHandlerFactory handlerFactory, ObjectFinder objectFinder){
-		this.objectFinder=objectFinder;
-		this.handlerFactory=handlerFactory;
-		
-		html = new HTML();
-		html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
-		html.getElement().getStyle().setPaddingTop(3, Unit.PX);
-		
-	}
 
-	@Override
-	public Widget getWidget(Map<String, String> urlParams) {
-		update(urlParams);
-		return html;
-	}
+    private final AssistedObjectHandlerFactory handlerFactory;
+    private final ObjectFinder objectFinder;
 
-	@Override
-	public boolean isWidget(Map<String, String> urlParams) {
-		return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_MEETING);
-	}
+    private HTML html;
 
-	@Override
-	public void update(Map<String, String> urlParams) {
-		Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_MEETING));
-		
-		objectFinder.executeFind(MeetingConsts.descriptorName, id, new ObjectFinder.Callback() {
+    @Inject
+    private MeetingWidgetPlace(
+        AssistedObjectHandlerFactory handlerFactory,
+        ObjectFinder objectFinder) {
+        this.objectFinder = objectFinder;
+        this.handlerFactory = handlerFactory;
 
-			@Override
-			public void onObjectFound(AssistedObject foundObject) {
-				AssistedObjectHandler handler = handlerFactory.createHandler(foundObject);
-				
-				html.setHTML(
-						handler.getRelation(MeetingConsts.k_company).getDisplayName()+"&nbsp;"+
-						handler.getRelation(MeetingConsts.k_contact).getDisplayName()+"&nbsp;");
-			}
-		});
-	}
+        html = new HTML();
+        html.getElement().getStyle().setFontWeight(FontWeight.BOLD);
+        html.getElement().getStyle().setPaddingTop(3, Unit.PX);
+
+    }
+
+    @Override
+    public Widget getWidget(Map<String, String> urlParams) {
+        update(urlParams);
+        return html;
+    }
+
+    @Override
+    public boolean isWidget(Map<String, String> urlParams) {
+        return urlParams.containsKey(AppPlaceHierarchyProvider.PARAM_MEETING);
+    }
+
+    @Override
+    public void update(Map<String, String> urlParams) {
+        Long id = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_MEETING));
+
+        objectFinder.executeFind(MeetingConsts.descriptorName, id, new ObjectFinder.Callback() {
+
+            @Override
+            public void onObjectFound(AssistedObject foundObject) {
+                AssistedObjectHandler handler = handlerFactory.createHandler(foundObject);
+
+                html.setHTML(handler.getRelation(MeetingConsts.k_company).getDisplayName()
+                    + "&nbsp;"
+                    + handler.getRelation(MeetingConsts.k_contact).getDisplayName()
+                    + "&nbsp;");
+            }
+        });
+    }
 
 }

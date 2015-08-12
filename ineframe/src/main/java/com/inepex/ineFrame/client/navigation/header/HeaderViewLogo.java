@@ -4,6 +4,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface HeaderViewLogo {
 
-	Widget createLogo();
+    Widget createLogo();
 
 }

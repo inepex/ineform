@@ -11,74 +11,82 @@ import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
 
 /**
- * General action for searching when a {@link List} of {@link KeyValueObject} is returned.
- * Especially useful in {@link ServerSideTableModel}
+ * General action for searching when a {@link List} of {@link KeyValueObject} is
+ * returned. Especially useful in {@link ServerSideTableModel}
  *
  * @author István Szoboszlai
  *
  */
-public class ObjectListAction extends AbstractSearchAction implements Action<ObjectListActionResult>, ObjectList {
+public class ObjectListAction extends AbstractSearchAction
+    implements
+    Action<ObjectListActionResult>,
+    ObjectList {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -5238110902341753891L;
+    private static final long serialVersionUID = -5238110902341753891L;
 
-	private List<String> propGroups = new ArrayList<String>();
-	
-	private Long executingUser;
-	
-	public ObjectListAction() {
-	}
+    private List<String> propGroups = new ArrayList<String>();
 
-	public ObjectListAction(String descriptorName) {
-		setDescriptorName(descriptorName);
-		setDefaults();
-	}
-	
-	private void setDefaults(){
-		queryResultCount = false;
-		numMaxResult = 1000;
-		firstResult = 0;
-	}
-	
-	public ObjectListAction(String descriptorName, List<String> propGroups) {
-		setDescriptorName(descriptorName); 
-		this.propGroups = propGroups;
-		setDefaults();
-	}
-	
-	/**
-	 * query with firstResult = 0, numMaxResult = 1000, queryResultCount = false;
-	 * @param descriptorName
-	 * @param searchParameters
-	 */
-	public ObjectListAction(String descriptorName, AssistedObject searchParameters){
-		this(descriptorName, searchParameters, 0, 1000, false);
-		
-	}
+    private Long executingUser;
 
-	public ObjectListAction(String descriptorName, AssistedObject searchParameters,
-			int firstResult, int numMaxResult, boolean queryResultCount){
-		super(descriptorName, searchParameters, firstResult, numMaxResult, queryResultCount);
-	}
+    public ObjectListAction() {}
 
-	@Override
-	public void setPropGroups(String... propGroups) {
-		this.propGroups = Arrays.asList(propGroups);
-	}
+    public ObjectListAction(String descriptorName) {
+        setDescriptorName(descriptorName);
+        setDefaults();
+    }
 
-	@Override
-	public List<String> getPropGroups() {
-		return propGroups;
-	}
+    private void setDefaults() {
+        queryResultCount = false;
+        numMaxResult = 1000;
+        firstResult = 0;
+    }
 
-	public Long getExecutingUser() {
-		return executingUser;
-	}
+    public ObjectListAction(String descriptorName, List<String> propGroups) {
+        setDescriptorName(descriptorName);
+        this.propGroups = propGroups;
+        setDefaults();
+    }
 
-	public void setExecutingUser(Long executingUser) {
-		this.executingUser = executingUser;
-	}
+    /**
+     * query with firstResult = 0, numMaxResult = 1000, queryResultCount =
+     * false;
+     * 
+     * @param descriptorName
+     * @param searchParameters
+     */
+    public ObjectListAction(String descriptorName, AssistedObject searchParameters) {
+        this(descriptorName, searchParameters, 0, 1000, false);
+
+    }
+
+    public ObjectListAction(
+        String descriptorName,
+        AssistedObject searchParameters,
+        int firstResult,
+        int numMaxResult,
+        boolean queryResultCount) {
+        super(descriptorName, searchParameters, firstResult, numMaxResult, queryResultCount);
+    }
+
+    @Override
+    public void setPropGroups(String... propGroups) {
+        this.propGroups = Arrays.asList(propGroups);
+    }
+
+    @Override
+    public List<String> getPropGroups() {
+        return propGroups;
+    }
+
+    public Long getExecutingUser() {
+        return executingUser;
+    }
+
+    public void setExecutingUser(Long executingUser) {
+        this.executingUser = executingUser;
+    }
 
 }

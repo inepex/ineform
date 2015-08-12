@@ -28,124 +28,130 @@ import com.inepex.translatorapp.shared.kvo.ModuleConsts;
 
 public class ModuleUploadPopup {
 
-	private class DialogContent extends VerticalPanel {
-		
-		private final ChangedCallback callback;
-		private final HandlerHandler hh = new HandlerHandler();
-		
-		private final TextBox header;
-		private final TextArea rows;
-		
-		private final IneButton cancel;
-		private final IneButton ok;
-		
-		DialogContent(ChangedCallback callback) {
-			this.callback=callback;
-			
-			add(new HTML(translatorappI18n.upload_header()));
-			
-			header=new TextBox();
-			header.getElement().getStyle().setWidth(600, Unit.PX);
-			header.setValue(createDefaultHeaderText());
-			add(header);
-			
-			add(new HTML(translatorappI18n.upload_rows()));
-			
-			rows = new TextArea();
-			rows.getElement().getStyle().setWidth(600, Unit.PX);
-			rows.getElement().getStyle().setHeight(400, Unit.PX);
-			add(rows);
-			
-			HorizontalPanel hp = new HorizontalPanel();
-			hp.setSpacing(10);
-			
-			cancel=new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
-			hp.add(cancel);
-			
-			ok = new IneButton(IneButtonType.ACTION, IneFormI18n.OK());
-			hp.add(ok);
-			
-			add(hp);
-		}
-		
-		private String createDefaultHeaderText() {
-			StringBuffer sb = new StringBuffer();
-			sb.append(Consts.Upload.key);
-			sb.append(Consts.Upload.SEP);
-			sb.append(Consts.Upload.desc);
-			sb.append(Consts.Upload.SEP);
-			
-			for(Relation r : assistedObjectHandlerFactory.createHandler(moduleKvo).getList(ModuleConsts.k_langs).getRelationList()) {
-				sb.append(r.getDisplayName());
-				sb.append(Consts.Upload.SEP);
-			}
-			
-			sb.deleteCharAt(sb.length()-1);
-			return sb.toString();
-		}
+    private class DialogContent extends VerticalPanel {
 
-		@Override
-		protected void onLoad() {
-			super.onLoad();
-			
-			hh.registerHandler(ok.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					if(rows.getText()==null || rows.getText().isEmpty()) {
-						dialogBox.hide();
-						return;
-					}
-						
-					ineDispatch.execute(new RowUploadAction(moduleKvo.getId(), header.getText(), rows.getText()), new IneDispatchBase.SuccessCallback<GenericActionResult>() {
+        private final ChangedCallback callback;
+        private final HandlerHandler hh = new HandlerHandler();
 
-						@Override
-						public void onSuccess(GenericActionResult result) {
-							if(result.isSuccess()) {
-								dialogBox.hide();
-								callback.onChanged();
-								return;
-							}
-							
-							ErrorDialogBox.showError(result.getMessage());
-						}
-					});
-				}
-			}));
-			
-			hh.registerHandler(cancel.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					dialogBox.hide();
-				}
-			}));
-		}
-		
-		@Override
-		protected void onDetach() {
-			super.onDetach();
-			
-			hh.unregister();
-		}
-	}
-	
-	@Inject AssistedObjectHandlerFactory assistedObjectHandlerFactory;
-	@Inject IneDispatch ineDispatch;
-	
-	private IneDialogBox dialogBox;
-	private AssistedObject moduleKvo;
-	
-	public void show(AssistedObject kvoOfRow, ChangedCallback callback) {
-		this.moduleKvo=kvoOfRow;
-		
-		dialogBox = new IneDialogBox(false, true);
-		dialogBox.setWidget(new DialogContent(callback));
-		dialogBox.setGlassEnabled(true);
-		dialogBox.setAnimationEnabled(true);
-		dialogBox.setText(IneFormI18n.EDIT());
-		dialogBox.center();
-	}
-	
-	
+        private final TextBox header;
+        private final TextArea rows;
+
+        private final IneButton cancel;
+        private final IneButton ok;
+
+        DialogContent(ChangedCallback callback) {
+            this.callback = callback;
+
+            add(new HTML(translatorappI18n.upload_header()));
+
+            header = new TextBox();
+            header.getElement().getStyle().setWidth(600, Unit.PX);
+            header.setValue(createDefaultHeaderText());
+            add(header);
+
+            add(new HTML(translatorappI18n.upload_rows()));
+
+            rows = new TextArea();
+            rows.getElement().getStyle().setWidth(600, Unit.PX);
+            rows.getElement().getStyle().setHeight(400, Unit.PX);
+            add(rows);
+
+            HorizontalPanel hp = new HorizontalPanel();
+            hp.setSpacing(10);
+
+            cancel = new IneButton(IneButtonType.CANCEL, IneFormI18n.CANCEL());
+            hp.add(cancel);
+
+            ok = new IneButton(IneButtonType.ACTION, IneFormI18n.OK());
+            hp.add(ok);
+
+            add(hp);
+        }
+
+        private String createDefaultHeaderText() {
+            StringBuffer sb = new StringBuffer();
+            sb.append(Consts.Upload.key);
+            sb.append(Consts.Upload.SEP);
+            sb.append(Consts.Upload.desc);
+            sb.append(Consts.Upload.SEP);
+
+            for (Relation r : assistedObjectHandlerFactory
+                .createHandler(moduleKvo)
+                .getList(ModuleConsts.k_langs)
+                .getRelationList()) {
+                sb.append(r.getDisplayName());
+                sb.append(Consts.Upload.SEP);
+            }
+
+            sb.deleteCharAt(sb.length() - 1);
+            return sb.toString();
+        }
+
+        @Override
+        protected void onLoad() {
+            super.onLoad();
+
+            hh.registerHandler(ok.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(ClickEvent event) {
+                    if (rows.getText() == null || rows.getText().isEmpty()) {
+                        dialogBox.hide();
+                        return;
+                    }
+
+                    ineDispatch.execute(
+                        new RowUploadAction(moduleKvo.getId(), header.getText(), rows.getText()),
+                        new IneDispatchBase.SuccessCallback<GenericActionResult>() {
+
+                            @Override
+                            public void onSuccess(GenericActionResult result) {
+                                if (result.isSuccess()) {
+                                    dialogBox.hide();
+                                    callback.onChanged();
+                                    return;
+                                }
+
+                                ErrorDialogBox.showError(result.getMessage());
+                            }
+                        });
+                }
+            }));
+
+            hh.registerHandler(cancel.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(ClickEvent event) {
+                    dialogBox.hide();
+                }
+            }));
+        }
+
+        @Override
+        protected void onDetach() {
+            super.onDetach();
+
+            hh.unregister();
+        }
+    }
+
+    @Inject
+    AssistedObjectHandlerFactory assistedObjectHandlerFactory;
+    @Inject
+    IneDispatch ineDispatch;
+
+    private IneDialogBox dialogBox;
+    private AssistedObject moduleKvo;
+
+    public void show(AssistedObject kvoOfRow, ChangedCallback callback) {
+        this.moduleKvo = kvoOfRow;
+
+        dialogBox = new IneDialogBox(false, true);
+        dialogBox.setWidget(new DialogContent(callback));
+        dialogBox.setGlassEnabled(true);
+        dialogBox.setAnimationEnabled(true);
+        dialogBox.setText(IneFormI18n.EDIT());
+        dialogBox.center();
+    }
+
 }

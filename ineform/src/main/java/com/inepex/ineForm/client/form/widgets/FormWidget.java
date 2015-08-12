@@ -14,94 +14,105 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public abstract class FormWidget extends HandlerAwareComposite {
-		
-	protected Widget mainWidget;
-	protected boolean shouldRender = true;
-	protected final FDesc fieldDescriptor;
-		
-	protected Map<String,Object> originalValues;
-	
-	public FormWidget(FDesc fieldDescriptor) {
-		
-		this.fieldDescriptor=fieldDescriptor;
-	}
-	
-	@Override
-	protected void initWidget(Widget widget) {
-		
-		this.mainWidget = widget;
-		super.initWidget(widget);
-		if (fieldDescriptor != null)
-			getElement().setId(IFConsts.FWIDPREFIX + fieldDescriptor.getKey());
-	}
-	
-	@Override
-	public void setWidth(String width) {
-		mainWidget.setWidth(width);
-	}
-	
-	public abstract void setEnabled(boolean enabled);
-	
-	public HandlerRegistration addFormWidgetChangeHandler(FormWidgetChangeHandler h) {
-		return addHandler(h, FormWidgetChangeEvent.TYPE);
-	}
-	
-	protected void fireFormWidgetChanged() {
-		fireEvent(new FormWidgetChangeEvent(this));
-	}
-	
-	protected void fireFormWidgetChanged(boolean changeEnd) {
-		fireEvent(new FormWidgetChangeEvent(this).setChangeEnd(changeEnd));
-	}
 
+    protected Widget mainWidget;
+    protected boolean shouldRender = true;
+    protected final FDesc fieldDescriptor;
 
-	public abstract boolean isFocusable();
+    protected Map<String, Object> originalValues;
 
-	public abstract void setFocus(boolean focused);
-	
-	/**
-	 * Returns if the widget should be rendered to the form. If you don't want your derived widget to be
-	 * rendered, than just set shouldRender field of the class to false
-	 * 
-	 * @return
-	 */
-	public boolean isShouldRender() {
-		return shouldRender;
-	}
-	
+    public FormWidget(FDesc fieldDescriptor) {
 
-	public FDesc getFieldDescriptor() {
-		return fieldDescriptor;
-	}
-	
-	public void initialDataSetOnForm(AssistedObject initialData){
-		
-	}
+        this.fieldDescriptor = fieldDescriptor;
+    }
 
-	//********************** data flow
-	public abstract boolean isReadOnlyWidget();
-	
-	public abstract boolean handlesBoolean();
-	public abstract void setBooleanValue(Boolean value);
-	public abstract Boolean getBooleanValue();
+    @Override
+    protected void initWidget(Widget widget) {
 
-	public abstract boolean handlesDouble();
-	public abstract void setDoubleValue(Double value);
-	public abstract Double getDoubleValue();
+        this.mainWidget = widget;
+        super.initWidget(widget);
+        if (fieldDescriptor != null)
+            getElement().setId(IFConsts.FWIDPREFIX + fieldDescriptor.getKey());
+    }
 
-	public abstract boolean handlesList();
-	public abstract void setListValue(IneList value);
-	public abstract IneList getListValue();
+    @Override
+    public void setWidth(String width) {
+        mainWidget.setWidth(width);
+    }
 
-	public abstract boolean handlesLong();
-	public abstract void setLongValue(Long value);
-	public abstract Long getLongValue();
+    public abstract void setEnabled(boolean enabled);
 
-	public abstract boolean handlesRelation();
-	public abstract void setRelationValue(Relation value);
-	public abstract Relation getRelationValue();
+    public HandlerRegistration addFormWidgetChangeHandler(FormWidgetChangeHandler h) {
+        return addHandler(h, FormWidgetChangeEvent.TYPE);
+    }
 
-	public abstract boolean handlesString();
-	public abstract void setStringValue(String value);
-	public abstract String getStringValue();
+    protected void fireFormWidgetChanged() {
+        fireEvent(new FormWidgetChangeEvent(this));
+    }
+
+    protected void fireFormWidgetChanged(boolean changeEnd) {
+        fireEvent(new FormWidgetChangeEvent(this).setChangeEnd(changeEnd));
+    }
+
+    public abstract boolean isFocusable();
+
+    public abstract void setFocus(boolean focused);
+
+    /**
+     * Returns if the widget should be rendered to the form. If you don't want
+     * your derived widget to be rendered, than just set shouldRender field of
+     * the class to false
+     * 
+     * @return
+     */
+    public boolean isShouldRender() {
+        return shouldRender;
+    }
+
+    public FDesc getFieldDescriptor() {
+        return fieldDescriptor;
+    }
+
+    public void initialDataSetOnForm(AssistedObject initialData) {
+
+    }
+
+    // ********************** data flow
+    public abstract boolean isReadOnlyWidget();
+
+    public abstract boolean handlesBoolean();
+
+    public abstract void setBooleanValue(Boolean value);
+
+    public abstract Boolean getBooleanValue();
+
+    public abstract boolean handlesDouble();
+
+    public abstract void setDoubleValue(Double value);
+
+    public abstract Double getDoubleValue();
+
+    public abstract boolean handlesList();
+
+    public abstract void setListValue(IneList value);
+
+    public abstract IneList getListValue();
+
+    public abstract boolean handlesLong();
+
+    public abstract void setLongValue(Long value);
+
+    public abstract Long getLongValue();
+
+    public abstract boolean handlesRelation();
+
+    public abstract void setRelationValue(Relation value);
+
+    public abstract Relation getRelationValue();
+
+    public abstract boolean handlesString();
+
+    public abstract void setStringValue(String value);
+
+    public abstract String getStringValue();
 }

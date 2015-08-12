@@ -11,17 +11,17 @@ import com.inepex.translatorapp.server.servlet.ModuleRowsDownloadServlet;
 
 public class AppServletModule extends ServletModule {
 
-	@Override
-	protected void configureServlets() {
-		install(new JpaPersistModule("translatorapp"));
-		
-		filter("/*").through(InePersistFilter.class);
- 
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("width", "200");
-		params.put("height", "50");
-		serve("/SimpleCaptcha.jpg").with(CaptchaServlet.class, params);
-		
-		serve("/moduleRowsDownload").with(ModuleRowsDownloadServlet.class);
-	}
+    @Override
+    protected void configureServlets() {
+        install(new JpaPersistModule("translatorapp"));
+
+        filter("/*").through(InePersistFilter.class);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("width", "200");
+        params.put("height", "50");
+        serve("/SimpleCaptcha.jpg").with(CaptchaServlet.class, params);
+
+        serve("/moduleRowsDownload").with(ModuleRowsDownloadServlet.class);
+    }
 }

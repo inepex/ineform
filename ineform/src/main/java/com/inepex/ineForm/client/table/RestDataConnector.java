@@ -47,240 +47,252 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  */
 public class RestDataConnector extends IneDataConnector {
 
-	private ListSerializer listSerializer = new ListSerializer() {
-		
-		@Override
-		public String serialize(IneList list) {
-			StringBuffer sb = new StringBuffer();
-			for (Relation rel : list.getRelationList()){
-				sb.append(rel.getKvo().getId());
-				sb.append(",");
-				
-			}
-			return sb.substring(0, sb.length()-1);
-		}
-	};
-	
-	private RelationSerializer relationSerializer = new RelationSerializer() {
-		
-		@Override
-		public String serialize(Relation relation) {
-			return "" + relation.getKvo().getId();
-		}
-	};
-	
-	public static interface ResultExtractor {
-		
-		public JSONObject extract(String text);
-		
-	}
-	
-	public static interface ErrorExtractor {
-		
-		public ValidationResult extract(String json);
-		
-	}
-	
-	AsyncStatusIndicator statusIndicator;
-	RequestBuilderFactory requestBuilderFactory;
-	String getUrl;
-	String newUrl;
-	String modifyUrl;
-	String deleteUrl;
-	boolean serializeId;
-	Map<String, ResultExtractor> descriptorToExtractorMapping = new HashMap<String, ResultExtractor>();
-	ErrorExtractor errorExtractor;
-	DescriptorStore descriptorStore;
-	AssistedObjectHandlerFactory handlerFactory;
-	
-	@Inject
-	public RestDataConnector(EventBus eventBus, 
-			AsyncStatusIndicator statusIndicator,
-			RequestBuilderFactory requestBuilderFactory,
-			DescriptorStore descriptorStore,
-			AssistedObjectHandlerFactory handlerFactory,
-			@Assisted("descriptorName") String descriptorName,
-			@Assisted("getUrl") String getUrl,
-			@Assisted("newUrl") String newUrl, 
-			@Assisted("modifyUrl") String modifyUrl,
-			@Assisted("deleteUrl") String deleteUrl,
-			@Assisted boolean serializeId
-			) {
-		super(eventBus, descriptorName);
-		this.statusIndicator = statusIndicator;
-		this.requestBuilderFactory = requestBuilderFactory;
-		this.getUrl = getUrl;
-		this.handlerFactory=handlerFactory;
-		this.newUrl = newUrl;
-		this.modifyUrl = modifyUrl;
-		this.deleteUrl = deleteUrl;
-		this.serializeId = serializeId;
-		this.descriptorStore=descriptorStore;
-	}
-	
-	public void setListSerializer(ListSerializer listSerializer) {
-		this.listSerializer = listSerializer;
-	}
+    private ListSerializer listSerializer = new ListSerializer() {
 
-	public void setRelationSerializer(RelationSerializer relationSerializer) {
-		this.relationSerializer = relationSerializer;
-	}
+        @Override
+        public String serialize(IneList list) {
+            StringBuffer sb = new StringBuffer();
+            for (Relation rel : list.getRelationList()) {
+                sb.append(rel.getKvo().getId());
+                sb.append(",");
 
-	public Map<String, ResultExtractor> getDescriptorToExtractorMapping() {
-		return descriptorToExtractorMapping;
-	}
-	
-	public void setStatusIndicator(AsyncStatusIndicator statusIndicator) {
-		this.statusIndicator = statusIndicator;
-	}
+            }
+            return sb.substring(0, sb.length() - 1);
+        }
+    };
 
-	private String getSerializedValue(AssistedObject object){
-		return new KeyValueObjectSerializer(handlerFactory.createHandler(object), "&", "=")
-		.setListSerializer(listSerializer)
-		.setRelationSerializer(relationSerializer)
-		.setIncludeId(serializeId)
-		.serializeToString();
-	}
-	
-	private AssistedObject getObjectFromJSON(String jsonString, String descriptorName){
-		JSONObject jso = null;
-		if (descriptorToExtractorMapping.containsKey(descriptorName)){
-			jso = descriptorToExtractorMapping.get(descriptorName).extract(jsonString);
-		} else {
-			jso = JSONParser.parseStrict(jsonString).isObject();
-		}
-		return new KvoJsonParser(descriptorStore, jso, descriptorName).parse();
-	}
+    private RelationSerializer relationSerializer = new RelationSerializer() {
 
-	public void setErrorExtractor(ErrorExtractor errorExtractor) {
-		this.errorExtractor = errorExtractor;
-	}
+        @Override
+        public String serialize(Relation relation) {
+            return "" + relation.getKvo().getId();
+        }
+    };
 
-	@Override
-	protected ObjectList createNewObjectList() {
-		return new ObjectListAction(getDescriptorName());
-	}
+    public static interface ResultExtractor {
 
-	@Override
-	protected ObjectManipulation createNewObjectManipulate() {
-		return new ObjectManipulationAction();
-	}
+        public JSONObject extract(String text);
 
-	@Override
-	protected void executeManipulation(
-			ObjectManipulation objectManipulation,
-			ObjectManipulationCallback manipulationCallback,
-			AsyncStatusIndicator statusIndicator) {
-		
-		if (objectManipulation.getManipulationType() == ManipulationTypes.CREATE_OR_EDIT_REQUEST) {
-			objectCreateOrEdit(objectManipulation, manipulationCallback, statusIndicator);
-		} else {
-			objectDelete(objectManipulation, manipulationCallback, statusIndicator);
-		}
-	}
+    }
 
-	@Override
-	protected void executeObjectList(
-			ObjectList objectList,
-			SuccessCallback<ObjectListResult> objectListCallback,
-			AsyncStatusIndicator statusIndicator) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private void objectCreateOrEdit(final ObjectManipulation objectManipulation,
-			final ObjectManipulationCallback manipulationCallback,
-			final AsyncStatusIndicator statusIndicator){
-		if (statusIndicator != null) this.statusIndicator = statusIndicator; 
-		this.statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
-		String url = "";
-		if (objectManipulation.getObject().isNew()){
-			url = newUrl;
-		} else {
-			url = modifyUrl.replace("{id}", "" + objectManipulation.getObject().getId());
-		}
-		
-		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, url);
-		builder.setHeader("Content-Type",
-			"application/x-www-form-urlencoded");
-		try {
-		builder.sendRequest(getSerializedValue(objectManipulation.getObject()), new RequestCallback() {
-			
-			@Override
-			public void onResponseReceived(Request request, Response response) {
-				if (response.getStatusCode() == Response.SC_OK){
-					ValidationResult vr = null;
-					if (errorExtractor != null){
-						vr = errorExtractor.extract(response.getText());
-					}
-					
-					ObjectManipulationResult omr = null;
-					if (vr == null){
-						omr = new ObjectManipulationActionResult(
-								getObjectFromJSON(response.getText(), objectManipulation.getObject().getDescriptorName()));
-					} else {
-						omr = new ObjectManipulationActionResult();
-						omr.setSuccess(false);
-						omr.setValidationResult(vr);
-					}
-					manipulationCallback.onSuccess(omr);
-					RestDataConnector.this.statusIndicator.onSuccess("");
-					
-				} else {
-					System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
-					RestDataConnector.this.statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-				}				
-			}
-			
-			@Override
-			public void onError(Request request, Throwable exception) {
-				exception.printStackTrace();
-				statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-				
-			}
-		});
-		} catch (RequestException e) {
-			e.printStackTrace();
-			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-		}
-	}
-	
-	private void objectDelete(final ObjectManipulation objectManipulation,
-			final ObjectManipulationCallback manipulationCallback,
-			final AsyncStatusIndicator statusIndicator){
-		statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
-		RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, deleteUrl);
-		builder.setHeader("Content-Type",
-			"application/x-www-form-urlencoded");
-		try {
-			builder.sendRequest(IFConsts.KEY_ID + "=" + objectManipulation.getObject().getId(), new RequestCallback() {
-				
-				@Override
-				public void onResponseReceived(Request request, Response response) {
-					if (response.getStatusCode() == Response.SC_OK){		
-						manipulationCallback.onSuccess(new ObjectManipulationActionResult());
-						statusIndicator.onSuccess("");
-					} else {
-						System.out.println("Status: " + response.getStatusCode() + "; " + response.getText());
-						statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-					}				
-				}
-				
-				@Override
-				public void onError(Request request, Throwable exception) {
-					exception.printStackTrace();
-					statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-					
-				}
-			});
-		} catch (RequestException e) {
-			e.printStackTrace();
-			statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
-		}
-	}
+    public static interface ErrorExtractor {
 
+        public ValidationResult extract(String json);
 
-	
-	
+    }
+
+    AsyncStatusIndicator statusIndicator;
+    RequestBuilderFactory requestBuilderFactory;
+    String getUrl;
+    String newUrl;
+    String modifyUrl;
+    String deleteUrl;
+    boolean serializeId;
+    Map<String, ResultExtractor> descriptorToExtractorMapping =
+        new HashMap<String, ResultExtractor>();
+    ErrorExtractor errorExtractor;
+    DescriptorStore descriptorStore;
+    AssistedObjectHandlerFactory handlerFactory;
+
+    @Inject
+    public RestDataConnector(
+        EventBus eventBus,
+        AsyncStatusIndicator statusIndicator,
+        RequestBuilderFactory requestBuilderFactory,
+        DescriptorStore descriptorStore,
+        AssistedObjectHandlerFactory handlerFactory,
+        @Assisted("descriptorName") String descriptorName,
+        @Assisted("getUrl") String getUrl,
+        @Assisted("newUrl") String newUrl,
+        @Assisted("modifyUrl") String modifyUrl,
+        @Assisted("deleteUrl") String deleteUrl,
+        @Assisted boolean serializeId) {
+        super(eventBus, descriptorName);
+        this.statusIndicator = statusIndicator;
+        this.requestBuilderFactory = requestBuilderFactory;
+        this.getUrl = getUrl;
+        this.handlerFactory = handlerFactory;
+        this.newUrl = newUrl;
+        this.modifyUrl = modifyUrl;
+        this.deleteUrl = deleteUrl;
+        this.serializeId = serializeId;
+        this.descriptorStore = descriptorStore;
+    }
+
+    public void setListSerializer(ListSerializer listSerializer) {
+        this.listSerializer = listSerializer;
+    }
+
+    public void setRelationSerializer(RelationSerializer relationSerializer) {
+        this.relationSerializer = relationSerializer;
+    }
+
+    public Map<String, ResultExtractor> getDescriptorToExtractorMapping() {
+        return descriptorToExtractorMapping;
+    }
+
+    public void setStatusIndicator(AsyncStatusIndicator statusIndicator) {
+        this.statusIndicator = statusIndicator;
+    }
+
+    private String getSerializedValue(AssistedObject object) {
+        return new KeyValueObjectSerializer(handlerFactory.createHandler(object), "&", "=")
+            .setListSerializer(listSerializer)
+            .setRelationSerializer(relationSerializer)
+            .setIncludeId(serializeId)
+            .serializeToString();
+    }
+
+    private AssistedObject getObjectFromJSON(String jsonString, String descriptorName) {
+        JSONObject jso = null;
+        if (descriptorToExtractorMapping.containsKey(descriptorName)) {
+            jso = descriptorToExtractorMapping.get(descriptorName).extract(jsonString);
+        } else {
+            jso = JSONParser.parseStrict(jsonString).isObject();
+        }
+        return new KvoJsonParser(descriptorStore, jso, descriptorName).parse();
+    }
+
+    public void setErrorExtractor(ErrorExtractor errorExtractor) {
+        this.errorExtractor = errorExtractor;
+    }
+
+    @Override
+    protected ObjectList createNewObjectList() {
+        return new ObjectListAction(getDescriptorName());
+    }
+
+    @Override
+    protected ObjectManipulation createNewObjectManipulate() {
+        return new ObjectManipulationAction();
+    }
+
+    @Override
+    protected void executeManipulation(
+        ObjectManipulation objectManipulation,
+        ObjectManipulationCallback manipulationCallback,
+        AsyncStatusIndicator statusIndicator) {
+
+        if (objectManipulation.getManipulationType() == ManipulationTypes.CREATE_OR_EDIT_REQUEST) {
+            objectCreateOrEdit(objectManipulation, manipulationCallback, statusIndicator);
+        } else {
+            objectDelete(objectManipulation, manipulationCallback, statusIndicator);
+        }
+    }
+
+    @Override
+    protected void executeObjectList(
+        ObjectList objectList,
+        SuccessCallback<ObjectListResult> objectListCallback,
+        AsyncStatusIndicator statusIndicator) {
+        // TODO Auto-generated method stub
+
+    }
+
+    private void objectCreateOrEdit(
+        final ObjectManipulation objectManipulation,
+        final ObjectManipulationCallback manipulationCallback,
+        final AsyncStatusIndicator statusIndicator) {
+        if (statusIndicator != null)
+            this.statusIndicator = statusIndicator;
+        this.statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
+        String url = "";
+        if (objectManipulation.getObject().isNew()) {
+            url = newUrl;
+        } else {
+            url = modifyUrl.replace("{id}", "" + objectManipulation.getObject().getId());
+        }
+
+        RequestBuilder builder = requestBuilderFactory.createBuilder(RequestBuilder.POST, url);
+        builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        try {
+            builder.sendRequest(
+                getSerializedValue(objectManipulation.getObject()),
+                new RequestCallback() {
+
+                    @Override
+                    public void onResponseReceived(Request request, Response response) {
+                        if (response.getStatusCode() == Response.SC_OK) {
+                            ValidationResult vr = null;
+                            if (errorExtractor != null) {
+                                vr = errorExtractor.extract(response.getText());
+                            }
+
+                            ObjectManipulationResult omr = null;
+                            if (vr == null) {
+                                omr =
+                                    new ObjectManipulationActionResult(getObjectFromJSON(
+                                        response.getText(),
+                                        objectManipulation.getObject().getDescriptorName()));
+                            } else {
+                                omr = new ObjectManipulationActionResult();
+                                omr.setSuccess(false);
+                                omr.setValidationResult(vr);
+                            }
+                            manipulationCallback.onSuccess(omr);
+                            RestDataConnector.this.statusIndicator.onSuccess("");
+
+                        } else {
+                            System.out.println("Status: "
+                                + response.getStatusCode()
+                                + "; "
+                                + response.getText());
+                            RestDataConnector.this.statusIndicator.onGeneralFailure(IneFormI18n
+                                .restRequestError());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Request request, Throwable exception) {
+                        exception.printStackTrace();
+                        statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+
+                    }
+                });
+        } catch (RequestException e) {
+            e.printStackTrace();
+            statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+        }
+    }
+
+    private void objectDelete(
+        final ObjectManipulation objectManipulation,
+        final ObjectManipulationCallback manipulationCallback,
+        final AsyncStatusIndicator statusIndicator) {
+        statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
+        RequestBuilder builder =
+            requestBuilderFactory.createBuilder(RequestBuilder.POST, deleteUrl);
+        builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        try {
+            builder.sendRequest(
+                IFConsts.KEY_ID + "=" + objectManipulation.getObject().getId(),
+                new RequestCallback() {
+
+                    @Override
+                    public void onResponseReceived(Request request, Response response) {
+                        if (response.getStatusCode() == Response.SC_OK) {
+                            manipulationCallback.onSuccess(new ObjectManipulationActionResult());
+                            statusIndicator.onSuccess("");
+                        } else {
+                            System.out.println("Status: "
+                                + response.getStatusCode()
+                                + "; "
+                                + response.getText());
+                            statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Request request, Throwable exception) {
+                        exception.printStackTrace();
+                        statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+
+                    }
+                });
+        } catch (RequestException e) {
+            e.printStackTrace();
+            statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
+        }
+    }
 
 }

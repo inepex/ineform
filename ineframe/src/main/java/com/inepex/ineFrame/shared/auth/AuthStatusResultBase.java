@@ -7,104 +7,114 @@ import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public class AuthStatusResultBase extends GenericActionResult {
 
-	//if login was unsuccessful
-	protected boolean needCaptcha;
-	
-	//if login is succesful
-	protected String displayName;
-	protected Long userId = null;
-	protected Set<String> roles = null;
-	// these two variables are for the stay signed in functionality
-	protected String userEmail = null;
-	protected String userUUID = null;
-	
-	protected Map<String, String> userPropJsons;
+    // if login was unsuccessful
+    protected boolean needCaptcha;
 
-	public AuthStatusResultBase() {
-	}
-	
-	public AuthStatusResultBase(boolean needCaptcha) {
-		setSuccess(false);
-		this.needCaptcha=needCaptcha;
-	}
+    // if login is succesful
+    protected String displayName;
+    protected Long userId = null;
+    protected Set<String> roles = null;
+    // these two variables are for the stay signed in functionality
+    protected String userEmail = null;
+    protected String userUUID = null;
 
-	public AuthStatusResultBase(String displayName, Long userId, Set<String> roles) {
-		setSuccess(true);
-		this.displayName = displayName;
-		this.userId = userId;
-		this.roles = roles;
-	}
+    protected Map<String, String> userPropJsons;
 
-	public AuthStatusResultBase(String displayName, Long userId, Set<String> roles, String userEmail, String userUUID) {
-		setSuccess(true);
-		this.displayName = displayName;
-		this.userId = userId;
-		this.roles = roles;
-		this.userEmail=userEmail;
-		this.userId=userId;
-		this.userUUID=userUUID;
-	}
-	
-	public String getDisplayName() {
-		return displayName;
-	}
-	
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+    public AuthStatusResultBase() {}
 
-	public Long getUserId() {
-		return userId;
-	}
+    public AuthStatusResultBase(boolean needCaptcha) {
+        setSuccess(false);
+        this.needCaptcha = needCaptcha;
+    }
 
-	public Set<String> getRoles() {
-		return roles;
-	}
+    public AuthStatusResultBase(String displayName, Long userId, Set<String> roles) {
+        setSuccess(true);
+        this.displayName = displayName;
+        this.userId = userId;
+        this.roles = roles;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public AuthStatusResultBase(
+        String displayName,
+        Long userId,
+        Set<String> roles,
+        String userEmail,
+        String userUUID) {
+        setSuccess(true);
+        this.displayName = displayName;
+        this.userId = userId;
+        this.roles = roles;
+        this.userEmail = userEmail;
+        this.userId = userId;
+        this.userUUID = userUUID;
+    }
 
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
-	}
-	
-	public boolean isNeedCaptcha() {
-		return needCaptcha;
-	}
-	
-	public void setNeedCaptcha(boolean needCaptcha) {
-		this.needCaptcha = needCaptcha;
-	}
+    public String getDisplayName() {
+        return displayName;
+    }
 
-	public String getUserEmail() {
-		return userEmail;
-	}
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public String getUserUUID() {
-		return userUUID;
-	}
+    public Set<String> getRoles() {
+        return roles;
+    }
 
-	public void setUserUUID(String userUUID) {
-		this.userUUID = userUUID;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public Map<String, String> getUserPropJsons() {
-		return userPropJsons;
-	}
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 
-	public void setUserPropJsons(Map<String, String> userPropJsons) {
-		this.userPropJsons = userPropJsons;
-	}
+    public boolean isNeedCaptcha() {
+        return needCaptcha;
+    }
 
-	@Override
-	public String toString() {
-		return "AuthStatusResultBase [displayName=" + displayName + ", userId="
-				+ userId + ", userEmail=" + userEmail + ", userUUID="
-				+ userUUID + "]";
-	}
+    public void setNeedCaptcha(boolean needCaptcha) {
+        this.needCaptcha = needCaptcha;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserUUID() {
+        return userUUID;
+    }
+
+    public void setUserUUID(String userUUID) {
+        this.userUUID = userUUID;
+    }
+
+    public Map<String, String> getUserPropJsons() {
+        return userPropJsons;
+    }
+
+    public void setUserPropJsons(Map<String, String> userPropJsons) {
+        this.userPropJsons = userPropJsons;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthStatusResultBase [displayName="
+            + displayName
+            + ", userId="
+            + userId
+            + ", userEmail="
+            + userEmail
+            + ", userUUID="
+            + userUUID
+            + "]";
+    }
 }

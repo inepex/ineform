@@ -7,12 +7,11 @@ import net.customware.gwt.dispatch.shared.Result;
  *
  */
 public class GenericActionResult implements Result {
-    
-	private String message = null;
+
+    private String message = null;
     private Boolean success = true;
 
-    public GenericActionResult() {
-    }
+    public GenericActionResult() {}
 
     public GenericActionResult(String message, boolean success) {
         this.message = message;
@@ -34,7 +33,7 @@ public class GenericActionResult implements Result {
     public void setSuccess(Boolean success) {
         this.success = success;
     }
-    
+
     public void setError(String message) {
         setMessage(message);
         setSuccess(false);

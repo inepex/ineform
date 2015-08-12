@@ -14,38 +14,43 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public class ExcelAssistedObjectTRDRenderer {
 
-	private final TableFieldRenderer fieldRenderer;
-	private final DescriptorStore descriptorStore;
+    private final TableFieldRenderer fieldRenderer;
+    private final DescriptorStore descriptorStore;
 
-	@Inject
-	public ExcelAssistedObjectTRDRenderer(TableFieldRenderer fieldRenderer,
-			DescriptorStore descriptorStore) {
-		this.fieldRenderer = fieldRenderer;
-		this.descriptorStore = descriptorStore;
-	}
-		
-	public TableFieldRenderer getFieldRenderer() {
-		return fieldRenderer;
-	}
+    @Inject
+    public ExcelAssistedObjectTRDRenderer(
+        TableFieldRenderer fieldRenderer,
+        DescriptorStore descriptorStore) {
+        this.fieldRenderer = fieldRenderer;
+        this.descriptorStore = descriptorStore;
+    }
 
-	public void render(AssistedObject ao, String tableRDescName, Sheet sheet, int rowNo, int colNo){
-		TableRDesc tableRDesc;
-		if (tableRDescName == null){
-			tableRDesc = descriptorStore.getDefaultTypedDesc(ao.getDescriptorName(), TableRDesc.class);
-		} else {
-			tableRDesc = descriptorStore.getNamedTypedDesc(ao.getDescriptorName(), tableRDescName, TableRDesc.class);
-		}
-		for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode()
-				.getChildren()) {
-			String keyText = columnNode.getNodeElement().getDisplayName();
-			fieldRenderer.setObjectAndDescriptor(ao, tableRDesc);
-			String valueText = fieldRenderer.getField(columnNode.getNodeId());
-			Row row = ExcelHelper.getOrCreateRow(sheet, rowNo++); 
-			Cell cell = row.createCell(colNo);
-			cell.setCellValue(keyText);
-			cell = row.createCell(colNo + 1);
-			cell.setCellValue(valueText);
-		}
-	}
+    public TableFieldRenderer getFieldRenderer() {
+        return fieldRenderer;
+    }
+
+    public void render(AssistedObject ao, String tableRDescName, Sheet sheet, int rowNo, int colNo) {
+        TableRDesc tableRDesc;
+        if (tableRDescName == null) {
+            tableRDesc =
+                descriptorStore.getDefaultTypedDesc(ao.getDescriptorName(), TableRDesc.class);
+        } else {
+            tableRDesc =
+                descriptorStore.getNamedTypedDesc(
+                    ao.getDescriptorName(),
+                    tableRDescName,
+                    TableRDesc.class);
+        }
+        for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode().getChildren()) {
+            String keyText = columnNode.getNodeElement().getDisplayName();
+            fieldRenderer.setObjectAndDescriptor(ao, tableRDesc);
+            String valueText = fieldRenderer.getField(columnNode.getNodeId());
+            Row row = ExcelHelper.getOrCreateRow(sheet, rowNo++);
+            Cell cell = row.createCell(colNo);
+            cell.setCellValue(keyText);
+            cell = row.createCell(colNo + 1);
+            cell.setCellValue(valueText);
+        }
+    }
 
 }

@@ -4,18 +4,21 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 
-public class HorizontalPanelWidget extends PanelWidget{
+public class HorizontalPanelWidget extends PanelWidget {
 
-	private final HorizontalPanel mainPanel=new HorizontalPanel();
-	
-	public HorizontalPanelWidget(PanelWidgetRDesc descriptor, PanelWidget parent, DisplayedFormUnitChangeHandler handler) {
-		super(descriptor, parent, handler);
-		initWidget(mainPanel);
-	}
+    private final HorizontalPanel mainPanel = new HorizontalPanel();
 
-	@Override
-	public void addToPanel(Widget w) {
-		mainPanel.add(w);
-	}
-	
+    public HorizontalPanelWidget(
+        PanelWidgetRDesc descriptor,
+        PanelWidget parent,
+        DisplayedFormUnitChangeHandler handler) {
+        super(descriptor, parent, handler);
+        initWidget(mainPanel);
+    }
+
+    @Override
+    public void addToPanel(Widget w) {
+        mainPanel.add(w);
+    }
+
 }

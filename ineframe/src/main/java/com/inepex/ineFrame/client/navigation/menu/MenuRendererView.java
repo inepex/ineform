@@ -15,71 +15,70 @@ import com.inepex.ineFrame.client.widgets.ListItemWidget;
 @Singleton
 public class MenuRendererView extends LayoutPanel implements MenuRenderer.View {
 
-	protected List<MenuOneLevelView> levels = new ArrayList<MenuOneLevelView>(); 
-	
-	@Inject
-	public MenuRendererView() {
-		levels.add(new MenuOneLevelView(this, 0, false));
-	}
+    protected List<MenuOneLevelView> levels = new ArrayList<MenuOneLevelView>();
 
-	@Override
-	public void clearLevel(int level) {
-		MenuOneLevelView lastLevel = levels.get(levels.size() - 1);
-		if (!lastLevel.isSelectorRendered()){
-			lastLevel.getTarget().clear();
-		}
-		
-		if (level == 0){
-			levels.get(level).init();	
-		} 
-		for (int i = level; i < levels.size(); i++){
-			if (i != 0){
-				levels.get(i).removeFromParent();
-				levels.remove(i);
-			}
-		}
-			
-	}
-	
-	private MenuOneLevelView getOneLevel(int level){
-		if (levels.size() <= level){
-			levels.add(new MenuOneLevelView(getOneLevel(level - 1).getTarget(), level, false));
-		}
-		return levels.get(level);
-	}
-	
-	@Override
-	public void showSelector(IsWidget w, int level, boolean asPage) {
-		if (asPage){
-			getOneLevel(level).getTarget().add(w);
-		} else {
-			getOneLevel(level).setSelector(w);
-		}
-	}
+    @Inject
+    public MenuRendererView() {
+        levels.add(new MenuOneLevelView(this, 0, false));
+    }
 
-	@Override
-	public Tab createTab(String menuName, int level) {
-		return createTab(menuName, null, level);
-	}
-	
-	@Override
-	public Tab createTab(String menuName, Image icon, int level) {
-		MenuItemView barWidget = new MenuItemView(menuName, icon);
-		getOneLevel(level).getMenu().add(barWidget);
-		return barWidget;
-	}
-	
-	@Override
-	public void appendMenuWidget(Widget widget, int level) {
-		getOneLevel(level).getMenu().add(new ListItemWidget(widget));
-	}
+    @Override
+    public void clearLevel(int level) {
+        MenuOneLevelView lastLevel = levels.get(levels.size() - 1);
+        if (!lastLevel.isSelectorRendered()) {
+            lastLevel.getTarget().clear();
+        }
 
+        if (level == 0) {
+            levels.get(level).init();
+        }
+        for (int i = level; i < levels.size(); i++) {
+            if (i != 0) {
+                levels.get(i).removeFromParent();
+                levels.remove(i);
+            }
+        }
 
-	@Override
-	public void showPage(InePage page) {
-		MenuOneLevelView oneLevel = levels.get(levels.size() - 1);
-		oneLevel.getTarget().clear();
-		oneLevel.getTarget().add(page.asWidget());
-	}
+    }
+
+    private MenuOneLevelView getOneLevel(int level) {
+        if (levels.size() <= level) {
+            levels.add(new MenuOneLevelView(getOneLevel(level - 1).getTarget(), level, false));
+        }
+        return levels.get(level);
+    }
+
+    @Override
+    public void showSelector(IsWidget w, int level, boolean asPage) {
+        if (asPage) {
+            getOneLevel(level).getTarget().add(w);
+        } else {
+            getOneLevel(level).setSelector(w);
+        }
+    }
+
+    @Override
+    public Tab createTab(String menuName, int level) {
+        return createTab(menuName, null, level);
+    }
+
+    @Override
+    public Tab createTab(String menuName, Image icon, int level) {
+        MenuItemView barWidget = new MenuItemView(menuName, icon);
+        getOneLevel(level).getMenu().add(barWidget);
+        return barWidget;
+    }
+
+    @Override
+    public void appendMenuWidget(Widget widget, int level) {
+        getOneLevel(level).getMenu().add(new ListItemWidget(widget));
+    }
+
+    @Override
+    public void showPage(InePage page) {
+        MenuOneLevelView oneLevel = levels.get(levels.size() - 1);
+        oneLevel.getTarget().clear();
+        oneLevel.getTarget().add(page.asWidget());
+    }
 
 }

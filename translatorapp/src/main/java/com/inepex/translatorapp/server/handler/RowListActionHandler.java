@@ -16,29 +16,39 @@ import com.inepex.translatorapp.shared.action.RowListAction;
 
 public class RowListActionHandler extends AbstractIneHandler<RowListAction, ObjectListActionResult> {
 
-	@Inject ModuleRowDao dao;
-	@Inject ModuleRowMapper mapper;
-	
-	@Override
-	protected ObjectListActionResult doExecute(RowListAction action, ExecutionContext context) throws AuthenticationException, DispatchException {
-		
-		ObjectListActionResult res = new ObjectListActionResult();
-		if (action.isQueryResultCount()) {
-			List<ModuleRow> values = dao.listForPage(false, 0, 100000, action.getMagicString(), action.getModuleId());
-			res.setAllResultCount((long) values.size());
-		}
-		
-		if (action.getNumMaxResult() > 0) {
-			List<ModuleRow> values = dao.listForPage(true, action.getFirstResult(), action.getNumMaxResult(), action.getMagicString(), action.getModuleId());
-			res.setList(mapper.entityListToKvoList(values));
-		}
+    @Inject
+    ModuleRowDao dao;
+    @Inject
+    ModuleRowMapper mapper;
 
-		
-		return res;
-	}
+    @Override
+    protected ObjectListActionResult doExecute(RowListAction action, ExecutionContext context)
+        throws AuthenticationException,
+        DispatchException {
 
-	@Override
-	public Class<RowListAction> getActionType() {
-		return RowListAction.class;
-	}
+        ObjectListActionResult res = new ObjectListActionResult();
+        if (action.isQueryResultCount()) {
+            List<ModuleRow> values =
+                dao.listForPage(false, 0, 100000, action.getMagicString(), action.getModuleId());
+            res.setAllResultCount((long) values.size());
+        }
+
+        if (action.getNumMaxResult() > 0) {
+            List<ModuleRow> values =
+                dao.listForPage(
+                    true,
+                    action.getFirstResult(),
+                    action.getNumMaxResult(),
+                    action.getMagicString(),
+                    action.getModuleId());
+            res.setList(mapper.entityListToKvoList(values));
+        }
+
+        return res;
+    }
+
+    @Override
+    public Class<RowListAction> getActionType() {
+        return RowListAction.class;
+    }
 }

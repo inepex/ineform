@@ -9,15 +9,15 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 public class MongoDaoTest {
-	
-//	@Test
-	public void test(){
-		PropDao dao = new PropDao("localhost", "", "");
-		List<AssistedObject> obj = new ArrayList<>();
-		obj.add(new KeyValueObject("treeElementDescriptor", 28L));
-		obj.add(new KeyValueObject("treeElementDescriptor", 30L));
-		dao.mapPropGroups(obj, Arrays.asList("admin"));
-		System.out.println(obj);
-	}
+
+    // @Test
+    public void test() {
+        PropDao dao = new PropDao("localhost", "", "");
+        List<AssistedObject> obj = new ArrayList<>();
+        obj.add(new KeyValueObject("treeElementDescriptor", 28L));
+        obj.add(new KeyValueObject("treeElementDescriptor", 30L));
+        dao.mapPropGroups(obj, Arrays.asList("admin"));
+        System.out.println(obj);
+    }
 
 }

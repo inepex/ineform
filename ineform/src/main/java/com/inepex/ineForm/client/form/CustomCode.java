@@ -7,15 +7,20 @@ import com.inepex.ineForm.client.form.panelwidgets.DisplayedFormUnitChangeHandle
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 
 /**
- * DON'T forget invoke responseObject onSuccess or onCancel method, after your custom behave
+ * DON'T forget invoke responseObject onSuccess or onCancel method, after your
+ * custom behave
  * 
  */
 public interface CustomCode {
 
-	/**
-	 * DON'T forget invoke responseObject onSuccess or onCancel method, after your custom behave
-	 * 
-	 */
-	void execute(IneForm form, PanelWidget sourcePanel, List<AbstractFormUnit> exForms,
-			DisplayedFormUnitChangeResponse<?> responseObject);
+    /**
+     * DON'T forget invoke responseObject onSuccess or onCancel method, after
+     * your custom behave
+     * 
+     */
+    void execute(
+        IneForm form,
+        PanelWidget sourcePanel,
+        List<AbstractFormUnit> exForms,
+        DisplayedFormUnitChangeResponse<?> responseObject);
 }

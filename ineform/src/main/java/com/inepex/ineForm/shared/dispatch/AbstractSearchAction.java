@@ -8,102 +8,112 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 
 /**
- * General action for searching when a {@link List} of {@link KeyValueObject} is returned.
- * Especially useful in {@link ServerSideTableModel}
+ * General action for searching when a {@link List} of {@link KeyValueObject} is
+ * returned. Especially useful in {@link ServerSideTableModel}
  *
  * @author István Szoboszlai
  *
  */
-public class AbstractSearchAction implements Serializable, IsSerializable{
+public class AbstractSearchAction implements Serializable, IsSerializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -4108044012222527271L;
-	
-	
-	String descriptorName;
-	AssistedObject searchParameters;
-	
-	Integer firstResult;
-	Integer numMaxResult;
-	Boolean queryResultCount;
+    private static final long serialVersionUID = -4108044012222527271L;
 
-	String orderKey = null;
-	Boolean descending = false;
-	
-	public AbstractSearchAction() {
-	}
+    String descriptorName;
+    AssistedObject searchParameters;
 
-	public AbstractSearchAction(String descriptorName, String searchDescriptorName,
-			int firstResult, int numMaxResult, boolean queryResultCount){
-		this(descriptorName, new KeyValueObject(searchDescriptorName), firstResult, numMaxResult, queryResultCount);
-	}
-	
-	public AbstractSearchAction(String descriptorName, AssistedObject searchParameters,
-			int firstResult, int numMaxResult, boolean queryResultCount){
-		this.descriptorName = descriptorName;
-		this.searchParameters = searchParameters;
-		this.firstResult = firstResult;
-		this.numMaxResult = numMaxResult;
-		this.queryResultCount = queryResultCount;
-	}
+    Integer firstResult;
+    Integer numMaxResult;
+    Boolean queryResultCount;
 
-	public String getDescriptorName() {
-		return descriptorName;
-	}
+    String orderKey = null;
+    Boolean descending = false;
 
-	public void setDescriptorName(String descriptorName) {
-		this.descriptorName = descriptorName;
-	}
+    public AbstractSearchAction() {}
 
-	public AssistedObject getSearchParameters() {
-		return searchParameters;
-	}
+    public AbstractSearchAction(
+        String descriptorName,
+        String searchDescriptorName,
+        int firstResult,
+        int numMaxResult,
+        boolean queryResultCount) {
+        this(
+            descriptorName,
+            new KeyValueObject(searchDescriptorName),
+            firstResult,
+            numMaxResult,
+            queryResultCount);
+    }
 
-	public void setSearchParameters(AssistedObject searchParameters) {
-		this.searchParameters = searchParameters;
-	}
+    public AbstractSearchAction(
+        String descriptorName,
+        AssistedObject searchParameters,
+        int firstResult,
+        int numMaxResult,
+        boolean queryResultCount) {
+        this.descriptorName = descriptorName;
+        this.searchParameters = searchParameters;
+        this.firstResult = firstResult;
+        this.numMaxResult = numMaxResult;
+        this.queryResultCount = queryResultCount;
+    }
 
-	public Integer getFirstResult() {
-		return firstResult;
-	}
+    public String getDescriptorName() {
+        return descriptorName;
+    }
 
-	public void setFirstResult(Integer firstResult) {
-		this.firstResult = firstResult;
-	}
+    public void setDescriptorName(String descriptorName) {
+        this.descriptorName = descriptorName;
+    }
 
-	public Integer getNumMaxResult() {
-		return numMaxResult;
-	}
+    public AssistedObject getSearchParameters() {
+        return searchParameters;
+    }
 
-	public void setNumMaxResult(Integer numMaxResult) {
-		this.numMaxResult = numMaxResult;
-	}
+    public void setSearchParameters(AssistedObject searchParameters) {
+        this.searchParameters = searchParameters;
+    }
 
-	public Boolean isQueryResultCount() {
-		return queryResultCount;
-	}
+    public Integer getFirstResult() {
+        return firstResult;
+    }
 
-	public void setQueryResultCount(Boolean queryResultCount) {
-		this.queryResultCount = queryResultCount;
-	}
+    public void setFirstResult(Integer firstResult) {
+        this.firstResult = firstResult;
+    }
 
-	public String getOrderKey() {
-		return orderKey;
-	}
+    public Integer getNumMaxResult() {
+        return numMaxResult;
+    }
 
-	public void setOrderKey(String orderKey) {
-		this.orderKey = orderKey;
-	}
+    public void setNumMaxResult(Integer numMaxResult) {
+        this.numMaxResult = numMaxResult;
+    }
 
-	public Boolean isDescending() {
-		return descending;
-	}
+    public Boolean isQueryResultCount() {
+        return queryResultCount;
+    }
 
-	public void setDescending(Boolean descending) {
-		this.descending = descending;
-	}
+    public void setQueryResultCount(Boolean queryResultCount) {
+        this.queryResultCount = queryResultCount;
+    }
 
+    public String getOrderKey() {
+        return orderKey;
+    }
+
+    public void setOrderKey(String orderKey) {
+        this.orderKey = orderKey;
+    }
+
+    public Boolean isDescending() {
+        return descending;
+    }
+
+    public void setDescending(Boolean descending) {
+        this.descending = descending;
+    }
 
 }

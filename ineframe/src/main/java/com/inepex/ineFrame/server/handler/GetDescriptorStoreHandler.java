@@ -20,52 +20,62 @@ import com.inepex.ineom.shared.descriptorstore.ODescMarkerPair;
 import com.inepex.ineom.shared.descriptorstore.TypedDescriptorMap;
 
 public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, GetDescStoreResult> {
-	
-	private final DescriptorStore descStore;
-	
-	@Inject
-	public GetDescriptorStoreHandler(DescriptorStore descStore) {
-		this.descStore = descStore;
-	}
-	
-	@Override
-	public Class<GetDescStore> getActionType() {
-		return GetDescStore.class;
-	}
 
-	@Override
-	protected GetDescStoreResult doExecute(GetDescStore action,	ExecutionContext context) throws AuthenticationException,
-			DispatchException {
-		
-		if(descStore instanceof MultiLangDescStore){
-			GetDescStoreResult result = new GetDescStoreResult();
-			handleMultiLangDescStore(descStore, result);
-			return result;
-		}
-		
-		throw new UnsupportedOperationException("unsupported DescStore! implement it for: "+descStore.getClass().getName());
-	}
+    private final DescriptorStore descStore;
 
-	private void handleMultiLangDescStore(DescriptorStore descStore, GetDescStoreResult result) {
-		MultiLangDescStore multiLangDescStore = (MultiLangDescStore) descStore;
-		ClientDescriptorStore clientDescStore = (ClientDescriptorStore) multiLangDescStore.getCurrentDescriptorStore();
-		
-		//set object descriptors
-		if(clientDescStore.getOjectDescriptorMap()!=null && clientDescStore.getOjectDescriptorMap().size()>0) {
-			ArrayList<ObjectDesc> odList = new ArrayList<ObjectDesc>(clientDescStore.getOjectDescriptorMap().size());
-			for(ODescMarkerPair p : clientDescStore.getOjectDescriptorMap().values()) 
-				odList.add(p.getObjectDesc());
-			
-			result.setObjectDescs(odList);
-		}
-		
-		//set typed descriptors
-		for(TypedDescriptorMap<? extends DescriptorBase> typedMap : clientDescStore.getTypedDescMap().values()) {
-			for(String odName : typedMap.getNamedDescriptorsByOdName().keySet()) {
-				for(Map.Entry<String, ? extends DescriptorBase> entry : typedMap.getNamedDescriptorsByOdName().get(odName).entrySet()) {
-					result.addTypedDescriptor(odName, entry.getKey(), entry.getValue());
-				}
-			}
-		}
-	}
+    @Inject
+    public GetDescriptorStoreHandler(DescriptorStore descStore) {
+        this.descStore = descStore;
+    }
+
+    @Override
+    public Class<GetDescStore> getActionType() {
+        return GetDescStore.class;
+    }
+
+    @Override
+    protected GetDescStoreResult doExecute(GetDescStore action, ExecutionContext context)
+        throws AuthenticationException,
+        DispatchException {
+
+        if (descStore instanceof MultiLangDescStore) {
+            GetDescStoreResult result = new GetDescStoreResult();
+            handleMultiLangDescStore(descStore, result);
+            return result;
+        }
+
+        throw new UnsupportedOperationException("unsupported DescStore! implement it for: "
+            + descStore.getClass().getName());
+    }
+
+    private void handleMultiLangDescStore(DescriptorStore descStore, GetDescStoreResult result) {
+        MultiLangDescStore multiLangDescStore = (MultiLangDescStore) descStore;
+        ClientDescriptorStore clientDescStore =
+            (ClientDescriptorStore) multiLangDescStore.getCurrentDescriptorStore();
+
+        // set object descriptors
+        if (clientDescStore.getOjectDescriptorMap() != null
+            && clientDescStore.getOjectDescriptorMap().size() > 0) {
+            ArrayList<ObjectDesc> odList =
+                new ArrayList<ObjectDesc>(clientDescStore.getOjectDescriptorMap().size());
+            for (ODescMarkerPair p : clientDescStore.getOjectDescriptorMap().values())
+                odList.add(p.getObjectDesc());
+
+            result.setObjectDescs(odList);
+        }
+
+        // set typed descriptors
+        for (TypedDescriptorMap<? extends DescriptorBase> typedMap : clientDescStore
+            .getTypedDescMap()
+            .values()) {
+            for (String odName : typedMap.getNamedDescriptorsByOdName().keySet()) {
+                for (Map.Entry<String, ? extends DescriptorBase> entry : typedMap
+                    .getNamedDescriptorsByOdName()
+                    .get(odName)
+                    .entrySet()) {
+                    result.addTypedDescriptor(odName, entry.getKey(), entry.getValue());
+                }
+            }
+        }
+    }
 }

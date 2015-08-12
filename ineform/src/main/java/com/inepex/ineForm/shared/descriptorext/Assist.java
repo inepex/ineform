@@ -5,36 +5,45 @@ import com.inepex.ineom.shared.descriptor.ValidatorDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore.Marker;
 
-
 public abstract class Assist {
 
-	protected DescriptorStore descStore;
-	
-	public Assist(DescriptorStore descStore) {
-		this.descStore = descStore;
-	}
-	
-	public final void registerDescriptors() {
-		descStore.registerDescriptors(Marker.registered, getObjectDesc(), getTableRDesc(), getFormRDesc(), getValidatorDesc());
-		ObjectDesc searchObjectDesc = getSearchObjectDesc();
-		if (searchObjectDesc != null)
-			descStore.registerDescriptors(Marker.registered, searchObjectDesc, null, getSearchFormRDesc(), null);
-		
-		registerExtraDescriptors();
-	}
-	
-	protected abstract void registerExtraDescriptors();
+    protected DescriptorStore descStore;
 
-	public abstract ObjectDesc getObjectDesc();
+    public Assist(DescriptorStore descStore) {
+        this.descStore = descStore;
+    }
 
-	public abstract TableRDesc getTableRDesc();
+    public final void registerDescriptors() {
+        descStore.registerDescriptors(
+            Marker.registered,
+            getObjectDesc(),
+            getTableRDesc(),
+            getFormRDesc(),
+            getValidatorDesc());
+        ObjectDesc searchObjectDesc = getSearchObjectDesc();
+        if (searchObjectDesc != null)
+            descStore.registerDescriptors(
+                Marker.registered,
+                searchObjectDesc,
+                null,
+                getSearchFormRDesc(),
+                null);
 
-	public abstract FormRDesc getFormRDesc();
+        registerExtraDescriptors();
+    }
 
-	public abstract ValidatorDesc getValidatorDesc();
-	
-	public abstract ObjectDesc getSearchObjectDesc();
+    protected abstract void registerExtraDescriptors();
 
-	public abstract FormRDesc getSearchFormRDesc();
+    public abstract ObjectDesc getObjectDesc();
+
+    public abstract TableRDesc getTableRDesc();
+
+    public abstract FormRDesc getFormRDesc();
+
+    public abstract ValidatorDesc getValidatorDesc();
+
+    public abstract ObjectDesc getSearchObjectDesc();
+
+    public abstract FormRDesc getSearchFormRDesc();
 
 }

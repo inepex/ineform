@@ -17,101 +17,103 @@ import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class SuggestBoxFw extends DenyingFormWidget {
 
-	private final Map<String, Relation> stringToRelation = new HashMap<String, Relation>();
-	private final Map<Long, Relation> idToRelation = new HashMap<Long, Relation>();
+    private final Map<String, Relation> stringToRelation = new HashMap<String, Relation>();
+    private final Map<Long, Relation> idToRelation = new HashMap<Long, Relation>();
 
-	private ValueRangeProvider valueRangeProvider;
+    private ValueRangeProvider valueRangeProvider;
 
-	private MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
-	private SuggestBox suggestBox = new SuggestBox(suggestOracle);
+    private MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle();
+    private SuggestBox suggestBox = new SuggestBox(suggestOracle);
 
-	Relation value;
+    Relation value;
 
-	boolean isFwEnabled = true;
-	
-	public SuggestBoxFw(FormContext formContext, FDesc fielddescriptor) {
-		super(fielddescriptor);
-		if(!(fieldDescriptor instanceof RelationFDesc))
-			throw new IllegalArgumentException();
-		
-		initWidget(suggestBox);
-		this.valueRangeProvider = formContext.valueRangeProvider;
-		loadDataFromValueRangeProvider();
+    boolean isFwEnabled = true;
 
-	}
+    public SuggestBoxFw(FormContext formContext, FDesc fielddescriptor) {
+        super(fielddescriptor);
+        if (!(fieldDescriptor instanceof RelationFDesc))
+            throw new IllegalArgumentException();
 
-	private void loadDataFromValueRangeProvider() {
-		if (valueRangeProvider != null) {
-			suggestBox.getTextBox().setEnabled(false);
-			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
-				@Override
-				public void onValueRangeResultReady(List<Relation> relationList) {
-					if (relationList != null) {
-						if (isFwEnabled)
-							suggestBox.getTextBox().setEnabled(true);
-						setValueRange(relationList);
-					}
-				}
-			});
-		}
-	}
+        initWidget(suggestBox);
+        this.valueRangeProvider = formContext.valueRangeProvider;
+        loadDataFromValueRangeProvider();
 
-	public void setValueRange(List<Relation> valueRange) {
-		suggestOracle.clear();
-		stringToRelation.clear();
+    }
 
-		if (valueRange != null) {
-			for (Relation relation : valueRange) {
-				suggestOracle.add(relation.getDisplayName());
-				stringToRelation.put(relation.getDisplayName(), relation);
-				idToRelation.put(relation.getId(), relation);
-			}
-		}
-		if (value != null && idToRelation.containsKey(value.getId())) {
-			suggestBox.setText(idToRelation.get(value.getId()).getDisplayName());
-		}
-	}
+    private void loadDataFromValueRangeProvider() {
+        if (valueRangeProvider != null) {
+            suggestBox.getTextBox().setEnabled(false);
+            valueRangeProvider.getRelationValueRange(
+                fieldDescriptor,
+                new ValueRangeResultCallback() {
+                    @Override
+                    public void onValueRangeResultReady(List<Relation> relationList) {
+                        if (relationList != null) {
+                            if (isFwEnabled)
+                                suggestBox.getTextBox().setEnabled(true);
+                            setValueRange(relationList);
+                        }
+                    }
+                });
+        }
+    }
 
-	@Override
-	public Relation getRelationValue() {
-		if (!suggestBox.getText().equals("") && stringToRelation.containsKey(suggestBox.getText())) {
-			return stringToRelation.get(suggestBox.getText());
-		} else
-			return null;
-	}
+    public void setValueRange(List<Relation> valueRange) {
+        suggestOracle.clear();
+        stringToRelation.clear();
 
-	@Override
-	public void setRelationValue(Relation value) {
-		if (value != null)
-			this.value = value;
-		
-		if (value != null && idToRelation.containsKey(value.getId())) {
-			suggestBox.setText(idToRelation.get(value.getId()).getDisplayName());
-		}
-	}
+        if (valueRange != null) {
+            for (Relation relation : valueRange) {
+                suggestOracle.add(relation.getDisplayName());
+                stringToRelation.put(relation.getDisplayName(), relation);
+                idToRelation.put(relation.getId(), relation);
+            }
+        }
+        if (value != null && idToRelation.containsKey(value.getId())) {
+            suggestBox.setText(idToRelation.get(value.getId()).getDisplayName());
+        }
+    }
 
-	@Override
-	public boolean handlesRelation() {
-		return true;
-	}
-	
-	@Override
-	public void setEnabled(boolean enabled) {
-		isFwEnabled = enabled;
-		suggestBox.getTextBox().setEnabled(enabled);
-	}
+    @Override
+    public Relation getRelationValue() {
+        if (!suggestBox.getText().equals("") && stringToRelation.containsKey(suggestBox.getText())) {
+            return stringToRelation.get(suggestBox.getText());
+        } else
+            return null;
+    }
 
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		registerHandler(suggestBox.addValueChangeHandler(new ValueChangeHandler<String>() {
-			
-			@Override
-			public void onValueChange(ValueChangeEvent<String> event) {
-				SuggestBoxFw.this.fireFormWidgetChanged();
-			}
-		}));
-	}
+    @Override
+    public void setRelationValue(Relation value) {
+        if (value != null)
+            this.value = value;
+
+        if (value != null && idToRelation.containsKey(value.getId())) {
+            suggestBox.setText(idToRelation.get(value.getId()).getDisplayName());
+        }
+    }
+
+    @Override
+    public boolean handlesRelation() {
+        return true;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        isFwEnabled = enabled;
+        suggestBox.getTextBox().setEnabled(enabled);
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+
+        registerHandler(suggestBox.addValueChangeHandler(new ValueChangeHandler<String>() {
+
+            @Override
+            public void onValueChange(ValueChangeEvent<String> event) {
+                SuggestBoxFw.this.fireFormWidgetChanged();
+            }
+        }));
+    }
 
 }

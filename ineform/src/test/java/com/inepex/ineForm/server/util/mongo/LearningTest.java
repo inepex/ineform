@@ -13,20 +13,20 @@ import com.mongodb.util.JSON;
 
 public class LearningTest {
 
-	@Test
-	public void first() throws UnknownHostException{
-		MongoClient mongoClient = new MongoClient();
-		DB db = mongoClient.getDB( "inetrack" );
-		DBCollection coll = db.getCollection("first");
-		coll.insert((DBObject)JSON.parse("{type:'alma', prop1: 2}"));
-		DBCursor cursor = coll.find();
-		try {
-		   while(cursor.hasNext()) {
-		       System.out.println(cursor.next());
-		   }
-		} finally {
-		   cursor.close();
-		}
-	}
-	
+    @Test
+    public void first() throws UnknownHostException {
+        MongoClient mongoClient = new MongoClient();
+        DB db = mongoClient.getDB("inetrack");
+        DBCollection coll = db.getCollection("first");
+        coll.insert((DBObject) JSON.parse("{type:'alma', prop1: 2}"));
+        DBCursor cursor = coll.find();
+        try {
+            while (cursor.hasNext()) {
+                System.out.println(cursor.next());
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
 }

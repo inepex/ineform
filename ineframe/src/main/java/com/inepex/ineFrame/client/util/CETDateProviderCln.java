@@ -9,32 +9,30 @@ import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.ineFrame.shared.util.date.DateProvider;
 
 public class CETDateProviderCln implements DateProvider {
-	private final static TimeZoneConstants tsc = GWT.create(TimeZoneConstants.class);
-	private final static TimeZone tz = TimeZone.createTimeZone(tsc.europeBudapest());
+    private final static TimeZoneConstants tsc = GWT.create(TimeZoneConstants.class);
+    private final static TimeZone tz = TimeZone.createTimeZone(tsc.europeBudapest());
 
-	public CETDateProviderCln() {
-	}
-	
-	@SuppressWarnings("deprecation")
-	@Override
-	public Date getDate(Long dateInUTC) {
-		Date date = new Date(dateInUTC);
-		Long corectedDate =
-				dateInUTC
-				+ (-1*tz.getOffset(date) + date.getTimezoneOffset()) * DateHelper.minuteInMs;
-		
-		return new Date(corectedDate);
-	}
+    public CETDateProviderCln() {}
 
-	
-	@Override
-	@SuppressWarnings("deprecation")
-	public Date whatMeansTyped(Long dateInUTC) {
-		Date date = new Date(dateInUTC);
-		Long corectedDate = 
-			dateInUTC
-			- (date.getTimezoneOffset() - tz.getOffset(date)) * DateHelper.minuteInMs;
-		
-		return new Date(corectedDate);
-	}
+    @SuppressWarnings("deprecation")
+    @Override
+    public Date getDate(Long dateInUTC) {
+        Date date = new Date(dateInUTC);
+        Long corectedDate =
+            dateInUTC
+                + (-1 * tz.getOffset(date) + date.getTimezoneOffset())
+                * DateHelper.minuteInMs;
+
+        return new Date(corectedDate);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public Date whatMeansTyped(Long dateInUTC) {
+        Date date = new Date(dateInUTC);
+        Long corectedDate =
+            dateInUTC - (date.getTimezoneOffset() - tz.getOffset(date)) * DateHelper.minuteInMs;
+
+        return new Date(corectedDate);
+    }
 }

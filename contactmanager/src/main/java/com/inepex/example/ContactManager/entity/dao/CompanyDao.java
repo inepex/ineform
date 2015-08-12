@@ -20,53 +20,55 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 /**
  * Just generated once, don't need to regenerate after modifying attributes!
  * 
- * To customize persist, merge or remove behaviour override persist(E), merge(E) or remove(E). (Don't 
- * forget to call super.persist, super.merge ...)
+ * To customize persist, merge or remove behaviour override persist(E), merge(E)
+ * or remove(E). (Don't forget to call super.persist, super.merge ...)
  * 
  */
 @Singleton
 public class CompanyDao extends BaseDao<Company> {
-	
-	private final DescriptorStore descStore;
-	
-	@Inject
-	public CompanyDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory
-		, AssistedObjectHandlerFactory handlerFactory
-		, DescriptorStore descStore,
-		PropDao propDao){
-		super(em, objectFactory, handlerFactory);
-		setMongoDao(propDao);
-		this.descStore=descStore;
-	}
 
-	@Override
-	public BaseQuery<Company> getQuery() {
-		return new CompanyQuery(descStore);
-	}
+    private final DescriptorStore descStore;
 
-	@Override
-	public BaseMapper<Company> getMapper() {
-		return new CompanyMapper(descStore);
-	}
+    @Inject
+    public CompanyDao(
+        Provider<EntityManager> em,
+        ManipulationObjectFactory objectFactory,
+        AssistedObjectHandlerFactory handlerFactory,
+        DescriptorStore descStore,
+        PropDao propDao) {
+        super(em, objectFactory, handlerFactory);
+        setMongoDao(propDao);
+        this.descStore = descStore;
+    }
 
-	@Override
-	public CriteriaSelector<Company, Company> getSelector() {
-		return new CriteriaSelector<Company, Company>(em, getQuery(), Company.class, Company.class);
-	}
+    @Override
+    public BaseQuery<Company> getQuery() {
+        return new CompanyQuery(descStore);
+    }
 
-	@Override
-	public CriteriaSelector<Long, Company> getCountSelector() {
-		return new CriteriaSelector<Long, Company>(em, getQuery(), Long.class, Company.class);
-	}
+    @Override
+    public BaseMapper<Company> getMapper() {
+        return new CompanyMapper(descStore);
+    }
 
-	@Override
-	public Class<Company> getClazz() {
-		return Company.class;
-	}
+    @Override
+    public CriteriaSelector<Company, Company> getSelector() {
+        return new CriteriaSelector<Company, Company>(em, getQuery(), Company.class, Company.class);
+    }
 
-	@Override
-	public Company newInstance() {
-		return new Company();
-	}
-		
+    @Override
+    public CriteriaSelector<Long, Company> getCountSelector() {
+        return new CriteriaSelector<Long, Company>(em, getQuery(), Long.class, Company.class);
+    }
+
+    @Override
+    public Class<Company> getClazz() {
+        return Company.class;
+    }
+
+    @Override
+    public Company newInstance() {
+        return new Company();
+    }
+
 }

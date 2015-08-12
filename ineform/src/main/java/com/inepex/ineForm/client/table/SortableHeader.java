@@ -34,69 +34,69 @@ import com.inepex.ineForm.client.resources.ResourceHelper;
  */
 public class SortableHeader extends Header<String> {
 
-  interface Template extends SafeHtmlTemplates {
-    @Template("<div style=\"position:relative;cursor:hand;cursor:pointer;"
-        + "padding-right:{0}px;\">{1}<div>{2}</div></div>")
-    SafeHtml sorted(int imageWidth, SafeHtml arrow, String text);
+    interface Template extends SafeHtmlTemplates {
+        @Template("<div style=\"position:relative;cursor:hand;cursor:pointer;"
+            + "padding-right:{0}px;\">{1}<div>{2}</div></div>")
+        SafeHtml sorted(int imageWidth, SafeHtml arrow, String text);
 
-    @Template("<div style=\"position:relative;cursor:hand;cursor:pointer;"
-        + "padding-right:{0}px;\"><div style=\"position:absolute;display:none;"
-        + "\"></div><div>{1}</div></div>")
-    SafeHtml unsorted(int imageWidth, String text);
-  }
-
-  private static Template template;
-
-  private static final int IMAGE_WIDTH = 16;
-  private static final SafeHtml DOWN_ARROW = makeImage(ResourceHelper.ineformRes().downArrow());
-  private static final SafeHtml UP_ARROW = makeImage(ResourceHelper.ineformRes().upArrow());
-
-  private static SafeHtml makeImage(ImageResource resource) {
-    AbstractImagePrototype proto = AbstractImagePrototype.create(resource);
-    String html = proto.getHTML().replace("style='",
-        "style='position:absolute;right:0px;top:0px;");
-    return SafeHtmlUtils.fromTrustedString(html);
-  }
-
-  private boolean reverseSort = false;
-  private boolean sorted = false;
-  private String text;
-
-  SortableHeader(String text) {
-    super(new ClickableTextCell());
-    if (template == null) {
-      template = GWT.create(Template.class);
+        @Template("<div style=\"position:relative;cursor:hand;cursor:pointer;"
+            + "padding-right:{0}px;\"><div style=\"position:absolute;display:none;"
+            + "\"></div><div>{1}</div></div>")
+        SafeHtml unsorted(int imageWidth, String text);
     }
-    this.text = text;
-  }
 
-  public boolean getReverseSort() {
-    return reverseSort;
-  }
+    private static Template template;
 
-  @Override
-  public String getValue() {
-    return text;
-  }
+    private static final int IMAGE_WIDTH = 16;
+    private static final SafeHtml DOWN_ARROW = makeImage(ResourceHelper.ineformRes().downArrow());
+    private static final SafeHtml UP_ARROW = makeImage(ResourceHelper.ineformRes().upArrow());
 
-  @Override
-  public void render(Context context, SafeHtmlBuilder sb) {
-    if (sorted) {
-      sb.append(template.sorted(IMAGE_WIDTH, reverseSort ? DOWN_ARROW : UP_ARROW, text));
-    } else {
-      sb.append(template.unsorted(IMAGE_WIDTH, text));
+    private static SafeHtml makeImage(ImageResource resource) {
+        AbstractImagePrototype proto = AbstractImagePrototype.create(resource);
+        String html =
+            proto.getHTML().replace("style='", "style='position:absolute;right:0px;top:0px;");
+        return SafeHtmlUtils.fromTrustedString(html);
     }
-  }
 
-  public void setReverseSort(boolean reverseSort) {
-    this.reverseSort = reverseSort;
-  }
+    private boolean reverseSort = false;
+    private boolean sorted = false;
+    private String text;
 
-  public void setSorted(boolean sorted) {
-    this.sorted = sorted;
-  }
+    SortableHeader(String text) {
+        super(new ClickableTextCell());
+        if (template == null) {
+            template = GWT.create(Template.class);
+        }
+        this.text = text;
+    }
 
-  public void toggleReverseSort() {
-    this.reverseSort = !this.reverseSort;
-  }
+    public boolean getReverseSort() {
+        return reverseSort;
+    }
+
+    @Override
+    public String getValue() {
+        return text;
+    }
+
+    @Override
+    public void render(Context context, SafeHtmlBuilder sb) {
+        if (sorted) {
+            sb.append(template.sorted(IMAGE_WIDTH, reverseSort ? DOWN_ARROW : UP_ARROW, text));
+        } else {
+            sb.append(template.unsorted(IMAGE_WIDTH, text));
+        }
+    }
+
+    public void setReverseSort(boolean reverseSort) {
+        this.reverseSort = reverseSort;
+    }
+
+    public void setSorted(boolean sorted) {
+        this.sorted = sorted;
+    }
+
+    public void toggleReverseSort() {
+        this.reverseSort = !this.reverseSort;
+    }
 }

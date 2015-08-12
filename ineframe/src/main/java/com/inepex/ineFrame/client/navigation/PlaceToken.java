@@ -4,61 +4,62 @@ import java.util.List;
 import java.util.Map;
 
 public class PlaceToken {
-	
-	private String token;
-	
-	public PlaceToken(String token) {
-		this.token = token;
-	}
-	
-	/**
-	 * short form for appendChild
-	 * @return
-	 */
-	public PlaceToken cld(String childToken){
-		return appendChild(childToken);
-	}
-	
-	public PlaceToken appendChild(String childToken){
-		token = PlaceHandlerHelper.appendChild(token, childToken);
-		return this;
-	}
-	
-	public PlaceToken appendParam(String name, String value){
-		token = PlaceHandlerHelper.appendParam(token, name, value);
-		return this;
-	}
-	
-	public PlaceToken appendParam(String name, List<? extends Object> value) {
-		token = PlaceHandlerHelper.appendParam(token, name, value);
-		return this;
-	}
-	
-	public Map<String, String> getUrlParameters(){
-		return PlaceHandlerHelper.getUrlParameters(token);
-	}
-	
-	public PlaceToken createParentLevelMenuToken(){
-		token =  PlaceHandlerHelper.createParentLevelMenuToken(token);
-		return this;
-	}
-	
-	public PlaceToken createSameLevelMenuToken(String... subMenuTokens) {
-		token = PlaceHandlerHelper.createSameLevelMenuToken(token, subMenuTokens);
-		return this;
-		
-	}
-	
-	public String getPlacePart(String currentFullToken) {
-		return PlaceHandlerHelper.getPlacePart(currentFullToken);
-	}
-	
-	public String getToken(){
-		return token;
-	}
-	
-	@Override
-	public String toString() {
-		return token;
-	}
+
+    private String token;
+
+    public PlaceToken(String token) {
+        this.token = token;
+    }
+
+    /**
+     * short form for appendChild
+     * 
+     * @return
+     */
+    public PlaceToken cld(String childToken) {
+        return appendChild(childToken);
+    }
+
+    public PlaceToken appendChild(String childToken) {
+        token = PlaceHandlerHelper.appendChild(token, childToken);
+        return this;
+    }
+
+    public PlaceToken appendParam(String name, String value) {
+        token = PlaceHandlerHelper.appendParam(token, name, value);
+        return this;
+    }
+
+    public PlaceToken appendParam(String name, List<? extends Object> value) {
+        token = PlaceHandlerHelper.appendParam(token, name, value);
+        return this;
+    }
+
+    public Map<String, String> getUrlParameters() {
+        return PlaceHandlerHelper.getUrlParameters(token);
+    }
+
+    public PlaceToken createParentLevelMenuToken() {
+        token = PlaceHandlerHelper.createParentLevelMenuToken(token);
+        return this;
+    }
+
+    public PlaceToken createSameLevelMenuToken(String... subMenuTokens) {
+        token = PlaceHandlerHelper.createSameLevelMenuToken(token, subMenuTokens);
+        return this;
+
+    }
+
+    public String getPlacePart(String currentFullToken) {
+        return PlaceHandlerHelper.getPlacePart(currentFullToken);
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    @Override
+    public String toString() {
+        return token;
+    }
 }

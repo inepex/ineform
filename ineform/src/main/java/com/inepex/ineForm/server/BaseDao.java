@@ -33,347 +33,360 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 
 public abstract class BaseDao<E> implements KVManipulatorDaoBase {
-	
-	public abstract class SelectorCustomizer {
-		public abstract void customizeSelect(CriteriaSelector<?,E> sel);
-	}
-	
-	protected final AssistedObjectHandlerFactory handlerFactory;
-	protected final Provider<EntityManager> em;
-	protected PropDao mongoDao;
-	
-	protected ManipulationObjectFactory objectFactory;
 
-	public BaseDao(Provider<EntityManager> em, ManipulationObjectFactory objectFactory, AssistedObjectHandlerFactory handlerFactory) {
-		this.em = em;
-		this.objectFactory = objectFactory;
-		this.handlerFactory=handlerFactory;
-	}
-	
-	public void setMongoDao(PropDao mongoDao){
-		this.mongoDao = mongoDao;
-	}
+    public abstract class SelectorCustomizer {
+        public abstract void customizeSelect(CriteriaSelector<?, E> sel);
+    }
 
-	public abstract BaseQuery<E> getQuery();
+    protected final AssistedObjectHandlerFactory handlerFactory;
+    protected final Provider<EntityManager> em;
+    protected PropDao mongoDao;
 
-	public abstract BaseMapper<E> getMapper();
+    protected ManipulationObjectFactory objectFactory;
 
-	public abstract CriteriaSelector<E, E> getSelector();
+    public BaseDao(
+        Provider<EntityManager> em,
+        ManipulationObjectFactory objectFactory,
+        AssistedObjectHandlerFactory handlerFactory) {
+        this.em = em;
+        this.objectFactory = objectFactory;
+        this.handlerFactory = handlerFactory;
+    }
 
-	public abstract CriteriaSelector<Long, E> getCountSelector();
+    public void setMongoDao(PropDao mongoDao) {
+        this.mongoDao = mongoDao;
+    }
 
-	public abstract Class<E> getClazz();
+    public abstract BaseQuery<E> getQuery();
 
-	public abstract E newInstance();
-	
-	protected void beforeSearch(AbstractSearch action, ObjectListResult result){
-	}
-	
-	protected void afterSearch(AbstractSearch action, ObjectListResult res) {
-	}
-	
-	protected void beforeManipulate(ObjectManipulation action, ObjectManipulationResult result) throws Exception {
-		
-	}
-	
-	protected void afterManipulate(ObjectManipulation action, ObjectManipulationResult result) {
-	}
-	
-	@Transactional
-	public void persistTrans(E entity) {
-		persist(entity);
-	}
+    public abstract BaseMapper<E> getMapper();
 
-	/**
-	 * Override to implement extra behaviour before or after persist
-	 */
-	public void persist(E entity) {
-		em.get().persist(entity);
-	}
+    public abstract CriteriaSelector<E, E> getSelector();
 
-	@Transactional
-	public void mergeTrans(E entity) {
-		merge(entity);
-	}
+    public abstract CriteriaSelector<Long, E> getCountSelector();
 
-	/**
-	 * Should be called after modifying! Override to implement extra behaviour
-	 * before or after merge
-	 * 
-	 * @param entity
-	 */
-	public void merge(E entity) {
-		em.get().merge(entity);
-	}
+    public abstract Class<E> getClazz();
 
-	@Transactional
-	public void removeTrans(Long id) {
-		remove(id);
-	}
+    public abstract E newInstance();
 
-	/**
-	 * Override to implement extra behaviour before or after remove
-	 */
-	public void remove(Long id) {
-		em.get().remove(em.get().find(getClazz(), id));
-		if (mongoDao != null){
-			mongoDao.removeProps(getDescriptorName(), id);
-		}
-	}
+    protected void beforeSearch(AbstractSearch action, ObjectListResult result) {}
 
-	public List<E> find(AbstractSearch action) {
-		return find(action, null, true, true);
-	}
+    protected void afterSearch(AbstractSearch action, ObjectListResult res) {}
 
-	public List<E> find(
-			AbstractSearch action,
-			SelectorCustomizer customizer,
-			boolean useDefaultQuery,
-			boolean useDefaultOrder) {
-		CriteriaSelector<E, E> selector = getSelector();
+    protected void beforeManipulate(ObjectManipulation action, ObjectManipulationResult result)
+        throws Exception {
 
-		if (customizer != null)
-			customizer.customizeSelect(selector);
+    }
 
-		if (useDefaultQuery)
-			selector.buildDefaultQuery(action);
+    protected void afterManipulate(ObjectManipulation action, ObjectManipulationResult result) {}
 
-		selector.setDistinctIfNotForcedFalse();
+    @Transactional
+    public void persistTrans(E entity) {
+        persist(entity);
+    }
 
-		if (useDefaultOrder)
-			selector.orderBy(action);
+    /**
+     * Override to implement extra behaviour before or after persist
+     */
+    public void persist(E entity) {
+        em.get().persist(entity);
+    }
 
-		List<E> res = selector.executeRangeSelect(action.getFirstResult(), action.getNumMaxResult());
-		return res;
-	}
+    @Transactional
+    public void mergeTrans(E entity) {
+        merge(entity);
+    }
 
-	public Long count(AbstractSearch action) {
-		return count(action, null, true);
-	}
+    /**
+     * Should be called after modifying! Override to implement extra behaviour
+     * before or after merge
+     * 
+     * @param entity
+     */
+    public void merge(E entity) {
+        em.get().merge(entity);
+    }
 
-	public Long count(AbstractSearch action,
-			SelectorCustomizer customizer, boolean useDefaultQuery) {
-		CriteriaSelector<Long, E> selector = getCountSelector();
+    @Transactional
+    public void removeTrans(Long id) {
+        remove(id);
+    }
 
-		if (customizer != null)
-			customizer.customizeSelect(selector);
+    /**
+     * Override to implement extra behaviour before or after remove
+     */
+    public void remove(Long id) {
+        em.get().remove(em.get().find(getClazz(), id));
+        if (mongoDao != null) {
+            mongoDao.removeProps(getDescriptorName(), id);
+        }
+    }
 
-		if (useDefaultQuery)
-			selector.buildDefaultQuery(action);
-		else
-			selector.cq.distinct(true);
+    public List<E> find(AbstractSearch action) {
+        return find(action, null, true, true);
+    }
 
-		selector.cq.select(selector.getCountExpression());
+    public List<E> find(
+        AbstractSearch action,
+        SelectorCustomizer customizer,
+        boolean useDefaultQuery,
+        boolean useDefaultOrder) {
+        CriteriaSelector<E, E> selector = getSelector();
 
-		Long res = selector.getTypedQuery().getSingleResult();
-		return res;
-	}
+        if (customizer != null)
+            customizer.customizeSelect(selector);
 
-	public E findById(Long id) {
-		E o = em.get().find(getClazz(), id);
-		return o;
-	}
+        if (useDefaultQuery)
+            selector.buildDefaultQuery(action);
 
-	/**
-	 * 
-	 * Throws {@link ObjectManipulationException} when create or edit request failed by constrain violation!
-	 * 
-	 */
-	@Override
-	@Transactional
-	public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
-		ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
-		beforeManipulate(action, result);
-		if (result.getValidationResult() != null && !result.getValidationResult().isValid()){
-			return result;			
-		} else {
-			switch (action.getManipulationType()) {
-			case CREATE_OR_EDIT_REQUEST:
-				try {
-					E newState = doCreateOrEdit(action.getObject());
-					AssistedObject kvo = getMapper().entityToKvo(newState);
-					if (mongoDao != null){
-						mongoDao.manipulate(action.getObject(), kvo, action.getPropGroups());	
-					}
-					result.setObjectsNewState(kvo);
-					break;
-				} catch (PersistenceException e) {
-					if(e.getCause()!=null 
-						&& e.getCause() instanceof DatabaseException 
-						&& e.getCause().getCause()!=null && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-							//device can not be manipulated because devicetype and nativeid is not unique
-							throw new ObjectManipulationException(Reason.ConstraintViolationFailed); 
-					} else
-						throw e;
-				}
-			case DELETE:
-				remove(action.getObject().getId());
-				break;
-			case REFRESH:
-				AssistedObject kvo = findKvoById(getIdFromAction(action));
-				if (mongoDao != null){
-					mongoDao.mapPropGroup(kvo, action.getPropGroups());
-				}
-				result.setObjectsNewState(kvo);
-				break;
-			default:
-				throw new Exception("Invalid manipulation type");
-			}
-			afterManipulate(action, result);
-			return result;
-		}
-	}
+        selector.setDistinctIfNotForcedFalse();
 
-	protected Long getIdFromAction(ObjectManipulation action) {
-		if(action.getIdToRefresh()!=null)
-			return action.getIdToRefresh();
-		
-		return action.getObject().getId();
-	}
+        if (useDefaultOrder)
+            selector.orderBy(action);
 
-	public E doCreateOrEdit(AssistedObject kvo) throws Exception {
-		E entity = null;
+        List<E> res =
+            selector.executeRangeSelect(action.getFirstResult(), action.getNumMaxResult());
+        return res;
+    }
 
-		if (kvo.isNew())
-			entity = newInstance();
-		else
-			entity = findById(kvo.getId());
+    public Long count(AbstractSearch action) {
+        return count(action, null, true);
+    }
 
-		getMapper().kvoToEntity(kvo, entity);
-		if (kvo.isNew())
-			persist(entity);
-		else
-			merge(entity);
+    public
+        Long
+        count(AbstractSearch action, SelectorCustomizer customizer, boolean useDefaultQuery) {
+        CriteriaSelector<Long, E> selector = getCountSelector();
 
-		em.get().flush();
-		
-		return entity;
-	}
+        if (customizer != null)
+            customizer.customizeSelect(selector);
 
-	public AssistedObject findKvoById(Long id) {
-		E entity = findById(id);
-		return getMapper().entityToKvo(entity);
-	}
+        if (useDefaultQuery)
+            selector.buildDefaultQuery(action);
+        else
+            selector.cq.distinct(true);
 
-	public AssistedObject mergeWithDbState(AssistedObject difference) {
-		if (difference.isNew())
-			return difference;
-		
-		AssistedObject dbState = findKvoById(difference.getId());
-		handlerFactory.createHandler(difference).copyValuesTo(dbState);
-		return dbState;
-	}
+        selector.cq.select(selector.getCountExpression());
 
-	@Override
-	public ObjectListResult search(AbstractSearch action) {
-		return search(action, true, true, null);
-	}
+        Long res = selector.getTypedQuery().getSingleResult();
+        return res;
+    }
 
-	public ObjectListResult search(
-			AbstractSearch action,
-			boolean useDefaultQuery,
-			boolean useDefaultOrder,
-			SelectorCustomizer customizer) {
-		ObjectListResult res = objectFactory.getNewObjectListResult();
-		res.setDescriptorName(action.getDescriptorName());
-		beforeSearch(action, res);
-		if (res.isSuccess() != null && !res.isSuccess()){
-			afterSearch(action, res);
-			return res;			
-		} else {
-			if (action.isQueryResultCount()) {
-				res.setAllResultCount(count(action, customizer, useDefaultQuery));
-			}
-			if (action.getNumMaxResult() > 0){
-				List<AssistedObject> objects = getMapper().entityListToKvoList(find(action, 
-																				    customizer, 
-																				    useDefaultQuery, 
-																				    useDefaultOrder));
-				if (mongoDao != null) {
-					filterByProps(objects, action);
-					if(objects.size() > 0){
-						mongoDao.mapPropGroups(objects, action.getPropGroups());
-					}
-	
-				}
-				res.setList(objects);
-			}
-			afterSearch(action, res);
-			return res;
-		}
-	}
+    public E findById(Long id) {
+        E o = em.get().find(getClazz(), id);
+        return o;
+    }
 
-	private void filterByProps(List<AssistedObject> objects,
-							   AbstractSearch action) {
-		Iterator<AssistedObject> iterator = objects.iterator();
-		if (action.getSearchParameters() == null) return;
-		Map<String, String> jsonMap = action.getSearchParameters().getAllPropsJson();
-		if(jsonMap.isEmpty()) return;
-		Set<Long> idSet = new HashSet<>();
-		for(String group : jsonMap.keySet()){
-			String keyValue = jsonMap.get(group);
-			BasicDBObject search = new BasicDBObject();
-			BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
-			for(String key : obj.keySet()){
-				if(key.startsWith("#")) continue;
-				Object value = obj.get(key);
-				if(value instanceof String){
-					boolean strictMatch = obj.getBoolean(PropHandler.getStrictMatchKey(key));
-					if(strictMatch){
-						search.append(group + "." + key, value);
-					}else{
-						search.append(group + "." + key, Pattern.compile(value+"", Pattern.CASE_INSENSITIVE));
-					}
-				}else{
-					search.append(group + "." + key, value);
-				}
-			}
-			List<Long> ids = mongoDao.findObjectIds(action.getDescriptorName(), JSON.serialize(search));
-			idSet.addAll(ids);
-		}
-		while(iterator.hasNext()){
-			AssistedObject obj = iterator.next();
-			if(!idSet.contains(obj.getId())){
-				iterator.remove();
-			}
-		}
-	}
+    /**
+     * 
+     * Throws {@link ObjectManipulationException} when create or edit request
+     * failed by constrain violation!
+     * 
+     */
+    @Override
+    @Transactional
+    public ObjectManipulationResult manipulate(ObjectManipulation action) throws Exception {
+        ObjectManipulationResult result = objectFactory.getNewObjectManipulationResult();
+        beforeManipulate(action, result);
+        if (result.getValidationResult() != null && !result.getValidationResult().isValid()) {
+            return result;
+        } else {
+            switch (action.getManipulationType()) {
+                case CREATE_OR_EDIT_REQUEST:
+                    try {
+                        E newState = doCreateOrEdit(action.getObject());
+                        AssistedObject kvo = getMapper().entityToKvo(newState);
+                        if (mongoDao != null) {
+                            mongoDao.manipulate(action.getObject(), kvo, action.getPropGroups());
+                        }
+                        result.setObjectsNewState(kvo);
+                        break;
+                    } catch (PersistenceException e) {
+                        if (e.getCause() != null
+                            && e.getCause() instanceof DatabaseException
+                            && e.getCause().getCause() != null
+                            && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+                            // device can not be manipulated because devicetype
+                            // and nativeid is not unique
+                            throw new ObjectManipulationException(Reason.ConstraintViolationFailed);
+                        } else
+                            throw e;
+                    }
+                case DELETE:
+                    remove(action.getObject().getId());
+                    break;
+                case REFRESH:
+                    AssistedObject kvo = findKvoById(getIdFromAction(action));
+                    if (mongoDao != null) {
+                        mongoDao.mapPropGroup(kvo, action.getPropGroups());
+                    }
+                    result.setObjectsNewState(kvo);
+                    break;
+                default:
+                    throw new Exception("Invalid manipulation type");
+            }
+            afterManipulate(action, result);
+            return result;
+        }
+    }
 
-	@Override
-	public RelationListResult searchAsRelation(AbstractSearch action) {
-		RelationListResult res = objectFactory.getNewRelationListResult();
-		if (action.isQueryResultCount()) {
-			res.setAllResultCount(count(action));
-		}
-		res.setList(getMapper().toRelationList(find(action)));
-		return res;
-	}
-	
-	@Override
-	public void manipulateAsync(ObjectManipulation action, 
-			IneformAsyncCallback<ObjectManipulationResult> callback) throws Exception {
-		callback.onResponse(manipulate(action));
-	}
-	
-	@Override
-	public void searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback){
-		callback.onResponse(search(action));
-	}
-	
-	@Override
-	public void searchAsRelationAsync(AbstractSearch action, IneformAsyncCallback<RelationListResult> callback){
-		callback.onResponse(searchAsRelation(action));
-	}
-	
-	public String getDescriptorName(){
-		return this.getClass().getName().replace("Dao", "") + "Descriptor";
-	}
+    protected Long getIdFromAction(ObjectManipulation action) {
+        if (action.getIdToRefresh() != null)
+            return action.getIdToRefresh();
 
-	public PropDao getMongoDao() {
-		return mongoDao;
-	}
-	
-	public Map<Long, BasicDBObject> getProperties(String typeName, List<Long> entityIds){
-		return mongoDao.getDocument(typeName, entityIds);
-	}
+        return action.getObject().getId();
+    }
+
+    public E doCreateOrEdit(AssistedObject kvo) throws Exception {
+        E entity = null;
+
+        if (kvo.isNew())
+            entity = newInstance();
+        else
+            entity = findById(kvo.getId());
+
+        getMapper().kvoToEntity(kvo, entity);
+        if (kvo.isNew())
+            persist(entity);
+        else
+            merge(entity);
+
+        em.get().flush();
+
+        return entity;
+    }
+
+    public AssistedObject findKvoById(Long id) {
+        E entity = findById(id);
+        return getMapper().entityToKvo(entity);
+    }
+
+    public AssistedObject mergeWithDbState(AssistedObject difference) {
+        if (difference.isNew())
+            return difference;
+
+        AssistedObject dbState = findKvoById(difference.getId());
+        handlerFactory.createHandler(difference).copyValuesTo(dbState);
+        return dbState;
+    }
+
+    @Override
+    public ObjectListResult search(AbstractSearch action) {
+        return search(action, true, true, null);
+    }
+
+    public ObjectListResult search(
+        AbstractSearch action,
+        boolean useDefaultQuery,
+        boolean useDefaultOrder,
+        SelectorCustomizer customizer) {
+        ObjectListResult res = objectFactory.getNewObjectListResult();
+        res.setDescriptorName(action.getDescriptorName());
+        beforeSearch(action, res);
+        if (res.isSuccess() != null && !res.isSuccess()) {
+            afterSearch(action, res);
+            return res;
+        } else {
+            if (action.isQueryResultCount()) {
+                res.setAllResultCount(count(action, customizer, useDefaultQuery));
+            }
+            if (action.getNumMaxResult() > 0) {
+                List<AssistedObject> objects =
+                    getMapper().entityListToKvoList(
+                        find(action, customizer, useDefaultQuery, useDefaultOrder));
+                if (mongoDao != null) {
+                    filterByProps(objects, action);
+                    if (objects.size() > 0) {
+                        mongoDao.mapPropGroups(objects, action.getPropGroups());
+                    }
+
+                }
+                res.setList(objects);
+            }
+            afterSearch(action, res);
+            return res;
+        }
+    }
+
+    private void filterByProps(List<AssistedObject> objects, AbstractSearch action) {
+        Iterator<AssistedObject> iterator = objects.iterator();
+        if (action.getSearchParameters() == null)
+            return;
+        Map<String, String> jsonMap = action.getSearchParameters().getAllPropsJson();
+        if (jsonMap.isEmpty())
+            return;
+        Set<Long> idSet = new HashSet<>();
+        for (String group : jsonMap.keySet()) {
+            String keyValue = jsonMap.get(group);
+            BasicDBObject search = new BasicDBObject();
+            BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
+            for (String key : obj.keySet()) {
+                if (key.startsWith("#"))
+                    continue;
+                Object value = obj.get(key);
+                if (value instanceof String) {
+                    boolean strictMatch = obj.getBoolean(PropHandler.getStrictMatchKey(key));
+                    if (strictMatch) {
+                        search.append(group + "." + key, value);
+                    } else {
+                        search.append(
+                            group + "." + key,
+                            Pattern.compile(value + "", Pattern.CASE_INSENSITIVE));
+                    }
+                } else {
+                    search.append(group + "." + key, value);
+                }
+            }
+            List<Long> ids =
+                mongoDao.findObjectIds(action.getDescriptorName(), JSON.serialize(search));
+            idSet.addAll(ids);
+        }
+        while (iterator.hasNext()) {
+            AssistedObject obj = iterator.next();
+            if (!idSet.contains(obj.getId())) {
+                iterator.remove();
+            }
+        }
+    }
+
+    @Override
+    public RelationListResult searchAsRelation(AbstractSearch action) {
+        RelationListResult res = objectFactory.getNewRelationListResult();
+        if (action.isQueryResultCount()) {
+            res.setAllResultCount(count(action));
+        }
+        res.setList(getMapper().toRelationList(find(action)));
+        return res;
+    }
+
+    @Override
+    public void manipulateAsync(
+        ObjectManipulation action,
+        IneformAsyncCallback<ObjectManipulationResult> callback) throws Exception {
+        callback.onResponse(manipulate(action));
+    }
+
+    @Override
+    public void searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback) {
+        callback.onResponse(search(action));
+    }
+
+    @Override
+    public void searchAsRelationAsync(
+        AbstractSearch action,
+        IneformAsyncCallback<RelationListResult> callback) {
+        callback.onResponse(searchAsRelation(action));
+    }
+
+    public String getDescriptorName() {
+        return this.getClass().getName().replace("Dao", "") + "Descriptor";
+    }
+
+    public PropDao getMongoDao() {
+        return mongoDao;
+    }
+
+    public Map<Long, BasicDBObject> getProperties(String typeName, List<Long> entityIds) {
+        return mongoDao.getDocument(typeName, entityIds);
+    }
 }

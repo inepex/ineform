@@ -2,44 +2,45 @@ package com.inepex.ineFrame.client.navigation;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler>{
+public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
 
-	public static Type<PlaceChangedHandler> TYPE = new Type<PlaceChangedHandler>();
-	
-	private String fullToken;
-	
-	private String tokenWithoutParams;
-		
-	public PlaceChangedEvent(String fullToken) {
-		super();
-		this.fullToken = fullToken;
-		this.tokenWithoutParams = PlaceHandlerHelper.getPlacePart(PlaceHandlerHelper.removeRedirect(fullToken));
-	}
+    public static Type<PlaceChangedHandler> TYPE = new Type<PlaceChangedHandler>();
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<PlaceChangedHandler> getAssociatedType() {
-		return TYPE;
-	}
+    private String fullToken;
 
-	@Override
-	protected void dispatch(PlaceChangedHandler handler) {
-		handler.onPlaceChange(this);
-	}
+    private String tokenWithoutParams;
 
-	public String getFullToken() {
-		return fullToken;
-	}
+    public PlaceChangedEvent(String fullToken) {
+        super();
+        this.fullToken = fullToken;
+        this.tokenWithoutParams =
+            PlaceHandlerHelper.getPlacePart(PlaceHandlerHelper.removeRedirect(fullToken));
+    }
 
-	public void setFullToken(String fullToken) {
-		this.fullToken = fullToken;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<PlaceChangedHandler> getAssociatedType() {
+        return TYPE;
+    }
 
-	public String getTokenWithoutParams() {
-		return tokenWithoutParams;
-	}
+    @Override
+    protected void dispatch(PlaceChangedHandler handler) {
+        handler.onPlaceChange(this);
+    }
 
-	public void setTokenWithoutParams(String tokenWithoutParams) {
-		this.tokenWithoutParams = tokenWithoutParams;
-	}
+    public String getFullToken() {
+        return fullToken;
+    }
+
+    public void setFullToken(String fullToken) {
+        this.fullToken = fullToken;
+    }
+
+    public String getTokenWithoutParams() {
+        return tokenWithoutParams;
+    }
+
+    public void setTokenWithoutParams(String tokenWithoutParams) {
+        this.tokenWithoutParams = tokenWithoutParams;
+    }
 
 }

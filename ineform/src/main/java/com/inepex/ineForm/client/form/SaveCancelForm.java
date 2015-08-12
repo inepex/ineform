@@ -29,285 +29,305 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * of an existing one. It needs an IneDataConnector that implements the saving.
  * This form also fires following FormLifeCycle events:<br/>
  * <br/>
- *  - {@link BeforeSaveEvent}<br/>
- *  - {@link SavedEvent}<br/>
- *  - {@link BeforeCancelEvent}<br/>
- *  - {@link CancelledEvent}<br/>
+ * - {@link BeforeSaveEvent}<br/>
+ * - {@link SavedEvent}<br/>
+ * - {@link BeforeCancelEvent}<br/>
+ * - {@link CancelledEvent}<br/>
  * <br/>
- * The form also validates before saving according to the default {@link ValidatorDesc}.<br/>
+ * The form also validates before saving according to the default
+ * {@link ValidatorDesc}.<br/>
  * 
  * @author istvanszoboszlai
  *
  */
 public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delegate {
-	
-	private class ManipulateCallback implements ManipulateResultCallback {
-		@Override
-		public void onManipulationResult(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
-			dealValidationResult(result.getValidationResult());
-			if(result.isSuccess() && (result.getValidationResult() == null || result.getValidationResult().isValid())) {
-				if (result.getObjectsNewState() != null) {
-					setInitialData(result.getObjectsNewState());
-				}
-				fireSavedEvent(result);
-			} else {
-				fireAfterUnsuccesfulSaveEvent(result);
-			}
-		}
-	}
-	
-	private class DeleteCallback implements ManipulateResultCallback {
 
-		private Long id;
+    private class ManipulateCallback implements ManipulateResultCallback {
+        @Override
+        public void onManipulationResult(
+            com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
+            dealValidationResult(result.getValidationResult());
+            if (result.isSuccess()
+                && (result.getValidationResult() == null || result.getValidationResult().isValid())) {
+                if (result.getObjectsNewState() != null) {
+                    setInitialData(result.getObjectsNewState());
+                }
+                fireSavedEvent(result);
+            } else {
+                fireAfterUnsuccesfulSaveEvent(result);
+            }
+        }
+    }
 
-		public DeleteCallback(Long id) {
-			super();
-			this.id = id;
-		}
+    private class DeleteCallback implements ManipulateResultCallback {
 
-		@Override
-		public void onManipulationResult(ObjectManipulationResult result) {
-			fireDeletedEvent(id);
-		}
-		
-	}
-	
-	// this flag indicates whether we want to display an error message 
-	// when the save button is clicked, but there were no modifications
-	private boolean displayNothingToSaveMsg = true;
-	
-	protected final SimpleEventBus ineformEventbus = new SimpleEventBus();
-	
-	protected final AssistedObjectDifference aoDifference;
-	
-	private IneDataConnector ineDataConnector;
-	
-	protected AssistedObject originalData;
-	protected AssistedObject kvo;
-	
-	public enum ValidateMode {
-		ALL, PARTIAL, NONE;
-	}
-	
-	protected SaveCancelFormView view;
- 	
-	/**
-	 * @param ineDataConnector 
-	 * @param descriptorName
-	 * @param valueRangeProvider
-	 * @param formRenderDescName should be DescriptorStore.DEFAULT_DESC_KEY or null if default descriptor needed
-	 * @param eventBus
-	 * @param view set it to null to use default view
-	 */
-	@Inject
-	public SaveCancelForm(FormContext formCtx,
-						@Assisted("dn") String descriptorName,
-						@Assisted("frdn") String formRDescName,
-						@Assisted IneDataConnector ineDataConnector,
-						@Assisted SaveCancelFormView view) {
-		super(formCtx, descriptorName, formRDescName);
-		this.aoDifference = formCtx.aoDifference;
-		this.ineDataConnector = ineDataConnector;
-		if (view == null) 
-			this.view = new DefaultSaveCancelFormView();
-		else this.view = view;
-		
-		this.view.setDelegate(this);
-	}
-	
-	public IneDataConnector getIneDataConnector() {
-		return ineDataConnector;
-	}
+        private Long id;
 
-	public void setSaveButtonVisible(boolean visible) {
-		view.setSaveButtonVisible(visible);
-	}
-	
-	public void setCancelButtonVisible(boolean visible) {
-		view.setCancelButtonVisible(visible);
-	}
-	
-	@Override
-	public Widget asWidget() {
-		return view.asWidget();
-	}
-	
-	@Override
-	public void renderForm() {
-		view.setFormWidget(super.asWidget());
-		super.renderForm();
-	}
-	
-	public void setSaveButtonText(String saveButtonText) {
-		view.setSaveButtonText(saveButtonText);
-	}
+        public DeleteCallback(Long id) {
+            super();
+            this.id = id;
+        }
 
-	public void setCancelButtonText(String cancelButtonText) {
-		view.setCancelButtonText(cancelButtonText);
-	}
-	
-	public void save(){
-		originalData = getInitialOrEmptyData();
-		kvo = getValues(originalData.clone());
-		if (fireBeforeSaveEvent(kvo).isCancelled()){
-			fireAfterUnsuccesfulSaveEvent(null);
-			return;			
-		}						
-		
-		doSave();
-	}
-	
-	@Override
-	public void dealValidationResult(ValidationResult vr) {
-		view.setFormValidationSuccess(vr==null || vr.isValid());
-		
-		super.dealValidationResult(vr);
-	}
-	
-	public void doSave(){
-		if (!doValidate(kvo).isValid()) {
-			fireAfterUnsuccesfulSaveEvent(null);
-			return;
-		}
-		
-		// Send only the changes to the server 
-		AssistedObject difference = aoDifference.getDifference(originalData, kvo).getAssistedObject();
-		if ((difference.getKeys().size() == 0 
-				|| difference.getKeys().size() == 1 && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
-				&& difference.getAllPropsJson() != null && difference.getAllPropsJson().size() == 0) {
-			
-			if(displayNothingToSaveMsg){
-				ValidationResult vr = new ValidationResult();
-				vr.addGeneralError(IneFormI18n.validationNothingToSave());
-				dealValidationResult(vr);
-			}else
-				cancelClicked();
-				
-			return;
-		}
-		
-		ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback());
-	}
-	
-	public HandlerRegistration addBeforeSaveHandler(BeforeSaveEvent.Handler handler) {
-		return ineformEventbus.addHandler(BeforeSaveEvent.getType(), handler);
-	}
+        @Override
+        public void onManipulationResult(ObjectManipulationResult result) {
+            fireDeletedEvent(id);
+        }
 
-	public HandlerRegistration addSavedHandler(SavedEvent.Handler handler) {
-		return ineformEventbus.addHandler(SavedEvent.getType(), handler);
-	}
-	
-	public HandlerRegistration addBeforeCancelHandler(BeforeCancelEvent.Handler handler) {
-		return ineformEventbus.addHandler(BeforeCancelEvent.getType(), handler);
-	}
-	
-	public HandlerRegistration addCancelledHandler(CancelledEvent.Handler handler) {
-		return ineformEventbus.addHandler(CancelledEvent.getType(), handler);
-	}
-	
-	public HandlerRegistration addAfterUnsuccesfulSaveHandler(AfterUnsuccessfulSaveEvent.Handler handler) {
-		return ineformEventbus.addHandler(AfterUnsuccessfulSaveEvent.getType(), handler);
-	}
-	
-	public HandlerRegistration addDeletedHandler(DeletedEvent.Handler handler) {
-		return ineformEventbus.addHandler(DeletedEvent.getType(), handler);
-	}
-	
-	public BeforeCancelEvent fireBeforeCancelEvent() {
-		return doFireEvent(new BeforeCancelEvent());
-	}
+    }
 
-	public CancelledEvent fireCancelledEvent() {
-		return doFireEvent(new CancelledEvent());
-	}
-	
-	@Override
-	public ResetEvent fireResetEvent() {
-		view.dataReseted();
-		return super.fireResetEvent();
-	}
-	
-	public BeforeSaveEvent fireBeforeSaveEvent(AssistedObject kvo) {
-		return doFireEvent(new BeforeSaveEvent(kvo));
-	}
-	
-	public SavedEvent fireSavedEvent(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
-		return doFireEvent(new SavedEvent(objectManipulationResult));
-	}
-	
-	public AfterUnsuccessfulSaveEvent fireAfterUnsuccesfulSaveEvent(com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
-		return doFireEvent(new AfterUnsuccessfulSaveEvent(objectManipulationResult));
-	}
-	
-	public DeletedEvent fireDeletedEvent(Long id) {
-		return doFireEvent(new DeletedEvent(id));
-	}
-	
-	private <T extends EventHandler, E extends FormLifecycleEventBase<T>> E doFireEvent(E event) {
-		ineformEventbus.fireEvent(event);
-		return event;
-	}
+    // this flag indicates whether we want to display an error message
+    // when the save button is clicked, but there were no modifications
+    private boolean displayNothingToSaveMsg = true;
 
-	public void setSaveBtnStyle(String style){
-		view.setSaveBtnStyle(style);
-	}
-	
-	public void addSaveBtnStyle(String style){
-		view.addSaveBtnStyle(style);
-	}
-	
-	public void setCancelBtnStyle(String style){
-		view.setCancelBtnStyle(style);
-	}
+    protected final SimpleEventBus ineformEventbus = new SimpleEventBus();
 
-	public void addCancelBtnStyle(String style){
-		view.addCancelBtnStyle(style);
-	}
-	
-	public boolean isDisplayNothingToSaveMsg() {
-		return displayNothingToSaveMsg;
-	}
+    protected final AssistedObjectDifference aoDifference;
 
-	/**
-	 * This flag indicates whether we want to display an error message 
-	 * when the save button is clicked, but there were no modifications
-	 * 
-	 * @param display
-	 */
-	public void displayNothingToSaveMsg(boolean display) {
-		this.displayNothingToSaveMsg = display;
-	}
+    private IneDataConnector ineDataConnector;
 
-	@Override
-	public void saveClicked() {
-		save();
-	}
+    protected AssistedObject originalData;
+    protected AssistedObject kvo;
 
-	@Override
-	public void cancelClicked() {
-		if (!fireBeforeCancelEvent().isCancelled())
-			fireCancelledEvent();
-	}
+    public enum ValidateMode {
+        ALL,
+        PARTIAL,
+        NONE;
+    }
 
-	@Override
-	public void deleteClicked() {
-		AssistedObject data = getInitialOrEmptyData();
-		if (data.getId() == IFConsts.NEW_ITEM_ID) throw new RuntimeException("Delete called for a newly created object");
-		ineDataConnector.objectDeleteRequested(data, new DeleteCallback(data.getId()));
-	}
+    protected SaveCancelFormView view;
 
-	@Override
-	public HandlerRegistration addFormSavedHandlerFromView(SavedEvent.Handler handler) {
-		return addSavedHandler(handler);
-	}
+    /**
+     * @param ineDataConnector
+     * @param descriptorName
+     * @param valueRangeProvider
+     * @param formRenderDescName
+     *            should be DescriptorStore.DEFAULT_DESC_KEY or null if default
+     *            descriptor needed
+     * @param eventBus
+     * @param view
+     *            set it to null to use default view
+     */
+    @Inject
+    public SaveCancelForm(
+        FormContext formCtx,
+        @Assisted("dn") String descriptorName,
+        @Assisted("frdn") String formRDescName,
+        @Assisted IneDataConnector ineDataConnector,
+        @Assisted SaveCancelFormView view) {
+        super(formCtx, descriptorName, formRDescName);
+        this.aoDifference = formCtx.aoDifference;
+        this.ineDataConnector = ineDataConnector;
+        if (view == null)
+            this.view = new DefaultSaveCancelFormView();
+        else
+            this.view = view;
 
-	@Override
-	public HandlerRegistration addFormAfterUnsuccesfulSaveHandlerFromView(
-			AfterUnsuccessfulSaveEvent.Handler handler) {
-		return addAfterUnsuccesfulSaveHandler(handler);
-	}
-	
-	public void forceLoadingOnSaveBtn(boolean loading){
-		view.forceLoadingOnSaveBtn(loading);
-	}
+        this.view.setDelegate(this);
+    }
+
+    public IneDataConnector getIneDataConnector() {
+        return ineDataConnector;
+    }
+
+    public void setSaveButtonVisible(boolean visible) {
+        view.setSaveButtonVisible(visible);
+    }
+
+    public void setCancelButtonVisible(boolean visible) {
+        view.setCancelButtonVisible(visible);
+    }
+
+    @Override
+    public Widget asWidget() {
+        return view.asWidget();
+    }
+
+    @Override
+    public void renderForm() {
+        view.setFormWidget(super.asWidget());
+        super.renderForm();
+    }
+
+    public void setSaveButtonText(String saveButtonText) {
+        view.setSaveButtonText(saveButtonText);
+    }
+
+    public void setCancelButtonText(String cancelButtonText) {
+        view.setCancelButtonText(cancelButtonText);
+    }
+
+    public void save() {
+        originalData = getInitialOrEmptyData();
+        kvo = getValues(originalData.clone());
+        if (fireBeforeSaveEvent(kvo).isCancelled()) {
+            fireAfterUnsuccesfulSaveEvent(null);
+            return;
+        }
+
+        doSave();
+    }
+
+    @Override
+    public void dealValidationResult(ValidationResult vr) {
+        view.setFormValidationSuccess(vr == null || vr.isValid());
+
+        super.dealValidationResult(vr);
+    }
+
+    public void doSave() {
+        if (!doValidate(kvo).isValid()) {
+            fireAfterUnsuccesfulSaveEvent(null);
+            return;
+        }
+
+        // Send only the changes to the server
+        AssistedObject difference =
+            aoDifference.getDifference(originalData, kvo).getAssistedObject();
+        if ((difference.getKeys().size() == 0 || difference.getKeys().size() == 1
+            && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
+            && difference.getAllPropsJson() != null
+            && difference.getAllPropsJson().size() == 0) {
+
+            if (displayNothingToSaveMsg) {
+                ValidationResult vr = new ValidationResult();
+                vr.addGeneralError(IneFormI18n.validationNothingToSave());
+                dealValidationResult(vr);
+            } else
+                cancelClicked();
+
+            return;
+        }
+
+        ineDataConnector.objectCreateOrEditRequested(difference, new ManipulateCallback());
+    }
+
+    public HandlerRegistration addBeforeSaveHandler(BeforeSaveEvent.Handler handler) {
+        return ineformEventbus.addHandler(BeforeSaveEvent.getType(), handler);
+    }
+
+    public HandlerRegistration addSavedHandler(SavedEvent.Handler handler) {
+        return ineformEventbus.addHandler(SavedEvent.getType(), handler);
+    }
+
+    public HandlerRegistration addBeforeCancelHandler(BeforeCancelEvent.Handler handler) {
+        return ineformEventbus.addHandler(BeforeCancelEvent.getType(), handler);
+    }
+
+    public HandlerRegistration addCancelledHandler(CancelledEvent.Handler handler) {
+        return ineformEventbus.addHandler(CancelledEvent.getType(), handler);
+    }
+
+    public HandlerRegistration addAfterUnsuccesfulSaveHandler(
+        AfterUnsuccessfulSaveEvent.Handler handler) {
+        return ineformEventbus.addHandler(AfterUnsuccessfulSaveEvent.getType(), handler);
+    }
+
+    public HandlerRegistration addDeletedHandler(DeletedEvent.Handler handler) {
+        return ineformEventbus.addHandler(DeletedEvent.getType(), handler);
+    }
+
+    public BeforeCancelEvent fireBeforeCancelEvent() {
+        return doFireEvent(new BeforeCancelEvent());
+    }
+
+    public CancelledEvent fireCancelledEvent() {
+        return doFireEvent(new CancelledEvent());
+    }
+
+    @Override
+    public ResetEvent fireResetEvent() {
+        view.dataReseted();
+        return super.fireResetEvent();
+    }
+
+    public BeforeSaveEvent fireBeforeSaveEvent(AssistedObject kvo) {
+        return doFireEvent(new BeforeSaveEvent(kvo));
+    }
+
+    public
+        SavedEvent
+        fireSavedEvent(
+            com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
+        return doFireEvent(new SavedEvent(objectManipulationResult));
+    }
+
+    public
+        AfterUnsuccessfulSaveEvent
+        fireAfterUnsuccesfulSaveEvent(
+            com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
+        return doFireEvent(new AfterUnsuccessfulSaveEvent(objectManipulationResult));
+    }
+
+    public DeletedEvent fireDeletedEvent(Long id) {
+        return doFireEvent(new DeletedEvent(id));
+    }
+
+    private <T extends EventHandler, E extends FormLifecycleEventBase<T>> E doFireEvent(E event) {
+        ineformEventbus.fireEvent(event);
+        return event;
+    }
+
+    public void setSaveBtnStyle(String style) {
+        view.setSaveBtnStyle(style);
+    }
+
+    public void addSaveBtnStyle(String style) {
+        view.addSaveBtnStyle(style);
+    }
+
+    public void setCancelBtnStyle(String style) {
+        view.setCancelBtnStyle(style);
+    }
+
+    public void addCancelBtnStyle(String style) {
+        view.addCancelBtnStyle(style);
+    }
+
+    public boolean isDisplayNothingToSaveMsg() {
+        return displayNothingToSaveMsg;
+    }
+
+    /**
+     * This flag indicates whether we want to display an error message when the
+     * save button is clicked, but there were no modifications
+     * 
+     * @param display
+     */
+    public void displayNothingToSaveMsg(boolean display) {
+        this.displayNothingToSaveMsg = display;
+    }
+
+    @Override
+    public void saveClicked() {
+        save();
+    }
+
+    @Override
+    public void cancelClicked() {
+        if (!fireBeforeCancelEvent().isCancelled())
+            fireCancelledEvent();
+    }
+
+    @Override
+    public void deleteClicked() {
+        AssistedObject data = getInitialOrEmptyData();
+        if (data.getId() == IFConsts.NEW_ITEM_ID)
+            throw new RuntimeException("Delete called for a newly created object");
+        ineDataConnector.objectDeleteRequested(data, new DeleteCallback(data.getId()));
+    }
+
+    @Override
+    public HandlerRegistration addFormSavedHandlerFromView(SavedEvent.Handler handler) {
+        return addSavedHandler(handler);
+    }
+
+    @Override
+    public HandlerRegistration addFormAfterUnsuccesfulSaveHandlerFromView(
+        AfterUnsuccessfulSaveEvent.Handler handler) {
+        return addAfterUnsuccesfulSaveHandler(handler);
+    }
+
+    public void forceLoadingOnSaveBtn(boolean loading) {
+        view.forceLoadingOnSaveBtn(loading);
+    }
 }

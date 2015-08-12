@@ -23,67 +23,65 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 
 public class CompanyDeletePage extends FlowPanelBasedPage {
 
-	private final ServerSideDataConnector connector;
-	
-	private final EventBus eventBus;
-	private final PlaceHandler placeHandler;
-	
-	private final HTML html;
-	private final IneButton button;
-	
-	private Long companyId;
-	
-	@Inject
-	CompanyDeletePage(IneDispatch dispatcher, EventBus eventBus, PlaceHandler placeHandler) {
-		this.placeHandler=placeHandler;
-		this.eventBus=eventBus;
-		
-		connector = new ServerSideDataConnector(dispatcher, eventBus, CompanyConsts.descriptorName);
-		
-		html= new HTML(CMI18n.reallyWantToDeleteCompany());
-		mainPanel.add(html);
-		
-		mainPanel.add(new HTML("<br />"));
-		
-		button= new IneButton(IneButtonType.ACTION, IneFormI18n.DELETE());
-		mainPanel.add(button);
-	}
-	
-	@Override
-	public void setUrlParameters(Map<String, String> urlParams,
-			UrlParamsParsedCallback callback) throws Exception {
-		
-		companyId=Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
-		callback.onUrlParamsParsed();
-	}
-	
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		
-		registerHandler(button.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				KeyValueObject kvo = new KeyValueObject(CompanyConsts.descriptorName);
-				kvo.setId(companyId);
-				connector.objectDeleteRequested(kvo,new ManipulateResultCallback() {
+    private final ServerSideDataConnector connector;
 
-					@Override
-					public void onManipulationResult(ObjectManipulationResult result) {
-						if(result.isSuccess()) {
-							eventBus.fireEvent(placeHandler.generateJumpUpEvent());
-						}
-					}
-					
-				});
-			}
-		}));
-	}
-	
-	
-	@Override
-	protected void onShow(boolean isFirstShow) {
-	}
+    private final EventBus eventBus;
+    private final PlaceHandler placeHandler;
+
+    private final HTML html;
+    private final IneButton button;
+
+    private Long companyId;
+
+    @Inject
+    CompanyDeletePage(IneDispatch dispatcher, EventBus eventBus, PlaceHandler placeHandler) {
+        this.placeHandler = placeHandler;
+        this.eventBus = eventBus;
+
+        connector = new ServerSideDataConnector(dispatcher, eventBus, CompanyConsts.descriptorName);
+
+        html = new HTML(CMI18n.reallyWantToDeleteCompany());
+        mainPanel.add(html);
+
+        mainPanel.add(new HTML("<br />"));
+
+        button = new IneButton(IneButtonType.ACTION, IneFormI18n.DELETE());
+        mainPanel.add(button);
+    }
+
+    @Override
+    public void setUrlParameters(Map<String, String> urlParams, UrlParamsParsedCallback callback)
+        throws Exception {
+
+        companyId = Long.parseLong(urlParams.get(AppPlaceHierarchyProvider.PARAM_COMPANY));
+        callback.onUrlParamsParsed();
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+
+        registerHandler(button.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                KeyValueObject kvo = new KeyValueObject(CompanyConsts.descriptorName);
+                kvo.setId(companyId);
+                connector.objectDeleteRequested(kvo, new ManipulateResultCallback() {
+
+                    @Override
+                    public void onManipulationResult(ObjectManipulationResult result) {
+                        if (result.isSuccess()) {
+                            eventBus.fireEvent(placeHandler.generateJumpUpEvent());
+                        }
+                    }
+
+                });
+            }
+        }));
+    }
+
+    @Override
+    protected void onShow(boolean isFirstShow) {}
 
 }

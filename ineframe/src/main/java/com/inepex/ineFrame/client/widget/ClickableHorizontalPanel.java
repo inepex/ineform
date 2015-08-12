@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class ClickableHorizontalPanel extends HorizontalPanel implements HasClickHandlers {
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return addDomHandler(handler, ClickEvent.getType());
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return addDomHandler(handler, ClickEvent.getType());
+    }
 }

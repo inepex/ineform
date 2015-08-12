@@ -6,11 +6,11 @@ import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 
 public class DefaultHeaderViewLogo implements HeaderViewLogo {
 
-	@Override
-	public Widget createLogo() {
-		Image logo = new Image(ResourceHelper.getRes().logo());
-		logo.setStyleName(ResourceHelper.getRes().style().logo());
-		return logo;
-	}
+    @Override
+    public Widget createLogo() {
+        Image logo = new Image(ResourceHelper.getRes().logo());
+        logo.setStyleName(ResourceHelper.getRes().style().logo());
+        return logo;
+    }
 
 }

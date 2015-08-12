@@ -9,121 +9,117 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 @SuppressWarnings("serial")
 public abstract class FDesc extends DescriptorBase {
 
-	private String key;
+    private String key;
 
-	// the field can be edited
-	private boolean editable = true;
+    // the field can be edited
+    private boolean editable = true;
 
-	protected TreeSet<String> validatorNames = new TreeSet<String>();
+    protected TreeSet<String> validatorNames = new TreeSet<String>();
 
-	protected IneT type = null;
+    protected IneT type = null;
 
-	private String defaultDisplayName = null;
+    private String defaultDisplayName = null;
 
-	private boolean nullable = true;
-	
-	private boolean excludeFromDesc = false;
+    private boolean nullable = true;
 
-	public FDesc() {
-	}
+    private boolean excludeFromDesc = false;
 
-	public FDesc(String key, IneT type) {
-		this.key = key;
-		this.type = type;
-	}
+    public FDesc() {}
 
-	public FDesc(String key, IneT type, String defaultDisplayName) {
-		this.key = key;
-		this.type = type;
-		this.defaultDisplayName = defaultDisplayName;
-	}
+    public FDesc(String key, IneT type) {
+        this.key = key;
+        this.type = type;
+    }
 
-	public FDesc(String key, IneT type, String defaultDisplayName,
-			String... properties) {
-		this.key = key;
-		this.type = type;
-		this.defaultDisplayName = defaultDisplayName;
-		addProps(properties);
-	}
+    public FDesc(String key, IneT type, String defaultDisplayName) {
+        this.key = key;
+        this.type = type;
+        this.defaultDisplayName = defaultDisplayName;
+    }
 
-	public FDesc(String key, IneT type, String... properties) {
-		this.key = key;
-		this.type = type;
-		addProps(properties);
-	}
+    public FDesc(String key, IneT type, String defaultDisplayName, String... properties) {
+        this.key = key;
+        this.type = type;
+        this.defaultDisplayName = defaultDisplayName;
+        addProps(properties);
+    }
 
-	public FDesc addValidators(String... names) {
-		for (String name : names) {
-			validatorNames.add(name);
-		}
+    public FDesc(String key, IneT type, String... properties) {
+        this.key = key;
+        this.type = type;
+        addProps(properties);
+    }
 
-		return this;
-	}
+    public FDesc addValidators(String... names) {
+        for (String name : names) {
+            validatorNames.add(name);
+        }
 
-	public TreeSet<String> getValidatorNames() {
-		return validatorNames;
-	}
+        return this;
+    }
 
-	public boolean hasValidator(String validatorName) {
-		return validatorNames.contains(validatorName);
-	}
+    public TreeSet<String> getValidatorNames() {
+        return validatorNames;
+    }
 
-	public String getKey() {
-		return key;
-	}
+    public boolean hasValidator(String validatorName) {
+        return validatorNames.contains(validatorName);
+    }
 
-	public boolean isEditable() {
-		return editable;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public FDesc setEditable(boolean editable) {
-		this.editable = editable;
-		return this;
-	}
+    public boolean isEditable() {
+        return editable;
+    }
 
-	public IneT getType() {
-		return type;
-	}
+    public FDesc setEditable(boolean editable) {
+        this.editable = editable;
+        return this;
+    }
 
-	public String getDefaultDisplayName() {
-		return defaultDisplayName;
-	}
+    public IneT getType() {
+        return type;
+    }
 
-	public void setDefaultDisplayName(String defaultDisplayName) {
-		this.defaultDisplayName = defaultDisplayName;
-	}
+    public String getDefaultDisplayName() {
+        return defaultDisplayName;
+    }
 
-	public boolean isNullable() {
-		return nullable;
-	}
+    public void setDefaultDisplayName(String defaultDisplayName) {
+        this.defaultDisplayName = defaultDisplayName;
+    }
 
-	public FDesc setNullable(boolean nullable) {
-		this.nullable = nullable;
-		return this;
-	}
+    public boolean isNullable() {
+        return nullable;
+    }
 
-	public FDesc mandatory() {
-		validatorNames.add(KeyValueObjectValidationManager.MANDATORY);
-		return this;
-	}
+    public FDesc setNullable(boolean nullable) {
+        this.nullable = nullable;
+        return this;
+    }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public FDesc mandatory() {
+        validatorNames.add(KeyValueObjectValidationManager.MANDATORY);
+        return this;
+    }
 
-	public boolean isExcludeFromDesc() {
-		return excludeFromDesc;
-	}
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-	public FDesc setExcludeFromDesc(boolean excludeFromDesc) {
-		this.excludeFromDesc = excludeFromDesc;
-		return this;
-	}
-	
-	public FDesc excl() {
-		return setExcludeFromDesc(true);
-	}
-	
-	
+    public boolean isExcludeFromDesc() {
+        return excludeFromDesc;
+    }
+
+    public FDesc setExcludeFromDesc(boolean excludeFromDesc) {
+        this.excludeFromDesc = excludeFromDesc;
+        return this;
+    }
+
+    public FDesc excl() {
+        return setExcludeFromDesc(true);
+    }
 
 }

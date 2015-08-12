@@ -16,122 +16,131 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 
 public class ListBoxFW extends AbstractListBoxFW {
-	
-	private final Map<Long, Integer> itemIdIndexMap = new HashMap<Long, Integer>();
-	
-	private ValueRangeProvider valueRangeProvider;
-	private RelationFDesc relationFDesc = null;
-	
-	private Relation value;
-	
-	protected FormContext formCtx;
-	
-	public ListBoxFW(FormContext formCtx, FDesc fieldDescriptor, WidgetRDesc wrDesc) {
-		super(fieldDescriptor, wrDesc);
-		this.formCtx = formCtx;
-		this.valueRangeProvider = formCtx.valueRangeProvider;
-		relationFDesc = (RelationFDesc) fieldDescriptor;
 
-		loadDataFromValueRangeProvider();
-	}
+    private final Map<Long, Integer> itemIdIndexMap = new HashMap<Long, Integer>();
 
-	private class ListModifyHandler implements KeyValueObjectListModifiedEventHandler {
-		@Override
-		public void onObjectListModified(
-				KeyValueObjectListModifiedEvent event) {
-			if (event.getListType().equals(relationFDesc.getRelatedDescriptorName()))
-				loadDataFromValueRangeProvider();
-		}
-	}
-	@Override
-	protected void onAttach() {
-		registerHandler(formCtx.eventBus.addHandler(KeyValueObjectListModifiedEvent.TYPE, new ListModifyHandler()));
-		super.onAttach();
-	}
-	
-	@Override
-	protected void fireFormWidgetChanged(boolean changeEnd) {
-		int selected = getListBox().getSelectedIndex();
-		
-		if(selected==-1 || selected==0 &&  allowsNull) value = null;
-		else value = new Relation(Long.parseLong(getListBox().getValue(selected)), getListBox().getItemText(selected));
-		
-		super.fireFormWidgetChanged(changeEnd);
-	}
-	
-	public void reLoadListAndKeepSelectedOrSetToNull() {
-		if (valueRangeProvider != null) {
-			getListBox().setEnabled(false);
-			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
-				@Override
-				public void onValueRangeResultReady(List<Relation> relationList) {
-					if (relationList != null){
-						getListBox().setEnabled(true);
-						ListBoxFW.this.setValueRange(relationList);
-						if(value==null || !itemIdIndexMap.containsKey(value.getId())) {
-							setRelationValue(null);
-						}
-					}
-				}
-			});
-		}
-	}
-	
-	@Override
-	public boolean handlesRelation() {
-		return true;
-	}
-	
-	public void setValueRange(List<Relation> valueRange){
-		getListBox().clear();
-		itemIdIndexMap.clear();
-		
-		if (allowsNull) addNullItem();
-		int index = allowsNull ? 1 : 0;
-		
-		if(valueRange!=null) {
-			for (Relation relation : valueRange) {
-				getListBox().addItem(relation.getDisplayName(), relation.getId().toString());
-				itemIdIndexMap.put(relation.getId(), index++);
-			}
-		}
-		
-		setRelationValue(value);
-	}
+    private ValueRangeProvider valueRangeProvider;
+    private RelationFDesc relationFDesc = null;
 
-	
+    private Relation value;
 
-	@Override
-	public void setRelationValue(Relation value) {
-		this.value = value;
-		
-		if (value == null) {
-			if (allowsNull) {
-				getListBox().setSelectedIndex(0);
-			}
-		} else {
-			if(itemIdIndexMap.containsKey(value.getId()))
-				getListBox().setSelectedIndex(itemIdIndexMap.get(value.getId()));
-		}
-	}
-	
-	@Override
-	public Relation getRelationValue() {
-		return value;
-	}
+    protected FormContext formCtx;
 
-	private void loadDataFromValueRangeProvider(){
-		if (valueRangeProvider != null) {
-			getListBox().setEnabled(false);
-			valueRangeProvider.getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
-				@Override
-				public void onValueRangeResultReady(List<Relation> relationList) {
-					if (relationList != null){
-						getListBox().setEnabled(true);
-						ListBoxFW.this.setValueRange(relationList);
-					}
-				}
-			});
-		}
-	}	
+    public ListBoxFW(FormContext formCtx, FDesc fieldDescriptor, WidgetRDesc wrDesc) {
+        super(fieldDescriptor, wrDesc);
+        this.formCtx = formCtx;
+        this.valueRangeProvider = formCtx.valueRangeProvider;
+        relationFDesc = (RelationFDesc) fieldDescriptor;
+
+        loadDataFromValueRangeProvider();
+    }
+
+    private class ListModifyHandler implements KeyValueObjectListModifiedEventHandler {
+        @Override
+        public void onObjectListModified(KeyValueObjectListModifiedEvent event) {
+            if (event.getListType().equals(relationFDesc.getRelatedDescriptorName()))
+                loadDataFromValueRangeProvider();
+        }
+    }
+
+    @Override
+    protected void onAttach() {
+        registerHandler(formCtx.eventBus.addHandler(
+            KeyValueObjectListModifiedEvent.TYPE,
+            new ListModifyHandler()));
+        super.onAttach();
+    }
+
+    @Override
+    protected void fireFormWidgetChanged(boolean changeEnd) {
+        int selected = getListBox().getSelectedIndex();
+
+        if (selected == -1 || selected == 0 && allowsNull)
+            value = null;
+        else
+            value =
+                new Relation(Long.parseLong(getListBox().getValue(selected)), getListBox()
+                    .getItemText(selected));
+
+        super.fireFormWidgetChanged(changeEnd);
+    }
+
+    public void reLoadListAndKeepSelectedOrSetToNull() {
+        if (valueRangeProvider != null) {
+            getListBox().setEnabled(false);
+            valueRangeProvider.getRelationValueRange(
+                fieldDescriptor,
+                new ValueRangeResultCallback() {
+                    @Override
+                    public void onValueRangeResultReady(List<Relation> relationList) {
+                        if (relationList != null) {
+                            getListBox().setEnabled(true);
+                            ListBoxFW.this.setValueRange(relationList);
+                            if (value == null || !itemIdIndexMap.containsKey(value.getId())) {
+                                setRelationValue(null);
+                            }
+                        }
+                    }
+                });
+        }
+    }
+
+    @Override
+    public boolean handlesRelation() {
+        return true;
+    }
+
+    public void setValueRange(List<Relation> valueRange) {
+        getListBox().clear();
+        itemIdIndexMap.clear();
+
+        if (allowsNull)
+            addNullItem();
+        int index = allowsNull ? 1 : 0;
+
+        if (valueRange != null) {
+            for (Relation relation : valueRange) {
+                getListBox().addItem(relation.getDisplayName(), relation.getId().toString());
+                itemIdIndexMap.put(relation.getId(), index++);
+            }
+        }
+
+        setRelationValue(value);
+    }
+
+    @Override
+    public void setRelationValue(Relation value) {
+        this.value = value;
+
+        if (value == null) {
+            if (allowsNull) {
+                getListBox().setSelectedIndex(0);
+            }
+        } else {
+            if (itemIdIndexMap.containsKey(value.getId()))
+                getListBox().setSelectedIndex(itemIdIndexMap.get(value.getId()));
+        }
+    }
+
+    @Override
+    public Relation getRelationValue() {
+        return value;
+    }
+
+    private void loadDataFromValueRangeProvider() {
+        if (valueRangeProvider != null) {
+            getListBox().setEnabled(false);
+            valueRangeProvider.getRelationValueRange(
+                fieldDescriptor,
+                new ValueRangeResultCallback() {
+                    @Override
+                    public void onValueRangeResultReady(List<Relation> relationList) {
+                        if (relationList != null) {
+                            getListBox().setEnabled(true);
+                            ListBoxFW.this.setValueRange(relationList);
+                        }
+                    }
+                });
+        }
+    }
 }

@@ -15,96 +15,97 @@ import com.inepex.ineForm.annotations.Kvo_SearchParam;
 @Entity
 public class Company {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Kvo_SearchParam //1
-	private Long id;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String name;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String phone;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String email;
-	
-	@Kvo_SearchParam
-	@Column(nullable=false)
-	private String webPage;
-	
-	@OneToMany(mappedBy="company", cascade={CascadeType.ALL} ) //2
-	private List<Contact> contacts;
-	
-	public Company(){
-	}
-	
-	public Company(String name, String phone, String email, String webPage, List<Contact> contacts) {
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.webPage = webPage;
-		this.contacts = contacts;
-	}
-	
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Kvo_SearchParam
+    // 1
+    private Long id;
 
-	public Company(Long id){
-		this.id=id;
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String name;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String phone;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String email;
+
+    @Kvo_SearchParam
+    @Column(nullable = false)
+    private String webPage;
+
+    @OneToMany(mappedBy = "company", cascade = { CascadeType.ALL })
+    // 2
+    private List<Contact> contacts;
+
+    public Company() {}
+
+    public Company(String name, String phone, String email, String webPage, List<Contact> contacts) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.webPage = webPage;
+        this.contacts = contacts;
     }
 
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public String toString() {
+        return name;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Company(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public String getWebPage() {
-		return webPage;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setWebPage(String webPage) {
-		this.webPage = webPage;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public List<Contact> getContacts() {
-		return contacts;
-	}
+    public String getWebPage() {
+        return webPage;
+    }
 
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
-	}
-	
+    public void setWebPage(String webPage) {
+        this.webPage = webPage;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
 }
