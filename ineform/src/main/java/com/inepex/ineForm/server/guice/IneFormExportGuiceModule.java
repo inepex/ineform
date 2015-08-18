@@ -6,6 +6,8 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.inepex.ineForm.server.csv.ExportCustomizerStore;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;
+import com.inepex.ineForm.server.tablerenderer.excel.ExcelRendererV2;
+import com.inepex.ineForm.server.tablerenderer.excel.ExcelRendererV2.ExcelRendererV2Factory;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfFontLoader;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer.PdfRendererFactory;
@@ -32,6 +34,10 @@ public class IneFormExportGuiceModule extends AbstractModule {
         install(new FactoryModuleBuilder()
             .implement(ExcelRenderer.class, ExcelRenderer.class)
             .build(ExcelRendererFactory.class));
+
+        install(new FactoryModuleBuilder()
+            .implement(ExcelRendererV2.class, ExcelRendererV2.class)
+            .build(ExcelRendererV2Factory.class));
 
         install(new FactoryModuleBuilder().implement(PdfRenderer.class, PdfRenderer.class).build(
             PdfRendererFactory.class));
