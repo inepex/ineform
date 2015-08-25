@@ -46,8 +46,8 @@ public class IFConsts {
     public static final String comma = ",";
 
     public static final class NumberFormat {
-        public static final String defaultExcelNumberFormat = "#.##";
-        public static final String defaultExcelWholeNumberFormat = "#";
+        public static final String defaultExcelNumberFormat = "0.##";
+        public static final String defaultExcelWholeNumberFormat = "0";
     }
 
     public static String buildEnumList(String... items) {
