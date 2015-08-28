@@ -66,7 +66,18 @@ public abstract class AbstractAuthManager implements AuthManager {
         dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
     }
 
-    class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase> {
+    @Override
+    public void doGoogleLogin(String googleLoginToken, AuthActionCallback callback) {
+        LoginAction action = new LoginAction();
+        boolean needStaySignedIn =
+            Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
+        action.setNeedStaySignedIn(needStaySignedIn);
+        action.setGoogleLogin(true);
+        action.setGoogleLoginToken(googleLoginToken);
+        dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
+    }
+
+    public class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase> {
 
         final AuthActionCallback callback;
 

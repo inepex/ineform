@@ -8,6 +8,8 @@ public class LoginAction implements Action<AuthStatusResultBase> {
     private String password;
     private String captchaAnswer;
     private boolean needStaySignedIn;
+    private boolean isGoogleLogin = false;
+    private String googleLoginToken;
 
     public LoginAction() {}
 
@@ -58,5 +60,21 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 
     public void setNeedStaySignedIn(boolean needStaySignedIn) {
         this.needStaySignedIn = needStaySignedIn;
+    }
+
+    public boolean isGoogleLogin() {
+        return isGoogleLogin;
+    }
+
+    public void setGoogleLogin(boolean isGoogleLogin) {
+        this.isGoogleLogin = isGoogleLogin;
+    }
+
+    public String getGoogleLoginToken() {
+        return googleLoginToken;
+    }
+
+    public void setGoogleLoginToken(String googleLoginToken) {
+        this.googleLoginToken = googleLoginToken;
     }
 }

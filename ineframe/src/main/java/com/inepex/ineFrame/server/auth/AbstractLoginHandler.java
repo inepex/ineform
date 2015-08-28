@@ -46,7 +46,8 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
 
         SessionScopedCaptchaInfo captchaInfo = captchaInfoProvider.get();
         synchronized (captchaInfo) {
-            if (action.getUserName() == null || action.getPassword() == null) {
+            if (action.getGoogleLoginToken() == null
+                && (action.getUserName() == null || action.getPassword() == null)) {
                 captchaInfo.registerIncorrectAnswer();
                 return new AuthStatusResultBase(captchaInfo.needCaptcha());
             }
@@ -62,7 +63,11 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
                 }
             }
 
-            user = findByUserNameAndPassword(action.getUserName(), action.getPassword());
+            user = findByUserNameAndPassword(
+                action.getUserName(),
+                action.getPassword(),
+                action.isGoogleLogin(),
+                action.getGoogleLoginToken());
             if (user == null) {
                 // incorrect password
                 captchaInfo.registerIncorrectAnswer();
@@ -114,7 +119,11 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
      * @return - the selected authUser or null if password or userName is
      *         incorrect
      */
-    protected abstract U findByUserNameAndPassword(String userAuthString, String password)
+    protected abstract U findByUserNameAndPassword(
+        String userAuthString,
+        String password,
+        boolean isGoogleLogin,
+        String googleLoginToken)
         throws DispatchException;
 
     /**

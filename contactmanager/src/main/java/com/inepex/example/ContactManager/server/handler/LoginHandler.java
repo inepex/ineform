@@ -30,7 +30,11 @@ public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResul
     }
 
     @Override
-    protected User findByUserNameAndPassword(String userAuthString, String password) {
+    protected User findByUserNameAndPassword(
+        String userAuthString,
+        String password,
+        boolean isGoogleLogin,
+        String googleLoginToken) {
         User u = userDao.findByEmail(userAuthString);
         if (u != null && password != null && password.equals(u.getPassword()))
             return u;
