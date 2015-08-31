@@ -23,7 +23,7 @@ import com.inepex.ineom.shared.dispatch.GenericActionResult;
 public abstract class AbstractAuthManager implements AuthManager {
 
     public static interface AuthActionCallback {
-        void onAuthCheckDone(AuthStatusResultBase result);
+        void onAuthCheckDone(AuthStatusResultBase resul);
     }
 
     AuthStatusResultBase lastAuthStatusResult = null;
@@ -67,14 +67,19 @@ public abstract class AbstractAuthManager implements AuthManager {
     }
 
     @Override
-    public void doGoogleLogin(String googleLoginToken, AuthActionCallback callback) {
+    public void doGoogleLogin(
+        String googleLoginToken,
+        AuthActionCallback callback) {
         LoginAction action = new LoginAction();
         boolean needStaySignedIn =
             Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
         action.setNeedStaySignedIn(needStaySignedIn);
         action.setGoogleLogin(true);
         action.setGoogleLoginToken(googleLoginToken);
-        dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
+        dispatcher
+            .get()
+            .getDispatcher()
+            .execute(action, new AuthStatusResultCallback(callback));
     }
 
     public class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase> {

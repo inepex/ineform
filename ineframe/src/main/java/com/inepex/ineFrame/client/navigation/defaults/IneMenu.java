@@ -110,10 +110,12 @@ public class IneMenu implements NavigationDrawer {
         view.clearApps();
     }
 
+    @Override
     public void enableAliasMode(String name, String email) {
         view.enableAliasMode(name, email);
     }
 
+    @Override
     public void disableAliasMode(String name, String email) {
         view.disableAliasMode(name, email);
     }

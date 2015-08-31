@@ -40,7 +40,9 @@ public class NoAuthManager implements AuthManager {
     }
 
     @Override
-    public void doGoogleLogin(String googleLoginToken, AuthActionCallback callback) {
+    public void doGoogleLogin(
+        String googleLoginToken,
+        AuthActionCallback callback) {
         throw new RuntimeException();
     }
 
