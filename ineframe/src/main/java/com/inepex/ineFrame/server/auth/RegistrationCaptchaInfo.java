@@ -5,7 +5,7 @@ import com.google.inject.servlet.SessionScoped;
 @SessionScoped
 public class RegistrationCaptchaInfo {
 
-    public static final int MAX_REGISTRATION_WITHOUT_CAPTCHA = 3;
+    public static final int MAX_REGISTRATION_WITHOUT_CAPTCHA = 10;
 
     private int registrationCount = 0;
 
