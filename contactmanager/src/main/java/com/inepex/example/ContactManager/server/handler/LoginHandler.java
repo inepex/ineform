@@ -10,7 +10,7 @@ import com.inepex.example.ContactManager.entity.dao.UserDao;
 import com.inepex.ineFrame.server.auth.AbstractLoginHandler;
 import com.inepex.ineFrame.server.auth.AuthUser;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
-import com.inepex.ineFrame.server.auth.SessionScopedCaptchaInfo;
+import com.inepex.ineFrame.server.auth.LoginCaptchaInfo;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 @Singleton
@@ -22,7 +22,7 @@ public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResul
     LoginHandler(
         Provider<SessionScopedAuthStat> authStat,
         Provider<HttpSession> sesionProvider,
-        Provider<SessionScopedCaptchaInfo> captchaInfoProvider,
+        Provider<LoginCaptchaInfo> captchaInfoProvider,
         UserDao userDao) {
         super(authStat, sesionProvider, captchaInfoProvider);
 

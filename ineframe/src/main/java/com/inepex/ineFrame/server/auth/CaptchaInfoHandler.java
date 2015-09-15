@@ -13,17 +13,32 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 public class CaptchaInfoHandler extends AbstractIneHandler<CaptchaInfoAction, CaptchaInfoResult> {
 
     @Inject
-    Provider<SessionScopedCaptchaInfo> captchaInfoProvider;
+    Provider<LoginCaptchaInfo> loginCaptchaInfoProvider;
+
+    @Inject
+    Provider<RegistrationCaptchaInfo> regCaptchaInfoProvider;
 
     @Override
     protected CaptchaInfoResult doExecute(CaptchaInfoAction action, ExecutionContext context)
         throws AuthenticationException,
         DispatchException {
 
-        SessionScopedCaptchaInfo info = captchaInfoProvider.get();
-        synchronized (info) {
-            return new CaptchaInfoResult(info.needCaptcha());
+        switch (action.getType()) {
+            case 0:
+                LoginCaptchaInfo loginInfo = loginCaptchaInfoProvider.get();
+                synchronized (loginInfo) {
+                    return new CaptchaInfoResult(loginInfo.needCaptcha());
+                }
+            case 1:
+                RegistrationCaptchaInfo regInfo = regCaptchaInfoProvider.get();
+                synchronized (regInfo) {
+                    return new CaptchaInfoResult(regInfo.needCaptcha());
+
+                }
+            default:
+                return new CaptchaInfoResult(false);
         }
+
     }
 
     @Override

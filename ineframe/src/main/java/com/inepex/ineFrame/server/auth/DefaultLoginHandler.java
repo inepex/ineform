@@ -14,7 +14,7 @@ public class DefaultLoginHandler extends AbstractLoginHandler<AuthUser, AuthStat
     protected DefaultLoginHandler(
         Provider<SessionScopedAuthStat> authStat,
         Provider<HttpSession> sesionProvider,
-        Provider<SessionScopedCaptchaInfo> captchaInfoProvider) {
+        Provider<LoginCaptchaInfo> captchaInfoProvider) {
         super(authStat, sesionProvider, captchaInfoProvider);
         // TODO Auto-generated constructor stub
     }

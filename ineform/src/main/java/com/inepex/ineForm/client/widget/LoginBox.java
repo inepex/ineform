@@ -153,7 +153,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
 
         setVisible(false);
         ineDispatch.execute(
-            new CaptchaInfoAction(),
+            new CaptchaInfoAction(0),
             new IneDispatchBase.SuccessCallback<CaptchaInfoResult>() {
 
                 @Override

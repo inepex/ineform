@@ -9,7 +9,7 @@ import com.inepex.ineFrame.shared.util.date.DateHelper;
  * 
  */
 @SessionScoped
-public class SessionScopedCaptchaInfo {
+public class LoginCaptchaInfo {
 
     public static final int maxBadRequest = 10;
     public static final long deterioration = DateHelper.minuteInMs * 15;

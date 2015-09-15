@@ -24,13 +24,13 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
     private static final Logger _logger = LoggerFactory.getLogger(AbstractLoginHandler.class);
 
     private final Provider<SessionScopedAuthStat> authStatProvider;
-    private final Provider<SessionScopedCaptchaInfo> captchaInfoProvider;
+    private final Provider<LoginCaptchaInfo> captchaInfoProvider;
     private final Provider<HttpSession> sessionProvider;
 
     protected AbstractLoginHandler(
         Provider<SessionScopedAuthStat> authStat,
         Provider<HttpSession> sesionProvider,
-        Provider<SessionScopedCaptchaInfo> captchaInfoProvider) {
+        Provider<LoginCaptchaInfo> captchaInfoProvider) {
         this.authStatProvider = authStat;
         this.captchaInfoProvider = captchaInfoProvider;
         this.sessionProvider = sesionProvider;
@@ -44,7 +44,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
         DispatchException {
         U user;
 
-        SessionScopedCaptchaInfo captchaInfo = captchaInfoProvider.get();
+        LoginCaptchaInfo captchaInfo = captchaInfoProvider.get();
         synchronized (captchaInfo) {
             if (action.getGoogleLoginToken() == null
                 && (action.getUserName() == null || action.getPassword() == null)) {
