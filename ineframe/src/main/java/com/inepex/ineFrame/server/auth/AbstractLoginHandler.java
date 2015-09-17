@@ -83,7 +83,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
         // if the login was successful and the user wants to stay signed in
         if (result.isSuccess() && action.isNeedStaySignedIn()) {
             String UUIDString = UUID.randomUUID().toString();
-            result.setUserEmail(action.getUserName());
+            result.setUserEmail(user.getUserAuthString());
             result.setUserUUID(UUIDString);
             // set the UUID for the user
             setUserStaySignedInUUID(result.getUserId(), UUIDString);
