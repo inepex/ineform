@@ -72,13 +72,15 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
         menuIcon.addStyleName(ResourceHelper.getRes().style().menuIcon());
     }
 
-    public void setApp(ImageResource img, String appName) {
+    public void setApp(ImageResource img, String appName, boolean displayImageBackground) {
 
         Image breadCrumb = new Image(ResourceHelper.getRes().headerBreadcrumbIcon());
 
         FlowPanel appImageWrapper = new FlowPanel();
         Image appImage = new Image(img);
-        appImageWrapper.addStyleName(ResourceHelper.getRes().style().menuCellImg());
+        if (displayImageBackground) {
+            appImageWrapper.addStyleName(ResourceHelper.getRes().style().menuCellImg());
+        }
         appImageWrapper.add(appImage);
 
         menuTable.setWidget(0, 2, breadCrumb);

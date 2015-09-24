@@ -27,7 +27,7 @@ public class IneFrameHeader {
 
         public void setLogoClickedLogic(OnClickedLogic logic);
 
-        public void setApp(ImageResource img, String appName);
+        public void setApp(ImageResource img, String appName, boolean displayImageBackground);
 
         public void clearApp();
 
