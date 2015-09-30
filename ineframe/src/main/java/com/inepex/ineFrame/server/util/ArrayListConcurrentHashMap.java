@@ -92,4 +92,8 @@ public class ArrayListConcurrentHashMap<T, K> {
     public int size() {
         return map.size();
     }
+
+    public Collection<List<K>> getValues() {
+        return map.values();
+    }
 }
