@@ -63,6 +63,7 @@ public class PropTooltip extends PopupPanel implements HasValue<String> {
         panel.getElement().getStyle().setBorderColor("#CCCCCC");
         panel.getElement().getStyle().setBorderWidth(1.0, Unit.PX);
         panel.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+        getElement().getStyle().setZIndex(Integer.MAX_VALUE);
     }
 
     public void setOptions(List<String> options) {

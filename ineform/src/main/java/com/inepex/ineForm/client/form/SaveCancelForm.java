@@ -6,6 +6,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.form.events.AfterObjectDiffAndBeforeSaveEvent;
 import com.inepex.ineForm.client.form.events.AfterUnsuccessfulSaveEvent;
 import com.inepex.ineForm.client.form.events.BeforeCancelEvent;
 import com.inepex.ineForm.client.form.events.BeforeSaveEvent;
@@ -183,6 +184,7 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
         // Send only the changes to the server
         AssistedObject difference =
             aoDifference.getDifference(originalData, kvo).getAssistedObject();
+        fireAfterObjectDiffAndBeforeSaveEvent(difference);
         if ((difference.getKeys().size() == 0 || difference.getKeys().size() == 1
             && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
             && difference.getAllPropsJson() != null
@@ -222,6 +224,11 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
         return ineformEventbus.addHandler(AfterUnsuccessfulSaveEvent.getType(), handler);
     }
 
+    public HandlerRegistration addAfterObjectDiffAndBeforeSave(
+        AfterObjectDiffAndBeforeSaveEvent.Handler handler) {
+        return ineformEventbus.addHandler(AfterObjectDiffAndBeforeSaveEvent.getType(), handler);
+    }
+
     public HandlerRegistration addDeletedHandler(DeletedEvent.Handler handler) {
         return ineformEventbus.addHandler(DeletedEvent.getType(), handler);
     }
@@ -242,6 +249,11 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
 
     public BeforeSaveEvent fireBeforeSaveEvent(AssistedObject kvo) {
         return doFireEvent(new BeforeSaveEvent(kvo));
+    }
+
+    public AfterObjectDiffAndBeforeSaveEvent fireAfterObjectDiffAndBeforeSaveEvent(
+        AssistedObject differenceObject) {
+        return doFireEvent(new AfterObjectDiffAndBeforeSaveEvent(differenceObject));
     }
 
     public
