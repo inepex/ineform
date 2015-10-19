@@ -29,7 +29,7 @@ import com.mongodb.util.JSON;
 public class PropDao {
 
     private static final Logger _logger = LoggerFactory.getLogger(PropDao.class);
-    private static final String DB = "inetrack";
+    public static final String DB = "inetrack";
     private static final String COLLECTION = "props";
 
     private static final String k_objectType = "object_type";
