@@ -56,6 +56,18 @@ public class AssistedObjectUtil {
         return sb.toString();
     }
 
+    public static String getFieldAsString(Collection<AssistedObject> objList, String descName) {
+        StringBuffer sb = new StringBuffer();
+        int i = 0;
+        for (AssistedObject obj : objList) {
+            sb.append(obj.getStringUnchecked(descName));
+            if (i < objList.size() - 1)
+                sb.append(";");
+            i++;
+        }
+        return sb.toString();
+    }
+
     public static String getRelationIdFieldAsString(
         Collection<AssistedObject> objList,
         String keyOfRelation) {
