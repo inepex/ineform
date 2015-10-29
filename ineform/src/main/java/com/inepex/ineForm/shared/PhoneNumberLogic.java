@@ -46,6 +46,22 @@ public class PhoneNumberLogic {
         }
     }
 
+    // Use for numbers like: 36704427522
+    public static String convertSimpleToVodaStyle(String nonSeparatedSimpleFormat) {
+        return PLUS_SIGN + nonSeparatedSimpleFormat;
+    }
+
+    // Use for numbers like: 36704427522
+    public static String convertSimpleToIneStlye(String nonSeparatedSimpleFormat) {
+
+        return PLUS_SIGN
+            + nonSeparatedSimpleFormat.substring(0, 2)
+            + PART_SEPARATOR
+            + nonSeparatedSimpleFormat.substring(2, 4)
+            + PART_SEPARATOR
+            + nonSeparatedSimpleFormat.substring(4);
+    }
+
     private static String parasbleString(String str) {
         if (str.length() == 0)
             return null;
