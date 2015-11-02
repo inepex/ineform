@@ -1,8 +1,6 @@
 package com.inepex.ineFrame.client.navigation;
 
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.REDIRECT;
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.loginPlace;
-import static com.inepex.ineFrame.client.navigation.NavigationProperties.wrongTokenPlace;
+import static com.inepex.ineFrame.client.navigation.NavigationProperties.*;
 
 import java.util.List;
 import java.util.Map;
@@ -416,4 +414,7 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
         return placeHierarchyProvider;
     }
 
+    public String getCurrentFullTokenWithoutParams() {
+        return PlaceHandlerHelper.getPlacePart(currentFullToken);
+    }
 }
