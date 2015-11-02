@@ -635,6 +635,13 @@ public abstract class AbstractIneTable {
         }
     }
 
+    public static abstract class VisibleUserCommand extends UserCommand {
+        @Override
+        public boolean visible(AssistedObject kvoOfRow) {
+            return true;
+        }
+    }
+
     private class UserCommandColumn extends Column<AssistedObject, AssistedObject> {
         public UserCommandColumn(CompositeCell<AssistedObject> cell) {
             super(cell);
