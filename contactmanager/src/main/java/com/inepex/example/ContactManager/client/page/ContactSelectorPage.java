@@ -46,8 +46,7 @@ public class ContactSelectorPage extends ConnectorPage implements OneParamPresen
 
         sortableIneTable = ineTableFactory.createSortable(
             ContactConsts.descriptorName,
-            connector,
-            true);
+            connector);
 
         sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 

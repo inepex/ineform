@@ -11,15 +11,25 @@ public class SortableIneTable extends IneTable {
 
     private String orderKey;
     private boolean descending = false;
+    private boolean rerunQueryOnOrder = true;
 
     @AssistedInject
     public SortableIneTable(
         DescriptorStore descStore,
         @Assisted String objectDescriptorName,
         @Assisted IneDataConnector dataProvider,
-        @Assisted Boolean rerunQueryOnUpdate,
         TableFieldRenderer fieldRenderer) {
         super(descStore, objectDescriptorName, dataProvider, fieldRenderer);
+    }
+
+    @AssistedInject
+    public SortableIneTable(
+        DescriptorStore descriptorStore,
+        @Assisted("od") String objectDescName,
+        @Assisted("trd") String tableRenderDescriptor,
+        @Assisted IneDataConnector connector,
+        TableFieldRenderer fieldRenderer) {
+        super(descriptorStore, objectDescName, tableRenderDescriptor, connector, fieldRenderer);
     }
 
     @AssistedInject
@@ -31,6 +41,7 @@ public class SortableIneTable extends IneTable {
         @Assisted Boolean rerunQueryOnUpdate,
         TableFieldRenderer fieldRenderer) {
         super(descriptorStore, objectDescName, tableRenderDescriptor, connector, fieldRenderer);
+        this.rerunQueryOnOrder = rerunQueryOnUpdate;
     }
 
     @Override
@@ -80,7 +91,7 @@ public class SortableIneTable extends IneTable {
                     topPager.firstPage();
                 dataConnector.setOrderKey(orderKey);
                 dataConnector.setOrderDescending(descending);
-                dataConnector.update();
+                dataConnector.update(rerunQueryOnOrder);
             }
         });
         return header;

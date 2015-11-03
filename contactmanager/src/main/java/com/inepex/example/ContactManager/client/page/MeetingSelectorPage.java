@@ -41,8 +41,8 @@ public class MeetingSelectorPage extends ConnectorPage implements OneParamPresen
 
         sortableIneTable = ineTableFactory.createSortable(
             MeetingConsts.descriptorName,
-            connector,
-            true);
+            connector);
+
         sortableIneTable.getFieldRenderer().setCustomFieldRenderer(
             MeetingConsts.k_user,
             new Highlighter());

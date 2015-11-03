@@ -19,10 +19,15 @@ public interface IneTableFactory {
     @Named("sortable")
     SortableIneTable createSortable(
         String descriptorName,
-        IneDataConnector ineDataConnector,
-        Boolean rerunQueryOnUpdate);
+        IneDataConnector ineDataConnector);
 
     @Named("sortable2")
+    SortableIneTable createSortable(
+        @Assisted("od") String descriptorName,
+        @Assisted("trd") String tableRenderDescriptorName,
+        IneDataConnector ineDataConnector);
+
+    @Named("sortable3")
     SortableIneTable createSortable(
         @Assisted("od") String descriptorName,
         @Assisted("trd") String tableRenderDescriptorName,
