@@ -17,6 +17,7 @@ public class SortableIneTable extends IneTable {
         DescriptorStore descStore,
         @Assisted String objectDescriptorName,
         @Assisted IneDataConnector dataProvider,
+        @Assisted Boolean rerunQueryOnUpdate,
         TableFieldRenderer fieldRenderer) {
         super(descStore, objectDescriptorName, dataProvider, fieldRenderer);
     }
@@ -27,6 +28,7 @@ public class SortableIneTable extends IneTable {
         @Assisted("od") String objectDescName,
         @Assisted("trd") String tableRenderDescriptor,
         @Assisted IneDataConnector connector,
+        @Assisted Boolean rerunQueryOnUpdate,
         TableFieldRenderer fieldRenderer) {
         super(descriptorStore, objectDescName, tableRenderDescriptor, connector, fieldRenderer);
     }

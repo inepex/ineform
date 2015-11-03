@@ -124,6 +124,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
     protected abstract void executeObjectList(
         ObjectList objectList,
+        Boolean rerunQueryOnOrder,
         SuccessCallback<ObjectListResult> objectListCallback,
         AsyncStatusIndicator statusIndicator);
 
@@ -205,8 +206,7 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
      * 
      * @param object
      */
-    public
-        void
+    public void
         objectCreateOrEditRequested(AssistedObject object, ManipulateResultCallback callback) {
         createDefaultManipulateActionIfNUll();
         setManipulateActionDetails(
@@ -264,19 +264,19 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
         }
     }
 
-    public void update(boolean dummy) {
-        update();
-    }
-
-    public void update(boolean dummy, DataConnectorReadyCallback callback) {
-        update(callback);
-    }
-
     public void update() {
-        update(null);
+        update(true, null);
+    }
+
+    public void update(Boolean rerunQueryOnOrder) {
+        update(rerunQueryOnOrder, null);
     }
 
     public void update(DataConnectorReadyCallback callback) {
+        update(true, callback);
+    }
+
+    public void update(Boolean rerunQueryOnOrder, DataConnectorReadyCallback callback) {
         this.callback = callback;
         if (getFirstDataDisplay().getRowCount() == 0)
             reset();
@@ -288,7 +288,11 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
             setListActionDetails(objectList, searchParameters, getFirstDataDisplay()
                 .getVisibleRange()
                 .getStart(), getFirstDataDisplay().getVisibleRange().getLength(), isPaging);
-            executeObjectList(objectList, new ObjectRangeSuccess(), customListingStatusIndicator);
+            executeObjectList(
+                objectList,
+                rerunQueryOnOrder,
+                new ObjectRangeSuccess(),
+                customListingStatusIndicator);
         }
     }
 

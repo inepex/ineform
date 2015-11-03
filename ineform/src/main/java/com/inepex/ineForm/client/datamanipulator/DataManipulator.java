@@ -87,6 +87,7 @@ public abstract class DataManipulator extends HandlerAwareComposite {
                     formCtx.descStore,
                     objectDescriptorName,
                     ineDataConnector,
+                    true,
                     fieldRenderer);
         else
             this.ineTable =

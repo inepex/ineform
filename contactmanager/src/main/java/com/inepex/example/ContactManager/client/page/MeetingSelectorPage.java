@@ -39,7 +39,10 @@ public class MeetingSelectorPage extends ConnectorPage implements OneParamPresen
         ServerSideDataConnector connector =
             createConnector(dispatcher, eventBus, MeetingConsts.descriptorName);
 
-        sortableIneTable = ineTableFactory.createSortable(MeetingConsts.descriptorName, connector);
+        sortableIneTable = ineTableFactory.createSortable(
+            MeetingConsts.descriptorName,
+            connector,
+            true);
         sortableIneTable.getFieldRenderer().setCustomFieldRenderer(
             MeetingConsts.k_user,
             new Highlighter());

@@ -80,22 +80,19 @@ public class DummyDataConnector extends IneDataConnector {
             this.items = newItems;
         }
 
-        update(true);
+        update();
     }
 
     @Override
-    public void update(boolean updateDisplays) {
-        if (updateDisplays) {
-            updateLastResult(dummyResult);
+    public void update() {
+        updateLastResult(dummyResult);
 
-            updateRowCount(items.size(), true);
+        updateRowCount(items.size(), true);
 
-            for (HasData<AssistedObject> d : getDataDisplays()) {
-                updateRowData(d, d.getVisibleRange().getStart(), new ArrayList<AssistedObject>(
-                    items));
-            }
+        for (HasData<AssistedObject> d : getDataDisplays()) {
+            updateRowData(d, d.getVisibleRange().getStart(), new ArrayList<AssistedObject>(
+                items));
         }
-
     }
 
     @Override
@@ -117,6 +114,7 @@ public class DummyDataConnector extends IneDataConnector {
     @Override
     protected void executeObjectList(
         ObjectList objectList,
+        Boolean rerunQueryOnOrder,
         SuccessCallback<ObjectListResult> objectListCallback,
         AsyncStatusIndicator statusIndicator) {}
 

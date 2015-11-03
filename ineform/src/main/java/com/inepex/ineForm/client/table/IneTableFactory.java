@@ -12,15 +12,21 @@ public interface IneTableFactory {
         IneDataConnector connector);
 
     @Named("simple2")
-    IneTable createSimple(String objectDescName, IneDataConnector connector);
+    IneTable createSimple(
+        String objectDescName,
+        IneDataConnector connector);
 
     @Named("sortable")
-    SortableIneTable createSortable(String descriptorName, IneDataConnector ineDataConnector);
+    SortableIneTable createSortable(
+        String descriptorName,
+        IneDataConnector ineDataConnector,
+        Boolean rerunQueryOnUpdate);
 
     @Named("sortable2")
     SortableIneTable createSortable(
         @Assisted("od") String descriptorName,
         @Assisted("trd") String tableRenderDescriptorName,
-        IneDataConnector ineDataConnector);
+        IneDataConnector ineDataConnector,
+        Boolean rerunQueryOnUpdate);
 
 }

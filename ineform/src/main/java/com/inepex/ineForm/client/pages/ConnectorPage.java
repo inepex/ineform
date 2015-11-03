@@ -50,7 +50,7 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
         ServerSideDataConnector c =
             new ServerSideDataConnector(dispatcher, eventBus, descriptorName) {
                 @Override
-                public void update(boolean updateDisplays) {
+                public void update() {
                     // nothing to do page manages the updating
                 }
             };
@@ -80,7 +80,7 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
             if (connectors.size() < 1) {
                 callback.onUrlParamsParsed();
             } else {
-                updateConnectors(true, new PageCallback(connectors.size(), callback));
+                updateConnectors(new PageCallback(connectors.size(), callback));
             }
         }
     }
@@ -95,9 +95,9 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
         return true;
     }
 
-    protected void updateConnectors(boolean updateDisplays, PageCallback pageCallback) {
+    protected void updateConnectors(PageCallback pageCallback) {
         for (ServerSideDataConnector c : connectors)
-            c.update(updateDisplays, pageCallback);
+            c.update(pageCallback);
     }
 
     private class PageCallback implements ServerSideDataConnector.DataConnectorReadyCallback {

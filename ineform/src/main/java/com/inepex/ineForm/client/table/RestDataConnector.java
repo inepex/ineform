@@ -183,6 +183,7 @@ public class RestDataConnector extends IneDataConnector {
     @Override
     protected void executeObjectList(
         ObjectList objectList,
+        Boolean rerunQueryOnOrder,
         SuccessCallback<ObjectListResult> objectListCallback,
         AsyncStatusIndicator statusIndicator) {
         // TODO Auto-generated method stub

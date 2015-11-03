@@ -44,7 +44,10 @@ public class ContactSelectorPage extends ConnectorPage implements OneParamPresen
         connector.setAssociatedListAction(new ObjectListAction(ContactConsts.descriptorName, Arrays
             .asList(ContactConsts.props_user)));
 
-        sortableIneTable = ineTableFactory.createSortable(ContactConsts.descriptorName, connector);
+        sortableIneTable = ineTableFactory.createSortable(
+            ContactConsts.descriptorName,
+            connector,
+            true);
 
         sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 

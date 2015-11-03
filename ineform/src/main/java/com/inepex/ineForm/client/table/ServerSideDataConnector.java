@@ -58,8 +58,7 @@ public class ServerSideDataConnector extends IneDataConnector {
         return (ObjectListAction) objectList;
     }
 
-    public
-        void
+    public void
         setAutoUpdating(PushedEventProvider pEventProvider, HasData<AssistedObject> display) {
         this.pushedEventProvider = pEventProvider;
         createDefaultListActionIfNull();
@@ -130,6 +129,7 @@ public class ServerSideDataConnector extends IneDataConnector {
     @Override
     protected void executeObjectList(
         ObjectList objectList,
+        Boolean rerunQueryOnOrder,
         final SuccessCallback<ObjectListResult> objectListCallback,
         AsyncStatusIndicator statusIndicator) {
         dispatcher.execute(
