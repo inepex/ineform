@@ -359,8 +359,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
                 customListingStatusIndicator.onGeneralFailure("");
             }
 
-            if (callback != null)
+            if (callback != null) {
                 callback.ready();
+            }
         }
 
         /**
