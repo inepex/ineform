@@ -312,6 +312,8 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
     public void dataReseted() {}
 
     @Override
-    public void forceLoadingOnSaveBtn(boolean loading) {}
+    public void forceLoadingOnSaveBtn(boolean loading) {
+        saveButton.setEnabled(!loading);
+    }
 
 }
