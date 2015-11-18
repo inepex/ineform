@@ -23,4 +23,6 @@ public interface AuthManager {
     public abstract void doGoogleLogin(
         String googleLoginToken,
         AuthActionCallback callback);
+
+    public abstract void setLoginProductType(int typeOrdinal);
 }

@@ -67,7 +67,8 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
                 action.getUserName(),
                 action.getPassword(),
                 action.isGoogleLogin(),
-                action.getGoogleLoginToken());
+                action.getGoogleLoginToken(),
+                action.getLoginProductType());
             if (user == null) {
                 // incorrect password
                 captchaInfo.registerIncorrectAnswer();
@@ -123,7 +124,8 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
         String userAuthString,
         String password,
         boolean isGoogleLogin,
-        String googleLoginToken)
+        String googleLoginToken,
+        int loginProductTypeOrdinal)
         throws DispatchException;
 
     /**

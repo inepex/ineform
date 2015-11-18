@@ -54,7 +54,8 @@ public class DefaultLoginHandler extends AbstractLoginHandler<AuthUser, AuthStat
         String userAuthString,
         String password,
         boolean isGoogleLogin,
-        String googleLoginToken) throws DispatchException {
+        String googleLoginToken,
+        int loginProductTypeOrdinal) throws DispatchException {
         // TODO Auto-generated method stub
         return null;
     }

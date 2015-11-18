@@ -9,8 +9,8 @@ import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.dao.UserDao;
 import com.inepex.ineFrame.server.auth.AbstractLoginHandler;
 import com.inepex.ineFrame.server.auth.AuthUser;
-import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.auth.LoginCaptchaInfo;
+import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 
 @Singleton
@@ -34,7 +34,8 @@ public class LoginHandler extends AbstractLoginHandler<AuthUser, AuthStatusResul
         String userAuthString,
         String password,
         boolean isGoogleLogin,
-        String googleLoginToken) {
+        String googleLoginToken,
+        int loginProductTypeOrdinal) {
         User u = userDao.findByEmail(userAuthString);
         if (u != null && password != null && password.equals(u.getPassword()))
             return u;

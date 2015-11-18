@@ -46,4 +46,10 @@ public class NoAuthManager implements AuthManager {
         throw new RuntimeException();
     }
 
+    @Override
+    public void setLoginProductType(int typeOrdinal) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

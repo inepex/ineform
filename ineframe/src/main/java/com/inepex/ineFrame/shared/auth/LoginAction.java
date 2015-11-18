@@ -10,24 +10,28 @@ public class LoginAction implements Action<AuthStatusResultBase> {
     private boolean needStaySignedIn;
     private boolean isGoogleLogin = false;
     private String googleLoginToken;
+    private int loginProductType;
 
     public LoginAction() {}
 
-    public LoginAction(String userName, String password, String captchaAnswer) {
+    public LoginAction(String userName, String password, String captchaAnswer, int loginProductType) {
         this.userName = userName;
         this.password = password;
         this.captchaAnswer = captchaAnswer;
+        this.loginProductType = loginProductType;
     }
 
     public LoginAction(
         String userName,
         String password,
         String captchaAnswer,
-        boolean needStaySignedIn) {
+        boolean needStaySignedIn,
+        int loginProductType) {
         this.userName = userName;
         this.password = password;
         this.captchaAnswer = captchaAnswer;
         this.needStaySignedIn = needStaySignedIn;
+        this.loginProductType = loginProductType;
     }
 
     public String getUserName() {
@@ -76,5 +80,13 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 
     public void setGoogleLoginToken(String googleLoginToken) {
         this.googleLoginToken = googleLoginToken;
+    }
+
+    public int getLoginProductType() {
+        return loginProductType;
+    }
+
+    public void setLoginProductType(int loginProductType) {
+        this.loginProductType = loginProductType;
     }
 }

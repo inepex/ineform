@@ -30,10 +30,17 @@ public abstract class AbstractAuthManager implements AuthManager {
 
     final Provider<IneDispatch> dispatcher;
     protected final EventBus eventBus;
+    private int loginProductTypeOrdinal = 0;
 
     public AbstractAuthManager(Provider<IneDispatch> dispatcher, EventBus eventBus) {
         this.dispatcher = dispatcher;
         this.eventBus = eventBus;
+    }
+
+    @Override
+    public void setLoginProductType(int loginProductTypeOrdinal) {
+        this.loginProductTypeOrdinal = loginProductTypeOrdinal;
+
     }
 
     @Override
@@ -59,9 +66,14 @@ public abstract class AbstractAuthManager implements AuthManager {
         boolean needStaySignedIn =
             Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
         if (needStaySignedIn) {
-            action = new LoginAction(userName, password, captchaAnswer, true);
+            action = new LoginAction(
+                userName,
+                password,
+                captchaAnswer,
+                true,
+                loginProductTypeOrdinal);
         } else {
-            action = new LoginAction(userName, password, captchaAnswer);
+            action = new LoginAction(userName, password, captchaAnswer, loginProductTypeOrdinal);
         }
         dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
     }
