@@ -23,7 +23,7 @@ import com.inepex.ineFrame.shared.IneformAsyncCallback;
 @Singleton
 public class IneMenuView extends HandlerAwareFlowPanel {
 
-    private static final int fixHelpAndSettingsAppNum = 3;
+    private static final int BOTTOM_ALIGNED_APP_NUMBER = 3;
 
     private FlexTable usertable = new FlexTable();
     private FlowPanel appsPanel = new FlowPanel();
@@ -31,7 +31,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
     private Label appsLbl = new Label(IneFrameI18n.inemenu_apps());
     private Label helpAndSettingsLbl = new Label(IneFrameI18n.inemenu_helpsettings());
     private FlexTable appsTbl = new FlexTable();
-    private FlexTable helpAndSettingsTable = new FlexTable();
+    private FlexTable bottomAppTable = new FlexTable();
     private final GreenScrollPanel scrollPanel = new GreenScrollPanel();
     private FlowPanel scrollContent = new FlowPanel();
 
@@ -64,20 +64,20 @@ public class IneMenuView extends HandlerAwareFlowPanel {
             Res.INST.get().ineMenuStyle().menuElementIcon());
     }
 
-    public void addHelpAndSettingsApp(ImageResource icon, String appName, String appId) {
-        int maxRow = helpAndSettingsTable.getRowCount();
-        int row = maxRow - fixHelpAndSettingsAppNum;
+    public void addBottomAlignedApp(ImageResource icon, String appName, String appId) {
+        int maxRow = bottomAppTable.getRowCount();
+        int row = maxRow - BOTTOM_ALIGNED_APP_NUMBER;
         for (int i = maxRow - 1; i >= row; i--) {
-            helpAndSettingsTable.setWidget(i + 1, 0, helpAndSettingsTable.getWidget(i, 0));
-            helpAndSettingsTable.setText(i + 1, 1, helpAndSettingsTable.getText(i, 1));
+            bottomAppTable.setWidget(i + 1, 0, bottomAppTable.getWidget(i, 0));
+            bottomAppTable.setText(i + 1, 1, bottomAppTable.getText(i, 1));
         }
         helpAndSettingsAppIdMap.put(row, appId);
-        helpAndSettingsTable.setWidget(row, 0, new Image(icon));
-        helpAndSettingsTable.setText(row, 1, appName);
-        helpAndSettingsTable.getRowFormatter().setStyleName(
+        bottomAppTable.setWidget(row, 0, new Image(icon));
+        bottomAppTable.setText(row, 1, appName);
+        bottomAppTable.getRowFormatter().setStyleName(
             maxRow,
             Res.INST.get().ineMenuStyle().menuElementRow());
-        helpAndSettingsTable.getFlexCellFormatter().setStyleName(
+        bottomAppTable.getFlexCellFormatter().setStyleName(
             maxRow,
             0,
             Res.INST.get().ineMenuStyle().menuElementIcon());
@@ -120,15 +120,15 @@ public class IneMenuView extends HandlerAwareFlowPanel {
         helpAndSettingsLbl.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorLbl());
         appsPanel.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorPanel());
         helpAndSettingsPanel.setStyleName(Res.INST.get().ineMenuStyle().menuSeparatorPanel());
-        helpAndSettingsTable.setStyleName(Res.INST.get().ineMenuStyle().menuElementTable());
+        bottomAppTable.setStyleName(Res.INST.get().ineMenuStyle().menuElementTable());
         appsTbl.setStyleName(Res.INST.get().ineMenuStyle().menuElementTable());
 
         usertable.setCellSpacing(0);
         usertable.setCellPadding(0);
         appsTbl.setCellSpacing(0);
         appsTbl.setCellPadding(0);
-        helpAndSettingsTable.setCellSpacing(0);
-        helpAndSettingsTable.setCellPadding(0);
+        bottomAppTable.setCellSpacing(0);
+        bottomAppTable.setCellPadding(0);
     }
 
     private void buildStructure() {
@@ -140,7 +140,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
         scrollContent.add(appsPanel);
         scrollContent.add(appsTbl);
         scrollContent.add(helpAndSettingsPanel);
-        scrollContent.add(helpAndSettingsTable);
+        scrollContent.add(bottomAppTable);
         helpAndSettingsPanel.add(helpAndSettingsLbl);
 
         addDefaultHelpAndSettingsApps();
@@ -148,37 +148,37 @@ public class IneMenuView extends HandlerAwareFlowPanel {
     }
 
     private void addDefaultHelpAndSettingsApps() {
-        helpAndSettingsTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelp()));
-        helpAndSettingsTable.setText(0, 1, IneFrameI18n.inemenu_help());
-        helpAndSettingsTable.setWidget(1, 0, new Image(Res.INST.get().drawerAccountSettings()));
-        helpAndSettingsTable.setText(1, 1, IneFrameI18n.inemenu_settings());
+        bottomAppTable.setWidget(0, 0, new Image(Res.INST.get().drawerHelp()));
+        bottomAppTable.setText(0, 1, IneFrameI18n.inemenu_help());
+        bottomAppTable.setWidget(1, 0, new Image(Res.INST.get().drawerAccountSettings()));
+        bottomAppTable.setText(1, 1, IneFrameI18n.inemenu_settings());
         if (aliasMode) {
-            helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLeaveAlias()));
-            helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_leavealias());
+            bottomAppTable.setWidget(2, 0, new Image(Res.INST.get().drawerLeaveAlias()));
+            bottomAppTable.setText(2, 1, IneFrameI18n.inemenu_leavealias());
         } else {
-            helpAndSettingsTable.setWidget(2, 0, new Image(Res.INST.get().drawerLogout()));
-            helpAndSettingsTable.setText(2, 1, IneFrameI18n.inemenu_logout());
+            bottomAppTable.setWidget(2, 0, new Image(Res.INST.get().drawerLogout()));
+            bottomAppTable.setText(2, 1, IneFrameI18n.inemenu_logout());
         }
 
-        helpAndSettingsTable.getRowFormatter().setStyleName(
+        bottomAppTable.getRowFormatter().setStyleName(
             0,
             Res.INST.get().ineMenuStyle().menuElementRow());
-        helpAndSettingsTable.getRowFormatter().setStyleName(
+        bottomAppTable.getRowFormatter().setStyleName(
             1,
             Res.INST.get().ineMenuStyle().menuElementRow());
-        helpAndSettingsTable.getRowFormatter().setStyleName(
+        bottomAppTable.getRowFormatter().setStyleName(
             2,
             Res.INST.get().ineMenuStyle().menuElementRow());
 
-        helpAndSettingsTable.getFlexCellFormatter().setStyleName(
+        bottomAppTable.getFlexCellFormatter().setStyleName(
             0,
             0,
             Res.INST.get().ineMenuStyle().menuElementIcon());
-        helpAndSettingsTable.getFlexCellFormatter().setStyleName(
+        bottomAppTable.getFlexCellFormatter().setStyleName(
             1,
             0,
             Res.INST.get().ineMenuStyle().menuElementIcon());
-        helpAndSettingsTable.getFlexCellFormatter().setStyleName(
+        bottomAppTable.getFlexCellFormatter().setStyleName(
             2,
             0,
             Res.INST.get().ineMenuStyle().menuElementIcon());
@@ -217,12 +217,12 @@ public class IneMenuView extends HandlerAwareFlowPanel {
                 }
             }
         }));
-        registerHandler(helpAndSettingsTable.addClickHandler(new ClickHandler() {
+        registerHandler(bottomAppTable.addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event) {
-                int rowOffset = helpAndSettingsTable.getRowCount() - fixHelpAndSettingsAppNum;
-                Cell cell = helpAndSettingsTable.getCellForEvent(event);
+                int rowOffset = bottomAppTable.getRowCount() - BOTTOM_ALIGNED_APP_NUMBER;
+                Cell cell = bottomAppTable.getCellForEvent(event);
                 int rowIndex = cell.getRowIndex();
                 if (rowIndex - rowOffset == 0 && helpCbk != null) {
                     helpCbk.onResponse(null);
@@ -248,9 +248,9 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 
     public void enableAliasMode(String name, String email) {
         aliasMode = true;
-        int logoutRow = helpAndSettingsTable.getRowCount() - 1;
-        helpAndSettingsTable.setWidget(logoutRow, 0, new Image(Res.INST.get().drawerLeaveAlias()));
-        helpAndSettingsTable.setText(logoutRow, 1, IneFrameI18n.inemenu_leavealias());
+        int logoutRow = bottomAppTable.getRowCount() - 1;
+        bottomAppTable.setWidget(logoutRow, 0, new Image(Res.INST.get().drawerLeaveAlias()));
+        bottomAppTable.setText(logoutRow, 1, IneFrameI18n.inemenu_leavealias());
         usertable.setText(0, 1, name);
         usertable.setText(1, 0, email);
         usertable.addStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
@@ -258,9 +258,9 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 
     public void disableAliasMode(String name, String email) {
         aliasMode = false;
-        int logoutRow = helpAndSettingsTable.getRowCount() - 1;
-        helpAndSettingsTable.setWidget(logoutRow, 0, new Image(Res.INST.get().drawerLogout()));
-        helpAndSettingsTable.setText(logoutRow, 1, IneFrameI18n.inemenu_logout());
+        int logoutRow = bottomAppTable.getRowCount() - 1;
+        bottomAppTable.setWidget(logoutRow, 0, new Image(Res.INST.get().drawerLogout()));
+        bottomAppTable.setText(logoutRow, 1, IneFrameI18n.inemenu_logout());
         usertable.setText(0, 1, name);
         usertable.setText(1, 0, email);
         usertable.removeStyleName(Res.INST.get().ineMenuStyle().inAliasMode());
@@ -268,7 +268,7 @@ public class IneMenuView extends HandlerAwareFlowPanel {
 
     public void clearApps() {
         appsTbl.removeAllRows();
-        helpAndSettingsTable.removeAllRows();
+        bottomAppTable.removeAllRows();
         addDefaultHelpAndSettingsApps();
         appsPanel.setVisible(false);
         helpAndSettingsAppIdMap.clear();
