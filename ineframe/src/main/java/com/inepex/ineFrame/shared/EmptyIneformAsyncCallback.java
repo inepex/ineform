@@ -1,9 +1,11 @@
 package com.inepex.ineFrame.shared;
 
-public class EmptyIneformAsyncCallback implements IneformAsyncCallback<Void> {
+import com.inepex.ineom.shared.assistedobject.AssistedObject;
+
+public class EmptyIneformAsyncCallback implements IneformAsyncCallback<AssistedObject> {
 
     @Override
-    public void onResponse(Void response) {
+    public void onResponse(AssistedObject response) {
 
     }
 
