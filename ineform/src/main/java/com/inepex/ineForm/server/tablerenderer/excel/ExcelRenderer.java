@@ -63,12 +63,12 @@ public class ExcelRenderer extends TableRenderer {
 
     @Inject
     public ExcelRenderer(
-        DescriptorStore descStore,
         @Assisted("od") String objectDescName,
         @Assisted("td") @Nullable String tableRDescName,
         @Assisted Sheet sheet,
-        TableFieldRenderer fieldRenderer,
-        @Assisted boolean setCellTypes) {
+        @Assisted boolean setCellTypes,
+        DescriptorStore descStore,
+        TableFieldRenderer fieldRenderer) {
         super(descStore, objectDescName, tableRDescName, fieldRenderer);
         this.sheet = sheet;
         startRowNr = startCellNr = 0;

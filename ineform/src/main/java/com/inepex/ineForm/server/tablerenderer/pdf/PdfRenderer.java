@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
+import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
@@ -60,7 +62,11 @@ public class PdfRenderer extends TableRenderer {
 
     @Override
     protected void renderStart() {
-        table = new PdfPTable(tableRDesc.getRootNode().getChildren().size());
+        int columnSize = tableRDesc.getRootNode().getChildren().size();
+        if (!IneFormProperties.showIds && !tableRDesc.hasProp(FormRDescBase.prop_showIDs)) {
+            columnSize--;
+        }
+        table = new PdfPTable(columnSize);
         table.setWidthPercentage(100f);
         if (colWidthPctgs != null) {
             try {
