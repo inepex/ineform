@@ -9,8 +9,11 @@ import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;
 import com.inepex.ineForm.shared.descriptorext.FormRDescBase;
+import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.tablerender.TableRenderer;
+import com.inepex.ineom.shared.IFConsts;
+import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.itextpdf.text.DocumentException;
@@ -63,7 +66,16 @@ public class PdfRenderer extends TableRenderer {
     @Override
     protected void renderStart() {
         int columnSize = tableRDesc.getRootNode().getChildren().size();
-        if (!IneFormProperties.showIds && !tableRDesc.hasProp(FormRDescBase.prop_showIDs)) {
+        boolean hasIdColumn = false;
+        for (Node<TableRDescBase> node : tableRDesc.getRootNode().getChildren()) {
+            if (IFConsts.KEY_ID.equals(node.getNodeId())) {
+                hasIdColumn = true;
+                break;
+            }
+        }
+        if (!IneFormProperties.showIds
+            && !tableRDesc.hasProp(FormRDescBase.prop_showIDs)
+            && hasIdColumn) {
             columnSize--;
         }
         table = new PdfPTable(columnSize);
