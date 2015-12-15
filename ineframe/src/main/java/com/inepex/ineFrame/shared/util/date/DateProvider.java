@@ -8,4 +8,6 @@ public interface DateProvider {
 
     public Date whatMeansTyped(Long localDate);
 
+    public int getTimeZoneOffset();
+
 }

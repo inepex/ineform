@@ -47,4 +47,9 @@ public class EnumBasedSessionScopedDateProvider implements DateProvider {
 
         return new Date(corectedDate);
     }
+
+    @Override
+    public int getTimeZoneOffset() {
+        return tz.getRawOffset() / 1000 / 60;
+    }
 }

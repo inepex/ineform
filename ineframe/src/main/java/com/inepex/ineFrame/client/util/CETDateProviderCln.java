@@ -35,4 +35,9 @@ public class CETDateProviderCln implements DateProvider {
 
         return new Date(corectedDate);
     }
+
+    @Override
+    public int getTimeZoneOffset() {
+        return tz.getStandardOffset();
+    }
 }

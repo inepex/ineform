@@ -60,4 +60,9 @@ public class EnumBasedDateProviderCln implements DateProvider {
 
         return new Date(corectedDate);
     }
+
+    @Override
+    public int getTimeZoneOffset() {
+        return tz.getStandardOffset();
+    }
 }
