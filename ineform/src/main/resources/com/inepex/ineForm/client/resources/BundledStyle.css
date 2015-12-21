@@ -72,7 +72,7 @@
 
 /* ineform */
 .simpleTableFormUnit {
-	font-size: 10px;
+	font-size: 14px;
 }
 
 .simpleTableFormUnit div {
@@ -83,12 +83,10 @@
 .cellTitle {
 	color:#666;
 	font-size: 14px;
-	vertical-align: super;
-	padding-top: 15px;
 }
 
 .cellContent {
-	width: 600px;
+	line-height: 23px;
 }
 
 .textBoxFW,
@@ -157,7 +155,6 @@
 .customKVOHeaderType,
 .customKVOHeaderTypeRO {
 	width: 132px;
-	color: #333;
 	padding: 10px;
 	font-size: 14px;
 	text-align: left;
