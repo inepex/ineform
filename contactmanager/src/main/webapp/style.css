@@ -20,6 +20,7 @@ body {
 	color: #666666;
 }
 
+/* IneForm styles (copied from style.css) */
 /* these two rules below are good for eliminating the dotted border around a focused button */
 .gwt-Button::-moz-focus-inner {
   border: 0;
@@ -81,3 +82,10 @@ body {
 	font-weight: bold;
 	font-size: 16px;
 }
+
+.ineTable-ActionCell{
+	cursor: pointer;
+	text-decoration: underline !important;
+}
+
+/* End of IneFrom styles */
