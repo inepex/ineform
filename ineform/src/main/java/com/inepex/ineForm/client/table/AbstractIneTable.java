@@ -402,7 +402,7 @@ public abstract class AbstractIneTable {
             }
         }
 
-        if (commands != null) {
+        if (commands != null && commands.size() > 0) {
 
             List<HasCell<AssistedObject, ?>> commandList =
                 new ArrayList<HasCell<AssistedObject, ?>>();
