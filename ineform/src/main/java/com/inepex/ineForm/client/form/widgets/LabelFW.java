@@ -1,8 +1,11 @@
 package com.inepex.ineForm.client.form.widgets;
 
 import com.google.gwt.user.client.ui.InlineHTML;
+import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.resources.ResourceHelper;
-import com.inepex.ineFrame.shared.util.date.DateProvider;
+import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
+import com.inepex.ineForm.shared.types.FWTypes;
+import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
@@ -14,25 +17,20 @@ public class LabelFW extends StringFormWidget {
     protected Object storedObject = null;
 
     final InlineHTML label = new InlineHTML();
-
-    final boolean showLongAsDate;
     final String nullAlterText;
-    DateProvider dateProvider;
+    final WidgetRDesc rDesc;
+    final DateFormatter dateFormatter;
 
-    public LabelFW(
-        FDesc fielddescriptor,
-        boolean showLongAsDate,
-        String nullAlterText,
-        DateProvider dateProvider) {
+    public LabelFW(FDesc fielddescriptor, WidgetRDesc rDesc, DateFormatter dateFormatter) {
         super(fielddescriptor);
-        this.dateProvider = dateProvider;
+        this.rDesc = rDesc;
+        this.dateFormatter = dateFormatter;
 
-        if (nullAlterText == null)
+        if (rDesc.getPropValue(LabelFW.NULLALTERTEXT) == null)
             this.nullAlterText = "";
         else
-            this.nullAlterText = nullAlterText;
+            this.nullAlterText = rDesc.getPropValue(LabelFW.NULLALTERTEXT);
 
-        this.showLongAsDate = showLongAsDate;
         label.setStyleName(ResourceHelper.ineformRes().style().labelFW());
         initWidget(label);
     }
@@ -72,8 +70,10 @@ public class LabelFW extends StringFormWidget {
             return;
         }
 
-        if (showLongAsDate) {
-            label.setHTML(dateProvider.getDate(value).toString());
+        if (rDesc.hasProp(FWTypes.p_asDate)) {
+            label.setHTML(dateFormatter.format(IneFormProperties.YMD_OO, value));
+        } else if (rDesc.hasProp(FWTypes.p_asDateWithTime)) {
+            label.setHTML(dateFormatter.format(IneFormProperties.YMD_HMS, value));
         } else {
             super.setLongValue(value);
         }

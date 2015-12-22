@@ -68,4 +68,5 @@ public class IneFormProperties {
     public static String YMO_OO = "yyyy.MM";
     public static String YOO_OO = "yyyy";
     public static String OMO_OO = "MM";
+    public static String YMD_HMS = "yyyy.MM.dd HH:mm:ss";
 }

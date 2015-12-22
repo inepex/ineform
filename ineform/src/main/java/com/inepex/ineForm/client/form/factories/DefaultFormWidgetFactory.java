@@ -85,20 +85,10 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
             createdWidget = new TextAreaFW(fieldDesc, wrDesc);
 
         else if (widgetType.equals(FWTypes.LABEL))
-            createdWidget =
-                new LabelFW(
-                    fieldDesc,
-                    wrDesc.hasProp(FWTypes.p_asDate),
-                    wrDesc.getPropValue(LabelFW.NULLALTERTEXT),
-                    formCtx.dateProvider);
+            createdWidget = new LabelFW(fieldDesc, wrDesc, formCtx.dateFormatter);
 
         else if (widgetType.equals(FWTypes.LABELCLICKABLE))
-            createdWidget =
-                new LabelClickableFW(
-                    fieldDesc,
-                    wrDesc.hasProp(FWTypes.p_asDate),
-                    wrDesc.getPropValue(LabelFW.NULLALTERTEXT),
-                    formCtx.dateProvider);
+            createdWidget = new LabelClickableFW(fieldDesc, wrDesc, formCtx.dateFormatter);
 
         else if (widgetType.equals(FWTypes.ENUMLABEL)) {
             if (wrDesc.getPropValue(EnumLabelFW.enumValues) == null) {

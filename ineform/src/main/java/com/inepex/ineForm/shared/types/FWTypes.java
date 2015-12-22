@@ -20,6 +20,7 @@ public class FWTypes implements Serializable, IsSerializable {
 
     public final static String p_label = "label";
     public final static String p_asDate = "asDate";
+    public final static String p_asDateWithTime = "asDateWithTime";
 
     public final static FWTypes DONTRENDER = new FWTypes("DONTRENDER");
     public final static FWTypes PLACEFORSOMETHING = new FWTypes("PLACEFORSOMETHING");
