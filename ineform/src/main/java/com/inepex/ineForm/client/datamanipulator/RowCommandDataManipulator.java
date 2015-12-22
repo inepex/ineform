@@ -7,7 +7,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.general.IneButton;
@@ -41,23 +40,18 @@ public class RowCommandDataManipulator extends DataManipulator {
         TableFieldRenderer fieldRenderer) {
         super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
 
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            editText = IneFormI18n.EDIT();
-            deleteText = IneFormI18n.DELETE();
-        } else {
-            editText =
-                "<div class='"
-                    + ResourceHelper.ineformRes().style().tableEditIcon()
-                    + "' title='"
-                    + IneFormI18n.EDIT()
-                    + "'></div>";
-            deleteText =
-                "<div class='"
-                    + ResourceHelper.ineformRes().style().tableDeleteIcon()
-                    + "' title='"
-                    + IneFormI18n.DELETE()
-                    + "'></div>";
-        }
+        editText =
+            "<div class='"
+                + ResourceHelper.ineformRes().style().tableEditIcon()
+                + "' title='"
+                + IneFormI18n.EDIT()
+                + "'></div>";
+        deleteText =
+            "<div class='"
+                + ResourceHelper.ineformRes().style().tableDeleteIcon()
+                + "' title='"
+                + IneFormI18n.DELETE()
+                + "'></div>";
 
         userCommands.add(new EditCommand());
         userCommands.add(new DeleteCommand());

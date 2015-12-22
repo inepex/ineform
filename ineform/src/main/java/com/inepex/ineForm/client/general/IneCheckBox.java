@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Image;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
@@ -50,14 +49,8 @@ public class IneCheckBox extends HandlerAwareComposite
         mainPanel.add(checkPanel);
         mainPanel.add(textWidget);
 
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText_old());
-            checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox_old());
-
-        } else {
-            textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
-            checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
-        }
+        textWidget.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxText());
+        checkPanel.setStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBox());
         checkPanel.getElement().getStyle().setPosition(Position.STATIC);
         mainPanel.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
         icon.getElement().getStyle().setFloat(Float.LEFT);
@@ -65,26 +58,12 @@ public class IneCheckBox extends HandlerAwareComposite
     }
 
     private void correctCheckboxStyle() {
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            if (checked) {
-                checkPanel.addStyleName(GeneralRes.INST
-                    .get()
-                    .GeneralStyle()
-                    .ineCheckBoxActive_old());
-            } else {
-                checkPanel.removeStyleName(GeneralRes.INST
-                    .get()
-                    .GeneralStyle()
-                    .ineCheckBoxActive_old());
-            }
+        if (checked) {
+            checkPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
         } else {
-            if (checked) {
-                checkPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
-            } else {
-                checkPanel
-                    .removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
-            }
+            checkPanel.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxActive());
         }
+
     }
 
     @Override
@@ -148,26 +127,10 @@ public class IneCheckBox extends HandlerAwareComposite
     @Override
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            if (enabled)
-                textWidget.removeStyleName(GeneralRes.INST
-                    .get()
-                    .GeneralStyle()
-                    .ineCheckBoxDisabled_old());
-            else
-                textWidget.addStyleName(GeneralRes.INST
-                    .get()
-                    .GeneralStyle()
-                    .ineCheckBoxDisabled_old());
-        } else {
-            if (enabled)
-                textWidget.removeStyleName(GeneralRes.INST
-                    .get()
-                    .GeneralStyle()
-                    .ineCheckBoxDisabled());
-            else
-                textWidget.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
-        }
+        if (enabled)
+            textWidget.removeStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
+        else
+            textWidget.addStyleName(GeneralRes.INST.get().GeneralStyle().ineCheckBoxDisabled());
     }
 
     @Override

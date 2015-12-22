@@ -3,7 +3,6 @@ package com.inepex.ineForm.client.form.widgets.datetime;
 import java.util.Date;
 
 import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.dom.client.Style.VerticalAlign;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,7 +13,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.gwt.user.datepicker.client.DatePicker;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.datetime.IneDateGWT.Precision;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineFrame.shared.util.date.DateProvider;
@@ -38,7 +36,8 @@ class YMD_OOField extends AbstractField {
         boolean usetextbox,
         DateTimeFieldParentInterface parent,
         boolean enableselectmanager) {
-        super(date,
+        super(
+            date,
             Precision.YMD_OO,
             showstepbuttons,
             stepcount,
@@ -60,24 +59,14 @@ class YMD_OOField extends AbstractField {
 
             img_calendar.setResource(ResourceHelper.ineformRes().calendar());
             img_calendar.addStyleName(ResourceHelper.ineformRes().style().clickable());
-            img_calendar.getElement().getStyle().setPaddingLeft(5,
-                Unit.PX);
-            img_calendar.getElement().getStyle().setPaddingRight(5,
-                Unit.PX);
-            img_calendar.getElement().getStyle().setPaddingRight(5,
-                Unit.PX);
+            img_calendar.getElement().getStyle().setPaddingLeft(5, Unit.PX);
+            img_calendar.getElement().getStyle().setPaddingRight(5, Unit.PX);
+            img_calendar.getElement().getStyle().setPaddingRight(5, Unit.PX);
             img_calendar.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
-
-            if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-                img_calendar.getElement().getStyle().setHeight(17,
-                    Unit.PX);
-                img_calendar.getElement().getStyle().setFloat(Float.LEFT);
-            }
         }
 
         if (showcalendar)
-            panel_main.insert(img_calendar,
-                0);
+            panel_main.insert(img_calendar, 0);
 
         setEnabled(true);
     }
@@ -114,9 +103,7 @@ class YMD_OOField extends AbstractField {
         @Override
         public void onClick(ClickEvent event) {
             if (enabled) {
-                if (!CalendarUtil.isSameDate(inedate.getDateClone(),
-                    new Date(
-                        IneDateGWT.NULLDATE))) {
+                if (!CalendarUtil.isSameDate(inedate.getDateClone(), new Date(IneDateGWT.NULLDATE))) {
                     datepicker.setCurrentMonth(inedate.getDateClone());
                     datepicker.setValue(inedate.getDateClone());
                 } else {
@@ -132,11 +119,9 @@ class YMD_OOField extends AbstractField {
 
         @Override
         public void onValueChange(ValueChangeEvent<Date> event) {
-            inedate.setDate(PRECISION,
-                event.getValue());
+            inedate.setDate(PRECISION, event.getValue());
             popup.hide();
-            parent.childValueChanged(true,
-                false);
+            parent.childValueChanged(true, false);
         }
 
     }

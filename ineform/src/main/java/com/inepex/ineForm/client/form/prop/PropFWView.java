@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.IneButtonType;
@@ -60,66 +59,35 @@ public class PropFWView extends HandlerAwareFlowPanel implements PropFW.View {
             3,
             ResourceHelper.ineformRes().style().customKVOTableContent());
 
-        if (!IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            addBtn.getElement().getStyle().setMarginTop(15, Unit.PX);
-        }
+        addBtn.getElement().getStyle().setMarginTop(15, Unit.PX);
     }
 
     private void createHeader() {
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            int col = 0;
-            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
-            if (showType)
-                rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
-            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
+        int col = 0;
+        rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
+        if (showType)
+            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
+        rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
+        ((FlexCellFormatter) rowTable.getCellFormatter()).setColSpan(0, col - 1, 2);
 
+        rowTable.getCellFormatter().setStyleName(
+            0,
+            0,
+            ResourceHelper.ineformRes().style().customKVOHeader());
+        if (showType) {
             rowTable.getCellFormatter().setStyleName(
                 0,
+                1,
+                ResourceHelper.ineformRes().style().customKVOHeaderType());
+            rowTable.getCellFormatter().setStyleName(
                 0,
+                2,
                 ResourceHelper.ineformRes().style().customKVOHeader());
-            if (showType) {
-                rowTable.getCellFormatter().setStyleName(
-                    0,
-                    1,
-                    ResourceHelper.ineformRes().style().customKVOHeaderType());
-                rowTable.getCellFormatter().setStyleName(
-                    0,
-                    2,
-                    ResourceHelper.ineformRes().style().customKVOHeader());
-            } else {
-                rowTable.getCellFormatter().setStyleName(
-                    0,
-                    1,
-                    ResourceHelper.ineformRes().style().customKVOHeader());
-            }
-
         } else {
-            int col = 0;
-            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_key()));
-            if (showType)
-                rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_type()));
-            rowTable.setWidget(0, col++, new Label(IneFormI18n.customKVO_value()));
-            ((FlexCellFormatter) rowTable.getCellFormatter()).setColSpan(0, col - 1, 2);
-
             rowTable.getCellFormatter().setStyleName(
                 0,
-                0,
+                1,
                 ResourceHelper.ineformRes().style().customKVOHeader());
-            if (showType) {
-                rowTable.getCellFormatter().setStyleName(
-                    0,
-                    1,
-                    ResourceHelper.ineformRes().style().customKVOHeaderType());
-                rowTable.getCellFormatter().setStyleName(
-                    0,
-                    2,
-                    ResourceHelper.ineformRes().style().customKVOHeader());
-            } else {
-                rowTable.getCellFormatter().setStyleName(
-                    0,
-                    1,
-                    ResourceHelper.ineformRes().style().customKVOHeader());
-            }
         }
 
     }

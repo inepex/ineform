@@ -4,14 +4,6 @@ import com.google.gwt.resources.client.CssResource;
 
 public interface GeneralStyle extends CssResource {
 
-    String ineCheckBoxActive_old();
-
-    String ineCheckBoxText_old();
-
-    String ineCheckBox_old();
-
-    String ineCheckBoxDisabled_old();
-
     String ineCheckBoxActive();
 
     String ineCheckBoxText();
@@ -21,8 +13,6 @@ public interface GeneralStyle extends CssResource {
     String ineCheckBoxDisabled();
 
     String listBoxExtraDiv();
-
-    String OLD_listBoxExtraDiv();
 
     String ineDialogBox();
 

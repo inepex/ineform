@@ -5,11 +5,6 @@ import com.inepex.ineForm.shared.types.PanelWidgetT;
 
 public class IneFormProperties {
 
-    /**
-     * temporary variable for button replacing
-     */
-    public static boolean IN_OLD_STYLE_COMPATIBILITY_MODE = true;
-
     public static boolean showIds;
 
     public static final String domId = "domId";

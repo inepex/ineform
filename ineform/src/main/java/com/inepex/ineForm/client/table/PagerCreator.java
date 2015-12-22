@@ -7,7 +7,6 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.Resources;
 import com.google.gwt.user.cellview.client.SimplePager.Style;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
-import com.inepex.ineForm.client.IneFormProperties;
 
 public class PagerCreator {
 
@@ -19,10 +18,7 @@ public class PagerCreator {
 
     private static Resources getResources() {
         if (resources == null) {
-            if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
-                resources = GWT.create(SimplePager.Resources.class);
-            else
-                resources = GWT.create(PagerResources.class);
+            resources = GWT.create(PagerResources.class);
 
             resources.simplePagerStyle().ensureInjected();
         }

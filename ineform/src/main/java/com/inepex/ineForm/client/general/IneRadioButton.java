@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
-import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
 /**
@@ -45,8 +44,6 @@ public class IneRadioButton extends HandlerAwareComposite
         String disabled();
 
         String rbIconStyle();
-
-        String rbIconStyle_old();
     }
 
     interface Res extends ClientBundle {
@@ -72,11 +69,8 @@ public class IneRadioButton extends HandlerAwareComposite
         this.group = group;
         rb = new RadioButton(name, label);
         initWidget(uiBinder.createAndBindUi(this));
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            rbIcon.setStyleName(style.rbIconStyle_old());
-        } else {
-            rbIcon.setStyleName(style.rbIconStyle());
-        }
+        rbIcon.setStyleName(style.rbIconStyle());
+
     }
 
     /**

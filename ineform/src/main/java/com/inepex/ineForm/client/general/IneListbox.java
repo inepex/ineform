@@ -15,10 +15,7 @@ public class IneListbox implements IsWidget {
     public IneListbox() {
         mainPanel.add(listBox);
 
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
-            mainPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().OLD_listBoxExtraDiv());
-        else
-            mainPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().listBoxExtraDiv());
+        mainPanel.addStyleName(GeneralRes.INST.get().GeneralStyle().listBoxExtraDiv());
 
         setWidthOfCosturction(IneFormProperties.DEFAULT_ListBoxWidth_inPx);
     }
@@ -28,15 +25,9 @@ public class IneListbox implements IsWidget {
     }
 
     public void setWidthOfCosturction(int widhtInPx) {
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE) {
-            mainPanel.getElement().setAttribute(
-                "style",
-                "width: " + widhtInPx + "px; " + "background-position: right -5px;");
-        } else {
-            mainPanel.getElement().setAttribute(
-                "style",
-                "width: " + widhtInPx + "px; " + "background-position: right 0px;");
-        }
+        mainPanel.getElement().setAttribute(
+            "style",
+            "width: " + widhtInPx + "px; " + "background-position: right 0px;");
 
         listBox.getElement().getStyle().setWidth(widhtInPx + 24, Unit.PX);
     }

@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
-import com.inepex.ineForm.client.IneFormProperties;
 
 public class IneButton extends Composite implements IsWidget, HasEnabled, HasText, HasHTML {
 
@@ -90,9 +89,6 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 
     public IneButton(IneButtonType type) {
         initWidget(uiBinder.createAndBindUi(this));
-
-        if (IneFormProperties.IN_OLD_STYLE_COMPATIBILITY_MODE)
-            return;
 
         switch (type) {
             case PAGING:

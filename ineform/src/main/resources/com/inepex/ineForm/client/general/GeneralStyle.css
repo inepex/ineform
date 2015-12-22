@@ -3,36 +3,6 @@
 @external .dialog*;
 @external .Caption;
 
-@sprite .ineCheckBox_old{
-	gwt-image: 'checkBoxBG_old';
-    display: inline-block;
-    float: left;
-    height: 13px;
-    padding: 0;
-	margin-top: 5px;
-    width: 12px;
-    background-position: -15px -0.5px;
-}
-
-.ineCheckBoxActive_old{
-	background-position: 0 0;
-}
-
-.ineCheckBoxText_old{
-    float: left;
-    margin-top: 2px;
-    color: #666666;
-    display: block;
-    font-size: 14px;
-    padding-left: 17px;
-    white-space: nowrap;
-}
-
-.ineCheckBoxDisabled_old {
-	cursor: normal;
-	opacity: 0.7;
-}
-
 @sprite .ineCheckBox{
 	gwt-image: 'checkBoxBG';
     display: inline-block;
@@ -64,35 +34,8 @@
 	opacity: 0.7;
 }
 
-@sprite .listBoxExtraDiv,
-.OLD_listBoxExtraDiv {
-	display: inline-block !important;
-	height: 38px;
-	line-height: 38px;
-	margin-top: 2px;
-   	overflow: hidden;
-   	outline: none;
-   	
-   	gwt-image: 'select_icon';
-	background-color: #FFFFFF;
-	
-	/* Turning off selection arrows */
-	-webkit-appearance: none;
-	
-	/* Border */
-	border: 1px solid #ccc;
-	border-radius: 3px;
-  	-moz-border-radius: 3px;
-  	-webkit-border-radius: 3px;  	
-}
 
-.OLD_listBoxExtraDiv {
-	height: 30px;
-	line-height: 30px;
-}
-
-.listBoxExtraDiv .gwt-ListBox,
-.OLD_listBoxExtraDiv .gwt-ListBox {
+.listBoxExtraDiv .gwt-ListBox {
 	padding: 0 0 0 10px !important;
 	
 	background: transparent;
@@ -108,11 +51,6 @@
 	
 	height: 29px;
 	line-height: 40px;
-}
-
-.OLD_listBoxExtraDiv .gwt-ListBox {
-	height: 21px;
-	line-height: 32px;
 }
 
 .ineDialogBox {
