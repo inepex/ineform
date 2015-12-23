@@ -48,8 +48,6 @@ public class IneRadioButton extends HandlerAwareComposite
 
     interface Res extends ClientBundle {
         ImageResource radioButton();
-
-        ImageResource radioButton_old();
     }
 
     @UiField(provided = true)
