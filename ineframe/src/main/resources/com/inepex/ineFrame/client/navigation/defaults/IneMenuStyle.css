@@ -35,6 +35,7 @@
 	height: b1d5;
 	width: 100%;
 	background-color: userProfileBackgroundColor;
+	cursor: pointer;
 }
 
 .userProfileImg {

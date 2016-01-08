@@ -6,6 +6,7 @@ import java.util.Map;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -238,6 +239,10 @@ public class IneMenuView extends HandlerAwareFlowPanel {
                 }
             }
         }));
+    }
+
+    public HandlerRegistration addUserTableClickHandler(ClickHandler handler) {
+        return usertable.addClickHandler(handler);
     }
 
     @Override
