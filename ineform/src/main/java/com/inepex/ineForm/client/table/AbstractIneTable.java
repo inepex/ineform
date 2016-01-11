@@ -630,7 +630,7 @@ public abstract class AbstractIneTable {
 
         public abstract boolean visible(AssistedObject kvoOfRow);
 
-        public Boolean overrideDefaultSeparatorUsage() {
+        public Boolean overrideDefaultSeparatorUsage(AssistedObject kvoOfRow) {
             return null;
         }
     }
@@ -701,7 +701,9 @@ public abstract class AbstractIneTable {
         public void render(Context context, String value, SafeHtmlBuilder sb) {
             AssistedObject kvoOfRow = getDisplayedKvoById((Long) context.getKey());
             if (userCommand.visible(kvoOfRow)) {
-                sb.append(buildHtml(userCommand.getCommandCellText(kvoOfRow), needsSeparator()));
+                sb.append(buildHtml(
+                    userCommand.getCommandCellText(kvoOfRow),
+                    needsSeparator(kvoOfRow)));
             }
         }
 
@@ -718,11 +720,11 @@ public abstract class AbstractIneTable {
             return htmlBuilder.toSafeHtml();
         }
 
-        private boolean needsSeparator() {
-            if (userCommand.overrideDefaultSeparatorUsage() == null)
+        private boolean needsSeparator(AssistedObject kvoOfRow) {
+            if (userCommand.overrideDefaultSeparatorUsage(kvoOfRow) == null)
                 return isNotLast;
             else
-                return userCommand.overrideDefaultSeparatorUsage();
+                return userCommand.overrideDefaultSeparatorUsage(kvoOfRow);
         }
 
     }
