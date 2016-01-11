@@ -193,6 +193,7 @@
 .labelClickableFW{
 	margin-left: 8px;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .labelClickableFW:hover{
