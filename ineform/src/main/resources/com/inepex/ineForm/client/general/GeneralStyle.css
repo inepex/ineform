@@ -34,6 +34,27 @@
 	opacity: 0.7;
 }
 
+@sprite .listBoxExtraDiv {
+	display: inline-block !important;
+	height: 38px;
+	line-height: 38px;
+	margin-top: 2px;
+   	overflow: hidden;
+   	outline: none;
+   	
+   	gwt-image: 'select_icon';
+	background-color: #FFFFFF;
+	
+	/* Turning off selection arrows */
+	-webkit-appearance: none;
+	
+	/* Border */
+	border: 1px solid #ccc;
+	border-radius: 3px;
+  	-moz-border-radius: 3px;
+  	-webkit-border-radius: 3px;  	
+}
+
 
 .listBoxExtraDiv .gwt-ListBox {
 	padding: 0 0 0 10px !important;
