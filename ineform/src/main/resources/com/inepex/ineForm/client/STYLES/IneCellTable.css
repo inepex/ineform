@@ -45,7 +45,6 @@
 }
 
 .cellTableCell {
-	color: #666;
 	padding: 10px;
 	font-size: 14px;
 	text-align: left;
@@ -54,7 +53,6 @@
 }
 
 .cellTableCell a{
-	color: #666;
 	text-decoration: none;
 	cursor: pointer;
 }
