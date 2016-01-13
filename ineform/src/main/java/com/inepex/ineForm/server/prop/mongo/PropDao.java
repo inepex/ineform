@@ -60,7 +60,7 @@ public class PropDao {
                     try {
                         _logger.info("Creating mongoclient");
                         MongoClientOptions options = MongoClientOptions.builder()
-                        // .writeConcern(WriteConcern.FSYNCED)
+                            // .writeConcern(WriteConcern.FSYNCED)
                             .build();
                         mongoClient = new MongoClient(mongoUrl, options);
 
@@ -341,7 +341,7 @@ public class PropDao {
         for (Entry<String, String> propEntry : props.entrySet()) {
             String group = propEntry.getKey();
             String jsonValue = propEntry.getValue();
-            doc.append(group, (BasicDBObject) JSON.parse(jsonValue));
+            doc.append(group, JSON.parse(jsonValue));
         }
         mongoClient.getDB(DB).requestStart();
         mongoClient.getDB(DB).requestEnsureConnection();
@@ -351,9 +351,9 @@ public class PropDao {
 
     public void deleteProps(
         String objectType,
-        List<Long> idLists,
+        List<Long> idList,
         Map<String, String> propsToDeleteJson) {
-        if (getMongoDb() == null || propsToDeleteJson.isEmpty() || idLists.isEmpty()) {
+        if (getMongoDb() == null || propsToDeleteJson.isEmpty() || idList.isEmpty()) {
             return;
         }
         BasicDBObject updateQuery = new BasicDBObject();
@@ -367,7 +367,7 @@ public class PropDao {
         }
         BasicDBObject searchObj = new BasicDBObject(k_objectType, objectType);
         BasicDBList entityIds = new BasicDBList();
-        entityIds.addAll(idLists);
+        entityIds.addAll(idList);
         BasicDBObject inClause = new BasicDBObject("$in", entityIds);
         searchObj.append(k_objectId, inClause);
         mongoClient.getDB(DB).requestStart();
@@ -376,4 +376,19 @@ public class PropDao {
         mongoClient.getDB(DB).requestDone();
     }
 
+    public void deleteProps(String objectType, List<Long> idList) {
+        BasicDBObject searchObj = new BasicDBObject(k_objectType, objectType);
+        BasicDBList entityIds = new BasicDBList();
+        entityIds.addAll(idList);
+        BasicDBObject inClause = new BasicDBObject("$in", entityIds);
+        searchObj.append(k_objectId, inClause);
+        mongoClient.getDB(DB).requestStart();
+        mongoClient.getDB(DB).requestEnsureConnection();
+        DBCursor cursor = getMongoDb().find(searchObj);
+        while (cursor.hasNext()) {
+            getMongoDb().remove(cursor.next());
+
+        }
+        mongoClient.getDB(DB).requestDone();
+    }
 }
