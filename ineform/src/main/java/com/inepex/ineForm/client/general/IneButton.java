@@ -78,6 +78,10 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
     @UiField
     ButtonStyles style;
 
+    public IneButton() {
+        this(IneButtonType.DEFAULT);
+    }
+
     public IneButton(String text) {
         this(IneButtonType.DEFAULT, text);
     }
