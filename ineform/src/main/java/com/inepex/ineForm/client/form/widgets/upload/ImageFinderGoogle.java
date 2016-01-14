@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.upload.UrlDownloadService;
 import com.inepex.ineForm.shared.upload.UrlDownloadServiceAsync;
@@ -22,7 +22,7 @@ public class ImageFinderGoogle extends VerticalPanel {
 
     TextBox searchText = new TextBox();
 
-    IneButton btn_search = new IneButton(IneButtonType.ACTION, "Search");
+    IneButton btn_search = new IneButton(Color.GREEN, "Search");
 
     HorizontalPanel panel_images = new HorizontalPanel();
 
@@ -33,8 +33,8 @@ public class ImageFinderGoogle extends VerticalPanel {
     int attaching = 0;
 
     HTML title = new HTML("<h3>" + IneFormI18n.imagefinderChoosefromgoogle() + "</h3>");
-    IneButton previous = new IneButton(IneButtonType.PAGING, IneFormI18n.PREVIOUS());
-    IneButton next = new IneButton(IneButtonType.PAGING, IneFormI18n.NEXT());
+    IneButton previous = new IneButton(Color.BLUE, IneFormI18n.PREVIOUS());
+    IneButton next = new IneButton(Color.BLUE, IneFormI18n.NEXT());
     Label lbl_actualpage = new Label(IneFormI18n.imagefinderPage() + ": " + String.valueOf(page));
     Label lbl_noresult = new Label(IneFormI18n.imagefinderNoresult());
 

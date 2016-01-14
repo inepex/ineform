@@ -22,7 +22,7 @@ public class RowCommandDataManipulator extends DataManipulator {
     private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
     protected final IneButton newButton = new IneButton(
-        IneButton.IneButtonType.ACTION,
+        IneButton.Color.GREEN,
         IneFormI18n.NEW());
 
     private String editText;

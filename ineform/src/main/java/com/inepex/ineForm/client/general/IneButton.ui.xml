@@ -2,91 +2,85 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style type="com.inepex.ineForm.client.general.IneButton.ButtonStyles">
-		.defaultColors{
-			background-color: #f6f6f6;
-			color: #666;
-			border: 1px solid #f1f1f1;
-		}
-		
-		.defaultColors:hover {
-			background-color: #f1f1f1;
-		}
+	.greenColors {
+		background-color: #12ad2b;
+		color: #fff;
+		border: 0px;
+	}
 	
-		.pagingColors{
-			background-color: #3a99e2;
-			color: #fff;
-			border: 0px;
-		}
-		
-		.pagingColors:hover {
-			background-color: #51a9ed;
-		}
-		
-		.cancelColors{
-			background-color: #333;
-			color: #fff;
-			border: 0px;	
-		}
-		
-		
-		.cancelColors:hover {
-			background-color: #444;
-		}
-		
-		.controlColors{
-			background: transparent;
-			color: #ccc;
-			border: 1px dashed #ccc;
-		}
-		
-		.controlColors:hover {
-			background-color: #666;
-			color: white;
-			border: 1px dashed #666;
-		}
-		
-		.actionColors{
-			background-color: #12ad2b;
-			color: #fff;
-			border: 0px;
-			
-		}
-		
-		.normalSize {
-			min-width: 100px;
-			padding: 10px 10px;
-			font-size: 13px;
-			margin: 12px auto;
-		}
-		
-		.actionColors:hover {
-			background-color: #1aba34;
-		}
-		
-		.oneCharSize{
-			font-weight: bold;
-			font-size: 20px;
-			min-width: 35px;
-			height: 35px;
-		}
-		
-		.sharedStyles {
-			-webkit-transition: 0.25s;
-			-moz-transition: 0.25s;
-			-o-transition: 0.25s;
-			transition: 0.25s;
-			
-			border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			cursor: pointer;
-		}
-		
-		.disabled{
-			cursor: default !important;
-			opacity: 0.7 !important;
-		}
-		
+	.greenColors:hover {
+		background-color: #1aba34;
+	}
+	
+	.blueColors {
+		background-color: #3a99e2;
+		color: #fff;
+		border: 0px;
+	}
+	
+	.blueColors:hover {
+		background-color: #51a9ed;
+	}
+	
+	.grayColors {
+		background-color: #f6f6f6;
+		color: #666;
+		border: 0px solid #f1f1f1;
+	}
+	
+	.grayColors:hover {
+		background-color: #f1f1f1;
+	}
+	
+	.transparentColors {
+		background: transparent;
+		color: #ccc;
+		border: 1px dashed #ccc;
+	}
+	
+	.transparentColors:hover {
+		background-color: #666;
+		color: white;
+		border: 1px dashed #666;
+	}
+	
+	.normalSize {
+		min-width: 100px;
+		padding: 10px 10px;
+		font-size: 13px;
+		margin: 12px auto;
+	}
+	
+	.oneCharSize {
+		font-weight: bold;
+		font-size: 20px;
+		min-width: 35px;
+		height: 35px;
+	}
+	
+	.sharedStyles {
+		cursor: pointer;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		-webkit-box-shadow: 0px 3px 1px 0px rgba(0, 0, 0, 0.22);
+		-moz-box-shadow: 0px 3px 1px 0px rgba(0, 0, 0, 0.22);
+		box-shadow: 0px 3px 1px 0px rgba(0, 0, 0, 0.22);
+		-webkit-transition: 0.25s;
+		-moz-transition: 0.25s;
+		transition: 0.25s;
+		text-transform: uppercase;
+		font-family: "Roboto", sans-serif;
+		font-weight: 500;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-size: 8%;
+	}
+	
+	.disabled {
+		cursor: default !important;
+		opacity: 0.7 !important;
+	}
 	</ui:style>
-	<g:Button ui:field="button" addStyleNames="{style.sharedStyles}"/>
+	<g:Button ui:field="button" addStyleNames="{style.sharedStyles}" />
 </ui:UiBinder> 

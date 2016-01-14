@@ -11,7 +11,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.IneDataConnector;
 import com.inepex.ineForm.client.table.IneTable;
@@ -21,8 +21,8 @@ public class SearchForm extends IneForm {
     private FlowPanel mainPanel = new FlowPanel();
     private IneForm searchForm;
     private Grid buttons = new Grid(1, 3);
-    private IneButton doSearch = new IneButton(IneButtonType.ACTION, IneFormI18n.SEARCH());
-    private IneButton doReset = new IneButton(IneButtonType.ACTION, IneFormI18n.RESET());
+    private IneButton doSearch = new IneButton(Color.GREEN, IneFormI18n.SEARCH());
+    private IneButton doReset = new IneButton(Color.GREEN, IneFormI18n.RESET());
     private Label message = new Label();
     private IneTable ineTable;
 

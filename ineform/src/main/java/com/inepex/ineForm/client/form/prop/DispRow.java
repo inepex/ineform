@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.form.error.SimpleTableErrorMessageManager;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.client.general.IneCheckBox;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.shared.types.PropFieldType;
@@ -44,7 +44,7 @@ public class DispRow {
     private final TextBox valueBox = new TextBox();
     private final IneCheckBox valueBooleanBox = new IneCheckBox();
 
-    private final IneButton removeBtn = new IneButton(IneButtonType.CONTROL, IneFormI18n.REMOVE());
+    private final IneButton removeBtn = new IneButton(Color.TRANSPARENT, IneFormI18n.REMOVE());
     private ErrorMessageManagerInterface emm;
     private PropTooltip tooltip;
 

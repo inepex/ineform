@@ -8,7 +8,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;
 import com.inepex.ineForm.client.table.IneDataConnector;
@@ -18,10 +18,10 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 public class SingleSelectDataManipulator extends DataManipulator {
     private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
-    private final IneButton newButton = new IneButton(IneButtonType.ACTION, IneFormI18n.NEW());
-    private final IneButton editButton = new IneButton(IneButtonType.DEFAULT, IneFormI18n.EDIT());
+    private final IneButton newButton = new IneButton(Color.GREEN, IneFormI18n.NEW());
+    private final IneButton editButton = new IneButton(Color.GRAY, IneFormI18n.EDIT());
     private final IneButton deleteButton =
-        new IneButton(IneButtonType.ACTION, IneFormI18n.DELETE());
+        new IneButton(Color.GREEN, IneFormI18n.DELETE());
 
     @Inject
     public SingleSelectDataManipulator(

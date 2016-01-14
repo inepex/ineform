@@ -20,7 +20,7 @@ import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeEvent;
 import com.inepex.ineForm.client.form.widgets.event.FormWidgetChangeHandler;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineom.shared.IneList;
@@ -121,7 +121,7 @@ public class RelationListFW extends DenyingFormWidget {
         relationsPanel);
 
     private final FlowPanel mainPanel = new FlowPanel();
-    private final IneButton addButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.ADD());
+    private final IneButton addButton = new IneButton(Color.TRANSPARENT, IneFormI18n.ADD());
 
     private final String relationDescriptorName;
     private final FormContext formCtx;
@@ -232,9 +232,9 @@ public class RelationListFW extends DenyingFormWidget {
         HorizontalPanel hp = new HorizontalPanel();
 
         private final IneForm relatedForm;
-        IneButton removeButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.REMOVE());
-        IneButton upButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.UP());
-        IneButton downButton = new IneButton(IneButtonType.CONTROL, IneFormI18n.DOWN());
+        IneButton removeButton = new IneButton(Color.TRANSPARENT, IneFormI18n.REMOVE());
+        IneButton upButton = new IneButton(Color.TRANSPARENT, IneFormI18n.UP());
+        IneButton downButton = new IneButton(Color.TRANSPARENT, IneFormI18n.DOWN());
         InlineLabel dragLabel = new InlineLabel("Drag");
 
         private Relation rel;

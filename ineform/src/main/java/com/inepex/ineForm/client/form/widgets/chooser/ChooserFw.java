@@ -14,7 +14,7 @@ import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.DenyingFormWidget;
 import com.inepex.ineForm.client.general.IneButton;
-import com.inepex.ineForm.client.general.IneButton.IneButtonType;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.client.resources.ResourceHelper;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -35,12 +35,12 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
     private ListBox selected = new ListBox();
     private VerticalPanel selectedPanel = new VerticalPanel();
     private VerticalPanel buttons = new VerticalPanel();
-    private IneButton select = new IneButton(IneButtonType.DEFAULT, IneFormI18n.SELECT());
-    private IneButton deselect = new IneButton(IneButtonType.DEFAULT, IneFormI18n.DESELECT());
-    private IneButton selectAll = new IneButton(IneButtonType.DEFAULT, IneFormI18n.SELECTALL());
-    private IneButton deselectAll = new IneButton(IneButtonType.DEFAULT, IneFormI18n.DESELECTALL());
-    private IneButton moveUp = new IneButton(IneButtonType.DEFAULT, IneFormI18n.MOVEUP());
-    private IneButton moveDown = new IneButton(IneButtonType.DEFAULT, IneFormI18n.MOVEDOWN());
+    private IneButton select = new IneButton(Color.GRAY, IneFormI18n.SELECT());
+    private IneButton deselect = new IneButton(Color.GRAY, IneFormI18n.DESELECT());
+    private IneButton selectAll = new IneButton(Color.GRAY, IneFormI18n.SELECTALL());
+    private IneButton deselectAll = new IneButton(Color.GRAY, IneFormI18n.DESELECTALL());
+    private IneButton moveUp = new IneButton(Color.GRAY, IneFormI18n.MOVEUP());
+    private IneButton moveDown = new IneButton(Color.GRAY, IneFormI18n.MOVEDOWN());
 
     private Map<String, Item> stringToObject = new HashMap<String, Item>();
 
