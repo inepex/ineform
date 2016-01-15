@@ -74,7 +74,7 @@
 		font-weight: 500;
 		background-repeat: no-repeat;
 		background-size: contain;
-		background-size: 8%;
+		background-size: 25px;
 	}
 	
 	.disabled {
