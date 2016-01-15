@@ -1,6 +1,7 @@
 package com.inepex.ineForm.client.general;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.CssResource;
@@ -167,5 +168,10 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
     @Override
     public void setHTML(String html) {
         button.setHTML(html);
+    }
+
+    public IneButton withRightMargin() {
+        button.getElement().getStyle().setMarginRight(12, Unit.PX);
+        return this;
     }
 }
