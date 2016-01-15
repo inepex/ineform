@@ -48,7 +48,8 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
 
     public static enum Position {
         LEFT,
-        RIGHT
+        RIGHT,
+        CENTER
     }
 
     private static IFButtonUiBinder uiBinder = GWT.create(IFButtonUiBinder.class);
@@ -126,10 +127,15 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
             .getStyle()
             .setProperty("backgroundImage", "url('" + icon.getSafeUri().asString() + "')");
 
-        button
-            .getElement()
-            .getStyle()
-            .setProperty("backgroundPosition", position == Position.LEFT ? "5%" : "95%");
+        if (position != Position.CENTER) {
+            button
+                .getElement()
+                .getStyle()
+                .setProperty("backgroundPosition", position == Position.LEFT ? "5%" : "95%");
+        } else {
+            button.getElement().getStyle().setProperty("backgroundPosition", "center");
+        }
+
     }
 
     @Override
