@@ -86,18 +86,18 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
         this(Color.GRAY, text);
     }
 
-    public IneButton(Color type, String text) {
-        this(type);
+    public IneButton(Color color, String text) {
+        this(color);
         button.setText(text);
     }
 
-    public IneButton(Color type) {
+    public IneButton(Color color) {
         initWidget(uiBinder.createAndBindUi(this));
-        setColor(type);
+        setColor(color);
     }
 
-    public void setColor(Color type) {
-        switch (type) {
+    public void setColor(Color color) {
+        switch (color) {
             case GREEN:
                 button.addStyleName(style.greenColors());
                 button.addStyleName(style.normalSize());

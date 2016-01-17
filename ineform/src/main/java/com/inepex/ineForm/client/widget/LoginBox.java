@@ -13,18 +13,18 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.IneForm;
 import com.inepex.ineForm.client.form.widgets.CaptchaFW;
+import com.inepex.ineForm.client.general.IneButton;
+import com.inepex.ineForm.client.general.IneButton.Color;
 import com.inepex.ineForm.shared.descriptorext.FormRDesc;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
 import com.inepex.ineForm.shared.types.FWTypes;
@@ -58,7 +58,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
     protected final VerticalPanel mainPanel = new VerticalPanel();
     protected FormPanel formPanel;
     protected final VerticalPanel formContent = new VerticalPanel();
-    protected Button loginButton;
+    protected IneButton loginButton;
 
     protected IneForm ineForm;
 
@@ -119,7 +119,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
         formContent.add(ineForm.asWidget());
         ButtonElement submitEl = (ButtonElement) Document.get().getElementById("loginSubmit");
         Element formEl = DOM.getElementById("loginform");
-        loginButton = (submitEl == null ? new SubmitButton() : Button.wrap(submitEl));
+        loginButton = new IneButton(Color.GREEN);
         loginButton.setText(IneFrameI18n.LOGIN());
 
         formContent.add(loginButton);
