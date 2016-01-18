@@ -1,6 +1,7 @@
 package com.inepex.ineForm.client.general;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -72,7 +73,7 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
         String oneCharSize();
     }
 
-    @UiField
+    @UiField(provided = true)
     Button button;
 
     @UiField
@@ -92,7 +93,21 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
     }
 
     public IneButton(Color color) {
+        button = new Button();
         initWidget(uiBinder.createAndBindUi(this));
+        setColor(color);
+    }
+
+    /**
+     * wraps elemet for button
+     * 
+     * @param color
+     * @param element
+     */
+    public IneButton(Color color, String text, ButtonElement element) {
+        button = Button.wrap(element);
+        initWidget(uiBinder.createAndBindUi(this));
+        button.setText(text);
         setColor(color);
     }
 

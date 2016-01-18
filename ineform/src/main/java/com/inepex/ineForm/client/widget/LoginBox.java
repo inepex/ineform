@@ -119,8 +119,7 @@ public abstract class LoginBox extends HandlerAwareComposite {
         formContent.add(ineForm.asWidget());
         ButtonElement submitEl = (ButtonElement) Document.get().getElementById("loginSubmit");
         Element formEl = DOM.getElementById("loginform");
-        loginButton = new IneButton(Color.GREEN);
-        loginButton.setText(IneFrameI18n.LOGIN());
+        loginButton = new IneButton(Color.GREEN, IneFrameI18n.LOGIN(), submitEl);
 
         formContent.add(loginButton);
 
