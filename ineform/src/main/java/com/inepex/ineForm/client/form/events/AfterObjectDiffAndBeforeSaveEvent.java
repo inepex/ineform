@@ -3,8 +3,8 @@ package com.inepex.ineForm.client.form.events;
 import com.google.gwt.event.shared.EventHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
-public class AfterObjectDiffAndBeforeSaveEvent extends
-    FormLifecycleEventBase<AfterObjectDiffAndBeforeSaveEvent.Handler> {
+public class AfterObjectDiffAndBeforeSaveEvent
+        extends FormLifecycleEventBase<AfterObjectDiffAndBeforeSaveEvent.Handler> {
 
     private static Type<AfterObjectDiffAndBeforeSaveEvent.Handler> TYPE;
 

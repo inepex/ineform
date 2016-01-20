@@ -25,8 +25,7 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * @param <A>
  */
 public abstract class AbstractIneHandler<A extends Action<R>, R extends GenericActionResult>
-    implements
-    ActionHandler<A, R> {
+        implements ActionHandler<A, R> {
 
     @Override
     public R execute(A arg0, ExecutionContext arg1) throws DispatchException {

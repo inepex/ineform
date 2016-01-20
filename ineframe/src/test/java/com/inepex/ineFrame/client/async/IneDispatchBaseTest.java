@@ -47,11 +47,11 @@ public class IneDispatchBaseTest {
 
         dispatcher.execute(new GetDescStore(), callback);
 
-        ArgumentCaptor<IneAsyncCallback> asyncCallbackCaptor =
-            ArgumentCaptor.forClass(IneAsyncCallback.class);
-        Mockito.verify(dispatcher).doExecute(
-            Mockito.any(Action.class),
-            asyncCallbackCaptor.capture());
+        ArgumentCaptor<IneAsyncCallback> asyncCallbackCaptor = ArgumentCaptor
+            .forClass(IneAsyncCallback.class);
+        Mockito
+            .verify(dispatcher)
+            .doExecute(Mockito.any(Action.class), asyncCallbackCaptor.capture());
         asyncCallbackCaptor.getValue().onFailure(new StatusCodeException(0, ""));
 
         dispatcher.onEvent(new ConnectionEvent(false));

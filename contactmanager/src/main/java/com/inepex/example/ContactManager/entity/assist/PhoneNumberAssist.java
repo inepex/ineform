@@ -27,34 +27,33 @@ public class PhoneNumberAssist extends Assist {
 
     @Override
     public ValidatorDesc getValidatorDesc() {
-        return new ValidatorDesc(PhoneNumberConsts.descriptorName, new String[] {/*
-                                                                                  * hc
-                                                                                  * :
-                                                                                  * vd1
-                                                                                  */
+        return new ValidatorDesc(
+            PhoneNumberConsts.descriptorName,
+            new String[] { /*
+                            * hc : vd1
+                            */
 
-        /* hc */});
+                /* hc */ });
     }
 
     @Override
     public ObjectDesc getObjectDesc() {
-        ObjectDesc objDesc =
-            new ObjectDesc(
-                PhoneNumberConsts.descriptorName,
-                new LongFDesc(PhoneNumberConsts.k_id, /* hc:d1 */CMI18n.phoneNumber_id()/* hc */)/*
-                                                                                                  * hc
-                                                                                                  * :
-                                                                                                  * d2_1
-                                                                                                  *//* hc */
+        ObjectDesc objDesc = new ObjectDesc(
+            PhoneNumberConsts.descriptorName,
+            new LongFDesc(
+                PhoneNumberConsts.k_id,
+                /* hc:d1 */CMI18n.phoneNumber_id()/* hc */)/*
+                                                            * hc : d2_1
+                                                            *//* hc */
                 ,
-                new StringFDesc(PhoneNumberConsts.k_number, /* hc:d2 */CMI18n.phoneNumber_number()/* hc */)/*
-                                                                                                            * hc
-                                                                                                            * :
-                                                                                                            * d2_2
-                                                                                                            *//* hc */
-                .mandatory(),
-                new RelationFDesc(PhoneNumberConsts.k_type, /* hc:d3 */CMI18n.phoneNumber_type()/* hc */
-                , PhoneNumberTypeConsts.descriptorName)/* hc:d2_3 *//* hc */
+            new StringFDesc(
+                PhoneNumberConsts.k_number,
+                /* hc:d2 */CMI18n.phoneNumber_number()/* hc */)/*
+                                                                * hc : d2_2
+                                                                *//* hc */
+                    .mandatory(),
+            new RelationFDesc(PhoneNumberConsts.k_type, /* hc:d3 */CMI18n.phoneNumber_type()/* hc */
+            , PhoneNumberTypeConsts.descriptorName)/* hc:d2_3 *//* hc */
                 .mandatory());
 
         objDesc.setDefaultOrderKey(getOrderKey());
@@ -67,37 +66,39 @@ public class PhoneNumberAssist extends Assist {
 
         tableRDesc
             .getRootNode()
-            .addChild(PhoneNumberConsts.k_id, new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
-                                                                                        * hc
-                                                                                        * :
-                                                                                        * tdr2_1
-                                                                                        *//* hc */)
-            .addChild(PhoneNumberConsts.k_number, new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
-                                                                                            * hc
-                                                                                            * :
-                                                                                            * tdr2_2
-                                                                                            *//* hc */)
-            .addChild(PhoneNumberConsts.k_type, new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
-                                                                                          * hc
-                                                                                          * :
-                                                                                          * tdr2_3
-                                                                                          *//* hc */);
+            .addChild(
+                PhoneNumberConsts.k_id,
+                new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
+                                                          * hc : tdr2_1
+                                                          *//* hc */)
+            .addChild(
+                PhoneNumberConsts.k_number,
+                new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
+                                                          * hc : tdr2_2
+                                                          *//* hc */)
+            .addChild(
+                PhoneNumberConsts.k_type,
+                new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
+                                                          * hc : tdr2_3
+                                                          *//* hc */);
         return tableRDesc;
     }
 
     @Override
     public FormRDesc getFormRDesc() {
-        FormRDesc formRDesc = new FormRDesc(PhoneNumberConsts.descriptorName/*
-                                                                             * hc:
-                                                                             * frd_props
-                                                                             */
+        FormRDesc formRDesc = new FormRDesc(
+            PhoneNumberConsts.descriptorName/*
+                                             * hc: frd_props
+                                             */
 
         /* hc */);
 
         formRDesc
             .getRootNode()
             .addChild(PhoneNumberConsts.k_number, new WidgetRDesc(/* hc:f2 */FWTypes.PHONE/* hc */))
-            .addChild(PhoneNumberConsts.k_type, new WidgetRDesc(/* hc:f3 */FWTypes.LISTBOX/* hc */));
+            .addChild(
+                PhoneNumberConsts.k_type,
+                new WidgetRDesc(/* hc:f3 */FWTypes.LISTBOX/* hc */));
         return formRDesc;
     }
 

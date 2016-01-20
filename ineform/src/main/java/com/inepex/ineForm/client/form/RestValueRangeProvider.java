@@ -40,8 +40,7 @@ public class RestValueRangeProvider implements ValueRangeProvider {
     private AsyncStatusIndicator statusIndicator;
     private final RequestBuilderFactory requestBuilderFactory;
     private Map<String, String> descriptorToUrlMapping;
-    private Map<String, RelationResultExtractor> descriptorToExtractorMapping =
-        new HashMap<String, RestValueRangeProvider.RelationResultExtractor>();
+    private Map<String, RelationResultExtractor> descriptorToExtractorMapping = new HashMap<String, RestValueRangeProvider.RelationResultExtractor>();
     private Map<String, String> descriptorToDisplayNameFieldMapping = new HashMap<String, String>();
 
     @Inject
@@ -123,14 +122,14 @@ public class RestValueRangeProvider implements ValueRangeProvider {
         List<Relation> relationList = new ArrayList<Relation>();
 
         for (int i = 0; i < jsonList.size(); i++) {
-            AssistedObject kvo =
-                new KvoJsonParser(descriptorStore, jsonList.get(i).isObject(), descriptorName)
-                    .parse();
+            AssistedObject kvo = new KvoJsonParser(
+                descriptorStore,
+                jsonList.get(i).isObject(),
+                descriptorName).parse();
             String displayName = kvo.toString();
             if (descriptorToUrlMapping.containsKey(descriptorName))
-                displayName =
-                    handlerFactory.createHandler(kvo).getString(
-                        descriptorToDisplayNameFieldMapping.get(descriptorName));
+                displayName = handlerFactory.createHandler(kvo).getString(
+                    descriptorToDisplayNameFieldMapping.get(descriptorName));
             relationList.add(new Relation(kvo.getId(), displayName, kvo));
         }
 
@@ -145,15 +144,13 @@ public class RestValueRangeProvider implements ValueRangeProvider {
      * @param callback
      * @return
      */
-    protected RelationFDesc castDescriptorCheckType(
-        FDesc fieldDesc,
-        ValueRangeResultCallback callback) {
+    protected
+        RelationFDesc
+        castDescriptorCheckType(FDesc fieldDesc, ValueRangeResultCallback callback) {
         if (fieldDesc.getType() != IneT.RELATION) {
-            System.out
-                .println("ValueRangeProvider.getRelationValueRange was called with a FieldDescriptor("
-                    + fieldDesc.getKey()
-                    + ") that"
-                    + " is not a RelatonFieldDescriptor");
+            System.out.println(
+                "ValueRangeProvider.getRelationValueRange was called with a FieldDescriptor("
+                    + fieldDesc.getKey() + ") that" + " is not a RelatonFieldDescriptor");
             callback.onValueRangeResultReady(null);
             return null;
         }

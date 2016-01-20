@@ -51,13 +51,13 @@ public class NationalityAssist {
         if (validatorDesc != null)
             return validatorDesc;
 
-        validatorDesc = new ValidatorDesc(NationalityKVO.descriptorName, new String[] {/*
-                                                                                        * hc
-                                                                                        * :
-                                                                                        * vd1
-                                                                                        */
+        validatorDesc = new ValidatorDesc(
+            NationalityKVO.descriptorName,
+            new String[] { /*
+                            * hc : vd1
+                            */
 
-        /* hc */});
+                /* hc */ });
 
         return validatorDesc;
     }
@@ -66,17 +66,19 @@ public class NationalityAssist {
         if (objectDesc != null)
             return objectDesc;
 
-        objectDesc =
-            new ObjectDesc(NationalityKVO.descriptorName, new LongFDesc(
+        objectDesc = new ObjectDesc(
+            NationalityKVO.descriptorName,
+            new LongFDesc(
                 NationalityKVO.k_id, /* hc:d1 */
                 "Id"/* hc */)/* hc:d2_1 *//* hc */
-            , new StringFDesc(NationalityKVO.k_name, /* hc:d2 */"Name"/* hc */)/*
-                                                                                * hc
-                                                                                * :
-                                                                                * d2_2
-                                                                                *//* hc */
+                ,
+            new StringFDesc(
+                NationalityKVO.k_name,
+                /* hc:d2 */"Name"/* hc */)/*
+                                           * hc : d2_2
+                                           *//* hc */
 
-            );
+        );
         return objectDesc;
     }
 
@@ -86,16 +88,16 @@ public class NationalityAssist {
 
             tableRDesc
                 .getRootNode()
-                .addChild(NationalityKVO.k_id, new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
-                                                                                         * hc
-                                                                                         * :
-                                                                                         * tdr2_1
-                                                                                         *//* hc */)
-                .addChild(NationalityKVO.k_name, new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
-                                                                                           * hc
-                                                                                           * :
-                                                                                           * tdr2_2
-                                                                                           *//* hc */);
+                .addChild(
+                    NationalityKVO.k_id,
+                    new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
+                                                              * hc : tdr2_1
+                                                              *//* hc */)
+                .addChild(
+                    NationalityKVO.k_name,
+                    new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
+                                                              * hc : tdr2_2
+                                                              *//* hc */);
         }
         return tableRDesc;
     }
@@ -106,30 +108,31 @@ public class NationalityAssist {
 
             customTableRDesc
                 .getRootNode()
-                .addChild(NationalityKVO.k_id, new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
-                                                                                         * hc
-                                                                                         * :
-                                                                                         * tdr2_1
-                                                                                         *//* hc */)
-                .addChild(NationalityKVO.k_name, new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
-                                                                                           * hc
-                                                                                           * :
-                                                                                           * tdr2_2
-                                                                                           *//* hc */)
-                .addChild("customfield", new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
-                                                                                   * hc
-                                                                                   * :
-                                                                                   * tdr2_3
-                                                                                   *//* hc */);
+                .addChild(
+                    NationalityKVO.k_id,
+                    new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
+                                                              * hc : tdr2_1
+                                                              *//* hc */)
+                .addChild(
+                    NationalityKVO.k_name,
+                    new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
+                                                              * hc : tdr2_2
+                                                              *//* hc */)
+                .addChild(
+                    "customfield",
+                    new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
+                                                              * hc : tdr2_3
+                                                              *//* hc */);
         }
         return customTableRDesc;
     }
 
     public static FormRDesc getFormRDesc() {
         if (formRDesc == null) {
-            formRDesc = new FormRDesc(NationalityKVO.descriptorName/*
-                                                                    * hc:frd_props
-                                                                    */
+            formRDesc = new FormRDesc(
+                NationalityKVO.descriptorName/*
+                                              * hc:frd_props
+                                              */
 
             /* hc */);
 

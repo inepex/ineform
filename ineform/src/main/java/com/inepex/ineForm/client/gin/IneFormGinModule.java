@@ -72,15 +72,12 @@ import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
 public class IneFormGinModule extends AbstractGinModule {
 
-    private Class<? extends AsyncStatusIndicator> asyncStatusIndicator =
-        FullscreenStatusIndicator.class;
-    private Class<? extends ConnectionFailedHandler> connectionFailedHandler =
-        DefaultFailedHandler.class;
+    private Class<? extends AsyncStatusIndicator> asyncStatusIndicator = FullscreenStatusIndicator.class;
+    private Class<? extends ConnectionFailedHandler> connectionFailedHandler = DefaultFailedHandler.class;
     private Class<? extends FormWidgetFactory> formWidgetFactory = DefaultFormWidgetFactory.class;
     private Class<? extends DateProvider> dateProvider = CETDateProviderCln.class;
     private Class<? extends FormUnitFactory> formUnitFactory = DefaultFormUnitFactory.class;
-    private Class<? extends PanelWidgetFactory> panelWidgetFactory =
-        DefaultPanelWidgetFactory.class;
+    private Class<? extends PanelWidgetFactory> panelWidgetFactory = DefaultPanelWidgetFactory.class;
     private Class<? extends DescriptorStore> descStore = ClientDescriptorStore.class;
 
     public IneFormGinModule() {}
@@ -137,8 +134,9 @@ public class IneFormGinModule extends AbstractGinModule {
 
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
         bind(DescriptorStore.class).to(descStore).in(Singleton.class);
-        bind(DescriptorStoreMapCreator.class).to(TreeDescriptorStoreMapCreator.class).in(
-            Singleton.class);
+        bind(DescriptorStoreMapCreator.class)
+            .to(TreeDescriptorStoreMapCreator.class)
+            .in(Singleton.class);
 
         bind(FormContext.class);
 
@@ -150,68 +148,81 @@ public class IneFormGinModule extends AbstractGinModule {
         bind(RequestBuilderFactory.class).to(GwtRequestBuilderFactory.class).in(Singleton.class);
         bind(DateProvider.class).to(dateProvider).in(Singleton.class);
 
-        install(new GinFactoryModuleBuilder()
-            .implement(IneForm.class, Names.named("simple"), IneForm.class)
-            .implement(IneForm.class, Names.named("saveCancel"), SaveCancelForm.class)
-            .implement(IneForm.class, Names.named("wizard"), WizardForm.class)
-            .implement(IneForm.class, Names.named("search"), SearchForm.class)
-            .build(FormFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(IneForm.class, Names.named("simple"), IneForm.class)
+                .implement(IneForm.class, Names.named("saveCancel"), SaveCancelForm.class)
+                .implement(IneForm.class, Names.named("wizard"), WizardForm.class)
+                .implement(IneForm.class, Names.named("search"), SearchForm.class)
+                .build(FormFactory.class));
 
-        install(new GinFactoryModuleBuilder()
-            .implement(
-                IneDataConnector.class,
-                Names.named("serverside"),
-                ServerSideDataConnector.class)
-            .implement(IneDataConnector.class, Names.named("rest"), RestDataConnector.class)
-            .build(DataConnectorFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(
+                    IneDataConnector.class,
+                    Names.named("serverside"),
+                    ServerSideDataConnector.class)
+                .implement(IneDataConnector.class, Names.named("rest"), RestDataConnector.class)
+                .build(DataConnectorFactory.class));
 
-        install(new GinFactoryModuleBuilder()
-            .implement(
-                DataManipulator.class,
-                Names.named("rowCommand"),
-                RowCommandDataManipulator.class)
-            .implement(
-                DataManipulator.class,
-                Names.named("singleSelect"),
-                SingleSelectDataManipulator.class)
-            .build(ManipulatorFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(
+                    DataManipulator.class,
+                    Names.named("rowCommand"),
+                    RowCommandDataManipulator.class)
+                .implement(
+                    DataManipulator.class,
+                    Names.named("singleSelect"),
+                    SingleSelectDataManipulator.class)
+                .build(ManipulatorFactory.class));
 
-        install(new GinFactoryModuleBuilder()
-            .implement(
-                ValueRangeProvider.class,
-                Names.named("default"),
-                ServerSideValueRangeProvider.class)
-            .implement(ValueRangeProvider.class, Names.named("rest"), RestValueRangeProvider.class)
-            .build(ValueRangeProviderFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(
+                    ValueRangeProvider.class,
+                    Names.named("default"),
+                    ServerSideValueRangeProvider.class)
+                .implement(
+                    ValueRangeProvider.class,
+                    Names.named("rest"),
+                    RestValueRangeProvider.class)
+                .build(ValueRangeProviderFactory.class));
 
-        install(new GinFactoryModuleBuilder().implement(
-            ObjectFinderRest.class,
-            ObjectFinderRest.class).build(ObjectFinderRestFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(ObjectFinderRest.class, ObjectFinderRest.class)
+                .build(ObjectFinderRestFactory.class));
 
         bind(PropFW.View.class).to(PropFWView.class);
 
-        install(new GinFactoryModuleBuilder()
-            .implement(CsvRenderer.class, CsvRenderer.class)
-            .build(CsvRendererFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(CsvRenderer.class, CsvRenderer.class)
+                .build(CsvRendererFactory.class));
 
-        install(new GinFactoryModuleBuilder()
-            .implement(TrtdRenderer.class, TrtdRenderer.class)
-            .build(TrtdRendererFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(TrtdRenderer.class, TrtdRenderer.class)
+                .build(TrtdRendererFactory.class));
 
-        install(new GinFactoryModuleBuilder()
-            .implement(HtmlRenderer.class, HtmlRenderer.class)
-            .build(HtmlRendererFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(HtmlRenderer.class, HtmlRenderer.class)
+                .build(HtmlRendererFactory.class));
 
-        install(new GinFactoryModuleBuilder()
-            .implement(IneTable.class, Names.named("simple"), IneTable.class)
-            .implement(IneTable.class, Names.named("simple2"), IneTable.class)
-            .implement(IneTable.class, Names.named("sortable"), SortableIneTable.class)
-            .implement(IneTable.class, Names.named("sortable2"), SortableIneTable.class)
-            .build(IneTableFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(IneTable.class, Names.named("simple"), IneTable.class)
+                .implement(IneTable.class, Names.named("simple2"), IneTable.class)
+                .implement(IneTable.class, Names.named("sortable"), SortableIneTable.class)
+                .implement(IneTable.class, Names.named("sortable2"), SortableIneTable.class)
+                .build(IneTableFactory.class));
 
-        install(new GinFactoryModuleBuilder().implement(
-            DefaultOneParamPresenter.class,
-            DefaultOneParamPresenter.class).build(SelectorPresenterFactory.class));
+        install(
+            new GinFactoryModuleBuilder()
+                .implement(DefaultOneParamPresenter.class, DefaultOneParamPresenter.class)
+                .build(SelectorPresenterFactory.class));
 
         bind(AsyncStatusIndicator.class).to(asyncStatusIndicator).in(Singleton.class);
         bind(ConnectionFailedHandler.class).to(connectionFailedHandler).in(Singleton.class);

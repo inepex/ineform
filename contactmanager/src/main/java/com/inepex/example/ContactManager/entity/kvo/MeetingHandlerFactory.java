@@ -26,11 +26,9 @@ public class MeetingHandlerFactory {
 
     public MeetingHandler createHandler(AssistedObject assistedObject) {
         if (!MeetingConsts.descriptorName.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + MeetingConsts.descriptorName
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + MeetingConsts.descriptorName
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new MeetingHandler(assistedObject, descriptorStore);
     }
@@ -42,11 +40,9 @@ public class MeetingHandlerFactory {
 
     public MeetingSearchHandler createSearchHandler(AssistedObject assistedObject) {
         if (!MeetingConsts.searchDescriptor.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + MeetingConsts.searchDescriptor
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + MeetingConsts.searchDescriptor
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new MeetingSearchHandler(assistedObject, descriptorStore);
     }
@@ -108,7 +104,9 @@ public class MeetingHandlerFactory {
 
     public static class MeetingSearchHandler extends AssistedObjectHandler {
 
-        private MeetingSearchHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+        private MeetingSearchHandler(
+            AssistedObject assistedObject,
+            DescriptorStore descriptorStore) {
             super(assistedObject, descriptorStore);
         }
 

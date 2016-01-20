@@ -61,8 +61,8 @@ public abstract class DescriptorStore {
         return clazz.getName();
     }
 
-    public final
-        <D extends DescriptorBase>
+    public final <
+        D extends DescriptorBase>
         D
         getDefaultTypedDesc(String objDescName, Class<D> clazz) {
         return getNamedTypedDesc(objDescName, DEFAULT_DESC_KEY, clazz);

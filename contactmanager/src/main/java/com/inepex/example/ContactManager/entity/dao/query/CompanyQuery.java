@@ -36,39 +36,35 @@ public class CompanyQuery extends BaseQuery<Company> {
         Root<Company> from,
         Expression<Boolean> base) {
 
-        CompanySearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        CompanySearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(CompanyConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(Company_.id), id));
         String name = handler.getString(CompanyConsts.s_name);
         if (name != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(Company_.name)), name.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(Company_.name)), name.toUpperCase() + "%"));
         String phone = handler.getString(CompanyConsts.s_phone);
         if (phone != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(Company_.phone)), phone.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(Company_.phone)), phone.toUpperCase() + "%"));
         String email = handler.getString(CompanyConsts.s_email);
         if (email != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(Company_.email)), email.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(Company_.email)), email.toUpperCase() + "%"));
         String webPage = handler.getString(CompanyConsts.s_webPage);
         if (webPage != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(Company_.webPage)), webPage.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(Company_.webPage)), webPage.toUpperCase() + "%"));
         return base;
     }
 
@@ -103,26 +99,22 @@ public class CompanyQuery extends BaseQuery<Company> {
         Path<Company> from,
         String value) {
         Expression<Boolean> expr = null;
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(Company_.name)), value.toUpperCase() + "%"));
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(Company_.phone)), value.toUpperCase() + "%"));
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(Company_.email)), value.toUpperCase() + "%"));
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(Company_.webPage)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(Company_.name)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(Company_.phone)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(Company_.email)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(Company_.webPage)), value.toUpperCase() + "%"));
         return expr;
     }
 

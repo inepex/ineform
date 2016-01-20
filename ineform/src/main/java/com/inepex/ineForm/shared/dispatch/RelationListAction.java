@@ -18,12 +18,10 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
  *
  */
 public class RelationListAction extends AbstractSearchAction
-    implements
-    Action<RelationListActionResult>,
-    RelationList {
+        implements Action<RelationListActionResult>, RelationList {
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = -8669603502664601792L;
     private List<String> propGroups = new ArrayList<String>();
 

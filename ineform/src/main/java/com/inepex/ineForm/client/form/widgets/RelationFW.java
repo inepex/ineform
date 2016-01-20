@@ -38,8 +38,8 @@ public class RelationFW extends DenyingFormWidget {
         super.onAttach();
 
         for (AbstractFormUnit innerFormUnits : form.getRootPanelWidget().getFormUnits()) {
-            registerHandler(innerFormUnits
-                .addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+            registerHandler(
+                innerFormUnits.addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
                     @Override
                     public void onFormWidgetChange(FormWidgetChangeEvent e) {
                         fireFormWidgetChanged();

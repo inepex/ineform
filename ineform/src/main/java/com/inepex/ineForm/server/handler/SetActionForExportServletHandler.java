@@ -14,8 +14,7 @@ import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.dispatch.GenericActionResult;
 
 public class SetActionForExportServletHandler
-    extends
-    AbstractIneHandler<SetActionForExportServletAction, GenericActionResult> {
+        extends AbstractIneHandler<SetActionForExportServletAction, GenericActionResult> {
 
     public static final String actionForCsvKey = "actionForCsvKey";
     public static final String filenameForCsvKey = "filenameForCsvKey";

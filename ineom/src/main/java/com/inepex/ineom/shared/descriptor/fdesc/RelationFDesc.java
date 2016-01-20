@@ -8,8 +8,8 @@ import com.inepex.ineom.shared.IneT;
 public class RelationFDesc extends FDesc implements Serializable, IsSerializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 2284738151622982360L;
 
     private String relatedDescriptorName;

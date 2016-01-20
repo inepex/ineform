@@ -117,9 +117,10 @@ public class CompanyMapper extends BaseMapper<Company> {
     public Relation toRelation(Company entity, boolean includeKvo) {
         if (entity == null)
             return null;
-        return new Relation(entity.getId(), entity.toString(), includeKvo
-            ? entityToKvo(entity)
-            : null);
+        return new Relation(
+            entity.getId(),
+            entity.toString(),
+            includeKvo ? entityToKvo(entity) : null);
     }
 
 }

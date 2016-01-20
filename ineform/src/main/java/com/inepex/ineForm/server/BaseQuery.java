@@ -42,9 +42,8 @@ public abstract class BaseQuery<E> {
         Order
         getOrderExpression(AbstractSearch action, CriteriaBuilder cb, Root<E> from);
 
-    public abstract Expression<Boolean> getSearchExpression(
-        CriteriaBuilder cb,
-        Path<E> from,
-        String value);
+    public abstract
+        Expression<Boolean>
+        getSearchExpression(CriteriaBuilder cb, Path<E> from, String value);
 
 }

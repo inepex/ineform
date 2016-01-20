@@ -134,7 +134,7 @@ public class IneDateGWT {
             case YMO_OO:
                 return "1.1".equals(precision.getFormatter().format(date));
 
-                // FIXME
+            // FIXME
             case YMD_OO:
                 return "0001.01.01".equals(precision.getFormatter().format(date))
                     || "0000.12.30".equals(precision.getFormatter().format(date)); // don't
@@ -155,8 +155,8 @@ public class IneDateGWT {
                 return false;
         }
 
-        throw new RuntimeException("IneDateGWT: isEmpty(): there is no case for: "
-            + precision.toString());
+        throw new RuntimeException(
+            "IneDateGWT: isEmpty(): there is no case for: " + precision.toString());
     }
 
     @SuppressWarnings("deprecation")
@@ -256,8 +256,8 @@ public class IneDateGWT {
                 return;
         }
 
-        throw new RuntimeException("IneDateGWT: setDate(): there is no case for: "
-            + prec.toString());
+        throw new RuntimeException(
+            "IneDateGWT: setDate(): there is no case for: " + prec.toString());
     }
 
     @SuppressWarnings("deprecation")
@@ -315,8 +315,8 @@ public class IneDateGWT {
                 return;
         }
 
-        throw new RuntimeException("IneDateGWT: stepOneForward(): there is no case for: "
-            + prec.toString());
+        throw new RuntimeException(
+            "IneDateGWT: stepOneForward(): there is no case for: " + prec.toString());
     }
 
     /**

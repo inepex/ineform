@@ -29,15 +29,14 @@ public class CaptchaServlet extends SimpleCaptchaServlet {
         IOException {
         final HttpSession session = req.getSession();
 
-        final Captcha captcha =
-            new Captcha.Builder(_width, _height)
-                .addText()
-                .addBackground(new GradiatedBackgroundProducer())
-                .gimp()
-                .addBackground(new FlatColorBackgroundProducer(new Color(238, 238, 238)))
-                .addBorder()
-                .addNoise()
-                .build();
+        final Captcha captcha = new Captcha.Builder(_width, _height)
+            .addText()
+            .addBackground(new GradiatedBackgroundProducer())
+            .gimp()
+            .addBackground(new FlatColorBackgroundProducer(new Color(238, 238, 238)))
+            .addBorder()
+            .addNoise()
+            .build();
 
         session.setAttribute(NAME, captcha);
 

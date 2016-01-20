@@ -22,8 +22,8 @@ public class TypedDescriptorMap<D extends DescriptorBase> {
 
     public TypedDescriptorMap(DescriptorStoreMapCreator mapCreator) {
         this.mapCreator = mapCreator;
-        this.namedDescriptorsByOdName =
-            mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, Map<String, D>>());
+        this.namedDescriptorsByOdName = mapCreator
+            .createMap(new DescriptorStoreMapCreator.GenParam<String, Map<String, D>>());
     }
 
     public void addNamedDescriptor(String odName, String descName, D descriptor) {

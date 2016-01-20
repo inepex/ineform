@@ -57,9 +57,10 @@ public class EmailAddressMapper extends BaseMapper<EmailAddress> {
     public Relation toRelation(EmailAddress entity, boolean includeKvo) {
         if (entity == null)
             return null;
-        return new Relation(entity.getId(), entity.toString(), includeKvo
-            ? entityToKvo(entity)
-            : null);
+        return new Relation(
+            entity.getId(),
+            entity.toString(),
+            includeKvo ? entityToKvo(entity) : null);
     }
 
 }

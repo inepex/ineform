@@ -40,18 +40,14 @@ public abstract class UIBinderFormUnitSkin extends Composite {
 
         FDesc fDesc = uiBinderFormUnit.getFieldDesct(descNode);
 
-        FormWidget createdWidget =
-            formCtx.formWidgetFactory.createWidget(
-                formCtx,
-                uiBinderFormUnit,
-                fDesc,
-                (WidgetRDesc) descNode.getNodeElement(),
-                formCtx.propFwViewProvider);
-        createdWidget =
-            formCtx.formWidgetFactory.createDecorator(
-                createdWidget,
-                fDesc,
-                (WidgetRDesc) descNode.getNodeElement());
+        FormWidget createdWidget = formCtx.formWidgetFactory.createWidget(
+            formCtx,
+            uiBinderFormUnit,
+            fDesc,
+            (WidgetRDesc) descNode.getNodeElement(),
+            formCtx.propFwViewProvider);
+        createdWidget = formCtx.formWidgetFactory
+            .createDecorator(createdWidget, fDesc, (WidgetRDesc) descNode.getNodeElement());
 
         if (createdWidget != null) {
             uiBinderFormUnit.registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);
@@ -87,15 +83,15 @@ public abstract class UIBinderFormUnitSkin extends Composite {
     public UIMandatory createMandatorySign(String key) {
         Node<FormRDescBase> descNode = uiBinderFormUnit.getSelectedFields().get(key);
         FDesc fDesc = uiBinderFormUnit.getFieldDesct(descNode);
-        return new UIMandatory(fDesc.getValidatorNames().contains(
-            KeyValueObjectValidationManager.MANDATORY));
+        return new UIMandatory(
+            fDesc.getValidatorNames().contains(KeyValueObjectValidationManager.MANDATORY));
     }
 
     @UiFactory
     public UIFieldError createFieldError(String key) {
         UIFieldError fe = new UIFieldError();
-        SimpleTableErrorMessageManager manager =
-            new SimpleTableErrorMessageManager(fe.getElement());
+        SimpleTableErrorMessageManager manager = new SimpleTableErrorMessageManager(
+            fe.getElement());
         uiBinderFormUnit.registerErrorMessegeManager(key, manager);
         return fe;
     }

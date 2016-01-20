@@ -8,8 +8,7 @@ public class HandlerHandler {
 
     public HandlerHandler() {}
 
-    private List<HandlerRegistration> handlerRegistrations =
-        new java.util.ArrayList<HandlerRegistration>();
+    private List<HandlerRegistration> handlerRegistrations = new java.util.ArrayList<HandlerRegistration>();
 
     public void registerHandler(HandlerRegistration handlerRegistration) {
         handlerRegistrations.add(handlerRegistration);

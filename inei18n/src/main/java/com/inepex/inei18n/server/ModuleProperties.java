@@ -15,8 +15,9 @@ public class ModuleProperties {
     public final String downloadUrl;
 
     public ModuleProperties(ClassLoader classLoader, String moduleName) {
-        SimpleOnDemandProperties odp =
-            new SimpleOnDemandProperties(classLoader, moduleName + ".properties");
+        SimpleOnDemandProperties odp = new SimpleOnDemandProperties(
+            classLoader,
+            moduleName + ".properties");
         Properties properties = odp.getPropertiesInstance();
 
         languages = properties.getProperty("languages").split(",");

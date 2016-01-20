@@ -65,8 +65,8 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 
     @Test
     public void renderTest(CsvRendererFactory csvRendererFactory) {
-        CsvRenderer csvRenderer =
-            csvRendererFactory.create(NationalityKVO.descriptorName, (String) null);
+        CsvRenderer csvRenderer = csvRendererFactory
+            .create(NationalityKVO.descriptorName, (String) null);
 
         String csvString = csvRenderer.render(kvos);
 
@@ -75,8 +75,8 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 
     @Test
     public void renderWithHeaderTest(CsvRendererFactory csvRendererFactory) {
-        CsvRenderer csvRenderer =
-            csvRendererFactory.create(NationalityKVO.descriptorName, (String) null);
+        CsvRenderer csvRenderer = csvRendererFactory
+            .create(NationalityKVO.descriptorName, (String) null);
 
         csvRenderer.setRenderHeader(true);
 
@@ -87,8 +87,8 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 
     @Test
     public void renderWithCustomDescTest(CsvRendererFactory csvRendererFactory) {
-        CsvRenderer csvRenderer =
-            csvRendererFactory.create(NationalityKVO.descriptorName, "custom");
+        CsvRenderer csvRenderer = csvRendererFactory
+            .create(NationalityKVO.descriptorName, "custom");
 
         String csvString = csvRenderer.render(kvos);
 
@@ -97,8 +97,8 @@ public class CsvRendererTest extends DefaultIneFrameClientSideTestBase {
 
     @Test
     public void renderWithCustomDescTestAndCustomDisplayer(CsvRendererFactory csvRendererFactory) {
-        CsvRenderer csvRenderer =
-            csvRendererFactory.create(NationalityKVO.descriptorName, "custom");
+        CsvRenderer csvRenderer = csvRendererFactory
+            .create(NationalityKVO.descriptorName, "custom");
         csvRenderer.addCellContentDisplayer("customfield", new CustomCellContentDisplayer() {
 
             @Override

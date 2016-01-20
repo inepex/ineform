@@ -8,51 +8,64 @@ import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 public interface IneFrameResources extends ClientBundle {
 
     @Source("BundledStyle.css")
-    IneFrameStyle style();
+        IneFrameStyle
+            style();
 
     @Source("menu.png")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource menu();
+        ImageResource
+            menu();
 
     @Source("menu_hover.png")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource menu_hover();
+        ImageResource
+            menu_hover();
 
     @Source("menu_on.png")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource menu_on();
+        ImageResource
+            menu_on();
 
     @Source("submenu.png")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource submenu();
+        ImageResource
+            submenu();
 
     @Source("submenu_li.png")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource submenu_li();
+        ImageResource
+            submenu_li();
 
     @Source("submenu_on.png")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource submenu_on();
+        ImageResource
+            submenu_on();
 
     @Source("logo.png")
-    ImageResource logo();
+        ImageResource
+            logo();
 
     @Source("settings.png")
-    ImageResource settings();
+        ImageResource
+            settings();
 
     @Source("selector_arrow_bg.gif")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource selector_arrow_bg();
+        ImageResource
+            selector_arrow_bg();
 
     @Source("selector_item_bg.gif")
     @ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-    ImageResource selector_item_bg();
+        ImageResource
+            selector_item_bg();
 
     @Source("selector_up_arrow.gif")
-    ImageResource selector_up_arrow();
+        ImageResource
+            selector_up_arrow();
 
     @Source("selector_down_arrow.gif")
-    ImageResource selector_down_arrow();
+        ImageResource
+            selector_down_arrow();
 
     ImageResource headerDrawerIcon();
 

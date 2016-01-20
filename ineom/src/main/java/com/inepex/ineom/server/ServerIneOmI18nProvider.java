@@ -39,19 +39,15 @@ public class ServerIneOmI18nProvider extends ServerI18nProvider<IneOmI18n> {
         module.getTextMap().put(
             "validatorEQ",
             "The number entered into field {fieldName} must be equal to {constvalAsString}!");
-        module
-            .getTextMap()
-            .put(
-                "validatorGE",
-                "The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!");
+        module.getTextMap().put(
+            "validatorGE",
+            "The number entered into field {fieldName} must be greater then or equal to {constvalAsString}!");
         module.getTextMap().put(
             "validatorGT",
             "The number entered into field {fieldName} must be greater then {constvalAsString}!");
-        module
-            .getTextMap()
-            .put(
-                "validatorLE",
-                "The number entered into field {fieldName} must be less then or equal to {constvalAsString}!");
+        module.getTextMap().put(
+            "validatorLE",
+            "The number entered into field {fieldName} must be less then or equal to {constvalAsString}!");
         module.getTextMap().put(
             "validatorLT",
             "The number entered into field {fieldName} must be less then {constvalAsString}!");
@@ -65,9 +61,9 @@ public class ServerIneOmI18nProvider extends ServerI18nProvider<IneOmI18n> {
         module.getTextMap().put(
             "validatorShouldBefore",
             "This date should be before {otherFieldsName}!");
-        module.getTextMap().put(
-            "validatorUniqueRelList",
-            "The {i}th and the {j}th items are equal.");
+        module
+            .getTextMap()
+            .put("validatorUniqueRelList", "The {i}th and the {j}th items are equal.");
         module.getTextMap().put("validator_mandatory", "This field is required!");
     }
 }

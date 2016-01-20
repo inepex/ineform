@@ -36,32 +36,29 @@ public class UserQuery extends BaseQuery<User> {
         Root<User> from,
         Expression<Boolean> base) {
 
-        UserSearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        UserSearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(UserConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(User_.id), id));
         String firstName = handler.getString(UserConsts.s_firstName);
         if (firstName != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(User_.firstName)), firstName.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(User_.firstName)), firstName.toUpperCase() + "%"));
         String lastName = handler.getString(UserConsts.s_lastName);
         if (lastName != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(User_.lastName)), lastName.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(User_.lastName)), lastName.toUpperCase() + "%"));
         String email = handler.getString(UserConsts.s_email);
         if (email != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(User_.email)), email.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(User_.email)), email.toUpperCase() + "%"));
         return base;
     }
 
@@ -94,21 +91,18 @@ public class UserQuery extends BaseQuery<User> {
         Expression<Boolean>
         getSearchExpression(CriteriaBuilder cb, Path<User> from, String value) {
         Expression<Boolean> expr = null;
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(User_.firstName)), value.toUpperCase() + "%"));
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(User_.lastName)), value.toUpperCase() + "%"));
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(User_.email)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(User_.firstName)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(User_.lastName)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(User_.email)), value.toUpperCase() + "%"));
         return expr;
     }
 }

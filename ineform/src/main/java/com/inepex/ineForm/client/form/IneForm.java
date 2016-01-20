@@ -118,24 +118,23 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
         if (formRenderDescName == null)
             formRenderDescName = DescriptorStore.DEFAULT_DESC_KEY;
         if (DescriptorStore.DEFAULT_DESC_KEY.equals(formRenderDescName)) {
-            this.formRenderDescriptor =
-                descStore.getDefaultTypedDesc(descriptorName, FormRDesc.class);
+            this.formRenderDescriptor = descStore
+                .getDefaultTypedDesc(descriptorName, FormRDesc.class);
         } else {
-            this.formRenderDescriptor =
-                descStore.getNamedTypedDesc(descriptorName, formRenderDescName, FormRDesc.class);
+            this.formRenderDescriptor = descStore
+                .getNamedTypedDesc(descriptorName, formRenderDescName, FormRDesc.class);
         }
         this.objectDescriptor = descStore.getOD(descriptorName);
         if (formRenderDescriptor == null)
-            throw new RuntimeException("FormRenderDescriptor ["
-                + formRenderDescName
-                + "] for Objectdescriptor ["
-                + descriptorName
-                + "] not found. You may forget to register it in AppDispatchServlet!");
+            throw new RuntimeException(
+                "FormRenderDescriptor [" + formRenderDescName + "] for Objectdescriptor ["
+                    + descriptorName
+                    + "] not found. You may forget to register it in AppDispatchServlet!");
     }
 
     private void addErrorLableHidden() {
-        defaultErrorMessageManager =
-            new SimpleTableErrorMessageManager(generalErrorPanel.getElement());
+        defaultErrorMessageManager = new SimpleTableErrorMessageManager(
+            generalErrorPanel.getElement());
         mainPanel.add(generalErrorPanel);
         generalErrorPanel.setVisible(false);
     }
@@ -146,18 +145,15 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
 
         fireBeforeRenderEvent();
 
-        List<Node<FormRDescBase>> formRDescChildren =
-            formRenderDescriptor.getRootNode().getChildren();
+        List<Node<FormRDescBase>> formRDescChildren = formRenderDescriptor
+            .getRootNode()
+            .getChildren();
 
-        if (formRDescChildren == null
-            || formRDescChildren.size() == 0
+        if (formRDescChildren == null || formRDescChildren.size() == 0
             || formRDescChildren.get(0).getNodeElement() == null) {
             throw new RuntimeException(
-                "Ineform:renderForm: invalid FormRenderDescriptor(descriptor: "
-                    + descriptorName
-                    + ", frD "
-                    + formRenderDescName
-                    + ")");
+                "Ineform:renderForm: invalid FormRenderDescriptor(descriptor: " + descriptorName
+                    + ", frD " + formRenderDescName + ")");
         }
 
         if (formRDescChildren.size() == 1
@@ -219,11 +215,10 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
         PanelWidget parentPanel,
         Node<FormRDescBase> paneldescNode) {
 
-        PanelWidget panel =
-            formCtx.panelWidgetFactory.createPanel(
-                (PanelWidgetRDesc) paneldescNode.getNodeElement(),
-                parentPanel,
-                parentPanel == null ? this : parentPanel);
+        PanelWidget panel = formCtx.panelWidgetFactory.createPanel(
+            (PanelWidgetRDesc) paneldescNode.getNodeElement(),
+            parentPanel,
+            parentPanel == null ? this : parentPanel);
         if (!paneldescNode.hasDefaultId())
             panels.put(paneldescNode.getNodeId(), panel);
         process(panel, paneldescNode.getChildren());
@@ -253,13 +248,12 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
         if (formdescNode.getChildren() == null || formdescNode.getChildren().size() == 0)
             return;
 
-        AbstractFormUnit form =
-            formCtx.formUnitFactory.createFormUnit(
-                formCtx,
-                formRenderDescriptor,
-                (FormUnitRDesc) formdescNode.getNodeElement(),
-                descriptorName,
-                formdescNode.getChildren());
+        AbstractFormUnit form = formCtx.formUnitFactory.createFormUnit(
+            formCtx,
+            formRenderDescriptor,
+            (FormUnitRDesc) formdescNode.getNodeElement(),
+            descriptorName,
+            formdescNode.getChildren());
 
         if (!formdescNode.hasDefaultId())
             putFormUnit(formdescNode.getNodeId(), form);
@@ -270,19 +264,14 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
     /**
      * forms without descriptor
      */
-    private void createFormAndAddToParent(
-        PanelWidget parentPanel,
-        List<Node<FormRDescBase>> children) {
+    private
+        void
+        createFormAndAddToParent(PanelWidget parentPanel, List<Node<FormRDescBase>> children) {
         if (children == null || children.size() == 0)
             return;
 
-        AbstractFormUnit form =
-            formCtx.formUnitFactory.createFormUnit(
-                formCtx,
-                formRenderDescriptor,
-                null,
-                descriptorName,
-                children);
+        AbstractFormUnit form = formCtx.formUnitFactory
+            .createFormUnit(formCtx, formRenderDescriptor, null, descriptorName, children);
         putFormUnit(defaultNodeId + ++defaultNodeIdNum, form);
         parentPanel.addToPanel(form);
         parentPanel.regFormUnit(form);
@@ -412,10 +401,8 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
         if (vr != null && !vr.isValid() && vr.getFieldErrors() != null) {
             for (AbstractFormUnit unit : getRootPanelWidget().getFormUnits()) {
                 for (String modelKey : unit.getErrorManagerKeySet()) {
-                    unit
-                        .getErrormanagersByKey()
-                        .get(modelKey)
-                        .addErrorMsg(vr.getFieldErrors().get(modelKey));
+                    unit.getErrormanagersByKey().get(modelKey).addErrorMsg(
+                        vr.getFieldErrors().get(modelKey));
                 }
                 for (String modelKey : unit.getFormWidgetKeySet()) {
                     if (vr.getFieldErrors().containsKey(modelKey))
@@ -439,10 +426,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                 unTargettedKeys.removeAll(unit.getErrorManagerKeySet());
             }
             for (String key : unTargettedKeys) {
-                Window.alert("There is an error which hase no place, key: "
-                    + key
-                    + " value: "
-                    + vr.getFieldErrors().get(key));
+                Window.alert(
+                    "There is an error which hase no place, key: " + key + " value: "
+                        + vr.getFieldErrors().get(key));
             }
         }
 
@@ -489,10 +475,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                     List<String> keyAsList = listFromDotSeparated(key);
                     lastKey = keyAsList.get(keyAsList.size() - 1);
                     actual = dataHandler.getRelatedKVOMultiLevel(keyAsList);
-                    type =
-                        descStore
-                            .getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList)
-                            .getType();
+                    type = descStore
+                        .getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList)
+                        .getType();
                     fDesc = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList);
                 } else {
                     lastKey = key;
@@ -529,8 +514,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                             break;
                         case PROP:
                             if (widget.handlesString()) {
-                                widget.setStringValue(actual.getAssistedObject().getPropsJson(
-                                    ((PropFDesc) fDesc).getId()));
+                                widget.setStringValue(
+                                    actual.getAssistedObject().getPropsJson(
+                                        ((PropFDesc) fDesc).getId()));
                             }
                             break;
                         default:
@@ -567,8 +553,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                 List<String> keyAsList = listFromDotSeparated(key);
                 lastKey = keyAsList.get(keyAsList.size() - 1);
                 actual = dataHandler.getRelatedKVOMultiLevel(keyAsList);
-                type =
-                    descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
+                type = descStore
+                    .getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList)
+                    .getType();
                 fDesc = descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList);
             } else {
                 lastKey = key;
@@ -613,12 +600,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                 }
 
             } catch (Exception e) {
-                System.out.println("Descriptor: "
-                    + descriptorName
-                    + " Key: "
-                    + key
-                    + " Exception: "
-                    + e.getMessage());
+                System.out.println(
+                    "Descriptor: " + descriptorName + " Key: " + key + " Exception: "
+                        + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -704,8 +688,9 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                 List<String> keyAsList = listFromDotSeparated(key);
                 lastKey = keyAsList.get(keyAsList.size() - 1);
                 actual = objectHandler.getRelatedKVOMultiLevel(keyAsList);
-                type =
-                    descStore.getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList).getType();
+                type = descStore
+                    .getRelatedFieldDescrMultiLevel(objectDescriptor, keyAsList)
+                    .getType();
             } else {
                 lastKey = key;
                 actual = objectHandler;
@@ -908,26 +893,24 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                     for (int i = 0; i < relList.getRelations().size(); i++) {
                         AssistedObject relKVO = relList.getRelations().get(i).getKvo();
                         if (relKVO == null)
-                            relKVO =
-                                new KeyValueObject(
-                                    ((ListFDesc) formCtx.descStore.getRelatedFieldDescrMultiLevel(
-                                        objectDescriptor,
-                                        SharedUtil.listFromDotSeparated(s)))
+                            relKVO = new KeyValueObject(
+                                ((ListFDesc) formCtx.descStore.getRelatedFieldDescrMultiLevel(
+                                    objectDescriptor,
+                                    SharedUtil.listFromDotSeparated(s)))
                                         .getRelatedDescriptorType());
 
                         ValidationResult related_vr = null;
                         switch (validateData) {
                             case PARTIAL:
-                                related_vr =
-                                    formCtx.validatorManager.validatePartial(
-                                        relKVO,
-                                        formCtx.descStore
-                                            .getDefaultTypedDesc(
-                                                relKVO.getDescriptorName(),
-                                                FormRDesc.class)
-                                            .getRootNode()
-                                            .getKeysUnderNode(),
-                                        customValidators);
+                                related_vr = formCtx.validatorManager.validatePartial(
+                                    relKVO,
+                                    formCtx.descStore
+                                        .getDefaultTypedDesc(
+                                            relKVO.getDescriptorName(),
+                                            FormRDesc.class)
+                                        .getRootNode()
+                                        .getKeysUnderNode(),
+                                    customValidators);
                                 break;
                             case ALL:
                                 related_vr = formCtx.validatorManager.validate(relKVO);
@@ -941,9 +924,8 @@ public class IneForm implements DisplayedFormUnitChangeHandler {
                             vr.setValid(false);
                         }
 
-                        ((RelationListFW) unit.getWidgetByKey(s)).dealValidationResult(
-                            i,
-                            related_vr);
+                        ((RelationListFW) unit.getWidgetByKey(s))
+                            .dealValidationResult(i, related_vr);
                     }
                 }
             }

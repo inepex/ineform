@@ -145,8 +145,7 @@ public class AssistedObjectSorter {
 
     private final DescriptorStore descriptorStore;
     private final AssistedObjectHandlerFactory aoHandlerFactory;
-    private Map<String, Comparator<AssistedObject>> customComparatorByKey =
-        new HashMap<String, Comparator<AssistedObject>>();
+    private Map<String, Comparator<AssistedObject>> customComparatorByKey = new HashMap<String, Comparator<AssistedObject>>();
 
     @Inject
     public AssistedObjectSorter(
@@ -171,10 +170,8 @@ public class AssistedObjectSorter {
 
         FDesc fieldDesc = objectDesc.getField(key);
         if (fieldDesc == null) {
-            System.err.println("FieldDesc not found odName: "
-                + list.get(0).getDescriptorName()
-                + ", key: "
-                + key);
+            System.err.println(
+                "FieldDesc not found odName: " + list.get(0).getDescriptorName() + ", key: " + key);
             return list;
         }
 

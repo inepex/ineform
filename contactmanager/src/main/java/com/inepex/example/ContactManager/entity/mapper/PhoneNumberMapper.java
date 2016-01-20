@@ -54,9 +54,8 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber> {
         if (entity.getNumber() != null && !"".equals(entity.getNumber()))
             handler.setNumber(entity.getNumber());
         if (entity.getType() != null)
-            handler.setType(new PhoneNumberTypeMapper(descriptorStore).toRelation(
-                entity.getType(),
-                false));
+            handler.setType(
+                new PhoneNumberTypeMapper(descriptorStore).toRelation(entity.getType(), false));
 
         /* hc:customToKvo */
         // custom mappings to Kvo comes here. Eg. when some properties should
@@ -69,9 +68,10 @@ public class PhoneNumberMapper extends BaseMapper<PhoneNumber> {
     public Relation toRelation(PhoneNumber entity, boolean includeKvo) {
         if (entity == null)
             return null;
-        return new Relation(entity.getId(), entity.toString(), includeKvo
-            ? entityToKvo(entity)
-            : null);
+        return new Relation(
+            entity.getId(),
+            entity.toString(),
+            includeKvo ? entityToKvo(entity) : null);
     }
 
 }

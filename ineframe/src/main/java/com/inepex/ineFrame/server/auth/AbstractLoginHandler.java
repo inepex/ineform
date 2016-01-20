@@ -18,8 +18,7 @@ import com.inepex.ineFrame.shared.auth.LoginAction;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthStatusResultBase>
-    extends
-    AbstractIneHandler<LoginAction, AuthStatusResultBase> {
+        extends AbstractIneHandler<LoginAction, AuthStatusResultBase> {
 
     private static final Logger _logger = LoggerFactory.getLogger(AbstractLoginHandler.class);
 
@@ -125,8 +124,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
         String password,
         boolean isGoogleLogin,
         String googleLoginToken,
-        int loginProductTypeOrdinal)
-        throws DispatchException;
+        int loginProductTypeOrdinal) throws DispatchException;
 
     /**
      * @return an empty result base object

@@ -20,10 +20,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.PropFDesc;
 import com.inepex.ineom.shared.util.SharedUtil;
 
 public class PropFW extends PropFWBase
-    implements
-    AddCallback,
-    RemoveCallback,
-    RowValueChangeCallback {
+        implements AddCallback, RemoveCallback, RowValueChangeCallback {
 
     public static final String PROP_TOOLTIP_PROP = "CUST_KVO_TOOLTIP_PROP";
     public static final String PROP_SEPARATOR = ";";
@@ -69,8 +66,8 @@ public class PropFW extends PropFWBase
         this.view.setRemoveCallback(this);
         this.view.setRowValueChangeCallback(this);
         if (widgetRDesc.hasProp(PROP_TOOLTIP_PROP)) {
-            view.setTooltipOptions(Arrays.asList(widgetRDesc.getPropValue(PROP_TOOLTIP_PROP).split(
-                PROP_SEPARATOR)));
+            view.setTooltipOptions(
+                Arrays.asList(widgetRDesc.getPropValue(PROP_TOOLTIP_PROP).split(PROP_SEPARATOR)));
         }
 
         // for pure java junit tests
@@ -169,8 +166,7 @@ public class PropFW extends PropFWBase
     }
 
     public TreeMap<String, ErrorMessageManagerInterface> getErrorManagers(String prefix) {
-        TreeMap<String, ErrorMessageManagerInterface> ret =
-            new TreeMap<String, ErrorMessageManagerInterface>();
+        TreeMap<String, ErrorMessageManagerInterface> ret = new TreeMap<String, ErrorMessageManagerInterface>();
         for (PropRow r : rows)
             ret.put(prefix + SharedUtil.ID_PART_SEPARATOR + r.getKey(), view.getErrorManager(r));
 

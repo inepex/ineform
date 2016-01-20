@@ -45,8 +45,8 @@ public class CaptchaFW extends StringFormWidget {
 
     @Override
     protected void onAttach() {
-        registerHandler(captchaWidget.getTextBox().addValueChangeHandler(
-            new ValueChangeHandler<String>() {
+        registerHandler(
+            captchaWidget.getTextBox().addValueChangeHandler(new ValueChangeHandler<String>() {
                 @Override
                 public void onValueChange(ValueChangeEvent<String> event) {
                     fireFormWidgetChanged();

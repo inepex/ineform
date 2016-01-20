@@ -41,25 +41,23 @@ public class ContactQuery extends BaseQuery<Contact> {
         Root<Contact> from,
         Expression<Boolean> base) {
 
-        ContactSearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        ContactSearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(ContactConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(Contact_.id), id));
         String name = handler.getString(ContactConsts.s_name);
         if (name != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(Contact_.name)), name.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(Contact_.name)), name.toUpperCase() + "%"));
         Relation company = handler.getRelation(ContactConsts.s_company);
         if (company != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(from.get(Contact_.company).get(Company_.id), company.getId()));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(from.get(Contact_.company).get(Company_.id), company.getId()));
         return base;
     }
 
@@ -105,11 +103,10 @@ public class ContactQuery extends BaseQuery<Contact> {
         Path<Contact> from,
         String value) {
         Expression<Boolean> expr = null;
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(Contact_.name)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(Contact_.name)), value.toUpperCase() + "%"));
         return expr;
     }
 

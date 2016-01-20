@@ -33,8 +33,7 @@ public class NumberUtilTest {
         Assert.assertEquals(new NumberUtilSrv().formatNumberToFractial(1.1, 2), "1,10");
         Assert.assertEquals(new NumberUtilSrv().formatNumberToFractial(1.11, 2), "1,11");
         Assert.assertEquals(new NumberUtilSrv().formatNumberToFractial(1.1111, 3), "1,111");
-        Assert.assertEquals(
-            new NumberUtilSrv().formatNumberToFractial(1.22222222221, 6),
-            "1,222222");
+        Assert
+            .assertEquals(new NumberUtilSrv().formatNumberToFractial(1.22222222221, 6), "1,222222");
     }
 }

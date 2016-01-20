@@ -37,8 +37,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
     // data flow
     protected TreeMap<String, HTML> titlesByKey = new TreeMap<String, HTML>();
     protected TreeMap<String, FormWidget> widgetsByKey = new TreeMap<String, FormWidget>();
-    protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey =
-        new TreeMap<String, ErrorMessageManagerInterface>();
+    protected TreeMap<String, ErrorMessageManagerInterface> errormanagersByKey = new TreeMap<String, ErrorMessageManagerInterface>();
     protected TreeMap<String, PropFW> propFwsByKey = new TreeMap<String, PropFW>();
 
     // gui behaviour
@@ -184,8 +183,7 @@ public abstract class AbstractFormUnit extends HandlerAwareFlowPanel {
     }
 
     public TreeMap<String, ErrorMessageManagerInterface> getErrormanagersByKey() {
-        TreeMap<String, ErrorMessageManagerInterface> ret =
-            new TreeMap<String, ErrorMessageManagerInterface>();
+        TreeMap<String, ErrorMessageManagerInterface> ret = new TreeMap<String, ErrorMessageManagerInterface>();
         ret.putAll(errormanagersByKey);
 
         for (String key : propFwsByKey.keySet()) {

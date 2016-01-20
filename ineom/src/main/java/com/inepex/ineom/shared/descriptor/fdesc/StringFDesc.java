@@ -13,8 +13,8 @@ import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
 public class StringFDesc extends FDesc implements Serializable, IsSerializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 5521900795365354819L;
 
     public StringFDesc() {

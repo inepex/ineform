@@ -27,8 +27,7 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 public class PushedEventProvider {
 
-    private Map<Action<?>, PushedActionContext<?>> requestedActions =
-        new LinkedHashMap<Action<?>, PushedActionContext<?>>();
+    private Map<Action<?>, PushedActionContext<?>> requestedActions = new LinkedHashMap<Action<?>, PushedActionContext<?>>();
 
     Timer eventQueryTimer = null;
 
@@ -47,7 +46,9 @@ public class PushedEventProvider {
     BatchSuccess currentSuccessCallback = null;
 
     @Inject
-    public PushedEventProvider(IneDispatch dispatch, ConnectionFailedHandler connectionFailedHandler) {
+    public PushedEventProvider(
+        IneDispatch dispatch,
+        ConnectionFailedHandler connectionFailedHandler) {
         this.dispatch = dispatch;
         this.connectionFailedHandler = connectionFailedHandler;
         eventQueryTimer = new RefreshTimer();
@@ -93,8 +94,7 @@ public class PushedEventProvider {
         Action<?>[] actions = new Action[requestedActions.size()];
 
         int i = 0;
-        List<PushedActionContext<?>> contextsInOrderForRunningActions =
-            new ArrayList<PushedActionContext<?>>();
+        List<PushedActionContext<?>> contextsInOrderForRunningActions = new ArrayList<PushedActionContext<?>>();
 
         for (Action<?> action : requestedActions.keySet()) {
             actions[i] = action;
@@ -110,10 +110,9 @@ public class PushedEventProvider {
 
         BatchAction batchAction = new BatchAction(OnException.CONTINUE, actions);
 
-        AsyncStatusIndicator statusIndicator =
-            useFullscreenStatusIndicatorOnce
-                ? new FullscreenStatusIndicator()
-                : silentStatusIndicator;
+        AsyncStatusIndicator statusIndicator = useFullscreenStatusIndicatorOnce
+            ? new FullscreenStatusIndicator()
+            : silentStatusIndicator;
         useFullscreenStatusIndicatorOnce = false;
 
         currentSuccessCallback = new BatchSuccess(contextsInOrderForRunningActions);

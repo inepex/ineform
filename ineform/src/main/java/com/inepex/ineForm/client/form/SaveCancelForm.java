@@ -48,8 +48,8 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
         public void onManipulationResult(
             com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult result) {
             dealValidationResult(result.getValidationResult());
-            if (result.isSuccess()
-                && (result.getValidationResult() == null || result.getValidationResult().isValid())) {
+            if (result.isSuccess() && (result.getValidationResult() == null
+                || result.getValidationResult().isValid())) {
                 if (result.getObjectsNewState() != null) {
                     setInitialData(result.getObjectsNewState());
                 }
@@ -182,13 +182,13 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
         }
 
         // Send only the changes to the server
-        AssistedObject difference =
-            aoDifference.getDifference(originalData, kvo).getAssistedObject();
+        AssistedObject difference = aoDifference
+            .getDifference(originalData, kvo)
+            .getAssistedObject();
         fireAfterObjectDiffAndBeforeSaveEvent(difference);
         if ((difference.getKeys().size() == 0 || difference.getKeys().size() == 1
             && difference.getKeys().get(0).equals(IFConsts.KEY_ID))
-            && difference.getAllPropsJson() != null
-            && difference.getAllPropsJson().size() == 0) {
+            && difference.getAllPropsJson() != null && difference.getAllPropsJson().size() == 0) {
 
             if (displayNothingToSaveMsg) {
                 ValidationResult vr = new ValidationResult();
@@ -256,17 +256,13 @@ public class SaveCancelForm extends IneForm implements SaveCancelFormView.Delega
         return doFireEvent(new AfterObjectDiffAndBeforeSaveEvent(differenceObject));
     }
 
-    public
-        SavedEvent
-        fireSavedEvent(
-            com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
+    public SavedEvent fireSavedEvent(
+        com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
         return doFireEvent(new SavedEvent(objectManipulationResult));
     }
 
-    public
-        AfterUnsuccessfulSaveEvent
-        fireAfterUnsuccesfulSaveEvent(
-            com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
+    public AfterUnsuccessfulSaveEvent fireAfterUnsuccesfulSaveEvent(
+        com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult objectManipulationResult) {
         return doFireEvent(new AfterUnsuccessfulSaveEvent(objectManipulationResult));
     }
 

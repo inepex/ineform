@@ -190,10 +190,8 @@ public class LazyArrayList<E> implements List<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         if (list == null)
-            throw new ArrayIndexOutOfBoundsException("empty list. Invalid from:"
-                + fromIndex
-                + " and to: "
-                + toIndex);
+            throw new ArrayIndexOutOfBoundsException(
+                "empty list. Invalid from:" + fromIndex + " and to: " + toIndex);
 
         return list.subList(fromIndex, toIndex);
     }

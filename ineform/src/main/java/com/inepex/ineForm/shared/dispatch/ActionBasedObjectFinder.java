@@ -48,7 +48,13 @@ public class ActionBasedObjectFinder implements ObjectFinder {
         List<String> propGroups,
         Callback callback,
         AsyncStatusIndicator customStatusIndicator) {
-        executeFind(descriptorName, descriptorName, id, propGroups, callback, customStatusIndicator);
+        executeFind(
+            descriptorName,
+            descriptorName,
+            id,
+            propGroups,
+            callback,
+            customStatusIndicator);
     }
 
     @Override
@@ -71,8 +77,9 @@ public class ActionBasedObjectFinder implements ObjectFinder {
         AsyncStatusIndicator customStatusIndicator) {
         KeyValueObject idObject = new KeyValueObject(objectDescName);
         idObject.setId(id);
-        ObjectManipulationAction action =
-            new ObjectManipulationAction(ManipulationTypes.REFRESH, idObject);
+        ObjectManipulationAction action = new ObjectManipulationAction(
+            ManipulationTypes.REFRESH,
+            idObject);
         if (propGroups != null)
             action.setPropGroups(propGroups.toArray(new String[propGroups.size()]));
         dispatcher.execute(action, new ObjectRefreshCallback(callback), customStatusIndicator);

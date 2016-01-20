@@ -30,11 +30,10 @@ public class ClientDescriptorStore extends DescriptorStore {
     @Inject
     public ClientDescriptorStore(DescriptorStoreMapCreator mapCreator) {
         this.mapCreator = mapCreator;
-        this.objectDescriptorMap =
-            mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, ODescMarkerPair>());
-        this.typedDescMap =
-            mapCreator
-                .createMap(new DescriptorStoreMapCreator.GenParam<String, TypedDescriptorMap<? extends DescriptorBase>>());
+        this.objectDescriptorMap = mapCreator
+            .createMap(new DescriptorStoreMapCreator.GenParam<String, ODescMarkerPair>());
+        this.typedDescMap = mapCreator.createMap(
+            new DescriptorStoreMapCreator.GenParam<String, TypedDescriptorMap<? extends DescriptorBase>>());
     }
 
     @Override
@@ -53,9 +52,9 @@ public class ClientDescriptorStore extends DescriptorStore {
         String namedDescName,
         Class<D> clazz) {
         ensureDescriptorForClass(clazz);
-        return (D) typedDescMap
-            .get(typeToKey(clazz))
-            .getNamedDescriptor(objDescName, namedDescName);
+        return (D) typedDescMap.get(typeToKey(clazz)).getNamedDescriptor(
+            objDescName,
+            namedDescName);
     }
 
     @Override

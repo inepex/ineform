@@ -17,8 +17,8 @@ import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 public class AbstractSearchAction implements Serializable, IsSerializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = -4108044012222527271L;
 
     String descriptorName;

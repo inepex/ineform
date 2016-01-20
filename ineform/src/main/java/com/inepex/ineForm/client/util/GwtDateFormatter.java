@@ -26,8 +26,9 @@ public class GwtDateFormatter implements DateFormatter {
 
     @Override
     public Long parseUiDate(String format, String localDateString) {
-        return dateProvider.whatMeansTyped(
-            DateTimeFormat.getFormat(format).parse(localDateString).getTime()).getTime();
+        return dateProvider
+            .whatMeansTyped(DateTimeFormat.getFormat(format).parse(localDateString).getTime())
+            .getTime();
     }
 
 }

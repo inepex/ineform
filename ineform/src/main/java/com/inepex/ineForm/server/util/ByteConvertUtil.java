@@ -48,17 +48,15 @@ public class ByteConvertUtil {
         int len = s.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] =
-                (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(
-                    s.charAt(i + 1),
-                    16));
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                + Character.digit(s.charAt(i + 1), 16));
         }
         return data;
     }
 
     public static byte[] base64ToByteArray(String base64Msg) {
-        ByteBuf buffer =
-            Base64.decode(Unpooled.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
+        ByteBuf buffer = Base64
+            .decode(Unpooled.wrappedBuffer(base64Msg.getBytes(Charset.forName("ASCII"))));
         byte[] msg = new byte[buffer.readableBytes()];
         buffer.readBytes(msg);
         buffer.release();

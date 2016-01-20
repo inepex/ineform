@@ -92,8 +92,8 @@ public class AssistedObjectBuilderFactoryBase {
             if (ao.getRelation(key) == null) {
                 FDesc fDesc = descStore.getOD(ao.getDescriptorName()).getField(key);
                 String relDesc = ((RelationFDesc) fDesc).getRelatedDescriptorName();
-                Relation rel =
-                    new Relation(aoHandlerFactory.createHandler(relDesc).getAssistedObject());
+                Relation rel = new Relation(
+                    aoHandlerFactory.createHandler(relDesc).getAssistedObject());
                 ao.set(key, rel);
             }
         }

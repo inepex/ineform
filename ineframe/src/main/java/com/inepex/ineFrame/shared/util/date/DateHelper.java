@@ -28,9 +28,10 @@ public class DateHelper {
      * 
      * 2010.11.17-2010.11.17 1 day 2010.11.17-2010.11.18 2 days
      */
-    public static <T extends LocalDate<T>> long diffDaysInclusive(
-        UserDate startDate,
-        UserDate endDate) {
+    public static <
+        T extends LocalDate<T>>
+        long
+        diffDaysInclusive(UserDate startDate, UserDate endDate) {
         Long diffMillis = diffMillis(startDate, endDate);
         return Math.round((double) diffMillis / dayInMs) + 1;
     }

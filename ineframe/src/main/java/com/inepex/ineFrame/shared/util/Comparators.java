@@ -22,13 +22,16 @@ public class Comparators {
 
         @Override
         public int compare(Relation o1, Relation o2) {
-            if (descStore.getOD(o1.getKvo().getDescriptorName()).containsKey(IFConsts.KEY_ORDERNUM)) {
+            if (descStore
+                .getOD(o1.getKvo().getDescriptorName())
+                .containsKey(IFConsts.KEY_ORDERNUM)) {
                 return objectHandlerFactory
                     .createHandler(o1.getKvo())
                     .getLong(IFConsts.KEY_ORDERNUM)
                     .compareTo(
-                        objectHandlerFactory.createHandler(o2.getKvo()).getLong(
-                            IFConsts.KEY_ORDERNUM));
+                        objectHandlerFactory
+                            .createHandler(o2.getKvo())
+                            .getLong(IFConsts.KEY_ORDERNUM));
             } else
                 return o1.getId().compareTo(o2.getId());
         }

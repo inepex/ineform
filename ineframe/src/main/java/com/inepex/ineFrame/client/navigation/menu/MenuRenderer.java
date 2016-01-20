@@ -103,9 +103,8 @@ public class MenuRenderer {
         if (newTokenPlacePart.equals(lastTokenPlacePart)) {
             return;
         }
-        List<String> tokens =
-            new ArrayList<String>(Arrays.asList(newTokenPlacePart.split(PlaceHandlerHelper
-                .regExp(Node.ID_SEPARATOR))));
+        List<String> tokens = new ArrayList<String>(
+            Arrays.asList(newTokenPlacePart.split(PlaceHandlerHelper.regExp(Node.ID_SEPARATOR))));
         Node<InePlace> pointer = getRootNode(tokens); // also removes unneeded
                                                       // parts of tokens list
         int levelOfChange = PlaceHandlerHelper.levelOfChange(lastTokenPartsFromMenuRoot, tokens);
@@ -123,10 +122,8 @@ public class MenuRenderer {
         // selected node of the first level and so on.
         int level = 0;
         for (int i = levelOfChange; i < tokens.size()
-            || pointer != null
-            && pointer.getNodeElement() != null
-            && pointer.getNodeElement().isShowChildreWhenActive()
-            && i == tokens.size(); i++) {
+            || pointer != null && pointer.getNodeElement() != null
+                && pointer.getNodeElement().isShowChildreWhenActive() && i == tokens.size(); i++) {
             level = i;
             Node<InePlace> selectednode = null;
 
@@ -231,12 +228,9 @@ public class MenuRenderer {
     }
 
     private boolean isVisible(Node<InePlace> node, boolean selected) {
-        return !(node.getNodeElement().isOnlyVisibleWhenActive()
-            && !selected
-            || node.getNodeElement().getMenuName() == null || node
-            .getNodeElement()
-            .getMenuName()
-            .length() < 1);
+        return !(node.getNodeElement().isOnlyVisibleWhenActive() && !selected
+            || node.getNodeElement().getMenuName() == null
+            || node.getNodeElement().getMenuName().length() < 1);
     }
 
     private void createTab(
@@ -247,11 +241,10 @@ public class MenuRenderer {
         int level) {
         if (node.getNodeElement().getMenuName() == null)
             return;
-        Tab tab =
-            view.get().createTab(
-                node.getNodeElement().getMenuName(),
-                node.getNodeElement().getIcon(),
-                level);
+        Tab tab = view.get().createTab(
+            node.getNodeElement().getMenuName(),
+            node.getNodeElement().getIcon(),
+            level);
 
         // tab.setClickable((!selected || level!=tokens.size()-1) && visible);
         tab.setClickable(visible);
@@ -265,8 +258,8 @@ public class MenuRenderer {
 
             @Override
             public void doLogic() {
-                PlaceRequestEvent pre =
-                    new PlaceRequestEvent(node.getNodeElement().getHierarchicalToken());
+                PlaceRequestEvent pre = new PlaceRequestEvent(
+                    node.getNodeElement().getHierarchicalToken());
                 eventBus.fireEvent(pre);
             }
         });

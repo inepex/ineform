@@ -40,42 +40,50 @@ public class MeetingAssist extends Assist {
 
     @Override
     public ValidatorDesc getValidatorDesc() {
-        return new ValidatorDesc(MeetingConsts.descriptorName, new String[] {/*
-                                                                              * hc:
-                                                                              * vd1
-                                                                              */
+        return new ValidatorDesc(
+            MeetingConsts.descriptorName,
+            new String[] { /*
+                            * hc: vd1
+                            */
 
-        /* hc */});
+                /* hc */ });
     }
 
     @Override
     public ObjectDesc getObjectDesc() {
-        ObjectDesc objDesc =
-            new ObjectDesc(MeetingConsts.descriptorName, new LongFDesc(
+        ObjectDesc objDesc = new ObjectDesc(
+            MeetingConsts.descriptorName,
+            new LongFDesc(
                 MeetingConsts.k_id, /* hc:d1 */
                 CMI18n.meeting_id()/* hc */)/* hc:d2_1 *//* hc */
-            , new LongFDesc(
+                ,
+            new LongFDesc(
                 MeetingConsts.k_meetingTimestamp, /* hc:d2 */
                 CMI18n.meeting_meetingTimestamp()/* hc */)/* hc:d2_2 *//* hc */
-            .mandatory(), new RelationFDesc(MeetingConsts.k_user, /* hc:d3 */CMI18n.meeting_user()/* hc */
+                    .mandatory(),
+            new RelationFDesc(MeetingConsts.k_user, /* hc:d3 */CMI18n.meeting_user()/* hc */
             , UserConsts.descriptorName)/* hc:d2_3 *//* hc */
-            .mandatory(), new RelationFDesc(
+                .mandatory(),
+            new RelationFDesc(
                 MeetingConsts.k_company, /* hc:d4 */
                 CMI18n.meeting_company()/* hc */
                 ,
                 CompanyConsts.descriptorName)/* hc:d2_4 *//* hc */
-            .mandatory(), new RelationFDesc(
+                    .mandatory(),
+            new RelationFDesc(
                 MeetingConsts.k_contact, /* hc:d5 */
                 CMI18n.meeting_contact()/* hc */
                 ,
                 ContactConsts.descriptorName)/* hc:d2_5 *//* hc */
-            .mandatory(), new LongFDesc(
+                    .mandatory(),
+            new LongFDesc(
                 MeetingConsts.k_meetingType, /* hc:d6 */
                 CMI18n.meeting_meetingType()/* hc */)/* hc:d2_6 *//* hc */
-            .mandatory(), new StringFDesc(
+                    .mandatory(),
+            new StringFDesc(
                 MeetingConsts.k_description, /* hc:d7 */
                 CMI18n.meeting_description()/* hc */)/* hc:d2_7 *//* hc */
-            );
+        );
 
         objDesc.setDefaultOrderKey(getOrderKey());
         return objDesc;
@@ -87,47 +95,47 @@ public class MeetingAssist extends Assist {
 
         tableRDesc
             .getRootNode()
-            .addChild(MeetingConsts.k_meetingTimestamp, new ColRDesc(/*
-                                                                      * hc:tdr1_2
-                                                                      */true/* hc */).asDate()/*
-                                                                                               * hc
-                                                                                               * :
-                                                                                               * tdr2_2
-                                                                                               *//* hc */)
-            .addChild(MeetingConsts.k_user, new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
-                                                                                      * hc
-                                                                                      * :
-                                                                                      * tdr2_3
-                                                                                      *//* hc */)
-            .addChild(MeetingConsts.k_company, new ColRDesc(/* hc:tdr1_4 */true/* hc */)/*
-                                                                                         * hc
-                                                                                         * :
-                                                                                         * tdr2_4
-                                                                                         *//* hc */)
-            .addChild(MeetingConsts.k_contact, new ColRDesc(/* hc:tdr1_5 */true/* hc */)/*
-                                                                                         * hc
-                                                                                         * :
-                                                                                         * tdr2_5
-                                                                                         *//* hc */)
+            .addChild(
+                MeetingConsts.k_meetingTimestamp,
+                new ColRDesc(/*
+                              * hc:tdr1_2
+                              */true/* hc */).asDate()/*
+                                                      * hc : tdr2_2
+                                                      *//* hc */)
+            .addChild(
+                MeetingConsts.k_user,
+                new ColRDesc(/* hc:tdr1_3 */true/* hc */)/*
+                                                          * hc : tdr2_3
+                                                          *//* hc */)
+            .addChild(
+                MeetingConsts.k_company,
+                new ColRDesc(/* hc:tdr1_4 */true/* hc */)/*
+                                                          * hc : tdr2_4
+                                                          *//* hc */)
+            .addChild(
+                MeetingConsts.k_contact,
+                new ColRDesc(/* hc:tdr1_5 */true/* hc */)/*
+                                                          * hc : tdr2_5
+                                                          *//* hc */)
             .addChild(
                 MeetingConsts.k_meetingType,
                 new ColRDesc(/* hc:tdr1_6 */true/* hc */)/* hc:tdr2_6 *//* hc */.addProp(
                     EnumListFW.enumValues,
                     MeetingType.getValuesAsString()))
-            .addChild(MeetingConsts.k_description, new ColRDesc(/* hc:tdr1_7 */true/* hc */)/*
-                                                                                             * hc
-                                                                                             * :
-                                                                                             * tdr2_7
-                                                                                             *//* hc */);
+            .addChild(
+                MeetingConsts.k_description,
+                new ColRDesc(/* hc:tdr1_7 */true/* hc */)/*
+                                                          * hc : tdr2_7
+                                                          *//* hc */);
         return tableRDesc;
     }
 
     @Override
     public FormRDesc getFormRDesc() {
-        FormRDesc formRDesc = new FormRDesc(MeetingConsts.descriptorName/*
-                                                                         * hc:
-                                                                         * frd_props
-                                                                         */
+        FormRDesc formRDesc = new FormRDesc(
+            MeetingConsts.descriptorName/*
+                                         * hc: frd_props
+                                         */
 
         /* hc */);
 
@@ -145,9 +153,9 @@ public class MeetingAssist extends Assist {
             .addChild(MeetingConsts.k_contact, new WidgetRDesc(/* hc:f5 */FWTypes.LISTBOX/* hc */))
             .addChild(
                 MeetingConsts.k_meetingType,
-                new WidgetRDesc(/* hc:f6 */FWTypes.ENUMLISTBOX/* hc */, EnumListFW.enumValues
-                    + ":"
-                    + MeetingType.getValuesAsString()))
+                new WidgetRDesc(
+                    /* hc:f6 */FWTypes.ENUMLISTBOX/* hc */,
+                    EnumListFW.enumValues + ":" + MeetingType.getValuesAsString()))
             .addChild(
                 MeetingConsts.k_description,
                 new WidgetRDesc(/* hc:f7 */FWTypes.TEXTAREA/* hc */));
@@ -167,9 +175,9 @@ public class MeetingAssist extends Assist {
             .addChild(MeetingConsts.k_contact, new WidgetRDesc(/* hc:f5 */FWTypes.LABEL/* hc */))
             .addChild(
                 MeetingConsts.k_meetingType,
-                new WidgetRDesc(/* hc:f6 */FWTypes.ENUMLABEL/* hc */, EnumListFW.enumValues
-                    + ":"
-                    + MeetingType.getValuesAsString()))
+                new WidgetRDesc(
+                    /* hc:f6 */FWTypes.ENUMLABEL/* hc */,
+                    EnumListFW.enumValues + ":" + MeetingType.getValuesAsString()))
             .addChild(
                 MeetingConsts.k_description,
                 new WidgetRDesc(/* hc:f7 */FWTypes.LABEL/* hc */));
@@ -210,9 +218,9 @@ public class MeetingAssist extends Assist {
 
             .addChild(
                 MeetingConsts.s_meetingType,
-                new WidgetRDesc(/* hc:f6 */FWTypes.ENUMLISTBOX/* hc */, EnumListFW.enumValues
-                    + ":"
-                    + MeetingType.getValuesAsString()));
+                new WidgetRDesc(
+                    /* hc:f6 */FWTypes.ENUMLISTBOX/* hc */,
+                    EnumListFW.enumValues + ":" + MeetingType.getValuesAsString()));
         return searchFormRDesc;
     }
 

@@ -26,11 +26,9 @@ public class EmailAddressHandlerFactory {
 
     public EmailAddressHandler createHandler(AssistedObject assistedObject) {
         if (!EmailAddressConsts.descriptorName.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + EmailAddressConsts.descriptorName
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + EmailAddressConsts.descriptorName
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new EmailAddressHandler(assistedObject, descriptorStore);
     }
@@ -42,18 +40,18 @@ public class EmailAddressHandlerFactory {
 
     public EmailAddressSearchHandler createSearchHandler(AssistedObject assistedObject) {
         if (!EmailAddressConsts.searchDescriptor.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + EmailAddressConsts.searchDescriptor
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + EmailAddressConsts.searchDescriptor
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new EmailAddressSearchHandler(assistedObject, descriptorStore);
     }
 
     public static class EmailAddressHandler extends AssistedObjectHandler {
 
-        private EmailAddressHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+        private EmailAddressHandler(
+            AssistedObject assistedObject,
+            DescriptorStore descriptorStore) {
             super(assistedObject, descriptorStore);
         }
 

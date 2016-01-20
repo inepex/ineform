@@ -15,8 +15,7 @@ public class PlaceHandlerHelperTest {
 
     @Test
     public void testRemoveParam() {
-        String orig =
-            "home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000/general";
+        String orig = "home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000/general";
 
         assertEquals(orig, PlaceHandlerHelper.removeParam(orig, "cantfound"));
         assertEquals(orig, PlaceHandlerHelper.removeParam(orig, "general"));
@@ -232,7 +231,9 @@ public class PlaceHandlerHelperTest {
             PlaceHandlerHelper.levelOfChange(Arrays.asList("a"), Arrays.asList("a", "b")));
         assertEquals(
             2,
-            PlaceHandlerHelper.levelOfChange(Arrays.asList("a", "b", "c"), Arrays.asList("a", "b")));
+            PlaceHandlerHelper.levelOfChange(
+                Arrays.asList("a", "b", "c"),
+                Arrays.asList("a", "b")));
         assertEquals(
             0,
             PlaceHandlerHelper.levelOfChange(Arrays.asList("a", "b", "c"), Arrays.asList("b")));
@@ -243,19 +244,17 @@ public class PlaceHandlerHelperTest {
     public void findActualLevelWithParamsTest() {
         assertEquals(
             "home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000",
-            PlaceHandlerHelper
-                .findActualLevelWithParams(
-                    "home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000/general",
-                    "home/devices/device?deviceId=100000"));
+            PlaceHandlerHelper.findActualLevelWithParams(
+                "home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000/general",
+                "home/devices/device?deviceId=100000"));
     }
 
     @Test
     public void findActualLevelWithParamsTest2() {
         assertEquals(
             "home/devices?deviceGroups=1&chart=false&details=true/device?deviceId=100000",
-            PlaceHandlerHelper
-                .findActualLevelWithParams(
-                    "home/devices?deviceGroups=1&chart=false&details=true/route?deviceId=100000&when=rt",
-                    "home/devices/device?deviceId=100000"));
+            PlaceHandlerHelper.findActualLevelWithParams(
+                "home/devices?deviceGroups=1&chart=false&details=true/route?deviceId=100000&when=rt",
+                "home/devices/device?deviceId=100000"));
     }
 }

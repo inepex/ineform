@@ -14,8 +14,8 @@ import com.inepex.ineForm.client.form.widgets.FormWidget;
  */
 public class FWTypes implements Serializable, IsSerializable {
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = -3542896731206796817L;
 
     public final static String p_label = "label";

@@ -21,9 +21,7 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 public class RowCommandDataManipulator extends DataManipulator {
     private final RightSideButtonsPanel rightSideButtonsPanel = new RightSideButtonsPanel();
 
-    protected final IneButton newButton = new IneButton(
-        IneButton.Color.GREEN,
-        IneFormI18n.NEW());
+    protected final IneButton newButton = new IneButton(IneButton.Color.GREEN, IneFormI18n.NEW());
 
     private String editText;
     private String deleteText;
@@ -38,20 +36,18 @@ public class RowCommandDataManipulator extends DataManipulator {
         @Assisted IneDataConnector ineDataConnector,
         @Assisted boolean sortable,
         TableFieldRenderer fieldRenderer) {
-        super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
+        super(
+            formCtx,
+            formFactory,
+            objectDescriptorName,
+            ineDataConnector,
+            sortable,
+            fieldRenderer);
 
-        editText =
-            "<div class='"
-                + ResourceHelper.ineformRes().style().tableEditIcon()
-                + "' title='"
-                + IneFormI18n.EDIT()
-                + "'></div>";
-        deleteText =
-            "<div class='"
-                + ResourceHelper.ineformRes().style().tableDeleteIcon()
-                + "' title='"
-                + IneFormI18n.DELETE()
-                + "'></div>";
+        editText = "<div class='" + ResourceHelper.ineformRes().style().tableEditIcon()
+            + "' title='" + IneFormI18n.EDIT() + "'></div>";
+        deleteText = "<div class='" + ResourceHelper.ineformRes().style().tableDeleteIcon()
+            + "' title='" + IneFormI18n.DELETE() + "'></div>";
 
         userCommands.add(new EditCommand());
         userCommands.add(new DeleteCommand());

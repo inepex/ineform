@@ -30,39 +30,49 @@ public class PagerCreator {
 
         @Override
         @Source("dummy.png")
-        ImageResource simplePagerFastForward();
+            ImageResource
+                simplePagerFastForward();
 
         @Override
         @Source("dummy.png")
-        ImageResource simplePagerFastForwardDisabled();
+            ImageResource
+                simplePagerFastForwardDisabled();
 
         @Override
-        ImageResource simplePagerFirstPage();
+            ImageResource
+                simplePagerFirstPage();
 
         @Override
         @Source("simplePagerFirstPage.png")
-        ImageResource simplePagerFirstPageDisabled();
+            ImageResource
+                simplePagerFirstPageDisabled();
 
         @Override
-        ImageResource simplePagerLastPage();
+            ImageResource
+                simplePagerLastPage();
 
         @Override
         @Source("simplePagerLastPage.png")
-        ImageResource simplePagerLastPageDisabled();
+            ImageResource
+                simplePagerLastPageDisabled();
 
         @Override
-        ImageResource simplePagerNextPage();
+            ImageResource
+                simplePagerNextPage();
 
         @Override
         @Source("simplePagerNextPage.png")
-        ImageResource simplePagerNextPageDisabled();
+            ImageResource
+                simplePagerNextPageDisabled();
 
         @Override
-        ImageResource simplePagerPreviousPage();
+            ImageResource
+                simplePagerPreviousPage();
 
         @Override
         @Source("simplePagerPreviousPage.png")
-        ImageResource simplePagerPreviousPageDisabled();
+            ImageResource
+                simplePagerPreviousPageDisabled();
 
         @Override
         @Source("SimplePager.css")

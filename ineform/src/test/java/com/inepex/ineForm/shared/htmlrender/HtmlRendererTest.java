@@ -66,17 +66,15 @@ public class HtmlRendererTest extends DefaultIneFrameClientSideTestBase {
 
         String csvString = renderer.render(kvos);
 
-        Assert
-            .assertEquals(
-                "<html>\n"
-                    + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
-                    + "<style type=\"text/css\">td {border: 1px solid black;}\n"
-                    + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
-                    + "table {text-align: left; empty-cells: show; border-collapse: collapse;}</style></head><table>\n"
-                    + "<tr><td>1</td><td>Nat1</td></tr>\n"
-                    + "<tr><td>2</td><td>Nat2</td></tr>\n"
-                    + "</table></html>",
-                csvString);
+        Assert.assertEquals(
+            "<html>\n"
+                + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
+                + "<style type=\"text/css\">td {border: 1px solid black;}\n"
+                + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
+                + "table {text-align: left; empty-cells: show; border-collapse: collapse;}</style></head><table>\n"
+                + "<tr><td>1</td><td>Nat1</td></tr>\n" + "<tr><td>2</td><td>Nat2</td></tr>\n"
+                + "</table></html>",
+            csvString);
     }
 
     @Test
@@ -87,18 +85,15 @@ public class HtmlRendererTest extends DefaultIneFrameClientSideTestBase {
 
         String csvString = renderer.render(kvos);
 
-        Assert
-            .assertEquals(
-                "<html>\n"
-                    + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
-                    + "<style type=\"text/css\">td {border: 1px solid black;}\n"
-                    + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
-                    + "table {text-align: left; empty-cells: show; border-collapse: collapse;}</style></head><table>\n"
-                    + "<tr><th>Id</th><th>Name</th></tr>\n"
-                    + "<tr><td>1</td><td>Nat1</td></tr>\n"
-                    + "<tr><td>2</td><td>Nat2</td></tr>\n"
-                    + "</table></html>",
-                csvString);
+        Assert.assertEquals(
+            "<html>\n"
+                + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
+                + "<style type=\"text/css\">td {border: 1px solid black;}\n"
+                + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
+                + "table {text-align: left; empty-cells: show; border-collapse: collapse;}</style></head><table>\n"
+                + "<tr><th>Id</th><th>Name</th></tr>\n" + "<tr><td>1</td><td>Nat1</td></tr>\n"
+                + "<tr><td>2</td><td>Nat2</td></tr>\n" + "</table></html>",
+            csvString);
     }
 
 }

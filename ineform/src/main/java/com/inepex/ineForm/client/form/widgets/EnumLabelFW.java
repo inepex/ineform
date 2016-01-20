@@ -12,8 +12,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 public class EnumLabelFW extends DenyingFormWidget {
 
     public final static String enumValues = EnumListFW.enumValues;
-    protected final static String DEFAULT_notSelectedText =
-        AbstractListBoxFW.DEFAULT_notSelectedText;
+    protected final static String DEFAULT_notSelectedText = AbstractListBoxFW.DEFAULT_notSelectedText;
     protected boolean allowsNull = true;
 
     protected Long longValue;

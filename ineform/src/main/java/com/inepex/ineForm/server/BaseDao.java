@@ -144,8 +144,8 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
         if (useDefaultOrder)
             selector.orderBy(action);
 
-        List<E> res =
-            selector.executeRangeSelect(action.getFirstResult(), action.getNumMaxResult());
+        List<E> res = selector
+            .executeRangeSelect(action.getFirstResult(), action.getNumMaxResult());
         return res;
     }
 
@@ -202,10 +202,10 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
                         result.setObjectsNewState(kvo);
                         break;
                     } catch (PersistenceException e) {
-                        if (e.getCause() != null
-                            && e.getCause() instanceof DatabaseException
-                            && e.getCause().getCause() != null
-                            && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+                        if (e.getCause() != null && e.getCause() instanceof DatabaseException
+                            && e.getCause().getCause() != null && e
+                                .getCause()
+                                .getCause() instanceof SQLIntegrityConstraintViolationException) {
                             // device can not be manipulated because devicetype
                             // and nativeid is not unique
                             throw new ObjectManipulationException(Reason.ConstraintViolationFailed);
@@ -291,9 +291,8 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
                 res.setAllResultCount(count(action, customizer, useDefaultQuery));
             }
             if (action.getNumMaxResult() > 0) {
-                List<AssistedObject> objects =
-                    getMapper().entityListToKvoList(
-                        find(action, customizer, useDefaultQuery, useDefaultOrder));
+                List<AssistedObject> objects = getMapper().entityListToKvoList(
+                    find(action, customizer, useDefaultQuery, useDefaultOrder));
                 if (mongoDao != null) {
                     filterByProps(objects, action);
                     if (objects.size() > 0) {
@@ -337,8 +336,8 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
                     search.append(group + "." + key, value);
                 }
             }
-            List<Long> ids =
-                mongoDao.findObjectIds(action.getDescriptorName(), JSON.serialize(search));
+            List<Long> ids = mongoDao
+                .findObjectIds(action.getDescriptorName(), JSON.serialize(search));
             idSet.addAll(ids);
         }
         while (iterator.hasNext()) {
@@ -367,7 +366,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
     }
 
     @Override
-    public void searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback) {
+    public
+        void
+        searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback) {
         callback.onResponse(search(action));
     }
 

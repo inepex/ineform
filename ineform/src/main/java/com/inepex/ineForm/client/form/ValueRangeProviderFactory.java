@@ -7,8 +7,10 @@ import com.google.inject.name.Named;
 
 public interface ValueRangeProviderFactory {
     @Named("default")
-    ServerSideValueRangeProvider createDefault();
+        ServerSideValueRangeProvider
+            createDefault();
 
     @Named("rest")
-    RestValueRangeProvider createRest(@Assisted Map<String, String> descriptorToUrlMapping);
+        RestValueRangeProvider
+            createRest(@Assisted Map<String, String> descriptorToUrlMapping);
 }

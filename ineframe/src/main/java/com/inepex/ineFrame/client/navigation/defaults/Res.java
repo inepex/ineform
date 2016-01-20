@@ -26,10 +26,12 @@ public interface Res extends ClientBundle {
     }
 
     @Source("DefaultIneFrameMasterPageViewStyle.css")
-    DefaultIneFrameMasterPageStyle style();
+        DefaultIneFrameMasterPageStyle
+            style();
 
     @Source("IneMenuStyle.css")
-    IneMenuStyle ineMenuStyle();
+        IneMenuStyle
+            ineMenuStyle();
 
     ImageResource drawerAccountSettings();
 

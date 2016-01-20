@@ -109,8 +109,7 @@ public class DispatchMock {
     public static class ActionThrowsException implements Action<Result3> {};
 
     public static class ActionThrowsExceptionHandler
-        extends
-        AbstractIneHandler<ActionThrowsException, Result3> {
+            extends AbstractIneHandler<ActionThrowsException, Result3> {
         @Override
         public Class<ActionThrowsException> getActionType() {
             return ActionThrowsException.class;

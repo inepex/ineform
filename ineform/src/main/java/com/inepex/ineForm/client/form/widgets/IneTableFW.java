@@ -33,11 +33,10 @@ public class IneTableFW extends DenyingFormWidget {
         super(fielddescriptor);
 
         connector = new DummyDataConnector(context.eventBus, objectDescriptorName);
-        TableFieldRenderer fieldRenderer =
-            new DefaultTableFieldRenderer(
-                new AssistedObjectHandlerFactory(context.descStore),
-                context.dateFormatter,
-                context.numberUtil);
+        TableFieldRenderer fieldRenderer = new DefaultTableFieldRenderer(
+            new AssistedObjectHandlerFactory(context.descStore),
+            context.dateFormatter,
+            context.numberUtil);
         ineTable = new IneTable(context.descStore, objectDescriptorName, connector, fieldRenderer);
         ineTable.setShowPager(false);
         if (singleselect)

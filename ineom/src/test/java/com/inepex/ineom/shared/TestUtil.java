@@ -36,10 +36,10 @@ public class TestUtil {
     }
 
     public static AssistedObjectChecker getTestKvo() {
-        AssistedObjectHandlerFactory objectHandlerFactory =
-            new AssistedObjectHandlerFactory(descriptorStore);
-        AssistedObjectHandler checker =
-            objectHandlerFactory.createHandler(new KeyValueObject("testKvo"));
+        AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(
+            descriptorStore);
+        AssistedObjectHandler checker = objectHandlerFactory
+            .createHandler(new KeyValueObject("testKvo"));
 
         checker.set("stringField", "hello");
         checker.set("relField", new Relation(getRelKvo(3L).getAssistedObject()));
@@ -48,10 +48,10 @@ public class TestUtil {
     }
 
     private static AssistedObjectChecker getRelKvo(Long value) {
-        AssistedObjectHandlerFactory objectHandlerFactory =
-            new AssistedObjectHandlerFactory(descriptorStore);
-        AssistedObjectHandler checker =
-            objectHandlerFactory.createHandler(new KeyValueObject("test2Kvo"));
+        AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(
+            descriptorStore);
+        AssistedObjectHandler checker = objectHandlerFactory
+            .createHandler(new KeyValueObject("test2Kvo"));
         checker.set("longField", value);
         return checker;
     }
@@ -64,10 +64,9 @@ public class TestUtil {
         return list;
     }
 
-    public static void assertEquals(
-        AssistedObject expected,
-        AssistedObject actual,
-        DescriptorStore ds) {
+    public static
+        void
+        assertEquals(AssistedObject expected, AssistedObject actual, DescriptorStore ds) {
         AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(ds);
         Assert.assertEquals(expected.getKeys().size(), actual.getKeys().size());
 

@@ -49,8 +49,9 @@ public class ExportServlet extends AbstractExportServlet {
     @Override
     protected void customizeAction(HttpServletRequest req, ObjectList action) {
         currLangProvider.get().setLangOverride(
-            (String) req.getSession().getAttribute(
-                SetActionForExportServletHandler.rendererLanguage));
+            (String) req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.rendererLanguage));
 
     }
 

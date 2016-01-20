@@ -30,8 +30,7 @@ public class I18nDatePicker extends DatePicker {
         @Override
         @SuppressWarnings("deprecation")
         public String formatCurrentMonth() {
-            return (getCurrentMonth().getYear() + 1900)
-                + ". "
+            return (getCurrentMonth().getYear() + 1900) + ". "
                 + formatMonth(getCurrentMonth().getMonth());
         }
 

@@ -13,16 +13,12 @@ public class EmailValidator implements KeyValueObjectValidator {
     private final ObjectDesc objectDesc;
 
     public final static String regExpr = "^" + "([a-zA-Z0-9]){1,40}" + // firstname
-        "(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*"
-        + // .lastname or .lastname.lastlastname...
-        "@"
-        + // @
-        "([a-zA-Z0-9]){1,40}"
-        + // sg
-        "(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*"
-        + // -domain or -domain-domain...
-        "\\."
-        + // .
+        "(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*" + // .lastname or
+                                                 // .lastname.lastlastname...
+        "@" + // @
+        "([a-zA-Z0-9]){1,40}" + // sg
+        "(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*" + // -domain or -domain-domain...
+        "\\." + // .
         "[a-zA-Z0-9]{2,6}$"; // com
 
     private final String fieldName;
@@ -32,18 +28,16 @@ public class EmailValidator implements KeyValueObjectValidator {
         this.fieldName = fieldName;
 
         if (type != IneT.STRING)
-            throw new RuntimeException("EmailValidator doesn't defined on type "
-                + type.toString()
-                + " defined on "
-                + fieldName);
+            throw new RuntimeException(
+                "EmailValidator doesn't defined on type " + type.toString() + " defined on "
+                    + fieldName);
     }
 
     @Override
     public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
 
-        String val =
-            new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc)
-                .getString(fieldName);
+        String val = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc)
+            .getString(fieldName);
         if (val == null || "".equals(val))
             return;
 

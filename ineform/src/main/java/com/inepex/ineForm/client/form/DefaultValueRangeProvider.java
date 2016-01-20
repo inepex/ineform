@@ -39,15 +39,13 @@ public abstract class DefaultValueRangeProvider implements ValueRangeProvider {
      * @param callback
      * @return
      */
-    protected RelationFDesc castDescriptorCheckType(
-        FDesc fieldDesc,
-        ValueRangeResultCallback callback) {
+    protected
+        RelationFDesc
+        castDescriptorCheckType(FDesc fieldDesc, ValueRangeResultCallback callback) {
         if (fieldDesc.getType() != IneT.RELATION) {
-            System.out
-                .println("ValueRangeProvider.getRelationValueRange was called with a FieldDescriptor("
-                    + fieldDesc.getKey()
-                    + ") that"
-                    + " is not a RelatonFieldDescriptor");
+            System.out.println(
+                "ValueRangeProvider.getRelationValueRange was called with a FieldDescriptor("
+                    + fieldDesc.getKey() + ") that" + " is not a RelatonFieldDescriptor");
             callback.onValueRangeResultReady(null);
             return null;
         }

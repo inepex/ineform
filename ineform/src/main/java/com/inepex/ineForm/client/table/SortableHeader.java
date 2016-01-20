@@ -37,12 +37,14 @@ public class SortableHeader extends Header<String> {
     interface Template extends SafeHtmlTemplates {
         @Template("<div style=\"position:relative;cursor:hand;cursor:pointer;"
             + "padding-right:{0}px;\">{1}<div>{2}</div></div>")
-        SafeHtml sorted(int imageWidth, SafeHtml arrow, String text);
+            SafeHtml
+                sorted(int imageWidth, SafeHtml arrow, String text);
 
         @Template("<div style=\"position:relative;cursor:hand;cursor:pointer;"
             + "padding-right:{0}px;\"><div style=\"position:absolute;display:none;"
             + "\"></div><div>{1}</div></div>")
-        SafeHtml unsorted(int imageWidth, String text);
+            SafeHtml
+                unsorted(int imageWidth, String text);
     }
 
     private static Template template;
@@ -53,8 +55,9 @@ public class SortableHeader extends Header<String> {
 
     private static SafeHtml makeImage(ImageResource resource) {
         AbstractImagePrototype proto = AbstractImagePrototype.create(resource);
-        String html =
-            proto.getHTML().replace("style='", "style='position:absolute;right:0px;top:0px;");
+        String html = proto
+            .getHTML()
+            .replace("style='", "style='position:absolute;right:0px;top:0px;");
         return SafeHtmlUtils.fromTrustedString(html);
     }
 

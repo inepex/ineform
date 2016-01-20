@@ -30,7 +30,8 @@ public abstract class LocalDate<T extends LocalDate<T>> extends LocalDateBase {
     }
 
     @SuppressWarnings("deprecation")
-    int getYear() {
+        int
+            getYear() {
         return date().getYear();
     }
 
@@ -39,7 +40,8 @@ public abstract class LocalDate<T extends LocalDate<T>> extends LocalDateBase {
     }
 
     @SuppressWarnings("deprecation")
-    int getMonth() {
+        int
+            getMonth() {
         return date().getMonth();
     }
 
@@ -48,7 +50,8 @@ public abstract class LocalDate<T extends LocalDate<T>> extends LocalDateBase {
     }
 
     @SuppressWarnings("deprecation")
-    int getDate() {
+        int
+            getDate() {
         return date().getDate();
     }
 
@@ -255,8 +258,7 @@ public abstract class LocalDate<T extends LocalDate<T>> extends LocalDateBase {
     @SuppressWarnings("deprecation")
     public boolean isToday() {
         Date today = new Date();
-        return today.getYear() == getYear()
-            && today.getMonth() == getMonth()
+        return today.getYear() == getYear() && today.getMonth() == getMonth()
             && today.getDate() == getDate();
     }
 }

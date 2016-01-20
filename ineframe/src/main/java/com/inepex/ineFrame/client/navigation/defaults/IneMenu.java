@@ -71,8 +71,8 @@ public class IneMenu implements NavigationDrawer {
                 authManager.doLogout(new AuthActionCallback() {
                     @Override
                     public void onAuthCheckDone(AuthStatusResultBase result) {
-                        PlaceRequestEvent event =
-                            new PlaceRequestEvent(NavigationProperties.defaultPlace);
+                        PlaceRequestEvent event = new PlaceRequestEvent(
+                            NavigationProperties.defaultPlace);
                         event.setNeedWindowReload(true);
                         eventBus.fireEvent(event);
                     }
@@ -96,9 +96,9 @@ public class IneMenu implements NavigationDrawer {
 
     private void refresh() {
         if (!(authManager instanceof NoAuthManager) && authManager.isUserLoggedIn()) {
-            view.setUser(authManager.getLastAuthStatusResult().getDisplayName(), authManager
-                .getLastAuthStatusResult()
-                .getUserEmail());
+            view.setUser(
+                authManager.getLastAuthStatusResult().getDisplayName(),
+                authManager.getLastAuthStatusResult().getUserEmail());
             showApps();
 
         } else {

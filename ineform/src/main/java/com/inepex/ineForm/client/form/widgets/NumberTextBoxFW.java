@@ -123,9 +123,7 @@ public class NumberTextBoxFW extends DenyingFormWidget {
                     origCurPos = decreaseIfBigger(origCurPos, filteredSb.length());
                 }
 
-            } else if (hasDecimalpoint
-                && maxFractDigits != 0
-                && decimalpointAt == -1
+            } else if (hasDecimalpoint && maxFractDigits != 0 && decimalpointAt == -1
                 && (ch == decimalpoint || ch == decimalpoint2)) {
                 decimalpointAt = i;
                 filteredSb.append(ch);
@@ -160,16 +158,8 @@ public class NumberTextBoxFW extends DenyingFormWidget {
     }
 
     private boolean isNumber(char ch) {
-        if (ch == '0'
-            || ch == '1'
-            || ch == '2'
-            || ch == '3'
-            || ch == '4'
-            || ch == '5'
-            || ch == '6'
-            || ch == '7'
-            || ch == '8'
-            || ch == '9')
+        if (ch == '0' || ch == '1' || ch == '2' || ch == '3' || ch == '4' || ch == '5' || ch == '6'
+            || ch == '7' || ch == '8' || ch == '9')
             return true;
 
         return false;

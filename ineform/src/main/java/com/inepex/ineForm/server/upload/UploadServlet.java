@@ -72,9 +72,11 @@ public class UploadServlet extends HttpServlet {
             ServletFileUpload upload = new ServletFileUpload(factory);
 
             /* Set overall request size constraint */
-            upload.setSizeMax(Long.parseLong(props.getPropertiesInstance().getProperty(
-                IFConsts.MAX_REQUEST_SIZE,
-                "10485760")));
+            upload.setSizeMax(
+                Long.parseLong(
+                    props.getPropertiesInstance().getProperty(
+                        IFConsts.MAX_REQUEST_SIZE,
+                        "10485760")));
 
             /* Parse the request */
             try {
@@ -87,17 +89,17 @@ public class UploadServlet extends HttpServlet {
                     String name = fileItem.getFieldName();
 
                     if (!fileItem.isFormField()) {
-                        _logger.info("File field {} with file name "
-                            + fileItem.getName()
-                            + " detected.");
+                        _logger.info(
+                            "File field {} with file name " + fileItem.getName() + " detected.");
 
                         InputStream inStream = fileItem.getInputStream();
 
                         String extension = FilenameUtils.getExtension(fileItem.getName());
                         boolean allowed = false;
 
-                        for (String s : ((String) props.getPropertiesInstance().get(
-                            IFConsts.ALLOWED_EXTENSIONS)).split(",")) {
+                        for (String s : ((String) props
+                            .getPropertiesInstance()
+                            .get(IFConsts.ALLOWED_EXTENSIONS)).split(",")) {
                             if (extension.equals(s)) {
                                 allowed = true;
                                 break;
@@ -109,11 +111,11 @@ public class UploadServlet extends HttpServlet {
                             PrintWriter out = resp.getWriter();
                             out.print("-1");
                         } else {
-                            String id =
-                                uploadProc.storeImage(
-                                    inStream,
-                                    fileItem.getName(),
-                                    Boolean.parseBoolean(props.getPropertiesInstance().getProperty(
+                            String id = uploadProc.storeImage(
+                                inStream,
+                                fileItem.getName(),
+                                Boolean.parseBoolean(
+                                    props.getPropertiesInstance().getProperty(
                                         IFConsts.RESIZEIMAGES,
                                         "false")));
                             resp.setContentType("text/html");

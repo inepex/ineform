@@ -51,8 +51,11 @@ public class MenuRendererShowChildreWhenActiveTest {
         PlaceHierarchyProv phProvider = new PlaceHierarchyProv();
         phProvider.createPlaceHierarchy();
 
-        MenuRenderer renderer =
-            new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
+        MenuRenderer renderer = new MenuRenderer(
+            phProvider,
+            eventBus,
+            viewProv,
+            new NoAuthManager());
 
         phProvider.parentPlace.setHierarchicalToken("MenuParent");
         renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
@@ -80,8 +83,8 @@ public class MenuRendererShowChildreWhenActiveTest {
                 return view;
             }
         };
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(
-            new Answer<MenuRenderer.View.Tab>() {
+        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+            .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
 
@@ -96,8 +99,11 @@ public class MenuRendererShowChildreWhenActiveTest {
         PlaceHierarchyProv phProvider = new PlaceHierarchyProv();
         phProvider.createPlaceHierarchy();
 
-        MenuRenderer renderer =
-            new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
+        MenuRenderer renderer = new MenuRenderer(
+            phProvider,
+            eventBus,
+            viewProv,
+            new NoAuthManager());
 
         phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
         renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
@@ -138,8 +144,8 @@ public class MenuRendererShowChildreWhenActiveTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(
-            new Answer<MenuRenderer.View.Tab>() {
+        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+            .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
 
@@ -154,8 +160,11 @@ public class MenuRendererShowChildreWhenActiveTest {
         PlaceHierarchyProv phProvider = new PlaceHierarchyProv();
         phProvider.createPlaceHierarchy();
 
-        MenuRenderer renderer =
-            new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
+        MenuRenderer renderer = new MenuRenderer(
+            phProvider,
+            eventBus,
+            viewProv,
+            new NoAuthManager());
 
         phProvider.onlyVisibleWhenActiveAndHasName
             .setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
@@ -205,9 +214,9 @@ public class MenuRendererShowChildreWhenActiveTest {
 
         public final InePlace onlyVisibleWhenActiveAndHasName = new SimpleCachingPlace(
             new DummyPageProvider())
-            .setOnlyVisibleWhenActive(true)
-            .setShowChildrenWhenActive(true)
-            .setMenuName("Name of menu");
+                .setOnlyVisibleWhenActive(true)
+                .setShowChildrenWhenActive(true)
+                .setMenuName("Name of menu");
 
         @Override
         public void createPlaceHierarchy() {

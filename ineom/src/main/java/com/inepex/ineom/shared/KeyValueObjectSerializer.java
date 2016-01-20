@@ -72,8 +72,7 @@ public class KeyValueObjectSerializer {
             sb.append(checker.getDescriptorName()).append(fieldSeparator);
 
         for (String key : checker.objectDescriptor.getFields().keySet()) {
-            if (!includeId
-                && key.equals(IFConsts.KEY_ID)
+            if (!includeId && key.equals(IFConsts.KEY_ID)
                 || checker.objectDescriptor.getField(key).hasProp("notserialize"))
                 continue;
             String value = getValueAsString(key);

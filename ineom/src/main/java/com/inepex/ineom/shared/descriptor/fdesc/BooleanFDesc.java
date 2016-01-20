@@ -8,8 +8,8 @@ import com.inepex.ineom.shared.IneT;
 public class BooleanFDesc extends FDesc implements Serializable, IsSerializable {
 
     /**
-	 *
-	 */
+     *
+     */
     private static final long serialVersionUID = -2885140949910002444L;
 
     public BooleanFDesc() {

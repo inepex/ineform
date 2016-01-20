@@ -140,13 +140,12 @@ public class ChooserFw extends DenyingFormWidget implements ChooserView {
         super(fieldDescriptor);
         this.widgetRDesc = widgetRDesc;
         if (widgetRDesc.hasProp(enumChooser) || widgetRDesc.hasProp(stringChooser)) {
-            chooser =
-                new EnumChooser(
-                    formCtx.descStore,
-                    this,
-                    fieldDescriptor,
-                    widgetRDesc,
-                    relationDescriptorName);
+            chooser = new EnumChooser(
+                formCtx.descStore,
+                this,
+                fieldDescriptor,
+                widgetRDesc,
+                relationDescriptorName);
         } else {
             chooser = new RelationChooser(formCtx, this, fieldDescriptor, relationDescriptorName);
         }

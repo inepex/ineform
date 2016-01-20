@@ -14,17 +14,18 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
     private final DescriptorStore descriptorStore;
 
     public AssistedObjectHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
-        super(assistedObject, assistedObject.getDescriptorName(), descriptorStore
-            .getOD(assistedObject.getDescriptorName()));
+        super(
+            assistedObject,
+            assistedObject.getDescriptorName(),
+            descriptorStore.getOD(assistedObject.getDescriptorName()));
         this.descriptorStore = descriptorStore;
 
         if (descriptorName == null)
             throw new IllegalArgumentException("No desciptorName!");
 
         if (objectDescriptor == null)
-            throw new IllegalArgumentException("No object descriptor registered for '"
-                + descriptorName
-                + "'");
+            throw new IllegalArgumentException(
+                "No object descriptor registered for '" + descriptorName + "'");
     }
 
     protected AssistedObjectHandler(String descriptorName) {
@@ -101,9 +102,9 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
             }
 
             if (rel.getKvo() == null) {
-                RelationFDesc relDescriptor =
-                    (RelationFDesc) descriptorStore.getOD(actual.getDescriptorName()).getField(
-                        path.get(i));
+                RelationFDesc relDescriptor = (RelationFDesc) descriptorStore
+                    .getOD(actual.getDescriptorName())
+                    .getField(path.get(i));
                 rel.setKvo(new KeyValueObject(relDescriptor.getRelatedDescriptorName()));
             }
 

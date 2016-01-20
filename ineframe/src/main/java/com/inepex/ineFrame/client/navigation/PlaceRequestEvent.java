@@ -5,7 +5,8 @@ import com.google.gwt.event.shared.GwtEvent;
 /**
  * 
  * {@link PlaceRequestEvent} is used in IneFrame based applications to navigate
- * among the hierarchical places, or change parameters on the current place.<br/>
+ * among the hierarchical places, or change parameters on the current place.
+ * <br/>
  * <br/>
  * 
  * {@link PlaceRequestEvent} holds the parts of the hierarchical token that

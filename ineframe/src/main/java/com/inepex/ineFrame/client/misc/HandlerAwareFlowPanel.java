@@ -6,8 +6,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
 public class HandlerAwareFlowPanel extends FlowPanel {
-    private List<HandlerRegistration> handlerRegistrations =
-        new java.util.ArrayList<HandlerRegistration>(5);
+    private List<HandlerRegistration> handlerRegistrations = new java.util.ArrayList<HandlerRegistration>(
+        5);
 
     /**
      * Any {@link HandlerRegistration}s added will be removed when

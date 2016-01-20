@@ -63,8 +63,8 @@ public abstract class AbstractAuthManager implements AuthManager {
         String captchaAnswer,
         AuthActionCallback callback) {
         LoginAction action;
-        boolean needStaySignedIn =
-            Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
+        boolean needStaySignedIn = Boolean
+            .parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
         if (needStaySignedIn) {
             action = new LoginAction(
                 userName,
@@ -79,19 +79,14 @@ public abstract class AbstractAuthManager implements AuthManager {
     }
 
     @Override
-    public void doGoogleLogin(
-        String googleLoginToken,
-        AuthActionCallback callback) {
+    public void doGoogleLogin(String googleLoginToken, AuthActionCallback callback) {
         LoginAction action = new LoginAction();
-        boolean needStaySignedIn =
-            Boolean.parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
+        boolean needStaySignedIn = Boolean
+            .parseBoolean(Cookies.getCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN));
         action.setNeedStaySignedIn(needStaySignedIn);
         action.setGoogleLogin(true);
         action.setGoogleLoginToken(googleLoginToken);
-        dispatcher
-            .get()
-            .getDispatcher()
-            .execute(action, new AuthStatusResultCallback(callback));
+        dispatcher.get().getDispatcher().execute(action, new AuthStatusResultCallback(callback));
     }
 
     public class AuthStatusResultCallback implements AsyncCallback<AuthStatusResultBase> {
@@ -119,8 +114,10 @@ public abstract class AbstractAuthManager implements AuthManager {
             // here we set the cookies for the stay signed in functionality (if
             // set in the result)
             if (result != null && result.getUserUUID() != null && result.getUserEmail() != null) {
-                Cookies.setCookie(IFConsts.COOKIE_STAYSIGNEDINUUID, result.getUserUUID(), new Date(
-                    System.currentTimeMillis() + DateHelper.dayInMs * 30));
+                Cookies.setCookie(
+                    IFConsts.COOKIE_STAYSIGNEDINUUID,
+                    result.getUserUUID(),
+                    new Date(System.currentTimeMillis() + DateHelper.dayInMs * 30));
                 Cookies.setCookie(
                     IFConsts.COOKIE_STAYSIGNEDINUSERNAME,
                     result.getUserEmail(),

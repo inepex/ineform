@@ -32,8 +32,8 @@ public class EnumBasedSessionScopedDateProvider implements DateProvider {
     @Override
     public Date getDate(Long dateInUTC) {
         Date date = new Date(dateInUTC);
-        Long corectedDate =
-            dateInUTC + date.getTimezoneOffset() * DateHelper.minuteInMs + tz.getOffset(dateInUTC);
+        Long corectedDate = dateInUTC + date.getTimezoneOffset() * DateHelper.minuteInMs
+            + tz.getOffset(dateInUTC);
 
         return new Date(corectedDate);
     }
@@ -42,8 +42,8 @@ public class EnumBasedSessionScopedDateProvider implements DateProvider {
     @SuppressWarnings("deprecation")
     public Date whatMeansTyped(Long dateInUTC) {
         Date date = new Date(dateInUTC);
-        Long corectedDate =
-            dateInUTC - date.getTimezoneOffset() * DateHelper.minuteInMs - tz.getOffset(dateInUTC);
+        Long corectedDate = dateInUTC - date.getTimezoneOffset() * DateHelper.minuteInMs
+            - tz.getOffset(dateInUTC);
 
         return new Date(corectedDate);
     }

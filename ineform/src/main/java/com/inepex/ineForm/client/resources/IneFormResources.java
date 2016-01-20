@@ -6,7 +6,8 @@ import com.google.gwt.resources.client.ImageResource;
 public interface IneFormResources extends ClientBundle {
 
     @Source("BundledStyle.css")
-    IneFormStyle style();
+        IneFormStyle
+            style();
 
     ImageResource form_error();
 

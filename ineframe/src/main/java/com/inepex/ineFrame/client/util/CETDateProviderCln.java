@@ -18,10 +18,8 @@ public class CETDateProviderCln implements DateProvider {
     @Override
     public Date getDate(Long dateInUTC) {
         Date date = new Date(dateInUTC);
-        Long corectedDate =
-            dateInUTC
-                + (-1 * tz.getOffset(date) + date.getTimezoneOffset())
-                * DateHelper.minuteInMs;
+        Long corectedDate = dateInUTC
+            + (-1 * tz.getOffset(date) + date.getTimezoneOffset()) * DateHelper.minuteInMs;
 
         return new Date(corectedDate);
     }
@@ -30,8 +28,8 @@ public class CETDateProviderCln implements DateProvider {
     @SuppressWarnings("deprecation")
     public Date whatMeansTyped(Long dateInUTC) {
         Date date = new Date(dateInUTC);
-        Long corectedDate =
-            dateInUTC - (date.getTimezoneOffset() - tz.getOffset(date)) * DateHelper.minuteInMs;
+        Long corectedDate = dateInUTC
+            - (date.getTimezoneOffset() - tz.getOffset(date)) * DateHelper.minuteInMs;
 
         return new Date(corectedDate);
     }

@@ -48,48 +48,43 @@ public class MeetingQuery extends BaseQuery<Meeting> {
         Root<Meeting> from,
         Expression<Boolean> base) {
 
-        MeetingSearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        MeetingSearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(MeetingConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(Meeting_.id), id));
         Long meetingTimestamp = handler.getLong(MeetingConsts.s_meetingTimestamp);
         if (meetingTimestamp != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(from.get(Meeting_.meetingTimestamp), meetingTimestamp));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(from.get(Meeting_.meetingTimestamp), meetingTimestamp));
         Relation user = handler.getRelation(MeetingConsts.s_user);
         if (user != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(from.get(Meeting_.user).get(User_.id), user.getId()));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(from.get(Meeting_.user).get(User_.id), user.getId()));
         Relation company = handler.getRelation(MeetingConsts.s_company);
         if (company != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(from.get(Meeting_.company).get(Company_.id), company.getId()));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(from.get(Meeting_.company).get(Company_.id), company.getId()));
         Relation contact = handler.getRelation(MeetingConsts.s_contact);
         if (contact != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(from.get(Meeting_.contact).get(Contact_.id), contact.getId()));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(from.get(Meeting_.contact).get(Contact_.id), contact.getId()));
         Long meetingType = handler.getLong(MeetingConsts.s_meetingType);
         if (meetingType != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(
-                        from.get(Meeting_.meetingType),
-                        MeetingType.values()[meetingType.intValue()]));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(
+                    from.get(Meeting_.meetingType),
+                    MeetingType.values()[meetingType.intValue()]));
 
         return base;
     }

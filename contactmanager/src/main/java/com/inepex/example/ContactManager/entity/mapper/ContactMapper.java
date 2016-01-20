@@ -144,9 +144,8 @@ public class ContactMapper extends BaseMapper<Contact> {
             }
         }
         if (entity.getCompany() != null)
-            handler.setCompany(new CompanyMapper(descriptorStore).toRelation(
-                entity.getCompany(),
-                false));
+            handler.setCompany(
+                new CompanyMapper(descriptorStore).toRelation(entity.getCompany(), false));
 
         /* hc:customToKvo */
         // custom mappings to Kvo comes here. Eg. when some properties should
@@ -159,9 +158,10 @@ public class ContactMapper extends BaseMapper<Contact> {
     public Relation toRelation(Contact entity, boolean includeKvo) {
         if (entity == null)
             return null;
-        return new Relation(entity.getId(), entity.toString(), includeKvo
-            ? entityToKvo(entity)
-            : null);
+        return new Relation(
+            entity.getId(),
+            entity.toString(),
+            includeKvo ? entityToKvo(entity) : null);
     }
 
 }

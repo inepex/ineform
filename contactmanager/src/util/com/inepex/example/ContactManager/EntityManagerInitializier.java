@@ -36,8 +36,8 @@ public class EntityManagerInitializier {
     }
 
     public static EntityManager initSimple() {
-        EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory(PROJECT_NAME, getDbProperties());
+        EntityManagerFactory emf = Persistence
+            .createEntityManagerFactory(PROJECT_NAME, getDbProperties());
         EntityManager em = emf.createEntityManager();
         return em;
     }

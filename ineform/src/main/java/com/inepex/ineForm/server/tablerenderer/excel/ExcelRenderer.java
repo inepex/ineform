@@ -171,13 +171,12 @@ public class ExcelRenderer extends TableRenderer {
                     && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
                     continue;
                 String key = columnNode.getNodeId();
-                AssistedObjectHandler kvoOrRelatedKvoChecker =
-                    factory.createHandler(kvo).getRelatedKVOMultiLevel(
-                        SharedUtil.listFromDotSeparated(key));
+                AssistedObjectHandler kvoOrRelatedKvoChecker = factory
+                    .createHandler(kvo)
+                    .getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
                 if (SharedUtil.isMultilevelKey(key)) {
-                    kvoOrRelatedKvoChecker =
-                        kvoOrRelatedKvoChecker.getRelatedKVOMultiLevel(SharedUtil
-                            .listFromDotSeparated(key));
+                    kvoOrRelatedKvoChecker = kvoOrRelatedKvoChecker
+                        .getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
                 }
                 key = SharedUtil.deepestKey(key);
 
@@ -187,11 +186,9 @@ public class ExcelRenderer extends TableRenderer {
 
                 cellValueSet(key, kvoOrRelatedKvoChecker);
 
-                if (renderLastFieldEnd
-                    || !columnNode.equals(tableRDesc
-                        .getRootNode()
-                        .getChildren()
-                        .get(tableRDesc.getRootNode().getChildren().size() - 1)))
+                if (renderLastFieldEnd || !columnNode.equals(
+                    tableRDesc.getRootNode().getChildren().get(
+                        tableRDesc.getRootNode().getChildren().size() - 1)))
                     renderFieldEnd();
 
             }

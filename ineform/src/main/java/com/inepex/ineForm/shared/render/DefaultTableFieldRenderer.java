@@ -25,8 +25,7 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
 
     private TableRDesc tableRDesc;
     private AssistedObject object;
-    private Map<String, CustomCellContentDisplayer> customizers =
-        new LazyHashMap<String, TableFieldRenderer.CustomCellContentDisplayer>();
+    private Map<String, CustomCellContentDisplayer> customizers = new LazyHashMap<String, TableFieldRenderer.CustomCellContentDisplayer>();
 
     @Inject
     public DefaultTableFieldRenderer(
@@ -42,8 +41,8 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * com.inepex.ineForm.shared.render.TableFieldRenderer#setObjectAndDescriptor
+     * @see com.inepex.ineForm.shared.render.TableFieldRenderer#
+     * setObjectAndDescriptor
      * (com.inepex.ineom.shared.assistedobject.AssistedObject,
      * com.inepex.ineForm.shared.descriptorext.TableRDesc)
      */
@@ -56,9 +55,8 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * com.inepex.ineForm.shared.render.TableFieldRenderer#setCustomFieldRenderer
-     * (java.lang.String,
+     * @see com.inepex.ineForm.shared.render.TableFieldRenderer#
+     * setCustomFieldRenderer (java.lang.String,
      * com.inepex.ineForm.shared.render.AssistedObjectTableFieldRenderer
      * .CustomCellContentDisplayer)
      */
@@ -91,11 +89,14 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
      */
     @Override
     public String getFieldByCustomizer(String key) {
-        ColRDesc colRdesc =
-            (ColRDesc) tableRDesc.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
+        ColRDesc colRdesc = (ColRDesc) tableRDesc
+            .getRootNode()
+            .findNodeByHierarchicalId(key)
+            .getNodeElement();
         AssistedObjectHandler rowHandler = handlerFactory.createHandler(object);
-        String customHtmlContent =
-            customizers.get(key).getCustomCellContent(rowHandler, key, colRdesc);
+        String customHtmlContent = customizers
+            .get(key)
+            .getCustomCellContent(rowHandler, key, colRdesc);
         return customHtmlContent;
     }
 
@@ -108,16 +109,19 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
      */
     @Override
     public String getField(String key) {
-        ColRDesc colRdesc =
-            (ColRDesc) tableRDesc.getRootNode().findNodeByHierarchicalId(key).getNodeElement();
+        ColRDesc colRdesc = (ColRDesc) tableRDesc
+            .getRootNode()
+            .findNodeByHierarchicalId(key)
+            .getNodeElement();
         String deepestKey = SharedUtil.deepestKey(key);
         StringBuffer sb = new StringBuffer();
 
         AssistedObjectHandler rowHandler = handlerFactory.createHandler(object);
         // custom cell display
         if (customizers.get(key) != null) {
-            String customHtmlContent =
-                customizers.get(key).getCustomCellContent(rowHandler, key, colRdesc);
+            String customHtmlContent = customizers
+                .get(key)
+                .getCustomCellContent(rowHandler, key, colRdesc);
             if (customHtmlContent != null) {
                 sb.append(customHtmlContent);
             }
@@ -128,54 +132,47 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
                 String result = null;
 
                 if (SharedUtil.isMultilevelKey(key))
-                    rowHandler =
-                        rowHandler.getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
+                    rowHandler = rowHandler
+                        .getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
 
                 // default cell display
                 if (colRdesc.getPropValue(ColRDesc.AS_DATE) != null) {
                     Long date = rowHandler.getLong(deepestKey);
                     if (date != null)
-                        result =
-                            dateFormatter.format(
-                                IneFormProperties.INETABLE_DEFAULT_DATETIMEFORMAT,
-                                date);
+                        result = dateFormatter
+                            .format(IneFormProperties.INETABLE_DEFAULT_DATETIMEFORMAT, date);
                 } else if (colRdesc.getPropValue(ColRDesc.AS_SHORTDATE) != null) {
                     Long date = rowHandler.getLong(deepestKey);
                     if (date != null)
-                        result =
-                            dateFormatter.format(
-                                IneFormProperties.INETABLE_DEFAULT_SHORT_DATETIMEFORMAT,
-                                date);
+                        result = dateFormatter
+                            .format(IneFormProperties.INETABLE_DEFAULT_SHORT_DATETIMEFORMAT, date);
                 } else if (colRdesc.getPropValue(ColRDesc.AS_HOURMIN) != null) {
                     Long date = rowHandler.getLong(deepestKey);
                     if (date != null)
-                        result =
-                            dateFormatter.format(IneFormProperties.INETABLE_DEFAULT_HOURMIN, date);
+                        result = dateFormatter
+                            .format(IneFormProperties.INETABLE_DEFAULT_HOURMIN, date);
                 } else if (colRdesc.getPropValue(ColRDesc.AS_HOURMINSEC) != null) {
                     Long date = rowHandler.getLong(deepestKey);
                     if (date != null)
-                        result =
-                            dateFormatter.format(
-                                IneFormProperties.INETABLE_DEFAULT_HOURMINSEC,
-                                date);
+                        result = dateFormatter
+                            .format(IneFormProperties.INETABLE_DEFAULT_HOURMINSEC, date);
                 } else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
                     Double val = rowHandler.getDouble(deepestKey);
                     if (val != null) {
-                        result =
-                            numberUtil.formatNumberToFractial(val, Integer.parseInt(colRdesc
-                                .getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
+                        result = numberUtil.formatNumberToFractial(
+                            val,
+                            Integer
+                                .parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
                     }
                 } else if (colRdesc.getPropValue(ColRDesc.AS_DATE_WITHSEC) != null) {
                     Long date = rowHandler.getLong(deepestKey);
                     if (date != null)
-                        result =
-                            dateFormatter.format(
-                                IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT,
-                                date);
+                        result = dateFormatter
+                            .format(IneFormProperties.INETABLE_DEFAULT_SEC_DATETIMEFORMAT, date);
                 } else if (colRdesc.getPropValue(EnumListFW.enumValues) != null) {
-                    String[] enumValues =
-                        colRdesc.getPropValue(EnumListFW.enumValues).split(
-                            IFConsts.enumValueSplitChar);
+                    String[] enumValues = colRdesc
+                        .getPropValue(EnumListFW.enumValues)
+                        .split(IFConsts.enumValueSplitChar);
                     if (null != rowHandler.getLong(deepestKey))
                         result = enumValues[rowHandler.getLong(deepestKey).intValue()];
                 } else if (colRdesc.getPropValue(ColRDesc.AS_GROUPTHOUSANDS) != null) {
@@ -189,9 +186,10 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
                 } else if (colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT) != null) {
                     Double val = rowHandler.getDouble(deepestKey);
                     if (val != null) {
-                        result =
-                            numberUtil.csvFormatNumberToFractial(val, Integer.parseInt(colRdesc
-                                .getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
+                        result = numberUtil.csvFormatNumberToFractial(
+                            val,
+                            Integer
+                                .parseInt(colRdesc.getPropValue(ColRDesc.AS_FRACTIALDIGITCOUNT)));
                     }
                 } else if (colRdesc.hasProp(ColRDesc.ESCAPEHTML)) {
                     result = SafeHtmlUtils.htmlEscape(rowHandler.getString(deepestKey));
@@ -221,8 +219,9 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
                     ? text.substring(0, usingCropsLeng) + "..."
                     : text;
             } else if (whiteSpaceCropsLeng != 0) {
-                return text.length() > whiteSpaceCropsLeng ? text.substring(0, whiteSpaceCropsLeng)
-                    + "..." : text;
+                return text.length() > whiteSpaceCropsLeng
+                    ? text.substring(0, whiteSpaceCropsLeng) + "..."
+                    : text;
             } else {
                 return text;
             }
@@ -239,12 +238,12 @@ public class DefaultTableFieldRenderer implements TableFieldRenderer {
     private void logException(Exception e, String key) {
         // TODO log it on the server side
         // if(GWT.isClient()) {
-        System.out.println("Value or custom displayer not found for key: "
-            + key
-            + ". Defaulted to \"\"");
+        System.out
+            .println("Value or custom displayer not found for key: " + key + ". Defaulted to \"\"");
         // } else {
         // org.slf4j.LoggerFactory.getLogger(TableRenderer.class)
-        // .warn("Value or custom displayer not found for key: {}. Defaulted to \"\"",
+        // .warn("Value or custom displayer not found for key: {}. Defaulted to
+        // \"\"",
         // key);
         // }
     }

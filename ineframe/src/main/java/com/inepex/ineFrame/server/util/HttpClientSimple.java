@@ -20,8 +20,8 @@ public class HttpClientSimple {
             conn.setRequestProperty("Content-Type", "text/html;charset=UTF-8");
 
             // Read all the text returned by the server
-            BufferedReader in =
-                new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF8"));
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(conn.getInputStream(), "UTF8"));
             String str;
             String result = "";
             while ((str = in.readLine()) != null) {

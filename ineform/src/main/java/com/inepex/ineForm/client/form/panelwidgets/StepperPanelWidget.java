@@ -10,8 +10,7 @@ import com.inepex.ineForm.shared.descriptorext.PanelWidgetRDesc;
 public class StepperPanelWidget extends PanelWidget {
 
     private class ChangeResponse
-        extends
-        DisplayedFormUnitChangeHandler.DisplayedFormUnitChangeResponse<Integer> {
+            extends DisplayedFormUnitChangeHandler.DisplayedFormUnitChangeResponse<Integer> {
 
         public ChangeResponse(Integer from, Integer to) {
             super(from, to);

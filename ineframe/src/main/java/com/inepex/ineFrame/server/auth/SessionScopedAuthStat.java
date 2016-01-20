@@ -50,10 +50,7 @@ public class SessionScopedAuthStat {
 
     @Override
     public String toString() {
-        return "SessionScopedAuthStat [userId="
-            + userId
-            + ", authStatusResultBase="
-            + authStatusResultBase
-            + "]";
+        return "SessionScopedAuthStat [userId=" + userId + ", authStatusResultBase="
+            + authStatusResultBase + "]";
     }
 }

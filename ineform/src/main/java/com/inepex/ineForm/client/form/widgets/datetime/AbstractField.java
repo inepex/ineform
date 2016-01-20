@@ -112,8 +112,8 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
         }
 
         if (usetextbox) {
-            registerHandler(tb_datetime
-                .addDateTimeTextBoxEventHandler(new DateTimeTextBoxEventHandler()));
+            registerHandler(
+                tb_datetime.addDateTimeTextBoxEventHandler(new DateTimeTextBoxEventHandler()));
         }
     }
 
@@ -170,8 +170,7 @@ abstract class AbstractField extends HandlerAwareComposite implements DateTimeFi
     }
 
     private class DateTimeTextBoxEventHandler
-        implements
-        DateTimeTextBox.DateTimeTextBoxEventHandler {
+            implements DateTimeTextBox.DateTimeTextBoxEventHandler {
 
         public DateTimeTextBoxEventHandler() {}
 

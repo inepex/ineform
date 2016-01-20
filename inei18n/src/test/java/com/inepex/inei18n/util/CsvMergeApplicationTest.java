@@ -41,10 +41,12 @@ public class CsvMergeApplicationTest {
             // check passed
         }
 
-        ParsedCsv parsedCsv =
-            CsvMerge.parseCsv(Arrays.asList("key1;desc1;engval;huval;", "key2;desc2;engval;huval", // no
-                                                                                                   // closing
-                                                                                                   // ;
+        ParsedCsv parsedCsv = CsvMerge
+            .parseCsv(Arrays.asList(
+                "key1;desc1;engval;huval;",
+                "key2;desc2;engval;huval", // no
+                                           // closing
+                                           // ;
                 "key3;desc3;engval;huval;"), ";");
 
         // column count
@@ -68,16 +70,15 @@ public class CsvMergeApplicationTest {
     public void mergeTest() {
         try {
             CsvMerge.merge(
-            // target
+                // target
                 CsvMerge.parseCsv(
                     Arrays.asList("a;a1;a2;a3;", "b;b1;b2;b3;", "e;te1;te2;te3;"),
                     ";"),
                 3,
 
                 // patch
-                CsvMerge.parseCsv(
-                    Arrays.asList("c;c1;c2;c3;", "d;d1;d2;d3;", "e;pe1;pe2;pe3;"),
-                    ";"),
+                CsvMerge
+                    .parseCsv(Arrays.asList("c;c1;c2;c3;", "d;d1;d2;d3;", "e;pe1;pe2;pe3;"), ";"),
                 4,
 
                 // dummy cell
@@ -87,25 +88,26 @@ public class CsvMergeApplicationTest {
             // check passed
         }
 
-        MergeResult res1 =
-            CsvMerge.merge(
+        MergeResult res1 = CsvMerge.merge(
             // target
-                CsvMerge.parseCsv(Arrays.asList(
+            CsvMerge.parseCsv(
+                Arrays.asList(
                     "aa;a1;a2;a3;",
                     "xx;t1;t2;t3",
                     "bb;b1;b2;b3;",
                     "zz;t1;t2;t3",
-                    "ee;t1;t2;t3;"), ";"),
-                2,
+                    "ee;t1;t2;t3;"),
+                ";"),
+            2,
 
-                // patch
-                CsvMerge.parseCsv(
-                    Arrays.asList("zz;p1;p2;p3;", "dd;d1;d2;d3;", "xx;p1;p2;p3;", "ee;p1;p2;p3;"),
-                    ";"),
-                3,
+            // patch
+            CsvMerge.parseCsv(
+                Arrays.asList("zz;p1;p2;p3;", "dd;d1;d2;d3;", "xx;p1;p2;p3;", "ee;p1;p2;p3;"),
+                ";"),
+            3,
 
-                // dummy cell
-                "dummy");
+            // dummy cell
+            "dummy");
 
         Assert.assertEquals(res1.keyMatchLines.size(), 3);
         Assert.assertTrue(res1.keyMatchLines.contains("ee"));
@@ -139,7 +141,7 @@ public class CsvMergeApplicationTest {
         Assert.assertEquals(res1.resultLines.get(4)[3], "t3");
 
         MergeResult res2 = CsvMerge.merge(
-        // target
+            // target
             CsvMerge.parseCsv(Arrays.asList("aa;t1;t2;t3;"), ";"),
             3,
 
@@ -156,7 +158,7 @@ public class CsvMergeApplicationTest {
         Assert.assertEquals(res2.resultLines.get(0).clone()[3], "aa");
 
         MergeResult res3 = CsvMerge.merge(
-        // target
+            // target
             CsvMerge.parseCsv(Arrays.asList("aa;t1;t2;t3;"), ";"),
             7,
 

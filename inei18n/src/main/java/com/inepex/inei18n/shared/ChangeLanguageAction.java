@@ -6,8 +6,7 @@ import com.inepex.inei18n.client.I18nStore_Client;
 
 /**
  * 
- * this action can be replaced with these client side code lines:
- * {@code 
+ * this action can be replaced with these client side code lines: {@code 
  * 
  * Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, newLangString, new Date(Long.MAX_VALUE));				
  * Window.Location.reload();

@@ -58,9 +58,11 @@ public class CompanyListPage extends FlowPanelBasedPageWithScroll {
 
             @Override
             public void onCellClicked(AssistedObject kvoOfRow) {
-                eventBus.fireEvent(new PlaceRequestEvent(new PlaceToken(LOGGEDIN)
-                    .cld(COMPEDIT)
-                    .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
+                eventBus.fireEvent(
+                    new PlaceRequestEvent(
+                        new PlaceToken(LOGGEDIN)
+                            .cld(COMPEDIT)
+                            .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
             }
 
             @Override
@@ -80,9 +82,11 @@ public class CompanyListPage extends FlowPanelBasedPageWithScroll {
 
             @Override
             public void onCellClicked(AssistedObject kvoOfRow) {
-                eventBus.fireEvent(new PlaceRequestEvent(new PlaceToken(LOGGEDIN)
-                    .cld(COMPDETAILS)
-                    .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
+                eventBus.fireEvent(
+                    new PlaceRequestEvent(
+                        new PlaceToken(LOGGEDIN)
+                            .cld(COMPDETAILS)
+                            .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
             }
 
             @Override
@@ -102,9 +106,11 @@ public class CompanyListPage extends FlowPanelBasedPageWithScroll {
 
             @Override
             public void onCellClicked(AssistedObject kvoOfRow) {
-                eventBus.fireEvent(new PlaceRequestEvent(new PlaceToken(LOGGEDIN)
-                    .cld(COMPDELETE)
-                    .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
+                eventBus.fireEvent(
+                    new PlaceRequestEvent(
+                        new PlaceToken(LOGGEDIN)
+                            .cld(COMPDELETE)
+                            .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
             }
 
             @Override
@@ -124,9 +130,11 @@ public class CompanyListPage extends FlowPanelBasedPageWithScroll {
 
             @Override
             public void onCellClicked(AssistedObject kvoOfRow) {
-                eventBus.fireEvent(new PlaceRequestEvent(new PlaceToken(LOGGEDIN)
-                    .cld(COMPCONTEDIT)
-                    .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
+                eventBus.fireEvent(
+                    new PlaceRequestEvent(
+                        new PlaceToken(LOGGEDIN)
+                            .cld(COMPCONTEDIT)
+                            .appendParam(PARAM_COMPANY, "" + kvoOfRow.getId())));
             }
 
             @Override

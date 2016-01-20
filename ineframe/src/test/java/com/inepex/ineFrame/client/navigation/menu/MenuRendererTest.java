@@ -53,8 +53,11 @@ public class MenuRendererTest extends MenuRendererTestBase {
         PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
         phProvider.createPlaceHierarchy();
 
-        MenuRenderer renderer =
-            new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
+        MenuRenderer renderer = new MenuRenderer(
+            phProvider,
+            eventBus,
+            viewProv,
+            new NoAuthManager());
 
         phProvider.plainPlace.setHierarchicalToken("MenuParent/plainChild");
         renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
@@ -84,8 +87,11 @@ public class MenuRendererTest extends MenuRendererTestBase {
         PlainPlaceHierarchyProv phProvider = new PlainPlaceHierarchyProv();
         phProvider.createPlaceHierarchy();
 
-        MenuRenderer renderer =
-            new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
+        MenuRenderer renderer = new MenuRenderer(
+            phProvider,
+            eventBus,
+            viewProv,
+            new NoAuthManager());
 
         phProvider.onlyVisibleWhenActiveAndHasName
             .setHierarchicalToken("MenuParent/onlyVisibleWhenActiveAndHasName");
@@ -124,9 +130,9 @@ public class MenuRendererTest extends MenuRendererTestBase {
 
         public final InePlace onlyVisibleWhenActiveAndHasName = new SimpleCachingPlace(
             new DummyPageProvider())
-            .setOnlyVisibleWhenActive(true)
-            .setShowChildrenWhenActive(false)
-            .setMenuName("Name of menu");
+                .setOnlyVisibleWhenActive(true)
+                .setShowChildrenWhenActive(false)
+                .setMenuName("Name of menu");
 
         @Override
         public void createPlaceHierarchy() {

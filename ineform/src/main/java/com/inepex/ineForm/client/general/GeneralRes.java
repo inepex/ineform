@@ -23,9 +23,11 @@ public interface GeneralRes extends ClientBundle {
     GeneralStyle GeneralStyle();
 
     @ImageOptions(repeatStyle = RepeatStyle.None)
-    ImageResource checkBoxBG();
+        ImageResource
+            checkBoxBG();
 
     @ImageOptions(repeatStyle = RepeatStyle.None)
-    ImageResource select_icon();
+        ImageResource
+            select_icon();
 
 }

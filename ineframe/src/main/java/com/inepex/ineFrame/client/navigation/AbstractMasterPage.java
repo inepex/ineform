@@ -51,8 +51,7 @@ public abstract class AbstractMasterPage implements MasterPage {
         } catch (Exception e) {
             GWT.log(
                 "Could not parse url params. Navigating to NavigationProperties.wrongTokenPlace("
-                    + NavigationProperties.wrongTokenPlace
-                    + ")",
+                    + NavigationProperties.wrongTokenPlace + ")",
                 e);
             if (!NavigationProperties.wrongTokenPlace.equals(NavigationProperties.defaultPlace)) {
                 eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.wrongTokenPlace));

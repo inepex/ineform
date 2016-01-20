@@ -60,8 +60,8 @@ public class VelocityUtil {
         }
 
         try {
-            BufferedReader breader =
-                new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            BufferedReader breader = new BufferedReader(
+                new InputStreamReader(url.openStream(), "UTF-8"));
             String strLine = "";
             while ((strLine = breader.readLine()) != null) {
                 content.append(strLine).append("\n");

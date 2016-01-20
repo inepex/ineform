@@ -12,8 +12,10 @@ public class AppGuiceModule extends ActionHandlerModule {
     @Override
     protected void configureHandlers() {
         install(new IneFrameBaseServletModule("ContactManager", AppDispatchServlet.class));
-        install(new IneFrameBaseModule(true).setLoginHandler(LoginHandler.class).setAppLangs(
-            CMAppLangs.class));
+        install(
+            new IneFrameBaseModule(true)
+                .setLoginHandler(LoginHandler.class)
+                .setAppLangs(CMAppLangs.class));
         install(new IneFormActionHanlderModule());
     }
 

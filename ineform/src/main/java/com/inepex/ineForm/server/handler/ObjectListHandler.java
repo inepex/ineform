@@ -18,7 +18,8 @@ import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 @Singleton
-public class ObjectListHandler extends AbstractIneHandler<ObjectListAction, ObjectListActionResult> {
+public class ObjectListHandler
+        extends AbstractIneHandler<ObjectListAction, ObjectListActionResult> {
 
     private static final Logger _logger = LoggerFactory.getLogger(ObjectListHandler.class);
 

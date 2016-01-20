@@ -25,7 +25,8 @@ interface Res extends ClientBundle {
     }
 
     @Source("MessagePanelStyle.css")
-    MessagePanelStyle style();
+        MessagePanelStyle
+            style();
 
     ImageResource system_alert_icon();
 

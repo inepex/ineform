@@ -82,19 +82,17 @@ public abstract class DataManipulator extends HandlerAwareComposite {
         addTopPlaceholder();
 
         if (sortable)
-            this.ineTable =
-                new SortableIneTable(
-                    formCtx.descStore,
-                    objectDescriptorName,
-                    ineDataConnector,
-                    fieldRenderer);
+            this.ineTable = new SortableIneTable(
+                formCtx.descStore,
+                objectDescriptorName,
+                ineDataConnector,
+                fieldRenderer);
         else
-            this.ineTable =
-                new IneTable(
-                    formCtx.descStore,
-                    objectDescriptorName,
-                    ineDataConnector,
-                    fieldRenderer);
+            this.ineTable = new IneTable(
+                formCtx.descStore,
+                objectDescriptorName,
+                ineDataConnector,
+                fieldRenderer);
     }
 
     public void render() {
@@ -118,9 +116,8 @@ public abstract class DataManipulator extends HandlerAwareComposite {
 
     public void setAutoUpdating(PushedEventProvider pEventProvider) {
         if (ineDataConnector != null && ineDataConnector instanceof ServerSideDataConnector) {
-            ((ServerSideDataConnector) ineDataConnector).setAutoUpdating(
-                pEventProvider,
-                ineTable.getDataDisplay());
+            ((ServerSideDataConnector) ineDataConnector)
+                .setAutoUpdating(pEventProvider, ineTable.getDataDisplay());
         }
     }
 
@@ -178,8 +175,8 @@ public abstract class DataManipulator extends HandlerAwareComposite {
     protected void showObjectEditor(AssistedObject selectedValue) {
         boolean isEditMode = selectedValue != null;
 
-        SaveCancelForm saveCancelForm =
-            formFactory.createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector, null);
+        SaveCancelForm saveCancelForm = formFactory
+            .createSaveCancel(objectDescriptorName, getFRD(), ineDataConnector, null);
 
         showForm(saveCancelForm); // this is needed here to make event
                                   // processing available!

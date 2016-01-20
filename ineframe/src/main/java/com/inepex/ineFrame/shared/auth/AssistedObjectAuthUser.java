@@ -12,7 +12,10 @@ public class AssistedObjectAuthUser implements AuthUser {
     private String displayNameKey;
     private String emailKey;
 
-    public AssistedObjectAuthUser(AssistedObjectHandler user, String displayNameKey, String emailKey) {
+    public AssistedObjectAuthUser(
+        AssistedObjectHandler user,
+        String displayNameKey,
+        String emailKey) {
         super();
         this.user = user;
         this.displayNameKey = displayNameKey;

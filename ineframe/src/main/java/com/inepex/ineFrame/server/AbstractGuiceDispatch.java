@@ -18,8 +18,7 @@ import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
 public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
-    implements
-    IneInitializer {
+        implements IneInitializer {
 
     private static final long serialVersionUID = 1L;
 

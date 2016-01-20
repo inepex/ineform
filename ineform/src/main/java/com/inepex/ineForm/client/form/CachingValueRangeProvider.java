@@ -23,8 +23,7 @@ public class CachingValueRangeProvider extends ServerSideValueRangeProvider {
 
     final Map<String, List<Relation>> cachedRelationLists = new HashMap<String, List<Relation>>();
     final boolean useDefaultProviderIfNotCached;
-    private Map<String, ArrayList<ValueRangeResultCallback>> waitingCalls =
-        new HashMap<String, ArrayList<ValueRangeResultCallback>>();
+    private Map<String, ArrayList<ValueRangeResultCallback>> waitingCalls = new HashMap<String, ArrayList<ValueRangeResultCallback>>();
 
     public CachingValueRangeProvider(
         IneDispatch dispatch,
@@ -86,8 +85,8 @@ public class CachingValueRangeProvider extends ServerSideValueRangeProvider {
         @Override
         public void onSuccess(BatchResult result) {
             for (int i = 0; i < actions.length; i++) {
-                RelationListActionResult relListResult =
-                    (RelationListActionResult) result.getResult(i);
+                RelationListActionResult relListResult = (RelationListActionResult) result
+                    .getResult(i);
                 String descriptorName = ((RelationListAction) actions[i]).getDescriptorName();
                 cachedRelationLists.put(descriptorName, relListResult.getList());
                 if (waitingCalls.get(descriptorName) != null) {

@@ -31,9 +31,8 @@ public class SelectorView extends FlowPanel implements DefaultOneParamPresenter.
                     hmUp.getHandler(ClickEvent.getType(), 0).onClick(event);
                 }
             } else {
-                int selected =
-                    elementOrder.indexOf(((Label) ((SimplePanel) event.getSource()).getWidget())
-                        .getText());
+                int selected = elementOrder
+                    .indexOf(((Label) ((SimplePanel) event.getSource()).getWidget()).getText());
                 if (selected != -1 && selected != selectedIndex) {
                     selectItem(elementOrder.get(selected));
                     for (int i = 0; i < hm.getHandlerCount(ClickEvent.getType()); i++) {

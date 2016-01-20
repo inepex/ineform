@@ -63,13 +63,14 @@ public class LoginPage extends FlowPanelBasedPage {
             }
         });
 
-        mainPanel.add(new CMLoginBox(
-            authManager,
-            historyProvider,
-            eventBus,
-            ineDispatch,
-            descriptorStore,
-            formFactory));
+        mainPanel.add(
+            new CMLoginBox(
+                authManager,
+                historyProvider,
+                eventBus,
+                ineDispatch,
+                descriptorStore,
+                formFactory));
         mainPanel.add(new HTML("<h2>To log in select one user:</h2>"));
         mainPanel.add(new HTML("<b>john.black@inepex.com</b><br /><i>pass123</i><br /><br />"));
         mainPanel.add(new HTML("<b>barbara.green@inepex.com</b><br /><i>pass123</i><br /><br />"));
@@ -95,7 +96,13 @@ public class LoginPage extends FlowPanelBasedPage {
             IneDispatch ineDispatch,
             DescriptorStore descriptorStore,
             FormFactory formFactory) {
-            super(authManager, historyProvider, eventBus, ineDispatch, descriptorStore, formFactory);
+            super(
+                authManager,
+                historyProvider,
+                eventBus,
+                ineDispatch,
+                descriptorStore,
+                formFactory);
             getElement().getStyle().setFloat(Float.RIGHT);
         }
 

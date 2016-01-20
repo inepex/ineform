@@ -152,10 +152,9 @@ public class JavaPropHandler extends PropHandler {
     }
 
     private void logGetProp(HasProp o, String group, String key) {
-        _logger.error("Failed to set prop ao: {} group: {} key: {}", new Object[] {
-            o.toString(),
-            group,
-            key });
+        _logger.error(
+            "Failed to set prop ao: {} group: {} key: {}",
+            new Object[] { o.toString(), group, key });
     }
 
     @Override

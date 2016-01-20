@@ -79,8 +79,7 @@ public class GreenScrollPanel implements HasScrolling, IsWidget {
         String lowerCaseAgent = userAgent.toLowerCase();
 
         return (has(lowerCaseAgent, "chrome") || has(lowerCaseAgent, "safari"))
-            && has(lowerCaseAgent, "mac os x 10")
-            && doesntHave(lowerCaseAgent, "mac os x 10_1")
+            && has(lowerCaseAgent, "mac os x 10") && doesntHave(lowerCaseAgent, "mac os x 10_1")
             && doesntHave(lowerCaseAgent, "mac os x 10_2")
             && doesntHave(lowerCaseAgent, "mac os x 10_3")
             && doesntHave(lowerCaseAgent, "mac os x 10_4")

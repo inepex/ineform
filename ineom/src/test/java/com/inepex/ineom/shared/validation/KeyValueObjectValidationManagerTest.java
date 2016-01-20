@@ -30,22 +30,23 @@ public class KeyValueObjectValidationManagerTest {
     private final String f1 = "f1";
     private final String f2 = "f2";
 
-    private final ObjectDesc od = new ObjectDesc(odName).addField(
-        new StringFDesc(f1, "f1").maxLength(10).mandatory()).addField(
-        new StringFDesc(f2, "f2").email());
+    private final ObjectDesc od = new ObjectDesc(odName)
+        .addField(new StringFDesc(f1, "f1").maxLength(10).mandatory())
+        .addField(new StringFDesc(f2, "f2").email());
 
     private final DescriptorStore descriptorStore = new ClientDescriptorStore(
         new TreeDescriptorStoreMapCreator());
-    private final AssistedObjectHandlerFactory objectHandlerFactory =
-        new AssistedObjectHandlerFactory(descriptorStore);
-    private final KeyValueObjectValidationManager validationManager =
-        new KeyValueObjectValidationManager(descriptorStore, objectHandlerFactory);
+    private final AssistedObjectHandlerFactory objectHandlerFactory = new AssistedObjectHandlerFactory(
+        descriptorStore);
+    private final KeyValueObjectValidationManager validationManager = new KeyValueObjectValidationManager(
+        descriptorStore,
+        objectHandlerFactory);
 
     @Before
     public void init() {
         I18nStore_Server store = new I18nStore_Server();
-        store.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(
-            new TestCurrentLangProvider())));
+        store.registerModule(
+            new IneOmI18n(new ServerIneOmI18nProvider(new TestCurrentLangProvider())));
         store.loadAllModulesDataFormCsv(false);
         store.initI18nModules();
 

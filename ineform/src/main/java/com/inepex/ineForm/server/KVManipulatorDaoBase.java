@@ -24,9 +24,9 @@ public interface KVManipulatorDaoBase {
         ObjectManipulation action,
         IneformAsyncCallback<ObjectManipulationResult> callback) throws Exception;
 
-    public abstract void searchAsync(
-        AbstractSearch action,
-        IneformAsyncCallback<ObjectListResult> callback);
+    public abstract
+        void
+        searchAsync(AbstractSearch action, IneformAsyncCallback<ObjectListResult> callback);
 
     public abstract void searchAsRelationAsync(
         AbstractSearch action,

@@ -41,8 +41,9 @@ public class LocalizationUtilLogic {
             serverStore.registerModule(i18nClass.newInstance());
 
             serverStore.addLocalizables(moduleName, localizables.values());
-            I18nModuleConverter srvI18nConverter =
-                new I18nModuleConverter(i18nClass, serverStore.getLocalizablesForModule(moduleName));
+            I18nModuleConverter srvI18nConverter = new I18nModuleConverter(
+                i18nClass,
+                serverStore.getLocalizablesForModule(moduleName));
             srvI18nConverter.saveCsvToDefaultPath();
             srvI18nConverter.generateModuleFile();
             srvI18nConverter.generateServerModuleProviderFile();
@@ -74,8 +75,8 @@ public class LocalizationUtilLogic {
             String json = inputStringBuilder.toString();
 
             ObjectMapper objectMapper = new ObjectMapper();
-            DownloadLocalizablesDto dto =
-                objectMapper.readValue(json, DownloadLocalizablesDto.class);
+            DownloadLocalizablesDto dto = objectMapper
+                .readValue(json, DownloadLocalizablesDto.class);
 
             if (dto.getWarning() != null) {
                 for (String str : dto.getWarning())
@@ -102,13 +103,14 @@ public class LocalizationUtilLogic {
         if (enums == null || enums.size() == 0)
             return;
 
-        List<EnumI18nExtractor.EnumClassWithPostfix> enumList =
-            new ArrayList<EnumI18nExtractor.EnumClassWithPostfix>(enums.size());
+        List<EnumI18nExtractor.EnumClassWithPostfix> enumList = new ArrayList<EnumI18nExtractor.EnumClassWithPostfix>(
+            enums.size());
         for (Class<?> e : enums)
             enumList.add(new EnumI18nExtractor.EnumClassWithPostfix(e));
 
-        EnumI18nExtractor.generateI18nAccessHelpersForEnums(Thread
-            .currentThread()
-            .getContextClassLoader(), moduleName, enumList);
+        EnumI18nExtractor.generateI18nAccessHelpersForEnums(
+            Thread.currentThread().getContextClassLoader(),
+            moduleName,
+            enumList);
     }
 }

@@ -14,7 +14,11 @@ public class LoginAction implements Action<AuthStatusResultBase> {
 
     public LoginAction() {}
 
-    public LoginAction(String userName, String password, String captchaAnswer, int loginProductType) {
+    public LoginAction(
+        String userName,
+        String password,
+        String captchaAnswer,
+        int loginProductType) {
         this.userName = userName;
         this.password = password;
         this.captchaAnswer = captchaAnswer;

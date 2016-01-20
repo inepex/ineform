@@ -308,9 +308,7 @@ public class KeyValueObject extends AssistedObject {
             Relation relation = this.relationValues.get(key);
             Relation targetRelation = target.getRelation(key);
 
-            if (targetRelation == null
-                || relation == null
-                || targetRelation.getKvo() == null
+            if (targetRelation == null || relation == null || targetRelation.getKvo() == null
                 || targetRelation.getId() == null
                 || !targetRelation.getId().equals(relation.getId())) {
                 target.set(key, relation == null ? null : new Relation(relation));

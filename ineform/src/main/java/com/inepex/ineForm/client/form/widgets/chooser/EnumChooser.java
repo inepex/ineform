@@ -38,8 +38,9 @@ public class EnumChooser implements Chooser {
                     .createHandler(mappedRel1.getKvo())
                     .getLong(IFConsts.KEY_ORDERNUM)
                     .compareTo(
-                        handlerFactory.createHandler(mappedRel2.getKvo()).getLong(
-                            IFConsts.KEY_ORDERNUM));
+                        handlerFactory
+                            .createHandler(mappedRel2.getKvo())
+                            .getLong(IFConsts.KEY_ORDERNUM));
             }
 
             else
@@ -80,8 +81,9 @@ public class EnumChooser implements Chooser {
         this.descStore = descStore;
         this.handlerFactory = new AssistedObjectHandlerFactory(descStore);
 
-        supportsOrdering =
-            descStore.getOD(relationDescriptorName).containsKey(IFConsts.KEY_ORDERNUM);
+        supportsOrdering = descStore
+            .getOD(relationDescriptorName)
+            .containsKey(IFConsts.KEY_ORDERNUM);
 
         secondLevelJoin = fieldDescriptor.getPropValue("secondLevelJoin");
 
@@ -132,13 +134,11 @@ public class EnumChooser implements Chooser {
         for (Relation rel : selected) {
             Item item = null;
             if (isEnum) {
-                item =
-                    valueRange.get(""
-                        + handlerFactory.createHandler(rel.getKvo()).getLong(secondLevelJoin));
+                item = valueRange
+                    .get("" + handlerFactory.createHandler(rel.getKvo()).getLong(secondLevelJoin));
             } else {
-                item =
-                    valueRange.get(handlerFactory.createHandler(rel.getKvo()).getString(
-                        secondLevelJoin));
+                item = valueRange
+                    .get(handlerFactory.createHandler(rel.getKvo()).getString(secondLevelJoin));
             }
             if (item != null) {
                 relationToItemId.put(item.getId(), rel);
@@ -280,12 +280,12 @@ public class EnumChooser implements Chooser {
             for (int i = 0; i < selectedOrdered.size(); i++) {
                 Relation mappedRel = relationToItemId.get(selectedOrdered.get(i).getId());
                 if (mappedRel.getKvo() != null) {
-                    Long prevValue =
-                        handlerFactory.createHandler(mappedRel.getKvo()).getLong(
-                            IFConsts.KEY_ORDERNUM);
-                    handlerFactory.createHandler(mappedRel.getKvo()).set(
-                        IFConsts.KEY_ORDERNUM,
-                        new Long(i));
+                    Long prevValue = handlerFactory
+                        .createHandler(mappedRel.getKvo())
+                        .getLong(IFConsts.KEY_ORDERNUM);
+                    handlerFactory
+                        .createHandler(mappedRel.getKvo())
+                        .set(IFConsts.KEY_ORDERNUM, new Long(i));
 
                     if (!changed.contains(mappedRel)
                         && (prevValue == null || prevValue.longValue() != new Long(i).longValue()))

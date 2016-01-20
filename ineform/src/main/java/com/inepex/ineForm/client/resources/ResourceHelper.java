@@ -48,6 +48,7 @@ public class ResourceHelper {
          */
         @Source("com/inepex/ineForm/client/STYLES/IneCellTable.css")
         @Override
-        CellTable.Style cellTableStyle();
+            CellTable.Style
+                cellTableStyle();
     }
 }

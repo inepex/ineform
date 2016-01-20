@@ -59,7 +59,8 @@ public class PropDao {
                                            // more than one instance
                     try {
                         _logger.info("Creating mongoclient");
-                        MongoClientOptions options = MongoClientOptions.builder()
+                        MongoClientOptions options = MongoClientOptions
+                            .builder()
                             // .writeConcern(WriteConcern.FSYNCED)
                             .build();
                         mongoClient = new MongoClient(mongoUrl, options);
@@ -263,8 +264,8 @@ public class PropDao {
 
         mongoClient.getDB(DB).requestStart();
         mongoClient.getDB(DB).requestEnsureConnection();
-        DBCursor cursor =
-            getMongoDb().find(searchObj, new BasicDBObject(k_objectId, 1).append("_id", 0));
+        DBCursor cursor = getMongoDb()
+            .find(searchObj, new BasicDBObject(k_objectId, 1).append("_id", 0));
         List<Long> result = new ArrayList<>();
         try {
             while (cursor.hasNext()) {

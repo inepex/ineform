@@ -10,8 +10,7 @@ import com.inepex.ineForm.shared.types.PanelWidgetT;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 
 public abstract class PanelWidget extends HandlerAwareComposite
-    implements
-    DisplayedFormUnitChangeHandler {
+        implements DisplayedFormUnitChangeHandler {
 
     protected final DisplayedFormUnitChangeHandler parentHandler;
     protected final PanelWidget parent;

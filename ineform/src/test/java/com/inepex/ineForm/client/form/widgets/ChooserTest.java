@@ -53,12 +53,11 @@ public class ChooserTest extends DefaultIneFrameClientSideTestBase {
         formCtx.valueRangeProvider = RelationTestData.valueRangeProvider;
         factory = new AssistedObjectHandlerFactory(formCtx.descStore);
 
-        chooser =
-            new RelationChooser(
-                formCtx,
-                chooserFw,
-                data.fieldDesc,
-                data.fieldDesc.getRelatedDescriptorType());
+        chooser = new RelationChooser(
+            formCtx,
+            chooserFw,
+            data.fieldDesc,
+            data.fieldDesc.getRelatedDescriptorType());
         chooser.loadValueRange();
         ArrayList<Relation> relations = new ArrayList<Relation>();
         relations.add(data.rel1);
@@ -77,11 +76,9 @@ public class ChooserTest extends DefaultIneFrameClientSideTestBase {
     public void selectTest() {
         chooser.select(new Item(new Relation(2L, "2L")), true, true);
         assertEquals(1, chooser.getChanged().size());
-        assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser
-            .getChanged()
-            .get(0)
-            .getId()
-            .longValue());
+        assertEquals(
+            IFConsts.NEW_ITEM_ID.longValue(),
+            chooser.getChanged().get(0).getId().longValue());
         assertEquals(
             2L,
             factory
@@ -123,11 +120,9 @@ public class ChooserTest extends DefaultIneFrameClientSideTestBase {
 
         assertNull(chooser.getChanged().get(0).getKvo());
 
-        assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser
-            .getChanged()
-            .get(1)
-            .getId()
-            .longValue());
+        assertEquals(
+            IFConsts.NEW_ITEM_ID.longValue(),
+            chooser.getChanged().get(1).getId().longValue());
 
         assertEquals(
             1L,
@@ -171,11 +166,9 @@ public class ChooserTest extends DefaultIneFrameClientSideTestBase {
     public void selectNewItemTest() {
         chooser.select(new Item(new Relation(IFConsts.NEW_ITEM_ID, "newitem")), true, true);
         assertEquals(1, chooser.getChanged().size());
-        assertEquals(IFConsts.NEW_ITEM_ID.longValue(), chooser
-            .getChanged()
-            .get(0)
-            .getId()
-            .longValue());
+        assertEquals(
+            IFConsts.NEW_ITEM_ID.longValue(),
+            chooser.getChanged().get(0).getId().longValue());
         assertEquals(
             IFConsts.NEW_ITEM_ID.longValue(),
             factory

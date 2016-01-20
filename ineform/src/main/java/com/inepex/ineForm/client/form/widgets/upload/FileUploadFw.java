@@ -62,9 +62,7 @@ public class FileUploadFw extends DenyingFormWidget {
         private FormPanel panelForm = new FormPanel();
         private FlowPanel panelInsideForm = new FlowPanel();
         private FileUpload fileupload = new FileUpload();
-        private IneButton btnSubmit = new IneButton(
-            Color.GREEN,
-            IneFormI18n.imageuploadBtn());
+        private IneButton btnSubmit = new IneButton(Color.GREEN, IneFormI18n.imageuploadBtn());
         private IneButton btnCancel = new IneButton(Color.GRAY, IneFormI18n.CANCEL());
         private Label error = new Label();
 

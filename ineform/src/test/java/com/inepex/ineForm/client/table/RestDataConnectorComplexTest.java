@@ -51,8 +51,7 @@ public class RestDataConnectorComplexTest {
     RestDataConnector restDataConnector;
     @Mock
     ManipulateResultCallback callback;
-    String response =
-        "{'stringField': 'hello', 'relField': {'longField': 3}, 'listField': [{'longField': 4}, {'longField': 5}]}";
+    String response = "{'stringField': 'hello', 'relField': {'longField': 3}, 'listField': [{'longField': 4}, {'longField': 5}]}";
 
     @Before
     public void init() throws Exception {
@@ -60,21 +59,20 @@ public class RestDataConnectorComplexTest {
         MockitoAnnotations.initMocks(this);
         descriptorStore = TestUtil.descriptorStore;
         testKvo = (KeyValueObject) TestUtil.getTestKvo().getAssistedObject();
-        when(requestBuilderFactory.createBuilder(any(Method.class), anyString())).thenReturn(
-            requestBuilder);
-        restDataConnector =
-            new RestDataConnector(
-                Mockito.mock(EventBus.class),
-                Mockito.mock(AsyncStatusIndicator.class),
-                requestBuilderFactory,
-                descriptorStore,
-                new AssistedObjectHandlerFactory(descriptorStore),
-                "testKvo",
-                "getUrl",
-                "newUrl",
-                "modifyUrl",
-                "deleteUrl",
-                false);
+        when(requestBuilderFactory.createBuilder(any(Method.class), anyString()))
+            .thenReturn(requestBuilder);
+        restDataConnector = new RestDataConnector(
+            Mockito.mock(EventBus.class),
+            Mockito.mock(AsyncStatusIndicator.class),
+            requestBuilderFactory,
+            descriptorStore,
+            new AssistedObjectHandlerFactory(descriptorStore),
+            "testKvo",
+            "getUrl",
+            "newUrl",
+            "modifyUrl",
+            "deleteUrl",
+            false);
 
     }
 
@@ -86,14 +84,13 @@ public class RestDataConnectorComplexTest {
         when(response.getStatusCode()).thenReturn(statusCode);
         when(response.getText()).thenReturn(responseText);
 
-        when(requestBuilder.sendRequest(anyString(), any(RequestCallback.class))).thenAnswer(
-            new Answer<Request>() {
+        when(requestBuilder.sendRequest(anyString(), any(RequestCallback.class)))
+            .thenAnswer(new Answer<Request>() {
 
                 @Override
                 public Request answer(InvocationOnMock invocation) throws Throwable {
-                    ((RequestCallback) invocation.getArguments()[1]).onResponseReceived(
-                        null,
-                        response);
+                    ((RequestCallback) invocation.getArguments()[1])
+                        .onResponseReceived(null, response);
                     return null;
                 }
             });
@@ -108,8 +105,8 @@ public class RestDataConnectorComplexTest {
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
         verify(requestBuilder).sendRequest(argument.capture(), any(RequestCallback.class));
         Assert.assertEquals(response, argument.getValue());
-        ArgumentCaptor<ObjectManipulationActionResult> omrCapture =
-            ArgumentCaptor.forClass(ObjectManipulationActionResult.class);
+        ArgumentCaptor<ObjectManipulationActionResult> omrCapture = ArgumentCaptor
+            .forClass(ObjectManipulationActionResult.class);
         verify(callback).onManipulationResult(omrCapture.capture());
 
         TestUtil.assertEquals(

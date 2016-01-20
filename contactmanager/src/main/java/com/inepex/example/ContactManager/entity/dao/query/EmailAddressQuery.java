@@ -36,18 +36,17 @@ public class EmailAddressQuery extends BaseQuery<EmailAddress> {
         Root<EmailAddress> from,
         Expression<Boolean> base) {
 
-        EmailAddressSearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        EmailAddressSearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(EmailAddressConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(EmailAddress_.id), id));
         String email = handler.getString(EmailAddressConsts.s_email);
         if (email != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(EmailAddress_.email)), email.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(EmailAddress_.email)), email.toUpperCase() + "%"));
         return base;
     }
 
@@ -85,11 +84,10 @@ public class EmailAddressQuery extends BaseQuery<EmailAddress> {
         Path<EmailAddress> from,
         String value) {
         Expression<Boolean> expr = null;
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(EmailAddress_.email)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(EmailAddress_.email)), value.toUpperCase() + "%"));
         return expr;
     }
 

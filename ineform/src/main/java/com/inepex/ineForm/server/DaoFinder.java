@@ -44,9 +44,9 @@ public class DaoFinder {
         }
 
         if (o == null) {
-            throw new RuntimeException("Can not be found class definition for: "
-                + daoJndiName
-                + ", you may forgot adding package name of class!");
+            throw new RuntimeException(
+                "Can not be found class definition for: " + daoJndiName
+                    + ", you may forgot adding package name of class!");
         }
 
         return (KVManipulatorDaoBase) o;

@@ -107,14 +107,7 @@ public class AuthStatusResultBase extends GenericActionResult {
 
     @Override
     public String toString() {
-        return "AuthStatusResultBase [displayName="
-            + displayName
-            + ", userId="
-            + userId
-            + ", userEmail="
-            + userEmail
-            + ", userUUID="
-            + userUUID
-            + "]";
+        return "AuthStatusResultBase [displayName=" + displayName + ", userId=" + userId
+            + ", userEmail=" + userEmail + ", userUUID=" + userUUID + "]";
     }
 }

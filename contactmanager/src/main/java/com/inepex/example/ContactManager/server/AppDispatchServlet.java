@@ -60,8 +60,8 @@ public class AppDispatchServlet extends AbstractGuiceDispatch {
     public void registerAdditionalI18nModules(
         I18nStore_Server serverI18n,
         Provider<CurrentLang> currentLangProvider) {
-        serverI18n.registerModule(new IneFormI18n(
-            new ServerIneFormI18nProvider(currentLangProvider)));
+        serverI18n
+            .registerModule(new IneFormI18n(new ServerIneFormI18nProvider(currentLangProvider)));
         serverI18n.registerModule(new IneOmI18n(new ServerIneOmI18nProvider(currentLangProvider)));
         serverI18n.registerModule(new CMI18n(new ServerCMI18nProvider(currentLangProvider)));
     }

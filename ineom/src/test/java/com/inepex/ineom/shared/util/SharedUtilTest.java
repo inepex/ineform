@@ -9,12 +9,10 @@ import org.junit.Test;
 
 public class SharedUtilTest {
 
-    private static final String input =
-        "<b>hello hello</b><br /><tag i='-12' bla=bla>bla-bla bla</tag>\n"
-            + "<b>hello hello</b><br /><tag i='-12' bla=bla>bla-bla bla</tag>";
-    private static final String result =
-        "<b>hello&nbsp;hello</b><br /><tag i='-12' bla=bla>bla&#8209;bla&nbsp;bla</tag>\n"
-            + "<b>hello&nbsp;hello</b><br /><tag i='-12' bla=bla>bla&#8209;bla&nbsp;bla</tag>";
+    private static final String input = "<b>hello hello</b><br /><tag i='-12' bla=bla>bla-bla bla</tag>\n"
+        + "<b>hello hello</b><br /><tag i='-12' bla=bla>bla-bla bla</tag>";
+    private static final String result = "<b>hello&nbsp;hello</b><br /><tag i='-12' bla=bla>bla&#8209;bla&nbsp;bla</tag>\n"
+        + "<b>hello&nbsp;hello</b><br /><tag i='-12' bla=bla>bla&#8209;bla&nbsp;bla</tag>";
 
     @Test
     public void escapeHtmlSpacesTest() {

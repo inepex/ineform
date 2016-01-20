@@ -20,8 +20,7 @@ public class SingleSelectDataManipulator extends DataManipulator {
 
     private final IneButton newButton = new IneButton(Color.GREEN, IneFormI18n.NEW());
     private final IneButton editButton = new IneButton(Color.GRAY, IneFormI18n.EDIT());
-    private final IneButton deleteButton =
-        new IneButton(Color.GREEN, IneFormI18n.DELETE());
+    private final IneButton deleteButton = new IneButton(Color.GREEN, IneFormI18n.DELETE());
 
     @Inject
     public SingleSelectDataManipulator(
@@ -31,7 +30,13 @@ public class SingleSelectDataManipulator extends DataManipulator {
         @Assisted IneDataConnector ineDataConnector,
         @Assisted boolean sortable,
         TableFieldRenderer fieldRenderer) {
-        super(formCtx, formFactory, objectDescriptorName, ineDataConnector, sortable, fieldRenderer);
+        super(
+            formCtx,
+            formFactory,
+            objectDescriptorName,
+            ineDataConnector,
+            sortable,
+            fieldRenderer);
 
     }
 
@@ -51,8 +56,10 @@ public class SingleSelectDataManipulator extends DataManipulator {
         registerHandler(newButton.addClickHandler(new AddDataClickHandler()));
         registerHandler(editButton.addClickHandler(new EditDataClickHandler()));
         registerHandler(deleteButton.addClickHandler(new DeleteDataClickHandler()));
-        registerHandler(ineTable.getSelectionModel().addSelectionChangeHandler(
-            new RowSelectionChangeHandler()));
+        registerHandler(
+            ineTable
+                .getSelectionModel()
+                .addSelectionChangeHandler(new RowSelectionChangeHandler()));
         super.onAttach();
     }
 

@@ -12,8 +12,7 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  *
  */
 public class ObjectManipulationActionResult extends GenericActionResult
-    implements
-    ObjectManipulationResult {
+        implements ObjectManipulationResult {
 
     private static final long serialVersionUID = 5884303239610810826L;
 

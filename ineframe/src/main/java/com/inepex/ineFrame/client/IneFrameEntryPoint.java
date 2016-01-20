@@ -105,8 +105,8 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
     private void printLoadTimeAndCallModuleLoad() {
         if (!GWT.isProdMode() && !Window.Navigator.getUserAgent().contains("IE")) {
-            long appLoadTimeMillis =
-                System.currentTimeMillis() - new Double(getNavigationStartTime()).longValue();
+            long appLoadTimeMillis = System.currentTimeMillis()
+                - new Double(getNavigationStartTime()).longValue();
             System.out.println("App loaded in " + appLoadTimeMillis + " ms");
         }
         onIneModuleLoad();
@@ -124,21 +124,21 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
         queryCounter.incQueries();
 
         // query i18n
-        String langFromUrl =
-            PlaceHandlerHelper.getUrlParameters(historyProvider.getToken()).get(IFConsts.LANG);
-        GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction =
-            clientI18nStore.getModuleQueryAction(loadLangFromCookie, langFromUrl);
+        String langFromUrl = PlaceHandlerHelper
+            .getUrlParameters(historyProvider.getToken())
+            .get(IFConsts.LANG);
+        GetI18nModulesAndSetCurrentLangFromCookieAction i18nAction = clientI18nStore
+            .getModuleQueryAction(loadLangFromCookie, langFromUrl);
         getIneDispatch().execute(i18nAction, new I18nCallback(), new InitialStatusIndicator());
     }
 
     protected IneDispatch getIneDispatch() {
         if (dispatch == null)
-            dispatch =
-                new IneDispatch(
-                    dispatchAsync,
-                    new InitialStatusIndicator(),
-                    eventBus,
-                    new DefaultFailedHandler());
+            dispatch = new IneDispatch(
+                dispatchAsync,
+                new InitialStatusIndicator(),
+                eventBus,
+                new DefaultFailedHandler());
         return dispatch;
     }
 
@@ -155,16 +155,17 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
     }
 
     protected class I18nCallback
-        extends
-        SuccessCallback<GetI18nModulesAndSetCurrentLangFromCookieResult> {
+            extends SuccessCallback<GetI18nModulesAndSetCurrentLangFromCookieResult> {
 
         public I18nCallback() {}
 
         @Override
         public void onSuccess(GetI18nModulesAndSetCurrentLangFromCookieResult result) {
             clientI18nStore.onModulesQueriedSuccess(result);
-            Cookies.setCookie(I18nStore_Client.LANG_COOKIE_ID, result.getCurrentLang(), new Date(
-                System.currentTimeMillis() + DateHelper.dayInMs * 50));
+            Cookies.setCookie(
+                I18nStore_Client.LANG_COOKIE_ID,
+                result.getCurrentLang(),
+                new Date(System.currentTimeMillis() + DateHelper.dayInMs * 50));
 
             queryCounter.decQueries();
 
@@ -206,9 +207,11 @@ public abstract class IneFrameEntryPoint implements EntryPoint {
 
         if (result.getNames().size() > 0) {
             for (int i = 0; i < result.getNames().size(); i++) {
-                descStore.addNamedTypedDesc(marker, result.getOdNames().get(i), result
-                    .getNames()
-                    .get(i), result.getTypedDescrptors().get(i));
+                descStore.addNamedTypedDesc(
+                    marker,
+                    result.getOdNames().get(i),
+                    result.getNames().get(i),
+                    result.getTypedDescrptors().get(i));
             }
         }
     }

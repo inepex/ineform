@@ -9,7 +9,10 @@ public abstract class AssistBase extends Assist {
     private String descriptorName;
     private String searchDescriptorName;
 
-    public AssistBase(String descriptorName, String searchDescriptorName, DescriptorStore descStore) {
+    public AssistBase(
+        String descriptorName,
+        String searchDescriptorName,
+        DescriptorStore descStore) {
         super(descStore);
         this.descriptorName = descriptorName;
         this.searchDescriptorName = searchDescriptorName;

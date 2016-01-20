@@ -14,7 +14,11 @@ public class ThreeWayBoolFw extends DenyingFormWidget {
     // private final ListBox listBox = new ListBox(false);
     private final IneListbox listBox = new IneListbox();
 
-    public ThreeWayBoolFw(FDesc fieldDescriptor, String nullText, String trueText, String falseText) {
+    public ThreeWayBoolFw(
+        FDesc fieldDescriptor,
+        String nullText,
+        String trueText,
+        String falseText) {
         super(fieldDescriptor);
         if (nullText == null)
             nullText = IneFormI18n.notSetText();
@@ -75,7 +79,7 @@ public class ThreeWayBoolFw extends DenyingFormWidget {
                 return false;
         }
 
-        throw new RuntimeException("The seleceted item of ThreeWayBoolFw "
-            + listBox.getListBox().getSelectedIndex());
+        throw new RuntimeException(
+            "The seleceted item of ThreeWayBoolFw " + listBox.getListBox().getSelectedIndex());
     }
 }

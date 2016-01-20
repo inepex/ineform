@@ -97,9 +97,8 @@ public class GreenHorizontalScroll extends HandlerAwareFlowPanel implements Hori
             scrollPaneSize = 0;
         else {
             d = 1.0f + (float) scrollableContent.getScrollWidth() / getElement().getClientWidth();
-            scrollPaneSize =
-                getElement().getClientWidth()
-                    - Math.round((getMaximumHorizontalScrollPosition() / d));
+            scrollPaneSize = getElement().getClientWidth()
+                - Math.round((getMaximumHorizontalScrollPosition() / d));
         }
 
         scrollPanel.getElement().getStyle().setWidth(scrollPaneSize, Unit.PX);

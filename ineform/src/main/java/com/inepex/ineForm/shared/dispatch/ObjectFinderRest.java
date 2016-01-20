@@ -30,8 +30,7 @@ public class ObjectFinderRest {
     private final RequestBuilderFactory requestBuilderFactory;
     private final ResultExtractor resultExtractor;
 
-    private Map<String, ResultObjectExtractor> customResultExtractors =
-        new HashMap<String, KvoJsonParser.ResultObjectExtractor>();
+    private Map<String, ResultObjectExtractor> customResultExtractors = new HashMap<String, KvoJsonParser.ResultObjectExtractor>();
 
     @Inject
     public ObjectFinderRest(
@@ -51,8 +50,8 @@ public class ObjectFinderRest {
     }
 
     public void get(Long id, final AsyncCallback<AssistedObject> callback) {
-        RequestBuilder builder =
-            requestBuilderFactory.createBuilder(RequestBuilder.GET, url.replace("{id}", "" + id));
+        RequestBuilder builder = requestBuilderFactory
+            .createBuilder(RequestBuilder.GET, url.replace("{id}", "" + id));
         try {
             builder.sendRequest("", new RequestCallback() {
 
@@ -60,13 +59,16 @@ public class ObjectFinderRest {
                 public void onResponseReceived(Request request, Response response) {
                     if (response.getStatusCode() == Response.SC_OK) {
 
-                        AssistedObject kvo =
-                            new KvoJsonParser(descriptorStore, resultExtractor.extract(response
-                                .getText()), descriptorName).setCustomResultExtractors(
-                                customResultExtractors).parse();
+                        AssistedObject kvo = new KvoJsonParser(
+                            descriptorStore,
+                            resultExtractor.extract(response.getText()),
+                            descriptorName)
+                                .setCustomResultExtractors(customResultExtractors)
+                                .parse();
                         callback.onSuccess(kvo);
                     } else {
-                        callback.onFailure(new Exception("status code:" + response.getStatusCode()));
+                        callback
+                            .onFailure(new Exception("status code:" + response.getStatusCode()));
                     }
                 }
 

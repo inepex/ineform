@@ -27,11 +27,9 @@ public class CompanyHandlerFactory {
 
     public CompanyHandler createHandler(AssistedObject assistedObject) {
         if (!CompanyConsts.descriptorName.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + CompanyConsts.descriptorName
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + CompanyConsts.descriptorName
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new CompanyHandler(assistedObject, descriptorStore);
     }
@@ -43,11 +41,9 @@ public class CompanyHandlerFactory {
 
     public CompanySearchHandler createSearchHandler(AssistedObject assistedObject) {
         if (!CompanyConsts.searchDescriptor.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + CompanyConsts.searchDescriptor
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + CompanyConsts.searchDescriptor
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new CompanySearchHandler(assistedObject, descriptorStore);
     }
@@ -110,7 +106,9 @@ public class CompanyHandlerFactory {
 
     public static class CompanySearchHandler extends AssistedObjectHandler {
 
-        private CompanySearchHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+        private CompanySearchHandler(
+            AssistedObject assistedObject,
+            DescriptorStore descriptorStore) {
             super(assistedObject, descriptorStore);
         }
 

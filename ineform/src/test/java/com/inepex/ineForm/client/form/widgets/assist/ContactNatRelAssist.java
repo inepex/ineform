@@ -46,13 +46,13 @@ public class ContactNatRelAssist {
         if (validatorDesc != null)
             return validatorDesc;
 
-        validatorDesc = new ValidatorDesc(ContactNatRelKVO.descriptorName, new String[] {/*
-                                                                                          * hc
-                                                                                          * :
-                                                                                          * vd1
-                                                                                          */
+        validatorDesc = new ValidatorDesc(
+            ContactNatRelKVO.descriptorName,
+            new String[] { /*
+                            * hc : vd1
+                            */
 
-        /* hc */});
+                /* hc */ });
 
         return validatorDesc;
     }
@@ -61,19 +61,22 @@ public class ContactNatRelAssist {
         if (objectDesc != null)
             return objectDesc;
 
-        objectDesc =
-            new ObjectDesc(ContactNatRelKVO.descriptorName, new LongFDesc(
+        objectDesc = new ObjectDesc(
+            ContactNatRelKVO.descriptorName,
+            new LongFDesc(
                 ContactNatRelKVO.k_id, /* hc:d1 */
                 "Id"/* hc */)/* hc:d2_1 *//* hc */
-            , new RelationFDesc(ContactNatRelKVO.k_nationality, /* hc:d3 */"Nationality"/* hc */
+                ,
+            new RelationFDesc(ContactNatRelKVO.k_nationality, /* hc:d3 */"Nationality"/* hc */
             , NationalityKVO.descriptorName)/* hc:d2_3 *//* hc */
-            , new LongFDesc(ContactNatRelKVO.k_orderNum, /* hc:d4 */"OrderNum"/* hc */)/*
-                                                                                        * hc
-                                                                                        * :
-                                                                                        * d2_4
-                                                                                        *//* hc */
+            ,
+            new LongFDesc(
+                ContactNatRelKVO.k_orderNum,
+                /* hc:d4 */"OrderNum"/* hc */)/*
+                                               * hc : d2_4
+                                               *//* hc */
 
-            );
+        );
         return objectDesc;
     }
 
@@ -83,32 +86,33 @@ public class ContactNatRelAssist {
 
             tableRDesc
                 .getRootNode()
-                .addChild(ContactNatRelKVO.k_id, new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
-                                                                                           * hc
-                                                                                           * :
-                                                                                           * tdr2_1
-                                                                                           *//* hc */)
-                .addChild(ContactNatRelKVO.k_nationality, new ColRDesc(/*
-                                                                        * hc:tdr1_3
-                                                                        */true/* hc */)/*
-                                                                                        * hc
-                                                                                        * :
-                                                                                        * tdr2_3
-                                                                                        *//* hc */)
-                .addChild(ContactNatRelKVO.k_orderNum, new ColRDesc(/* hc:tdr1_4 */true/* hc */)/*
-                                                                                                 * hc
-                                                                                                 * :
-                                                                                                 * tdr2_4
-                                                                                                 *//* hc */);
+                .addChild(
+                    ContactNatRelKVO.k_id,
+                    new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
+                                                              * hc : tdr2_1
+                                                              *//* hc */)
+                .addChild(
+                    ContactNatRelKVO.k_nationality,
+                    new ColRDesc(/*
+                                  * hc:tdr1_3
+                                  */true/* hc */)/*
+                                                 * hc : tdr2_3
+                                                 *//* hc */)
+                .addChild(
+                    ContactNatRelKVO.k_orderNum,
+                    new ColRDesc(/* hc:tdr1_4 */true/* hc */)/*
+                                                              * hc : tdr2_4
+                                                              *//* hc */);
         }
         return tableRDesc;
     }
 
     public static FormRDesc getFormRDesc() {
         if (formRDesc == null) {
-            formRDesc = new FormRDesc(ContactNatRelKVO.descriptorName/*
-                                                                      * hc:frd_props
-                                                                      */
+            formRDesc = new FormRDesc(
+                ContactNatRelKVO.descriptorName/*
+                                                * hc:frd_props
+                                                */
 
             /* hc */);
 

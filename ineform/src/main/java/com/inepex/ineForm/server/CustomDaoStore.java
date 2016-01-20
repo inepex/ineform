@@ -5,8 +5,7 @@ import java.util.Map;
 
 public class CustomDaoStore {
 
-    private Map<String, KVManipulatorDaoBase> providersByDescriptor =
-        new HashMap<String, KVManipulatorDaoBase>();
+    private Map<String, KVManipulatorDaoBase> providersByDescriptor = new HashMap<String, KVManipulatorDaoBase>();
 
     public CustomDaoStore() {
 

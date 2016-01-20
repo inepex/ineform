@@ -50,8 +50,8 @@ public class MenuRendererAuthManagerTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(
-            new Answer<MenuRenderer.View.Tab>() {
+        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+            .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
 
@@ -112,8 +112,8 @@ public class MenuRendererAuthManagerTest {
         final int tabCount = 2;
 
         AuthManager authManager = mock(AuthManager.class);
-        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg())).thenAnswer(
-            new Answer<Boolean>() {
+        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg()))
+            .thenAnswer(new Answer<Boolean>() {
 
                 @Override
                 public Boolean answer(InvocationOnMock invocation) throws Throwable {
@@ -151,8 +151,8 @@ public class MenuRendererAuthManagerTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(
-            new Answer<MenuRenderer.View.Tab>() {
+        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+            .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
 
@@ -203,8 +203,8 @@ public class MenuRendererAuthManagerTest {
         final int tabCount = 1;
 
         AuthManager authManager = mock(AuthManager.class);
-        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg())).thenAnswer(
-            new Answer<Boolean>() {
+        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg()))
+            .thenAnswer(new Answer<Boolean>() {
 
                 @Override
                 public Boolean answer(InvocationOnMock invocation) throws Throwable {
@@ -233,8 +233,8 @@ public class MenuRendererAuthManagerTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(
-            new Answer<MenuRenderer.View.Tab>() {
+        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+            .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
 

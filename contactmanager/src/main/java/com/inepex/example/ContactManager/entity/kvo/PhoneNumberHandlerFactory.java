@@ -26,11 +26,9 @@ public class PhoneNumberHandlerFactory {
 
     public PhoneNumberHandler createHandler(AssistedObject assistedObject) {
         if (!PhoneNumberConsts.descriptorName.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + PhoneNumberConsts.descriptorName
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + PhoneNumberConsts.descriptorName
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new PhoneNumberHandler(assistedObject, descriptorStore);
     }
@@ -42,11 +40,9 @@ public class PhoneNumberHandlerFactory {
 
     public PhoneNumberSearchHandler createSearchHandler(AssistedObject assistedObject) {
         if (!PhoneNumberConsts.searchDescriptor.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + PhoneNumberConsts.searchDescriptor
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + PhoneNumberConsts.searchDescriptor
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new PhoneNumberSearchHandler(assistedObject, descriptorStore);
     }

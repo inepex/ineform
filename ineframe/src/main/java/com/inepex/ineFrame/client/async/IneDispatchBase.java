@@ -93,10 +93,8 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
         }
 
         private boolean isInvalid() {
-            return (placeHandler != null && execution.placeToken != null && !placeHandler
-                .get()
-                .getCurrentFullToken()
-                .equals(execution.placeToken));
+            return (placeHandler != null && execution.placeToken != null
+                && !placeHandler.get().getCurrentFullToken().equals(execution.placeToken));
         }
 
         public SuccessCallback<R> getSuccessCallback() {
@@ -121,8 +119,7 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
     }
 
     public static abstract class PushedActionContext<R extends Result>
-        extends
-        SuccessCallback<Result> {
+            extends SuccessCallback<Result> {
         public AsyncStatusIndicator customStatusIndicator = null;
 
         public PushedActionContext() {}
@@ -231,16 +228,18 @@ public abstract class IneDispatchBase<A> implements ConnectionEventHandler {
     }
 
     protected <R> void executeInternal(CommandExecution<A> execution) {
-        IneAsyncCallback<R> asyncCallback =
-            new IneAsyncCallback<R>(execution.callback, execution.statusIndicator, execution);
+        IneAsyncCallback<R> asyncCallback = new IneAsyncCallback<R>(
+            execution.callback,
+            execution.statusIndicator,
+            execution);
         doExecute(execution.command, asyncCallback);
         execution.statusIndicator.onAsyncRequestStarted("");
     }
 
     public void reconnected() {
         if (pendingExecutions.size() != 0) {
-            List<CommandExecution<A>> tmpList =
-                new ArrayList<CommandExecution<A>>(pendingExecutions);
+            List<CommandExecution<A>> tmpList = new ArrayList<CommandExecution<A>>(
+                pendingExecutions);
             for (CommandExecution<A> execution : tmpList) {
                 execution.statusIndicator.onSuccess("");
                 executeInternal(execution);

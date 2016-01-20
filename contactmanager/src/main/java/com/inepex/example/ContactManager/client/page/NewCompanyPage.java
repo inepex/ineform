@@ -15,9 +15,7 @@ import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 
 public class NewCompanyPage extends FlowPanelBasedPage
-    implements
-    SavedEvent.Handler,
-    CancelledEvent.Handler {
+        implements SavedEvent.Handler, CancelledEvent.Handler {
 
     private final FormContext formContext;
     private final PlaceHandler placeHandler;
@@ -30,11 +28,10 @@ public class NewCompanyPage extends FlowPanelBasedPage
         this.formContext = formContext;
         this.placeHandler = placeHandler;
 
-        connector =
-            new ServerSideDataConnector(
-                formContext.ineDispatch,
-                formContext.eventBus,
-                CompanyConsts.descriptorName);
+        connector = new ServerSideDataConnector(
+            formContext.ineDispatch,
+            formContext.eventBus,
+            CompanyConsts.descriptorName);
         form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
         form.setValidateData(ValidateMode.PARTIAL);
         form.renderForm();
@@ -61,11 +58,12 @@ public class NewCompanyPage extends FlowPanelBasedPage
 
     @Override
     public void onSaved(SavedEvent event) {
-        formContext.eventBus.fireEvent(placeHandler.generateSameLevelMenuEvent(PlaceHandlerHelper
-            .appendParam(
-                AppPlaceHierarchyProvider.COMPANIES,
-                AppPlaceHierarchyProvider.PARAM_COMPANY,
-                event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
+        formContext.eventBus.fireEvent(
+            placeHandler.generateSameLevelMenuEvent(
+                PlaceHandlerHelper.appendParam(
+                    AppPlaceHierarchyProvider.COMPANIES,
+                    AppPlaceHierarchyProvider.PARAM_COMPANY,
+                    event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
     }
 
 }

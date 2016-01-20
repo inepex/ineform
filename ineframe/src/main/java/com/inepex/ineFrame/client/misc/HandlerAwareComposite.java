@@ -11,8 +11,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  *
  */
 public abstract class HandlerAwareComposite extends Composite {
-    private List<HandlerRegistration> handlerRegistrations =
-        new java.util.ArrayList<HandlerRegistration>();
+    private List<HandlerRegistration> handlerRegistrations = new java.util.ArrayList<HandlerRegistration>();
 
     /**
      * Any {@link HandlerRegistration}s added will be removed when

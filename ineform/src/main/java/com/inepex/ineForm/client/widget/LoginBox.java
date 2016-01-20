@@ -91,12 +91,11 @@ public abstract class LoginBox extends HandlerAwareComposite {
      * this method initializes the protected fields: labels and button
      */
     protected void createUI() {
-        ObjectDesc desc =
-            new ObjectDesc(
-                loginObjectDesc,
-                new StringFDesc(email, IneFrameI18n.USERNAME()),
-                new StringFDesc(pass, IneFrameI18n.PASSWORD()),
-                new StringFDesc(captcha, IneFrameI18n.CAPTCHA()));
+        ObjectDesc desc = new ObjectDesc(
+            loginObjectDesc,
+            new StringFDesc(email, IneFrameI18n.USERNAME()),
+            new StringFDesc(pass, IneFrameI18n.PASSWORD()),
+            new StringFDesc(captcha, IneFrameI18n.CAPTCHA()));
         descriptorStore.registerObjectDesc(Marker.registered, desc);
         FormRDesc fDesc = new FormRDesc(loginObjectDesc);
         fDesc.getRootNode().addChild(
@@ -104,14 +103,13 @@ public abstract class LoginBox extends HandlerAwareComposite {
             new WidgetRDesc(FWTypes.TEXTBOXBYDOMID).prop(IneFormProperties.domId, "username"));
         fDesc.getRootNode().addChild(
             pass,
-            new WidgetRDesc(FWTypes.PASSWORDTEXTBOXBYDOMID).prop(
-                IneFormProperties.domId,
-                "password"));
+            new WidgetRDesc(FWTypes.PASSWORDTEXTBOXBYDOMID)
+                .prop(IneFormProperties.domId, "password"));
         fDesc.getRootNode().addChild(
             captcha,
-            new WidgetRDesc(FWTypes.CAPTCHA).width(100).prop(
-                CaptchaFW.PROP_RENDERING,
-                CaptchaFW.HORIZONTAL));
+            new WidgetRDesc(FWTypes.CAPTCHA)
+                .width(100)
+                .prop(CaptchaFW.PROP_RENDERING, CaptchaFW.HORIZONTAL));
         descriptorStore.addDefaultTypedDesc(Marker.registered, loginObjectDesc, fDesc);
 
         ineForm = formFactory.createSimple(loginObjectDesc, null);
@@ -170,11 +168,15 @@ public abstract class LoginBox extends HandlerAwareComposite {
 
     protected void setStaySignedInCookie(boolean staySignedIn) {
         if (staySignedIn) {
-            Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_TRUE, new Date(
-                System.currentTimeMillis() + DateHelper.dayInMs * 30));
+            Cookies.setCookie(
+                IFConsts.COOKIE_NEEDSTAYSIGNEDIN,
+                IFConsts.COOKIE_TRUE,
+                new Date(System.currentTimeMillis() + DateHelper.dayInMs * 30));
         } else {
-            Cookies.setCookie(IFConsts.COOKIE_NEEDSTAYSIGNEDIN, IFConsts.COOKIE_FALSE, new Date(
-                System.currentTimeMillis() + DateHelper.dayInMs * 30));
+            Cookies.setCookie(
+                IFConsts.COOKIE_NEEDSTAYSIGNEDIN,
+                IFConsts.COOKIE_FALSE,
+                new Date(System.currentTimeMillis() + DateHelper.dayInMs * 30));
         }
     }
 
@@ -201,17 +203,17 @@ public abstract class LoginBox extends HandlerAwareComposite {
 
     public PlaceRequestEvent getRedirectPlaceReqEvt() {
         PlaceRequestEvent pre = new PlaceRequestEvent();
-        pre.setHierarchicalTokensWithParam(historyProvider.getToken().substring(
-            historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
-                + NavigationProperties.REDIRECT.length()
-                + PlaceHandler.EQUALS_SIGN.length(),
-            historyProvider.getToken().length()));
+        pre.setHierarchicalTokensWithParam(
+            historyProvider.getToken().substring(
+                historyProvider.getToken().indexOf(NavigationProperties.REDIRECT)
+                    + NavigationProperties.REDIRECT.length() + PlaceHandler.EQUALS_SIGN.length(),
+                historyProvider.getToken().length()));
         return pre;
     }
 
-    protected void modifiyRedirectPlaceRequestEvent(
-        AuthStatusResultBase result,
-        PlaceRequestEvent pre) {}
+    protected
+        void
+        modifiyRedirectPlaceRequestEvent(AuthStatusResultBase result, PlaceRequestEvent pre) {}
 
     /**
      * override to display more sophisticated errors

@@ -20,10 +20,7 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
  *
  */
 public class ObjectManipulationAction
-    implements
-    Action<ObjectManipulationActionResult>,
-    Loggable,
-    ObjectManipulation {
+        implements Action<ObjectManipulationActionResult>, Loggable, ObjectManipulation {
 
     private static final long serialVersionUID = -7036154087856790606L;
 
@@ -83,15 +80,8 @@ public class ObjectManipulationAction
 
     @Override
     public String toString() {
-        return "ObjectManipulationAction [manipulationType="
-            + manipulationType
-            + ", object="
-            + object
-            + ", idToRefresh="
-            + idToRefresh
-            + ", propGroups="
-            + propGroups
-            + "]";
+        return "ObjectManipulationAction [manipulationType=" + manipulationType + ", object="
+            + object + ", idToRefresh=" + idToRefresh + ", propGroups=" + propGroups + "]";
     }
 
     @Override

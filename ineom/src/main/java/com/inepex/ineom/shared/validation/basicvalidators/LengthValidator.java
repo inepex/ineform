@@ -34,18 +34,16 @@ public class LengthValidator implements KeyValueObjectValidator {
         this.type = type;
 
         if (fieldType != IneT.STRING)
-            throw new RuntimeException("LengthValidator doesn't defined on type "
-                + fieldType.toString()
-                + " defined on "
-                + fieldName);
+            throw new RuntimeException(
+                "LengthValidator doesn't defined on type " + fieldType.toString() + " defined on "
+                    + fieldName);
     }
 
     @Override
     public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
 
-        String val =
-            new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc)
-                .getString(fieldName);
+        String val = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc)
+            .getString(fieldName);
         if (val != null) {
             if (type == Type.MAXLENGTH && val.length() > limit) {
                 validationResult.addFieldError(

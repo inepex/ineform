@@ -37,10 +37,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
 
         @Override
         public void onSuccess(ObjectManipulationResult result) {
-            if (result != null
-                && result.isSuccess()
-                && (result.getValidationResult() == null || result.getValidationResult().isValid())) {
-                if (currentManipulation.getObject() != null && result.getObjectsNewState() != null) {
+            if (result != null && result.isSuccess() && (result.getValidationResult() == null
+                || result.getValidationResult().isValid())) {
+                if (currentManipulation.getObject() != null
+                    && result.getObjectsNewState() != null) {
                     if (currentManipulation.getObject().isNew()) {
                         rowCount++;
                         resultMap.put(result.getObjectsNewState().getId(), resultList.size());
@@ -58,8 +58,9 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
                 if (currentManipulation.getManipulationType() == ManipulationTypes.DELETE
                     && rowCount > 0) {
                     --rowCount;
-                    int indexOfDeleted =
-                        resultMap.get(currentManipulation.getObject().getId()).intValue();
+                    int indexOfDeleted = resultMap
+                        .get(currentManipulation.getObject().getId())
+                        .intValue();
                     resultList.remove(indexOfDeleted);
                     resultMap.remove(currentManipulation.getObject().getId());
                     for (Entry<Long, Integer> entry : resultMap.entrySet()) {
@@ -206,16 +207,18 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
      * 
      * @param object
      */
-    public void
+    public
+        void
         objectCreateOrEditRequested(AssistedObject object, ManipulateResultCallback callback) {
         createDefaultManipulateActionIfNUll();
         setManipulateActionDetails(
             objectManipulation,
             ManipulationTypes.CREATE_OR_EDIT_REQUEST,
             object);
-        executeManipulation(objectManipulation, new ObjectManipulationCallback(
+        executeManipulation(
             objectManipulation,
-            callback), customManipulateStatusIndicator);
+            new ObjectManipulationCallback(objectManipulation, callback),
+            customManipulateStatusIndicator);
     }
 
     /**
@@ -229,9 +232,10 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
             objectManipulation,
             ManipulationTypes.DELETE,
             new KeyValueObject(object.getDescriptorName(), object.getId()));
-        executeManipulation(objectManipulation, new ObjectManipulationCallback(
+        executeManipulation(
             objectManipulation,
-            callback), customManipulateStatusIndicator);
+            new ObjectManipulationCallback(objectManipulation, callback),
+            customManipulateStatusIndicator);
     }
 
     @Override
@@ -285,9 +289,12 @@ public abstract class IneDataConnector extends AsyncDataProvider<AssistedObject>
             false);
         if (!firstCall) {
             createDefaultListActionIfNull();
-            setListActionDetails(objectList, searchParameters, getFirstDataDisplay()
-                .getVisibleRange()
-                .getStart(), getFirstDataDisplay().getVisibleRange().getLength(), isPaging);
+            setListActionDetails(
+                objectList,
+                searchParameters,
+                getFirstDataDisplay().getVisibleRange().getStart(),
+                getFirstDataDisplay().getVisibleRange().getLength(),
+                isPaging);
             executeObjectList(
                 objectList,
                 rerunQueryOnOrder,

@@ -60,8 +60,7 @@ public class TabPanelWidget extends PanelWidget {
     }
 
     private class ChangeResponse
-        extends
-        DisplayedFormUnitChangeHandler.DisplayedFormUnitChangeResponse<Integer> {
+            extends DisplayedFormUnitChangeHandler.DisplayedFormUnitChangeResponse<Integer> {
 
         public ChangeResponse(Integer from, Integer to) {
             super(from, to);

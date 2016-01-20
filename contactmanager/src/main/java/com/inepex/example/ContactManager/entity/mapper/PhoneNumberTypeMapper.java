@@ -57,9 +57,10 @@ public class PhoneNumberTypeMapper extends BaseMapper<PhoneNumberType> {
     public Relation toRelation(PhoneNumberType entity, boolean includeKvo) {
         if (entity == null)
             return null;
-        return new Relation(entity.getId(), entity.toString(), includeKvo
-            ? entityToKvo(entity)
-            : null);
+        return new Relation(
+            entity.getId(),
+            entity.toString(),
+            includeKvo ? entityToKvo(entity) : null);
     }
 
 }

@@ -88,8 +88,7 @@ public class RestDataConnector extends IneDataConnector {
     String modifyUrl;
     String deleteUrl;
     boolean serializeId;
-    Map<String, ResultExtractor> descriptorToExtractorMapping =
-        new HashMap<String, ResultExtractor>();
+    Map<String, ResultExtractor> descriptorToExtractorMapping = new HashMap<String, ResultExtractor>();
     ErrorExtractor errorExtractor;
     DescriptorStore descriptorStore;
     AssistedObjectHandlerFactory handlerFactory;
@@ -221,8 +220,8 @@ public class RestDataConnector extends IneDataConnector {
 
                             ObjectManipulationResult omr = null;
                             if (vr == null) {
-                                omr =
-                                    new ObjectManipulationActionResult(getObjectFromJSON(
+                                omr = new ObjectManipulationActionResult(
+                                    getObjectFromJSON(
                                         response.getText(),
                                         objectManipulation.getObject().getDescriptorName()));
                             } else {
@@ -234,12 +233,10 @@ public class RestDataConnector extends IneDataConnector {
                             RestDataConnector.this.statusIndicator.onSuccess("");
 
                         } else {
-                            System.out.println("Status: "
-                                + response.getStatusCode()
-                                + "; "
-                                + response.getText());
-                            RestDataConnector.this.statusIndicator.onGeneralFailure(IneFormI18n
-                                .restRequestError());
+                            System.out.println(
+                                "Status: " + response.getStatusCode() + "; " + response.getText());
+                            RestDataConnector.this.statusIndicator
+                                .onGeneralFailure(IneFormI18n.restRequestError());
                         }
                     }
 
@@ -261,8 +258,8 @@ public class RestDataConnector extends IneDataConnector {
         final ObjectManipulationCallback manipulationCallback,
         final AsyncStatusIndicator statusIndicator) {
         statusIndicator.onAsyncRequestStarted(IneFormI18n.loading());
-        RequestBuilder builder =
-            requestBuilderFactory.createBuilder(RequestBuilder.POST, deleteUrl);
+        RequestBuilder builder = requestBuilderFactory
+            .createBuilder(RequestBuilder.POST, deleteUrl);
         builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
         try {
             builder.sendRequest(
@@ -275,10 +272,8 @@ public class RestDataConnector extends IneDataConnector {
                             manipulationCallback.onSuccess(new ObjectManipulationActionResult());
                             statusIndicator.onSuccess("");
                         } else {
-                            System.out.println("Status: "
-                                + response.getStatusCode()
-                                + "; "
-                                + response.getText());
+                            System.out.println(
+                                "Status: " + response.getStatusCode() + "; " + response.getText());
                             statusIndicator.onGeneralFailure(IneFormI18n.restRequestError());
                         }
                     }

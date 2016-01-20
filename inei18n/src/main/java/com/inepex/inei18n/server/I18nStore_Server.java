@@ -17,8 +17,7 @@ public class I18nStore_Server extends I18nStoreBase {
 
     private static final Logger _logger = LoggerFactory.getLogger(I18nStore_Server.class);
 
-    private final HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule =
-        new HashMap<>();
+    private final HashMap<String, TreeMap<String, LocalizedString>> localizablesByKeyByModule = new HashMap<>();
 
     @Inject
     public I18nStore_Server() {}
@@ -46,9 +45,8 @@ public class I18nStore_Server extends I18nStoreBase {
 
     private void checkModuleAdded(String module) {
         if (!modulesByName.containsKey(module)) {
-            throw new RuntimeException("I18nModule '"
-                + module
-                + "' is not registered in serverSideStore!");
+            throw new RuntimeException(
+                "I18nModule '" + module + "' is not registered in serverSideStore!");
         }
     }
 
@@ -59,8 +57,9 @@ public class I18nStore_Server extends I18nStoreBase {
     }
 
     public I18nModule getI18nModuleByNameForLang(String module, String lang) {
-        ServerI18nProvider<?> serverI18nProv =
-            (ServerI18nProvider<?>) modulesByName.get(module).getI18nProvider();
+        ServerI18nProvider<?> serverI18nProv = (ServerI18nProvider<?>) modulesByName
+            .get(module)
+            .getI18nProvider();
 
         return serverI18nProv.getI18nForLang(lang);
     }
@@ -94,17 +93,18 @@ public class I18nStore_Server extends I18nStoreBase {
                 || !(i18nModule.getI18nProvider() instanceof ServerI18nProvider))
                 continue;
 
-            ServerI18nProvider<?> serverI18nProv =
-                (ServerI18nProvider<?>) i18nModule.getI18nProvider();
+            ServerI18nProvider<?> serverI18nProv = (ServerI18nProvider<?>) i18nModule
+                .getI18nProvider();
 
-            TreeMap<String, LocalizedString> localizablesByKey =
-                localizablesByKeyByModule.get(i18nModule.getModuleName());
+            TreeMap<String, LocalizedString> localizablesByKey = localizablesByKeyByModule
+                .get(i18nModule.getModuleName());
 
             for (LocalizedString localizable : localizablesByKey.values()) {
                 for (String langKey : localizable.getLocalizedMap().keySet()) {
-                    serverI18nProv.setByKeyAndLang(langKey, localizable.getKey(), localizable
-                        .getLocalizedMap()
-                        .get(langKey));
+                    serverI18nProv.setByKeyAndLang(
+                        langKey,
+                        localizable.getKey(),
+                        localizable.getLocalizedMap().get(langKey));
                 }
             }
         }

@@ -20,9 +20,7 @@ public interface AuthManager {
 
     public abstract boolean doUserHaveAnyOfRoles(String... roles);
 
-    public abstract void doGoogleLogin(
-        String googleLoginToken,
-        AuthActionCallback callback);
+    public abstract void doGoogleLogin(String googleLoginToken, AuthActionCallback callback);
 
     public abstract void setLoginProductType(int typeOrdinal);
 }

@@ -41,8 +41,8 @@ public class App extends IneFrameEntryPoint {
     public void onIneModuleLoad() {
         NavigationProperties.defaultPlace = AppPlaceHierarchyProvider.LOGGEDIN;
         NavigationProperties.noRightPlace = AppPlaceHierarchyProvider.LOGIN;
-        NavigationProperties.wrongTokenPlace =
-            AppPlaceHierarchyProvider.LOGGEDIN + "/" + AppPlaceHierarchyProvider.PAGENOTFOUND;
+        NavigationProperties.wrongTokenPlace = AppPlaceHierarchyProvider.LOGGEDIN + "/"
+            + AppPlaceHierarchyProvider.PAGENOTFOUND;
         NavigationProperties.loginPlace = AppPlaceHierarchyProvider.LOGIN;
 
         registerDescriptors();

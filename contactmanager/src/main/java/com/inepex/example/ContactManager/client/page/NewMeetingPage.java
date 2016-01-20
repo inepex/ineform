@@ -27,9 +27,7 @@ import com.inepex.ineom.shared.Relation;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationList;
 
 public class NewMeetingPage extends FlowPanelBasedPage
-    implements
-    SavedEvent.Handler,
-    CancelledEvent.Handler {
+        implements SavedEvent.Handler, CancelledEvent.Handler {
 
     private final FormContext formContext;
     private final PlaceHandler placeHandler;
@@ -53,11 +51,10 @@ public class NewMeetingPage extends FlowPanelBasedPage
 
         formContext.valueRangeProvider = new MeetingValueRangeProvider(formContext.ineDispatch);
 
-        connector =
-            new ServerSideDataConnector(
-                formContext.ineDispatch,
-                formContext.eventBus,
-                MeetingConsts.descriptorName);
+        connector = new ServerSideDataConnector(
+            formContext.ineDispatch,
+            formContext.eventBus,
+            MeetingConsts.descriptorName);
         form = formFactory.createSaveCancel(MeetingConsts.descriptorName, null, connector, null);
         form.setValidateData(ValidateMode.PARTIAL);
         form.renderForm();
@@ -67,13 +64,9 @@ public class NewMeetingPage extends FlowPanelBasedPage
     @Override
     protected void onShow(boolean isFirstShow) {
         form.resetValuesToEmpty();
-        form
-            .getRootPanelWidget()
-            .getFormUnits()
-            .get(0)
-            .setSingleWidgetValue(
-                MeetingConsts.k_user,
-                new Relation(authManager.getLastAuthStatusResult().getUserId(), ""));
+        form.getRootPanelWidget().getFormUnits().get(0).setSingleWidgetValue(
+            MeetingConsts.k_user,
+            new Relation(authManager.getLastAuthStatusResult().getUserId(), ""));
 
     }
 
@@ -84,23 +77,20 @@ public class NewMeetingPage extends FlowPanelBasedPage
         registerHandler(form.addSavedHandler(this));
         registerHandler(form.addCancelledHandler(this));
 
-        registerHandler(form
-            .getRootPanelWidget()
-            .getFormUnits()
-            .get(0)
-            .getWidgetByKey(MeetingConsts.k_company)
-            .addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
+        registerHandler(
+            form
+                .getRootPanelWidget()
+                .getFormUnits()
+                .get(0)
+                .getWidgetByKey(MeetingConsts.k_company)
+                .addFormWidgetChangeHandler(new FormWidgetChangeHandler() {
 
-                @Override
-                public void onFormWidgetChange(FormWidgetChangeEvent e) {
-                    ((ListBoxFW) form
-                        .getRootPanelWidget()
-                        .getFormUnits()
-                        .get(0)
-                        .getWidgetByKey(MeetingConsts.k_contact))
-                        .reLoadListAndKeepSelectedOrSetToNull();
-                }
-            }));
+                    @Override
+                    public void onFormWidgetChange(FormWidgetChangeEvent e) {
+                        ((ListBoxFW) form.getRootPanelWidget().getFormUnits().get(0).getWidgetByKey(
+                            MeetingConsts.k_contact)).reLoadListAndKeepSelectedOrSetToNull();
+                    }
+                }));
     }
 
     @Override
@@ -110,11 +100,12 @@ public class NewMeetingPage extends FlowPanelBasedPage
 
     @Override
     public void onSaved(SavedEvent event) {
-        formContext.eventBus.fireEvent(placeHandler.generateSameLevelMenuEvent(PlaceHandlerHelper
-            .appendParam(
-                AppPlaceHierarchyProvider.MEETINGS,
-                AppPlaceHierarchyProvider.PARAM_MEETING,
-                event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
+        formContext.eventBus.fireEvent(
+            placeHandler.generateSameLevelMenuEvent(
+                PlaceHandlerHelper.appendParam(
+                    AppPlaceHierarchyProvider.MEETINGS,
+                    AppPlaceHierarchyProvider.PARAM_MEETING,
+                    event.getObjectManipulationResult().getObjectsNewState().getId().toString())));
     }
 
     private class MeetingValueRangeProvider extends ServerSideValueRangeProvider {
@@ -130,12 +121,14 @@ public class NewMeetingPage extends FlowPanelBasedPage
                 return super.getActionForDescriptorName(descriptorName);
             else {
                 ContactSearchHandler searchKVO = contactHandlerFactory.createSearchHandler();
-                searchKVO.setCompany(form
-                    .getRootPanelWidget()
-                    .getFormUnits()
-                    .get(0)
-                    .getWidgetByKey(MeetingConsts.k_company)
-                    .getRelationValue());
+                searchKVO
+                    .setCompany(
+                        form
+                            .getRootPanelWidget()
+                            .getFormUnits()
+                            .get(0)
+                            .getWidgetByKey(MeetingConsts.k_company)
+                            .getRelationValue());
                 return new RelationListAction(
                     ContactConsts.descriptorName,
                     searchKVO.getAssistedObject(),

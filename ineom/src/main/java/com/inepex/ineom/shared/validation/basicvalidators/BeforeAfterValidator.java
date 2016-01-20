@@ -31,8 +31,10 @@ public class BeforeAfterValidator implements KeyValueObjectValidator {
 
     @Override
     public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
-        AssistedObjectChecker checker =
-            new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc);
+        AssistedObjectChecker checker = new AssistedObjectChecker(
+            kvo,
+            kvo.getDescriptorName(),
+            objectDesc);
         Long lb = checker.getLong(before);
         Long la = checker.getLong(after);
 
@@ -41,13 +43,11 @@ public class BeforeAfterValidator implements KeyValueObjectValidator {
 
         if (lb >= la) {
             if (msgOnFirst) {
-                validationResult.addFieldError(
-                    before,
-                    IneOmI18n.validatorShouldBefore(otherFieldsName));
+                validationResult
+                    .addFieldError(before, IneOmI18n.validatorShouldBefore(otherFieldsName));
             } else {
-                validationResult.addFieldError(
-                    before,
-                    IneOmI18n.validatorShouldAfter(otherFieldsName));
+                validationResult
+                    .addFieldError(before, IneOmI18n.validatorShouldAfter(otherFieldsName));
             }
         }
     }

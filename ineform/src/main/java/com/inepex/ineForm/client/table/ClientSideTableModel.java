@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.table;
 
 @Deprecated
-public class ClientSideTableModel /* extends IneTableModel */{
+public class ClientSideTableModel /* extends IneTableModel */ {
 
     // /**
     // * This variable has to be decreased with 1 after a new object is created

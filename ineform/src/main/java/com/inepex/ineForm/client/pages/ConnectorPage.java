@@ -29,8 +29,7 @@ import com.inepex.ineFrame.client.page.InePage;
  */
 public abstract class ConnectorPage extends HandlerAwareComposite implements InePage {
 
-    private final List<ServerSideDataConnector> connectors =
-        new ArrayList<ServerSideDataConnector>();
+    private final List<ServerSideDataConnector> connectors = new ArrayList<ServerSideDataConnector>();
     protected InePlace currentPlace;
 
     protected final GreenScrollPanel scrollPanel = new GreenScrollPanel();
@@ -47,13 +46,15 @@ public abstract class ConnectorPage extends HandlerAwareComposite implements Ine
         IneDispatch dispatcher,
         EventBus eventBus,
         String descriptorName) {
-        ServerSideDataConnector c =
-            new ServerSideDataConnector(dispatcher, eventBus, descriptorName) {
-                @Override
-                public void update() {
-                    // nothing to do page manages the updating
-                }
-            };
+        ServerSideDataConnector c = new ServerSideDataConnector(
+            dispatcher,
+            eventBus,
+            descriptorName) {
+            @Override
+            public void update() {
+                // nothing to do page manages the updating
+            }
+        };
         connectors.add(c);
         return c;
     }

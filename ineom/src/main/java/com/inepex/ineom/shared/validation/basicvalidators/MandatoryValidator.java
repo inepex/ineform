@@ -20,17 +20,18 @@ public class MandatoryValidator implements KeyValueObjectValidator {
         this.fieldName = fieldName;
 
         if (type == IneT.UNDEFINED)
-            throw new RuntimeException("MandatoryValidator doesn't defined on type "
-                + type.toString()
-                + " defined on "
-                + fieldName);
+            throw new RuntimeException(
+                "MandatoryValidator doesn't defined on type " + type.toString() + " defined on "
+                    + fieldName);
     }
 
     @Override
     public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
         String msg = null;
-        AssistedObjectChecker checker =
-            new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc);
+        AssistedObjectChecker checker = new AssistedObjectChecker(
+            kvo,
+            kvo.getDescriptorName(),
+            objectDesc);
 
         switch (type) {
             case BOOLEAN:

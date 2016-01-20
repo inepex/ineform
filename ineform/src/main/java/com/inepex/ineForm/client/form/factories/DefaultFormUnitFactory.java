@@ -22,8 +22,7 @@ public class DefaultFormUnitFactory implements FormUnitFactory {
         String objectDescriptorsName,
         List<Node<FormRDescBase>> selectedFields) {
 
-        if (formUnitRDesc == null
-            || formUnitRDesc.getFormUnitType() == null
+        if (formUnitRDesc == null || formUnitRDesc.getFormUnitType() == null
             || formUnitRDesc.getFormUnitType().equals(FormUnitT.SIMPLETABLEFORM)) {
             return new SimpleTableFormUnit(
                 formCtx,

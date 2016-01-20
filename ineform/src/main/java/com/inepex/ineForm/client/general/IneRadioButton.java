@@ -27,9 +27,7 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
  * objects
  */
 public class IneRadioButton extends HandlerAwareComposite
-    implements
-    HasValue<Boolean>,
-    HasClickHandlers {
+        implements HasValue<Boolean>, HasClickHandlers {
 
     private final static String rGroupNameBase = "rGroupNameBase";
     private static int counter = 0;

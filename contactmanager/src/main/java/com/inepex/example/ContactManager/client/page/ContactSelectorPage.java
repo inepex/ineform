@@ -34,19 +34,23 @@ public class ContactSelectorPage extends ConnectorPage implements OneParamPresen
     private OneParamPlace oneParamPlace;
 
     @Inject
-    ContactSelectorPage(IneDispatch dispatcher, EventBus eventBus, IneTableFactory ineTableFactory) {
+    ContactSelectorPage(
+        IneDispatch dispatcher,
+        EventBus eventBus,
+        IneTableFactory ineTableFactory) {
         this.eventBus = eventBus;
 
         getElement().getStyle().setPadding(0, Unit.PX);
 
-        ServerSideDataConnector connector =
-            createConnector(dispatcher, eventBus, ContactConsts.descriptorName);
-        connector.setAssociatedListAction(new ObjectListAction(ContactConsts.descriptorName, Arrays
-            .asList(ContactConsts.props_user)));
-
-        sortableIneTable = ineTableFactory.createSortable(
+        ServerSideDataConnector connector = createConnector(
+            dispatcher,
+            eventBus,
+            ContactConsts.descriptorName);
+        connector.setAssociatedListAction(new ObjectListAction(
             ContactConsts.descriptorName,
-            connector);
+            Arrays.asList(ContactConsts.props_user)));
+
+        sortableIneTable = ineTableFactory.createSortable(ContactConsts.descriptorName, connector);
 
         sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 
@@ -59,8 +63,9 @@ public class ContactSelectorPage extends ConnectorPage implements OneParamPresen
                     AssistedObjectHandler rowKvo,
                     String fieldId,
                     ColRDesc colRDesc) {
-                    String userProps =
-                        rowKvo.getAssistedObject().getPropsJson(ContactConsts.props_user);
+                    String userProps = rowKvo
+                        .getAssistedObject()
+                        .getPropsJson(ContactConsts.props_user);
                     if (userProps != null) {
                         JSONObject userPropsJson = JSONParser.parseStrict(userProps).isObject();
                         if (userPropsJson != null) {
@@ -84,21 +89,25 @@ public class ContactSelectorPage extends ConnectorPage implements OneParamPresen
     protected void onAttach() {
         super.onAttach();
 
-        registerHandler(sortableIneTable.getSelectionModel().addSelectionChangeHandler(
-            new SelectionChangeEvent.Handler() {
+        registerHandler(
+            sortableIneTable
+                .getSelectionModel()
+                .addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-                @Override
-                public void onSelectionChange(SelectionChangeEvent event) {
-                    AssistedObject selected =
-                        sortableIneTable.getSingleSelectionModel().getSelectedObject();
-                    if (selected != null) {
-                        sortableIneTable.getSelectionModel().setSelected(selected, false);
+                    @Override
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        AssistedObject selected = sortableIneTable
+                            .getSingleSelectionModel()
+                            .getSelectedObject();
+                        if (selected != null) {
+                            sortableIneTable.getSelectionModel().setSelected(selected, false);
 
-                        eventBus.fireEvent(new PlaceRequestEvent(oneParamPlace
-                            .getChildPlaceToken(selected.getId().toString())));
+                            eventBus.fireEvent(
+                                new PlaceRequestEvent(
+                                    oneParamPlace.getChildPlaceToken(selected.getId().toString())));
+                        }
                     }
-                }
-            }));
+                }));
     }
 
     @Override

@@ -40,10 +40,12 @@ public class IneTable extends AbstractIneTable implements IsWidget {
         @Assisted("trd") String tableRenderDescriptorName,
         @Assisted IneDataConnector connector,
         TableFieldRenderer fieldRenderer) {
-        super(descriptorStore, objectDescName, getTRD(
+        super(
             descriptorStore,
             objectDescName,
-            tableRenderDescriptorName), connector, fieldRenderer);
+            getTRD(descriptorStore, objectDescName, tableRenderDescriptorName),
+            connector,
+            fieldRenderer);
     }
 
     /**

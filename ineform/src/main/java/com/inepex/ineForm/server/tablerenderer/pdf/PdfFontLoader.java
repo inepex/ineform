@@ -29,16 +29,15 @@ public class PdfFontLoader {
 
         inited = true;
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(fontName)) {
-            baseFont =
-                BaseFont.createFont(
-                    fontName,
-                    BaseFont.IDENTITY_H,
-                    BaseFont.EMBEDDED,
-                    false,
-                    ByteStreams.toByteArray(is),
-                    new byte[0],
-                    false,
-                    true);
+            baseFont = BaseFont.createFont(
+                fontName,
+                BaseFont.IDENTITY_H,
+                BaseFont.EMBEDDED,
+                false,
+                ByteStreams.toByteArray(is),
+                new byte[0],
+                false,
+                true);
 
             return;
         } catch (Exception e) {

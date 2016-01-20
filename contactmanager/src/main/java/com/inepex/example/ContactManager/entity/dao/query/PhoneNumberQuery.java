@@ -41,25 +41,23 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber> {
         Root<PhoneNumber> from,
         Expression<Boolean> base) {
 
-        PhoneNumberSearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        PhoneNumberSearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(PhoneNumberConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(PhoneNumber_.id), id));
         String number = handler.getString(PhoneNumberConsts.s_number);
         if (number != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(PhoneNumber_.number)), number.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(PhoneNumber_.number)), number.toUpperCase() + "%"));
         Relation type = handler.getRelation(PhoneNumberConsts.s_type);
         if (type != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.equal(from.get(PhoneNumber_.type).get(PhoneNumberType_.id), type.getId()));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.equal(from.get(PhoneNumber_.type).get(PhoneNumberType_.id), type.getId()));
         return base;
     }
 
@@ -108,11 +106,10 @@ public class PhoneNumberQuery extends BaseQuery<PhoneNumber> {
         Path<PhoneNumber> from,
         String value) {
         Expression<Boolean> expr = null;
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(PhoneNumber_.number)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(PhoneNumber_.number)), value.toUpperCase() + "%"));
         return expr;
     }
 }

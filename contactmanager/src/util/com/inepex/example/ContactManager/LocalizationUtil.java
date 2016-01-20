@@ -30,10 +30,9 @@ public class LocalizationUtil {
             serverStore.registerModule(new CMI18n(null));
 
             serverStore.addLocalizables(CMI18n.MODULE_NAME, localizables.values());
-            I18nModuleConverter srvI18nConverter =
-                new I18nModuleConverter(
-                    CMI18n.class,
-                    serverStore.getLocalizablesForModule(CMI18n.MODULE_NAME));
+            I18nModuleConverter srvI18nConverter = new I18nModuleConverter(
+                CMI18n.class,
+                serverStore.getLocalizablesForModule(CMI18n.MODULE_NAME));
             srvI18nConverter.saveCsvToDefaultPath();
             srvI18nConverter.generateModuleFile();
             srvI18nConverter.generateServerModuleProviderFile();

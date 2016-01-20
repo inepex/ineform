@@ -48,11 +48,8 @@ public class CsvMerge {
         ParsedCsv patch = parseCsv(getLines(csvFilePatch), patchSep);
 
         if (targetColumn >= target.columnCount)
-            System.out.println("WARNING: the target has only "
-                + target.columnCount
-                + " columns, it's going to completed to "
-                + targetColumn
-                + " wide");
+            System.out.println("WARNING: the target has only " + target.columnCount
+                + " columns, it's going to completed to " + targetColumn + " wide");
 
         System.out.println("INFO: merging");
         MergeResult res = merge(target, targetColumn, patch, patchColumn, dummyCellValue);
@@ -79,13 +76,8 @@ public class CsvMerge {
             i++;
             String[] splitted = csvSeparatorSplitLogic(str, sep);
             if (splitted.length != colCount)
-                throw new RuntimeException("There are "
-                    + splitted.length
-                    + " colums in the line "
-                    + i
-                    + " (expected: "
-                    + colCount
-                    + ")");
+                throw new RuntimeException("There are " + splitted.length + " colums in the line "
+                    + i + " (expected: " + colCount + ")");
 
             String key = splitted[0];
             if (resMap.keySet().contains(key))
@@ -104,10 +96,9 @@ public class CsvMerge {
         int patchColumn,
         String dummyCellValue) {
         if (patchColumn >= patch.columnCount)
-            throw new IllegalArgumentException("The patch has only "
-                + patch.columnCount
-                + " columns, and the selected is the "
-                + patchColumn);
+            throw new IllegalArgumentException(
+                "The patch has only " + patch.columnCount + " columns, and the selected is the "
+                    + patchColumn);
 
         MergeResult res = new MergeResult(new LinkedList<String>(), new LinkedList<String[]>());
 
@@ -165,13 +156,11 @@ public class CsvMerge {
             }
         }
 
-        System.out.println("\n\n"
-            + (res.keyMatchLines.size() - res.dummy)
-            + " lines were updated from patch file, "
-            + res.dummy
-            + " dummy update were ignored and "
-            + noPatchLines.size()
-            + " lines have not matching line from patch file");
+        System.out.println(
+            "\n\n" + (res.keyMatchLines.size() - res.dummy)
+                + " lines were updated from patch file, " + res.dummy
+                + " dummy update were ignored and " + noPatchLines.size()
+                + " lines have not matching line from patch file");
     }
 
     public static List<String> getLines(String file) {

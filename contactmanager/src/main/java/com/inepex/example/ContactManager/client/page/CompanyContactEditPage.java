@@ -48,34 +48,37 @@ public class CompanyContactEditPage extends ConnectorPage {
 
         searchKVO = contactHandlerFactory.createSearchHandler();
 
-        ServerSideDataConnector connector =
-            createConnector(formCtx.ineDispatch, formCtx.eventBus, ContactConsts.descriptorName);
+        ServerSideDataConnector connector = createConnector(
+            formCtx.ineDispatch,
+            formCtx.eventBus,
+            ContactConsts.descriptorName);
         connector.setSearchParameters(searchKVO.getAssistedObject());
-        connector.setAssociatedListAction(new ObjectListAction(ContactConsts.descriptorName, Arrays
-            .asList(ContactConsts.props_user)));
-        connector.setAssociatedManipulateAction(new ObjectManipulationAction(Arrays
-            .asList(ContactConsts.props_user)));
-        DataManipulator dm =
-            new CompanyDataManipulator(
-                formCtx,
-                formFactory,
+        connector.setAssociatedListAction(
+            new ObjectListAction(
                 ContactConsts.descriptorName,
-                connector,
-                true,
-                fieldRenderer);
+                Arrays.asList(ContactConsts.props_user)));
+        connector.setAssociatedManipulateAction(
+            new ObjectManipulationAction(Arrays.asList(ContactConsts.props_user)));
+        DataManipulator dm = new CompanyDataManipulator(
+            formCtx,
+            formFactory,
+            ContactConsts.descriptorName,
+            connector,
+            true,
+            fieldRenderer);
         dm.render();
-        dm
-            .getIneTable()
-            .getFieldRenderer()
-            .setCustomFieldRenderer(ContactConsts.k_note, new CustomCellContentDisplayer() {
+        dm.getIneTable().getFieldRenderer().setCustomFieldRenderer(
+            ContactConsts.k_note,
+            new CustomCellContentDisplayer() {
 
                 @Override
                 public String getCustomCellContent(
                     AssistedObjectHandler rowKvo,
                     String fieldId,
                     ColRDesc colRDesc) {
-                    String userProps =
-                        rowKvo.getAssistedObject().getPropsJson(ContactConsts.props_user);
+                    String userProps = rowKvo
+                        .getAssistedObject()
+                        .getPropsJson(ContactConsts.props_user);
                     if (userProps != null) {
                         JSONObject userPropsJson = JSONParser.parseStrict(userProps).isObject();
                         if (userPropsJson != null) {

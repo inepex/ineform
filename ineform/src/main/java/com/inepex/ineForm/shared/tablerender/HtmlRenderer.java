@@ -49,15 +49,13 @@ public class HtmlRenderer extends TableRenderer {
 
     @Override
     protected void renderStart() {
-        sb.append("<html>\n"
-            + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
-            + "<style type=\"text/css\">"
-            + "td {border: 1px solid black;}\n"
-            + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
-            + "table {text-align: left; empty-cells: show; border-collapse: collapse;}"
-            + "</style>"
-            + "</head>"
-            + "<table>\n");
+        sb.append(
+            "<html>\n"
+                + "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>"
+                + "<style type=\"text/css\">" + "td {border: 1px solid black;}\n"
+                + "th {background-color: #f2f2f2; border: 1px solid black;}\n"
+                + "table {text-align: left; empty-cells: show; border-collapse: collapse;}"
+                + "</style>" + "</head>" + "<table>\n");
     }
 
     @Override

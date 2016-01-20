@@ -103,7 +103,8 @@ class YMD_OOField extends AbstractField {
         @Override
         public void onClick(ClickEvent event) {
             if (enabled) {
-                if (!CalendarUtil.isSameDate(inedate.getDateClone(), new Date(IneDateGWT.NULLDATE))) {
+                if (!CalendarUtil
+                    .isSameDate(inedate.getDateClone(), new Date(IneDateGWT.NULLDATE))) {
                     datepicker.setCurrentMonth(inedate.getDateClone());
                     datepicker.setValue(inedate.getDateClone());
                 } else {

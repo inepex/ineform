@@ -56,9 +56,8 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
 
         @Override
         public void onClick(ClickEvent event) {
-            ((WizardFormView.Delegate) delegate).customClick(
-                rootStepper.getDisplayedPageNumber(),
-                btnLabel);
+            ((WizardFormView.Delegate) delegate)
+                .customClick(rootStepper.getDisplayedPageNumber(), btnLabel);
         }
     }
 
@@ -87,7 +86,11 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
     private NavWidget navWidget;
 
     public DefaultSaveCancelFormView() {
-        for (IneButton btn : new IneButton[] { cancelButton, previousButton, nextButton, saveButton }) {
+        for (IneButton btn : new IneButton[] {
+            cancelButton,
+            previousButton,
+            nextButton,
+            saveButton }) {
             btn.getElement().getStyle().setMarginRight(5, Unit.PX);
             btn.getElement().getStyle().setMarginBottom(3, Unit.PX);
         }
@@ -204,10 +207,10 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
         nextButton.setText(nextButtonText);
         previousButton.setText(previousButtonText);
 
-        saveButton.setEnabled(rootStepper.getDisplayedPageNumber() + 1 == rootStepper
-            .getPageCount());
-        nextButton.setEnabled(rootStepper.getDisplayedPageNumber() + 1 != rootStepper
-            .getPageCount());
+        saveButton
+            .setEnabled(rootStepper.getDisplayedPageNumber() + 1 == rootStepper.getPageCount());
+        nextButton
+            .setEnabled(rootStepper.getDisplayedPageNumber() + 1 != rootStepper.getPageCount());
         previousButton.setEnabled(rootStepper.getDisplayedPageNumber() != 0);
         navWidget.showPage(rootStepper.getDisplayedPageNumber(), rootStepper.getPageCount());
 
@@ -216,12 +219,8 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
         saveButton.setVisible(true);
         cancelButton.setVisible(true);
 
-        if ((rootStepper.getDisplayedPage() != null && rootStepper
-            .getDisplayedPage()
-            .getDescriptor()
-            .getProps()
-            .keySet()
-            .size() > 0)) {
+        if ((rootStepper.getDisplayedPage() != null
+            && rootStepper.getDisplayedPage().getDescriptor().getProps().keySet().size() > 0)) {
             PanelWidgetRDesc desc = rootStepper.getDisplayedPage().getDescriptor();
             processButtonProperties(
                 desc,
@@ -255,8 +254,9 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
             custButtons.clear();
 
             if (desc.hasProp(StepperPanelPageWidget.Param.custButtons)) {
-                String[] custButtons =
-                    desc.getPropValue(StepperPanelPageWidget.Param.custButtons).split(",");
+                String[] custButtons = desc
+                    .getPropValue(StepperPanelPageWidget.Param.custButtons)
+                    .split(",");
                 for (String btnLabel : custButtons) {
                     IneButton btn = new IneButton(Color.GRAY, btnLabel);
                     this.custButtons.add(btn);
@@ -273,10 +273,9 @@ public class DefaultSaveCancelFormView extends HandlerAwareFlowPanel implements 
         String labelParam,
         IneButton btn) {
         if (desc.hasProp(visibleParam) || desc.hasProp(labelParam)) {
-            boolean visible =
-                (desc.hasProp(visibleParam) && desc
-                    .getPropValue(visibleParam)
-                    .equals(IFConsts.TRUE)) || desc.hasProp(labelParam);
+            boolean visible = (desc.hasProp(visibleParam)
+                && desc.getPropValue(visibleParam).equals(IFConsts.TRUE))
+                || desc.hasProp(labelParam);
             btn.setVisible(visible);
             btn.setEnabled(visible);
             if (desc.hasProp(labelParam)) {

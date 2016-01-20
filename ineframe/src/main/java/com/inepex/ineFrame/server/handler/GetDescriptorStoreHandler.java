@@ -19,7 +19,8 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.ODescMarkerPair;
 import com.inepex.ineom.shared.descriptorstore.TypedDescriptorMap;
 
-public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, GetDescStoreResult> {
+public class GetDescriptorStoreHandler
+        extends AbstractIneHandler<GetDescStore, GetDescStoreResult> {
 
     private final DescriptorStore descStore;
 
@@ -44,20 +45,20 @@ public class GetDescriptorStoreHandler extends AbstractIneHandler<GetDescStore, 
             return result;
         }
 
-        throw new UnsupportedOperationException("unsupported DescStore! implement it for: "
-            + descStore.getClass().getName());
+        throw new UnsupportedOperationException(
+            "unsupported DescStore! implement it for: " + descStore.getClass().getName());
     }
 
     private void handleMultiLangDescStore(DescriptorStore descStore, GetDescStoreResult result) {
         MultiLangDescStore multiLangDescStore = (MultiLangDescStore) descStore;
-        ClientDescriptorStore clientDescStore =
-            (ClientDescriptorStore) multiLangDescStore.getCurrentDescriptorStore();
+        ClientDescriptorStore clientDescStore = (ClientDescriptorStore) multiLangDescStore
+            .getCurrentDescriptorStore();
 
         // set object descriptors
         if (clientDescStore.getOjectDescriptorMap() != null
             && clientDescStore.getOjectDescriptorMap().size() > 0) {
-            ArrayList<ObjectDesc> odList =
-                new ArrayList<ObjectDesc>(clientDescStore.getOjectDescriptorMap().size());
+            ArrayList<ObjectDesc> odList = new ArrayList<ObjectDesc>(
+                clientDescStore.getOjectDescriptorMap().size());
             for (ODescMarkerPair p : clientDescStore.getOjectDescriptorMap().values())
                 odList.add(p.getObjectDesc());
 

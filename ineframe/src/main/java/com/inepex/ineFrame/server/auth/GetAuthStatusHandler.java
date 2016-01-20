@@ -16,8 +16,7 @@ import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
 @Singleton
 public class GetAuthStatusHandler
-    extends
-    AbstractIneHandler<GetAuthStatusAction, AuthStatusResultBase> {
+        extends AbstractIneHandler<GetAuthStatusAction, AuthStatusResultBase> {
 
     private static final Logger _logger = LoggerFactory.getLogger(GetAuthStatusHandler.class);
 
@@ -61,10 +60,8 @@ public class GetAuthStatusHandler
 
             // updating auth stat
             result = loginHandler.createResultBase();
-            loginHandler.checkSignedInUUIDForUserAndLogUserIntoIfCorrect(
-                userEmail,
-                userUUID,
-                result);
+            loginHandler
+                .checkSignedInUUIDForUserAndLogUserIntoIfCorrect(userEmail, userUUID, result);
 
             _logger.debug("Auth stat updated to: {}", authStatProvider.get());
             return result;

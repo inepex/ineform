@@ -54,10 +54,10 @@ public class I18nStore_Client extends I18nStoreBase {
         currentLanguage = result.getCurrentLang();
 
         for (I18nModule i18nModule : modulesByName.values()) {
-            ClientI18nProvider<?> clientProvider =
-                (ClientI18nProvider<?>) i18nModule.getI18nProvider();
-            clientProvider.setCurrentModule(result.getI18nModulesByName().get(
-                i18nModule.getModuleName()));
+            ClientI18nProvider<?> clientProvider = (ClientI18nProvider<?>) i18nModule
+                .getI18nProvider();
+            clientProvider
+                .setCurrentModule(result.getI18nModulesByName().get(i18nModule.getModuleName()));
         }
     }
 

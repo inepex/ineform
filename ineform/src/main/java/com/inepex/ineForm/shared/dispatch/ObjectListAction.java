@@ -18,13 +18,11 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectList;
  *
  */
 public class ObjectListAction extends AbstractSearchAction
-    implements
-    Action<ObjectListActionResult>,
-    ObjectList {
+        implements Action<ObjectListActionResult>, ObjectList {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = -5238110902341753891L;
 
     private List<String> propGroups = new ArrayList<String>();

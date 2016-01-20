@@ -56,8 +56,8 @@ public class MeetingMapper extends BaseMapper<Meeting> {
             }
         }
         if (fromHandler.containsLong(MeetingConsts.k_meetingType))
-            to.setMeetingType(MeetingType.values()[new Long(fromHandler.getMeetingType())
-                .intValue()]);
+            to.setMeetingType(
+                MeetingType.values()[new Long(fromHandler.getMeetingType()).intValue()]);
         if (fromHandler.containsString(MeetingConsts.k_description))
             to.setDescription(fromHandler.getDescription());
 
@@ -78,13 +78,11 @@ public class MeetingMapper extends BaseMapper<Meeting> {
         if (entity.getUser() != null)
             handler.setUser(new UserMapper(descriptorStore).toRelation(entity.getUser(), false));
         if (entity.getCompany() != null)
-            handler.setCompany(new CompanyMapper(descriptorStore).toRelation(
-                entity.getCompany(),
-                false));
+            handler.setCompany(
+                new CompanyMapper(descriptorStore).toRelation(entity.getCompany(), false));
         if (entity.getContact() != null)
-            handler.setContact(new ContactMapper(descriptorStore).toRelation(
-                entity.getContact(),
-                false));
+            handler.setContact(
+                new ContactMapper(descriptorStore).toRelation(entity.getContact(), false));
         if (entity.getMeetingType() != null) {
             handler.setMeetingType(new Long(entity.getMeetingType().ordinal()));
         }
@@ -102,9 +100,10 @@ public class MeetingMapper extends BaseMapper<Meeting> {
     public Relation toRelation(Meeting entity, boolean includeKvo) {
         if (entity == null)
             return null;
-        return new Relation(entity.getId(), entity.toString(), includeKvo
-            ? entityToKvo(entity)
-            : null);
+        return new Relation(
+            entity.getId(),
+            entity.toString(),
+            includeKvo ? entityToKvo(entity) : null);
     }
 
 }

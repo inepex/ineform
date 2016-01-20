@@ -13,8 +13,8 @@ public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
     public PlaceChangedEvent(String fullToken) {
         super();
         this.fullToken = fullToken;
-        this.tokenWithoutParams =
-            PlaceHandlerHelper.getPlacePart(PlaceHandlerHelper.removeRedirect(fullToken));
+        this.tokenWithoutParams = PlaceHandlerHelper
+            .getPlacePart(PlaceHandlerHelper.removeRedirect(fullToken));
     }
 
     @Override

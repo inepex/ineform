@@ -17,8 +17,8 @@ public interface SaveCancelFormView extends IsWidget {
 
         HandlerRegistration addFormSavedHandlerFromView(SavedEvent.Handler handler);
 
-        HandlerRegistration addFormAfterUnsuccesfulSaveHandlerFromView(
-            AfterUnsuccessfulSaveEvent.Handler handler);
+        HandlerRegistration
+            addFormAfterUnsuccesfulSaveHandlerFromView(AfterUnsuccessfulSaveEvent.Handler handler);
     }
 
     public void setDelegate(SaveCancelFormView.Delegate delegate);

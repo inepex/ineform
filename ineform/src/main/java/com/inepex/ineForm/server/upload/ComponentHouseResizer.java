@@ -79,8 +79,8 @@ public class ComponentHouseResizer {
     public static
         BufferedImage
         cutAndResize(BufferedImage image, Rectangle cutRect, int targetWidth) {
-        BufferedImage subImage =
-            image.getSubimage(cutRect.x, cutRect.y, cutRect.width, cutRect.height);
+        BufferedImage subImage = image
+            .getSubimage(cutRect.x, cutRect.y, cutRect.width, cutRect.height);
         return resize(subImage, targetWidth);
     }
 
@@ -104,8 +104,10 @@ public class ComponentHouseResizer {
         map.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         map.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         RenderingHints hints = new RenderingHints(map);
-        BufferedImageOp op =
-            new ConvolveOp(new Kernel(3, 3, blurKernel), ConvolveOp.EDGE_NO_OP, hints);
+        BufferedImageOp op = new ConvolveOp(
+            new Kernel(3, 3, blurKernel),
+            ConvolveOp.EDGE_NO_OP,
+            hints);
         return op.filter(image, null);
     }
 

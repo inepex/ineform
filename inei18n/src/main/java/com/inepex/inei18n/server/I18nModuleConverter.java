@@ -98,10 +98,8 @@ public class I18nModuleConverter {
         BufferedWriter defaultOut = null;
         try {
             String csvContent = getLocalizablesInCsvFormat();
-            defaultOut =
-                new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(nameWithPath),
-                    "UTF8"));
+            defaultOut = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(nameWithPath), "UTF8"));
             defaultOut.write(csvContent);
             defaultOut.close();
             logger.info("Csv file saved to '{}'", nameWithPath);
@@ -152,11 +150,12 @@ public class I18nModuleConverter {
     public void loadDataFromDefaultCsvRuntime() {
         try {
             String moduleCsvResourceName = moduleUri + "/" + moduleName + ".csv";
-            InputStream stream =
-                getClass().getClassLoader().getResourceAsStream(moduleCsvResourceName);
+            InputStream stream = getClass()
+                .getClassLoader()
+                .getResourceAsStream(moduleCsvResourceName);
             if (stream == null) {
-                throw new FileNotFoundException("Template file could not be found: "
-                    + moduleCsvResourceName);
+                throw new FileNotFoundException(
+                    "Template file could not be found: " + moduleCsvResourceName);
             }
 
             loadCsvFromStream(stream);
@@ -194,8 +193,9 @@ public class I18nModuleConverter {
                 } else {
                     String key = deEscapeAndDeQuote(fields[0]);
 
-                    LocalizedString localizable =
-                        new LocalizedString(key, deEscapeAndDeQuote(fields[1]));
+                    LocalizedString localizable = new LocalizedString(
+                        key,
+                        deEscapeAndDeQuote(fields[1]));
                     int col = 2;
                     for (String language : props.languages) {
                         String raw = "";
@@ -241,8 +241,10 @@ public class I18nModuleConverter {
         Map<String, Set<String>> map_paramstmp = new LinkedHashMap<String, Set<String>>();
         for (String key : localizables.keySet()) {
             Set<String> params = new TreeSet<String>();
-            String description =
-                localizables.get(key).getLocalizedMap().get(CurrentLang.DEFAULT_LANG);
+            String description = localizables
+                .get(key)
+                .getLocalizedMap()
+                .get(CurrentLang.DEFAULT_LANG);
             if (description == null)
                 continue;
             Matcher m = BRACETED_STIRNG_FINDER.matcher(description);

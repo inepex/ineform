@@ -38,45 +38,36 @@ public class UploadProcessor {
 
         // Generate day-named-folders
         Calendar rightNow = Calendar.getInstance();
-        String dayNamedFolderName =
-            ""
-                + rightNow.get(Calendar.YEAR)
-                + StringUtil.getPaddedIntWithZeros(2, rightNow.get(Calendar.MONTH) + 1)
-                + StringUtil.getPaddedIntWithZeros(2, rightNow.get(Calendar.DATE));
+        String dayNamedFolderName = "" + rightNow.get(Calendar.YEAR)
+            + StringUtil.getPaddedIntWithZeros(2, rightNow.get(Calendar.MONTH) + 1)
+            + StringUtil.getPaddedIntWithZeros(2, rightNow.get(Calendar.DATE));
 
         /* Check if upload dir exists && create if not */
         String uploadDirRoot = props.getProperty("uploaded.files.root");
 
-        File file =
-            new File(uploadDirRoot + System.getProperty("file.separator") + dayNamedFolderName);
+        File file = new File(
+            uploadDirRoot + System.getProperty("file.separator") + dayNamedFolderName);
         if (!file.exists())
             file.mkdirs();
 
         String extension = FilenameUtils.getExtension(fileName);
         String outFileName;
 
-        if (Boolean.parseBoolean(props.getPropertiesInstance().getProperty(
-            IFConsts.USEORIGINALFILENAME,
-            "true"))) {
-            outFileName =
-                StringUtil
-                    .removeSpecChars(StringUtil.unaccent(FilenameUtils.getBaseName(fileName)));
+        if (Boolean.parseBoolean(
+            props.getPropertiesInstance().getProperty(IFConsts.USEORIGINALFILENAME, "true"))) {
+            outFileName = StringUtil
+                .removeSpecChars(StringUtil.unaccent(FilenameUtils.getBaseName(fileName)));
         } else {
             outFileName = StringUtil.hash(fileName + Long.toString(System.currentTimeMillis()));
         }
         /* Generate filename */
-        if (Boolean.parseBoolean(props.getPropertiesInstance().getProperty(
-            IFConsts.USEEXTENSION,
-            "true"))) {
+        if (Boolean.parseBoolean(
+            props.getPropertiesInstance().getProperty(IFConsts.USEEXTENSION, "true"))) {
             outFileName = outFileName + DOT + extension;
         }
-        String outPathAndName =
-            uploadDirRoot
-                + System.getProperty("file.separator")
-                + dayNamedFolderName
-                + System.getProperty("file.separator")
-                + props.getProperty("uploaded.files.prefix")
-                + outFileName;
+        String outPathAndName = uploadDirRoot + System.getProperty("file.separator")
+            + dayNamedFolderName + System.getProperty("file.separator")
+            + props.getProperty("uploaded.files.prefix") + outFileName;
 
         /* Use IOUtils to copy uploaded file */
         File uploadedFile = new File(outPathAndName);
@@ -96,27 +87,25 @@ public class UploadProcessor {
             writeResizedImage(outPathAndName, extension, "imgSize_xl");
         }
 
-        String retVal =
-            dayNamedFolderName + "/" + props.getProperty("uploaded.files.prefix") + outFileName;
+        String retVal = dayNamedFolderName + "/" + props.getProperty("uploaded.files.prefix")
+            + outFileName;
 
         return retVal;
     }
 
-    private
-        void
-        writeResizedImage(String sourceFileName, String sourceExtension, String properyName)
-            throws IOException {
+    private void writeResizedImage(
+        String sourceFileName,
+        String sourceExtension,
+        String properyName) throws IOException {
 
         FileInputStream inputStream = new FileInputStream(sourceFileName);
 
         // remove the extension temporary if it is enabled to concat the
         // suffixes
-        if (Boolean.parseBoolean(props.getPropertiesInstance().getProperty(
-            IFConsts.USEEXTENSION,
-            "true"))) {
-            sourceFileName =
-                sourceFileName.substring(0, sourceFileName.length()
-                    - (DOT.length() + sourceExtension.length()));
+        if (Boolean.parseBoolean(
+            props.getPropertiesInstance().getProperty(IFConsts.USEEXTENSION, "true"))) {
+            sourceFileName = sourceFileName
+                .substring(0, sourceFileName.length() - (DOT.length() + sourceExtension.length()));
         }
 
         Integer targetWidth = Integer.parseInt(props.getProperty(properyName + ".width"));
@@ -162,9 +151,8 @@ public class UploadProcessor {
         }
         // put back the extension if enabled
         String endFileName = sourceFileName + targetSuffix;
-        if (Boolean.parseBoolean(props.getPropertiesInstance().getProperty(
-            IFConsts.USEEXTENSION,
-            "true"))) {
+        if (Boolean.parseBoolean(
+            props.getPropertiesInstance().getProperty(IFConsts.USEEXTENSION, "true"))) {
             endFileName = endFileName + DOT + sourceExtension;
         }
         FileOutputStream outputStream = new FileOutputStream(endFileName);

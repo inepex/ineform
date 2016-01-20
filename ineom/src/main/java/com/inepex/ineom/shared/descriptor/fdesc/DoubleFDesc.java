@@ -8,8 +8,8 @@ import com.inepex.ineom.shared.IneT;
 public class DoubleFDesc extends NumericFDesc implements Serializable, IsSerializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1103467918896800026L;
 
     public DoubleFDesc() {

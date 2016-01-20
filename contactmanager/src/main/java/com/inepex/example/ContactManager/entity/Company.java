@@ -43,7 +43,12 @@ public class Company {
 
     public Company() {}
 
-    public Company(String name, String phone, String email, String webPage, List<Contact> contacts) {
+    public Company(
+        String name,
+        String phone,
+        String email,
+        String webPage,
+        List<Contact> contacts) {
         this.name = name;
         this.phone = phone;
         this.email = email;

@@ -43,9 +43,8 @@ public class SuggestBoxFw extends DenyingFormWidget {
     private void loadDataFromValueRangeProvider() {
         if (valueRangeProvider != null) {
             suggestBox.getTextBox().setEnabled(false);
-            valueRangeProvider.getRelationValueRange(
-                fieldDescriptor,
-                new ValueRangeResultCallback() {
+            valueRangeProvider
+                .getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
                     @Override
                     public void onValueRangeResultReady(List<Relation> relationList) {
                         if (relationList != null) {
@@ -76,7 +75,8 @@ public class SuggestBoxFw extends DenyingFormWidget {
 
     @Override
     public Relation getRelationValue() {
-        if (!suggestBox.getText().equals("") && stringToRelation.containsKey(suggestBox.getText())) {
+        if (!suggestBox.getText().equals("")
+            && stringToRelation.containsKey(suggestBox.getText())) {
             return stringToRelation.get(suggestBox.getText());
         } else
             return null;

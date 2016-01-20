@@ -25,11 +25,9 @@ public class UserHandlerFactory {
 
     public UserHandler createHandler(AssistedObject assistedObject) {
         if (!UserConsts.descriptorName.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + UserConsts.descriptorName
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + UserConsts.descriptorName
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new UserHandler(assistedObject, descriptorStore);
     }
@@ -41,11 +39,9 @@ public class UserHandlerFactory {
 
     public UserSearchHandler createSearchHandler(AssistedObject assistedObject) {
         if (!UserConsts.searchDescriptor.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + UserConsts.searchDescriptor
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + UserConsts.searchDescriptor
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new UserSearchHandler(assistedObject, descriptorStore);
     }

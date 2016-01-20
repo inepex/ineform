@@ -40,36 +40,43 @@ public class ContactAssist extends Assist {
 
     @Override
     public ValidatorDesc getValidatorDesc() {
-        return new ValidatorDesc(ContactConsts.descriptorName, new String[] {/*
-                                                                              * hc:
-                                                                              * vd1
-                                                                              */
+        return new ValidatorDesc(
+            ContactConsts.descriptorName,
+            new String[] { /*
+                            * hc: vd1
+                            */
 
-        /* hc */});
+                /* hc */ });
     }
 
     @Override
     public ObjectDesc getObjectDesc() {
-        ObjectDesc objDesc =
-            new ObjectDesc(ContactConsts.descriptorName, new LongFDesc(
+        ObjectDesc objDesc = new ObjectDesc(
+            ContactConsts.descriptorName,
+            new LongFDesc(
                 ContactConsts.k_id, /* hc:d1 */
                 CMI18n.contact_id()/* hc */)/* hc:d2_1 *//* hc */
-            , new StringFDesc(ContactConsts.k_name, /* hc:d2 */CMI18n.contact_name()/* hc */)/*
-                                                                                              * hc
-                                                                                              * :
-                                                                                              * d2_2
-                                                                                              *//* hc */
-            .mandatory(), new ListFDesc(
+                ,
+            new StringFDesc(
+                ContactConsts.k_name,
+                /* hc:d2 */CMI18n.contact_name()/* hc */)/*
+                                                          * hc : d2_2
+                                                          *//* hc */
+                    .mandatory(),
+            new ListFDesc(
                 ContactConsts.k_phone, /* hc:d3 */
                 CMI18n.contact_phone()/* hc */,
                 PhoneNumberConsts.descriptorName)/* hc:d2_3 *//* hc */
-            , new ListFDesc(
+                ,
+            new ListFDesc(
                 ContactConsts.k_email, /* hc:d4 */
                 CMI18n.contact_email()/* hc */,
                 EmailAddressConsts.descriptorName)/* hc:d2_4 *//* hc */
-            , new RelationFDesc(ContactConsts.k_company, /* hc:d5 */CMI18n.contact_company()/* hc */
+                ,
+            new RelationFDesc(ContactConsts.k_company, /* hc:d5 */CMI18n.contact_company()/* hc */
             , CompanyConsts.descriptorName)/* hc:d2_5 *//* hc */
-            , new PropFDesc(
+            ,
+            new PropFDesc(
                 ContactConsts.k_propsUser,
                 ContactConsts.k_propsUser,
                 ContactConsts.props_user));
@@ -84,21 +91,21 @@ public class ContactAssist extends Assist {
 
         tableRDesc
             .getRootNode()
-            .addChild(ContactConsts.k_name, new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
-                                                                                      * hc
-                                                                                      * :
-                                                                                      * tdr2_2
-                                                                                      *//* hc */)
-            .addChild(ContactConsts.k_phone, new ColRDesc(/* hc:tdr1_3 *//* hc */)/*
-                                                                                   * hc
-                                                                                   * :
-                                                                                   * tdr2_3
-                                                                                   *//* hc */)
-            .addChild(ContactConsts.k_email, new ColRDesc(/* hc:tdr1_4 *//* hc */)/*
-                                                                                   * hc
-                                                                                   * :
-                                                                                   * tdr2_4
-                                                                                   *//* hc */)
+            .addChild(
+                ContactConsts.k_name,
+                new ColRDesc(/* hc:tdr1_2 */true/* hc */)/*
+                                                          * hc : tdr2_2
+                                                          *//* hc */)
+            .addChild(
+                ContactConsts.k_phone,
+                new ColRDesc(/* hc:tdr1_3 *//* hc */)/*
+                                                      * hc : tdr2_3
+                                                      *//* hc */)
+            .addChild(
+                ContactConsts.k_email,
+                new ColRDesc(/* hc:tdr1_4 *//* hc */)/*
+                                                      * hc : tdr2_4
+                                                      *//* hc */)
             .addChild(ContactConsts.k_note, new ColRDesc().setDisplayName("Note"));
         return tableRDesc;
     }
@@ -118,10 +125,10 @@ public class ContactAssist extends Assist {
 
     @Override
     public FormRDesc getFormRDesc() {
-        FormRDesc formRDesc = new FormRDesc(ContactConsts.descriptorName/*
-                                                                         * hc:
-                                                                         * frd_props
-                                                                         */
+        FormRDesc formRDesc = new FormRDesc(
+            ContactConsts.descriptorName/*
+                                         * hc: frd_props
+                                         */
 
         /* hc */);
 

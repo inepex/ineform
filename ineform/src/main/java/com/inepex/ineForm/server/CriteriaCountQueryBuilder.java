@@ -18,9 +18,10 @@ public class CriteriaCountQueryBuilder<BaseType> {
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<BaseType> root = cq.from(baseClass);
         cq.select(cb.count(root));
-        cq.where(cb.and(
-            cb.greaterThanOrEqualTo(root.get(attribute), from),
-            cb.lessThanOrEqualTo(root.get(attribute), to)));
+        cq.where(
+            cb.and(
+                cb.greaterThanOrEqualTo(root.get(attribute), from),
+                cb.lessThanOrEqualTo(root.get(attribute), to)));
         return em.createQuery(cq).getSingleResult();
     }
 

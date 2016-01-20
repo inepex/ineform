@@ -5,8 +5,7 @@ import java.util.Collection;
 import net.customware.gwt.dispatch.shared.Action;
 
 public class GetI18nModulesAndSetCurrentLangFromCookieAction
-    implements
-    Action<GetI18nModulesAndSetCurrentLangFromCookieResult> {
+        implements Action<GetI18nModulesAndSetCurrentLangFromCookieResult> {
 
     private String requestedLang;
     private Collection<String> moduleNames;

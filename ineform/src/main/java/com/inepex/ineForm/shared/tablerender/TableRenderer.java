@@ -44,8 +44,8 @@ public abstract class TableRenderer {
         if (tableRDescName == null)
             tableRDesc = descStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
         else
-            tableRDesc =
-                descStore.getNamedTypedDesc(objectDescName, tableRDescName, TableRDesc.class);
+            tableRDesc = descStore
+                .getNamedTypedDesc(objectDescName, tableRDescName, TableRDesc.class);
     }
 
     public TableRenderer(
@@ -82,18 +82,17 @@ public abstract class TableRenderer {
                     continue;
                 renderFieldStart();
 
-                AssistedObjectHandler kvoOrRelatedKvoChecker =
-                    factory.createHandler(kvo).getRelatedKVOMultiLevel(
+                AssistedObjectHandler kvoOrRelatedKvoChecker = factory
+                    .createHandler(kvo)
+                    .getRelatedKVOMultiLevel(
                         SharedUtil.listFromDotSeparated(columnNode.getNodeId()));
                 renderField(
                     renderField(columnNode.getNodeId(), colRenderDesc, kvoOrRelatedKvoChecker),
                     colRenderDesc);
 
-                if (renderLastFieldEnd
-                    || !columnNode.equals(tableRDesc
-                        .getRootNode()
-                        .getChildren()
-                        .get(tableRDesc.getRootNode().getChildren().size() - 1)))
+                if (renderLastFieldEnd || !columnNode.equals(
+                    tableRDesc.getRootNode().getChildren().get(
+                        tableRDesc.getRootNode().getChildren().size() - 1)))
                     renderFieldEnd();
 
             }
@@ -134,8 +133,9 @@ public abstract class TableRenderer {
             ColRDesc colRenderDesc = (ColRDesc) columnNode.getNodeElement();
             FDesc fieldDesc = getFieldDescForColumn(columnNode);
             renderHeaderFieldStart(colRenderDesc, fieldDesc);
-            String headerText =
-                colRenderDesc.getDisplayName() != null ? colRenderDesc.getDisplayName() : null;
+            String headerText = colRenderDesc.getDisplayName() != null
+                ? colRenderDesc.getDisplayName()
+                : null;
             if (headerText == null) {
                 if (fieldDesc != null)
                     headerText = fieldDesc.getDefaultDisplayName();
@@ -144,11 +144,9 @@ public abstract class TableRenderer {
             }
             renderHeaderField(columnNode.getNodeId(), headerText);
 
-            if (renderLastFieldEnd
-                || !columnNode.equals(tableRDesc
-                    .getRootNode()
-                    .getChildren()
-                    .get(tableRDesc.getRootNode().getChildren().size() - 1)))
+            if (renderLastFieldEnd || !columnNode.equals(
+                tableRDesc.getRootNode().getChildren().get(
+                    tableRDesc.getRootNode().getChildren().size() - 1)))
                 renderHeaderFieldEnd();
         }
         renderHeaderEnd();
@@ -192,13 +190,12 @@ public abstract class TableRenderer {
 
         // TODO log it on the server side
         // if(GWT.isClient()) {
-        System.out.println("You set complex id for a field, which is not a relation. "
-            + "("
-            + nodeId
-            + ")");
+        System.out.println(
+            "You set complex id for a field, which is not a relation. " + "(" + nodeId + ")");
         // } else {
         // org.slf4j.LoggerFactory.getLogger(TableRenderer.class)
-        // .error("You set complex id for a field, which is not a relation. ({})",
+        // .error("You set complex id for a field, which is not a relation.
+        // ({})",
         // nodeId);
         // }
     }

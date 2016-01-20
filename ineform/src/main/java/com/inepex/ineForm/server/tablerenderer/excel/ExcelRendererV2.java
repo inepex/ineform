@@ -91,12 +91,14 @@ public class ExcelRendererV2 extends TableRenderer {
             CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
             if (fdesc instanceof LongFDesc) {
                 cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
-                cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(
-                    IFConsts.NumberFormat.defaultExcelWholeNumberFormat));
+                cellStyle.setDataFormat(
+                    createHelper.createDataFormat().getFormat(
+                        IFConsts.NumberFormat.defaultExcelWholeNumberFormat));
             } else if (fdesc instanceof DoubleFDesc) {
                 cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
-                cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(
-                    IFConsts.NumberFormat.defaultExcelNumberFormat));
+                cellStyle.setDataFormat(
+                    createHelper.createDataFormat().getFormat(
+                        IFConsts.NumberFormat.defaultExcelNumberFormat));
             } else {
                 cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
             }
@@ -106,8 +108,8 @@ public class ExcelRendererV2 extends TableRenderer {
                 dataFormatOverride = colRenderDesc.getPropValue(ColRDesc.EXCEL_NUMBERFORMAT);
             }
             if (dataFormatOverride != null) {
-                cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(
-                    dataFormatOverride));
+                cellStyle
+                    .setDataFormat(createHelper.createDataFormat().getFormat(dataFormatOverride));
             }
 
             columnCellStyles[col] = cellStyle;
@@ -206,15 +208,14 @@ public class ExcelRendererV2 extends TableRenderer {
                     continue;
                 renderFieldStart();
                 String key = getKey(columnNode);
-                AssistedObjectHandler kvoOrRelatedKvoHandler =
-                    getKvoOrRelatedKvoHandler(columnNode, kvo);
+                AssistedObjectHandler kvoOrRelatedKvoHandler = getKvoOrRelatedKvoHandler(
+                    columnNode,
+                    kvo);
                 actualCell.setCellStyle(columnCellStyles[col]);
                 setValue(key, kvoOrRelatedKvoHandler, columnNode);
-                if (renderLastFieldEnd
-                    || !columnNode.equals(tableRDesc
-                        .getRootNode()
-                        .getChildren()
-                        .get(tableRDesc.getRootNode().getChildren().size() - 1)))
+                if (renderLastFieldEnd || !columnNode.equals(
+                    tableRDesc.getRootNode().getChildren().get(
+                        tableRDesc.getRootNode().getChildren().size() - 1)))
                     renderFieldEnd();
 
             }
@@ -236,13 +237,12 @@ public class ExcelRendererV2 extends TableRenderer {
         Node<TableRDescBase> columnNode,
         AssistedObject kvo) {
         String key = columnNode.getNodeId();
-        AssistedObjectHandler kvoOrRelatedKvoChecker =
-            aoHandlerFactory.createHandler(kvo).getRelatedKVOMultiLevel(
-                SharedUtil.listFromDotSeparated(key));
+        AssistedObjectHandler kvoOrRelatedKvoChecker = aoHandlerFactory
+            .createHandler(kvo)
+            .getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
         if (SharedUtil.isMultilevelKey(key)) {
-            kvoOrRelatedKvoChecker =
-                kvoOrRelatedKvoChecker
-                    .getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
+            kvoOrRelatedKvoChecker = kvoOrRelatedKvoChecker
+                .getRelatedKVOMultiLevel(SharedUtil.listFromDotSeparated(key));
         }
         return kvoOrRelatedKvoChecker;
     }

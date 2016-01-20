@@ -13,15 +13,19 @@ public interface DialogBoxBaseImages extends ClientBundle {
     public static final DialogBoxBaseImages INSTANCE = GWT.create(DialogBoxBaseImages.class);
 
     @Source("dialog-error.png")
-    ImageResource dialogError();
+        ImageResource
+            dialogError();
 
     @Source("dialog-information.png")
-    ImageResource dialogInformation();
+        ImageResource
+            dialogInformation();
 
     @Source("dialog-confirm.png")
-    ImageResource dialogConfirm();
+        ImageResource
+            dialogConfirm();
 
     @Source("dialog-warning.png")
-    ImageResource dialogWarning();
+        ImageResource
+            dialogWarning();
 
 }

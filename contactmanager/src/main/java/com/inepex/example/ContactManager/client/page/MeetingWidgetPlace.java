@@ -56,10 +56,9 @@ public class MeetingWidgetPlace extends WidgetPlace {
             public void onObjectFound(AssistedObject foundObject) {
                 AssistedObjectHandler handler = handlerFactory.createHandler(foundObject);
 
-                html.setHTML(handler.getRelation(MeetingConsts.k_company).getDisplayName()
-                    + "&nbsp;"
-                    + handler.getRelation(MeetingConsts.k_contact).getDisplayName()
-                    + "&nbsp;");
+                html.setHTML(
+                    handler.getRelation(MeetingConsts.k_company).getDisplayName() + "&nbsp;"
+                        + handler.getRelation(MeetingConsts.k_contact).getDisplayName() + "&nbsp;");
             }
         });
     }

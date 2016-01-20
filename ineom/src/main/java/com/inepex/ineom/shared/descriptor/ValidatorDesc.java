@@ -7,8 +7,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class ValidatorDesc extends DescriptorBase implements Serializable, IsSerializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 3350119608950432751L;
 
     private String descName;

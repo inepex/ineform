@@ -29,17 +29,16 @@ public class ExcelAssistedObjectTRDRenderer {
         return fieldRenderer;
     }
 
-    public void render(AssistedObject ao, String tableRDescName, Sheet sheet, int rowNo, int colNo) {
+    public
+        void
+        render(AssistedObject ao, String tableRDescName, Sheet sheet, int rowNo, int colNo) {
         TableRDesc tableRDesc;
         if (tableRDescName == null) {
-            tableRDesc =
-                descriptorStore.getDefaultTypedDesc(ao.getDescriptorName(), TableRDesc.class);
+            tableRDesc = descriptorStore
+                .getDefaultTypedDesc(ao.getDescriptorName(), TableRDesc.class);
         } else {
-            tableRDesc =
-                descriptorStore.getNamedTypedDesc(
-                    ao.getDescriptorName(),
-                    tableRDescName,
-                    TableRDesc.class);
+            tableRDesc = descriptorStore
+                .getNamedTypedDesc(ao.getDescriptorName(), tableRDescName, TableRDesc.class);
         }
         for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode().getChildren()) {
             String keyText = columnNode.getNodeElement().getDisplayName();

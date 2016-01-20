@@ -33,24 +33,20 @@ public class MongoPerfTest {
         for (int i = 0; i < nrOfDoc; i++) {
             Long objectId = rand.nextInt(nrOfDoc) + 100000L;
             Boolean onRoad = rand.nextBoolean();
-            BasicDBObject doc =
-                new BasicDBObject()
-                    .append("object_type", "device")
-                    .append("object_id", objectId)
-                    .append(
-                        "user",
-                        new BasicDBObject().append("segmentationType", "ACC").append(
-                            "onRoad",
-                            onRoad));
+            BasicDBObject doc = new BasicDBObject()
+                .append("object_type", "device")
+                .append("object_id", objectId)
+                .append(
+                    "user",
+                    new BasicDBObject().append("segmentationType", "ACC").append("onRoad", onRoad));
             coll.insert(doc);
         }
     }
 
     private void measureQuery() {
-        DBObject explain =
-            coll
-                .find((DBObject) JSON.parse("{object_type:'device', 'user.onRoad':true}"))
-                .explain();
+        DBObject explain = coll
+            .find((DBObject) JSON.parse("{object_type:'device', 'user.onRoad':true}"))
+            .explain();
         nrOfMs = (Integer) explain.get("millis");
     }
 

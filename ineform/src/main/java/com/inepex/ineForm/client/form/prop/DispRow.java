@@ -186,8 +186,8 @@ public class DispRow {
                 }
             }));
 
-            registerHandler(valueBooleanBox
-                .addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            registerHandler(
+                valueBooleanBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 
                     @Override
                     public void onValueChange(ValueChangeEvent<Boolean> event) {

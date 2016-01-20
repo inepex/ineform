@@ -28,8 +28,8 @@ public class KeyValueObjectFieldFilter {
 
         ObjectDesc od = descStore.getOD(kvo.getDescriptorName());
 
-        AssistedObjectHandler ret =
-            factory.createHandler(new KeyValueObject(kvo.getDescriptorName(), kvo.getId()));
+        AssistedObjectHandler ret = factory
+            .createHandler(new KeyValueObject(kvo.getDescriptorName(), kvo.getId()));
 
         AssistedObjectHandler kvoChecker = factory.createHandler(kvo);
 

@@ -18,8 +18,10 @@ public class PhoneNumberLogic {
 
         String[] parts;
         if (value.matches("\\+([0-9]){11,14}")) {
-            parts =
-                new String[] { value.substring(0, 3), value.substring(3, 5), value.substring(5) };
+            parts = new String[] {
+                value.substring(0, 3),
+                value.substring(3, 5),
+                value.substring(5) };
         } else {
             parts = value.split("[" + PART_SEPARATOR + "]");
         }
@@ -54,11 +56,8 @@ public class PhoneNumberLogic {
     // Use for numbers like: 36704427522
     public static String convertSimpleToIneStlye(String nonSeparatedSimpleFormat) {
 
-        return PLUS_SIGN
-            + nonSeparatedSimpleFormat.substring(0, 2)
-            + PART_SEPARATOR
-            + nonSeparatedSimpleFormat.substring(2, 4)
-            + PART_SEPARATOR
+        return PLUS_SIGN + nonSeparatedSimpleFormat.substring(0, 2) + PART_SEPARATOR
+            + nonSeparatedSimpleFormat.substring(2, 4) + PART_SEPARATOR
             + nonSeparatedSimpleFormat.substring(4);
     }
 

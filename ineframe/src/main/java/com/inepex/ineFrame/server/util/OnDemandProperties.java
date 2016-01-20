@@ -25,8 +25,10 @@ public class OnDemandProperties implements Serializable {
     private void loadProperties() {
 
         try {
-            InputStream s =
-                Thread.currentThread().getContextClassLoader().getResourceAsStream(properyFileName);
+            InputStream s = Thread
+                .currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream(properyFileName);
             properties = new Properties();
             properties.load(s);
             s.close();
@@ -38,11 +40,8 @@ public class OnDemandProperties implements Serializable {
             String contextSpecificPropfile = properyFileName + "." + Context.current;
             try {
 
-                InputStream s =
-                    Thread
-                        .currentThread()
-                        .getContextClassLoader()
-                        .getResourceAsStream(contextSpecificPropfile);
+                InputStream s = Thread.currentThread().getContextClassLoader().getResourceAsStream(
+                    contextSpecificPropfile);
                 properties.load(s);
                 s.close();
             } catch (Exception e) {

@@ -41,7 +41,8 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
         GRAY,
 
         /**
-         * to modify the properties of action (what is useless without saving) <br>
+         * to modify the properties of action (what is useless without saving)
+         * <br>
          * <b>transparent</b>
          */
         TRANSPARENT;
@@ -137,16 +138,14 @@ public class IneButton extends Composite implements IsWidget, HasEnabled, HasTex
     }
 
     public void setIcon(ImageResource icon, Position position) {
-        button
-            .getElement()
-            .getStyle()
-            .setProperty("backgroundImage", "url('" + icon.getSafeUri().asString() + "')");
+        button.getElement().getStyle().setProperty(
+            "backgroundImage",
+            "url('" + icon.getSafeUri().asString() + "')");
 
         if (position != Position.CENTER) {
-            button
-                .getElement()
-                .getStyle()
-                .setProperty("backgroundPosition", position == Position.LEFT ? "5%" : "95%");
+            button.getElement().getStyle().setProperty(
+                "backgroundPosition",
+                position == Position.LEFT ? "5%" : "95%");
         } else {
             button.getElement().getStyle().setProperty("backgroundPosition", "center");
         }

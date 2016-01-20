@@ -6,6 +6,7 @@ import com.google.gwt.user.cellview.client.CellTable.Resources;
 public interface CellTableResources extends Resources {
 
     @Override
-    CellTable.Style cellTableStyle();
+        CellTable.Style
+            cellTableStyle();
 
 }

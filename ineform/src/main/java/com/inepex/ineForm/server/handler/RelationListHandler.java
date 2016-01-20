@@ -14,8 +14,7 @@ import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 
 public class RelationListHandler
-    implements
-    ActionHandler<RelationListAction, RelationListActionResult> {
+        implements ActionHandler<RelationListAction, RelationListActionResult> {
 
     private static final Logger _logger = LoggerFactory.getLogger(RelationListHandler.class);
 

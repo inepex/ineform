@@ -31,10 +31,8 @@ import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction
 
 public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
 
-    private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler =
-        DefaultLoginHandler.class;
-    private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler =
-        GetAuthStatusHandler.class;
+    private Class<? extends AbstractLoginHandler<AuthUser, AuthStatusResultBase>> loginHandler = DefaultLoginHandler.class;
+    private Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler = GetAuthStatusHandler.class;
 
     public IneFrameBaseActionHandlerModule() {
         super();
@@ -46,10 +44,8 @@ public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
         return this;
     }
 
-    public
-        IneFrameBaseActionHandlerModule
-        setGetAuthStatusHandler(
-            Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler) {
+    public IneFrameBaseActionHandlerModule setGetAuthStatusHandler(
+        Class<? extends ActionHandler<GetAuthStatusAction, AuthStatusResultBase>> getAuthStatusHandler) {
         this.getAuthStatusHandler = getAuthStatusHandler;
         return this;
     }
@@ -68,8 +64,9 @@ public class IneFrameBaseActionHandlerModule extends ActionHandlerModule {
         bindHandler(GetAuthStatusAction.class, getAuthStatusHandler);
         bindHandler(LogoutAction.class, LogoutHandler.class);
         bindHandler(CaptchaInfoAction.class, CaptchaInfoHandler.class);
-        bind(new TypeLiteral<AbstractLoginHandler<AuthUser, AuthStatusResultBase>>() {}).to(
-            loginHandler).in(Singleton.class);
+        bind(new TypeLiteral<AbstractLoginHandler<AuthUser, AuthStatusResultBase>>() {})
+            .to(loginHandler)
+            .in(Singleton.class);
         bindHandler(LoginAction.class, loginHandler);
         bindHandler(PingAction.class, PingActionHandler.class);
 

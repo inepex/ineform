@@ -45,9 +45,10 @@ public class ListBoxFW extends AbstractListBoxFW {
 
     @Override
     protected void onAttach() {
-        registerHandler(formCtx.eventBus.addHandler(
-            KeyValueObjectListModifiedEvent.TYPE,
-            new ListModifyHandler()));
+        registerHandler(
+            formCtx.eventBus.addHandler(
+                KeyValueObjectListModifiedEvent.TYPE,
+                new ListModifyHandler()));
         super.onAttach();
     }
 
@@ -58,9 +59,9 @@ public class ListBoxFW extends AbstractListBoxFW {
         if (selected == -1 || selected == 0 && allowsNull)
             value = null;
         else
-            value =
-                new Relation(Long.parseLong(getListBox().getValue(selected)), getListBox()
-                    .getItemText(selected));
+            value = new Relation(
+                Long.parseLong(getListBox().getValue(selected)),
+                getListBox().getItemText(selected));
 
         super.fireFormWidgetChanged(changeEnd);
     }
@@ -68,9 +69,8 @@ public class ListBoxFW extends AbstractListBoxFW {
     public void reLoadListAndKeepSelectedOrSetToNull() {
         if (valueRangeProvider != null) {
             getListBox().setEnabled(false);
-            valueRangeProvider.getRelationValueRange(
-                fieldDescriptor,
-                new ValueRangeResultCallback() {
+            valueRangeProvider
+                .getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
                     @Override
                     public void onValueRangeResultReady(List<Relation> relationList) {
                         if (relationList != null) {
@@ -130,9 +130,8 @@ public class ListBoxFW extends AbstractListBoxFW {
     private void loadDataFromValueRangeProvider() {
         if (valueRangeProvider != null) {
             getListBox().setEnabled(false);
-            valueRangeProvider.getRelationValueRange(
-                fieldDescriptor,
-                new ValueRangeResultCallback() {
+            valueRangeProvider
+                .getRelationValueRange(fieldDescriptor, new ValueRangeResultCallback() {
                     @Override
                     public void onValueRangeResultReady(List<Relation> relationList) {
                         if (relationList != null) {

@@ -55,8 +55,9 @@ public class RelationChooser implements Chooser {
                     .createHandler(mappedRel1.getKvo())
                     .getLong(IFConsts.KEY_ORDERNUM)
                     .compareTo(
-                        handlerFactory.createHandler(mappedRel2.getKvo()).getLong(
-                            IFConsts.KEY_ORDERNUM));
+                        handlerFactory
+                            .createHandler(mappedRel2.getKvo())
+                            .getLong(IFConsts.KEY_ORDERNUM));
             }
 
             else
@@ -76,8 +77,9 @@ public class RelationChooser implements Chooser {
         this.descStore = formCtx.descStore;
         this.handlerFactory = new AssistedObjectHandlerFactory(descStore);
 
-        supportsOrdering =
-            descStore.getOD(relationDescriptorName).containsKey(IFConsts.KEY_ORDERNUM);
+        supportsOrdering = descStore
+            .getOD(relationDescriptorName)
+            .containsKey(IFConsts.KEY_ORDERNUM);
 
         secondLevelJoin = fieldDescriptor.getPropValue("secondLevelJoin");
 
@@ -122,8 +124,9 @@ public class RelationChooser implements Chooser {
     public void setSelected(List<Relation> relationList) {
         resetState();
         for (Relation rel : relationList) {
-            Relation mappedRel =
-                handlerFactory.createHandler(rel.getKvo()).getRelation(secondLevelJoin);
+            Relation mappedRel = handlerFactory
+                .createHandler(rel.getKvo())
+                .getRelation(secondLevelJoin);
             Item item = new Item(mappedRel);
             selected.add(item);
             relationToItemId.put(item.getId(), rel);
@@ -273,12 +276,12 @@ public class RelationChooser implements Chooser {
             for (int i = 0; i < selected.size(); i++) {
                 Relation mappedRel = relationToItemId.get(selected.get(i).getId());
                 if (mappedRel.getKvo() != null) {
-                    Long prevValue =
-                        handlerFactory.createHandler(mappedRel.getKvo()).getLong(
-                            IFConsts.KEY_ORDERNUM);
-                    handlerFactory.createHandler(mappedRel.getKvo()).set(
-                        IFConsts.KEY_ORDERNUM,
-                        new Long(i));
+                    Long prevValue = handlerFactory
+                        .createHandler(mappedRel.getKvo())
+                        .getLong(IFConsts.KEY_ORDERNUM);
+                    handlerFactory
+                        .createHandler(mappedRel.getKvo())
+                        .set(IFConsts.KEY_ORDERNUM, new Long(i));
 
                     if (!changed.contains(mappedRel)
                         && (prevValue == null || prevValue.longValue() != new Long(i).longValue()))

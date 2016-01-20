@@ -183,20 +183,19 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
     }
 
     private void realizePlaceChange(final boolean needWindowReload) {
-        String currentFullTokenWithoutRedirect =
-            PlaceHandlerHelper.removeRedirect(currentFullToken);
+        String currentFullTokenWithoutRedirect = PlaceHandlerHelper
+            .removeRedirect(currentFullToken);
 
-        Node<InePlace> placeNode =
-            placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
-                PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));
+        Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
+            PlaceHandlerHelper.getPlacePart(currentFullTokenWithoutRedirect));
 
         if (placeNode == null) {
             if (!currentFullTokenWithoutRedirect.equals(wrongTokenPlace))
                 onPlaceRequest(new PlaceRequestEvent(wrongTokenPlace));
             else
-                GWT.log("Page for NavigationProperties.wrongTokenPlace("
-                    + wrongTokenPlace
-                    + ") does not exist");
+                GWT.log(
+                    "Page for NavigationProperties.wrongTokenPlace(" + wrongTokenPlace
+                        + ") does not exist");
             return;
         }
 
@@ -217,10 +216,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
         if (place instanceof ChildRedirectPlace) {
             ChildRedirectPlace cdPlace = (ChildRedirectPlace) place;
-            PlaceRequestEvent pre =
-                new PlaceRequestEvent(PlaceHandlerHelper.appendChild(
-                    currentFullTokenWithoutRedirect,
-                    cdPlace.getChildToken()));
+            PlaceRequestEvent pre = new PlaceRequestEvent(
+                PlaceHandlerHelper
+                    .appendChild(currentFullTokenWithoutRedirect, cdPlace.getChildToken()));
             pre.setNeedWindowReload(needWindowReload);
             lastRequestWasARedirect = true;
             eventBus.fireEvent(pre);
@@ -228,8 +226,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
         }
 
         // selector widget update
-        final Map<String, String> urlParams =
-            PlaceHandlerHelper.getUrlParameters(currentFullTokenWithoutRedirect);
+        final Map<String, String> urlParams = PlaceHandlerHelper
+            .getUrlParameters(currentFullTokenWithoutRedirect);
         Node<InePlace> pointer = placeNode;
 
         new ParamPlaceRedirectionCallbackHandler(
@@ -267,8 +265,9 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
     }
 
     private boolean needToRefreshToken() {
-        return (!historyProvider.getToken().equals(currentFullToken) && (!isWrongTokenPlaceSet() || (isWrongTokenPlaceSet() && !currentFullToken
-            .equals(NavigationProperties.wrongTokenPlace))));
+        return (!historyProvider.getToken().equals(currentFullToken)
+            && (!isWrongTokenPlaceSet() || (isWrongTokenPlaceSet()
+                && !currentFullToken.equals(NavigationProperties.wrongTokenPlace))));
     }
 
     private boolean isWrongTokenPlaceSet() {
@@ -313,11 +312,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
         if (place.isAuthenticationNeeded()) {
             List<String> allowedRolesForPlace = place.getRolesAllowed();
             if (!authManager.isUserLoggedIn()) {
-                PlaceRequestEvent pre =
-                    new PlaceRequestEvent(loginPlace
-                        + QUESTION_MARK
-                        + REDIRECT
-                        + EQUALS_SIGN
+                PlaceRequestEvent pre = new PlaceRequestEvent(
+                    loginPlace + QUESTION_MARK + REDIRECT + EQUALS_SIGN
                         + currentFullTokenWithoutRedirect);
                 pre.setNeedWindowReload(needWindowReload);
                 lastRequestWasARedirect = true;
@@ -327,8 +323,8 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
             } else if (authManager.isUserLoggedIn()
                 && (allowedRolesForPlace == null || allowedRolesForPlace.size() == 0)) {
                 return true;
-            } else if (authManager.doUserHaveAnyOfRoles(allowedRolesForPlace
-                .toArray(new String[allowedRolesForPlace.size()]))) {
+            } else if (authManager.doUserHaveAnyOfRoles(
+                allowedRolesForPlace.toArray(new String[allowedRolesForPlace.size()]))) {
                 return true;
             } else {
                 eventBus.fireEvent(new PlaceRequestEvent(NavigationProperties.noRightPlace));
@@ -346,13 +342,11 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
         if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.loginPlace)
             && authManager.isUserLoggedIn()) {
             if (currentFullTokenWithoutRedirect.startsWith(NavigationProperties.defaultPlace)) {
-                GWT.log("Cannot redirect to NavigationProperties.defaultPlace. "
-                    + "NavigationProperties.loginPlace("
-                    + NavigationProperties.loginPlace
-                    + ") and "
-                    + "NavigationProperties.defaultPlace("
-                    + NavigationProperties.defaultPlace
-                    + ") is the same.");
+                GWT.log(
+                    "Cannot redirect to NavigationProperties.defaultPlace. "
+                        + "NavigationProperties.loginPlace(" + NavigationProperties.loginPlace
+                        + ") and " + "NavigationProperties.defaultPlace("
+                        + NavigationProperties.defaultPlace + ") is the same.");
                 return false;
             }
             PlaceRequestEvent pre = new PlaceRequestEvent(NavigationProperties.defaultPlace);
@@ -381,32 +375,27 @@ public abstract class PlaceHandler implements ValueChangeHandler<String>, PlaceR
 
     public PlaceRequestEvent generateSubMenuEvent(String... subMenuTokens) {
         PlaceRequestEvent event = new PlaceRequestEvent();
-        event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createSubMenuToken(
-            currentFullToken,
-            subMenuTokens));
+        event.setHierarchicalTokensWithParam(
+            PlaceHandlerHelper.createSubMenuToken(currentFullToken, subMenuTokens));
         return event;
     }
 
     public PlaceRequestEvent generateJumpUpEvent() {
         PlaceRequestEvent event = new PlaceRequestEvent();
 
-        Node<InePlace> placeNode =
-            placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
-                PlaceHandlerHelper.getPlacePart(currentFullToken));
+        Node<InePlace> placeNode = placeHierarchyProvider.getPlaceRoot().findNodeByHierarchicalId(
+            PlaceHandlerHelper.getPlacePart(currentFullToken));
 
-        event.setHierarchicalTokensWithParam(placeNode
-            .getParent()
-            .getNodeElement()
-            .getHierarchicalToken());
+        event.setHierarchicalTokensWithParam(
+            placeNode.getParent().getNodeElement().getHierarchicalToken());
 
         return event;
     }
 
     public PlaceRequestEvent generateSameLevelMenuEvent(String... subMenuTokens) {
         PlaceRequestEvent event = new PlaceRequestEvent();
-        event.setHierarchicalTokensWithParam(PlaceHandlerHelper.createSameLevelMenuToken(
-            currentFullToken,
-            subMenuTokens));
+        event.setHierarchicalTokensWithParam(
+            PlaceHandlerHelper.createSameLevelMenuToken(currentFullToken, subMenuTokens));
         return event;
     }
 

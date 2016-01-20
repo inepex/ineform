@@ -45,8 +45,8 @@ public class MenuRendererTestBase {
 
         renderer = new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt())).thenAnswer(
-            new Answer<MenuRenderer.View.Tab>() {
+        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+            .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 @Override
                 public Tab answer(InvocationOnMock invocation) throws Throwable {

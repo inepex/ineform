@@ -8,12 +8,9 @@ public abstract class PropHandler {
 
     public abstract void setProp(HasProp hasProp, String group, String key, Double value);
 
-    public abstract void setProp(
-        HasProp hasProp,
-        String group,
-        String key,
-        String value,
-        boolean strictMatch);
+    public abstract
+        void
+        setProp(HasProp hasProp, String group, String key, String value, boolean strictMatch);
 
     public abstract void setProp(HasProp hasProp, String group, String key, String value);
 

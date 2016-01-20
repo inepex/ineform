@@ -40,10 +40,9 @@ public class AssistedObjectDifference {
         if (!modified.getDescriptorName().equals(original.getDescriptorName()))
             throw new IllegalArgumentException();
 
-        AssistedObjectHandler difference =
-            new AssistedObjectHandler(new KeyValueObject(
-                original.getDescriptorName(),
-                original.getId()), descriptorStore);
+        AssistedObjectHandler difference = new AssistedObjectHandler(
+            new KeyValueObject(original.getDescriptorName(), original.getId()),
+            descriptorStore);
 
         for (String key : modified.objectDescriptor.getFields().keySet()) {
             FDesc fieldDesc = modified.objectDescriptor.getFields().get(key);
@@ -80,8 +79,7 @@ public class AssistedObjectDifference {
                     // after
                     // edited in a form!
                     IneList chng = modified.getList(key);
-                    if (chng == null
-                        || chng.getRelationList() == null
+                    if (chng == null || chng.getRelationList() == null
                         || chng.getRelationList().size() == 0)
                         continue;
                     difference.set(key, chng);
@@ -120,10 +118,12 @@ public class AssistedObjectDifference {
                                         throw new RuntimeException(
                                             "Corrupted widget. Dont modify the related object through the entity!");
                                     }
-                                    AssistedObjectHandler hChng =
-                                        new AssistedObjectHandler(chng.getKvo(), descriptorStore);
-                                    AssistedObjectHandler hOrig =
-                                        new AssistedObjectHandler(orig.getKvo(), descriptorStore);
+                                    AssistedObjectHandler hChng = new AssistedObjectHandler(
+                                        chng.getKvo(),
+                                        descriptorStore);
+                                    AssistedObjectHandler hOrig = new AssistedObjectHandler(
+                                        orig.getKvo(),
+                                        descriptorStore);
                                     rel.setKvo(getDifference(hOrig, hChng).getAssistedObject());
                                 }
                                 difference.set(key, rel);

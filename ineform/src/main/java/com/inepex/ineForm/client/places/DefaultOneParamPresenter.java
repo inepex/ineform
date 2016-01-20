@@ -112,8 +112,8 @@ public class DefaultOneParamPresenter implements OneParamPresenter {
                 if (selectedId != null) {
                     selectedString = selectedId.toString();
                 }
-                formContext.eventBus.fireEvent(new PlaceRequestEvent(oneParamPlace
-                    .getChildPlaceToken(selectedString)));
+                formContext.eventBus.fireEvent(
+                    new PlaceRequestEvent(oneParamPlace.getChildPlaceToken(selectedString)));
 
             }
         });
@@ -128,9 +128,8 @@ public class DefaultOneParamPresenter implements OneParamPresenter {
 
         selectorView.clear();
 
-        formContext.ineDispatch.execute(
-            getListAction(),
-            new IneDispatch.SuccessCallback<RelationListActionResult>() {
+        formContext.ineDispatch
+            .execute(getListAction(), new IneDispatch.SuccessCallback<RelationListActionResult>() {
 
                 @Override
                 public void onSuccess(RelationListActionResult result) {
@@ -189,8 +188,12 @@ public class DefaultOneParamPresenter implements OneParamPresenter {
 
     private RelationListAction getListAction() {
         if (listAction == null)
-            this.listAction =
-                new RelationListAction(oneParamPlace.getDescriptorName(), null, 0, 1000, false);
+            this.listAction = new RelationListAction(
+                oneParamPlace.getDescriptorName(),
+                null,
+                0,
+                1000,
+                false);
         return listAction;
     }
 

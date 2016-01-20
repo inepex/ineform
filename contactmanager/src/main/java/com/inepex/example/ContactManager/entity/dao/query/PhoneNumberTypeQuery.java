@@ -36,18 +36,17 @@ public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType> {
         Root<PhoneNumberType> from,
         Expression<Boolean> base) {
 
-        PhoneNumberTypeSearchHandler handler =
-            handlerFactory.createSearchHandler(action.getSearchParameters());
+        PhoneNumberTypeSearchHandler handler = handlerFactory
+            .createSearchHandler(action.getSearchParameters());
         Long id = handler.getLong(PhoneNumberTypeConsts.s_id);
         if (id != null)
             base = addAndExpression(cb, base, cb.equal(from.get(PhoneNumberType_.id), id));
         String name = handler.getString(PhoneNumberTypeConsts.s_name);
         if (name != null)
-            base =
-                addAndExpression(
-                    cb,
-                    base,
-                    cb.like(cb.upper(from.get(PhoneNumberType_.name)), name.toUpperCase() + "%"));
+            base = addAndExpression(
+                cb,
+                base,
+                cb.like(cb.upper(from.get(PhoneNumberType_.name)), name.toUpperCase() + "%"));
 
         return base;
     }
@@ -86,11 +85,10 @@ public class PhoneNumberTypeQuery extends BaseQuery<PhoneNumberType> {
         Path<PhoneNumberType> from,
         String value) {
         Expression<Boolean> expr = null;
-        expr =
-            addOrExpression(
-                cb,
-                expr,
-                cb.like(cb.upper(from.get(PhoneNumberType_.name)), value.toUpperCase() + "%"));
+        expr = addOrExpression(
+            cb,
+            expr,
+            cb.like(cb.upper(from.get(PhoneNumberType_.name)), value.toUpperCase() + "%"));
         return expr;
     }
 

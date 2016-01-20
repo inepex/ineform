@@ -155,8 +155,10 @@ public class RelationListFW extends DenyingFormWidget {
         this.formCtx = formCtx;
         this.fixSized = fixSized;
         this.relationDescriptorName = relationDescriptorName;
-        this.relationList =
-            new RelationList(formCtx.descStore, relationDescriptorName, allowOrdering);
+        this.relationList = new RelationList(
+            formCtx.descStore,
+            relationDescriptorName,
+            allowOrdering);
 
         initWidget(mainPanel);
 

@@ -18,8 +18,7 @@ import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 
 @Singleton
 public class ObjectManipulationHandler
-    implements
-    ActionHandler<ObjectManipulationAction, ObjectManipulationActionResult> {
+        implements ActionHandler<ObjectManipulationAction, ObjectManipulationActionResult> {
 
     private static final Logger _logger = LoggerFactory.getLogger(ObjectManipulationHandler.class);
 
@@ -63,14 +62,15 @@ public class ObjectManipulationHandler
             }
 
             // Do default behavior
-            return (ObjectManipulationActionResult) daoFinder.getDefaultDaoForDescriptor(
-                descriptorName).manipulate(action);
+            return (ObjectManipulationActionResult) daoFinder
+                .getDefaultDaoForDescriptor(descriptorName)
+                .manipulate(action);
 
         } catch (Exception e) {
             e.printStackTrace();
             _logger.warn(e.getMessage());
-            throw new ActionException("Problem while performing manipulate action: "
-                + e.getMessage());
+            throw new ActionException(
+                "Problem while performing manipulate action: " + e.getMessage());
         }
     }
 

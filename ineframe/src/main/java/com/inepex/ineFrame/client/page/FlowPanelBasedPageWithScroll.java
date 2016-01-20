@@ -9,7 +9,8 @@ import com.inepex.ineFrame.client.GreenScrollPanel;
 import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.navigation.InePlace;
 
-public abstract class FlowPanelBasedPageWithScroll extends HandlerAwareComposite implements InePage {
+public abstract class FlowPanelBasedPageWithScroll extends HandlerAwareComposite
+        implements InePage {
 
     protected GreenScrollPanel scrollPanel = new GreenScrollPanel();
     protected FlowPanel mainPanel = new FlowPanel();

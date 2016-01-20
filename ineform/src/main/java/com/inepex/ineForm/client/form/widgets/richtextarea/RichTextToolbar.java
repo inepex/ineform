@@ -331,30 +331,32 @@ public class RichTextToolbar extends Composite {
             topPanel.add(italic = createToggleButton(images.italic(), strings.italic()));
             topPanel.add(underline = createToggleButton(images.underline(), strings.underline()));
             topPanel.add(subscript = createToggleButton(images.subscript(), strings.subscript()));
-            topPanel.add(superscript =
-                createToggleButton(images.superscript(), strings.superscript()));
-            topPanel.add(justifyLeft =
-                createPushButton(images.justifyLeft(), strings.justifyLeft()));
-            topPanel.add(justifyCenter =
-                createPushButton(images.justifyCenter(), strings.justifyCenter()));
-            topPanel.add(justifyRight =
-                createPushButton(images.justifyRight(), strings.justifyRight()));
+            topPanel
+                .add(superscript = createToggleButton(images.superscript(), strings.superscript()));
+            topPanel
+                .add(justifyLeft = createPushButton(images.justifyLeft(), strings.justifyLeft()));
+            topPanel.add(
+                justifyCenter = createPushButton(images.justifyCenter(), strings.justifyCenter()));
+            topPanel.add(
+                justifyRight = createPushButton(images.justifyRight(), strings.justifyRight()));
         }
 
         if (extended != null) {
-            topPanel.add(strikethrough =
-                createToggleButton(images.strikeThrough(), strings.strikeThrough()));
+            topPanel.add(
+                strikethrough = createToggleButton(
+                    images.strikeThrough(),
+                    strings.strikeThrough()));
             topPanel.add(indent = createPushButton(images.indent(), strings.indent()));
             topPanel.add(outdent = createPushButton(images.outdent(), strings.outdent()));
             topPanel.add(hr = createPushButton(images.hr(), strings.hr()));
             topPanel.add(ol = createPushButton(images.ol(), strings.ol()));
             topPanel.add(ul = createPushButton(images.ul(), strings.ul()));
-            topPanel.add(insertImage =
-                createPushButton(images.insertImage(), strings.insertImage()));
+            topPanel
+                .add(insertImage = createPushButton(images.insertImage(), strings.insertImage()));
             topPanel.add(createLink = createPushButton(images.createLink(), strings.createLink()));
             topPanel.add(removeLink = createPushButton(images.removeLink(), strings.removeLink()));
-            topPanel.add(removeFormat =
-                createPushButton(images.removeFormat(), strings.removeFormat()));
+            topPanel.add(
+                removeFormat = createPushButton(images.removeFormat(), strings.removeFormat()));
         }
 
         if (basic != null) {

@@ -20,11 +20,7 @@ import com.inepex.ineFrame.client.misc.HandlerAwareComposite;
 import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 public class IneCheckBox extends HandlerAwareComposite
-    implements
-    HasValue<Boolean>,
-    HasText,
-    HasHTML,
-    HasEnabled {
+        implements HasValue<Boolean>, HasText, HasHTML, HasEnabled {
 
     private final FlowPanel mainPanel = new FlowPanel();
     private final Image icon = new Image();

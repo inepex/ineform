@@ -8,8 +8,7 @@ import com.google.inject.Provider;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class CriteriaSelector<ResultType, RootType>
-    extends
-    CustomDaoCriteriaSelector<ResultType, RootType> {
+        extends CustomDaoCriteriaSelector<ResultType, RootType> {
 
     BaseQuery<RootType> query;
 

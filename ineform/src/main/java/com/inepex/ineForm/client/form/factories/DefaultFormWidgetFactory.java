@@ -92,27 +92,25 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
 
         else if (widgetType.equals(FWTypes.ENUMLABEL)) {
             if (wrDesc.getPropValue(EnumLabelFW.enumValues) == null) {
-                throw new RuntimeException("No '"
-                    + EnumLabelFW.enumValues
-                    + "' propery found for EnumLabel: "
-                    + fieldDesc.getKey());
+                throw new RuntimeException(
+                    "No '" + EnumLabelFW.enumValues + "' propery found for EnumLabel: "
+                        + fieldDesc.getKey());
             } else
-                createdWidget =
-                    new EnumLabelFW(fieldDesc, wrDesc.getPropValue(EnumLabelFW.enumValues));
+                createdWidget = new EnumLabelFW(
+                    fieldDesc,
+                    wrDesc.getPropValue(EnumLabelFW.enumValues));
         }
 
         else if (widgetType.equals(FWTypes.RADIOENUMSELECTOR)) {
             if (wrDesc.getPropValue(RadioEnumSelectorFW.enumValues) == null) {
-                throw new RuntimeException("No '"
-                    + RadioEnumSelectorFW.enumValues
-                    + "' propery found for EnumLabel: "
-                    + fieldDesc.getKey());
+                throw new RuntimeException(
+                    "No '" + RadioEnumSelectorFW.enumValues + "' propery found for EnumLabel: "
+                        + fieldDesc.getKey());
             } else
-                createdWidget =
-                    new RadioEnumSelectorFW(
-                        fieldDesc,
-                        wrDesc.getPropValue(EnumLabelFW.enumValues),
-                        wrDesc);
+                createdWidget = new RadioEnumSelectorFW(
+                    fieldDesc,
+                    wrDesc.getPropValue(EnumLabelFW.enumValues),
+                    wrDesc);
         }
 
         else if (widgetType.equals(FWTypes.LISTBOX))
@@ -122,11 +120,10 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
             createdWidget = new DateTimeFW(formCtx.dateProvider, fieldDesc, wrDesc.getProps());
 
         else if (widgetType.equals(FWTypes.RELATEDFORM))
-            createdWidget =
-                new RelationFW(
-                    formCtx,
-                    (RelationFDesc) fieldDesc,
-                    wrDesc.getPropValue(RelationFW.FRD));
+            createdWidget = new RelationFW(
+                formCtx,
+                (RelationFDesc) fieldDesc,
+                wrDesc.getPropValue(RelationFW.FRD));
 
         else if (widgetType.equals(FWTypes.PROPS))
             createdWidget = new PropFW((PropFDesc) fieldDesc, wrDesc, propView.get());
@@ -149,12 +146,12 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
                 || (wrDesc.hasProp(NumberTextBoxFW.HASDECIMALPOINT)))
                 numberTextbox.setHasDecimalPoint(true);
             if (wrDesc.getPropValue(NumberTextBoxFW.FRACTIONALDIGITCONT) != null) {
-                numberTextbox.setMaxFractDigits(Integer.parseInt(wrDesc
-                    .getPropValue(NumberTextBoxFW.FRACTIONALDIGITCONT)));
+                numberTextbox.setMaxFractDigits(
+                    Integer.parseInt(wrDesc.getPropValue(NumberTextBoxFW.FRACTIONALDIGITCONT)));
             }
             if (wrDesc.getPropValue(NumberTextBoxFW.WHOLEDIGITCONT) != null) {
-                numberTextbox.setMaxWholeDigits(Integer.parseInt(wrDesc
-                    .getPropValue(NumberTextBoxFW.WHOLEDIGITCONT)));
+                numberTextbox.setMaxWholeDigits(
+                    Integer.parseInt(wrDesc.getPropValue(NumberTextBoxFW.WHOLEDIGITCONT)));
             }
             if (wrDesc.getPropValue(NumberTextBoxFW.ENABLE_NEGATIVE_NUMBER) != null) {
                 numberTextbox.setNegativeNumEnabled();
@@ -163,61 +160,56 @@ public class DefaultFormWidgetFactory implements FormWidgetFactory {
             createdWidget = numberTextbox;
         } else if (widgetType.equals(FWTypes.RELATIONLIST)) {
             ListFDesc castedFieldDesc = (ListFDesc) fieldDesc;
-            createdWidget =
-                new RelationListFW(
-                    formCtx,
-                    castedFieldDesc,
-                    castedFieldDesc.getRelatedDescriptorType(),
-                    wrDesc.hasProp(RelationListFW.FIXSIZED));
+            createdWidget = new RelationListFW(
+                formCtx,
+                castedFieldDesc,
+                castedFieldDesc.getRelatedDescriptorType(),
+                wrDesc.hasProp(RelationListFW.FIXSIZED));
         } else if (widgetType.equals(FWTypes.TABLE)) {
             ListFDesc castedFieldDesc = (ListFDesc) fieldDesc;
-            createdWidget =
-                new IneTableFW(
-                    castedFieldDesc,
-                    formCtx,
-                    castedFieldDesc.getRelatedDescriptorType(),
-                    wrDesc.hasProp(IneTableFW.PROP_SINGLESELECT));
+            createdWidget = new IneTableFW(
+                castedFieldDesc,
+                formCtx,
+                castedFieldDesc.getRelatedDescriptorType(),
+                wrDesc.hasProp(IneTableFW.PROP_SINGLESELECT));
         } else if (widgetType.equals(FWTypes.ENUMLISTBOX)) {
             if (wrDesc.getPropValue(EnumListFW.enumValues) == null) {
-                throw new RuntimeException("No '"
-                    + EnumListFW.enumValues
-                    + "' propery found for EnumListBox: "
-                    + fieldDesc.getKey());
+                throw new RuntimeException(
+                    "No '" + EnumListFW.enumValues + "' propery found for EnumListBox: "
+                        + fieldDesc.getKey());
             } else
-                createdWidget =
-                    new EnumListFW(fieldDesc, wrDesc, wrDesc.getPropValue(EnumListFW.enumValues));
+                createdWidget = new EnumListFW(
+                    fieldDesc,
+                    wrDesc,
+                    wrDesc.getPropValue(EnumListFW.enumValues));
         } else if (widgetType.equals(FWTypes.CHOOSER)) {
             ListFDesc castedFieldDesc = (ListFDesc) fieldDesc;
-            createdWidget =
-                new ChooserFw(
-                    formCtx,
-                    castedFieldDesc,
-                    wrDesc,
-                    castedFieldDesc.getRelatedDescriptorType());
+            createdWidget = new ChooserFw(
+                formCtx,
+                castedFieldDesc,
+                wrDesc,
+                castedFieldDesc.getRelatedDescriptorType());
         } else if (widgetType.equals(FWTypes.FILEUPLOAD)) {
             boolean withImageFinder = wrDesc.hasProp(FileUploadFw.hasImageFinderKey);
             boolean withPreview = wrDesc.hasProp(FileUploadFw.hasPreviewKey);
             createdWidget = new FileUploadFw(fieldDesc, wrDesc, withImageFinder, withPreview);
         } else if (wrDesc.getFormWidgetType().equals(FWTypes.RADIOBOOL)) {
-            createdWidget =
-                new RadioBoolFW(
-                    fieldDesc,
-                    wrDesc.getPropValue("true"),
-                    wrDesc.getPropValue("false"),
-                    wrDesc.hasProp(RadioBoolFW.VERTICAL));
+            createdWidget = new RadioBoolFW(
+                fieldDesc,
+                wrDesc.getPropValue("true"),
+                wrDesc.getPropValue("false"),
+                wrDesc.hasProp(RadioBoolFW.VERTICAL));
         } else if (wrDesc.getFormWidgetType().equals(FWTypes.LABELBOOL)) {
-            createdWidget =
-                new LabelBoolFW(
-                    fieldDesc,
-                    wrDesc.getPropValue("true"),
-                    wrDesc.getPropValue("false"));
+            createdWidget = new LabelBoolFW(
+                fieldDesc,
+                wrDesc.getPropValue("true"),
+                wrDesc.getPropValue("false"));
         } else if (wrDesc.getFormWidgetType().equals(FWTypes.THREEWAYBOOL)) {
-            createdWidget =
-                new ThreeWayBoolFw(
-                    fieldDesc,
-                    wrDesc.getPropValue(ThreeWayBoolFw.NULL),
-                    wrDesc.getPropValue(ThreeWayBoolFw.TRUE),
-                    wrDesc.getPropValue(ThreeWayBoolFw.FALSE));
+            createdWidget = new ThreeWayBoolFw(
+                fieldDesc,
+                wrDesc.getPropValue(ThreeWayBoolFw.NULL),
+                wrDesc.getPropValue(ThreeWayBoolFw.TRUE),
+                wrDesc.getPropValue(ThreeWayBoolFw.FALSE));
         } else if (wrDesc.getFormWidgetType().equals(FWTypes.RICHTEXTAREA)) {
             createdWidget = new RichTextAreaFW(fieldDesc, wrDesc);
         } else if (wrDesc.getFormWidgetType().equals(FWTypes.STRINGLISTBOX)) {

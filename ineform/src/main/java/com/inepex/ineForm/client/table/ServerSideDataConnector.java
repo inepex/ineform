@@ -58,7 +58,8 @@ public class ServerSideDataConnector extends IneDataConnector {
         return (ObjectListAction) objectList;
     }
 
-    public void
+    public
+        void
         setAutoUpdating(PushedEventProvider pEventProvider, HasData<AssistedObject> display) {
         this.pushedEventProvider = pEventProvider;
         createDefaultListActionIfNull();
@@ -86,9 +87,12 @@ public class ServerSideDataConnector extends IneDataConnector {
         @Override
         public void onBeforeCallAction(Action<?> action) {
             this.customStatusIndicator = customListingStatusIndicator;
-            setListActionDetails((ObjectListAction) action, searchParameters, display
-                .getVisibleRange()
-                .getStart(), display.getVisibleRange().getLength(), false);
+            setListActionDetails(
+                (ObjectListAction) action,
+                searchParameters,
+                display.getVisibleRange().getStart(),
+                display.getVisibleRange().getLength(),
+                false);
         }
     }
 
@@ -132,16 +136,14 @@ public class ServerSideDataConnector extends IneDataConnector {
         Boolean rerunQueryOnOrder,
         final SuccessCallback<ObjectListResult> objectListCallback,
         AsyncStatusIndicator statusIndicator) {
-        dispatcher.execute(
-            (ObjectListAction) objectList,
-            new SuccessCallback<ObjectListActionResult>() {
+        dispatcher
+            .execute((ObjectListAction) objectList, new SuccessCallback<ObjectListActionResult>() {
 
                 @Override
                 public void onSuccess(ObjectListActionResult result) {
                     objectListCallback.onSuccess(result);
                 }
-            },
-            statusIndicator);
+            }, statusIndicator);
 
     }
 }

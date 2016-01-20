@@ -73,8 +73,7 @@ public class PdfRenderer extends TableRenderer {
                 break;
             }
         }
-        if (!IneFormProperties.showIds
-            && !tableRDesc.hasProp(FormRDescBase.prop_showIDs)
+        if (!IneFormProperties.showIds && !tableRDesc.hasProp(FormRDescBase.prop_showIDs)
             && hasIdColumn) {
             columnSize--;
         }

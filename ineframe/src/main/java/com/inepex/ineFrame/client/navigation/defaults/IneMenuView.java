@@ -75,9 +75,9 @@ public class IneMenuView extends HandlerAwareFlowPanel {
         helpAndSettingsAppIdMap.put(row, appId);
         bottomAppTable.setWidget(row, 0, new Image(icon));
         bottomAppTable.setText(row, 1, appName);
-        bottomAppTable.getRowFormatter().setStyleName(
-            maxRow,
-            Res.INST.get().ineMenuStyle().menuElementRow());
+        bottomAppTable
+            .getRowFormatter()
+            .setStyleName(maxRow, Res.INST.get().ineMenuStyle().menuElementRow());
         bottomAppTable.getFlexCellFormatter().setStyleName(
             maxRow,
             0,
@@ -161,15 +161,15 @@ public class IneMenuView extends HandlerAwareFlowPanel {
             bottomAppTable.setText(2, 1, IneFrameI18n.inemenu_logout());
         }
 
-        bottomAppTable.getRowFormatter().setStyleName(
-            0,
-            Res.INST.get().ineMenuStyle().menuElementRow());
-        bottomAppTable.getRowFormatter().setStyleName(
-            1,
-            Res.INST.get().ineMenuStyle().menuElementRow());
-        bottomAppTable.getRowFormatter().setStyleName(
-            2,
-            Res.INST.get().ineMenuStyle().menuElementRow());
+        bottomAppTable
+            .getRowFormatter()
+            .setStyleName(0, Res.INST.get().ineMenuStyle().menuElementRow());
+        bottomAppTable
+            .getRowFormatter()
+            .setStyleName(1, Res.INST.get().ineMenuStyle().menuElementRow());
+        bottomAppTable
+            .getRowFormatter()
+            .setStyleName(2, Res.INST.get().ineMenuStyle().menuElementRow());
 
         bottomAppTable.getFlexCellFormatter().setStyleName(
             0,
@@ -189,10 +189,9 @@ public class IneMenuView extends HandlerAwareFlowPanel {
         Image userImg = new Image(Res.INST.get().drawerProfile());
         userImg.setStyleName(Res.INST.get().ineMenuStyle().userProfileImg());
         usertable.getFlexCellFormatter().setRowSpan(0, 0, 2);
-        usertable.getFlexCellFormatter().setVerticalAlignment(
-            0,
-            1,
-            HasVerticalAlignment.ALIGN_BOTTOM);
+        usertable
+            .getFlexCellFormatter()
+            .setVerticalAlignment(0, 1, HasVerticalAlignment.ALIGN_BOTTOM);
         usertable.getFlexCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_TOP);
         usertable.getFlexCellFormatter().setStyleName(
             0,

@@ -51,13 +51,15 @@ public class RelationListFwTest extends DefaultIneFrameClientSideTestBase {
 
         data = new RelationTestData(descStore);
 
-        relationList =
-            new RelationList(formCtx.descStore, data.fieldDesc.getRelatedDescriptorType(), true); // TODO:
-                                                                                                  // test
-                                                                                                  // for
-                                                                                                  // ordering
-                                                                                                  // =
-                                                                                                  // false
+        relationList = new RelationList(
+            formCtx.descStore,
+            data.fieldDesc.getRelatedDescriptorType(),
+            true); // TODO:
+                   // test
+                   // for
+                   // ordering
+                   // =
+                   // false
 
         relationList.setRelations(data.relations);
     }

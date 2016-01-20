@@ -9,8 +9,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class IneList implements Serializable, IsSerializable {
 
     /**
-	 *
-	 */
+     *
+     */
     private static final long serialVersionUID = -5029631076123849581L;
 
     private List<Relation> relationList = null;

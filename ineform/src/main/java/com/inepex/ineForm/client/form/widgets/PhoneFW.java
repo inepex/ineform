@@ -100,8 +100,7 @@ public class PhoneFW extends DenyingFormWidget {
 
     @Override
     public String getStringValue() {
-        if (country.getLongValue() == null
-            && area.getLongValue() == null
+        if (country.getLongValue() == null && area.getLongValue() == null
             && local.getLongValue() == null)
             return null;
 

@@ -86,24 +86,26 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
         // define fields
         if (props.containsKey("year")) {
             String val = props.get("year");
-            fields.add(new YOO_OOField(
-                inedate,
-                val.contains("s"),
-                getStep(val),
-                val.contains("t"),
-                this,
-                val.contains("m")));
+            fields.add(
+                new YOO_OOField(
+                    inedate,
+                    val.contains("s"),
+                    getStep(val),
+                    val.contains("t"),
+                    this,
+                    val.contains("m")));
         }
 
         if (props.containsKey("yearmonth")) {
             String val = props.get("yearmonth");
-            fields.add(new YMO_OOField(
-                inedate,
-                val.contains("s"),
-                getStep(val),
-                val.contains("t"),
-                this,
-                val.contains("m")));
+            fields.add(
+                new YMO_OOField(
+                    inedate,
+                    val.contains("s"),
+                    getStep(val),
+                    val.contains("t"),
+                    this,
+                    val.contains("m")));
         }
 
         if (props.containsKey("monthlist")) {
@@ -112,41 +114,52 @@ public class DateTimeFW extends DenyingFormWidget implements DateTimeFieldParent
 
         if (props.containsKey("date")) {
             String val = props.get("date");
-            fields.add(new YMD_OOField(dateProv, inedate, val.contains("s"), getStep(val), val
-                .contains("c"), val.contains("t"), this, val.contains("m")));
+            fields.add(
+                new YMD_OOField(
+                    dateProv,
+                    inedate,
+                    val.contains("s"),
+                    getStep(val),
+                    val.contains("c"),
+                    val.contains("t"),
+                    this,
+                    val.contains("m")));
         }
 
         if (props.containsKey("datehourmin")) {
             String val = props.get("datehourmin");
-            fields.add(new YMD_HMField(
-                inedate,
-                val.contains("s"),
-                getStep(val),
-                val.contains("t"),
-                this,
-                val.contains("m")));
+            fields.add(
+                new YMD_HMField(
+                    inedate,
+                    val.contains("s"),
+                    getStep(val),
+                    val.contains("t"),
+                    this,
+                    val.contains("m")));
         }
 
         if (props.containsKey("hourminsec")) {
             String val = props.get("hourminsec");
-            fields.add(new OOO_HMSField(
-                inedate,
-                val.contains("s"),
-                getStep(val),
-                val.contains("t"),
-                this,
-                val.contains("m")));
+            fields.add(
+                new OOO_HMSField(
+                    inedate,
+                    val.contains("s"),
+                    getStep(val),
+                    val.contains("t"),
+                    this,
+                    val.contains("m")));
         }
 
         if (props.containsKey("hourmin")) {
             String val = props.get("hourmin");
-            fields.add(new OOO_HMField(
-                inedate,
-                val.contains("s"),
-                getStep(val),
-                val.contains("t"),
-                this,
-                val.contains("m")));
+            fields.add(
+                new OOO_HMField(
+                    inedate,
+                    val.contains("s"),
+                    getStep(val),
+                    val.contains("t"),
+                    this,
+                    val.contains("m")));
         }
 
         if (props.containsKey("hourlist")) {

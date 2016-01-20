@@ -70,14 +70,12 @@ public class SimpleTimeZoneEnumTest {
 
     // @Test
     public void testGetGwtconstOffsetInMin() {
-        Assert
-            .assertEquals(
-                120,
-                getGwtconstOffsetInMin("{\"transitions\": [], \"names\": [\"CAT\", \"Central Africa Time\"], \"id\": \"Africa/Harare\", \"std_offset\": 120}"));
-        Assert
-            .assertEquals(
-                -120,
-                getGwtconstOffsetInMin("{\"transitions\": [], \"names\": [\"ex\"], \"id\": \"Ex\", \"std_offset\": -120}"));
+        Assert.assertEquals(
+            120,
+            getGwtconstOffsetInMin(
+                "{\"transitions\": [], \"names\": [\"CAT\", \"Central Africa Time\"], \"id\": \"Africa/Harare\", \"std_offset\": 120}"));
+        Assert.assertEquals(-120, getGwtconstOffsetInMin(
+            "{\"transitions\": [], \"names\": [\"ex\"], \"id\": \"Ex\", \"std_offset\": -120}"));
     }
 
     private int getGwtconstOffsetInMin(String tzJson) {

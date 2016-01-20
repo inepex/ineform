@@ -23,63 +23,93 @@ public class UpdateHierarchicalTokensDynamicTest {
 
         PlaceHandlerHelper.updateHierarchicalTokens("A?p=1", prov.getPlaceRoot());
 
-        Assert.assertEquals("A", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("B", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("B")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("C", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("C")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "B",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("B")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "C",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("C")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertEquals("A?p=1/a", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/a")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/b", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/b")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/c", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/c")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/d", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/e", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/e")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/a",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/a")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/b",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/b")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/c",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/c")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/d",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/e",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/e")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertNull(prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/1")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertNull(prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/2")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertNull(prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/3")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertNull(
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/1")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertNull(
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/2")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertNull(
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/3")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
     }
 
@@ -90,63 +120,93 @@ public class UpdateHierarchicalTokensDynamicTest {
 
         PlaceHandlerHelper.updateHierarchicalTokens("A?p=1/a", prov.getPlaceRoot());
 
-        Assert.assertEquals("A", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("B", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("B")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("C", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("C")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "B",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("B")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "C",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("C")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertEquals("A?p=1/a", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/a")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/b", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/b")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/c", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/c")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/d", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A?p=1/e", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/e")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/a",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/a")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/b",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/b")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/c",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/c")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/d",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A?p=1/e",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/e")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertNull(prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/1")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertNull(prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/2")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertNull(prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/3")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertNull(
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/1")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertNull(
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/2")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertNull(
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/3")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
     }
 
@@ -157,63 +217,96 @@ public class UpdateHierarchicalTokensDynamicTest {
 
         PlaceHandlerHelper.updateHierarchicalTokens("A/d?p=1", prov.getPlaceRoot());
 
-        Assert.assertEquals("A", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("B", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("B")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("C", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("C")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "B",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("B")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "C",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("C")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertEquals("A/a", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/a")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/b", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/b")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/c", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/c")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/d", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/e", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/e")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/a",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/a")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/b",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/b")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/c",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/c")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/e",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/e")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertEquals("A/d?p=1/1", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/1")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/d?p=1/2", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/2")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/d?p=1/3", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/3")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d?p=1/1",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/1")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d?p=1/2",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/2")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d?p=1/3",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/3")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
     }
 
@@ -224,63 +317,96 @@ public class UpdateHierarchicalTokensDynamicTest {
 
         PlaceHandlerHelper.updateHierarchicalTokens("A/d/3?p=1", prov.getPlaceRoot());
 
-        Assert.assertEquals("A", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("B", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("B")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("C", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("C")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "B",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("B")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "C",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("C")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertEquals("A/a", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/a")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/b", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/b")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/c", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/c")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/d", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/e", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/e")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/a",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/a")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/b",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/b")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/c",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/c")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/e",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/e")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
-        Assert.assertEquals("A/d/1", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/1")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/d/2", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/2")
-            .getNodeElement()
-            .getHierarchicalToken());
-        Assert.assertEquals("A/d/3", prov
-            .getPlaceRoot()
-            .findNodeByHierarchicalId("A/d/3")
-            .getNodeElement()
-            .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d/1",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/1")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d/2",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/2")
+                    .getNodeElement()
+                    .getHierarchicalToken());
+        Assert
+            .assertEquals(
+                "A/d/3",
+                prov
+                    .getPlaceRoot()
+                    .findNodeByHierarchicalId("A/d/3")
+                    .getNodeElement()
+                    .getHierarchicalToken());
 
     }
 

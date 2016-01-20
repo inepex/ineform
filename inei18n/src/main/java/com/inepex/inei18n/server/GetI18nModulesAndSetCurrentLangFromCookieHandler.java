@@ -15,9 +15,8 @@ import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieResult;
 import com.inepex.inei18n.shared.I18nModule;
 
-public class GetI18nModulesAndSetCurrentLangFromCookieHandler
-    implements
-    ActionHandler<GetI18nModulesAndSetCurrentLangFromCookieAction, GetI18nModulesAndSetCurrentLangFromCookieResult> {
+public class GetI18nModulesAndSetCurrentLangFromCookieHandler implements
+        ActionHandler<GetI18nModulesAndSetCurrentLangFromCookieAction, GetI18nModulesAndSetCurrentLangFromCookieResult> {
 
     private final static Logger logger = LoggerFactory
         .getLogger(GetI18nModulesAndSetCurrentLangFromCookieHandler.class);
@@ -50,13 +49,12 @@ public class GetI18nModulesAndSetCurrentLangFromCookieHandler
             changeLanguageHandler
                 .execute(new ChangeLanguageAction(action.getRequestedLang()), arg1);
 
-        HashMap<String, I18nModule> requestedModulesInCurrentLang =
-            new HashMap<String, I18nModule>(action.getModuleNames().size());
+        HashMap<String, I18nModule> requestedModulesInCurrentLang = new HashMap<String, I18nModule>(
+            action.getModuleNames().size());
 
         for (String moduleName : action.getModuleNames()) {
-            requestedModulesInCurrentLang.put(
-                moduleName,
-                serverI18nStore.getI18nModuleByNameForCurrentLang(moduleName));
+            requestedModulesInCurrentLang
+                .put(moduleName, serverI18nStore.getI18nModuleByNameForCurrentLang(moduleName));
         }
 
         logger.info(

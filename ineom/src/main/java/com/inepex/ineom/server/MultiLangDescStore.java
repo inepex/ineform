@@ -20,8 +20,7 @@ public class MultiLangDescStore extends DescriptorStore {
 
     private static final Logger _logger = LoggerFactory.getLogger(MultiLangDescStore.class);
 
-    private final ConcurrentHashMap<String, DescriptorStore> storeByLang =
-        new ConcurrentHashMap<String, DescriptorStore>();
+    private final ConcurrentHashMap<String, DescriptorStore> storeByLang = new ConcurrentHashMap<String, DescriptorStore>();
     private final Provider<CurrentLang> currLangProvider;
     private DescStoreCreator descStoreCreator;
 
@@ -40,8 +39,8 @@ public class MultiLangDescStore extends DescriptorStore {
             synchronized (storeByLang) {
                 if (!storeByLang.containsKey(lang)) {
                     _logger.trace("MultiDescStore has just created desc store for lang: {}", lang);
-                    ClientDescriptorStore localizedDescStore =
-                        descStoreCreator.createDescStore(lang);
+                    ClientDescriptorStore localizedDescStore = descStoreCreator
+                        .createDescStore(lang);
                     storeByLang.put(lang, localizedDescStore);
                 }
                 return storeByLang.get(lang);

@@ -4,8 +4,7 @@ import com.google.gwt.event.shared.EventHandler;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 
 public class AfterUnsuccessfulSaveEvent
-    extends
-    FormLifecycleEventBase<AfterUnsuccessfulSaveEvent.Handler> {
+        extends FormLifecycleEventBase<AfterUnsuccessfulSaveEvent.Handler> {
 
     private static Type<AfterUnsuccessfulSaveEvent.Handler> TYPE;
 

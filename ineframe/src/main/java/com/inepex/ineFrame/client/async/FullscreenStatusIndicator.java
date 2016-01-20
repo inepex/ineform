@@ -19,7 +19,8 @@ public class FullscreenStatusIndicator extends Composite implements AsyncStatusI
     private static FullscreenStatusIndicatorUiBinder uiBinder = GWT
         .create(FullscreenStatusIndicatorUiBinder.class);
 
-    interface FullscreenStatusIndicatorUiBinder extends UiBinder<Widget, FullscreenStatusIndicator> {}
+    interface FullscreenStatusIndicatorUiBinder
+            extends UiBinder<Widget, FullscreenStatusIndicator> {}
 
     @UiField
     FlowPanel centerPanel;

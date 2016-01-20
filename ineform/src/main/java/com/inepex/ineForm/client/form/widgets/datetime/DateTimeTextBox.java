@@ -44,11 +44,9 @@ class DateTimeTextBox extends HandlerAwareComposite {
         this.selectmanager = enableselectmanager;
 
         // make prectmp
-        precTmp =
-            precision
-                .getFormattterString()
-                .replaceAll("y+|M+|d+|h+|k+]", "01")
-                .replaceAll("H+|m+|s+|S+|K+", "00");
+        precTmp = precision.getFormattterString().replaceAll("y+|M+|d+|h+|k+]", "01").replaceAll(
+            "H+|m+|s+|S+|K+",
+            "00");
     }
 
     @Override
@@ -97,8 +95,7 @@ class DateTimeTextBox extends HandlerAwareComposite {
                 } else
                     return null;
             } else {
-                while (prec_j < precTmp.length()
-                    && precTmp.charAt(prec_j) >= '0'
+                while (prec_j < precTmp.length() && precTmp.charAt(prec_j) >= '0'
                     && precTmp.charAt(prec_j) <= '9') {
                     prec_j++;
                 }
@@ -170,8 +167,7 @@ class DateTimeTextBox extends HandlerAwareComposite {
 
         @Override
         public void onBlur(BlurEvent event) {
-            if (wrappedtb.getValue().length() != 0
-                || precision == Precision.OOO_HM
+            if (wrappedtb.getValue().length() != 0 || precision == Precision.OOO_HM
                 || precision == Precision.OOO_HMS) {
                 String cval = complete(wrappedtb.getValue());
                 wrappedtb.setValue(cval);
@@ -228,8 +224,7 @@ class DateTimeTextBox extends HandlerAwareComposite {
 
     public static class DateTimeTextBoxEvent extends GwtEvent<DateTimeTextBoxEventHandler> {
 
-        public static final Type<DateTimeTextBoxEventHandler> TYPE =
-            new Type<DateTimeTextBoxEventHandler>();
+        public static final Type<DateTimeTextBoxEventHandler> TYPE = new Type<DateTimeTextBoxEventHandler>();
 
         @Override
         protected void dispatch(DateTimeTextBoxEventHandler handler) {

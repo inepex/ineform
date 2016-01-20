@@ -12,8 +12,8 @@ import com.inepex.ineFrame.server.util.OnDemandProperties;
 public class UrlDownloadServiceImpl extends RemoteServiceServlet implements UrlDownloadService {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 7537449572086698368L;
     private OnDemandProperties props;
     private UploadProcessor uploadProc;

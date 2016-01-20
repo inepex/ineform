@@ -90,8 +90,7 @@ public class DummyDataConnector extends IneDataConnector {
         updateRowCount(items.size(), true);
 
         for (HasData<AssistedObject> d : getDataDisplays()) {
-            updateRowData(d, d.getVisibleRange().getStart(), new ArrayList<AssistedObject>(
-                items));
+            updateRowData(d, d.getVisibleRange().getStart(), new ArrayList<AssistedObject>(items));
         }
     }
 

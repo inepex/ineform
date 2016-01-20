@@ -28,8 +28,7 @@ public class KvoJsonParser {
     private final AssistedObjectHandlerFactory factory;
     private final DescriptorStore descriptorStore;
 
-    private Map<String, ResultObjectExtractor> customResultExtractors =
-        new HashMap<String, ResultObjectExtractor>();
+    private Map<String, ResultObjectExtractor> customResultExtractors = new HashMap<String, ResultObjectExtractor>();
 
     public KvoJsonParser(
         DescriptorStore descriptorStore,
@@ -101,17 +100,18 @@ public class KvoJsonParser {
                         else if (childJso.isObject() == null && childJso.isNumber() == null) {
                             throw getParseException(key);
                         } else if (childJso.isObject() != null) {
-                            AssistedObject relKvo =
-                                new KvoJsonParser(
-                                    descriptorStore,
-                                    childJso.isObject(),
-                                    ((RelationFDesc) fdesc).getRelatedDescriptorName()).parse();
+                            AssistedObject relKvo = new KvoJsonParser(
+                                descriptorStore,
+                                childJso.isObject(),
+                                ((RelationFDesc) fdesc).getRelatedDescriptorName()).parse();
 
                             kvoChecker.set(key, new Relation(relKvo));
                         } else {
-                            kvoChecker.set(key, new Relation(new Double(childJso
-                                .isNumber()
-                                .doubleValue()).longValue(), ""));
+                            kvoChecker.set(
+                                key,
+                                new Relation(
+                                    new Double(childJso.isNumber().doubleValue()).longValue(),
+                                    ""));
                         }
                         break;
                     case LIST:
@@ -122,20 +122,20 @@ public class KvoJsonParser {
                         } else {
                             IneList list = new IneList();
                             for (int i = 0; i < childJso.isArray().size(); i++) {
-                                String relatedDescName =
-                                    ((ListFDesc) fdesc).getRelatedDescriptorType();
+                                String relatedDescName = ((ListFDesc) fdesc)
+                                    .getRelatedDescriptorType();
                                 JSONObject relJso = null;
                                 if (customResultExtractors.containsKey(relatedDescName)) {
-                                    relJso =
-                                        customResultExtractors.get(relatedDescName).extract(
-                                            childJso.isArray().get(i).isObject());
+                                    relJso = customResultExtractors.get(relatedDescName).extract(
+                                        childJso.isArray().get(i).isObject());
                                 } else {
                                     relJso = childJso.isArray().get(i).isObject();
                                 }
 
-                                AssistedObject relKvo =
-                                    new KvoJsonParser(descriptorStore, relJso, relatedDescName)
-                                        .parse();
+                                AssistedObject relKvo = new KvoJsonParser(
+                                    descriptorStore,
+                                    relJso,
+                                    relatedDescName).parse();
                                 list.getRelationList().add(new Relation(relKvo));
                             }
                             kvoChecker.set(key, list);

@@ -22,25 +22,35 @@ public class IneFormExportGuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        install(new FactoryModuleBuilder().implement(CsvRenderer.class, CsvRenderer.class).build(
-            CsvRendererFactory.class));
+        install(
+            new FactoryModuleBuilder()
+                .implement(CsvRenderer.class, CsvRenderer.class)
+                .build(CsvRendererFactory.class));
 
-        install(new FactoryModuleBuilder().implement(TrtdRenderer.class, TrtdRenderer.class).build(
-            TrtdRendererFactory.class));
+        install(
+            new FactoryModuleBuilder()
+                .implement(TrtdRenderer.class, TrtdRenderer.class)
+                .build(TrtdRendererFactory.class));
 
-        install(new FactoryModuleBuilder().implement(HtmlRenderer.class, HtmlRenderer.class).build(
-            HtmlRendererFactory.class));
+        install(
+            new FactoryModuleBuilder()
+                .implement(HtmlRenderer.class, HtmlRenderer.class)
+                .build(HtmlRendererFactory.class));
 
-        install(new FactoryModuleBuilder()
-            .implement(ExcelRenderer.class, ExcelRenderer.class)
-            .build(ExcelRendererFactory.class));
+        install(
+            new FactoryModuleBuilder()
+                .implement(ExcelRenderer.class, ExcelRenderer.class)
+                .build(ExcelRendererFactory.class));
 
-        install(new FactoryModuleBuilder()
-            .implement(ExcelRendererV2.class, ExcelRendererV2.class)
-            .build(ExcelRendererV2Factory.class));
+        install(
+            new FactoryModuleBuilder()
+                .implement(ExcelRendererV2.class, ExcelRendererV2.class)
+                .build(ExcelRendererV2Factory.class));
 
-        install(new FactoryModuleBuilder().implement(PdfRenderer.class, PdfRenderer.class).build(
-            PdfRendererFactory.class));
+        install(
+            new FactoryModuleBuilder()
+                .implement(PdfRenderer.class, PdfRenderer.class)
+                .build(PdfRendererFactory.class));
 
         bind(PdfFontLoader.class).in(Singleton.class);
         bind(ExportCustomizerStore.class).in(Singleton.class);

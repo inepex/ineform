@@ -20,9 +20,7 @@ import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public class CompanyEditPage extends FlowPanelBasedPage
-    implements
-    SavedEvent.Handler,
-    CancelledEvent.Handler {
+        implements SavedEvent.Handler, CancelledEvent.Handler {
 
     private final FormContext formContext;
     private final PlaceHandler placeHandler;
@@ -35,13 +33,12 @@ public class CompanyEditPage extends FlowPanelBasedPage
         this.formContext = formContext;
         this.placeHandler = placeHandler;
 
-        connector =
-            new ServerSideDataConnector(
-                formContext.ineDispatch,
-                formContext.eventBus,
-                CompanyConsts.descriptorName);
-        connector.setAssociatedManipulateAction(new ObjectManipulationAction(Arrays
-            .asList(CompanyConsts.propUser)));
+        connector = new ServerSideDataConnector(
+            formContext.ineDispatch,
+            formContext.eventBus,
+            CompanyConsts.descriptorName);
+        connector.setAssociatedManipulateAction(
+            new ObjectManipulationAction(Arrays.asList(CompanyConsts.propUser)));
         form = formFactory.createSaveCancel(CompanyConsts.descriptorName, null, connector, null);
         form.setValidateData(ValidateMode.PARTIAL);
         form.renderForm();
@@ -79,14 +76,14 @@ public class CompanyEditPage extends FlowPanelBasedPage
 
     @Override
     public void onCancelled(CancelledEvent event) {
-        formContext.eventBus.fireEvent(placeHandler
-            .generateSameLevelMenuEvent(AppPlaceHierarchyProvider.COMPDETAILS));
+        formContext.eventBus.fireEvent(
+            placeHandler.generateSameLevelMenuEvent(AppPlaceHierarchyProvider.COMPDETAILS));
     }
 
     @Override
     public void onSaved(SavedEvent event) {
-        formContext.eventBus.fireEvent(placeHandler
-            .generateSameLevelMenuEvent(AppPlaceHierarchyProvider.COMPDETAILS));
+        formContext.eventBus.fireEvent(
+            placeHandler.generateSameLevelMenuEvent(AppPlaceHierarchyProvider.COMPDETAILS));
     }
 
 }

@@ -12,23 +12,14 @@ public class RealDescriptorChecker extends DescriptorChecker {
     @Override
     public void checkDescriptorCheckKey(String key, IneT ineT) {
         if (!objectDescriptor.containsKey(key))
-            throw new InvalidKeyException("Key '"
-                + key
-                + "' is not found in descriptor '"
-                + desciptorName
-                + "'");
+            throw new InvalidKeyException(
+                "Key '" + key + "' is not found in descriptor '" + desciptorName + "'");
 
         IneT fieldT = objectDescriptor.getField(key).getType();
         if (!fieldT.equals(ineT))
-            throw new InvalidKeyException("The type of field for key '"
-                + key
-                + "' in descriptor '"
-                + desciptorName
-                + "' is '"
-                + fieldT.toString()
-                + "' and not '"
-                + ineT.toString()
-                + "'");
+            throw new InvalidKeyException(
+                "The type of field for key '" + key + "' in descriptor '" + desciptorName + "' is '"
+                    + fieldT.toString() + "' and not '" + ineT.toString() + "'");
     }
 
 }

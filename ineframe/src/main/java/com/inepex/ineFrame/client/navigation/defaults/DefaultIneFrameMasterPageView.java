@@ -20,8 +20,7 @@ import com.inepex.ineFrame.client.widget.ClickableFlowPanel;
 
 @Singleton
 public class DefaultIneFrameMasterPageView extends FlowPanel
-    implements
-    DefaultIneFrameMasterPage.View {
+        implements DefaultIneFrameMasterPage.View {
 
     private static final int borderWidth = 3;
 
@@ -76,8 +75,12 @@ public class DefaultIneFrameMasterPageView extends FlowPanel
         header.asWidget().asWidget().getElement().setId("Header");
         menu.asWidget().asWidget().getElement().setId("Menu");
 
-        headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base()
-            + borderWidth, Unit.PX);
+        headerAndPage.setWidgetTopHeight(
+            header.asWidget(),
+            0,
+            Unit.PX,
+            DesignConstants.base() + borderWidth,
+            Unit.PX);
         headerAndPage.setWidgetTopBottom(
             menu.asWidget(),
             DesignConstants.base() + borderWidth,
@@ -140,8 +143,9 @@ public class DefaultIneFrameMasterPageView extends FlowPanel
     }
 
     public boolean isNavigationDrawerOpen() {
-        return headerAndPageRoot.getStyleName().contains(
-            Res.INST.get().style().navigationDrawerOpened());
+        return headerAndPageRoot
+            .getStyleName()
+            .contains(Res.INST.get().style().navigationDrawerOpened());
     }
 
     public void toggleMessagePanel() {
@@ -180,8 +184,12 @@ public class DefaultIneFrameMasterPageView extends FlowPanel
 
     @Override
     public void showHeader() {
-        headerAndPage.setWidgetTopHeight(header.asWidget(), 0, Unit.PX, DesignConstants.base()
-            + borderWidth, Unit.PX);
+        headerAndPage.setWidgetTopHeight(
+            header.asWidget(),
+            0,
+            Unit.PX,
+            DesignConstants.base() + borderWidth,
+            Unit.PX);
         headerAndPage.setWidgetTopBottom(
             menu.asWidget(),
             DesignConstants.base() + borderWidth,

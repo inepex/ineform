@@ -27,11 +27,9 @@ public class ContactHandlerFactory {
 
     public ContactHandler createHandler(AssistedObject assistedObject) {
         if (!ContactConsts.descriptorName.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + ContactConsts.descriptorName
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + ContactConsts.descriptorName
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new ContactHandler(assistedObject, descriptorStore);
     }
@@ -43,11 +41,9 @@ public class ContactHandlerFactory {
 
     public ContactSearchHandler createSearchHandler(AssistedObject assistedObject) {
         if (!ContactConsts.searchDescriptor.equals(assistedObject.getDescriptorName()))
-            throw new IllegalArgumentException("Type incompatibility: handler: '"
-                + ContactConsts.searchDescriptor
-                + "' assistedObject: '"
-                + assistedObject.getDescriptorName()
-                + "'");
+            throw new IllegalArgumentException(
+                "Type incompatibility: handler: '" + ContactConsts.searchDescriptor
+                    + "' assistedObject: '" + assistedObject.getDescriptorName() + "'");
 
         return new ContactSearchHandler(assistedObject, descriptorStore);
     }
@@ -93,7 +89,9 @@ public class ContactHandlerFactory {
 
     public static class ContactSearchHandler extends AssistedObjectHandler {
 
-        private ContactSearchHandler(AssistedObject assistedObject, DescriptorStore descriptorStore) {
+        private ContactSearchHandler(
+            AssistedObject assistedObject,
+            DescriptorStore descriptorStore) {
             super(assistedObject, descriptorStore);
         }
 

@@ -61,12 +61,11 @@ public class PlaceHandlerHelper {
         for (String part : parts) {
             if (PlaceHandlerHelper.getUrlParameters(part).containsKey(paramToken)) {
                 StringBuffer editedLastPart = new StringBuffer();
-                int paramIndex =
-                    part
-                        .indexOf(PlaceHandler.QUESTION_MARK + paramToken + PlaceHandler.EQUALS_SIGN);
+                int paramIndex = part
+                    .indexOf(PlaceHandler.QUESTION_MARK + paramToken + PlaceHandler.EQUALS_SIGN);
                 if (paramIndex < 0)
-                    paramIndex =
-                        part.indexOf(PlaceHandler.AND_SIGN + paramToken + PlaceHandler.EQUALS_SIGN);
+                    paramIndex = part
+                        .indexOf(PlaceHandler.AND_SIGN + paramToken + PlaceHandler.EQUALS_SIGN);
 
                 // because of & or ?
                 paramIndex++;
@@ -85,22 +84,16 @@ public class PlaceHandlerHelper {
         }
         String lastPart = parts[parts.length - 1];
         if (lastPart.indexOf(PlaceHandler.QUESTION_MARK) >= 0)
-            return hierarchicalToken
-                + PlaceHandler.AND_SIGN
-                + paramToken
-                + PlaceHandler.EQUALS_SIGN
+            return hierarchicalToken + PlaceHandler.AND_SIGN + paramToken + PlaceHandler.EQUALS_SIGN
                 + value;
         else
-            return hierarchicalToken
-                + PlaceHandler.QUESTION_MARK
-                + paramToken
-                + PlaceHandler.EQUALS_SIGN
-                + value;
+            return hierarchicalToken + PlaceHandler.QUESTION_MARK + paramToken
+                + PlaceHandler.EQUALS_SIGN + value;
     }
 
     public static String removeParam(String hierarchicalToken, String paramName) {
-        int paramStart =
-            hierarchicalToken.indexOf(PlaceHandler.AND_SIGN + paramName + PlaceHandler.EQUALS_SIGN);
+        int paramStart = hierarchicalToken
+            .indexOf(PlaceHandler.AND_SIGN + paramName + PlaceHandler.EQUALS_SIGN);
 
         // not first param somewhere
         if (paramStart != -1) {
@@ -112,10 +105,8 @@ public class PlaceHandlerHelper {
                     + hierarchicalToken.substring(nextControl);
         }
 
-        paramStart =
-            hierarchicalToken.indexOf(PlaceHandler.QUESTION_MARK
-                + paramName
-                + PlaceHandler.EQUALS_SIGN);
+        paramStart = hierarchicalToken
+            .indexOf(PlaceHandler.QUESTION_MARK + paramName + PlaceHandler.EQUALS_SIGN);
         // first param somewhere
         if (paramStart != -1) {
             int nextControl = nextControl(hierarchicalToken, paramStart);
@@ -264,7 +255,9 @@ public class PlaceHandlerHelper {
         return res;
     }
 
-    public static String createSameLevelMenuToken(String currentFullToken, String... subMenuTokens) {
+    public static
+        String
+        createSameLevelMenuToken(String currentFullToken, String... subMenuTokens) {
         StringBuffer sb = new StringBuffer();
 
         String[] originalTokens = currentFullToken.split(regExp(Node.ID_SEPARATOR));
@@ -354,10 +347,9 @@ public class PlaceHandlerHelper {
     public static String removeRedirect(String token) {
         String tokenWithoutRedirect;
         if (token.contains(PlaceHandler.QUESTION_MARK + NavigationProperties.REDIRECT))
-            tokenWithoutRedirect =
-                token.substring(
-                    0,
-                    token.indexOf(PlaceHandler.QUESTION_MARK + NavigationProperties.REDIRECT));
+            tokenWithoutRedirect = token.substring(
+                0,
+                token.indexOf(PlaceHandler.QUESTION_MARK + NavigationProperties.REDIRECT));
         else
             tokenWithoutRedirect = token;
         return tokenWithoutRedirect;

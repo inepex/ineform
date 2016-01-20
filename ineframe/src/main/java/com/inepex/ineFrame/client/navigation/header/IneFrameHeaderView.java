@@ -49,26 +49,21 @@ public class IneFrameHeaderView extends HandlerAwareFlowPanel implements IneFram
         menuTable.setCellPadding(0);
         menuTable.setCellSpacing(0);
         menuTable.setStyleName(ResourceHelper.getRes().style().menuTable());
-        menuTable.getFlexCellFormatter().setStyleName(
-            0,
-            0,
-            ResourceHelper.getRes().style().menuCell());
-        menuTable.getFlexCellFormatter().setStyleName(
-            0,
-            1,
-            ResourceHelper.getRes().style().menuCell());
-        menuTable.getFlexCellFormatter().setStyleName(
-            0,
-            2,
-            ResourceHelper.getRes().style().menuCell());
-        menuTable.getFlexCellFormatter().setStyleName(
-            0,
-            3,
-            ResourceHelper.getRes().style().menuCell());
-        menuTable.getFlexCellFormatter().setStyleName(
-            0,
-            4,
-            ResourceHelper.getRes().style().menuCell());
+        menuTable
+            .getFlexCellFormatter()
+            .setStyleName(0, 0, ResourceHelper.getRes().style().menuCell());
+        menuTable
+            .getFlexCellFormatter()
+            .setStyleName(0, 1, ResourceHelper.getRes().style().menuCell());
+        menuTable
+            .getFlexCellFormatter()
+            .setStyleName(0, 2, ResourceHelper.getRes().style().menuCell());
+        menuTable
+            .getFlexCellFormatter()
+            .setStyleName(0, 3, ResourceHelper.getRes().style().menuCell());
+        menuTable
+            .getFlexCellFormatter()
+            .setStyleName(0, 4, ResourceHelper.getRes().style().menuCell());
         menuIcon.addStyleName(ResourceHelper.getRes().style().menuIcon());
     }
 

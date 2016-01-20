@@ -357,9 +357,8 @@ public class ByteConvertUtilTest {
         byte[] contained9 = { 5, 6 };
         Assert.assertFalse(ByteConvertUtil.byteArrayContains(container, contained9));
 
-        byte[] container2 =
-            ByteConvertUtil
-                .hexStringToByteArray("24245E33332C3031333232363030383438333738322C4643312C000000000200012A37440D0A");
+        byte[] container2 = ByteConvertUtil.hexStringToByteArray(
+            "24245E33332C3031333232363030383438333738322C4643312C000000000200012A37440D0A");
         byte[] contained10 = ByteConvertUtil.hexStringToByteArray("2C4643312C00000000020001");
 
         Assert.assertTrue(ByteConvertUtil.byteArrayContains(container2, contained10));

@@ -90,10 +90,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
     }
 
     private String getRowStyleName(boolean even) {
-        return even ? ResourceHelper.ineformRes().style().evenCellContent() : ResourceHelper
-            .ineformRes()
-            .style()
-            .cellContent();
+        return even
+            ? ResourceHelper.ineformRes().style().evenCellContent()
+            : ResourceHelper.ineformRes().style().cellContent();
     }
 
     /**
@@ -122,24 +121,20 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
                 FDesc fDesc = getFieldDesct(descNode);
 
                 if (!(fDesc == null
-                    || (!(IneFormProperties.showIds || formRDesc
-                        .hasProp(FormRDescBase.prop_showIDs)) && IFConsts.KEY_ID.equals(descNode
-                        .getNodeId()))
-                    || IFConsts.KEY_ORDERNUM.equals(descNode.getNodeId()) || IFConsts.KEY_ISDELETED
-                        .equals(descNode.getNodeId()))) {
+                    || (!(IneFormProperties.showIds
+                        || formRDesc.hasProp(FormRDescBase.prop_showIDs))
+                        && IFConsts.KEY_ID.equals(descNode.getNodeId()))
+                    || IFConsts.KEY_ORDERNUM.equals(descNode.getNodeId())
+                    || IFConsts.KEY_ISDELETED.equals(descNode.getNodeId()))) {
 
-                    FormWidget createdWidget =
-                        formWidgetFactory.createWidget(
-                            formCtx,
-                            this,
-                            fDesc,
-                            (WidgetRDesc) nodeElement,
-                            formCtx.propFwViewProvider);
-                    createdWidget =
-                        formWidgetFactory.createDecorator(
-                            createdWidget,
-                            fDesc,
-                            (WidgetRDesc) nodeElement);
+                    FormWidget createdWidget = formWidgetFactory.createWidget(
+                        formCtx,
+                        this,
+                        fDesc,
+                        (WidgetRDesc) nodeElement,
+                        formCtx.propFwViewProvider);
+                    createdWidget = formWidgetFactory
+                        .createDecorator(createdWidget, fDesc, (WidgetRDesc) nodeElement);
 
                     modelNameKeySet.add(descNode.getNodeId());
 
@@ -147,8 +142,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
                         registerWidgetToDataFlow(descNode.getNodeId(), createdWidget);
 
                         if (createdWidget instanceof RelationFW)
-                            modelNameKeySet.addAll(((RelationFW) createdWidget)
-                                .getErrorManagerKeySet(descNode.getNodeId()));
+                            modelNameKeySet.addAll(
+                                ((RelationFW) createdWidget)
+                                    .getErrorManagerKeySet(descNode.getNodeId()));
 
                         // if the widget should not be rendered, move on
                         if (createdWidget.isShouldRender()) {
@@ -156,8 +152,9 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
                         }
                     }
 
-                    widgetsInThisLine.add(createdWidget != null ? createdWidget : new Label(
-                        IneFormI18n.ERR_CouldNotRenderWidget()));
+                    widgetsInThisLine.add(createdWidget != null
+                        ? createdWidget
+                        : new Label(IneFormI18n.ERR_CouldNotRenderWidget()));
                     if (titleOfLine == null) {
                         String titleFromProp = ((WidgetRDesc) nodeElement).getDisplayName();
                         if (titleFromProp == null) {
@@ -167,9 +164,8 @@ public class SimpleTableFormUnit extends AbstractFormUnit {
                         }
                     }
                     if (!mandatory)
-                        mandatory =
-                            fDesc.hasValidator(KeyValueObjectValidationManager.MANDATORY)
-                                && (createdWidget == null || !createdWidget.isReadOnlyWidget());
+                        mandatory = fDesc.hasValidator(KeyValueObjectValidationManager.MANDATORY)
+                            && (createdWidget == null || !createdWidget.isReadOnlyWidget());
                 }
             }
 

@@ -40,10 +40,8 @@ public class EnumBasedDateProviderCln implements DateProvider {
             throw new IllegalStateException("EnumBasedDateProviderCln is not initialized");
 
         Date date = new Date(dateInUTC);
-        Long corectedDate =
-            dateInUTC
-                + (-1 * tz.getOffset(date) + date.getTimezoneOffset())
-                * DateHelper.minuteInMs;
+        Long corectedDate = dateInUTC
+            + (-1 * tz.getOffset(date) + date.getTimezoneOffset()) * DateHelper.minuteInMs;
 
         return new Date(corectedDate);
     }
@@ -55,8 +53,8 @@ public class EnumBasedDateProviderCln implements DateProvider {
             throw new IllegalStateException("EnumBasedDateProviderCln is not initialized");
 
         Date date = new Date(dateInUTC);
-        Long corectedDate =
-            dateInUTC - (date.getTimezoneOffset() - tz.getOffset(date)) * DateHelper.minuteInMs;
+        Long corectedDate = dateInUTC
+            - (date.getTimezoneOffset() - tz.getOffset(date)) * DateHelper.minuteInMs;
 
         return new Date(corectedDate);
     }

@@ -88,22 +88,45 @@ public class KeyValueObjectValidationManager {
 
         // relation
         if (validatorName.contains(LESSTHEN))
-            return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSTHEN
-                + ":", ""), RelType.lt, fieldDisplayname, od);
+            return new NumericRelationValidator(
+                type,
+                fieldName,
+                validatorName.replaceAll(LESSTHEN + ":", ""),
+                RelType.lt,
+                fieldDisplayname,
+                od);
         if (validatorName.contains(GREATERTHEN))
-            return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(
-                GREATERTHEN + ":",
-                ""), RelType.gt, fieldDisplayname, od);
+            return new NumericRelationValidator(
+                type,
+                fieldName,
+                validatorName.replaceAll(GREATERTHEN + ":", ""),
+                RelType.gt,
+                fieldDisplayname,
+                od);
         if (validatorName.contains(LESSEQUAL))
-            return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(LESSEQUAL
-                + ":", ""), RelType.le, fieldDisplayname, od);
+            return new NumericRelationValidator(
+                type,
+                fieldName,
+                validatorName.replaceAll(LESSEQUAL + ":", ""),
+                RelType.le,
+                fieldDisplayname,
+                od);
         if (validatorName.contains(GREATEREQUAL))
-            return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(
-                GREATEREQUAL + ":",
-                ""), RelType.ge, fieldDisplayname, od);
+            return new NumericRelationValidator(
+                type,
+                fieldName,
+                validatorName.replaceAll(GREATEREQUAL + ":", ""),
+                RelType.ge,
+                fieldDisplayname,
+                od);
         if (validatorName.contains(EQUAL))
-            return new NumericRelationValidator(type, fieldName, validatorName.replaceAll(EQUAL
-                + ":", ""), RelType.eq, fieldDisplayname, od);
+            return new NumericRelationValidator(
+                type,
+                fieldName,
+                validatorName.replaceAll(EQUAL + ":", ""),
+                RelType.eq,
+                fieldDisplayname,
+                od);
 
         // timeline
         if (validatorName.contains(BEFORE))
@@ -279,13 +302,12 @@ public class KeyValueObjectValidationManager {
             // validation
             ValidationResult vr = new ValidationResult();
             for (String validatorName : fDesc.getValidatorNames()) {
-                KeyValueObjectValidator validator =
-                    createBaseValidator(
-                        fDesc.getType(),
-                        fDesc.getKey(),
-                        validatorName,
-                        fDesc.getDefaultDisplayName(),
-                        odOfRelatedKVO);
+                KeyValueObjectValidator validator = createBaseValidator(
+                    fDesc.getType(),
+                    fDesc.getKey(),
+                    validatorName,
+                    fDesc.getDefaultDisplayName(),
+                    odOfRelatedKVO);
                 if (validator != null)
                     validator.doValidation(actual.getAssistedObject(), vr);
             }

@@ -108,46 +108,51 @@ public class AppPlaceHierarchyProvider extends DefaultPlaceHierarchyProvider {
             .addChild(PAGENOTFOUND, new SimpleCachingPlace(pageNotFoundProvider))
             .addChild(
                 COMPANIES,
-                usr(new SimpleCachingPlace(companyListProvider).setMenuName(CMI18n.menu_COMPANIES())))
+                usr(
+                    new SimpleCachingPlace(companyListProvider)
+                        .setMenuName(CMI18n.menu_COMPANIES())))
             .addChild(COMPEDIT, usr(new SimpleCachingPlace(companyEdit)))
             .addChild(COMPDETAILS, usr(new SimpleCachingPlace(companyDetials)))
             .addChild(COMPDELETE, usr(new SimpleCachingPlace(companyDelete)))
             .addChild(COMPCONTEDIT, usr(new SimpleCachingPlace(companyContactEditProvider)))
             .addChildGC(
                 CONTACTS,
-                usr(new OneParamPlace(
-                    CONTACTS,
-                    ContactConsts.descriptorName,
-                    PARAM_CONTACT,
-                    CONTACTDETAILS,
-                    true,
-                    contactSelectorPage).setMenuName(CMI18n.menu_CONTACTS())))
+                usr(
+                    new OneParamPlace(
+                        CONTACTS,
+                        ContactConsts.descriptorName,
+                        PARAM_CONTACT,
+                        CONTACTDETAILS,
+                        true,
+                        contactSelectorPage).setMenuName(CMI18n.menu_CONTACTS())))
             .addChild(contactWidgetPlace)
             .addChild(
                 CONTACTDETAILS,
-                usr(new SimpleCachingPlace(contactDetailsProvider)).setMenuName(
-                    CMI18n.menu_CONTACTDETAILS()))
+                usr(new SimpleCachingPlace(contactDetailsProvider))
+                    .setMenuName(CMI18n.menu_CONTACTDETAILS()))
             .getParent()
             .addChildGC(
                 MEETINGS,
-                usr(new OneParamPlace(
-                    MEETINGS,
-                    MeetingConsts.descriptorName,
-                    PARAM_MEETING,
-                    MEETINGDETAILS,
-                    false,
-                    meetingSelectorPage).setMenuName(CMI18n.menu_MEETINGS())))
+                usr(
+                    new OneParamPlace(
+                        MEETINGS,
+                        MeetingConsts.descriptorName,
+                        PARAM_MEETING,
+                        MEETINGDETAILS,
+                        false,
+                        meetingSelectorPage).setMenuName(CMI18n.menu_MEETINGS())))
             .addChild(meetingWidgetPlace)
             .addChild(
                 MEETINGDETAILS,
-                usr(new SimpleCachingPlace(meetingDetailsProvider)).setMenuName(
-                    CMI18n.menu_MEETINGDETAILS()))
+                usr(new SimpleCachingPlace(meetingDetailsProvider))
+                    .setMenuName(CMI18n.menu_MEETINGDETAILS()))
             .getParent()
 
             .addChild(
                 MEETINGNEW,
-                usr(new SimpleCachingPlace(meetingNewProvider)).setMenuName(
-                    CMI18n.menu_MEETINGNEW()).putRight())
+                usr(new SimpleCachingPlace(meetingNewProvider))
+                    .setMenuName(CMI18n.menu_MEETINGNEW())
+                    .putRight())
             .addChild(
                 COMPNEW,
                 usr(new SimpleCachingPlace(companyNewProvider))

@@ -42,10 +42,8 @@ public class NumericRelationValidator implements KeyValueObjectValidator {
         this.fieldDisplayname = fieldDisplayname;
 
         if (type != IneT.DOUBLE && type != IneT.LONG)
-            throw new RuntimeException("NumericRelationValidator on "
-                + fieldName
-                + " which type is "
-                + type.toString());
+            throw new RuntimeException(
+                "NumericRelationValidator on " + fieldName + " which type is " + type.toString());
 
         try {
             this.constval = Double.parseDouble(numberOrFieldname);
@@ -62,8 +60,10 @@ public class NumericRelationValidator implements KeyValueObjectValidator {
         double secondVal = 0;
         String constvalAsString = "";
 
-        AssistedObjectChecker checker =
-            new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc);
+        AssistedObjectChecker checker = new AssistedObjectChecker(
+            kvo,
+            kvo.getDescriptorName(),
+            objectDesc);
 
         switch (type) {
             case DOUBLE:

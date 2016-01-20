@@ -115,16 +115,14 @@ public class I18nStoreTest {
         setupServerStore_SetServerMode();
         loadDummyData();
 
-        I18nModuleConverter fooConverter =
-            new I18nModuleConverter(
-                FooI18n.class,
-                serverStore.getLocalizablesForModule(FooI18n.MODULE_NAME));
+        I18nModuleConverter fooConverter = new I18nModuleConverter(
+            FooI18n.class,
+            serverStore.getLocalizablesForModule(FooI18n.MODULE_NAME));
         fooConverter.saveCsvToDefaultPath();
 
-        I18nModuleConverter barConverter =
-            new I18nModuleConverter(
-                BarI18n.class,
-                serverStore.getLocalizablesForModule(BarI18n.MODULE_NAME));
+        I18nModuleConverter barConverter = new I18nModuleConverter(
+            BarI18n.class,
+            serverStore.getLocalizablesForModule(BarI18n.MODULE_NAME));
         barConverter.saveCsvToDefaultPath();
     }
 
@@ -145,18 +143,16 @@ public class I18nStoreTest {
         Exception {
         loadModulesFromCsv();
 
-        I18nModuleConverter fooConverter =
-            new I18nModuleConverter(
-                FooI18n.class,
-                serverStore.getLocalizablesForModule(FooI18n.MODULE_NAME));
+        I18nModuleConverter fooConverter = new I18nModuleConverter(
+            FooI18n.class,
+            serverStore.getLocalizablesForModule(FooI18n.MODULE_NAME));
 
         fooConverter.generateModuleFile();
         fooConverter.generateServerModuleProviderFile();
 
-        I18nModuleConverter barConverter =
-            new I18nModuleConverter(
-                BarI18n.class,
-                serverStore.getLocalizablesForModule(BarI18n.MODULE_NAME));
+        I18nModuleConverter barConverter = new I18nModuleConverter(
+            BarI18n.class,
+            serverStore.getLocalizablesForModule(BarI18n.MODULE_NAME));
         barConverter.generateModuleFile();
         barConverter.generateServerModuleProviderFile();
     }
@@ -168,10 +164,9 @@ public class I18nStoreTest {
         Exception {
         loadModulesFromCsv();
 
-        I18nModuleConverter fooConverter =
-            new I18nModuleConverter(
-                FooI18n.class,
-                serverStore.getLocalizablesForModule(FooI18n.MODULE_NAME));
+        I18nModuleConverter fooConverter = new I18nModuleConverter(
+            FooI18n.class,
+            serverStore.getLocalizablesForModule(FooI18n.MODULE_NAME));
 
         StringWriter sw = new StringWriter();
         fooConverter.generateFileToWriter(
@@ -183,10 +178,10 @@ public class I18nStoreTest {
     }
 
     private void updateClientSideProvidersForCurrentLang() {
-        fooClientI18nProvider.setCurrentModule(serverStore
-            .getI18nModuleByNameForCurrentLang(FooI18n.MODULE_NAME));
-        barClientI18nProvider.setCurrentModule(serverStore
-            .getI18nModuleByNameForCurrentLang(BarI18n.MODULE_NAME));
+        fooClientI18nProvider
+            .setCurrentModule(serverStore.getI18nModuleByNameForCurrentLang(FooI18n.MODULE_NAME));
+        barClientI18nProvider
+            .setCurrentModule(serverStore.getI18nModuleByNameForCurrentLang(BarI18n.MODULE_NAME));
     }
 
     private void setupServerStore_SetServerMode() {

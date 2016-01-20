@@ -31,7 +31,8 @@ public class EclipseLinkSLF4jLogger extends AbstractSessionLog implements Sessio
     @Override
     public void log(SessionLogEntry sessionLogEntry) {
         Logger logger = LOG;
-        if (sessionLogEntry.getNameSpace() != null && sessionLogEntry.getNameSpace().equals("sql")) {
+        if (sessionLogEntry.getNameSpace() != null
+            && sessionLogEntry.getNameSpace().equals("sql")) {
             logger = SQLLOG;
         }
         switch (sessionLogEntry.getLevel()) {

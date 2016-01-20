@@ -7,11 +7,9 @@ import com.google.gwt.event.shared.GwtEvent;
  *
  */
 public class KeyValueObjectListModifiedEvent
-    extends
-    GwtEvent<KeyValueObjectListModifiedEventHandler> {
+        extends GwtEvent<KeyValueObjectListModifiedEventHandler> {
 
-    public static Type<KeyValueObjectListModifiedEventHandler> TYPE =
-        new Type<KeyValueObjectListModifiedEventHandler>();
+    public static Type<KeyValueObjectListModifiedEventHandler> TYPE = new Type<KeyValueObjectListModifiedEventHandler>();
 
     /**
      * Type corresponding to the ObjectDescriptor name

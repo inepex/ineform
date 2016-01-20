@@ -36,16 +36,16 @@ public class MeetingSelectorPage extends ConnectorPage implements OneParamPresen
         this.eventBus = eventBus;
         this.authManager = authManager;
 
-        ServerSideDataConnector connector =
-            createConnector(dispatcher, eventBus, MeetingConsts.descriptorName);
+        ServerSideDataConnector connector = createConnector(
+            dispatcher,
+            eventBus,
+            MeetingConsts.descriptorName);
 
-        sortableIneTable = ineTableFactory.createSortable(
-            MeetingConsts.descriptorName,
-            connector);
+        sortableIneTable = ineTableFactory.createSortable(MeetingConsts.descriptorName, connector);
 
-        sortableIneTable.getFieldRenderer().setCustomFieldRenderer(
-            MeetingConsts.k_user,
-            new Highlighter());
+        sortableIneTable
+            .getFieldRenderer()
+            .setCustomFieldRenderer(MeetingConsts.k_user, new Highlighter());
         sortableIneTable.setSelectionBehaviour(SelectionBehaviour.SINGLE_SELECTION);
 
         sortableIneTable.renderTable();
@@ -56,36 +56,37 @@ public class MeetingSelectorPage extends ConnectorPage implements OneParamPresen
     protected void onAttach() {
         super.onAttach();
 
-        registerHandler(sortableIneTable.getSelectionModel().addSelectionChangeHandler(
-            new SelectionChangeEvent.Handler() {
+        registerHandler(
+            sortableIneTable
+                .getSelectionModel()
+                .addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-                @Override
-                public void onSelectionChange(SelectionChangeEvent event) {
-                    AssistedObject selected =
-                        sortableIneTable.getSingleSelectionModel().getSelectedObject();
-                    if (selected != null) {
-                        sortableIneTable.getSelectionModel().setSelected(selected, false);
+                    @Override
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        AssistedObject selected = sortableIneTable
+                            .getSingleSelectionModel()
+                            .getSelectedObject();
+                        if (selected != null) {
+                            sortableIneTable.getSelectionModel().setSelected(selected, false);
 
-                        eventBus.fireEvent(new PlaceRequestEvent(oneParamPlace
-                            .getChildPlaceToken(selected.getId().toString())));
+                            eventBus.fireEvent(
+                                new PlaceRequestEvent(
+                                    oneParamPlace.getChildPlaceToken(selected.getId().toString())));
+                        }
                     }
-                }
-            }));
+                }));
     }
 
-    private class Highlighter
-        implements
-        com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer {
+    private class Highlighter implements
+            com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer {
 
         @Override
         public String getCustomCellContent(
             AssistedObjectHandler rowKvo,
             String fieldId,
             ColRDesc colRDesc) {
-            if (authManager
-                .getLastAuthStatusResult()
-                .getUserId()
-                .equals(rowKvo.getRelation(MeetingConsts.k_user).getId()))
+            if (authManager.getLastAuthStatusResult().getUserId().equals(
+                rowKvo.getRelation(MeetingConsts.k_user).getId()))
                 return "<font style='color:red; font-weight: bold'>me</font>";
             else
                 return rowKvo.getRelation(MeetingConsts.k_user).getDisplayName();

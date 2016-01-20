@@ -73,40 +73,41 @@ public abstract class AbstractExportServlet extends HttpServlet {
         IOException {
 
         try {
-            if (req.getSession().getAttribute(SetActionForExportServletHandler.actionForCsvKey) == null
-                || req
-                    .getSession()
-                    .getAttribute(SetActionForExportServletHandler.filenameForCsvKey) == null
-                || req
-                    .getSession()
-                    .getAttribute(SetActionForExportServletHandler.rendererForCsvKey) == null) {
+            if (req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.actionForCsvKey) == null
+                || req.getSession().getAttribute(
+                    SetActionForExportServletHandler.filenameForCsvKey) == null
+                || req.getSession().getAttribute(
+                    SetActionForExportServletHandler.rendererForCsvKey) == null) {
                 resp.getWriter().write(IneFormI18n.csvInvalid());
                 resp.getWriter().close();
                 return;
             }
-            ObjectList action =
-                (ObjectList) req.getSession().getAttribute(
-                    SetActionForExportServletHandler.actionForCsvKey);
+            ObjectList action = (ObjectList) req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.actionForCsvKey);
             req.getSession().removeAttribute(SetActionForExportServletHandler.actionForCsvKey);
-            String fileName =
-                (String) req.getSession().getAttribute(
-                    SetActionForExportServletHandler.filenameForCsvKey);
+            String fileName = (String) req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.filenameForCsvKey);
 
-            if (Boolean.TRUE.equals(req.getSession().getAttribute(
-                SetActionForExportServletHandler.appendDateToFileName))) {
+            if (Boolean.TRUE.equals(
+                req.getSession().getAttribute(
+                    SetActionForExportServletHandler.appendDateToFileName))) {
                 fileName = fileName + "_" + new SimpleDateFormat("yyyyMMdd").format(new Date());
             }
 
             req.getSession().removeAttribute(SetActionForExportServletHandler.filenameForCsvKey);
-            String tableRDescName =
-                (String) req.getSession().getAttribute(
-                    SetActionForExportServletHandler.tableRDescForCsvKey);
-            Boolean withHeader =
-                (Boolean) req.getSession().getAttribute(
-                    SetActionForExportServletHandler.withHeaderForCsvKey);
-            Renderer rendererType =
-                (Renderer) req.getSession().getAttribute(
-                    SetActionForExportServletHandler.rendererForCsvKey);
+            String tableRDescName = (String) req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.tableRDescForCsvKey);
+            Boolean withHeader = (Boolean) req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.withHeaderForCsvKey);
+            Renderer rendererType = (Renderer) req
+                .getSession()
+                .getAttribute(SetActionForExportServletHandler.rendererForCsvKey);
 
             action.setFirstResult(0);
             action.setNumMaxResult(1000000);
@@ -120,70 +121,66 @@ public abstract class AbstractExportServlet extends HttpServlet {
             ByteArrayOutputStream baos;
             switch (rendererType) {
                 case CSV:
-                    renderer =
-                        csvRendererFactory.create(getResultDescName(req, action), tableRDescName);
+                    renderer = csvRendererFactory
+                        .create(getResultDescName(req, action), tableRDescName);
                     renderer.setRenderHeader(withHeader);
                     resp.setContentType("text/csv");
                     resp.setCharacterEncoding("UTF-8");
                     extension = ".csv";
-                    resp.addHeader("Content-Disposition", "attachment; filename="
-                        + fileName
-                        + extension);
-                    exportCustomizerStore.customize(
-                        getResultDescName(req, action),
-                        renderer.getFieldRenderer());
+                    resp.addHeader(
+                        "Content-Disposition",
+                        "attachment; filename=" + fileName + extension);
+                    exportCustomizerStore
+                        .customize(getResultDescName(req, action), renderer.getFieldRenderer());
                     resp.getWriter().write(renderer.render(listResult.getList()));
                     resp.getWriter().close();
                     break;
                 case HTML:
-                    renderer =
-                        htmlRendererFactory.create(getResultDescName(req, action), tableRDescName);
+                    renderer = htmlRendererFactory
+                        .create(getResultDescName(req, action), tableRDescName);
                     renderer.setRenderHeader(withHeader);
                     resp.setContentType("text/html");
                     resp.setCharacterEncoding("UTF-8");
                     extension = ".html";
-                    resp.addHeader("Content-Disposition", "attachment; filename="
-                        + fileName
-                        + extension);
-                    exportCustomizerStore.customize(
-                        getResultDescName(req, action),
-                        renderer.getFieldRenderer());
+                    resp.addHeader(
+                        "Content-Disposition",
+                        "attachment; filename=" + fileName + extension);
+                    exportCustomizerStore
+                        .customize(getResultDescName(req, action), renderer.getFieldRenderer());
                     resp.getWriter().write(renderer.render(listResult.getList()));
                     resp.getWriter().close();
                     break;
                 case TRTD:
-                    renderer =
-                        trtdRendererFactory.create(getResultDescName(req, action), tableRDescName);
+                    renderer = trtdRendererFactory
+                        .create(getResultDescName(req, action), tableRDescName);
                     renderer.setRenderHeader(withHeader);
                     resp.setContentType("text/html");
                     resp.setCharacterEncoding("UTF-8");
                     extension = ".html";
-                    resp.addHeader("Content-Disposition", "attachment; filename="
-                        + fileName
-                        + extension);
-                    exportCustomizerStore.customize(
-                        getResultDescName(req, action),
-                        renderer.getFieldRenderer());
+                    resp.addHeader(
+                        "Content-Disposition",
+                        "attachment; filename=" + fileName + extension);
+                    exportCustomizerStore
+                        .customize(getResultDescName(req, action), renderer.getFieldRenderer());
                     resp.getWriter().write(renderer.render(listResult.getList()));
                     resp.getWriter().close();
                     break;
 
                 case PDF:
-                    renderer =
-                        pdfRendererFactory.create(getResultDescName(req, action), tableRDescName);
+                    renderer = pdfRendererFactory
+                        .create(getResultDescName(req, action), tableRDescName);
                     renderer.setRenderHeader(withHeader);
                     resp.setContentType("application/octet-stream");
                     extension = ".pdf";
-                    resp.addHeader("Content-Disposition", "attachment; filename="
-                        + fileName
-                        + extension);
+                    resp.addHeader(
+                        "Content-Disposition",
+                        "attachment; filename=" + fileName + extension);
                     Document document = new Document();
                     baos = new ByteArrayOutputStream();
                     PdfWriter.getInstance(document, baos);
                     document.open();
-                    exportCustomizerStore.customize(
-                        getResultDescName(req, action),
-                        renderer.getFieldRenderer());
+                    exportCustomizerStore
+                        .customize(getResultDescName(req, action), renderer.getFieldRenderer());
                     renderer.render(listResult.getList());
                     document.add(((PdfRenderer) renderer).getTable());
                     document.close();
@@ -194,22 +191,17 @@ public abstract class AbstractExportServlet extends HttpServlet {
                 case EXCEL:
                     Workbook wb = new HSSFWorkbook();
                     Sheet sheet = wb.createSheet(fileName);
-                    renderer =
-                        excelRendererFactory.create(
-                            getResultDescName(req, action),
-                            tableRDescName,
-                            sheet,
-                            true);
+                    renderer = excelRendererFactory
+                        .create(getResultDescName(req, action), tableRDescName, sheet, true);
                     renderer.setRenderHeader(withHeader);
                     resp.setContentType("application/vnd.ms-excel");
                     resp.setCharacterEncoding("UTF-8");
                     extension = ".xls";
-                    resp.addHeader("Content-Disposition", "attachment; filename="
-                        + fileName
-                        + extension);
-                    exportCustomizerStore.customize(
-                        getResultDescName(req, action),
-                        renderer.getFieldRenderer());
+                    resp.addHeader(
+                        "Content-Disposition",
+                        "attachment; filename=" + fileName + extension);
+                    exportCustomizerStore
+                        .customize(getResultDescName(req, action), renderer.getFieldRenderer());
                     renderer.render(listResult.getList());
                     baos = new ByteArrayOutputStream();
                     wb.write(baos);
@@ -232,9 +224,9 @@ public abstract class AbstractExportServlet extends HttpServlet {
         IOException {}
 
     private String getResultDescName(HttpServletRequest req, ObjectList action) {
-        String respDescName =
-            (String) req.getSession().getAttribute(
-                SetActionForExportServletHandler.responseDescriptorName);
+        String respDescName = (String) req
+            .getSession()
+            .getAttribute(SetActionForExportServletHandler.responseDescriptorName);
         if (respDescName != null)
             return respDescName;
         return action.getDescriptorName();

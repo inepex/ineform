@@ -32,7 +32,14 @@ public class ExportUtil {
             Renderer rendererType,
             Boolean withHeader,
             Boolean appendDateToFileName) {
-            this(dispatcher, action, fileName, null, rendererType, withHeader, appendDateToFileName);
+            this(
+                dispatcher,
+                action,
+                fileName,
+                null,
+                rendererType,
+                withHeader,
+                appendDateToFileName);
         }
 
         public ExportClickHandler(
@@ -84,31 +91,31 @@ public class ExportUtil {
         boolean withHeader,
         Renderer rendererType,
         boolean appendDateToFileName) {
-        dispatcher.execute(new SetActionForExportServletAction(
-            action,
-            fileName,
-            tableRDescName,
-            withHeader,
-            rendererType,
-            appendDateToFileName,
-            null), new SuccessCallback<GenericActionResult>() {
+        dispatcher.execute(
+            new SetActionForExportServletAction(
+                action,
+                fileName,
+                tableRDescName,
+                withHeader,
+                rendererType,
+                appendDateToFileName,
+                null),
+            new SuccessCallback<GenericActionResult>() {
 
-            @Override
-            public void onSuccess(GenericActionResult result) {
-                if (Window.Navigator.getUserAgent().contains("MSIE")) {
+                @Override
+                public void onSuccess(GenericActionResult result) {
+                    if (Window.Navigator.getUserAgent().contains("MSIE")) {
 
-                    new InfoDialog(IneFormI18n.CSVEXPORT(), IneFormI18n.csvComment()
-                        + "<a href = '"
-                        + IFConsts.exportServletUrl
-                        + "'>"
-                        + IneFormI18n.csvDownload()
-                        + "</a>");
-                } else {
-                    Window.open(IFConsts.exportServletUrl, "CSV export", "_blank");
+                        new InfoDialog(
+                            IneFormI18n.CSVEXPORT(),
+                            IneFormI18n.csvComment() + "<a href = '" + IFConsts.exportServletUrl
+                                + "'>" + IneFormI18n.csvDownload() + "</a>");
+                    } else {
+                        Window.open(IFConsts.exportServletUrl, "CSV export", "_blank");
+                    }
                 }
-            }
 
-        });
+            });
     }
 
     /**
@@ -129,31 +136,31 @@ public class ExportUtil {
         Renderer rendererType,
         boolean appendDateToFileName,
         String responseDescriptorName) {
-        dispatcher.execute(new SetActionForExportServletAction(
-            action,
-            fileName,
-            tableRDescName,
-            withHeader,
-            rendererType,
-            appendDateToFileName,
-            responseDescriptorName), new SuccessCallback<GenericActionResult>() {
+        dispatcher.execute(
+            new SetActionForExportServletAction(
+                action,
+                fileName,
+                tableRDescName,
+                withHeader,
+                rendererType,
+                appendDateToFileName,
+                responseDescriptorName),
+            new SuccessCallback<GenericActionResult>() {
 
-            @Override
-            public void onSuccess(GenericActionResult result) {
-                if (Window.Navigator.getUserAgent().contains("MSIE")) {
+                @Override
+                public void onSuccess(GenericActionResult result) {
+                    if (Window.Navigator.getUserAgent().contains("MSIE")) {
 
-                    new InfoDialog(IneFormI18n.CSVEXPORT(), IneFormI18n.csvComment()
-                        + "<a href = '"
-                        + IFConsts.exportServletUrl
-                        + "'>"
-                        + IneFormI18n.csvDownload()
-                        + "</a>");
-                } else {
-                    Window.open(IFConsts.exportServletUrl, "CSV export", "_blank");
+                        new InfoDialog(
+                            IneFormI18n.CSVEXPORT(),
+                            IneFormI18n.csvComment() + "<a href = '" + IFConsts.exportServletUrl
+                                + "'>" + IneFormI18n.csvDownload() + "</a>");
+                    } else {
+                        Window.open(IFConsts.exportServletUrl, "CSV export", "_blank");
+                    }
                 }
-            }
 
-        });
+            });
     }
 
 }

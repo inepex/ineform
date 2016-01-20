@@ -26,8 +26,9 @@ public class RelationList {
         this.handlerFactory = new AssistedObjectHandlerFactory(descStore);
 
         if (allowOrdering) {
-            supportsOrdering =
-                descStore.getOD(relationDescriptorName).containsKey(IFConsts.KEY_ORDERNUM);
+            supportsOrdering = descStore
+                .getOD(relationDescriptorName)
+                .containsKey(IFConsts.KEY_ORDERNUM);
         } else
             supportsOrdering = false;
     }
@@ -108,9 +109,9 @@ public class RelationList {
         if (supportsOrdering) {
             for (int i = 0; i < relations.size(); i++) {
                 if (relations.get(i).getKvo() != null) {
-                    Long prevValue =
-                        handlerFactory.createHandler(relations.get(i).getKvo()).getLong(
-                            IFConsts.KEY_ORDERNUM);
+                    Long prevValue = handlerFactory
+                        .createHandler(relations.get(i).getKvo())
+                        .getLong(IFConsts.KEY_ORDERNUM);
                     handlerFactory.createHandler(relations.get(i).getKvo()).set(
                         IFConsts.KEY_ORDERNUM,
                         new Long(i));

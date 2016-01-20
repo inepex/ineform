@@ -46,13 +46,13 @@ public class ContactAssist {
         if (validatorDesc != null)
             return validatorDesc;
 
-        validatorDesc = new ValidatorDesc(ContactKVO.descriptorName, new String[] {/*
-                                                                                    * hc
-                                                                                    * :
-                                                                                    * vd1
-                                                                                    */
+        validatorDesc = new ValidatorDesc(
+            ContactKVO.descriptorName,
+            new String[] { /*
+                            * hc : vd1
+                            */
 
-        /* hc */});
+                /* hc */ });
 
         return validatorDesc;
     }
@@ -61,20 +61,19 @@ public class ContactAssist {
         if (objectDesc != null)
             return objectDesc;
 
-        objectDesc =
-            new ObjectDesc(
-                ContactKVO.descriptorName,
-                new LongFDesc(ContactKVO.k_id, /* hc:d1 */"Id"/* hc */)/*
-                                                                        * hc:d2_1
-                                                                        *//* hc */
-                ,
-                new ListFDesc(
-                    ContactKVO.k_nationalities, /* hc:d2 */
-                    "Nationalities"/* hc */,
-                    ContactNatRelKVO.descriptorName,
-                    "secondLevelJoin:nationality")/* hc:d2_2 *//* hc */
+        objectDesc = new ObjectDesc(
+            ContactKVO.descriptorName,
+            new LongFDesc(ContactKVO.k_id, /* hc:d1 */"Id"/* hc */)/*
+                                                                    * hc:d2_1
+                                                                    *//* hc */
+            ,
+            new ListFDesc(
+                ContactKVO.k_nationalities, /* hc:d2 */
+                "Nationalities"/* hc */,
+                ContactNatRelKVO.descriptorName,
+                "secondLevelJoin:nationality")/* hc:d2_2 *//* hc */
 
-            );
+        );
         return objectDesc;
     }
 
@@ -84,23 +83,24 @@ public class ContactAssist {
 
             tableRDesc
                 .getRootNode()
-                .addChild(ContactKVO.k_id, new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
-                                                                                     * hc
-                                                                                     * :
-                                                                                     * tdr2_1
-                                                                                     *//* hc */)
-                .addChild(ContactKVO.k_nationalities, new ColRDesc(/* hc:tdr1_2 *//* hc */)/*
-                                                                                            * hc
-                                                                                            * :
-                                                                                            * tdr2_2
-                                                                                            *//* hc */);
+                .addChild(
+                    ContactKVO.k_id,
+                    new ColRDesc(/* hc:tdr1_1 */true/* hc */)/*
+                                                              * hc : tdr2_1
+                                                              *//* hc */)
+                .addChild(
+                    ContactKVO.k_nationalities,
+                    new ColRDesc(/* hc:tdr1_2 *//* hc */)/*
+                                                          * hc : tdr2_2
+                                                          *//* hc */);
         }
         return tableRDesc;
     }
 
     public static FormRDesc getFormRDesc() {
         if (formRDesc == null) {
-            formRDesc = new FormRDesc(ContactKVO.descriptorName/* hc:frd_props */
+            formRDesc = new FormRDesc(
+                ContactKVO.descriptorName/* hc:frd_props */
 
             /* hc */);
 
@@ -118,8 +118,9 @@ public class ContactAssist {
         if (searchObjectDesc != null)
             return searchObjectDesc;
 
-        searchObjectDesc =
-            new ObjectDesc(ContactSearchKVO.descriptorName, new ListFDesc(
+        searchObjectDesc = new ObjectDesc(
+            ContactSearchKVO.descriptorName,
+            new ListFDesc(
                 ContactSearchKVO.k_nationalities, /* hc:ds2 */
                 "Nationalities"/* hc */
                 ,
@@ -131,12 +132,9 @@ public class ContactAssist {
         if (searchFormRDesc == null) {
             searchFormRDesc = new FormRDesc(ContactSearchKVO.descriptorName);
 
-            searchFormRDesc
-                .getRootNode()
-                .dummy()
-                .addChild(
-                    ContactSearchKVO.k_nationalities,
-                    new WidgetRDesc(/* hc:fs2 */FWTypes.RELATIONLIST/* hc */));
+            searchFormRDesc.getRootNode().dummy().addChild(
+                ContactSearchKVO.k_nationalities,
+                new WidgetRDesc(/* hc:fs2 */FWTypes.RELATIONLIST/* hc */));
         }
         return searchFormRDesc;
     }

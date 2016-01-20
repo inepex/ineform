@@ -147,14 +147,13 @@ public class PropFWView extends HandlerAwareFlowPanel implements PropFW.View {
 
     @Override
     public void addRow(PropRow r) {
-        DispRow dr =
-            createDispRow(
-                r,
-                removeCallback,
-                rowValueChangeCallback,
-                rowTable,
-                showType,
-                tooltipOptions);
+        DispRow dr = createDispRow(
+            r,
+            removeCallback,
+            rowValueChangeCallback,
+            rowTable,
+            showType,
+            tooltipOptions);
         rowsByInnerId.put(r.getInnerId(), dr);
         dispRowinnerIdMirror.add(r.getInnerId());
     }

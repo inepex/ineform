@@ -38,13 +38,11 @@ public class ChangeLanguageHandler implements ActionHandler<ChangeLanguageAction
         net.customware.gwt.dispatch.server.ExecutionContext arg1) throws DispatchException {
 
         String reqLang = null;
-        if (action.getRequestedLanguage() == null
-            || "".equals(action.getRequestedLanguage())
+        if (action.getRequestedLanguage() == null || "".equals(action.getRequestedLanguage())
             || !langs.getLangs().contains(action.getRequestedLanguage())) {
             reqLang = CurrentLang.DEFAULT_LANG;
-            logger.warn(
-                "Requested lang is not supported or null: {}",
-                action.getRequestedLanguage());
+            logger
+                .warn("Requested lang is not supported or null: {}", action.getRequestedLanguage());
         } else {
             reqLang = action.getRequestedLanguage();
         }

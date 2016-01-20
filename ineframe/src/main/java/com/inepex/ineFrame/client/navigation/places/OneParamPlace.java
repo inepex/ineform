@@ -118,9 +118,9 @@ public class OneParamPlace extends ParamPlace {
     }
 
     private void handleException(Throwable ex, UrlParamsParsedCallback callback) {
-        System.out.println("Param not set correctly to place: "
-            + placeId
-            + " Redirected to NavigationProperties.pageNotFoundPlace");
+        System.out.println(
+            "Param not set correctly to place: " + placeId
+                + " Redirected to NavigationProperties.pageNotFoundPlace");
         callback.onUrlParamsParsed(NavigationProperties.pageNotFoundPlace);
     }
 

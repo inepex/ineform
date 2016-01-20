@@ -31,18 +31,16 @@ public class RegexprValidator implements KeyValueObjectValidator {
         this.regExprJS = regExprJS;
 
         if (type != IneT.STRING)
-            throw new RuntimeException("RegexprValidator doesn't defined on type "
-                + type.toString()
-                + " defined on "
-                + fieldName);
+            throw new RuntimeException(
+                "RegexprValidator doesn't defined on type " + type.toString() + " defined on "
+                    + fieldName);
     }
 
     @Override
     public void doValidation(AssistedObject kvo, ValidationResult validationResult) {
 
-        String val =
-            new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc)
-                .getString(fieldName);
+        String val = new AssistedObjectChecker(kvo, kvo.getDescriptorName(), objectDesc)
+            .getString(fieldName);
         if (val == null || "".equals(val))
             return;
 

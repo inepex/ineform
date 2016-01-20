@@ -26,8 +26,7 @@ import com.inepex.ineom.shared.validation.ValidationResult;
  * @param <A>
  */
 public abstract class AbstractObjectManipulationHandler<A extends Action<ObjectManipulationActionResult>>
-    implements
-    ActionHandler<A, ObjectManipulationActionResult> {
+        implements ActionHandler<A, ObjectManipulationActionResult> {
 
     final KeyValueObjectValidationManager validatorManager;
 

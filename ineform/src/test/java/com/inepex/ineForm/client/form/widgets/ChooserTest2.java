@@ -45,12 +45,11 @@ public class ChooserTest2 extends DefaultIneFrameClientSideTestBase {
         ChooserFw chooserFw = mock(ChooserFw.class);
         formCtx.valueRangeProvider = RelationTestData.valueRangeProvider;
 
-        chooser =
-            new RelationChooser(
-                formCtx,
-                chooserFw,
-                data.fieldDesc,
-                data.fieldDesc.getRelatedDescriptorType());
+        chooser = new RelationChooser(
+            formCtx,
+            chooserFw,
+            data.fieldDesc,
+            data.fieldDesc.getRelatedDescriptorType());
         chooser.loadValueRange();
         ArrayList<Relation> relations = new ArrayList<Relation>();
         relations.add(data.rel1);
