@@ -2,6 +2,7 @@ package com.inepex.ineForm.client.form.widgets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.inepex.ineForm.client.form.widgets.listbox.AbstractListBoxFW;
 import com.inepex.ineForm.shared.descriptorext.WidgetRDesc;
@@ -10,14 +11,19 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 
 public class EnumListFW extends AbstractListBoxFW {
     public final static String enumValues = "enumValues";
-    private List<String> hidedNames = null;
-    private List<String> hidedValues = null;
+    private List<String> hiddenNames = null;
+    private List<String> hiddenValues = null;
 
     public EnumListFW(FDesc fieldDescriptor, WidgetRDesc wrDesc, String enumValues) {
         super(fieldDescriptor, wrDesc);
         int i = 0;
+        TreeMap<String, Integer> sortedValues = new TreeMap<>();
         for (String value : enumValues.split(IFConsts.enumValueSplitChar)) {
-            getListBox().addItem(value, Integer.toString(i++));
+            sortedValues.put(value, i++);
+        }
+
+        for (String value : sortedValues.keySet()) {
+            getListBox().addItem(value, Integer.toString(sortedValues.get(value)));
         }
     }
 
@@ -63,12 +69,12 @@ public class EnumListFW extends AbstractListBoxFW {
 
         for (int i = 0; i < getListBox().getItemCount(); i++) {
             if (val.equals(getListBox().getValue(i))) {
-                if (hidedNames == null)
-                    hidedNames = new ArrayList<String>();
-                if (hidedValues == null)
-                    hidedValues = new ArrayList<String>();
-                hidedNames.add(getListBox().getItemText(i));
-                hidedValues.add(val);
+                if (hiddenNames == null)
+                    hiddenNames = new ArrayList<String>();
+                if (hiddenValues == null)
+                    hiddenValues = new ArrayList<String>();
+                hiddenNames.add(getListBox().getItemText(i));
+                hiddenValues.add(val);
                 getListBox().removeItem(i);
                 return;
             }
@@ -76,16 +82,16 @@ public class EnumListFW extends AbstractListBoxFW {
     }
 
     public void showItem(Long value) {
-        if (value == null || hidedValues == null)
+        if (value == null || hiddenValues == null)
             return;
 
         String val = value.toString();
 
-        for (int i = 0; i < hidedValues.size(); i++) {
-            if (val.equals(hidedValues.get(i))) {
-                getListBox().addItem(hidedNames.get(i), val);
-                hidedNames.remove(i);
-                hidedValues.remove(i);
+        for (int i = 0; i < hiddenValues.size(); i++) {
+            if (val.equals(hiddenValues.get(i))) {
+                getListBox().addItem(hiddenNames.get(i), val);
+                hiddenNames.remove(i);
+                hiddenValues.remove(i);
                 return;
             }
         }

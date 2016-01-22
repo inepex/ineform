@@ -38,7 +38,7 @@ public class ServerIneFrameI18nProvider extends ServerI18nProvider<IneFrameI18n>
 		module.getTextMap().put("countryAFG", "Afghanistan");
 		module.getTextMap().put("countryAGO", "Angola");
 		module.getTextMap().put("countryAIA", "Anguilla");
-		module.getTextMap().put("countryALA", "Åland Islands");
+		module.getTextMap().put("countryALA", "Aland Islands");
 		module.getTextMap().put("countryALB", "Albania");
 		module.getTextMap().put("countryAND", "Andorra");
 		module.getTextMap().put("countryANT", "Netherlands Antilles");
