@@ -203,6 +203,7 @@ public class ServerIneFrameI18nProvider extends ServerI18nProvider<IneFrameI18n>
 		module.getTextMap().put("countryNPL", "Nepal");
 		module.getTextMap().put("countryNRU", "Nauru");
 		module.getTextMap().put("countryNZL", "New Zealand");
+		module.getTextMap().put("countryNonUsa", "Non USA");
 		module.getTextMap().put("countryOMN", "Oman");
 		module.getTextMap().put("countryPAK", "Pakistan");
 		module.getTextMap().put("countryPAN", "Panama");

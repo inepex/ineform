@@ -1624,6 +1624,15 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
+	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>In English:</i></u> Non USA
+	* <u><i>Magyarul:</i></u> --
+	*/
+	public static String countryNonUsa() {
+		return moduleProvider.get().getText("countryNonUsa");
+	}
+	
+	/**
 	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Oman
 	* <u><i>Magyarul:</i></u> Omán

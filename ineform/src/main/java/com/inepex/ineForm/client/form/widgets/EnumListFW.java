@@ -19,6 +19,12 @@ public class EnumListFW extends AbstractListBoxFW {
         int i = 0;
         TreeMap<String, Integer> sortedValues = new TreeMap<>();
         for (String value : enumValues.split(IFConsts.enumValueSplitChar)) {
+            // If no default item provided, we use the first item as default, so
+            // it's not being sorted alphabetically
+            if (!fieldDescriptor.isNullable() && i == 0) {
+                getListBox().addItem(value, Integer.toString(i++));
+                continue;
+            }
             sortedValues.put(value, i++);
         }
 
