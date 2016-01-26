@@ -268,4 +268,7 @@ public enum Country implements IsSerializable {
         return s;
     }
 
+    public static String getI18nValue(Country country) {
+        return IneFrameI18n.getI18nText("country" + country.toString());
+    }
 }
