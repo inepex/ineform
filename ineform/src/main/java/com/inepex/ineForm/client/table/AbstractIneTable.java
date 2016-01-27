@@ -19,13 +19,11 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.AbstractCellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.Label;
@@ -48,7 +46,6 @@ import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 import com.inepex.ineForm.shared.render.TableFieldRenderer.CustomCellContentDisplayer;
-import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
@@ -158,6 +155,7 @@ public abstract class AbstractIneTable {
 
     protected String checkboxActiveHtml = "<input type=\"checkbox\" tabindex=\"-1\" checked/>";
     protected String checkboxInactiveHtml = "<input type=\"checkbox\" tabindex=\"-1\"/>";
+    protected String checkBoxNullHtml = "<div>??</div>";
 
     /**
      * IMPORTANT: Don't forget to call renderTable() before use!
@@ -481,61 +479,38 @@ public abstract class AbstractIneTable {
         }
     };
 
-    private class IneCheckboxCell extends AbstractCell<Boolean> {
-
-        public IneCheckboxCell() {
-            super("click");
-        }
-
-        @Override
-        public void onBrowserEvent(
-            com.google.gwt.cell.client.Cell.Context context,
-            Element parent,
-            Boolean value,
-            NativeEvent event,
-            ValueUpdater<Boolean> valueUpdater) {
-            int eventType = Event.as(event).getTypeInt();
-            if (eventType == Event.ONCLICK) {
-                AssistedObject ao = dataConnector.getAssistedObjectByKey((Long) context.getKey());
-                if (checkBoxValueChangeListener != null && ao != null) {
-                    List<Node<TableRDescBase>> descriptorNodes = tableRenderDescriptor
-                        .getRootNode()
-                        .getChildren();
-                    Node<TableRDescBase> modifiedNode = descriptorNodes.get(context.getColumn());
-                    AssistedObjectHandler handler = handlerFactory.createHandler(ao);
-                    if (value == null)
-                        value = false;
-                    handler.set(modifiedNode.getNodeId(), !value);
-                    checkBoxValueChangeListener.onCheckBoxValueChanged(
-                        AbstractIneTable.this,
-                        modifiedNode.getNodeId(),
-                        !value,
-                        ao);
-                }
-            }
-            super.onBrowserEvent(context, parent, value, event, valueUpdater);
-        }
-
-        @Override
-        public void render(
-            com.google.gwt.cell.client.Cell.Context context,
-            Boolean value,
-            SafeHtmlBuilder sb) {
-            if (Boolean.TRUE.equals(value)) {
-                sb.append(SafeHtmlUtils.fromSafeConstant(checkboxActiveHtml));
-            } else {
-                sb.append(SafeHtmlUtils.fromSafeConstant(checkboxInactiveHtml));
-            }
-        }
-
-    }
-
     private class BooleanTableColumn extends Column<AssistedObject, Boolean> {
 
         private final String key;
 
         public BooleanTableColumn(String key) {
-            super(new IneCheckboxCell());
+            super(
+                new IneCheckboxCell(
+                    dataConnector,
+                    AbstractIneTable.this,
+                    handlerFactory,
+                    tableRenderDescriptor));
+            this.key = key;
+            setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        }
+
+        @Override
+        public Boolean getValue(AssistedObject rowValue) {
+            return rowValue.getBooleanUnchecked(key);
+        }
+    }
+
+    private class ThreeWayBooleanTableColumn extends Column<AssistedObject, Boolean> {
+
+        private final String key;
+
+        public ThreeWayBooleanTableColumn(String key) {
+            super(
+                new IneThreeWayCheckboxCell(
+                    dataConnector,
+                    AbstractIneTable.this,
+                    handlerFactory,
+                    tableRenderDescriptor));
             this.key = key;
             setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         }
@@ -587,6 +562,8 @@ public abstract class AbstractIneTable {
                 .getNodeElement();
             if (colRdesc.hasProp(ColRDesc.AS_CB)) {
                 return new BooleanTableColumn(key);
+            } else if (colRdesc.hasProp(ColRDesc.AS_THREEWAYCB)) {
+                return new ThreeWayBooleanTableColumn(key);
             } else if (colRdesc.hasProp(ColRDesc.AS_AO_EDITOR_TEXTBOX)) {
                 return new TextBoxTableColumn(key);
             } else {
@@ -805,9 +782,31 @@ public abstract class AbstractIneTable {
         this.checkBoxValueChangeListener = null;
     }
 
+    public CheckBoxValueChangeListener getCheckBoxValueChangeListener() {
+        return checkBoxValueChangeListener;
+    }
+
     public void setCheckboxHtml(String activeHtml, String inactiveHtml) {
         this.checkboxActiveHtml = activeHtml;
         this.checkboxInactiveHtml = inactiveHtml;
+    }
+
+    public void setCheckboxHtml(String activeHtml, String inactiveHtml, String nullHtml) {
+        this.checkboxActiveHtml = activeHtml;
+        this.checkboxInactiveHtml = inactiveHtml;
+        this.checkBoxNullHtml = nullHtml;
+    }
+
+    public String getCheckboxActiveHtml() {
+        return checkboxActiveHtml;
+    }
+
+    public String getCheckboxInactiveHtml() {
+        return checkboxInactiveHtml;
+    }
+
+    public String getCheckboxNullHtml() {
+        return checkBoxNullHtml;
     }
 
     public IneDataConnector getDataConnector() {

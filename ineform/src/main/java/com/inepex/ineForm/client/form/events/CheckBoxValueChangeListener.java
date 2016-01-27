@@ -7,6 +7,6 @@ public interface CheckBoxValueChangeListener {
     public void onCheckBoxValueChanged(
         AbstractIneTable soureTable,
         String columnOfCheckbox,
-        boolean newValue,
+        Boolean newValue,
         AssistedObject newState);
 }

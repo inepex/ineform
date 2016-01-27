@@ -24,6 +24,8 @@ public class ColRDesc extends TableRDescBase {
      */
     public static final String AS_CB = "AS_CB";
 
+    public static final String AS_THREEWAYCB = "AS_THREEWAYCB";
+
     /**
      * displays as textbox, modifies {@link AssistedObject} immediately on
      * typing
