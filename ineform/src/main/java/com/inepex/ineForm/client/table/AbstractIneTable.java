@@ -7,7 +7,6 @@ import java.util.TreeMap;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell.Context;
-import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
@@ -113,8 +112,10 @@ public abstract class AbstractIneTable {
         if (tableRenderDescriptorName == null) {
             return descriptorStore.getDefaultTypedDesc(objectDescName, TableRDesc.class);
         } else {
-            return descriptorStore
-                .getNamedTypedDesc(objectDescName, tableRenderDescriptorName, TableRDesc.class);
+            return descriptorStore.getNamedTypedDesc(
+                objectDescName,
+                tableRenderDescriptorName,
+                TableRDesc.class);
         }
 
     }
@@ -156,6 +157,8 @@ public abstract class AbstractIneTable {
     protected String checkboxActiveHtml = "<input type=\"checkbox\" tabindex=\"-1\" checked/>";
     protected String checkboxInactiveHtml = "<input type=\"checkbox\" tabindex=\"-1\"/>";
     protected String checkBoxNullHtml = "<div>??</div>";
+    private String disableFieldName;
+    private boolean disableFieldValue;
 
     /**
      * IMPORTANT: Don't forget to call renderTable() before use!
@@ -181,7 +184,9 @@ public abstract class AbstractIneTable {
         this.objectDescriptorName = objectDescriptorName;
         this.tableRenderDescriptor = tableRenderDescriptor != null
             ? tableRenderDescriptor
-            : descStore.getDefaultTypedDesc(objectDescriptorName, TableRDesc.class);
+            : descStore.getDefaultTypedDesc(
+                objectDescriptorName,
+                TableRDesc.class);
         this.dataConnector = dataProvider;
     }
 
@@ -310,14 +315,21 @@ public abstract class AbstractIneTable {
         ObjectDesc objectDesc = descStore.getOD(objectDescriptorName);
 
         if (selectionBehaviour == SelectionBehaviour.MULTIPLE_SELECTION) {
-            Column<AssistedObject, Boolean> checkColumn = new Column<AssistedObject, Boolean>(
-                new CheckboxCell(true, false)) {
+            Column<AssistedObject, CheckedAndDisabled> checkColumn = new Column<AssistedObject, CheckedAndDisabled>(
+                new DisableAbleCheckboxCell(true, false)) {
                 @Override
-                public Boolean getValue(AssistedObject object) {
-                    return multiSelectionModel.isSelected(object);
+                public CheckedAndDisabled getValue(AssistedObject object) {
+                    CheckedAndDisabled checkedAndDisabled = new CheckedAndDisabled();
+                    checkedAndDisabled.setChecked(multiSelectionModel.isSelected(object));
+                    if (disableFieldName != null) {
+                        Boolean fieldValue = object.getBooleanUnchecked(disableFieldName);
+                        checkedAndDisabled
+                            .setDisabled(fieldValue == disableFieldValue);
+                    }
+                    return checkedAndDisabled;
                 }
             };
-            selectAllHeader = new SelectAllHeader(this);
+            selectAllHeader = new SelectAllHeader(this, disableFieldName, disableFieldValue);
             cellTable.addColumn(checkColumn, selectAllHeader);
         }
 
@@ -325,8 +337,8 @@ public abstract class AbstractIneTable {
 
             ColRDesc colRenderDesc = (ColRDesc) columnNode.getNodeElement();
 
-            if (!(IneFormProperties.showIds
-                || tableRenderDescriptor.hasProp(FormRDescBase.prop_showIDs))
+            if (!(IneFormProperties.showIds || tableRenderDescriptor
+                .hasProp(FormRDescBase.prop_showIDs))
                 && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
                 continue;
 
@@ -340,9 +352,10 @@ public abstract class AbstractIneTable {
                     fieldDesc = descStore.getRelatedFieldDescrMultiLevel(objectDesc, nodeIdAsList);
                 } catch (Exception e) {
                     fieldDesc = objectDesc.getField(nodeIdAsList.get(0));
-                    System.out.println(
-                        "You set complex id for a field, which is not a relation. " + "("
-                            + nodeIdAsList.get(0) + ")");
+                    System.out.println("You set complex id for a field, which is not a relation. "
+                        + "("
+                        + nodeIdAsList.get(0)
+                        + ")");
                 }
             }
 
@@ -400,9 +413,9 @@ public abstract class AbstractIneTable {
             List<HasCell<AssistedObject, ?>> commandList = new ArrayList<HasCell<AssistedObject, ?>>();
 
             for (int i = 0; i < commands.size(); i++) {
-                commandList.add(
-                    new UserCommandColumnPart(
-                        new LinkActionCell(commands.get(i), i != commands.size() - 1)));
+                commandList.add(new UserCommandColumnPart(new LinkActionCell(
+                    commands.get(i),
+                    i != commands.size() - 1)));
             }
 
             CompositeCell<AssistedObject> compCell = new CompositeCell<AssistedObject>(commandList);
@@ -534,9 +547,10 @@ public abstract class AbstractIneTable {
                 @Override
                 public void update(int index, AssistedObject ao, String value) {
                     List<String> ids = SharedUtil.listFromDotSeparated(TextBoxTableColumn.this.key);
-                    handlerFactory.createHandler(ao).getRelatedKVOMultiLevel(ids).setUnchecked(
-                        ids.get(ids.size() - 1),
-                        value);
+                    handlerFactory
+                        .createHandler(ao)
+                        .getRelatedKVOMultiLevel(ids)
+                        .setUnchecked(ids.get(ids.size() - 1), value);
                 }
             });
         }
@@ -582,9 +596,11 @@ public abstract class AbstractIneTable {
                 extraStyle = rowStylesProvider.getStyleNames(row, rowIndex);
             }
 
-            return ((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION)
-                ? ResourceHelper.ineformRes().style().clickable()
-                : "") + ((extraStyle == null) ? ("") : (" " + extraStyle));
+            return ((selectionBehaviour == SelectionBehaviour.SINGLE_SELECTION) ? ResourceHelper
+                .ineformRes()
+                .style()
+                .clickable() : "")
+                + ((extraStyle == null) ? ("") : (" " + extraStyle));
         }
 
     }
@@ -669,8 +685,9 @@ public abstract class AbstractIneTable {
         public void render(Context context, String value, SafeHtmlBuilder sb) {
             AssistedObject kvoOfRow = getDisplayedKvoById((Long) context.getKey());
             if (userCommand.visible(kvoOfRow)) {
-                sb.append(
-                    buildHtml(userCommand.getCommandCellText(kvoOfRow), needsSeparator(kvoOfRow)));
+                sb.append(buildHtml(
+                    userCommand.getCommandCellText(kvoOfRow),
+                    needsSeparator(kvoOfRow)));
             }
         }
 
@@ -815,6 +832,11 @@ public abstract class AbstractIneTable {
 
     public boolean isRendered() {
         return rendered;
+    }
+
+    public void setDisableMultiSelectBooleanFieldName(String disableFieldName, boolean value) {
+        this.disableFieldName = disableFieldName;
+        this.disableFieldValue = value;
     }
 
 }

@@ -23,10 +23,17 @@ public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean
     private boolean checked;
     private HandlerManager handlerManager;
     private AbstractIneTable table;
+    private String disableFieldName;
+    private boolean disableFieldValue;
 
-    public SelectAllHeader(AbstractIneTable table) {
+    public SelectAllHeader(
+        AbstractIneTable table,
+        String disableFieldName,
+        boolean disableFieldValue) {
         super(new CheckboxCell());
         this.table = table;
+        this.disableFieldName = disableFieldName;
+        this.disableFieldValue = disableFieldValue;
     }
 
     @Override
@@ -64,11 +71,22 @@ public class SelectAllHeader extends Header<Boolean> implements HasValue<Boolean
         table.redrawHeaders();
 
         if (value) {
-            for (AssistedObject ao : table.getCellTable().getVisibleItems())
-                table.getSelectionModel().setSelected(ao, true);
+            for (AssistedObject ao : table.getCellTable().getVisibleItems()) {
+                if (disableFieldName != null) {
+                    Boolean fieldValue = ao.getBooleanUnchecked(disableFieldName);
+                    if (fieldValue != null && fieldValue != disableFieldValue) {
+                        table.getSelectionModel().setSelected(ao, true);
+                    }
+
+                } else {
+                    table.getSelectionModel().setSelected(ao, true);
+                }
+
+            }
         } else {
-            for (AssistedObject ao : table.getMultiSelectionModel().getSelectedSet())
+            for (AssistedObject ao : table.getMultiSelectionModel().getSelectedSet()) {
                 table.getSelectionModel().setSelected(ao, false);
+            }
         }
 
         if (fireEvents) {
