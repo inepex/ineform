@@ -12,6 +12,8 @@ public interface GeneralStyle extends CssResource {
 
     String ineCheckBoxDisabled();
 
+    String ineCheckBoxNull();
+
     String listBoxExtraDiv();
 
     String ineDialogBox();

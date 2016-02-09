@@ -18,6 +18,10 @@
 	background-position: 0 0;
 }
 
+.ineCheckBoxNull{
+	background-position: -36px 0;
+}
+
 .ineCheckBoxText{
     float: left;
     margin-top: 5px;
