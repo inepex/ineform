@@ -11,6 +11,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import com.google.inject.Provider;
+import com.google.inject.persist.Transactional;
 
 public class CustomDaoCriteriaSelector<ResultType, RootType> {
 
@@ -34,14 +35,17 @@ public class CustomDaoCriteriaSelector<ResultType, RootType> {
         return em.get().createQuery(cq);
     }
 
+    @Transactional
     public List<ResultType> executeSelect() {
         return getTypedQuery().getResultList();
     }
 
+    @Transactional
     public ResultType executeSingleResult() {
         return getTypedQuery().getSingleResult();
     }
 
+    @Transactional
     public List<ResultType> executeRangeSelect(int firstResult, int numMaxResult) {
         return getTypedQuery()
             .setFirstResult(firstResult)
