@@ -7,7 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class LazyArrayList<E> implements List<E> {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class LazyArrayList<E> implements List<E>, IsSerializable {
 
     private ArrayList<E> list = null;
 
