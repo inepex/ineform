@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.i18n.IneOmI18n;
 
@@ -16,6 +17,7 @@ public class ValidationResult implements Serializable, IsSerializable {
     private boolean isValid = true;
 
     private List<String> generalErrors = new ArrayList<String>();
+    @JsonIgnore
     private Map<String, List<String>> fieldErrors = new HashMap<String, List<String>>();
 
     public ValidationResult() {}
