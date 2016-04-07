@@ -110,7 +110,7 @@ public abstract class DescriptorStore {
     public void registerDescriptors(
         ObjectDesc descriptor,
         DescriptorBase... defaultDescriptors) {
-        registerDescriptors(descriptor, defaultDescriptors);
+        registerDescriptors(Marker.registered, descriptor, defaultDescriptors);
     }
 
     /**
