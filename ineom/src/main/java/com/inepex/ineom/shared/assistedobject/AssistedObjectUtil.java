@@ -104,6 +104,9 @@ public class AssistedObjectUtil {
         Collection<AssistedObject> objList,
         String displayNameKey) {
         List<Relation> relations = new ArrayList<>();
+        if (objList == null) {
+            return relations;
+        }
         for (AssistedObject obj : objList) {
             relations.add(new Relation(obj.getStringUnchecked(displayNameKey), obj));
         }

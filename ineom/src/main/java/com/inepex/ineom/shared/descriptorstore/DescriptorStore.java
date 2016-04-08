@@ -107,6 +107,12 @@ public abstract class DescriptorStore {
         String namedDescName,
         D namedDesc);
 
+    public void registerDescriptors(
+        ObjectDesc descriptor,
+        DescriptorBase... defaultDescriptors) {
+        registerDescriptors(Marker.registered, descriptor, defaultDescriptors);
+    }
+
     /**
      * Registers the ObjectDescriptor with any number of related descriptors.
      */
