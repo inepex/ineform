@@ -1,6 +1,4 @@
-package com.inepex.ineForm.shared;
-
-import com.inepex.ineFrame.shared.IneformAsyncCallback;
+package com.inepex.ineFrame.shared;
 
 public abstract class IneformTwoAsyncCallback<First, Second> {
 
