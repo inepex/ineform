@@ -117,4 +117,13 @@ public class AssistedObjectUtil {
         }
         return idList;
     }
+
+    public static AssistedObject getAoById(Long id, List<AssistedObject> objectList) {
+        for (AssistedObject o : objectList) {
+            if (o.getId().equals(id)) {
+                return o;
+            }
+        }
+        return null;
+    }
 }
