@@ -126,4 +126,27 @@ public class AssistedObjectUtil {
         }
         return null;
     }
+
+    public static List<Long> getIdFieldList(List<AssistedObject> objectList, String fieldName) {
+        List<Long> idList = new ArrayList<Long>();
+        for (AssistedObject object : objectList) {
+            if (object.getLong(fieldName) != null) {
+                idList.add(object.getLong(fieldName));
+            }
+        }
+        return idList;
+    }
+
+    public static
+        List<AssistedObject>
+        getRelationAoList(List<AssistedObject> objectList, String fieldName) {
+        List<AssistedObject> relAoList = new ArrayList<AssistedObject>();
+        for (AssistedObject object : objectList) {
+            if (object.getRelation(fieldName) != null
+                && object.getRelation(fieldName).getKvo() != null) {
+                relAoList.add(object.getRelation(fieldName).getKvo());
+            }
+        }
+        return relAoList;
+    }
 }
