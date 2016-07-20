@@ -112,6 +112,11 @@ public abstract class DtoAdapter extends AssistedObject {
     }
 
     @Override
+    public void setUnchecked(String key, IneList value) {
+        set(key, value);
+    }
+
+    @Override
     public Long getLongUnchecked(String key) {
         return getLong(key);
     }

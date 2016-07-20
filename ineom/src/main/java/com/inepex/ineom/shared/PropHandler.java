@@ -56,7 +56,10 @@ public abstract class PropHandler {
         String defaultValue) {
         String value = defaultValue;
 
-        String trackerValue = getStringProp(tracker, group, key);
+        String trackerValue = null;
+        if (tracker != null) {
+            trackerValue = getStringProp(tracker, group, key);
+        }
         if (trackerValue != null && !trackerValue.equals("")) {
             value = trackerValue;
         } else {
