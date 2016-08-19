@@ -141,7 +141,10 @@ public class JavaPropHandler extends PropHandler {
                 return null;
             ObjectNode groupJSON = (ObjectNode) node;
             if (groupJSON.has(key)) {
-                return groupJSON.get(key).asText();
+                if (groupJSON.get(key).isNull())
+                    return null;
+                else
+                    return groupJSON.get(key).asText();
             } else {
                 return null;
             }
