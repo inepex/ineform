@@ -19,38 +19,38 @@
     <module>../ineform</module>
   </modules>
 
-  <properties>
-    <gwtVersion>2.7.0</gwtVersion>
-    <jUnitVersion>4.8.2</jUnitVersion>
-    <mockitoVersion>1.9.0</mockitoVersion>
-    <simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
-    <ginVersion>2.1.2</ginVersion>
-    <guiceVersion>3.0</guiceVersion>
-    <gwtDndVersion>3.3.0</gwtDndVersion>
-    <commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
-    <commonsCollectionsVersion>3.2</commonsCollectionsVersion>
-    <commonsIoVersion>2.0.1</commonsIoVersion>
-    <javaxServletVersion>3.1.0</javaxServletVersion>
-    <javaxPersistenceVersion>2.1.0</javaxPersistenceVersion>
-    <mavenCompilerVersion>3.2</mavenCompilerVersion>
-    <mavenCompilerSourceVersion>1.8</mavenCompilerSourceVersion>
-    <mavenCompilerTargetVersion>1.8</mavenCompilerTargetVersion>
-    <mavenJarVersion>2.4</mavenJarVersion>
-    <mavenSureFireVersion>2.16</mavenSureFireVersion>
-    <eclipselinkVersion>2.6.0</eclipselinkVersion>
-    <slf4jVersion>1.6.6</slf4jVersion>
-    <velocityVersion>1.6.2</velocityVersion>
-    <gwtDispatchVersion>1.1.0</gwtDispatchVersion>
-    <jukitoVersion>1.1</jukitoVersion>
-    <googleGuavaVersion>16.0.1</googleGuavaVersion>
-    <buildHelperVersion>1.7</buildHelperVersion>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <buildNumberVersion>1.3</buildNumberVersion>
-    <jacksonVersion>2.4.0</jacksonVersion>
-    <mongoJavaDriverVersion>2.11.3</mongoJavaDriverVersion>
-    <bouncyCastelVersion>1.46</bouncyCastelVersion>
-    <bouncyCastelProvVersion>1.49</bouncyCastelProvVersion>
-  </properties>
+	<properties>
+		<gwtVersion>2.7.0</gwtVersion>
+		<jUnitVersion>4.8.2</jUnitVersion>
+		<mockitoVersion>1.9.0</mockitoVersion>
+		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
+		<ginVersion>2.1.2</ginVersion>
+		<guiceVersion>3.0</guiceVersion>
+		<gwtDndVersion>3.3.0</gwtDndVersion>
+		<commonsFileUploadVersion>1.2.1</commonsFileUploadVersion>
+		<commonsCollectionsVersion>3.2</commonsCollectionsVersion>
+		<commonsIoVersion>2.0.1</commonsIoVersion>
+		<javaxServletVersion>3.1.0</javaxServletVersion>
+		<javaxPersistenceVersion>2.1.0</javaxPersistenceVersion>
+		<mavenCompilerVersion>3.2</mavenCompilerVersion>
+		<mavenCompilerSourceVersion>1.8</mavenCompilerSourceVersion>
+		<mavenCompilerTargetVersion>1.8</mavenCompilerTargetVersion>
+		<mavenJarVersion>2.4</mavenJarVersion>
+		<mavenSureFireVersion>2.16</mavenSureFireVersion>
+		<eclipselinkVersion>2.6.0</eclipselinkVersion>
+		<slf4jVersion>1.6.6</slf4jVersion>
+		<velocityVersion>1.6.2</velocityVersion>
+		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
+		<jukitoVersion>1.1</jukitoVersion>
+		<googleGuavaVersion>16.0.1</googleGuavaVersion>
+		<buildHelperVersion>1.7</buildHelperVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<buildNumberVersion>1.3</buildNumberVersion>
+		<jacksonVersion>2.4.0</jacksonVersion>
+		<mongoJavaDriverVersion>2.11.3</mongoJavaDriverVersion>
+		<bouncyCastelVersion>1.46</bouncyCastelVersion>
+		<bouncyCastelProvVersion>1.49</bouncyCastelProvVersion>
+	</properties>
 
   <profiles>
     <profile>
