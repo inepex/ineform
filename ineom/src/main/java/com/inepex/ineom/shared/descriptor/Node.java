@@ -1,13 +1,13 @@
 package com.inepex.ineom.shared.descriptor;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * @author Istvan Szoboszlai Base class for building a hierarchy of any Elements
@@ -150,7 +150,7 @@ public class Node<T> implements Serializable, IsSerializable {
                 return null;
 
             for (Node<T> node : cursorNode.getChildren()) {
-                if (tokenParts[i].equals(node.getNodeId().toString())) {
+                if (tokenParts[i].equals(node.getNodeId())) {
                     cursorNode = node;
                     break;
                 }

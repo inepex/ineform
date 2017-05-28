@@ -1,15 +1,15 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.LazyHashMap;
 import com.inepex.ineom.shared.Relation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Istvan Szoboszlai Class for representing an object with key-value
@@ -291,12 +291,12 @@ public class KeyValueObject extends AssistedObject {
 
         for (String key : booleanValues.keySet()) {
             Boolean bool = this.booleanValues.get(key);
-            target.set(key, bool == null ? null : new Boolean(bool));
+            target.set(key, bool);
         }
 
         for (String key : doubleValues.keySet()) {
             Double dbl = this.doubleValues.get(key);
-            target.set(key, dbl == null ? null : new Double(dbl));
+            target.set(key, dbl);
         }
 
         for (String key : listValues.keySet()) {
@@ -306,7 +306,7 @@ public class KeyValueObject extends AssistedObject {
 
         for (String key : longValues.keySet()) {
             Long lng = this.longValues.get(key);
-            target.set(key, lng == null ? null : new Long(lng));
+            target.set(key, lng);
         }
 
         for (String key : relationValues.keySet()) {
@@ -328,7 +328,7 @@ public class KeyValueObject extends AssistedObject {
 
         for (String key : stringValues.keySet()) {
             String str = this.stringValues.get(key);
-            target.set(key, str == null ? null : new String(str));
+            target.set(key, str);
         }
 
         for (String key : propJsons.keySet()) {
