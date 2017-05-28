@@ -4,6 +4,6 @@ import com.inepex.ineom.shared.descriptorstore.ClientDescriptorStore;
 
 public interface DescStoreCreator {
 
-    public ClientDescriptorStore createDescStore(String lang);
+    ClientDescriptorStore createDescStore(String lang);
 
 }

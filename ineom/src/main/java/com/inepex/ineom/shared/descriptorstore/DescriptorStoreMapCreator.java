@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface DescriptorStoreMapCreator {
 
-    public <K, V> Map<K, V> createMap(GenParam<K, V> genParams);
+    <K, V> Map<K, V> createMap(GenParam<K, V> genParams);
 
-    public static class GenParam<K, V> {}
+    class GenParam<K, V> {}
 }

@@ -5,13 +5,13 @@ import com.inepex.ineom.shared.validation.ValidationResult;
 
 public interface ObjectManipulationResult extends GenericResult {
 
-    public AssistedObject getObjectsNewState();
+    AssistedObject getObjectsNewState();
 
-    public void setObjectsNewState(AssistedObject objectsNewState);
+    void setObjectsNewState(AssistedObject objectsNewState);
 
-    public Long getNewObjectsId();
+    Long getNewObjectsId();
 
-    public ValidationResult getValidationResult();
+    ValidationResult getValidationResult();
 
-    public void setValidationResult(ValidationResult validationResult);
+    void setValidationResult(ValidationResult validationResult);
 }

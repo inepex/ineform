@@ -1,40 +1,40 @@
 package com.inepex.ineom.shared.dispatch.interfaces;
 
-import java.util.List;
-
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+
+import java.util.List;
 
 public interface AbstractSearch {
 
-    public AssistedObject getSearchParameters();
+    AssistedObject getSearchParameters();
 
-    public Integer getFirstResult();
+    Integer getFirstResult();
 
-    public Integer getNumMaxResult();
+    Integer getNumMaxResult();
 
-    public void setFirstResult(Integer firstResult);
+    void setFirstResult(Integer firstResult);
 
-    public void setNumMaxResult(Integer numMaxResult);
+    void setNumMaxResult(Integer numMaxResult);
 
-    public String getOrderKey();
+    String getOrderKey();
 
-    public void setOrderKey(String orderKey);
+    void setOrderKey(String orderKey);
 
-    public Boolean isDescending();
+    Boolean isDescending();
 
-    public void setDescending(Boolean descending);
+    void setDescending(Boolean descending);
 
-    public Boolean isQueryResultCount();
+    Boolean isQueryResultCount();
 
-    public void setQueryResultCount(Boolean queryResultCount);
+    void setQueryResultCount(Boolean queryResultCount);
 
-    public String getDescriptorName();
+    String getDescriptorName();
 
-    public void setDescriptorName(String descriptorName);
+    void setDescriptorName(String descriptorName);
 
-    public void setSearchParameters(AssistedObject searchParameters);
+    void setSearchParameters(AssistedObject searchParameters);
 
-    public void setPropGroups(String... propGroups);
+    void setPropGroups(String... propGroups);
 
-    public List<String> getPropGroups();
+    List<String> getPropGroups();
 }

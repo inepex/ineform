@@ -17,7 +17,7 @@ public abstract class DescriptorStore {
      */
     public static enum Decoration {
         javaNewLine,
-        html;
+        html
     }
 
     /**

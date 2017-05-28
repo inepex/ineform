@@ -7,19 +7,19 @@ import com.inepex.ineom.shared.dispatch.ManipulationTypes;
 
 public interface ObjectManipulation {
 
-    public ManipulationTypes getManipulationType();
+    ManipulationTypes getManipulationType();
 
-    public void setManipulationType(ManipulationTypes manipulationType);
+    void setManipulationType(ManipulationTypes manipulationType);
 
-    public AssistedObject getObject();
+    AssistedObject getObject();
 
-    public void setObject(AssistedObject object);
+    void setObject(AssistedObject object);
 
-    public Long getIdToRefresh();
+    Long getIdToRefresh();
 
-    public void setIdToRefresh(Long idToRefresh);
+    void setIdToRefresh(Long idToRefresh);
 
-    public void setPropGroups(String... propGroups);
+    void setPropGroups(String... propGroups);
 
-    public List<String> getPropGroups();
+    List<String> getPropGroups();
 }

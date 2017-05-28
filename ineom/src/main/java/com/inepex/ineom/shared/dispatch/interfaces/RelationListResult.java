@@ -5,11 +5,11 @@ import java.util.List;
 import com.inepex.ineom.shared.Relation;
 
 public interface RelationListResult extends GenericResult {
-    public List<Relation> getList();
+    List<Relation> getList();
 
-    public void setList(List<Relation> list);
+    void setList(List<Relation> list);
 
-    public Long getAllResultCount();
+    Long getAllResultCount();
 
-    public void setAllResultCount(Long allResultCount);
+    void setAllResultCount(Long allResultCount);
 }

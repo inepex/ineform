@@ -9,5 +9,5 @@ public interface KeyValueObjectValidator {
      * using either the addGeneralError method or the addFieldError method with
      * the appropriate key
      */
-    public void doValidation(AssistedObject kvo, ValidationResult validationResult);
+    void doValidation(AssistedObject kvo, ValidationResult validationResult);
 }

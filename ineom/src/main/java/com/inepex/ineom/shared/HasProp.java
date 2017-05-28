@@ -4,10 +4,10 @@ import java.util.Map;
 
 public interface HasProp {
 
-    public Map<String, String> getAllPropsJson();
+    Map<String, String> getAllPropsJson();
 
-    public String getPropsJson(String id);
+    String getPropsJson(String id);
 
-    public void setPropsJson(String id, String json);
+    void setPropsJson(String id, String json);
 
 }
