@@ -107,17 +107,13 @@ public class KeyValueObject extends AssistedObject {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(booleanValues).append("\n");
-        sb.append(doubleValues).append("\n");
-        sb.append(listValues).append("\n");
-        sb.append(longValues).append("\n");
-        sb.append(relationValues).append("\n");
-        sb.append(stringValues).append("\n");
-        sb.append(propJsons).append("\n");
-
-        return sb.toString();
+        return String.valueOf(booleanValues) + "\n" +
+                doubleValues + "\n" +
+                listValues + "\n" +
+                longValues + "\n" +
+                relationValues + "\n" +
+                stringValues + "\n" +
+                propJsons + "\n";
     }
 
     @Override

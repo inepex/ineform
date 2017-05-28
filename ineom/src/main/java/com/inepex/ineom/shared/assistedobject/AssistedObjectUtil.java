@@ -1,12 +1,12 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class AssistedObjectUtil {
 

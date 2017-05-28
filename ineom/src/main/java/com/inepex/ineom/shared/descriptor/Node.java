@@ -145,12 +145,12 @@ public class Node<T> implements Serializable, IsSerializable {
 
         // Find the node by scanning on each level
         Node<T> cursorNode = getRootNode();
-        for (int i = 0; i < tokenParts.length; i++) {
+        for (String tokenPart : tokenParts) {
             if (cursorNode == null || cursorNode.getChildren() == null)
                 return null;
 
             for (Node<T> node : cursorNode.getChildren()) {
-                if (tokenParts[i].equals(node.getNodeId())) {
+                if (tokenPart.equals(node.getNodeId())) {
                     cursorNode = node;
                     break;
                 }
