@@ -72,8 +72,8 @@ public class SharedUtil {
         if (!isMultilevelKey(string))
             return string;
 
-        String[] splittedKey = string.split("[" + ID_PART_SEPARATOR + "]");
-        return splittedKey[splittedKey.length - 1];
+        String[] splitKey = string.split("[" + ID_PART_SEPARATOR + "]");
+        return splitKey[splitKey.length - 1];
     }
 
     public static boolean isMultilevelKey(String key) {
@@ -81,13 +81,10 @@ public class SharedUtil {
     }
 
     public static Set<String> Set(String... strings) {
-        Set<String> set = new TreeSet<String>();
+        Set<String> set = new TreeSet<>();
         if (strings != null) {
-            for (String s : strings) {
-                set.add(s);
-            }
+            set.addAll(Arrays.asList(strings));
         }
-
         return set;
     }
 

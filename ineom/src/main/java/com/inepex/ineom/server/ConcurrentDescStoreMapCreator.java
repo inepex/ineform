@@ -9,7 +9,7 @@ public class ConcurrentDescStoreMapCreator implements DescriptorStoreMapCreator 
 
     @Override
     public <K, V> Map<K, V> createMap(GenParam<K, V> genParams) {
-        return new ConcurrentHashMap<K, V>();
+        return new ConcurrentHashMap<>();
     }
 
 }

@@ -11,7 +11,7 @@ public abstract class DescriptorBase implements Serializable, IsSerializable {
 
     public static final String separator = ":";
 
-    protected Map<String, String> props = new TreeMap<String, String>();
+    protected Map<String, String> props = new TreeMap<>();
     private String displayName = null;
 
     public void addProps(String... props) {

@@ -187,7 +187,7 @@ public class KeyValueObjectValidationManager {
     // ------------------------------PROCESSING
 
     public ValidationResult validate(AssistedObject kvo) {
-        return validate(kvo, ArrayListMultimap.<String, KeyValueObjectValidator> create());
+        return validate(kvo, ArrayListMultimap.create());
     }
 
     /**
@@ -205,7 +205,7 @@ public class KeyValueObjectValidationManager {
     }
 
     public ValidationResult validate(AssistedObject kvo, ObjectDesc od) {
-        return validate(kvo, od, ArrayListMultimap.<String, KeyValueObjectValidator> create());
+        return validate(kvo, od, ArrayListMultimap.create());
     }
 
     public ValidationResult validate(
@@ -219,7 +219,7 @@ public class KeyValueObjectValidationManager {
         return validatePartial(
             kvo,
             fieldNames,
-            ArrayListMultimap.<String, KeyValueObjectValidator> create());
+            ArrayListMultimap.create());
     }
 
     public ValidationResult validatePartial(
@@ -290,7 +290,7 @@ public class KeyValueObjectValidationManager {
                 }
             }
 
-            // findig the suitable od
+            // finding the suitable od
             ObjectDesc odOfRelatedKVO = od;
             if (SharedUtil.isMultilevelKey(fieldName)) {
                 for (int i = 0; i < nameAsList.size() - 1; i++) {

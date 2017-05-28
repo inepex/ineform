@@ -1,11 +1,11 @@
 package com.inepex.ineom.shared.assistedobject.sort;
 
+import com.google.inject.Inject;
+import com.inepex.ineom.shared.Relation;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import com.google.inject.Inject;
-import com.inepex.ineom.shared.Relation;
 
 public class RelationListSorter {
 
@@ -35,7 +35,7 @@ public class RelationListSorter {
         if (isDescending == null)
             isDescending = false;
         RelComparator comparator = new RelComparator();
-        Collections.sort(list, comparator);
+        list.sort(comparator);
         if (isDescending)
             Collections.reverse(list);
         return list;

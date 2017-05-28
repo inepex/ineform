@@ -1,11 +1,5 @@
 package com.inepex.ineom.shared.assistedobject.sort;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
@@ -13,6 +7,12 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AssistedObjectSorter {
 
@@ -145,7 +145,7 @@ public class AssistedObjectSorter {
 
     private final DescriptorStore descriptorStore;
     private final AssistedObjectHandlerFactory aoHandlerFactory;
-    private Map<String, Comparator<AssistedObject>> customComparatorByKey = new HashMap<String, Comparator<AssistedObject>>();
+    private Map<String, Comparator<AssistedObject>> customComparatorByKey = new HashMap<>();
 
     @Inject
     public AssistedObjectSorter(
@@ -196,7 +196,7 @@ public class AssistedObjectSorter {
                 break;
 
         }
-        Collections.sort(list, comparator);
+        list.sort(comparator);
         if (isDescending)
             Collections.reverse(list);
         return list;

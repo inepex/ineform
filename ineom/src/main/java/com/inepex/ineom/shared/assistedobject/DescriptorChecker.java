@@ -6,10 +6,10 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 public abstract class DescriptorChecker {
 
     protected final ObjectDesc objectDescriptor;
-    protected final String desciptorName;
+    protected final String descriptorName;
 
-    protected DescriptorChecker(ObjectDesc objectDescriptor, String desciptorName) {
-        this.desciptorName = desciptorName;
+    protected DescriptorChecker(ObjectDesc objectDescriptor, String descriptorName) {
+        this.descriptorName = descriptorName;
         this.objectDescriptor = objectDescriptor;
     }
 

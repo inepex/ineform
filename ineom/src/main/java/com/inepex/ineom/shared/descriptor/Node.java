@@ -41,7 +41,7 @@ public class Node<T> implements Serializable, IsSerializable {
      * @return
      */
     public static <H, T extends H> Node<H> createRootNode(T nodeElement, Class<H> baseClass) {
-        return new Node<H>(true, nodeElement);
+        return new Node<>(true, nodeElement);
     }
 
     protected Node() {}
@@ -63,7 +63,7 @@ public class Node<T> implements Serializable, IsSerializable {
 
     private Node<T> addChildPrivate(String nodeName, Node<T> node) {
         if (children == null)
-            children = new ArrayList<Node<T>>();
+            children = new ArrayList<>();
 
         children.add(node);
         node.parent = this;
@@ -83,20 +83,20 @@ public class Node<T> implements Serializable, IsSerializable {
     }
 
     public Node<T> addChild(String nodeName, T nodeElement) {
-        return addChildPrivate(nodeName, new Node<T>(nodeElement));
+        return addChildPrivate(nodeName, new Node<>(nodeElement));
     }
 
     public Node<T> addChild(T nodeElement) {
-        return addChildPrivate(null, new Node<T>(nodeElement));
+        return addChildPrivate(null, new Node<>(nodeElement));
     }
 
     public Node<T> addChildGC(T nodeElement) {
-        return addChildGCPrivate(null, new Node<T>(nodeElement));
+        return addChildGCPrivate(null, new Node<>(nodeElement));
     }
 
     public Node<T> addChildGC(String nodeName, T nodeElement) {
 
-        return addChildGCPrivate(nodeName, new Node<T>(nodeElement));
+        return addChildGCPrivate(nodeName, new Node<>(nodeElement));
     }
 
     // ------------------------- node methods
@@ -182,7 +182,7 @@ public class Node<T> implements Serializable, IsSerializable {
     }
 
     public Collection<String> getKeysUnderNode() {
-        Set<String> idList = new HashSet<String>();
+        Set<String> idList = new HashSet<>();
         addChildIdsRecursve(idList, this);
         return idList;
     }

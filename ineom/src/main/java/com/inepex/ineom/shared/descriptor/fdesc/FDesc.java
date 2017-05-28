@@ -1,10 +1,11 @@
 package com.inepex.ineom.shared.descriptor.fdesc;
 
-import java.util.TreeSet;
-
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
+
+import java.util.Arrays;
+import java.util.TreeSet;
 
 @SuppressWarnings("serial")
 public abstract class FDesc extends DescriptorBase {
@@ -14,7 +15,7 @@ public abstract class FDesc extends DescriptorBase {
     // the field can be edited
     private boolean editable = true;
 
-    protected TreeSet<String> validatorNames = new TreeSet<String>();
+    protected TreeSet<String> validatorNames = new TreeSet<>();
 
     protected IneT type = null;
 
@@ -51,10 +52,7 @@ public abstract class FDesc extends DescriptorBase {
     }
 
     public FDesc addValidators(String... names) {
-        for (String name : names) {
-            validatorNames.add(name);
-        }
-
+        validatorNames.addAll(Arrays.asList(names));
         return this;
     }
 

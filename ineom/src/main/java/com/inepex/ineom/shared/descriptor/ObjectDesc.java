@@ -15,7 +15,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 public class ObjectDesc implements Serializable, IsSerializable {
     private static final long serialVersionUID = 7161148180827105250L;
 
-    private LinkedHashMap<String, FDesc> fields = new LinkedHashMap<String, FDesc>();
+    private LinkedHashMap<String, FDesc> fields = new LinkedHashMap<>();
 
     private String name;
     private String titleKey;

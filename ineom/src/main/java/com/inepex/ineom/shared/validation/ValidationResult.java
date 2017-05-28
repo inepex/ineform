@@ -16,9 +16,9 @@ public class ValidationResult implements Serializable, IsSerializable {
 
     private boolean isValid = true;
 
-    private List<String> generalErrors = new ArrayList<String>();
+    private List<String> generalErrors = new ArrayList<>();
     @JsonIgnore
-    private Map<String, List<String>> fieldErrors = new HashMap<String, List<String>>();
+    private Map<String, List<String>> fieldErrors = new HashMap<>();
 
     public ValidationResult() {}
 

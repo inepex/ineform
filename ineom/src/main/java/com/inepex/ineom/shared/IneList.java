@@ -21,7 +21,7 @@ public class IneList implements Serializable, IsSerializable {
      * @param other
      */
     public IneList(IneList other) {
-        relationList = new ArrayList<Relation>();
+        relationList = new ArrayList<>();
         for (Relation r : other.getRelationList()) {
             relationList.add(new Relation(r));
         }
@@ -29,7 +29,7 @@ public class IneList implements Serializable, IsSerializable {
     }
 
     public IneList() {
-        relationList = new ArrayList<Relation>();
+        relationList = new ArrayList<>();
 
     }
 

@@ -5,20 +5,20 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 
 public class RealDescriptorChecker extends DescriptorChecker {
 
-    public RealDescriptorChecker(ObjectDesc objectDescriptor, String desciptorName) {
-        super(objectDescriptor, desciptorName);
+    public RealDescriptorChecker(ObjectDesc objectDescriptor, String descriptorName) {
+        super(objectDescriptor, descriptorName);
     }
 
     @Override
     public void checkDescriptorCheckKey(String key, IneT ineT) {
         if (!objectDescriptor.containsKey(key))
             throw new InvalidKeyException(
-                "Key '" + key + "' is not found in descriptor '" + desciptorName + "'");
+                "Key '" + key + "' is not found in descriptor '" + descriptorName + "'");
 
         IneT fieldT = objectDescriptor.getField(key).getType();
         if (!fieldT.equals(ineT))
             throw new InvalidKeyException(
-                "The type of field for key '" + key + "' in descriptor '" + desciptorName + "' is '"
+                "The type of field for key '" + key + "' in descriptor '" + descriptorName + "' is '"
                     + fieldT.toString() + "' and not '" + ineT.toString() + "'");
     }
 

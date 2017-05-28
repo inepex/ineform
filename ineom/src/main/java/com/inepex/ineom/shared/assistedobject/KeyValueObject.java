@@ -20,16 +20,16 @@ public class KeyValueObject extends AssistedObject {
 
     protected String descriptorName = null;
 
-    protected Map<String, Boolean> booleanValues = new LazyHashMap<String, Boolean>();
-    protected Map<String, Double> doubleValues = new LazyHashMap<String, Double>();
-    protected Map<String, IneList> listValues = new LazyHashMap<String, IneList>();
-    protected Map<String, Long> longValues = new LazyHashMap<String, Long>();
-    protected Map<String, Relation> relationValues = new LazyHashMap<String, Relation>();
-    protected Map<String, String> stringValues = new LazyHashMap<String, String>();
-    protected Map<String, String> propJsons = new LazyHashMap<String, String>();
+    protected Map<String, Boolean> booleanValues = new LazyHashMap<>();
+    protected Map<String, Double> doubleValues = new LazyHashMap<>();
+    protected Map<String, IneList> listValues = new LazyHashMap<>();
+    protected Map<String, Long> longValues = new LazyHashMap<>();
+    protected Map<String, Relation> relationValues = new LazyHashMap<>();
+    protected Map<String, String> stringValues = new LazyHashMap<>();
+    protected Map<String, String> propJsons = new LazyHashMap<>();
 
     /**
-     * Default constructor needed for the type to be searilizable, although the
+     * Default constructor needed for the type to be serializable, although the
      * other constructor that specifies descriptorName should be used
      */
     public KeyValueObject() {}
@@ -269,7 +269,7 @@ public class KeyValueObject extends AssistedObject {
     @JsonIgnore
     @Override
     public List<String> getKeys() {
-        List<String> allKeys = new ArrayList<String>();
+        List<String> allKeys = new ArrayList<>();
 
         allKeys.addAll(booleanValues.keySet());
         allKeys.addAll(doubleValues.keySet());

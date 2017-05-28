@@ -1,13 +1,13 @@
 package com.inepex.ineom.shared;
 
-import java.util.List;
-
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.fdesc.RelationFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
+
+import java.util.List;
 
 public class AssistedObjectHandler extends AssistedObjectChecker {
 
@@ -21,7 +21,7 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
         this.descriptorStore = descriptorStore;
 
         if (descriptorName == null)
-            throw new IllegalArgumentException("No desciptorName!");
+            throw new IllegalArgumentException("No descriptorName!");
 
         if (objectDescriptor == null)
             throw new IllegalArgumentException(
@@ -40,50 +40,50 @@ public class AssistedObjectHandler extends AssistedObjectChecker {
     // -------------------------------------------------------
     // related methods
     // -------------------------------------------------------
-    public Boolean getRelatedBoolean(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public Boolean getRelatedBoolean(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getBoolean(id.get(id.size() - 1));
     }
 
-    public Double getRelatedDouble(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public Double getRelatedDouble(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getDouble(id.get(id.size() - 1));
     }
 
-    public IneList getRelatedList(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public IneList getRelatedList(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getList(id.get(id.size() - 1));
     }
 
-    public Long getRelatedLongUnchecked(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public Long getRelatedLongUnchecked(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getLongUnchecked(id.get(id.size() - 1));
     }
 
-    public Long getRelatedLong(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public Long getRelatedLong(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getLong(id.get(id.size() - 1));
     }
 
-    public Relation getRelatedRelation(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public Relation getRelatedRelation(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getRelation(id.get(id.size() - 1));
     }
 
-    public String getRelatedString(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public String getRelatedString(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getString(id.get(id.size() - 1));
     }
 
-    public String getRelatedStringUnchecked(String dotSeparetedKeys) {
-        List<String> id = SharedUtil.listFromDotSeparated(dotSeparetedKeys);
+    public String getRelatedStringUnchecked(String dotSeparatedKeys) {
+        List<String> id = SharedUtil.listFromDotSeparated(dotSeparatedKeys);
         AssistedObjectChecker handler = getRelatedKVOMultiLevel(id);
         return handler.getStringUnchecked(id.get(id.size() - 1));
     }
