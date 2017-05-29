@@ -20,7 +20,7 @@
   </modules>
 
 	<properties>
-		<gwtVersion>2.7.0</gwtVersion>
+		<gwtVersion>2.8.1</gwtVersion>
 		<jUnitVersion>4.8.2</jUnitVersion>
 		<mockitoVersion>1.9.0</mockitoVersion>
 		<simpleCaptchaVersion>1.1.1</simpleCaptchaVersion>
@@ -42,7 +42,7 @@
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
 		<jukitoVersion>1.1</jukitoVersion>
-		<googleGuavaVersion>16.0.1</googleGuavaVersion>
+		<googleGuavaVersion>22.0</googleGuavaVersion>
 		<buildHelperVersion>1.7</buildHelperVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumberVersion>1.3</buildNumberVersion>

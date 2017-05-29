@@ -75,7 +75,7 @@ public class PagerCreator {
                 simplePagerPreviousPageDisabled();
 
         @Override
-        @Source("SimplePager.css")
+        @Source("SimplePager.gss")
         public Style simplePagerStyle();
     }
 

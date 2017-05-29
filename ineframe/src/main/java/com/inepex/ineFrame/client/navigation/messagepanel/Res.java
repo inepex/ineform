@@ -24,7 +24,7 @@ interface Res extends ClientBundle {
         }
     }
 
-    @Source("MessagePanelStyle.css")
+    @Source("MessagePanelStyle.gss")
         MessagePanelStyle
             style();
 

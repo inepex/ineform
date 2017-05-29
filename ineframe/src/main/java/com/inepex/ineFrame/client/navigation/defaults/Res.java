@@ -25,11 +25,11 @@ public interface Res extends ClientBundle {
         }
     }
 
-    @Source("DefaultIneFrameMasterPageViewStyle.css")
+    @Source("DefaultIneFrameMasterPageViewStyle.gss")
         DefaultIneFrameMasterPageStyle
             style();
 
-    @Source("IneMenuStyle.css")
+    @Source("IneMenuStyle.gss")
         IneMenuStyle
             ineMenuStyle();
 
