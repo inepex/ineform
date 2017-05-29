@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "OpenSansRegular";
+  src: url(font/opensans.eot);
+  src: url(font/opensans.eot?#iefix) format("embedded-opentype"), url(font/opensans.woff) format("woff"), url(font/opensans.ttf) format("truetype"), url(font/opensans.svg#OpenSansRegular) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "OpenSansRegular",Arial,'Trebuchet MS';
+  height: 100%;
+}
+
+body {
+  color: #666;
+}
+
+.gwt-Button::-moz-focus-inner {
+  border: 0;
+}
+
+.gwt-Button:focus {
+  outline: none;
+}
+
+.gwt-DatePicker {
+  background-color: #f6f6f6;
+  border: 0 solid #ccc;
+  box-shadow: 0 1px 4px #ccc;
+}
+
+.datePickerDayIsValue {
+  background: #12ad2b;
+  border: 0;
+  color: white;
+}
+
+.datePickerDay {
+  padding: 10px;
+  cursor: hand;
+  /* @alternate */ cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  /* @alternate */ font-size: 14px;
+}
+
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+  background-color: #f1f1f1;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  cursor: default;
+  text-align: center;
+}
+
+.datePickerDayIsToday {
+  border: 0;
+}
+
+.datePickerDayIsDisabled {
+  opacity: 0.3;
+}
+
+.datePickerPreviousButton,
+.datePickerNextButton {
+  padding: 10px;
+  font-weight: bold;
+}
+
+.datePickerMonth {
+  width: 189px;
+  text-align: center;
+  font-weight: bold;
+}

@@ -1,0 +1,98 @@
+@def BASE eval('com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit()');
+@def B0D333 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d333WithUnit()');
+@def B0D25 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d25WithUnit()');
+@def B0D27 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d27WithUnit()');
+@def B0D291 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d291WithUnit()');
+@def B0D166 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d166WithUnit()');
+@def B0D125 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d125WithUnit()');
+@def B0D666 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit()');
+@def B1D5 eval('com.inepex.ineFrame.client.util.DesignConstants.b1d5WithUnit()');
+@def B5 eval('com.inepex.ineFrame.client.util.DesignConstants.b5WithUnit()');
+@def B4 eval('com.inepex.ineFrame.client.util.DesignConstants.b4WithUnit()');
+@def NAVIGATION_DRAWER_BACKGROUND_COLOR eval('com.inepex.ineFrame.client.util.DesignConstants.getNavigationDrawerBackgroundColor()');
+@def USER_PROFILE_BACKGROUND_COLOR eval('com.inepex.ineFrame.client.util.DesignConstants.getUserProfileBackgroundColor()');
+@def INE_COLOR1 eval('com.inepex.ineFrame.client.util.DesignConstants.getIneColor1()');
+@def INE_COLOR2 eval('com.inepex.ineFrame.client.util.DesignConstants.getIneColor2()');
+@def MENU_SEPARATOR_COLOR eval('com.inepex.ineFrame.client.util.DesignConstants.getMenuSeparatorColor()');
+@def MENU_FONT_COLOR eval('com.inepex.ineFrame.client.util.DesignConstants.getMenuFontColor()');
+
+.ineMenu {
+  width: B5;
+  height: 100%;
+  background-color: NAVIGATION_DRAWER_BACKGROUND_COLOR;
+  font-size: B0D333;
+  color: MENU_FONT_COLOR;
+}
+
+.ineMenuScrollPanel {
+  width: B5;
+  height: 100%;
+  background-color: NAVIGATION_DRAWER_BACKGROUND_COLOR;
+}
+
+.userProfile {
+  height: B1D5;
+  width: 100%;
+  background-color: USER_PROFILE_BACKGROUND_COLOR;
+  cursor: pointer;
+}
+
+.userProfileImg {
+  padding: B0D166;
+}
+
+.userProfileEmail {
+  font-size: B0D25;
+  max-width: B4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userProfileName {
+  height: 50%;
+  font-weight: bold;
+  max-width: B4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menuSeparatorLbl {
+  padding: 0 B0D125;
+  text-transform: uppercase;
+}
+
+.menuSeparatorPanel {
+  width: 100%;
+  height: B0D666;
+  line-height: B0D666;
+  font-size: B0D27;
+  background-color: MENU_SEPARATOR_COLOR;
+  vertical-align: middle;
+}
+
+.menuElementRow {
+  width: 100%;
+  height: BASE;
+  cursor: pointer;
+  font-size: B0D291;
+}
+
+.menuElementRow:hover {
+  background-color: INE_COLOR1;
+}
+
+.menuElementIcon {
+  text-align: center;
+  width: BASE;
+  line-height: 0;
+}
+
+.menuElementTable {
+  width: 100%;
+}
+
+.inAliasMode {
+  color: INE_COLOR2;
+}
