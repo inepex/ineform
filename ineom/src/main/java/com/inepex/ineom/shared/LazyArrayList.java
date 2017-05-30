@@ -64,7 +64,7 @@ public class LazyArrayList<E> implements List<E>, IsSerializable {
     @Override
     public boolean add(E e) {
         if (list == null)
-            list = new ArrayList<E>();
+            list = new ArrayList<>();
 
         return list.add(e);
     }
@@ -88,7 +88,7 @@ public class LazyArrayList<E> implements List<E>, IsSerializable {
     @Override
     public boolean addAll(Collection<? extends E> c) {
         if (list == null)
-            list = new ArrayList<E>();
+            list = new ArrayList<>();
 
         return list.addAll(c);
     }
@@ -96,7 +96,7 @@ public class LazyArrayList<E> implements List<E>, IsSerializable {
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         if (list == null)
-            list = new ArrayList<E>();
+            list = new ArrayList<>();
 
         return list.addAll(index, c);
     }
@@ -136,7 +136,7 @@ public class LazyArrayList<E> implements List<E>, IsSerializable {
     @Override
     public E set(int index, E element) {
         if (list == null)
-            list = new ArrayList<E>();
+            list = new ArrayList<>();
 
         return list.set(index, element);
     }
@@ -144,7 +144,7 @@ public class LazyArrayList<E> implements List<E>, IsSerializable {
     @Override
     public void add(int index, E element) {
         if (list == null)
-            list = new ArrayList<E>();
+            list = new ArrayList<>();
 
         list.add(index, element);
     }

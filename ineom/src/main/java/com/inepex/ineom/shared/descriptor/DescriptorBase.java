@@ -1,17 +1,17 @@
 package com.inepex.ineom.shared.descriptor;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 @SuppressWarnings("serial")
 public abstract class DescriptorBase implements Serializable, IsSerializable {
 
     public static final String separator = ":";
 
-    protected Map<String, String> props = new TreeMap<String, String>();
+    protected Map<String, String> props = new TreeMap<>();
     private String displayName = null;
 
     public void addProps(String... props) {
@@ -23,7 +23,7 @@ public abstract class DescriptorBase implements Serializable, IsSerializable {
     }
 
     public void addProps(Map<String, String> props) {
-        props.putAll(props);
+        this.props.putAll(props);
     }
 
     public DescriptorBase addProp(String prop) {

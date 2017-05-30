@@ -1,14 +1,14 @@
 package com.inepex.ineom.shared.validation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gwt.user.client.rpc.IsSerializable;
+import com.inepex.ineom.shared.i18n.IneOmI18n;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gwt.user.client.rpc.IsSerializable;
-import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 public class ValidationResult implements Serializable, IsSerializable {
 
@@ -16,9 +16,9 @@ public class ValidationResult implements Serializable, IsSerializable {
 
     private boolean isValid = true;
 
-    private List<String> generalErrors = new ArrayList<String>();
+    private List<String> generalErrors = new ArrayList<>();
     @JsonIgnore
-    private Map<String, List<String>> fieldErrors = new HashMap<String, List<String>>();
+    private Map<String, List<String>> fieldErrors = new HashMap<>();
 
     public ValidationResult() {}
 
@@ -30,11 +30,7 @@ public class ValidationResult implements Serializable, IsSerializable {
     public void addFieldError(String fieldKey, String error) {
         isValid = false;
 
-        List<String> fieldErrorList = fieldErrors.get(fieldKey);
-        if (fieldErrorList == null) {
-            fieldErrorList = new ArrayList<String>();
-            fieldErrors.put(fieldKey, fieldErrorList);
-        }
+        List<String> fieldErrorList = fieldErrors.computeIfAbsent(fieldKey, k -> new ArrayList<>());
 
         fieldErrorList.add(error);
     }

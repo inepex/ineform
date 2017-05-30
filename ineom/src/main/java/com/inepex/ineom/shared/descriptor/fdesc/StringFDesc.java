@@ -1,10 +1,10 @@
 package com.inepex.ineom.shared.descriptor.fdesc;
 
-import java.io.Serializable;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.IneT;
 import com.inepex.ineom.shared.validation.KeyValueObjectValidationManager;
+
+import java.io.Serializable;
 
 /**
  * @author Istvan Szoboszlai
@@ -29,13 +29,13 @@ public class StringFDesc extends FDesc implements Serializable, IsSerializable {
         super(key, IneT.STRING, defaultDisplayName);
     }
 
-    public StringFDesc maxLength(int maxLenght) {
-        validatorNames.add(KeyValueObjectValidationManager.MAXLENGTH + ":" + maxLenght);
+    public StringFDesc maxLength(int maxLength) {
+        validatorNames.add(KeyValueObjectValidationManager.MAXLENGTH + ":" + maxLength);
         return this;
     }
 
-    public StringFDesc minLength(int minLenght) {
-        validatorNames.add(KeyValueObjectValidationManager.MINLENGTH + ":" + minLenght);
+    public StringFDesc minLength(int minLength) {
+        validatorNames.add(KeyValueObjectValidationManager.MINLENGTH + ":" + minLength);
         return this;
     }
 

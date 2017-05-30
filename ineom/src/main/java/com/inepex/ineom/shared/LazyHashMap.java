@@ -73,7 +73,7 @@ public class LazyHashMap<K, V> implements Map<K, V>, Serializable, IsSerializabl
     @Override
     public V put(K key, V value) {
         if (map == null)
-            map = new HashMap<K, V>();
+            map = new HashMap<>();
 
         return map.put(key, value);
     }
@@ -84,7 +84,7 @@ public class LazyHashMap<K, V> implements Map<K, V>, Serializable, IsSerializabl
             return;
 
         if (map == null)
-            map = new HashMap<K, V>();
+            map = new HashMap<>();
 
         map.putAll(m);
     }

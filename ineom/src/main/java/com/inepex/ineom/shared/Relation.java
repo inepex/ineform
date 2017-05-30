@@ -1,10 +1,10 @@
 package com.inepex.ineom.shared;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
+
+import java.io.Serializable;
 
 public class Relation implements Serializable, IsSerializable {
 
@@ -22,9 +22,9 @@ public class Relation implements Serializable, IsSerializable {
      * @param other
      */
     public Relation(Relation other) {
-        this.id = new Long(other.id);
+        this.id = other.id;
         if (other.displayName != null)
-            this.displayName = new String(other.displayName);
+            this.displayName = other.displayName;
         this.kvo = (other.kvo == null ? null : other.kvo.clone());
     }
 

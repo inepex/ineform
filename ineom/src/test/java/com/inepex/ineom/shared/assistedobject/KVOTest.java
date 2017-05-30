@@ -121,7 +121,7 @@ public class KVOTest {
         Assert.assertEquals(true, kvo.equals(kvo));
         Assert.assertEquals(true, otherKvo.equals(otherKvo));
 
-        // setting other's vaules
+        // setting other's values
         otherKvo.set(k_double, 45.34);
         otherKvo.set(k_bool, true);
         otherKvo.set(k_long, 2345534L);

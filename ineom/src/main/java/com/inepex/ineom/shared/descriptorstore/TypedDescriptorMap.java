@@ -1,8 +1,8 @@
 package com.inepex.ineom.shared.descriptorstore;
 
-import java.util.Map;
-
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
+
+import java.util.Map;
 
 /**
  * Helper class for string Typed Descriptors. This class is used in
@@ -28,12 +28,10 @@ public class TypedDescriptorMap<D extends DescriptorBase> {
 
     public void addNamedDescriptor(String odName, String descName, D descriptor) {
 
-        Map<String, D> descriptors = namedDescriptorsByOdName.get(odName);
-
-        if (descriptors == null) {
-            descriptors = mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<String, D>());
-            namedDescriptorsByOdName.put(odName, descriptors);
-        }
+        Map<String, D> descriptors = namedDescriptorsByOdName.computeIfAbsent(
+                odName,
+                k -> mapCreator.createMap(new DescriptorStoreMapCreator.GenParam<>())
+        );
 
         descriptors.put(descName, descriptor);
     }

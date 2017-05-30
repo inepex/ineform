@@ -6,21 +6,21 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 
 public interface ObjectListResult extends GenericResult {
 
-    public List<AssistedObject> getList();
+    List<AssistedObject> getList();
 
-    public void setList(List<AssistedObject> list);
+    void setList(List<AssistedObject> list);
 
-    public Long getAllResultCount();
+    Long getAllResultCount();
 
-    public void setAllResultCount(Long allResultCount);
+    void setAllResultCount(Long allResultCount);
 
     /**
      * may be null
      * 
      * @return
      */
-    public String getDescriptorName();
+    String getDescriptorName();
 
-    public void setDescriptorName(String descriptorName);
+    void setDescriptorName(String descriptorName);
 
 }

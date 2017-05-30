@@ -1,20 +1,20 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.inepex.ineom.shared.HasProp;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 
  * this abstract class describes the base data storing class like KeyValueObject
- * or DTOAdatper
+ * or DTOAdapter
  * 
  * methods are unchecked!! use {@link AssistedObjectChecker} to type safe
  * manipulating

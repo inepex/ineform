@@ -1,13 +1,13 @@
 package com.inepex.ineom.shared.descriptor;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * @author Istvan Szoboszlai Base class for building a hierarchy of any Elements
@@ -41,7 +41,7 @@ public class Node<T> implements Serializable, IsSerializable {
      * @return
      */
     public static <H, T extends H> Node<H> createRootNode(T nodeElement, Class<H> baseClass) {
-        return new Node<H>(true, nodeElement);
+        return new Node<>(true, nodeElement);
     }
 
     protected Node() {}
@@ -63,7 +63,7 @@ public class Node<T> implements Serializable, IsSerializable {
 
     private Node<T> addChildPrivate(String nodeName, Node<T> node) {
         if (children == null)
-            children = new ArrayList<Node<T>>();
+            children = new ArrayList<>();
 
         children.add(node);
         node.parent = this;
@@ -83,20 +83,20 @@ public class Node<T> implements Serializable, IsSerializable {
     }
 
     public Node<T> addChild(String nodeName, T nodeElement) {
-        return addChildPrivate(nodeName, new Node<T>(nodeElement));
+        return addChildPrivate(nodeName, new Node<>(nodeElement));
     }
 
     public Node<T> addChild(T nodeElement) {
-        return addChildPrivate(null, new Node<T>(nodeElement));
+        return addChildPrivate(null, new Node<>(nodeElement));
     }
 
     public Node<T> addChildGC(T nodeElement) {
-        return addChildGCPrivate(null, new Node<T>(nodeElement));
+        return addChildGCPrivate(null, new Node<>(nodeElement));
     }
 
     public Node<T> addChildGC(String nodeName, T nodeElement) {
 
-        return addChildGCPrivate(nodeName, new Node<T>(nodeElement));
+        return addChildGCPrivate(nodeName, new Node<>(nodeElement));
     }
 
     // ------------------------- node methods
@@ -145,12 +145,12 @@ public class Node<T> implements Serializable, IsSerializable {
 
         // Find the node by scanning on each level
         Node<T> cursorNode = getRootNode();
-        for (int i = 0; i < tokenParts.length; i++) {
+        for (String tokenPart : tokenParts) {
             if (cursorNode == null || cursorNode.getChildren() == null)
                 return null;
 
             for (Node<T> node : cursorNode.getChildren()) {
-                if (tokenParts[i].equals(node.getNodeId().toString())) {
+                if (tokenPart.equals(node.getNodeId())) {
                     cursorNode = node;
                     break;
                 }
@@ -182,7 +182,7 @@ public class Node<T> implements Serializable, IsSerializable {
     }
 
     public Collection<String> getKeysUnderNode() {
-        Set<String> idList = new HashSet<String>();
+        Set<String> idList = new HashSet<>();
         addChildIdsRecursve(idList, this);
         return idList;
     }

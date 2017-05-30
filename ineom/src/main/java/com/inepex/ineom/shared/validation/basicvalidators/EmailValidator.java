@@ -13,11 +13,11 @@ public class EmailValidator implements KeyValueObjectValidator {
     private final ObjectDesc objectDesc;
 
     public final static String regExpr = "^" + "([a-zA-Z0-9]){1,40}" + // firstname
-        "(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*" + // .lastname or
+        "(([_.\\-+])([a-zA-Z0-9]){1,40})*" + // .lastname or
                                                  // .lastname.lastlastname...
         "@" + // @
         "([a-zA-Z0-9]){1,40}" + // sg
-        "(([_\\.\\-\\+])([a-zA-Z0-9]){1,40})*" + // -domain or -domain-domain...
+        "(([_.\\-+])([a-zA-Z0-9]){1,40})*" + // -domain or -domain-domain...
         "\\." + // .
         "[a-zA-Z0-9]{2,6}$"; // com
 

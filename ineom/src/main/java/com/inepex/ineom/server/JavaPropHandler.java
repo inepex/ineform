@@ -215,7 +215,7 @@ public class JavaPropHandler extends PropHandler {
 
     @Override
     public Map<String, Object> getPropMap(HasProp hasProp, String id) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         if (hasProp.getPropsJson(id) == null)
             return map;
         ObjectMapper m = new ObjectMapper();

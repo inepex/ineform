@@ -1,14 +1,14 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import java.util.Set;
-
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
+
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public abstract class DtoAdapter extends AssistedObject {
 
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
     private static long counter = 1L;
 
     private Long id;

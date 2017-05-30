@@ -19,7 +19,7 @@ public class GwtJsonDifference implements JsonDifference {
         for (String field : origJSON.keySet()) {
             if (!newJSON.containsKey(field)) { // deleted
                 diffJSON.put(field, JSONNull.getInstance());
-            } else if (!newJSON.get(field).toString().equals(origJSON.get(field).toString())) { // modifed
+            } else if (!newJSON.get(field).toString().equals(origJSON.get(field).toString())) { // modified
                 diffJSON.put(field, newJSON.get(field));
             }
         }

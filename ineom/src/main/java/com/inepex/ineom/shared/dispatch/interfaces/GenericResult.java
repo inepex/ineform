@@ -2,12 +2,12 @@ package com.inepex.ineom.shared.dispatch.interfaces;
 
 public interface GenericResult {
 
-    public String getMessage();
+    String getMessage();
 
-    public Boolean isSuccess();
+    Boolean isSuccess();
 
-    public void setMessage(String message);
+    void setMessage(String message);
 
-    public void setSuccess(Boolean success);
+    void setSuccess(Boolean success);
 
 }

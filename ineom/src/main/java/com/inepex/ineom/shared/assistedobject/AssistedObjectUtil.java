@@ -1,17 +1,17 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.Relation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class AssistedObjectUtil {
 
     public static List<Long> getObjectIds(Collection<AssistedObject> objList) {
-        List<Long> idList = new ArrayList<Long>();
+        List<Long> idList = new ArrayList<>();
         for (AssistedObject obj : objList) {
             idList.add(obj.getId());
         }
@@ -32,13 +32,13 @@ public class AssistedObjectUtil {
 
     public static String getObjectIdsAsStringWithCustomDelimeter(
         Collection<AssistedObject> objList,
-        String delimeter) {
+        String delimiter) {
         StringBuffer sb = new StringBuffer();
         int i = 0;
         for (AssistedObject obj : objList) {
             sb.append(obj.getId());
             if (i < objList.size() - 1)
-                sb.append(delimeter);
+                sb.append(delimiter);
             i++;
         }
         return sb.toString();
@@ -114,7 +114,7 @@ public class AssistedObjectUtil {
     }
 
     public static List<Long> getObjectIds(IneList ineList) {
-        List<Long> idList = new ArrayList<Long>();
+        List<Long> idList = new ArrayList<>();
         for (Relation rel : ineList.getRelationList()) {
             idList.add(rel.getId());
         }
@@ -131,7 +131,7 @@ public class AssistedObjectUtil {
     }
 
     public static List<Long> getIdFieldList(List<AssistedObject> objectList, String fieldName) {
-        List<Long> idList = new ArrayList<Long>();
+        List<Long> idList = new ArrayList<>();
         for (AssistedObject object : objectList) {
             if (object.getLong(fieldName) != null) {
                 idList.add(object.getLong(fieldName));
@@ -143,7 +143,7 @@ public class AssistedObjectUtil {
     public static
         List<AssistedObject>
         getRelationAoList(List<AssistedObject> objectList, String fieldName) {
-        List<AssistedObject> relAoList = new ArrayList<AssistedObject>();
+        List<AssistedObject> relAoList = new ArrayList<>();
         for (AssistedObject object : objectList) {
             if (object.getRelation(fieldName) != null
                 && object.getRelation(fieldName).getKvo() != null) {

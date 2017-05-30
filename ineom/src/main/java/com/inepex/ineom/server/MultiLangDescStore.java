@@ -20,7 +20,7 @@ public class MultiLangDescStore extends DescriptorStore {
 
     private static final Logger _logger = LoggerFactory.getLogger(MultiLangDescStore.class);
 
-    private final ConcurrentHashMap<String, DescriptorStore> storeByLang = new ConcurrentHashMap<String, DescriptorStore>();
+    private final ConcurrentHashMap<String, DescriptorStore> storeByLang = new ConcurrentHashMap<>();
     private final Provider<CurrentLang> currLangProvider;
     private DescStoreCreator descStoreCreator;
 

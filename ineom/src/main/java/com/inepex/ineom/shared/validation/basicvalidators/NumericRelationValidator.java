@@ -25,7 +25,7 @@ public class NumericRelationValidator implements KeyValueObjectValidator {
         lt,
         ge,
         le,
-        eq;
+        eq
     }
 
     public NumericRelationValidator(

@@ -3,16 +3,16 @@ package com.inepex.ineom.shared;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectChecker;
 
 public class KeyValueObjectSerializer {
-    public static interface ListSerializer {
-        public String serialize(IneList list);
+    public interface ListSerializer {
+        String serialize(IneList list);
     }
 
-    public static interface RelationSerializer {
-        public String serialize(Relation relation);
+    public interface RelationSerializer {
+        String serialize(Relation relation);
     }
 
-    public static interface StringEncoder {
-        public String encode(String value);
+    public interface StringEncoder {
+        String encode(String value);
     }
 
     AssistedObjectChecker checker;

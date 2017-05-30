@@ -1,15 +1,15 @@
 package com.inepex.ineom.shared.assistedobject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;
 import com.inepex.ineom.shared.LazyHashMap;
 import com.inepex.ineom.shared.Relation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Istvan Szoboszlai Class for representing an object with key-value
@@ -20,16 +20,16 @@ public class KeyValueObject extends AssistedObject {
 
     protected String descriptorName = null;
 
-    protected Map<String, Boolean> booleanValues = new LazyHashMap<String, Boolean>();
-    protected Map<String, Double> doubleValues = new LazyHashMap<String, Double>();
-    protected Map<String, IneList> listValues = new LazyHashMap<String, IneList>();
-    protected Map<String, Long> longValues = new LazyHashMap<String, Long>();
-    protected Map<String, Relation> relationValues = new LazyHashMap<String, Relation>();
-    protected Map<String, String> stringValues = new LazyHashMap<String, String>();
-    protected Map<String, String> propJsons = new LazyHashMap<String, String>();
+    protected Map<String, Boolean> booleanValues = new LazyHashMap<>();
+    protected Map<String, Double> doubleValues = new LazyHashMap<>();
+    protected Map<String, IneList> listValues = new LazyHashMap<>();
+    protected Map<String, Long> longValues = new LazyHashMap<>();
+    protected Map<String, Relation> relationValues = new LazyHashMap<>();
+    protected Map<String, String> stringValues = new LazyHashMap<>();
+    protected Map<String, String> propJsons = new LazyHashMap<>();
 
     /**
-     * Default constructor needed for the type to be searilizable, although the
+     * Default constructor needed for the type to be serializable, although the
      * other constructor that specifies descriptorName should be used
      */
     public KeyValueObject() {}
@@ -107,17 +107,13 @@ public class KeyValueObject extends AssistedObject {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(booleanValues).append("\n");
-        sb.append(doubleValues).append("\n");
-        sb.append(listValues).append("\n");
-        sb.append(longValues).append("\n");
-        sb.append(relationValues).append("\n");
-        sb.append(stringValues).append("\n");
-        sb.append(propJsons).append("\n");
-
-        return sb.toString();
+        return String.valueOf(booleanValues) + "\n" +
+                doubleValues + "\n" +
+                listValues + "\n" +
+                longValues + "\n" +
+                relationValues + "\n" +
+                stringValues + "\n" +
+                propJsons + "\n";
     }
 
     @Override
@@ -273,7 +269,7 @@ public class KeyValueObject extends AssistedObject {
     @JsonIgnore
     @Override
     public List<String> getKeys() {
-        List<String> allKeys = new ArrayList<String>();
+        List<String> allKeys = new ArrayList<>();
 
         allKeys.addAll(booleanValues.keySet());
         allKeys.addAll(doubleValues.keySet());
@@ -291,12 +287,12 @@ public class KeyValueObject extends AssistedObject {
 
         for (String key : booleanValues.keySet()) {
             Boolean bool = this.booleanValues.get(key);
-            target.set(key, bool == null ? null : new Boolean(bool));
+            target.set(key, bool);
         }
 
         for (String key : doubleValues.keySet()) {
             Double dbl = this.doubleValues.get(key);
-            target.set(key, dbl == null ? null : new Double(dbl));
+            target.set(key, dbl);
         }
 
         for (String key : listValues.keySet()) {
@@ -306,7 +302,7 @@ public class KeyValueObject extends AssistedObject {
 
         for (String key : longValues.keySet()) {
             Long lng = this.longValues.get(key);
-            target.set(key, lng == null ? null : new Long(lng));
+            target.set(key, lng);
         }
 
         for (String key : relationValues.keySet()) {
@@ -328,7 +324,7 @@ public class KeyValueObject extends AssistedObject {
 
         for (String key : stringValues.keySet()) {
             String str = this.stringValues.get(key);
-            target.set(key, str == null ? null : new String(str));
+            target.set(key, str);
         }
 
         for (String key : propJsons.keySet()) {
