@@ -1,0 +1,84 @@
+@def BASE eval('com.inepex.ineFrame.client.util.DesignConstants.baseWithUnit()');
+@def BASE_NEGATIVE eval('com.inepex.ineFrame.client.util.DesignConstants.baseNegativeWithUnit()');
+@def B0D50 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d50WithUnit()');
+@def B0D50_NEGATIVE eval('com.inepex.ineFrame.client.util.DesignConstants.b0d50NegativeWithUnit()');
+@def B0D666 eval('com.inepex.ineFrame.client.util.DesignConstants.b0d666WithUnit()');
+@def B0D666_NEGATIVE eval('com.inepex.ineFrame.client.util.DesignConstants.b0d666NegativeWithUnit()');
+@def NAVIGATION_DRAWER_WIDTH eval('com.inepex.ineFrame.client.util.DesignConstants.b5WithUnit()');
+@def DEFAULT_ANIMATION_LENGTH eval('com.inepex.ineFrame.client.util.DesignConstants.defaultAnimationLengthWithUnit()');
+
+.MasterPage {
+  overflow: hidden;
+}
+
+.ClickHandlerLayout {
+  background-color: rgba(0, 0, 0, 0);
+  transition: all DEFAULT_ANIMATION_LENGTH ease-out;
+}
+
+.ClickHandlerLayoutFaded {
+  background-color: rgba(0, 0, 0, 0.25);
+  transition: all DEFAULT_ANIMATION_LENGTH ease-out;
+  z-index: 10000;
+}
+
+.HeaderAndPageRoot {
+  -webkit-box-shadow: -5px 15px 45px 0 rgba(0, 0, 0, 0.95);
+  -moz-box-shadow: -5px 15px 45px 0 rgba(0, 0, 0, 0.95);
+  box-shadow: -5px 15px 45px 0 rgba(0, 0, 0, 0.95);
+}
+
+.HeaderAndPage {
+  background-color: #fff;
+}
+
+.Header {
+}
+
+.Page {
+}
+
+.MessagePanel {
+  height: B0D666;
+  margin-top: B0D666_NEGATIVE;
+}
+
+.NavigationDrawer {
+  float: left;
+}
+
+.navigationDrawerOpened {
+  margin-left: NAVIGATION_DRAWER_WIDTH;
+  -webkit-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -moz-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -o-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -ms-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+}
+
+.navigationDrawerClosed {
+  margin-left: 0;
+  -webkit-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -moz-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -o-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -ms-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+}
+
+.messagePanelOpened {
+  margin-top: 0;
+  -webkit-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -moz-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -o-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -ms-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+}
+
+.messagePanelClosed {
+  margin-top: B0D666_NEGATIVE;
+  -webkit-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -moz-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -o-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  -ms-transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+  transition: all cubic-bezier(0, 1, 0.5, 1) DEFAULT_ANIMATION_LENGTH;
+}

@@ -18,7 +18,10 @@
 	<inherits name="com.google.gwt.dom.DOM" />
 	<inherits name="com.google.gwt.resources.Resources" />
 
-<!-- 	<entry-point class="com.allen_sauer.gwt.dnd.client.util.DragEntryPoint" /> -->
+	<set-configuration-property name="CssResource.conversionMode" value="strict" />
+
+
+	<!-- 	<entry-point class="com.allen_sauer.gwt.dnd.client.util.DragEntryPoint" /> -->
 
 	<replace-with
 		class="com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImplOpera">

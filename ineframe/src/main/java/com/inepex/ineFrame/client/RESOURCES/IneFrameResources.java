@@ -7,7 +7,7 @@ import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 
 public interface IneFrameResources extends ClientBundle {
 
-    @Source("BundledStyle.css")
+    @Source("BundledStyle.gss")
         IneFrameStyle
             style();
 
