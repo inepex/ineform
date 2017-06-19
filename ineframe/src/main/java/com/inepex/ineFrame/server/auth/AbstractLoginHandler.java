@@ -44,6 +44,7 @@ public abstract class AbstractLoginHandler<U extends AuthUser, R extends AuthSta
         U user;
 
         LoginCaptchaInfo captchaInfo = captchaInfoProvider.get();
+        _logger.info("User {} logging in", action.getUserName());
         synchronized (captchaInfo) {
             if (action.getGoogleLoginToken() == null
                 && (action.getUserName() == null || action.getPassword() == null)) {
