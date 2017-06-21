@@ -74,7 +74,7 @@
     </repository>
     <repository>
       <id>inepex</id>
-      <url>http://maven.inepex.com/content/groups/public</url>
+      <url>http://maven.inepex.com/repository/public</url>
       <name>inepex</name>
     </repository>
     <repository>
@@ -88,7 +88,7 @@
     <repository>
       <id>inepex</id>
       <name>Inepex Repository</name>
-      <url>http://maven.inepex.com/content/repositories/thirdparty</url>
+      <url>http://maven.inepex.com/repository/thirdparty</url>
     </repository>
   </distributionManagement>
   <build>
