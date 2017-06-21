@@ -23,7 +23,7 @@
  		</repository> 
  		<repository>
 			<id>inerepo</id>
- 			<url>http://maven.inepex.com/content/repositories/public/</url> 
+ 			<url>http://maven.inepex.com/repository/public/</url> 
  			<name>inerepo</name>
  		</repository> 	
 	</repositories>
