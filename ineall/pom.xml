@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.inepex</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <artifactId>ineall</artifactId>
   <packaging>pom</packaging>
 
