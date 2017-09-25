@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.inepex</groupId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
   <artifactId>ineall</artifactId>
   <packaging>pom</packaging>
 
@@ -37,7 +37,7 @@
 		<mavenCompilerTargetVersion>1.8</mavenCompilerTargetVersion>
 		<mavenJarVersion>2.4</mavenJarVersion>
 		<mavenSureFireVersion>2.16</mavenSureFireVersion>
-		<eclipselinkVersion>2.6.0</eclipselinkVersion>
+		<eclipselinkVersion>2.7.0</eclipselinkVersion>
 		<slf4jVersion>1.6.6</slf4jVersion>
 		<velocityVersion>1.6.2</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
@@ -86,9 +86,9 @@
 
   <distributionManagement>
     <repository>
-      <id>inepex</id>
+      <id>inepex-internal</id>
       <name>Inepex Repository</name>
-      <url>http://maven.inepex.com/repository/thirdparty</url>
+      <url>http://maven.inepex.com/repository/external</url>
     </repository>
   </distributionManagement>
   <build>
