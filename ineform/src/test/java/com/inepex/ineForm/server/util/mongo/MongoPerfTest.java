@@ -11,7 +11,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
 
 public class MongoPerfTest {
-    private final int nrOfDoc = 1000000;
+    private final int nrOfDoc = 100000;
 
     private DBCollection coll;
     private Random rand = new Random();
@@ -26,7 +26,7 @@ public class MongoPerfTest {
     }
 
     private void createIndex() {
-        coll.ensureIndex(new BasicDBObject("object_type", 1).append("user.onRoad", 1));
+        coll.createIndex(new BasicDBObject("object_type", 1).append("user.onRoad", 1));
     }
 
     private void insertTestData() {

@@ -72,7 +72,7 @@ public class PropDaoTest {
 
     }
 
-    // @Test
+    @Test
     public void testThreads() throws Exception {
         for (Long id = 1L; id <= 100L; id++) {
             new Thread(new PropRunnable(id)).start();
