@@ -200,7 +200,8 @@ public class I18nModuleConverter {
                     for (String language : props.languages) {
                         String raw = "";
                         if (fields.length <= col || fields[col] == null)
-                            raw = "**" + fields[2] + "**";
+//                            raw = "**" + fields[2] + "**";
+                            raw = fields[2];
                         else
                             raw = fields[col];
 

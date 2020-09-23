@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.inepex</groupId>
-  <version>1.1.5</version>
+  <version>1.1.6</version>
   <artifactId>ineall</artifactId>
   <packaging>pom</packaging>
 
@@ -68,13 +68,18 @@
 
   <repositories>
     <repository>
-      <id>maven.springframework.org.external</id>
-      <url>http://maven.springframework.org/external</url>
-      <name>SpringSource Maven Repository - External Releases</name>
+      <id>mavencentral</id>
+      <url>https://repo.maven.apache.org/maven2/</url>
+      <name>Maven central</name>
     </repository>
+<!--    <repository>-->
+<!--      <id>maven.springframework.org.external</id>-->
+<!--      <url>https://maven.springframework.org/external</url>-->
+<!--      <name>SpringSource Maven Repository - External Releases</name>-->
+<!--    </repository>-->
     <repository>
       <id>inepex</id>
-      <url>http://maven.inepex.com/repository/public</url>
+      <url>https://maven.inepex.com/repository/public</url>
       <name>inepex</name>
     </repository>
     <repository>
@@ -88,7 +93,7 @@
     <repository>
       <id>inepex-internal</id>
       <name>Inepex Repository</name>
-      <url>http://maven.inepex.com/repository/external</url>
+      <url>https://maven.inepex.com/repository/external</url>
     </repository>
   </distributionManagement>
   <build>

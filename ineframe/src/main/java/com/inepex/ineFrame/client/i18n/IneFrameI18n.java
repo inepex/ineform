@@ -1624,7 +1624,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Non USA
 	* <u><i>Magyarul:</i></u> --
 	*/
@@ -2398,7 +2398,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Apps
 	* <u><i>Magyarul:</i></u> Appok
 	*/
@@ -2407,7 +2407,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Help
 	* <u><i>Magyarul:</i></u> Súgó
 	*/
@@ -2416,7 +2416,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Help & Settings
 	* <u><i>Magyarul:</i></u> Súgó, beállítások
 	*/
@@ -2425,7 +2425,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Leave alias
 	* <u><i>Magyarul:</i></u> Alias mód elhagyása
 	*/
@@ -2434,7 +2434,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Logout
 	* <u><i>Magyarul:</i></u> Kijelentkezés
 	*/
@@ -2443,7 +2443,7 @@ public class IneFrameI18n extends I18nModule {
 	}
 	
 	/**
-	* <u><i>Description:</i></u> $loc.getDescription() <br />
+	* <u><i>Description:</i></u>  <br />
 	* <u><i>In English:</i></u> Settings
 	* <u><i>Magyarul:</i></u> Beállítások
 	*/
