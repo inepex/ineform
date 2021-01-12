@@ -79,10 +79,15 @@ public class ExcelRendererV2 extends TableRenderer {
     }
 
     private void initColumnCellStyles() {
-        columnCellStyles = new CellStyle[tableRDesc.getRootNode().getChildren().size()];
+        columnCellStyles = new CellStyle[tableRDesc.getRootNode().getChildren().size() - getHiddenColumns().size()];
+        int colWithHidden = 0;
         for (int col = 0; col < tableRDesc.getRootNode().getChildren().size(); col++) {
             Node<TableRDescBase> columnNode = tableRDesc.getRootNode().getChildren().get(col);
             ColRDesc colRenderDesc = (ColRDesc) columnNode.getNodeElement();
+
+            if (getHiddenColumns().contains(columnNode.getNodeId())) {
+                continue;
+            }
 
             FDesc fdesc = getFieldDescForColumn(columnNode);
             CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
@@ -112,7 +117,7 @@ public class ExcelRendererV2 extends TableRenderer {
                     .setDataFormat(createHelper.createDataFormat().getFormat(dataFormatOverride));
             }
 
-            columnCellStyles[col] = cellStyle;
+            columnCellStyles[colWithHidden++] = cellStyle;
         }
 
     }
@@ -201,8 +206,12 @@ public class ExcelRendererV2 extends TableRenderer {
 
         for (AssistedObject kvo : kvos) {
             renderLineStart();
+            int colWithHidden = 0;
             for (int col = 0; col < tableRDesc.getRootNode().getChildren().size(); col++) {
                 Node<TableRDescBase> columnNode = tableRDesc.getRootNode().getChildren().get(col);
+                if (getHiddenColumns().contains(columnNode.getNodeId())) {
+                    continue;
+                }
                 if (!(IneFormProperties.showIds || tableRDesc.hasProp(FormRDescBase.prop_showIDs))
                     && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
                     continue;
@@ -211,7 +220,7 @@ public class ExcelRendererV2 extends TableRenderer {
                 AssistedObjectHandler kvoOrRelatedKvoHandler = getKvoOrRelatedKvoHandler(
                     columnNode,
                     kvo);
-                actualCell.setCellStyle(columnCellStyles[col]);
+                actualCell.setCellStyle(columnCellStyles[colWithHidden++]);
                 setValue(key, kvoOrRelatedKvoHandler, columnNode);
                 if (renderLastFieldEnd || !columnNode.equals(
                     tableRDesc.getRootNode().getChildren().get(
@@ -286,4 +295,9 @@ public class ExcelRendererV2 extends TableRenderer {
         return columnCellStyles;
     }
 
+    @Override
+    public void hideColumn(String column) {
+        super.hideColumn(column);
+        initColumnCellStyles();
+    }
 }

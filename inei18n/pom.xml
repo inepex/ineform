@@ -6,14 +6,14 @@
 		<relativePath>../ineall</relativePath>
 		<artifactId>ineall</artifactId>
 		<groupId>com.inepex</groupId>
-		<version>1.1.6</version>
+		<version>1.1.7</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inepex</groupId>
 	<artifactId>inei18n</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1.6</version>
+	<version>1.1.7</version>
 	<name>inei18n</name>
 	<url>http://maven.apache.org</url>
 

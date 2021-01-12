@@ -1,5 +1,6 @@
 package com.inepex.ineForm.shared.tablerender;
 
+import java.util.HashSet;
 import java.util.List;
 
 import com.inepex.ineForm.client.IneFormProperties;
@@ -18,6 +19,7 @@ import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
+import java.util.Set;
 
 public abstract class TableRenderer {
 
@@ -31,6 +33,8 @@ public abstract class TableRenderer {
     protected boolean renderLastFieldEnd = false;
 
     protected final TableFieldRenderer fieldRenderer;
+
+    private Set<String> hiddenColumns = new HashSet<>();
 
     public TableRenderer(
         DescriptorStore descStore,
@@ -77,6 +81,9 @@ public abstract class TableRenderer {
             renderLineStart();
             for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode().getChildren()) {
                 ColRDesc colRenderDesc = (ColRDesc) columnNode.getNodeElement();
+                if (hiddenColumns.contains(columnNode.getNodeId())) {
+                    continue;
+                }
                 if (!(IneFormProperties.showIds || tableRDesc.hasProp(FormRDescBase.prop_showIDs))
                     && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
                     continue;
@@ -126,6 +133,9 @@ public abstract class TableRenderer {
     protected void renderHeader() {
         renderHeaderStart();
         for (Node<TableRDescBase> columnNode : tableRDesc.getRootNode().getChildren()) {
+            if (hiddenColumns.contains(columnNode.getNodeId())) {
+                continue;
+            }
 
             if (!(IneFormProperties.showIds || tableRDesc.hasProp(FormRDescBase.prop_showIDs))
                 && IFConsts.KEY_ID.equals(columnNode.getNodeId()))
@@ -218,6 +228,14 @@ public abstract class TableRenderer {
 
     public TableFieldRenderer getFieldRenderer() {
         return fieldRenderer;
+    }
+
+    public void hideColumn(String column) {
+        hiddenColumns.add(column);
+    }
+
+    public Set<String> getHiddenColumns() {
+        return hiddenColumns;
     }
 
 }
