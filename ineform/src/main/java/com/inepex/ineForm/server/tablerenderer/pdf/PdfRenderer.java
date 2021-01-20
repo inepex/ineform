@@ -77,7 +77,7 @@ public class PdfRenderer extends TableRenderer {
             && hasIdColumn) {
             columnSize--;
         }
-        table = new PdfPTable(columnSize);
+        table = new PdfPTable(columnSize - getHiddenColumns().size());
         table.setWidthPercentage(100f);
         if (colWidthPctgs != null) {
             try {
