@@ -28,6 +28,7 @@ import com.inepex.ineom.shared.descriptor.Node;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 
 public class ExcelRenderer extends TableRenderer {
 
@@ -255,7 +256,7 @@ public class ExcelRenderer extends TableRenderer {
         if (!definedStyles.containsKey(format)) {
             CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
             CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-            cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
             cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(format));
             definedStyles.put(format, cellStyle);
         }
