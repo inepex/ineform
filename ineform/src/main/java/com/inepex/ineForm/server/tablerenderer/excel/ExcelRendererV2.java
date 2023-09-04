@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -29,6 +30,7 @@ import com.inepex.ineom.shared.descriptor.fdesc.FDesc;
 import com.inepex.ineom.shared.descriptor.fdesc.LongFDesc;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.util.SharedUtil;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 
 public class ExcelRendererV2 extends TableRenderer {
 
@@ -91,21 +93,21 @@ public class ExcelRendererV2 extends TableRenderer {
 
             FDesc fdesc = getFieldDescForColumn(columnNode);
             CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
-            cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
             CreationHelper createHelper = sheet.getWorkbook().getCreationHelper();
             if (fdesc instanceof LongFDesc) {
-                cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+                cellStyle.setAlignment(HorizontalAlignment.RIGHT);
                 cellStyle.setDataFormat(
                     createHelper.createDataFormat().getFormat(
                         IFConsts.NumberFormat.defaultExcelWholeNumberFormat));
             } else if (fdesc instanceof DoubleFDesc) {
-                cellStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+                cellStyle.setAlignment(HorizontalAlignment.RIGHT);
                 cellStyle.setDataFormat(
                     createHelper.createDataFormat().getFormat(
                         IFConsts.NumberFormat.defaultExcelNumberFormat));
             } else {
-                cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+                cellStyle.setAlignment(HorizontalAlignment.CENTER);
             }
 
             String dataFormatOverride = null;
