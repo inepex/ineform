@@ -8,7 +8,8 @@
 	
 	<inherits name="net.customware.gwt.dispatch.Dispatch" />
 	<inherits name='com.allen_sauer.gwt.dnd.gwt-dnd-ineform'/>
-	<inherits name="com.google.gwt.inject.Inject"/>
+	<!-- GIN removed during Java 25 migration — GWT client DI to be migrated to Dagger 2 -->
+	<!-- <inherits name="com.google.gwt.inject.Inject"/> -->
 <!--	<inherits name='com.google.gwt.search.Search' />-->
 	
 </module>

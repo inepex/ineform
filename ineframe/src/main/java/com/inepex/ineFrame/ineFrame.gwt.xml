@@ -9,5 +9,5 @@
 	<source path="shared"/>
 	
 	<inherits name="net.customware.gwt.dispatch.Dispatch" />
-	<inherits name="com.google.gwt.inject.Inject"/>
+	<!-- GIN removed: <inherits name="com.google.gwt.inject.Inject"/> -->
 </module>
