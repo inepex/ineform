@@ -5,7 +5,7 @@ import java.net.URL;
 
 import jakarta.servlet.ServletException;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.google.gwt.user.server.rpc.jakarta.RemoteServiceServlet;
 import com.inepex.ineForm.shared.upload.UrlDownloadService;
 import com.inepex.ineFrame.server.util.OnDemandProperties;
 

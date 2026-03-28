@@ -29,6 +29,7 @@ public class BarI18n extends I18nModule {
 		return moduleProvider;
 	}
 
+ 
 	
 	/**
 	* <u><i>Description:</i></u> Description for bar1 <br />
@@ -38,6 +39,7 @@ public class BarI18n extends I18nModule {
 	public static String bar1() {
 		return moduleProvider.get().getText("bar1");
 	}
+ 
 	
 	/**
 	* <u><i>Description:</i></u> Description for bar2 <br />

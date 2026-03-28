@@ -29,6 +29,7 @@ public class FooI18n extends I18nModule {
 		return moduleProvider;
 	}
 
+ 
 	
 	/**
 	* <u><i>Description:</i></u> Description for foo1 <br />
@@ -38,6 +39,7 @@ public class FooI18n extends I18nModule {
 	public static String foo1() {
 		return moduleProvider.get().getText("foo1");
 	}
+ 
 	
 	/**
 	* <u><i>Description:</i></u> Description for foo2 <br />

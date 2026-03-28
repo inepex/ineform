@@ -29,7 +29,7 @@
 		<daggerVersion>2.57</daggerVersion>
 		<guiceVersion>7.0.0</guiceVersion>
 		<gwtDndVersion>3.3.0</gwtDndVersion>
-		<commonsFileUploadVersion>1.5</commonsFileUploadVersion>
+		<commonsFileUpload2Version>2.0.0-M5</commonsFileUpload2Version>
 		<commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
 		<commonsIoVersion>2.18.0</commonsIoVersion>
 		<jakartaServletVersion>6.0.0</jakartaServletVersion>

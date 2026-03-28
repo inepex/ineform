@@ -9,6 +9,8 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 
+import jakarta.servlet.ServletConnection;
+
 import jakarta.servlet.AsyncContext;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;
@@ -165,11 +167,6 @@ public class MockHttpServletRequest implements HttpServletRequest {
         return null;
     }
 
-    @Override
-    public String getRealPath(String arg0) {
-
-        return null;
-    }
 
     @Override
     public String getRemoteAddr() {
@@ -372,12 +369,6 @@ public class MockHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public boolean isRequestedSessionIdFromUrl() {
-
-        return false;
-    }
-
-    @Override
     public boolean authenticate(HttpServletResponse httpServletResponse)
         throws IOException,
         ServletException {
@@ -420,6 +411,21 @@ public class MockHttpServletRequest implements HttpServletRequest {
     public boolean isUserInRole(String arg0) {
 
         return false;
+    }
+
+    @Override
+    public ServletConnection getServletConnection() {
+        return null;
+    }
+
+    @Override
+    public String getRequestId() {
+        return null;
+    }
+
+    @Override
+    public String getProtocolRequestId() {
+        return null;
     }
 
 }

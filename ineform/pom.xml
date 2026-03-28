@@ -90,9 +90,9 @@
 			<version>${gwtDndVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>${commonsFileUploadVersion}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-fileupload2-jakarta-servlet6</artifactId>
+			<version>${commonsFileUpload2Version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>

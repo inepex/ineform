@@ -9,11 +9,12 @@ import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.AssistedObjectUtil;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
@@ -61,21 +62,16 @@ public class PropDao {
           try {
             _logger.info("Creating mongoclient with url {}, user {}, pass {}",
                 new Object[]{mongoUrl, mongoUser, mongoPass});
-            MongoClientOptions options = MongoClientOptions
-                .builder()
-                // .writeConcern(WriteConcern.FSYNCED)
-                .build();
-            if (StringUtil.isNullOrEmpty(mongoUser)) {
-              mongoClient = new MongoClient(mongoUrl, options);
-            } else {
-              mongoClient = new MongoClient(
-                  new ServerAddress(mongoUrl),
+            MongoClientSettings.Builder settingsBuilder = MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString("mongodb://" + mongoUrl));
+            if (!StringUtil.isNullOrEmpty(mongoUser)) {
+              settingsBuilder.credential(
                   MongoCredential.createCredential(
                       mongoUser,
                       "users",
-                      mongoPass.toCharArray()),
-                  options);
+                      mongoPass.toCharArray()));
             }
+            mongoClient = MongoClients.create(settingsBuilder.build());
 
           } catch (Exception e) {
             _logger.error("Unknown host: " + mongoUrl);
@@ -240,7 +236,7 @@ public class PropDao {
     BasicDBObject document = getDocument(type, id);
     if (document != null) {
       if (document.keySet().contains(group)) {
-        return ((BasicDBObject)document.get(group));
+        return ((BasicDBObject) document.get(group)).toJson();
       }
     }
     return "{}";
@@ -278,7 +274,7 @@ public class PropDao {
       return null;
     }
     BasicDBObject searchObj = new BasicDBObject(k_objectType, type);
-    searchObj.putAll(BasicDBObject.parse(searchJson));
+    searchObj.putAll((Map) BasicDBObject.parse(searchJson));
 
     FindIterable<BasicDBObject> found = getMongoDb()
         .find(searchObj).projection(Projections.include(k_objectId, "_id"));

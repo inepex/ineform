@@ -1,9 +1,9 @@
 package com.inepex.ineFrame.client.navigation.menu;
 
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.anyVararg;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -36,7 +36,7 @@ public class MenuRendererAuthManagerTest {
         final int tabCount = 3;
 
         AuthManager authManager = mock(AuthManager.class);
-        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg())).thenReturn(true);
+        when(authManager.doUserHaveAnyOfRoles(any(String[].class))).thenReturn(true);
 
         EventBus eventBus = mock(EventBus.class);
         final MenuRenderer.View.Tab[] tabs = new MenuRenderer.View.Tab[tabCount];
@@ -112,7 +112,7 @@ public class MenuRendererAuthManagerTest {
         final int tabCount = 2;
 
         AuthManager authManager = mock(AuthManager.class);
-        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg()))
+        when(authManager.doUserHaveAnyOfRoles(any(String[].class)))
             .thenAnswer(new Answer<Boolean>() {
 
                 @Override
@@ -203,7 +203,7 @@ public class MenuRendererAuthManagerTest {
         final int tabCount = 1;
 
         AuthManager authManager = mock(AuthManager.class);
-        when(authManager.doUserHaveAnyOfRoles((String[]) anyVararg()))
+        when(authManager.doUserHaveAnyOfRoles(any(String[].class)))
             .thenAnswer(new Answer<Boolean>() {
 
                 @Override

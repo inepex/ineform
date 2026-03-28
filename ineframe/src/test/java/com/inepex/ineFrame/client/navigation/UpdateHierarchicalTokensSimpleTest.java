@@ -1,7 +1,7 @@
 package com.inepex.ineFrame.client.navigation;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class UpdateHierarchicalTokensSimpleTest {
         PlaceNode pn = mock(PlaceNode.class);
         PlaceHandlerHelper.updateHierarchicalTokens("", pn);
 
-        verifyZeroInteractions(pn);
+        verifyNoInteractions(pn);
     }
 
     /**

@@ -13,10 +13,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +57,7 @@ public class UploadServlet extends HttpServlet {
         throws ServletException,
         IOException {
         // TODO: sometimes it is not multipart, why?
-        boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+        boolean isMultipart = JakartaServletFileUpload.isMultipartContent(req);
         /* Create a factory for disk-based file items */
 
         TreeMap<String, Object> query = new TreeMap<String, Object>();
@@ -66,13 +65,13 @@ public class UploadServlet extends HttpServlet {
         query.putAll(tbl);
 
         if (isMultipart) {
-            FileItemFactory factory = new DiskFileItemFactory();
+            DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
 
             /* Create a new file upload handler */
-            ServletFileUpload upload = new ServletFileUpload(factory);
+            JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
 
             /* Set overall request size constraint */
-            upload.setSizeMax(
+            upload.setMaxSize(
                 Long.parseLong(
                     props.getPropertiesInstance().getProperty(
                         IFConsts.MAX_REQUEST_SIZE,
@@ -80,7 +79,7 @@ public class UploadServlet extends HttpServlet {
 
             /* Parse the request */
             try {
-                List items = upload.parseRequest(req);
+                List<FileItem> items = upload.parseRequest(req);
 
                 // Process the uploaded items
                 Iterator iter = items.iterator();
