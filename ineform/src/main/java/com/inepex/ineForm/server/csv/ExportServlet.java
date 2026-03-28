@@ -1,6 +1,6 @@
 package com.inepex.ineForm.server.csv;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.server.Dispatch;
 

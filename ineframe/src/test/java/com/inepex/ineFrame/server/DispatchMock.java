@@ -3,7 +3,7 @@ package com.inepex.ineFrame.server;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.server.Dispatch;

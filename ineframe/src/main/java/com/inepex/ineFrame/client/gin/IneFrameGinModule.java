@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.client.gin;
 
-import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.auth.DefaultAuthManager;
@@ -24,7 +24,11 @@ import com.inepex.ineom.shared.GwtPropHandler;
 import com.inepex.ineom.shared.JsonDifference;
 import com.inepex.ineom.shared.PropHandler;
 
-public class IneFrameGinModule extends AbstractGinModule {
+/**
+ * Migrated from AbstractGinModule to AbstractModule (Guice).
+ * TODO: Migrate to Dagger 2 @Module for GWT client-side DI.
+ */
+public class IneFrameGinModule extends AbstractModule {
 
     private Class<? extends PlaceHierarchyProvider> placeHierarchyProvider;
     private Class<? extends PlaceHandler> placeHandler;

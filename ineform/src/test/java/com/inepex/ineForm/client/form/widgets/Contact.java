@@ -2,9 +2,9 @@ package com.inepex.ineForm.client.form.widgets;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import com.inepex.ineForm.annotations.Kvo_SearchParam;
 

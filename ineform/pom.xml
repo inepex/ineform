@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>4.0.20.Final</version>
+			<version>4.1.132.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inepex</groupId>
@@ -64,13 +64,24 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt.inject</groupId>
-			<artifactId>gin</artifactId>
-			<version>${ginVersion}</version>
+			<groupId>com.google.dagger</groupId>
+			<artifactId>dagger</artifactId>
+			<version>${daggerVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.dagger</groupId>
+			<artifactId>dagger-gwt</artifactId>
+			<version>${daggerVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
+			<version>${guiceVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-assistedinject</artifactId>
 			<version>${guiceVersion}</version>
 		</dependency>
 		<dependency>
@@ -94,22 +105,22 @@
 			<version>${commonsIoVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
+			<groupId>${gwtGroupId}</groupId>
 			<artifactId>gwt-dev</artifactId>
 			<version>${gwtVersion}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
+			<groupId>${gwtGroupId}</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${javaxServletVersion}</version>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${jakartaServletVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jukito</groupId>
@@ -130,7 +141,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
+			<artifactId>mongodb-driver-sync</artifactId>
 			<version>${mongoJavaDriverVersion}</version>
 		</dependency>
 		<dependency>
@@ -140,22 +151,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcmail-jdk16</artifactId>
+			<artifactId>bcmail-jdk18on</artifactId>
 			<version>${bouncyCastelVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
+			<artifactId>bcprov-jdk18on</artifactId>
 			<version>${bouncyCastelProvVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcpg-jdk16</artifactId>
+			<artifactId>bcpg-jdk18on</artifactId>
 			<version>${bouncyCastelVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bctsp-jdk16</artifactId>
+			<artifactId>bcpkix-jdk18on</artifactId>
 			<version>${bouncyCastelVersion}</version>
 		</dependency>
 	</dependencies>

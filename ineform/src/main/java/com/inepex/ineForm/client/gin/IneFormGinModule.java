@@ -1,11 +1,9 @@
 package com.inepex.ineForm.client.gin;
 
-import net.customware.gwt.dispatch.client.gin.StandardDispatchModule;
-
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
+import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.inepex.ineForm.client.datamanipulator.DataManipulator;
@@ -70,7 +68,7 @@ import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStoreMapCreator;
 import com.inepex.ineom.shared.descriptorstore.TreeDescriptorStoreMapCreator;
 
-public class IneFormGinModule extends AbstractGinModule {
+public class IneFormGinModule extends AbstractModule {
 
     private Class<? extends AsyncStatusIndicator> asyncStatusIndicator = FullscreenStatusIndicator.class;
     private Class<? extends ConnectionFailedHandler> connectionFailedHandler = DefaultFailedHandler.class;
@@ -123,7 +121,7 @@ public class IneFormGinModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-        install(new StandardDispatchModule());
+        // StandardDispatchModule removed — dispatch handled by JakartaStandardDispatchServlet
 
         bind(HistoryProvider.class).in(Singleton.class);
         bind(PushedEventProvider.class).in(Singleton.class);
@@ -149,7 +147,7 @@ public class IneFormGinModule extends AbstractGinModule {
         bind(DateProvider.class).to(dateProvider).in(Singleton.class);
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(IneForm.class, Names.named("simple"), IneForm.class)
                 .implement(IneForm.class, Names.named("saveCancel"), SaveCancelForm.class)
                 .implement(IneForm.class, Names.named("wizard"), WizardForm.class)
@@ -157,7 +155,7 @@ public class IneFormGinModule extends AbstractGinModule {
                 .build(FormFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(
                     IneDataConnector.class,
                     Names.named("serverside"),
@@ -166,7 +164,7 @@ public class IneFormGinModule extends AbstractGinModule {
                 .build(DataConnectorFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(
                     DataManipulator.class,
                     Names.named("rowCommand"),
@@ -178,7 +176,7 @@ public class IneFormGinModule extends AbstractGinModule {
                 .build(ManipulatorFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(
                     ValueRangeProvider.class,
                     Names.named("default"),
@@ -190,29 +188,29 @@ public class IneFormGinModule extends AbstractGinModule {
                 .build(ValueRangeProviderFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(ObjectFinderRest.class, ObjectFinderRest.class)
                 .build(ObjectFinderRestFactory.class));
 
         bind(PropFW.View.class).to(PropFWView.class);
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(CsvRenderer.class, CsvRenderer.class)
                 .build(CsvRendererFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(TrtdRenderer.class, TrtdRenderer.class)
                 .build(TrtdRendererFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(HtmlRenderer.class, HtmlRenderer.class)
                 .build(HtmlRendererFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(IneTable.class, Names.named("simple"), IneTable.class)
                 .implement(IneTable.class, Names.named("simple2"), IneTable.class)
                 .implement(IneTable.class, Names.named("sortable"), SortableIneTable.class)
@@ -220,7 +218,7 @@ public class IneFormGinModule extends AbstractGinModule {
                 .build(IneTableFactory.class));
 
         install(
-            new GinFactoryModuleBuilder()
+            new FactoryModuleBuilder()
                 .implement(DefaultOneParamPresenter.class, DefaultOneParamPresenter.class)
                 .build(SelectorPresenterFactory.class));
 

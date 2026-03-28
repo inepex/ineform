@@ -8,10 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-
-import org.eclipse.persistence.exceptions.DatabaseException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
 
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
@@ -202,9 +200,9 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
                         result.setObjectsNewState(kvo);
                         break;
                     } catch (PersistenceException e) {
-                        if (e.getCause() != null && e.getCause() instanceof DatabaseException
-                            && e.getCause().getCause() != null && e
-                                .getCause()
+                        if (e.getCause() != null
+                            && e.getCause().getCause() != null
+                            && e.getCause()
                                 .getCause() instanceof SQLIntegrityConstraintViolationException) {
                             // device can not be manipulated because devicetype
                             // and nativeid is not unique

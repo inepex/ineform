@@ -42,7 +42,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
+			<groupId>${gwtGroupId}</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
@@ -53,26 +53,26 @@
 		  <version>${simpleCaptchaVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
+			<groupId>${gwtGroupId}</groupId>
+			<artifactId>gwt-servlet-jakarta</artifactId>
 			<version>${gwtVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
+			<groupId>${gwtGroupId}</groupId>
 			<artifactId>gwt-dev</artifactId>
 			<version>${gwtVersion}</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-			<version>${eclipselinkVersion}</version>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernateVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-			<version>${javaxPersistenceVersion}</version>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>${jakartaPersistenceVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -81,9 +81,15 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt.inject</groupId>
-			<artifactId>gin</artifactId>
-			<version>${ginVersion}</version>
+			<groupId>com.google.dagger</groupId>
+			<artifactId>dagger</artifactId>
+			<version>${daggerVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.dagger</groupId>
+			<artifactId>dagger-gwt</artifactId>
+			<version>${daggerVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
@@ -97,14 +103,14 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>extensions-parent</artifactId>
-			<version>${guiceVersion}</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
 			<version>${guiceVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${jakartaServletVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>

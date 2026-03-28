@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.server.di.guice;
 
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServlet;
 
 import com.google.inject.servlet.ServletModule;
 

@@ -1,8 +1,8 @@
 package com.inepex.ineForm.client.form.widgets;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import com.inepex.ineForm.annotations.Kvo_DisplayName;
 import com.inepex.ineForm.annotations.Kvo_SortDefault;

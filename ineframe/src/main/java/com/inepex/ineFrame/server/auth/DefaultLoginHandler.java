@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.server.auth;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.shared.DispatchException;
 

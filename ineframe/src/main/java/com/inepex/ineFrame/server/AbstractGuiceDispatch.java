@@ -1,15 +1,15 @@
 package com.inepex.ineFrame.server;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.server.Dispatch;
-import net.customware.gwt.dispatch.server.guice.GuiceStandardDispatchServlet;
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import net.customware.gwt.dispatch.shared.Result;
 
 import com.google.inject.Provider;
+import com.inepex.ineFrame.server.dispatch.JakartaStandardDispatchServlet;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.ApplicationLangs;
 import com.inepex.inei18n.server.I18nStore_Server;
@@ -17,7 +17,7 @@ import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.MultiLangDescStore;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;
 
-public abstract class AbstractGuiceDispatch extends GuiceStandardDispatchServlet
+public abstract class AbstractGuiceDispatch extends JakartaStandardDispatchServlet
         implements IneInitializer {
 
     private static final long serialVersionUID = 1L;

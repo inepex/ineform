@@ -3,7 +3,7 @@ package com.inepex.ineForm.server.upload;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.inepex.ineForm.shared.upload.UrlDownloadService;

@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.gin;
 
-import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.ServerSideValueRangeProvider;
@@ -10,7 +10,7 @@ import com.inepex.ineForm.shared.dispatch.ManipulationObjectFactory;
 import com.inepex.ineForm.shared.dispatch.ObjectFinder;
 import com.inepex.ineFrame.client.async.IneDispatch;
 
-public class IneFormDispatcherGinModule extends AbstractGinModule {
+public class IneFormDispatcherGinModule extends AbstractModule {
 
     @Override
     protected void configure() {

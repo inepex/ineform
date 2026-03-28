@@ -1,8 +1,8 @@
 package com.inepex.ineForm.server;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Predicate;
 
 import com.google.inject.Provider;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;

@@ -2,7 +2,7 @@ package com.inepex.ineFrame.server.auth;
 
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
