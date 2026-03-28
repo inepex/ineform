@@ -17,14 +17,12 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
-import com.mongodb.util.JSON;
 import static com.mongodb.client.model.Filters.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.bson.BSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -167,7 +165,7 @@ public class PropDao {
     }
     for (String group : groups) {
       if (document.containsField(group)) {
-        object.setPropsJson(group, JSON.serialize(document.get(group)));
+        object.setPropsJson(group, ((BasicDBObject) document.get(group)).toJson());
       }
     }
   }
@@ -186,7 +184,7 @@ public class PropDao {
       for (String group : groups) {
         BasicDBObject document = documentMap.get(obj.getId());
         if (document != null) {
-          obj.setPropsJson(group, JSON.serialize(document.get(group)));
+          obj.setPropsJson(group, ((BasicDBObject) document.get(group)).toJson());
         }
       }
     }
@@ -213,7 +211,7 @@ public class PropDao {
     if (changesJsonObj == null || changesJsonObj.equals("")) {
       return;
     }
-    BasicDBObject changes = (BasicDBObject) JSON.parse(changesJsonObj);
+    BasicDBObject changes = BasicDBObject.parse(changesJsonObj);
     BasicDBObject document = getDocument(type, id);
     if (document == null) {
       document = createDocument(type, id);
@@ -242,7 +240,7 @@ public class PropDao {
     BasicDBObject document = getDocument(type, id);
     if (document != null) {
       if (document.keySet().contains(group)) {
-        return JSON.serialize(document.get(group));
+        return ((BasicDBObject)document.get(group));
       }
     }
     return "{}";
@@ -280,7 +278,7 @@ public class PropDao {
       return null;
     }
     BasicDBObject searchObj = new BasicDBObject(k_objectType, type);
-    searchObj.putAll((BSONObject) JSON.parse(searchJson));
+    searchObj.putAll(BasicDBObject.parse(searchJson));
 
     FindIterable<BasicDBObject> found = getMongoDb()
         .find(searchObj).projection(Projections.include(k_objectId, "_id"));
@@ -347,7 +345,7 @@ public class PropDao {
     for (Entry<String, String> propEntry : props.entrySet()) {
       String group = propEntry.getKey();
       String jsonValue = propEntry.getValue();
-      doc.append(group, JSON.parse(jsonValue));
+      doc.append(group, BasicDBObject.parse(jsonValue));
     }
     getMongoDb().insertOne(doc);
   }
@@ -362,7 +360,7 @@ public class PropDao {
     BasicDBObject updateQuery = new BasicDBObject();
     for (String group : propsToDeleteJson.keySet()) {
       String keyValue = propsToDeleteJson.get(group);
-      BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
+      BasicDBObject obj = BasicDBObject.parse(keyValue);
       for (String key : obj.keySet()) {
         Object value = propsToDeleteJson.get(key);
         updateQuery.append("$unset", new BasicDBObject().append(group + "." + key, value));

@@ -43,7 +43,7 @@ import java.awt.image.Kernel;
 import java.util.HashMap;
 import java.util.Map;
 
-import sun.awt.image.BufferedImageGraphicsConfig;
+// sun.awt.image.BufferedImageGraphicsConfig removed — inaccessible in Java 17+
 
 /**
  * High-Quality Image Resize with Java http://www.componenthouse.com/article-20
@@ -112,7 +112,9 @@ public class ComponentHouseResizer {
     }
 
     private static BufferedImage createCompatibleImage(BufferedImage image) {
-        GraphicsConfiguration gc = BufferedImageGraphicsConfig.getConfig(image);
+        Graphics2D tempG2 = image.createGraphics();
+        GraphicsConfiguration gc = tempG2.getDeviceConfiguration();
+        tempG2.dispose();
         int w = image.getWidth();
         int h = image.getHeight();
         BufferedImage result = gc.createCompatibleImage(w, h, Transparency.TRANSLUCENT);

@@ -28,7 +28,6 @@ import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulation;
 import com.inepex.ineom.shared.dispatch.interfaces.ObjectManipulationResult;
 import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 import com.mongodb.BasicDBObject;
-import com.mongodb.util.JSON;
 
 public abstract class BaseDao<E> implements KVManipulatorDaoBase {
 
@@ -316,7 +315,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
         for (String group : jsonMap.keySet()) {
             String keyValue = jsonMap.get(group);
             BasicDBObject search = new BasicDBObject();
-            BasicDBObject obj = (BasicDBObject) JSON.parse(keyValue);
+            BasicDBObject obj = BasicDBObject.parse(keyValue);
             for (String key : obj.keySet()) {
                 if (key.startsWith("#"))
                     continue;
@@ -335,7 +334,7 @@ public abstract class BaseDao<E> implements KVManipulatorDaoBase {
                 }
             }
             List<Long> ids = mongoDao
-                .findObjectIds(action.getDescriptorName(), JSON.serialize(search));
+                .findObjectIds(action.getDescriptorName(), search.toJson());
             idSet.addAll(ids);
         }
         while (iterator.hasNext()) {
