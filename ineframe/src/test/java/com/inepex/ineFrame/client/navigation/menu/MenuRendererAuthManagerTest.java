@@ -50,7 +50,7 @@ public class MenuRendererAuthManagerTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+        when(view.createTab(anyString(), Mockito.nullable(Image.class), anyInt()))
             .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
@@ -74,7 +74,7 @@ public class MenuRendererAuthManagerTest {
         verify(view, times(1)).clearLevel(anyInt());
 
         // 4 menu item
-        verify(view, times(tabCount)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+        verify(view, times(tabCount)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
 
         // place1
         verify(tabs[0], times(1)).setClickable(true);
@@ -151,7 +151,7 @@ public class MenuRendererAuthManagerTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+        when(view.createTab(anyString(), Mockito.nullable(Image.class), anyInt()))
             .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
@@ -175,7 +175,7 @@ public class MenuRendererAuthManagerTest {
         verify(view, times(1)).clearLevel(anyInt());
 
         // 4 menu item
-        verify(view, times(tabCount)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+        verify(view, times(tabCount)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
 
         // place1
         verify(tabs[0], times(1)).setClickable(true);
@@ -233,7 +233,7 @@ public class MenuRendererAuthManagerTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+        when(view.createTab(anyString(), Mockito.nullable(Image.class), anyInt()))
             .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
@@ -257,7 +257,7 @@ public class MenuRendererAuthManagerTest {
         verify(view, times(1)).clearLevel(anyInt());
 
         // 4 menu item
-        verify(view, times(tabCount)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+        verify(view, times(tabCount)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
 
         // place2
         verify(tabs[0], times(1)).setClickable(true);

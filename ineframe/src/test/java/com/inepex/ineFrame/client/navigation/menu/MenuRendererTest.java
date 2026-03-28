@@ -42,7 +42,7 @@ public class MenuRendererTest extends MenuRendererTestBase {
         renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
 
         verify(view, times(1)).clearLevel(anyInt());
-        verify(view, never()).createTab(anyString(), Mockito.any(Image.class), anyInt());
+        verify(view, never()).createTab(anyString(), Mockito.nullable(Image.class), anyInt());
     }
 
     /**
@@ -65,8 +65,8 @@ public class MenuRendererTest extends MenuRendererTestBase {
         verify(view, times(1)).clearLevel(anyInt());
 
         // 3 visible menu item
-        verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), anyInt());
-        verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+        verify(view, times(3)).createTab(anyString(), Mockito.nullable(Image.class), anyInt());
+        verify(view, times(3)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
 
         // has menu name
         verifyTab(tabs[0], true, true, false);
@@ -100,8 +100,8 @@ public class MenuRendererTest extends MenuRendererTestBase {
         verify(view, times(1)).clearLevel(anyInt());
 
         // 3 visible menu item
-        verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), anyInt());
-        verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), eq(0));
+        verify(view, times(3)).createTab(anyString(), Mockito.nullable(Image.class), anyInt());
+        verify(view, times(3)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
 
         // has menu name
         verifyTab(tabs[0], true, true, false);

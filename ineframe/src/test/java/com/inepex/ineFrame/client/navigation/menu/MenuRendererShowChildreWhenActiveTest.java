@@ -61,7 +61,7 @@ public class MenuRendererShowChildreWhenActiveTest {
         renderer.realizeNewPlaceOnMenu(phProvider.parentPlace, null);
 
         verify(view, times(1)).clearLevel(anyInt());
-        verify(view, never()).createTab(anyString(), Mockito.any(Image.class), anyInt());
+        verify(view, never()).createTab(anyString(), Mockito.nullable(Image.class), anyInt());
     }
 
     /**
@@ -83,7 +83,7 @@ public class MenuRendererShowChildreWhenActiveTest {
                 return view;
             }
         };
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+        when(view.createTab(anyString(), Mockito.nullable(Image.class), anyInt()))
             .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
@@ -109,9 +109,9 @@ public class MenuRendererShowChildreWhenActiveTest {
         renderer.realizeNewPlaceOnMenu(phProvider.plainPlace, null);
 
         // 4 menu item
-        verify(view, times(3)).createTab(anyString(), Mockito.any(Image.class), anyInt());
-        verify(view, times(2)).createTab(anyString(), Mockito.any(Image.class), eq(0));
-        verify(view, times(1)).createTab(anyString(), Mockito.any(Image.class), eq(1));
+        verify(view, times(3)).createTab(anyString(), Mockito.nullable(Image.class), anyInt());
+        verify(view, times(2)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
+        verify(view, times(1)).createTab(anyString(), Mockito.nullable(Image.class), eq(1));
 
         // visibleItem1
         verify(tabs[2], times(1)).setClickable(true);
@@ -144,7 +144,7 @@ public class MenuRendererShowChildreWhenActiveTest {
             }
         };
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+        when(view.createTab(anyString(), Mockito.nullable(Image.class), anyInt()))
             .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 int i = 0;
@@ -173,9 +173,9 @@ public class MenuRendererShowChildreWhenActiveTest {
         verify(view, times(1)).clearLevel(anyInt());
 
         // 4 menu item
-        verify(view, times(4)).createTab(anyString(), Mockito.any(Image.class), anyInt());
-        verify(view, times(2)).createTab(anyString(), Mockito.any(Image.class), eq(0));
-        verify(view, times(2)).createTab(anyString(), Mockito.any(Image.class), eq(1));
+        verify(view, times(4)).createTab(anyString(), Mockito.nullable(Image.class), anyInt());
+        verify(view, times(2)).createTab(anyString(), Mockito.nullable(Image.class), eq(0));
+        verify(view, times(2)).createTab(anyString(), Mockito.nullable(Image.class), eq(1));
 
         // visibleItem2
         verify(tabs[2], times(1)).setClickable(true);

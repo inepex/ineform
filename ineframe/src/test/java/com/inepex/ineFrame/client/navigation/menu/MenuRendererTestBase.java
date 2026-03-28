@@ -45,7 +45,7 @@ public class MenuRendererTestBase {
 
         renderer = new MenuRenderer(phProvider, eventBus, viewProv, new NoAuthManager());
 
-        when(view.createTab(anyString(), Mockito.any(Image.class), anyInt()))
+        when(view.createTab(anyString(), Mockito.nullable(Image.class), anyInt()))
             .thenAnswer(new Answer<MenuRenderer.View.Tab>() {
 
                 @Override
