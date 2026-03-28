@@ -156,6 +156,11 @@
 						<exclude>**/*ComplexTest*.java</exclude>
 						<exclude>**/*LearningTest*.java</exclude>
 					</excludes>
+					<argLine>
+						--add-opens java.base/java.lang=ALL-UNNAMED
+						--add-opens java.base/java.util=ALL-UNNAMED
+						-Dnet.bytebuddy.experimental=true
+					</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
