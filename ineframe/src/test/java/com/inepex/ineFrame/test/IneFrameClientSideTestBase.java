@@ -3,7 +3,7 @@ package com.inepex.ineFrame.test;
 import java.util.List;
 
 import com.google.gwt.junit.GWTMockUtilities;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.server.IneInitializer;
 import com.inepex.ineFrame.server.MockCurrentLang;
 import com.inepex.ineFrame.server.MockI18n;

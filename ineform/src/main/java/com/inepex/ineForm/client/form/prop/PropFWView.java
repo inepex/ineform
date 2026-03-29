@@ -11,7 +11,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.Label;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.client.form.error.ErrorMessageManagerInterface;
 import com.inepex.ineForm.client.general.IneButton;
 import com.inepex.ineForm.client.general.IneButton.Color;

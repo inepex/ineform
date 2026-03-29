@@ -18,7 +18,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.SaveCancelForm.ValidateMode;
 import com.inepex.ineForm.client.form.error.SimpleTableErrorMessageManager;

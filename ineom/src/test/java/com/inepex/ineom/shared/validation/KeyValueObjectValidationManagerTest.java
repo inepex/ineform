@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.inei18n.server.I18nStore_Server;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.server.ServerIneOmI18nProvider;

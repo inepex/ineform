@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.kvo.ContactConsts;
 import com.inepex.example.ineForm.entity.kvo.ContactTypeConsts;
 import com.inepex.example.ineForm.entity.kvo.NationalityConsts;

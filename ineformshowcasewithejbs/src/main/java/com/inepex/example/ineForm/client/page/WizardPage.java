@@ -7,7 +7,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.kvo.ContactConsts;
 import com.inepex.ineForm.client.form.CustomCode;
 import com.inepex.ineForm.client.form.FormFactory;

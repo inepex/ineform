@@ -19,7 +19,7 @@ import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Image;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.DefaultPlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.InePlace;

@@ -1,8 +1,8 @@
 package com.inepex.translatorapp.client.page;
 
 import com.google.gwt.user.client.ui.HTML;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator.DeleteCommand;

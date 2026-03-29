@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.shared.BaseMapper;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.IneList;

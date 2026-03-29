@@ -14,7 +14,7 @@ import org.mockito.stubbing.Answer;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Image;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.auth.NoAuthManager;
 import com.inepex.ineFrame.client.navigation.PlaceHierarchyProvider;
 import com.inepex.ineFrame.client.navigation.menu.MenuRenderer.View;

@@ -1,6 +1,6 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.kvo.UserConsts;
 import com.inepex.example.ContactManager.entity.kvo.UserHandlerFactory;

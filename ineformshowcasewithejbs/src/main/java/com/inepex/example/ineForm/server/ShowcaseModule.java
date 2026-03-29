@@ -1,6 +1,6 @@
 package com.inepex.example.ineForm.server;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.core.command.filter.CommandFilter;
 import com.inepex.core.command.proto.ProtoCommandType.PrCommandType;
 import com.inepex.core.module.DispatcherClient;

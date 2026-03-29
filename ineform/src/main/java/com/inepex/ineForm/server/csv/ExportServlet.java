@@ -4,9 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.server.Dispatch;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;
 import com.inepex.ineForm.server.tablerenderer.pdf.PdfRenderer.PdfRendererFactory;

@@ -2,7 +2,7 @@ package com.inepex.example.ineForm.client.page;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.kvo.ContactConsts;
 import com.inepex.example.ineForm.entity.kvo.ContactHandlerFactory;
 import com.inepex.example.ineForm.entity.kvo.ContactHandlerFactory.ContactHandler;

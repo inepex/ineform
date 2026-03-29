@@ -16,7 +16,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.handler.SetActionForExportServletHandler;
 import com.inepex.ineForm.server.tablerenderer.excel.ExcelRenderer.ExcelRendererFactory;

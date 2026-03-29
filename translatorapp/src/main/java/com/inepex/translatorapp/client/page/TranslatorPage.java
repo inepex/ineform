@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.widgets.ListBoxFW;
 import com.inepex.ineForm.client.form.widgets.RadioEnumSelectorFW;

@@ -1,7 +1,7 @@
 package com.inepex.ineFrame.client.util;
 
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.shared.util.NumberFormatter;
 
 @Singleton

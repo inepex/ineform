@@ -12,7 +12,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.inei18n.client.I18nStore_Client;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;

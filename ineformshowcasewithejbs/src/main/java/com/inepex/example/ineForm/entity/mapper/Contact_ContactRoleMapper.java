@@ -1,6 +1,6 @@
 package com.inepex.example.ineForm.entity.mapper;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.Contact_ContactRole;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleConsts;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleHandlerFactory;

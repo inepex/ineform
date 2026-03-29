@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.i18n.client.constants.TimeZoneConstants;
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.server.util.TimeZoneEnum;
 import com.inepex.ineFrame.shared.util.date.DateHelper;
 import com.inepex.ineFrame.shared.util.date.DateProvider;

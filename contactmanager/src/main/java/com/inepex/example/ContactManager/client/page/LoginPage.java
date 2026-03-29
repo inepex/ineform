@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.widget.LoginBox;

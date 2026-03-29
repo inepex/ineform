@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.form;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;
 import com.inepex.ineFrame.client.async.IneDispatch;

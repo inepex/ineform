@@ -11,7 +11,7 @@ import nl.captcha.Captcha;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;
 import com.inepex.ineFrame.shared.auth.LoginAction;

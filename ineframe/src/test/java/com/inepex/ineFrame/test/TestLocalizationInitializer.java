@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.test;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.server.IneInitializer;
 import com.inepex.ineFrame.server.LocalizationInitializer;
 import com.inepex.ineFrame.server.MockI18n;

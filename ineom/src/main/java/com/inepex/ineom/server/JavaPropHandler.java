@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.HasProp;
 import com.inepex.ineom.shared.PropHandler;
 

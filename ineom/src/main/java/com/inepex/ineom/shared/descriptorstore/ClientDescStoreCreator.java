@@ -1,6 +1,6 @@
 package com.inepex.ineom.shared.descriptorstore;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.server.DescStoreCreator;
 
 public class ClientDescStoreCreator implements DescStoreCreator {

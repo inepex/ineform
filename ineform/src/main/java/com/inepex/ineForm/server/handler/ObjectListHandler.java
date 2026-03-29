@@ -7,9 +7,9 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;

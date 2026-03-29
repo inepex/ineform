@@ -13,7 +13,8 @@ import net.customware.gwt.dispatch.shared.Result;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.async.FullscreenStatusIndicator;
@@ -25,6 +26,7 @@ import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.shared.IneFrameProperties;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;
 
+@Singleton
 public class PushedEventProvider {
 
     private Map<Action<?>, PushedActionContext<?>> requestedActions = new LinkedHashMap<Action<?>, PushedActionContext<?>>();

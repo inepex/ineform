@@ -1,8 +1,8 @@
 package com.inepex.example.ContactManager.client.navigation;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.client.async.ConnectionFailedHandler;
 import com.inepex.ineFrame.client.auth.AuthManager;
 import com.inepex.ineFrame.client.navigation.HistoryProvider;

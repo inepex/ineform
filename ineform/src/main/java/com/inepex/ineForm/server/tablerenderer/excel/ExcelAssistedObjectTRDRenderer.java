@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;

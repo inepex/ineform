@@ -8,7 +8,7 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.server.BaseQuery;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.descriptorstore.DescriptorStore;

@@ -3,8 +3,8 @@ package com.inepex.ineForm.client.util;
 import java.util.Date;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.shared.util.date.DateFormatter;
 import com.inepex.ineFrame.shared.util.date.DateProvider;
 

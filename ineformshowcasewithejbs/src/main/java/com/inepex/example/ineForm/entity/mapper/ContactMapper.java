@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.Contact;
 import com.inepex.example.ineForm.entity.ContactAddresDetail;
 import com.inepex.example.ineForm.entity.ContactCTypeRel;

@@ -8,7 +8,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.shared.dispatch.RelationListAction;
 import com.inepex.ineForm.shared.dispatch.RelationListActionResult;

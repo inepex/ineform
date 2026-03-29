@@ -1,8 +1,8 @@
 package com.inepex.ineForm.client.form;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.form.factories.FormUnitFactory;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;

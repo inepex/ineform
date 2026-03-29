@@ -11,11 +11,13 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.navigation.defaults.DefaultIneFrameMasterPage;
 import com.inepex.ineFrame.client.util.DesignConstants;
 
+@Singleton
 public class MessagePanelWidget extends Grid implements MessagePanel {
 
     private LinkedList<Message> messages;

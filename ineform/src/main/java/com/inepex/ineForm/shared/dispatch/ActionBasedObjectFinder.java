@@ -2,7 +2,7 @@ package com.inepex.ineForm.shared.dispatch;
 
 import java.util.List;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineFrame.client.async.AsyncStatusIndicator;
 import com.inepex.ineFrame.client.async.IneDispatch;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;

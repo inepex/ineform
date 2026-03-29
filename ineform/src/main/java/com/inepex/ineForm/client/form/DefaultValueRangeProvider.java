@@ -1,6 +1,5 @@
 package com.inepex.ineForm.client.form;
 
-import com.google.inject.Inject;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeProvider;
 import com.inepex.ineForm.client.datamanipulator.ValueRangeResultCallback;
 import com.inepex.ineFrame.client.async.IneDispatchBase.SuccessCallback;
@@ -12,7 +11,6 @@ import com.inepex.ineom.shared.dispatch.interfaces.RelationListResult;
 
 public abstract class DefaultValueRangeProvider implements ValueRangeProvider {
 
-    @Inject
     public DefaultValueRangeProvider() {}
 
     @Override

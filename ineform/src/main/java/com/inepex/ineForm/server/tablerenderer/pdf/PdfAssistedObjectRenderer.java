@@ -1,6 +1,6 @@
 package com.inepex.ineForm.server.tablerenderer.pdf;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.shared.descriptorext.TableRDesc;
 import com.inepex.ineForm.shared.descriptorext.TableRDescBase;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;

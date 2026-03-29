@@ -10,7 +10,7 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 
 public class GwtPropHandler extends PropHandler {
 

@@ -2,9 +2,9 @@ package com.inepex.example.ContactManager.server.handler;
 
 import javax.servlet.http.HttpSession;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.dao.UserDao;
 import com.inepex.ineFrame.server.auth.AbstractLoginHandler;

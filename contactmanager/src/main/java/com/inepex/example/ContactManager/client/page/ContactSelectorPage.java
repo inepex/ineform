@@ -8,7 +8,7 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;

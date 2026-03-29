@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.ByteStreams;
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 import com.itextpdf.text.pdf.BaseFont;
 
 @Singleton

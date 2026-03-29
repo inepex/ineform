@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;
 import com.inepex.ineom.shared.descriptor.ValidatorDesc;

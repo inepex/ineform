@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.shared.Nullable;

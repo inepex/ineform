@@ -3,7 +3,7 @@ package com.inepex.example.ContactManager.client.page;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.entity.kvo.MeetingConsts;
 import com.inepex.ineForm.client.pages.ConnectorPage;
 import com.inepex.ineForm.client.table.AbstractIneTable.SelectionBehaviour;

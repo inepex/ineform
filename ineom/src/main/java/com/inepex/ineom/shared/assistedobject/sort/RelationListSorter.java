@@ -1,6 +1,6 @@
 package com.inepex.ineom.shared.assistedobject.sort;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.Relation;
 
 import java.util.Collections;

@@ -8,7 +8,7 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.Contact_ContactRole;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleHandlerFactory;
 import com.inepex.example.ineForm.entity.kvo.Contact_ContactRoleHandlerFactory.Contact_ContactRoleSearchHandler;

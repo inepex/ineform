@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Predicate;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineom.shared.dispatch.interfaces.AbstractSearch;
 
 public class CriteriaSelector<ResultType, RootType>

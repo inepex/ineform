@@ -3,7 +3,7 @@ import com.inepex.ineom.shared.i18n.IneOmI18n;
 
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 
 public class ServerIneOmI18nProvider extends ServerI18nProvider<IneOmI18n> {
 

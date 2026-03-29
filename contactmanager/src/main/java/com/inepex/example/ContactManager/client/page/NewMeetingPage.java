@@ -1,6 +1,6 @@
 package com.inepex.example.ContactManager.client.page;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.ContactConsts;
 import com.inepex.example.ContactManager.entity.kvo.ContactHandlerFactory;

@@ -4,7 +4,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.view.client.HasData;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.dispatch.ObjectListAction;
 import com.inepex.ineForm.shared.dispatch.ObjectListActionResult;

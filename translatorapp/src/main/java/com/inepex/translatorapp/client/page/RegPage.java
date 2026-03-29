@@ -5,7 +5,7 @@ import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.form.SaveCancelForm;
 import com.inepex.ineForm.client.form.events.BeforeSaveEvent;

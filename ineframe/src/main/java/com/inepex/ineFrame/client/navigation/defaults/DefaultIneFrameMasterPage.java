@@ -3,8 +3,8 @@ package com.inepex.ineFrame.client.navigation.defaults;
 import java.util.Map;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.client.RESOURCES.ResourceHelper;
 import com.inepex.ineFrame.client.navigation.AbstractMasterPage;
 import com.inepex.ineFrame.client.navigation.InePlace;

@@ -1,7 +1,7 @@
 package com.inepex.ineForm.server.prop.mongo;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.google.inject.name.Named;
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineom.shared.IFConsts;

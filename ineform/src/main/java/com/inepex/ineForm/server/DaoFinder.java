@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class DaoFinder {

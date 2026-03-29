@@ -1,7 +1,7 @@
 package com.inepex.example.ineForm.client.page;
 
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.client.form.FormFactory;
 import com.inepex.ineForm.client.table.DataConnectorFactory;
 import com.inepex.ineFrame.client.async.IneDispatch;

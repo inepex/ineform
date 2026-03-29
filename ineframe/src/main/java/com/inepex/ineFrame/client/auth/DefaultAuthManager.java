@@ -1,10 +1,12 @@
 package com.inepex.ineFrame.client.auth;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.async.IneDispatch;
 
+@Singleton
 public class DefaultAuthManager extends AbstractAuthManager {
 
     @Inject

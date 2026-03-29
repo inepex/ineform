@@ -1,6 +1,6 @@
 package com.inepex.ineForm.server.tablerenderer.pdf;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.BaseFont;

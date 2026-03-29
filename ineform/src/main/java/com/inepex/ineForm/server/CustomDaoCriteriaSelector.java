@@ -10,7 +10,7 @@ import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Root;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.google.inject.persist.Transactional;
 
 public class CustomDaoCriteriaSelector<ResultType, RootType> {

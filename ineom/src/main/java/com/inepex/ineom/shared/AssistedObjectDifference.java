@@ -1,6 +1,6 @@
 package com.inepex.ineom.shared;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;
 import com.inepex.ineom.shared.descriptor.fdesc.FDesc;

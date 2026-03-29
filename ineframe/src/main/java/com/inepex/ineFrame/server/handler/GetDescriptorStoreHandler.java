@@ -6,7 +6,7 @@ import java.util.Map;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;
 import com.inepex.ineFrame.shared.GetDescStore;
 import com.inepex.ineFrame.shared.GetDescStoreResult;
@@ -34,14 +34,23 @@ public class GetDescriptorStoreHandler
         return GetDescStore.class;
     }
 
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(GetDescriptorStoreHandler.class);
+
     @Override
     protected GetDescStoreResult doExecute(GetDescStore action, ExecutionContext context)
         throws AuthenticationException,
         DispatchException {
 
+        LOG.info("GetDescStore called. descStore class={}, isMultiLang={}",
+            descStore.getClass().getName(), descStore instanceof MultiLangDescStore);
+
         if (descStore instanceof MultiLangDescStore) {
             GetDescStoreResult result = new GetDescStoreResult();
             handleMultiLangDescStore(descStore, result);
+            LOG.info("GetDescStore returning {} objectDescs, has whiteLabelSearchDesc={}",
+                result.getObjectDescs() != null ? result.getObjectDescs().size() : 0,
+                result.getObjectDescs() != null && result.getObjectDescs().stream()
+                    .anyMatch(od -> "whiteLabelSearchDescriptor".equals(od.getName())));
             return result;
         }
 

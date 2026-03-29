@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.google.gwt.user.client.Cookies;
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 import com.inepex.inei18n.shared.ClientI18nProvider;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieResult;

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.google.inject.persist.Transactional;
 import com.inepex.ineForm.server.prop.mongo.PropDao;
 import com.inepex.ineForm.shared.BaseMapper;

@@ -1,6 +1,6 @@
 package com.inepex.ineFrame.client.navigation.places;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.navigation.InePlace;
 import com.inepex.ineFrame.client.page.InePage;
 

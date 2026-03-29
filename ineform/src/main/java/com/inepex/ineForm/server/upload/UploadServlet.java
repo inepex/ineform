@@ -20,7 +20,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.server.util.OnDemandProperties;
 import com.inepex.ineom.shared.IFConsts;
 

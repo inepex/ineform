@@ -1,8 +1,8 @@
 package com.inepex.ineFrame.client.navigation;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class AnalyticsHandler implements PlaceChangedHandler {

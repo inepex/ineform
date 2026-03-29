@@ -12,7 +12,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.async.ConnectionEvent.ConnectionEventHandler;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceHandler;

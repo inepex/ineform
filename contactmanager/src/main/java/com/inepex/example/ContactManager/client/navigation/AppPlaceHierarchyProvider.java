@@ -2,9 +2,9 @@ package com.inepex.example.ContactManager.client.navigation;
 
 import java.util.List;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.page.CompanyContactEditPage;
 import com.inepex.example.ContactManager.client.page.CompanyDeletePage;

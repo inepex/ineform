@@ -2,7 +2,7 @@ package com.inepex.ineForm.shared.dispatch;
 
 import java.util.List;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandlerFactory;
 import com.inepex.ineom.shared.IFConsts;
 import com.inepex.ineom.shared.PropHandler;

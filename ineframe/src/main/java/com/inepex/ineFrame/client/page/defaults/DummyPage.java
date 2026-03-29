@@ -1,7 +1,7 @@
 package com.inepex.ineFrame.client.page.defaults;
 
 import com.google.gwt.user.client.ui.HTML;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineFrame.client.i18n.IneFrameI18n;
 import com.inepex.ineFrame.client.page.FlowPanelBasedPage;
 

@@ -3,7 +3,7 @@ package com.inepex.example.ContactManager.client.page;
 import java.util.Arrays;
 import java.util.Map;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.ineForm.client.form.FormContext;

@@ -6,7 +6,7 @@ import javax.persistence.EntityTransaction;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.example.ineForm.EntityManagerInitializier;
 import com.inepex.example.ineForm.entity.ContactTestData;
 import com.inepex.example.ineForm.entity.assist.ContactAssist;

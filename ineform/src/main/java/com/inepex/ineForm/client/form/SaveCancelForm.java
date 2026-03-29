@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.events.AfterObjectDiffAndBeforeSaveEvent;
 import com.inepex.ineForm.client.form.events.AfterUnsuccessfulSaveEvent;

@@ -6,10 +6,12 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.ineFrame.shared.PingAction;
 import com.inepex.ineFrame.shared.PingResult;
 
+@Singleton
 public class ExponentialBackoffHandler implements ConnectionFailedHandler {
 
     private class WaitTimer extends Timer {

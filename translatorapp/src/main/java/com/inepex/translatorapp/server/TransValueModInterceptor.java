@@ -3,7 +3,7 @@ package com.inepex.translatorapp.server;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.shared.dispatch.ObjectManipulationAction;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.shared.exceptions.AuthenticationException;

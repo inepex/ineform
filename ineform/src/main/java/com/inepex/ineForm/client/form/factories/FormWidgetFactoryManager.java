@@ -1,6 +1,6 @@
 package com.inepex.ineForm.client.form.factories;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;
 import com.inepex.ineForm.client.form.prop.PropFW;

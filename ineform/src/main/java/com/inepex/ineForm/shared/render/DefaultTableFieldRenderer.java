@@ -3,7 +3,7 @@ package com.inepex.ineForm.shared.render;
 import java.util.Map;
 
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.client.IneFormProperties;
 import com.inepex.ineForm.client.form.widgets.EnumListFW;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;

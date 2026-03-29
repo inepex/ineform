@@ -1,6 +1,6 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.entity.PhoneNumber;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberConsts;

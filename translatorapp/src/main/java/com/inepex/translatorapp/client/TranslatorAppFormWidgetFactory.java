@@ -1,7 +1,7 @@
 package com.inepex.translatorapp.client;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.client.form.FormContext;
 import com.inepex.ineForm.client.form.factories.FormWidgetFactory;
 import com.inepex.ineForm.client.form.formunits.AbstractFormUnit;

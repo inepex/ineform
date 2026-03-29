@@ -5,8 +5,10 @@ import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.Result;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class IneDispatch extends IneDispatchBase<Action<? extends Result>> {
 
     private DispatchAsync dispatcher;

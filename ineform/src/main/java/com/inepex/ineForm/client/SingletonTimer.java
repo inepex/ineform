@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import com.google.gwt.user.client.Timer;
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class SingletonTimer {

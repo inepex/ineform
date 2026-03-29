@@ -1,7 +1,7 @@
 package com.inepex.ineForm.client.form;
 
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.client.form.panelwidgets.PanelWidget;
 import com.inepex.ineForm.client.form.panelwidgets.StepperPanelWidget;

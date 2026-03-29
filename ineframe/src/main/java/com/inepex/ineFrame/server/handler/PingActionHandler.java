@@ -3,8 +3,8 @@ package com.inepex.ineFrame.server.handler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.DispatchException;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.shared.PingAction;
 import com.inepex.ineFrame.shared.PingResult;
 import com.inepex.ineFrame.shared.auth.AuthStatusResultBase;

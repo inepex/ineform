@@ -1,7 +1,7 @@
 package com.inepex.translatorapp.shared.kvo;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.HandlerFactoryI;
 import com.inepex.ineom.shared.IneList;

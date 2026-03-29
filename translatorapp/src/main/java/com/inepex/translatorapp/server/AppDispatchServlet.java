@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.customware.gwt.dispatch.server.Dispatch;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.ineForm.client.i18n.IneFormI18n;
 import com.inepex.ineForm.server.DaoFinder;
 import com.inepex.ineForm.server.i18n.ServerIneFormI18nProvider;

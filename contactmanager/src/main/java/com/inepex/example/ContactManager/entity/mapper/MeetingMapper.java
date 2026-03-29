@@ -1,6 +1,6 @@
 package com.inepex.example.ContactManager.entity.mapper;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.entity.Company;
 import com.inepex.example.ContactManager.entity.Contact;
 import com.inepex.example.ContactManager.entity.Meeting;

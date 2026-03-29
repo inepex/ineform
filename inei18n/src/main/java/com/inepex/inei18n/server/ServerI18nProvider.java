@@ -6,7 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nModuleProvider;

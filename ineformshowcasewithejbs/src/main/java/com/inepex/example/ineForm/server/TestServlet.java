@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import com.inepex.example.ineForm.entity.ContactType;
 import com.inepex.example.ineForm.entity.dao.ContactTypeDao;
 import com.inepex.example.ineForm.entity.kvo.ContactTypeHandlerFactory;

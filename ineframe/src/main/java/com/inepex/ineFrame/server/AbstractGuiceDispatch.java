@@ -8,7 +8,7 @@ import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import net.customware.gwt.dispatch.shared.Result;
 
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.server.dispatch.JakartaStandardDispatchServlet;
 import com.inepex.ineFrame.shared.dispatch.Loggable;
 import com.inepex.inei18n.server.ApplicationLangs;

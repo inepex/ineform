@@ -1,6 +1,6 @@
 package com.inepex.example.ineForm.entity.kvo;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.AssistedObjectHandler;
 import com.inepex.ineom.shared.assistedobject.AssistedObject;
 import com.inepex.ineom.shared.assistedobject.KeyValueObject;

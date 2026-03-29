@@ -19,8 +19,8 @@ import org.supercsv.exception.SuperCsvException;
 import org.supercsv.io.CsvMapReader;
 import org.supercsv.prefs.CsvPreference;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineFrame.server.auth.SessionScopedAuthStat;
 import com.inepex.ineFrame.server.dispatch.AbstractIneHandler;

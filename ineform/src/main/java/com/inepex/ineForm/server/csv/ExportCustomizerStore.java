@@ -3,7 +3,7 @@ package com.inepex.ineForm.server.csv;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.shared.render.TableFieldRenderer;
 
 public class ExportCustomizerStore {

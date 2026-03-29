@@ -7,8 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.ineom.shared.descriptor.DescriptorBase;
 import com.inepex.ineom.shared.descriptor.ObjectDesc;

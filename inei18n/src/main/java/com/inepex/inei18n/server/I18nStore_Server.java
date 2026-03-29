@@ -8,7 +8,7 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.inei18n.shared.I18nModule;
 import com.inepex.inei18n.shared.I18nStoreBase;
 import com.inepex.inei18n.shared.LocalizedString;

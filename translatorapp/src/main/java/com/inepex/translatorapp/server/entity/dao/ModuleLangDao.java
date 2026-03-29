@@ -2,8 +2,8 @@ package com.inepex.translatorapp.server.entity.dao;
 
 import javax.persistence.EntityManager;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import com.google.inject.Singleton;
 import com.inepex.ineForm.server.BaseDao;
 import com.inepex.ineForm.server.BaseQuery;

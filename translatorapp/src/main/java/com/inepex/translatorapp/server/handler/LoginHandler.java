@@ -2,9 +2,9 @@ package com.inepex.translatorapp.server.handler;
 
 import javax.servlet.http.HttpSession;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.ineForm.server.util.StringUtil;
 import com.inepex.ineFrame.server.auth.AbstractLoginHandler;
 import com.inepex.ineFrame.server.auth.AuthUser;

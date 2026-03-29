@@ -1,6 +1,6 @@
 package com.inepex.translatorapp.client.page;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.ineForm.client.datamanipulator.DataManipulator;
 import com.inepex.ineForm.client.datamanipulator.ManipulatorFactory;
 import com.inepex.ineForm.client.datamanipulator.RowCommandDataManipulator;

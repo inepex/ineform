@@ -3,7 +3,7 @@ import com.inepex.ineForm.client.i18n.IneFormI18n;
 
 import com.inepex.inei18n.server.ServerI18nProvider;
 import com.inepex.inei18n.shared.CurrentLang;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 
 public class ServerIneFormI18nProvider extends ServerI18nProvider<IneFormI18n> {
 

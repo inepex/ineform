@@ -3,7 +3,7 @@ package com.inepex.example.ContactManager.client.page;
 import static com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider.*;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;
 import com.inepex.ineForm.client.table.AbstractIneTable.UserCommand;

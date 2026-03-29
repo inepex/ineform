@@ -1,6 +1,6 @@
 package com.inepex.ineForm.shared.tablerender;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.inepex.ineForm.shared.Nullable;
 import com.inepex.ineForm.shared.descriptorext.ColRDesc;

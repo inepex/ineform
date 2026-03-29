@@ -2,9 +2,9 @@ package com.inepex.example.ineForm.entity.dao;
 
 import javax.persistence.EntityManager;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.example.ineForm.entity.ContactCTypeRel;
 import com.inepex.example.ineForm.entity.dao.query.ContactCTypeRelQuery;
 import com.inepex.example.ineForm.entity.mapper.ContactCTypeRelMapper;

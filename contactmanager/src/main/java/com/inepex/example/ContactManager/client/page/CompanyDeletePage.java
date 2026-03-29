@@ -6,7 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.client.i18n.CMI18n;
 import com.inepex.example.ContactManager.client.navigation.AppPlaceHierarchyProvider;
 import com.inepex.example.ContactManager.entity.kvo.CompanyConsts;

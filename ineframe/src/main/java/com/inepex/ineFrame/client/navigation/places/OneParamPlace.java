@@ -3,7 +3,7 @@ package com.inepex.ineFrame.client.navigation.places;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.inject.Provider;
+import jakarta.inject.Provider;
 import com.inepex.ineFrame.client.navigation.NavigationProperties;
 import com.inepex.ineFrame.client.navigation.PlaceHandlerHelper;
 import com.inepex.ineFrame.client.navigation.PlaceToken;

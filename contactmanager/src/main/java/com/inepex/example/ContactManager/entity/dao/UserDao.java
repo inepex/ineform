@@ -4,9 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 import com.inepex.example.ContactManager.entity.User;
 import com.inepex.example.ContactManager.entity.User_;
 import com.inepex.example.ContactManager.entity.dao.query.UserQuery;

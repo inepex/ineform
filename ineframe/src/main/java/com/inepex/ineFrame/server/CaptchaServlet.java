@@ -17,7 +17,7 @@ import nl.captcha.Captcha;
 import nl.captcha.backgrounds.FlatColorBackgroundProducer;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
 
-import com.google.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class CaptchaServlet extends HttpServlet {

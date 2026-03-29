@@ -1,6 +1,6 @@
 package com.inepex.example.ineForm.entity.mapper;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ineForm.entity.ContactNatRel;
 import com.inepex.example.ineForm.entity.Nationality;
 import com.inepex.example.ineForm.entity.kvo.ContactNatRelConsts;

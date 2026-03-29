@@ -8,7 +8,7 @@ import net.customware.gwt.dispatch.shared.DispatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.inei18n.shared.ChangeLanguageAction;
 import com.inepex.inei18n.shared.CurrentLang;
 import com.inepex.inei18n.shared.GetI18nModulesAndSetCurrentLangFromCookieAction;

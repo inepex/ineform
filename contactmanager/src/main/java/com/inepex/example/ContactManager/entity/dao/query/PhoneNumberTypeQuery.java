@@ -8,7 +8,7 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.example.ContactManager.entity.PhoneNumberType;
 import com.inepex.example.ContactManager.entity.PhoneNumberType_;
 import com.inepex.example.ContactManager.entity.kvo.PhoneNumberTypeConsts;

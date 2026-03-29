@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Inject;
+import jakarta.inject.Inject;
 import com.inepex.inei18n.shared.LocalizedString;
 import com.inepex.inei18n.util.DownloadLocalizablesDto;
 import com.inepex.translatorapp.server.entity.Module;
