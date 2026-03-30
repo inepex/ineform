@@ -180,7 +180,10 @@ public class PropDao {
       for (String group : groups) {
         BasicDBObject document = documentMap.get(obj.getId());
         if (document != null) {
-          obj.setPropsJson(group, ((BasicDBObject) document.get(group)).toJson());
+          Object value = document.get(group);
+          if (value instanceof BasicDBObject) {
+            obj.setPropsJson(group, ((BasicDBObject) value).toJson());
+          }
         }
       }
     }
