@@ -3,9 +3,11 @@ package com.inepex.ineFrame.client.misc;
 import java.util.List;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import jakarta.inject.Inject;
 
 public class HandlerHandler {
 
+    @Inject
     public HandlerHandler() {}
 
     private List<HandlerRegistration> handlerRegistrations = new java.util.ArrayList<HandlerRegistration>();

@@ -3,7 +3,9 @@ package com.inepex.ineFrame.client.navigation;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.History;
+import jakarta.inject.Singleton;
 
+@Singleton
 public class HistoryProvider {
 
     public HandlerRegistration addHandler(ValueChangeHandler<String> handler) {

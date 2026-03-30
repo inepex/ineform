@@ -5,10 +5,15 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import com.google.gwt.user.client.Timer;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 @Singleton
 public class SingletonTimer {
+
+    @Inject
+    public SingletonTimer() {}
+
 
     private final TreeMap<Long, Runnable> tasks = new TreeMap<Long, Runnable>();
     private Timer timer;

@@ -7,9 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.inject.Inject;
 import com.inepex.ineom.shared.descriptor.Node;
 
 public class PlaceHandlerHelper {
+
+    @Inject
+    public PlaceHandlerHelper() {}
+
 
     public static final String listParamSeparator = ",";
 
