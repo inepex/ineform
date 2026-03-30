@@ -39,7 +39,7 @@
 		<mavenCompilerTargetVersion>17</mavenCompilerTargetVersion>
 		<mavenJarVersion>3.4.2</mavenJarVersion>
 		<mavenSureFireVersion>3.5.2</mavenSureFireVersion>
-		<hibernateVersion>7.0.0.Final</hibernateVersion>
+		<hibernateVersion>7.3.0.Final</hibernateVersion>
 		<slf4jVersion>2.0.17</slf4jVersion>
 		<velocityVersion>2.4.1</velocityVersion>
 		<gwtDispatchVersion>1.1.0</gwtDispatchVersion>
